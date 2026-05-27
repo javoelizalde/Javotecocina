@@ -5,7 +5,7 @@
 // REQUISITO: En Vercel → Settings → Environment Variables:
 //   MP_ACCESS_TOKEN = APP_USR-tu_token_real_de_produccion
 
-export default async function handler(req, res) {
+module.exports = async function handler(req, res) {
   res.setHeader('Access-Control-Allow-Origin', 'https://javotecocina.com');
   res.setHeader('Access-Control-Allow-Methods', 'POST');
   if (req.method === 'OPTIONS') return res.status(200).end();
