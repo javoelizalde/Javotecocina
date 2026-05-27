@@ -1,0 +1,1282 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Javo Te Cocina — Cocinero apasionado del norte argentino. Eventos gastronómicos, recetarios y productos. Salta, Argentina.">
+<meta name="keywords" content="cocinero salta, asado argentino, eventos gastronómicos, cocina del norte, javo te cocina, parrilla">
+<meta property="og:title" content="Javo Te Cocina | Salta, Argentina">
+<meta property="og:description" content="Del fuego y la tierra del norte. Cocina auténtica, eventos únicos.">
+<meta property="og:url" content="https://javotecocina.com">
+<link rel="canonical" href="https://javotecocina.com">
+<title>Javo Te Cocina | Salta, Argentina</title>
+
+<!-- 3 TIPOGRAFÍAS — rústicas, con carácter -->
+<!-- 1. Cormorant Garamond — display, títulos grandes, elegancia rústica -->
+<!-- 2. Libre Baskerville  — cuerpo de texto, legible y clásica -->
+<!-- 3. Space Mono         — números, datos, etiquetas técnicas -->
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+
+<script>
+// ══════════════════════════════════════════════════════════════
+// CONFIGURACIÓN — editá solo estos valores
+// Instrucciones completas en INSTRUCCIONES.md
+// ══════════════════════════════════════════════════════════════
+const CONFIG = {
+  WHATSAPP_NUMBER:     "543874105902",
+  EMAIL_DESTINO:       "javoelizalde2001@gmail.com",
+  EMAILJS_SERVICE_ID:  "TU_SERVICE_ID",
+  EMAILJS_TEMPLATE_ID: "TU_TEMPLATE_ID",
+  EMAILJS_PUBLIC_KEY:  "TU_PUBLIC_KEY",
+  CALLMEBOT_APIKEY:    "TU_APIKEY_CALLMEBOT",
+  SUPABASE_URL:        "https://TU_PROYECTO.supabase.co",
+  SUPABASE_ANON_KEY:   "TU_ANON_KEY_SUPABASE",
+  MP_ACCESS_TOKEN:     "TEST-TU_ACCESS_TOKEN_MERCADOPAGO",
+};
+</script>
+
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org","@type":"Person",
+  "name":"Javo Te Cocina","url":"https://javotecocina.com",
+  "jobTitle":"Cocinero y Creador de Experiencias Gastronómicas",
+  "address":{"@type":"PostalAddress","addressLocality":"Salta","addressCountry":"AR"}
+}
+</script>
+
+<style>
+/* ══════════════════════════════════════════════════════════════
+   SISTEMA DE DISEÑO
+   Paleta: tierras del norte argentino — quebrada, barro, fuego
+   Tipografías: Cormorant Garamond / Libre Baskerville / Space Mono
+══════════════════════════════════════════════════════════════ */
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+:root{
+  /* Paleta norteña — ocres, tierras, fuego quebrado */
+  --tierra:    #2C1A0E;  /* tierra oscura, reemplaza al carbón puro */
+  --barro:     #3D2410;  /* barro húmedo, profundidad */
+  --ocre:      #8B5E3C;  /* ocre cerro, color base cálido */
+  --puna:      #C4853A;  /* naranja puna, acento principal */
+  --fuego:     #D4521A;  /* fuego, acción */
+  --brasa:     #E8762E;  /* brasa, hover */
+  --sal:       #F5EDD8;  /* sal/arena, texto claro — reemplaza al cream blanco */
+  --niebla:    #C9B99A;  /* niebla del cerro, texto secundario */
+  --verde-q:   #4A5C3A;  /* verde quebradeño, acento tierra */
+
+  /* Tipografías */
+  --font-display: 'Cormorant Garamond', Georgia, serif;  /* títulos */
+  --font-body:    'Libre Baskerville', Georgia, serif;    /* cuerpo */
+  --font-data:    'Space Mono', monospace;                 /* números/etiquetas */
+}
+
+html{scroll-behavior:smooth;}
+body{
+  font-family: var(--font-body);
+  background: var(--tierra);
+  color: var(--sal);
+  overflow-x: hidden;
+  cursor: none;
+}
+
+/* ── TEXTURA SUTIL — grano de tierra ── */
+body::before{
+  content:'';
+  position:fixed; inset:0; pointer-events:none; z-index:1000;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+  opacity: 0.45;
+}
+
+/* ── CURSOR ── */
+.cur{width:10px;height:10px;background:var(--brasa);border-radius:50%;position:fixed;top:0;left:0;pointer-events:none;z-index:9999;mix-blend-mode:screen;}
+.cur-ring{width:30px;height:30px;border:1px solid rgba(228,118,46,0.45);border-radius:50%;position:fixed;top:0;left:0;pointer-events:none;z-index:9998;}
+
+/* ── NAV ── */
+nav{
+  position:fixed;top:0;left:0;right:0;height:68px;z-index:200;
+  display:flex;align-items:center;justify-content:space-between;padding:0 5vw;
+  transition:background 0.4s;
+}
+nav.scrolled{
+  background:rgba(44,26,14,0.95);
+  backdrop-filter:blur(16px);
+  border-bottom:1px solid rgba(196,133,58,0.2);
+}
+.nav-logo{
+  font-family:var(--font-display);
+  font-size:1.55rem;font-weight:700;letter-spacing:0.04em;
+  color:var(--sal);text-decoration:none;
+}
+.nav-logo span{color:var(--puna);}
+.nav-links{display:flex;gap:1.75rem;list-style:none;align-items:center;}
+.nav-links a{
+  font-family:var(--font-data);
+  color:rgba(245,237,216,0.6);text-decoration:none;
+  font-size:0.68rem;letter-spacing:0.1em;text-transform:uppercase;
+  transition:color 0.2s;cursor:pointer;
+}
+.nav-links a:hover{color:var(--puna);}
+.nav-cta{
+  background:var(--fuego)!important;color:var(--sal)!important;
+  padding:0.4rem 1rem!important;
+  transition:background 0.2s!important;
+}
+.nav-cta:hover{background:var(--brasa)!important;}
+
+/* ── HERO ── */
+#hero{
+  min-height:100vh;
+  display:grid;grid-template-columns:1fr 1fr;
+  position:relative;overflow:hidden;
+}
+.hero-left{
+  display:flex;flex-direction:column;justify-content:flex-end;
+  padding:0 5vw 10vh;position:relative;z-index:2;
+}
+.hero-right{position:relative;overflow:hidden;}
+.hero-right img{
+  width:100%;height:100%;object-fit:cover;object-position:center top;
+  filter:brightness(0.68) sepia(0.2);
+}
+.hero-right::after{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(to right,var(--tierra) 0%,transparent 45%);
+}
+.hero-glow{
+  position:absolute;inset:0;
+  background:
+    radial-gradient(ellipse 65% 55% at 25% 55%, rgba(212,82,26,0.1) 0%, transparent 65%),
+    radial-gradient(ellipse 40% 40% at 10% 80%, rgba(139,94,60,0.12) 0%, transparent 60%);
+  z-index:1;
+}
+/* Línea de tierra sutil — referencia al horizonte norteño */
+.hero-horizon{
+  position:absolute;bottom:12%;left:0;right:0;height:1px;
+  background:linear-gradient(to right,transparent,rgba(196,133,58,0.2) 30%,rgba(196,133,58,0.2) 70%,transparent);
+  z-index:3;
+}
+.hero-eyebrow{
+  font-family:var(--font-data);
+  font-size:0.65rem;letter-spacing:0.25em;text-transform:uppercase;
+  color:var(--puna);margin-bottom:1.75rem;
+  display:flex;align-items:center;gap:1rem;
+}
+.hero-eyebrow::before{content:'';width:35px;height:1px;background:var(--puna);}
+.hero-location{
+  font-family:var(--font-data);
+  font-size:0.6rem;letter-spacing:0.2em;text-transform:uppercase;
+  color:rgba(196,133,58,0.55);
+  margin-bottom:1rem;
+}
+h1.hero-title{
+  font-family:var(--font-display);
+  font-size:clamp(3.2rem,5.8vw,6rem);
+  line-height:0.92;font-weight:700;
+  color:var(--sal);margin-bottom:2rem;
+  letter-spacing:-0.01em;
+}
+h1.hero-title em{font-style:italic;color:var(--puna);}
+.hero-desc{
+  font-family:var(--font-body);
+  font-size:0.95rem;color:rgba(245,237,216,0.55);
+  line-height:1.8;max-width:400px;margin-bottom:3rem;
+  font-weight:400;
+}
+
+/* ── BOTONES ── */
+.btn-fire{
+  background:var(--fuego);color:var(--sal);
+  padding:0.85rem 2.2rem;
+  font-family:var(--font-data);
+  font-size:0.72rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;
+  border:none;cursor:pointer;
+  clip-path:polygon(0 0,100% 0,100% 72%,90% 100%,0 100%);
+  transition:background 0.25s,transform 0.2s;
+}
+.btn-fire:hover{background:var(--brasa);transform:translateY(-2px);}
+.btn-fire:disabled{background:rgba(212,82,26,0.4);cursor:not-allowed;transform:none;}
+.btn-ghost{
+  background:transparent;color:var(--sal);
+  padding:0.85rem 2.2rem;
+  font-family:var(--font-data);
+  font-size:0.72rem;font-weight:400;letter-spacing:0.1em;text-transform:uppercase;
+  border:1px solid rgba(245,237,216,0.25);cursor:pointer;
+  transition:border-color 0.25s,color 0.25s,transform 0.2s;
+}
+.btn-ghost:hover{border-color:var(--puna);color:var(--puna);transform:translateY(-2px);}
+.btn-full{width:100%;clip-path:none!important;}
+
+/* ── SECCIÓN: HOME CARDS ── */
+.section-nav{padding:6rem 5vw 8rem;}
+.eyebrow-label{
+  font-family:var(--font-data);
+  font-size:0.62rem;letter-spacing:0.28em;text-transform:uppercase;
+  color:var(--puna);text-align:center;margin-bottom:0.6rem;
+}
+h2.home-title{
+  font-family:var(--font-display);
+  font-size:clamp(2rem,3.5vw,3rem);color:var(--sal);
+  text-align:center;margin-bottom:0.75rem;
+}
+.home-sub{
+  font-family:var(--font-body);
+  font-size:0.88rem;color:var(--niebla);
+  text-align:center;margin-bottom:4rem;font-style:italic;
+}
+.nav-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:rgba(196,133,58,0.1);}
+.nav-card{
+  background:var(--tierra);border:none;
+  padding:2.75rem 2.25rem;cursor:pointer;position:relative;overflow:hidden;
+  transition:background 0.35s;text-decoration:none;display:block;
+}
+.nav-card::after{
+  content:'';position:absolute;bottom:0;left:0;right:0;height:2px;
+  background:var(--puna);transform:scaleX(0);transform-origin:left;
+  transition:transform 0.45s cubic-bezier(.25,.46,.45,.94);
+}
+.nav-card:hover{background:var(--barro);}
+.nav-card:hover::after{transform:scaleX(1);}
+.nav-card-num{
+  font-family:var(--font-data);
+  font-size:3.5rem;font-weight:700;
+  color:rgba(196,133,58,0.07);
+  position:absolute;top:-0.5rem;right:1rem;line-height:1;
+}
+.nav-card-icon{font-size:1.75rem;margin-bottom:1.25rem;display:block;}
+.nav-card-title{
+  font-family:var(--font-display);
+  font-size:1.5rem;font-weight:600;color:var(--sal);margin-bottom:0.65rem;
+}
+.nav-card-desc{
+  font-family:var(--font-body);
+  font-size:0.8rem;color:var(--niebla);line-height:1.65;
+  font-style:italic;
+}
+.nav-card-arrow{
+  position:absolute;bottom:1.5rem;right:1.5rem;
+  font-family:var(--font-data);color:var(--puna);font-size:0.9rem;
+  opacity:0;transition:opacity 0.3s,transform 0.3s;
+}
+.nav-card:hover .nav-card-arrow{opacity:1;transform:translateX(4px);}
+
+/* ── STATS ── */
+.stats-row{
+  display:grid;grid-template-columns:repeat(4,1fr);
+  gap:1px;background:rgba(196,133,58,0.1);margin:4rem 0;
+}
+.stat-box{background:var(--tierra);padding:2.5rem 2rem;text-align:center;}
+.stat-n{
+  font-family:var(--font-display);
+  font-size:3rem;font-weight:700;color:var(--sal);line-height:1;
+}
+.stat-n span{color:var(--puna);}
+.stat-l{
+  font-family:var(--font-data);
+  font-size:0.6rem;letter-spacing:0.18em;text-transform:uppercase;
+  color:var(--niebla);margin-top:0.5rem;
+}
+
+/* ── PAGE SECTIONS ── */
+.page-section{display:none;min-height:100vh;padding-top:68px;}
+.page-section.active{display:block;}
+.page-hero{padding:5rem 5vw 4rem;position:relative;overflow:hidden;}
+.page-hero-bg{
+  position:absolute;inset:0;
+  background:
+    radial-gradient(ellipse 50% 60% at 80% 50%,rgba(196,133,58,0.1) 0%,transparent 65%),
+    var(--tierra);
+  z-index:0;
+}
+.page-hero-content{position:relative;z-index:1;}
+.sec-label{
+  font-family:var(--font-data);
+  font-size:0.62rem;letter-spacing:0.28em;text-transform:uppercase;
+  color:var(--puna);margin-bottom:1rem;
+  display:flex;align-items:center;gap:0.75rem;
+}
+.sec-label::after{content:'';width:35px;height:1px;background:var(--puna);}
+h2.sec-title{
+  font-family:var(--font-display);
+  font-size:clamp(2.2rem,4.2vw,3.8rem);
+  line-height:1.02;font-weight:700;color:var(--sal);margin-bottom:1rem;
+}
+h2.sec-title em{font-style:italic;color:var(--puna);}
+.sec-sub{
+  font-family:var(--font-body);
+  font-size:0.9rem;color:rgba(245,237,216,0.5);
+  line-height:1.8;max-width:540px;font-style:italic;
+}
+
+/* ── SMOKE BAND ── */
+.smoke-band{background:var(--barro);padding:6rem 5vw;position:relative;}
+.smoke-band.angled{clip-path:polygon(0 4%,100% 0,100% 96%,0 100%);}
+
+/* ── FORMS ── */
+.form-grid{display:grid;gap:1.2rem;}
+.form-row2{grid-template-columns:1fr 1fr;display:grid;gap:1.2rem;}
+.fg{display:flex;flex-direction:column;gap:0.45rem;}
+.fg label{
+  font-family:var(--font-data);
+  font-size:0.6rem;letter-spacing:0.18em;text-transform:uppercase;color:var(--niebla);
+}
+.fg input,.fg select,.fg textarea{
+  background:rgba(44,26,14,0.7);
+  border:1px solid rgba(196,133,58,0.2);
+  color:var(--sal);
+  font-family:var(--font-body);font-size:0.88rem;padding:0.85rem 1rem;
+  outline:none;transition:border-color 0.25s;resize:vertical;
+}
+.fg input::placeholder,.fg textarea::placeholder{color:rgba(201,185,154,0.35);}
+.fg input:focus,.fg select:focus,.fg textarea:focus{border-color:var(--puna);}
+.fg select option{background:var(--tierra);color:var(--sal);}
+
+/* ── QUOTE BOX ── */
+.quote-box{background:var(--barro);border:1px solid rgba(196,133,58,0.15);padding:3rem;}
+.quote-box h3{
+  font-family:var(--font-display);
+  font-size:1.6rem;font-weight:700;color:var(--sal);margin-bottom:2rem;
+}
+
+/* ── SERVICE TABS ── */
+.services-tabs{display:flex;gap:0;margin-bottom:3rem;}
+.tab-btn{
+  padding:0.85rem 2.5rem;background:transparent;
+  border:1px solid rgba(201,185,154,0.2);
+  color:var(--niebla);
+  font-family:var(--font-data);font-size:0.68rem;letter-spacing:0.1em;text-transform:uppercase;
+  cursor:pointer;transition:all 0.25s;flex:1;text-align:center;
+}
+.tab-btn.active{background:var(--fuego);border-color:var(--fuego);color:var(--sal);}
+.tab-btn:first-child{border-right:none;}
+.service-panel{display:none;}
+.service-panel.active{display:block;}
+.service-features{display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:start;margin-top:3rem;}
+.feature-list{list-style:none;display:flex;flex-direction:column;gap:1rem;}
+.feature-list li{
+  display:flex;align-items:flex-start;gap:0.85rem;
+  font-family:var(--font-body);font-size:0.85rem;
+  color:rgba(245,237,216,0.65);line-height:1.65;
+}
+.feature-list li::before{content:'—';color:var(--puna);font-size:0.8rem;margin-top:2px;flex-shrink:0;}
+.feature-list strong{color:var(--sal);font-weight:700;}
+
+/* ── PRODUCTS ── */
+.product-categories{display:flex;gap:0.5rem;flex-wrap:wrap;margin-bottom:3rem;}
+.cat-btn{
+  padding:0.4rem 1rem;background:transparent;
+  border:1px solid rgba(201,185,154,0.2);
+  color:var(--niebla);
+  font-family:var(--font-data);font-size:0.62rem;letter-spacing:0.1em;text-transform:uppercase;
+  cursor:pointer;transition:all 0.25s;
+}
+.cat-btn.active,.cat-btn:hover{background:var(--fuego);border-color:var(--fuego);color:var(--sal);}
+.products-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:rgba(196,133,58,0.08);}
+.product-card{background:var(--tierra);transition:background 0.3s;}
+.product-card:hover{background:var(--barro);}
+.product-img{aspect-ratio:1;overflow:hidden;position:relative;}
+.product-img img{width:100%;height:100%;object-fit:cover;filter:sepia(0.15);transition:transform 0.4s,filter 0.4s;}
+.product-card:hover .product-img img{transform:scale(1.04);filter:sepia(0);}
+.product-badge{
+  position:absolute;top:0;left:0;
+  background:var(--fuego);color:var(--sal);
+  font-family:var(--font-data);font-size:0.55rem;letter-spacing:0.12em;text-transform:uppercase;
+  padding:0.3rem 0.7rem;
+}
+.product-body{padding:1.5rem;}
+.product-name{
+  font-family:var(--font-display);
+  font-size:1.1rem;font-weight:600;color:var(--sal);margin-bottom:0.5rem;
+}
+.product-desc{
+  font-family:var(--font-body);
+  font-size:0.76rem;color:var(--niebla);line-height:1.55;
+  font-style:italic;margin-bottom:1rem;
+}
+.product-price{
+  font-family:var(--font-data);
+  font-size:1.1rem;font-weight:700;color:var(--puna);margin-bottom:1rem;
+}
+.product-btn{
+  width:100%;background:transparent;
+  border:1px solid rgba(196,133,58,0.28);
+  color:var(--puna);
+  font-family:var(--font-data);font-size:0.65rem;letter-spacing:0.1em;text-transform:uppercase;
+  padding:0.65rem;cursor:pointer;transition:all 0.25s;
+}
+.product-btn:hover{background:var(--fuego);border-color:var(--fuego);color:var(--sal);}
+
+/* ── MODAL ── */
+.modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.82);z-index:500;align-items:center;justify-content:center;}
+.modal-overlay.open{display:flex;}
+.modal{
+  background:var(--barro);border:1px solid rgba(196,133,58,0.2);
+  padding:3rem;max-width:560px;width:90%;max-height:90vh;overflow-y:auto;position:relative;
+}
+.modal-close{position:absolute;top:1rem;right:1rem;background:none;border:none;color:var(--niebla);font-size:1.4rem;cursor:pointer;transition:color 0.2s;}
+.modal-close:hover{color:var(--puna);}
+.modal-title{font-family:var(--font-display);font-size:1.6rem;font-weight:700;color:var(--sal);margin-bottom:0.5rem;}
+.modal-product{
+  font-family:var(--font-data);
+  font-size:0.72rem;letter-spacing:0.08em;color:var(--niebla);
+  margin-bottom:2rem;padding-bottom:1.5rem;border-bottom:1px solid rgba(201,185,154,0.12);
+}
+.payment-methods{display:grid;grid-template-columns:repeat(3,1fr);gap:0.75rem;margin:1.5rem 0;}
+.pay-method{
+  padding:1rem;border:1px solid rgba(201,185,154,0.18);
+  text-align:center;cursor:pointer;transition:all 0.25s;
+}
+.pay-method.selected{border-color:var(--puna);background:rgba(196,133,58,0.08);}
+.pay-method:hover{border-color:rgba(196,133,58,0.4);}
+.pay-icon{font-size:1.5rem;margin-bottom:0.4rem;}
+.pay-label{font-family:var(--font-data);font-size:0.62rem;letter-spacing:0.08em;text-transform:uppercase;color:var(--niebla);}
+.pay-method.selected .pay-label{color:var(--puna);}
+.pay-detail{display:none;padding:1.5rem;background:rgba(44,26,14,0.5);border:1px solid rgba(201,185,154,0.12);margin-bottom:1.5rem;}
+.pay-detail.show{display:block;}
+.transfer-info p{font-family:var(--font-body);font-size:0.85rem;color:rgba(245,237,216,0.65);line-height:2;}
+.transfer-info strong{color:var(--sal);}
+
+/* ── MÉTRICAS ── */
+.metrics-hero-nums{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:rgba(196,133,58,0.1);margin:3rem 0;}
+.metric-big{background:var(--tierra);padding:3rem 2.5rem;text-align:center;}
+.platform-icon{font-size:2rem;margin-bottom:1rem;}
+.main-num{font-family:var(--font-display);font-size:3.8rem;font-weight:700;color:var(--sal);line-height:1;}
+.main-num span{color:var(--puna);}
+.platform-name{font-family:var(--font-data);font-size:0.65rem;letter-spacing:0.18em;text-transform:uppercase;color:var(--niebla);margin-top:0.5rem;}
+.sub-stats{display:flex;gap:1.5rem;justify-content:center;margin-top:1.5rem;}
+.sub-stat .n{font-family:var(--font-data);font-size:1rem;font-weight:700;color:var(--sal);}
+.sub-stat .l{font-family:var(--font-data);font-size:0.55rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--niebla);}
+.bar-chart{display:flex;flex-direction:column;gap:1rem;}
+.bar-row{display:flex;align-items:center;gap:1.25rem;}
+.bar-label{font-family:var(--font-body);font-size:0.8rem;font-style:italic;color:var(--niebla);width:120px;text-align:right;flex-shrink:0;}
+.bar-track{flex:1;height:6px;background:rgba(201,185,154,0.1);}
+.bar-fill{height:100%;background:linear-gradient(to right,var(--fuego),var(--puna));}
+.bar-val{font-family:var(--font-data);font-size:0.72rem;font-weight:700;color:var(--puna);width:50px;flex-shrink:0;}
+.media-gallery{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:rgba(196,133,58,0.08);}
+.media-item{aspect-ratio:1;overflow:hidden;position:relative;cursor:pointer;}
+.media-item img{width:100%;height:100%;object-fit:cover;filter:sepia(0.15);transition:transform 0.4s,filter 0.4s;}
+.media-item:hover img{transform:scale(1.05);filter:sepia(0);}
+.media-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(44,26,14,0.85) 0%,transparent 55%);display:flex;align-items:flex-end;padding:0.75rem;}
+.media-platform{font-family:var(--font-data);font-size:0.58rem;letter-spacing:0.14em;text-transform:uppercase;color:var(--puna);}
+
+/* ── RECETARIOS ── */
+.recetario-cats{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:rgba(196,133,58,0.08);margin-top:3rem;}
+.recetario-cat{background:var(--tierra);overflow:hidden;cursor:pointer;transition:background 0.3s;position:relative;}
+.recetario-cat:hover{background:var(--barro);}
+.recetario-cat-img{aspect-ratio:16/9;overflow:hidden;position:relative;}
+.recetario-cat-img img{width:100%;height:100%;object-fit:cover;filter:brightness(0.55) sepia(0.2);transition:filter 0.4s,transform 0.4s;}
+.recetario-cat:hover .recetario-cat-img img{filter:brightness(0.7) sepia(0.1);transform:scale(1.03);}
+.recetario-cat-img-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(44,26,14,0.92) 0%,transparent 55%);}
+.recetario-cat-body{padding:1.5rem 1.75rem 2rem;}
+.recetario-cat-icon{font-size:1.6rem;margin-bottom:0.75rem;display:block;}
+.recetario-cat-name{font-family:var(--font-display);font-size:1.35rem;font-weight:600;color:var(--sal);margin-bottom:0.5rem;}
+.recetario-cat-desc{font-family:var(--font-body);font-size:0.78rem;color:var(--niebla);line-height:1.6;font-style:italic;margin-bottom:1.25rem;}
+.recetario-cat-badge{
+  font-family:var(--font-data);
+  display:inline-block;background:rgba(196,133,58,0.1);border:1px solid rgba(196,133,58,0.25);
+  color:var(--puna);font-size:0.58rem;letter-spacing:0.14em;text-transform:uppercase;padding:0.25rem 0.75rem;
+}
+.book-card{
+  background:var(--tierra);border:1px solid rgba(196,133,58,0.12);
+  padding:2.5rem;display:grid;grid-template-columns:1fr 1fr;gap:3rem;align-items:center;
+  margin-bottom:1px;transition:background 0.3s;
+}
+.book-card:hover{background:var(--barro);}
+.book-cover{aspect-ratio:3/4;overflow:hidden;border:1px solid rgba(196,133,58,0.15);}
+.book-cover img{width:100%;height:100%;object-fit:cover;filter:sepia(0.2);}
+.book-title{font-family:var(--font-display);font-size:1.6rem;font-weight:600;color:var(--sal);margin-bottom:0.75rem;}
+.book-price{font-family:var(--font-data);font-size:2.2rem;font-weight:700;color:var(--puna);margin:1rem 0;}
+.book-includes{list-style:none;display:flex;flex-direction:column;gap:0.65rem;margin-bottom:2rem;}
+.book-includes li{font-family:var(--font-body);font-size:0.82rem;color:rgba(245,237,216,0.6);display:flex;align-items:center;gap:0.75rem;font-style:italic;}
+.book-includes li::before{content:'—';color:var(--puna);font-size:0.75rem;flex-shrink:0;}
+
+/* ── EVENTOS ── */
+.eventos-grid{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:rgba(196,133,58,0.08);margin-top:3rem;}
+.evento-card{background:var(--tierra);overflow:hidden;cursor:pointer;transition:background 0.3s;}
+.evento-card:hover{background:var(--barro);}
+.evento-card.featured{grid-column:span 2;}
+.evento-photos{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;}
+.evento-photos img{width:100%;aspect-ratio:4/3;object-fit:cover;filter:sepia(0.15);transition:filter 0.4s;}
+.evento-card:hover .evento-photos img{filter:sepia(0);}
+.evento-photos.single img{aspect-ratio:21/9;grid-column:span 3;}
+.evento-body{padding:2rem 2.25rem;}
+.evento-date{font-family:var(--font-data);font-size:0.6rem;letter-spacing:0.18em;text-transform:uppercase;color:var(--puna);margin-bottom:0.65rem;}
+.evento-name{font-family:var(--font-display);font-size:1.5rem;font-weight:600;color:var(--sal);margin-bottom:0.75rem;}
+.evento-desc{font-family:var(--font-body);font-size:0.84rem;color:var(--niebla);line-height:1.75;font-style:italic;margin-bottom:1.25rem;}
+.evento-tags{display:flex;flex-wrap:wrap;gap:0.5rem;}
+.evento-tag{
+  font-family:var(--font-data);
+  background:rgba(196,133,58,0.08);border:1px solid rgba(196,133,58,0.18);
+  color:var(--puna);font-size:0.58rem;letter-spacing:0.1em;text-transform:uppercase;padding:0.25rem 0.7rem;
+}
+
+/* ── QUIÉN SOY ── */
+.about-grid{display:grid;grid-template-columns:1fr 1.15fr;gap:6vw;align-items:center;padding:5rem 5vw 4rem;}
+.about-photo-stack{position:relative;}
+.about-photo-main{width:100%;aspect-ratio:3/4;object-fit:cover;object-position:top;filter:sepia(0.2);}
+.about-photo-overlay{position:absolute;bottom:-2rem;right:-2rem;width:44%;aspect-ratio:1;object-fit:cover;border:3px solid var(--tierra);filter:sepia(0.15);}
+.about-photo-badge{
+  position:absolute;top:2rem;left:-1.5rem;
+  background:var(--fuego);color:var(--sal);
+  font-family:var(--font-data);padding:0.6rem 1rem;
+  font-size:0.62rem;letter-spacing:0.12em;text-transform:uppercase;
+  writing-mode:vertical-rl;transform:rotate(180deg);
+}
+.mission-block{
+  background:rgba(196,133,58,0.06);
+  border-left:2px solid var(--puna);
+  padding:1.5rem 2rem;margin:2rem 0;
+}
+.mission-block p{
+  font-family:var(--font-display);font-style:italic;
+  font-size:1.15rem;color:var(--sal);line-height:1.65;
+}
+.values-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1px;background:rgba(196,133,58,0.08);}
+.val-card{background:var(--tierra);padding:1.75rem;transition:background 0.3s;}
+.val-card:hover{background:var(--barro);}
+.val-icon{font-size:1.4rem;margin-bottom:0.85rem;display:block;}
+.val-title{font-family:var(--font-data);font-size:0.62rem;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:var(--puna);margin-bottom:0.5rem;}
+.val-text{font-family:var(--font-body);font-size:0.8rem;color:var(--niebla);line-height:1.65;font-style:italic;}
+.brands-strip{padding:3rem 5vw;border-top:1px solid rgba(196,133,58,0.1);}
+.brands-label{font-family:var(--font-data);font-size:0.6rem;letter-spacing:0.22em;text-transform:uppercase;color:var(--niebla);text-align:center;margin-bottom:2rem;}
+.brands-list{display:flex;flex-wrap:wrap;gap:0.75rem;justify-content:center;}
+.brand-pill{
+  background:rgba(61,36,16,0.6);border:1px solid rgba(196,133,58,0.15);
+  padding:0.55rem 1.4rem;
+  font-family:var(--font-body);font-size:0.8rem;color:rgba(245,237,216,0.55);
+  font-style:italic;transition:all 0.25s;
+}
+.brand-pill:hover{border-color:rgba(196,133,58,0.4);color:var(--sal);}
+.colegas-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:rgba(196,133,58,0.08);}
+.colega-card{background:var(--tierra);padding:1.75rem;text-align:center;transition:background 0.3s;}
+.colega-card:hover{background:var(--barro);}
+.colega-avatar{width:66px;height:66px;border-radius:50%;background:rgba(196,133,58,0.1);border:1px solid rgba(196,133,58,0.2);display:flex;align-items:center;justify-content:center;margin:0 auto 1rem;font-size:1.3rem;}
+.colega-name{font-family:var(--font-display);font-size:1.05rem;font-weight:600;color:var(--sal);margin-bottom:0.3rem;}
+.colega-role{font-family:var(--font-body);font-size:0.72rem;color:var(--niebla);font-style:italic;}
+
+/* ── TOAST ── */
+.toast{
+  position:fixed;bottom:2rem;right:2rem;
+  background:var(--barro);border:1px solid rgba(196,133,58,0.3);
+  padding:1.25rem 1.75rem;z-index:9000;
+  transform:translateY(100px);opacity:0;
+  transition:all 0.4s cubic-bezier(.25,.46,.45,.94);max-width:320px;
+}
+.toast.show{transform:translateY(0);opacity:1;}
+.toast-title{font-family:var(--font-display);font-size:1rem;font-weight:700;color:var(--sal);margin-bottom:0.3rem;}
+.toast-msg{font-family:var(--font-body);font-size:0.8rem;color:var(--niebla);font-style:italic;line-height:1.5;}
+.toast.success{border-color:rgba(74,92,58,0.6);}
+.toast.error{border-color:rgba(212,82,26,0.6);}
+
+/* ── LIGHTBOX ── */
+.lightbox{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.94);z-index:600;align-items:center;justify-content:center;flex-direction:column;}
+.lightbox.open{display:flex;}
+.lightbox img{max-width:90vw;max-height:85vh;object-fit:contain;}
+.lightbox-close{position:absolute;top:1.5rem;right:1.5rem;background:none;border:none;color:var(--sal);font-size:1.8rem;cursor:pointer;}
+.lightbox-nav{display:flex;gap:2rem;margin-top:1.5rem;}
+.lightbox-btn{
+  background:none;border:1px solid rgba(245,237,216,0.18);color:var(--sal);
+  padding:0.5rem 1.5rem;cursor:pointer;
+  font-family:var(--font-data);font-size:0.7rem;letter-spacing:0.1em;text-transform:uppercase;
+  transition:all 0.25s;
+}
+.lightbox-btn:hover{border-color:var(--puna);color:var(--puna);}
+
+/* ── FOOTER ── */
+footer{background:var(--tierra);border-top:1px solid rgba(196,133,58,0.12);padding:4.5rem 5vw 2.5rem;}
+.footer-inner{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:4rem;margin-bottom:4rem;}
+.f-logo{font-family:var(--font-display);font-size:1.8rem;font-weight:700;color:var(--sal);display:block;margin-bottom:1rem;}
+.f-logo span{color:var(--puna);}
+.f-tagline{font-family:var(--font-body);font-size:0.82rem;color:var(--niebla);line-height:1.7;max-width:230px;font-style:italic;}
+.f-location{font-family:var(--font-data);font-size:0.58rem;letter-spacing:0.18em;text-transform:uppercase;color:rgba(196,133,58,0.45);margin-top:0.75rem;}
+.f-col h4{font-family:var(--font-data);font-size:0.58rem;letter-spacing:0.24em;text-transform:uppercase;color:var(--puna);margin-bottom:1.25rem;}
+.f-col ul{list-style:none;display:flex;flex-direction:column;gap:0.75rem;}
+.f-col ul a{font-family:var(--font-body);font-size:0.82rem;color:var(--niebla);text-decoration:none;cursor:pointer;transition:color 0.2s;font-style:italic;}
+.f-col ul a:hover{color:var(--sal);}
+.footer-bottom{border-top:1px solid rgba(201,185,154,0.1);padding-top:1.75rem;display:flex;justify-content:space-between;align-items:center;}
+.footer-copy{font-family:var(--font-data);font-size:0.58rem;letter-spacing:0.08em;color:rgba(201,185,154,0.35);}
+.soc-links{display:flex;gap:0.75rem;}
+.soc-link{
+  width:32px;height:32px;border:1px solid rgba(201,185,154,0.18);
+  display:flex;align-items:center;justify-content:center;
+  font-family:var(--font-data);color:var(--niebla);font-size:0.65rem;font-weight:700;
+  text-decoration:none;transition:all 0.25s;cursor:pointer;
+}
+.soc-link:hover{border-color:var(--puna);color:var(--puna);}
+
+/* ── REVEAL ── */
+.reveal{opacity:0;transform:translateY(22px);transition:opacity 0.75s ease,transform 0.75s ease;}
+.reveal.vis{opacity:1;transform:none;}
+</style>
+</head>
+<body>
+
+<div class="cur" id="cur"></div>
+<div class="cur-ring" id="curRing"></div>
+<div class="toast" id="toast"><div class="toast-title" id="toast-title"></div><div class="toast-msg" id="toast-msg"></div></div>
+
+<nav id="navbar">
+  <a href="#" class="nav-logo" onclick="showPage('home')">Javo<span>.</span></a>
+  <ul class="nav-links">
+    <li><a onclick="showPage('quien')">Quién Soy</a></li>
+    <li><a onclick="showPage('servicios')">Servicios</a></li>
+    <li><a onclick="showPage('productos')">Productos</a></li>
+    <li><a onclick="showPage('metricas')">Métricas</a></li>
+    <li><a onclick="showPage('recetarios')">Recetarios</a></li>
+    <li><a onclick="showPage('eventos')">Eventos</a></li>
+    <li><a class="nav-cta" onclick="showPage('servicios')">Cotizar</a></li>
+  </ul>
+</nav>
+
+<!-- ════════════════════════ HOME ════════════════════════ -->
+<div id="page-home" class="page-section active">
+  <div id="hero">
+    <div class="hero-glow"></div>
+    <div class="hero-horizon"></div>
+    <div class="hero-left">
+      <div style="position:relative;z-index:2;">
+        <div class="hero-location">Salta · Norte Argentino</div>
+        <div class="hero-eyebrow">Cocinero Apasionado & Creador</div>
+        <h1 class="hero-title">El fuego<br>que<br><em>despierta</em><br>sentidos</h1>
+        <p class="hero-desc">Del norte argentino para el mundo. Cocina auténtica, eventos únicos y el sabor que te lleva de vuelta a casa.</p>
+        <div style="display:flex;gap:1.25rem;flex-wrap:wrap;">
+          <button class="btn-fire" onclick="showPage('servicios')">Cotizar Mi Evento</button>
+          <button class="btn-ghost" onclick="showPage('quien')">Conocerme</button>
+        </div>
+      </div>
+    </div>
+    <div class="hero-right">
+      <img src="img/p03.jpg" alt="Javo Te Cocina — Cocinero de Salta">
+    </div>
+  </div>
+
+  <div class="stats-row reveal">
+    <div class="stat-box"><div class="stat-n">XX<span>+</span></div><div class="stat-l">Eventos Realizados</div></div>
+    <div class="stat-box"><div class="stat-n">50K<span>+</span></div><div class="stat-l">Seguidores Totales</div></div>
+    <div class="stat-box"><div class="stat-n">XX<span>+</span></div><div class="stat-l">Recetas Publicadas</div></div>
+    <div class="stat-box"><div class="stat-n">XX<span>+</span></div><div class="stat-l">Colaboraciones</div></div>
+  </div>
+
+  <div class="section-nav">
+    <p class="eyebrow-label">Explorá el universo</p>
+    <h2 class="home-title">Javo Te <em style="font-style:italic;color:var(--puna);">Cocina</em></h2>
+    <p class="home-sub">Elegí la sección que te interesa.</p>
+    <div class="nav-cards reveal">
+      <a class="nav-card" onclick="showPage('quien')"><div class="nav-card-num">01</div><span class="nav-card-icon">🧑‍🍳</span><div class="nav-card-title">Quién Soy</div><div class="nav-card-desc">Mi historia, misión, visión y las marcas que confiaron en mí.</div><div class="nav-card-arrow">→</div></a>
+      <a class="nav-card" onclick="showPage('servicios')"><div class="nav-card-num">02</div><span class="nav-card-icon">🔥</span><div class="nav-card-title">Servicios</div><div class="nav-card-desc">Eventos privados, corporativos y contenido para redes. Cotizá a medida.</div><div class="nav-card-arrow">→</div></a>
+      <a class="nav-card" onclick="showPage('productos')"><div class="nav-card-num">03</div><span class="nav-card-icon">🛒</span><div class="nav-card-title">Productos</div><div class="nav-card-desc">Marketplace con hornos, cuchillos, accesorios y más.</div><div class="nav-card-arrow">→</div></a>
+      <a class="nav-card" onclick="showPage('metricas')"><div class="nav-card-num">04</div><span class="nav-card-icon">📊</span><div class="nav-card-title">Métricas</div><div class="nav-card-desc">Mis números en Instagram, TikTok y YouTube.</div><div class="nav-card-arrow">→</div></a>
+      <a class="nav-card" onclick="showPage('recetarios')"><div class="nav-card-num">05</div><span class="nav-card-icon">📖</span><div class="nav-card-title">Recetarios</div><div class="nav-card-desc">Books digitales y cursos por tipo de cocción.</div><div class="nav-card-arrow">→</div></a>
+      <a class="nav-card" onclick="showPage('eventos')"><div class="nav-card-num">06</div><span class="nav-card-icon">🎉</span><div class="nav-card-title">Eventos Pasados</div><div class="nav-card-desc">Los eventos que marcaron mi carrera — con fotos y videos.</div><div class="nav-card-arrow">→</div></a>
+    </div>
+  </div>
+
+  <div style="padding:0 0 6rem;">
+    <div style="display:grid;grid-template-columns:repeat(5,1fr);height:260px;gap:1px;background:rgba(196,133,58,0.08);" class="reveal">
+      <img src="img/p08.jpg" alt="" style="width:100%;height:100%;object-fit:cover;filter:sepia(0.15);">
+      <img src="img/p09.jpg" alt="" style="width:100%;height:100%;object-fit:cover;filter:sepia(0.15);">
+      <img src="img/p23.jpg" alt="" style="width:100%;height:100%;object-fit:cover;filter:sepia(0.15);">
+      <img src="img/p22.jpg" alt="" style="width:100%;height:100%;object-fit:cover;filter:sepia(0.15);">
+      <img src="img/p11.jpg" alt="" style="width:100%;height:100%;object-fit:cover;filter:sepia(0.15);">
+    </div>
+  </div>
+
+  <footer>
+    <div class="footer-inner">
+      <div><span class="f-logo">Javo<span>.</span></span><p class="f-tagline">Cocinero apasionado del norte argentino. Experiencias gastronómicas únicas.</p><p class="f-location">24° 47' S — Salta, Argentina</p></div>
+      <div class="f-col"><h4>Secciones</h4><ul><li><a onclick="showPage('quien')">Quién Soy</a></li><li><a onclick="showPage('servicios')">Servicios</a></li><li><a onclick="showPage('productos')">Productos</a></li><li><a onclick="showPage('metricas')">Métricas</a></li></ul></div>
+      <div class="f-col"><h4>Más</h4><ul><li><a onclick="showPage('recetarios')">Recetarios</a></li><li><a onclick="showPage('eventos')">Eventos</a></li><li><a onclick="showPage('servicios')">Cotizar</a></li></ul></div>
+      <div class="f-col"><h4>Contacto</h4><ul><li><a href="mailto:javoelizalde2001@gmail.com">Email</a></li><li><a href="https://wa.me/543874105902" target="_blank">WhatsApp</a></li><li><a href="#" target="_blank">Instagram</a></li><li><a href="#" target="_blank">YouTube</a></li><li><a href="#" target="_blank">TikTok</a></li></ul></div>
+    </div>
+    <div class="footer-bottom"><span class="footer-copy">© 2025 Javo Te Cocina · javotecocina.com · Salta, Argentina</span><div class="soc-links"><a class="soc-link" href="#">IG</a><a class="soc-link" href="#">YT</a><a class="soc-link" href="#">TK</a><a class="soc-link" href="https://wa.me/543874105902" target="_blank">WA</a></div></div>
+  </footer>
+</div>
+
+<!-- ════════════════════════ QUIÉN SOY ════════════════════════ -->
+<div id="page-quien" class="page-section">
+  <div class="about-grid reveal">
+    <div class="about-photo-stack">
+      <img class="about-photo-main" src="img/p01.jpg" alt="Javo Te Cocina">
+      <img class="about-photo-overlay" src="img/p06.jpg" alt="Javo cocinando">
+      <div class="about-photo-badge">Salta · ARG</div>
+    </div>
+    <div>
+      <div class="sec-label">Quién Soy</div>
+      <h2 class="sec-title">Más que cocinar.<br><em>Una experiencia.</em></h2>
+      <p style="font-family:var(--font-body);font-size:0.93rem;color:rgba(245,237,216,0.6);line-height:1.85;margin-bottom:1.25rem;font-style:italic;">[Tu historia personal — de dónde venís en Salta, qué te llevó a la cocina, qué te hace diferente.]</p>
+      <p style="font-family:var(--font-body);font-size:0.93rem;color:rgba(245,237,216,0.6);line-height:1.85;margin-bottom:1.75rem;font-style:italic;">[Segundo párrafo — tu recorrido, tus influencias, tus logros o lo que te define como cocinero.]</p>
+      <div class="mission-block"><p>"[Tu frase más poderosa — la que resume por qué cocinás.]"</p></div>
+      <div class="values-grid">
+        <div class="val-card"><span class="val-icon">🔥</span><div class="val-title">Misión</div><div class="val-text">Crear experiencias gastronómicas que marquen momentos imborrables en cada mesa.</div></div>
+        <div class="val-card"><span class="val-icon">✦</span><div class="val-title">Visión</div><div class="val-text">Ser la referencia gastronómica del norte argentino y de Latinoamérica.</div></div>
+        <div class="val-card"><span class="val-icon">🫶</span><div class="val-title">Valores</div><div class="val-text">Autenticidad, producto de calidad y conexión real con la gente.</div></div>
+        <div class="val-card"><span class="val-icon">📍</span><div class="val-title">Origen</div><div class="val-text">Salta, norte argentino — con el sabor de lo nuestro y el fuego como lenguaje.</div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="stats-row reveal">
+    <div class="stat-box"><div class="stat-n">XX<span>+</span></div><div class="stat-l">Eventos Realizados</div></div>
+    <div class="stat-box"><div class="stat-n">XX<span>+</span></div><div class="stat-l">Videos en Colaboración</div></div>
+    <div class="stat-box"><div class="stat-n">50K<span>+</span></div><div class="stat-l">Seguidores Totales</div></div>
+    <div class="stat-box"><div class="stat-n">XX<span>+</span></div><div class="stat-l">Marcas Aliadas</div></div>
+  </div>
+
+  <div class="smoke-band angled reveal">
+    <div style="max-width:1100px;margin:0 auto;">
+      <div class="sec-label">Mi mundo</div>
+      <h2 class="sec-title" style="margin-bottom:2.5rem;">El cocinero detrás<br>del <em>fuego</em></h2>
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:rgba(196,133,58,0.08);">
+        <div style="position:relative;aspect-ratio:3/4;overflow:hidden;">
+          <img src="img/p13.jpg" alt="" style="width:100%;height:100%;object-fit:cover;opacity:0.5;filter:sepia(0.25);">
+          <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(44,26,14,0.9) 0%,transparent 55%);display:flex;align-items:flex-end;padding:1.5rem;">
+            <p style="font-family:var(--font-display);font-style:italic;font-size:1rem;color:var(--sal);line-height:1.55;">"El fuego no miente. Tampoco la buena cocina."</p>
+          </div>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:1px;">
+          <div style="position:relative;flex:1;overflow:hidden;">
+            <img src="img/p12.jpg" alt="" style="width:100%;height:100%;object-fit:cover;opacity:0.5;filter:sepia(0.2);">
+            <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(44,26,14,0.9) 0%,transparent 55%);display:flex;align-items:flex-end;padding:1.25rem;">
+              <p style="font-family:var(--font-body);font-size:0.8rem;color:rgba(245,237,216,0.7);font-style:italic;line-height:1.5;">[Descripción del momento]</p>
+            </div>
+          </div>
+          <div style="position:relative;flex:1;overflow:hidden;">
+            <img src="img/p16.jpg" alt="" style="width:100%;height:100%;object-fit:cover;opacity:0.5;filter:sepia(0.2);">
+            <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(44,26,14,0.9) 0%,transparent 55%);display:flex;align-items:flex-end;padding:1.25rem;">
+              <p style="font-family:var(--font-body);font-size:0.8rem;color:rgba(245,237,216,0.7);font-style:italic;line-height:1.5;">[Descripción del momento]</p>
+            </div>
+          </div>
+        </div>
+        <div style="position:relative;aspect-ratio:3/4;overflow:hidden;">
+          <img src="img/p22.jpg" alt="" style="width:100%;height:100%;object-fit:cover;opacity:0.5;filter:sepia(0.25);">
+          <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(44,26,14,0.9) 0%,transparent 55%);display:flex;align-items:flex-end;padding:1.5rem;">
+            <p style="font-family:var(--font-display);font-style:italic;font-size:1rem;color:var(--sal);line-height:1.55;">"Cada corte tiene su temperatura. Cada persona, su punto."</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="brands-strip reveal">
+    <p class="brands-label">Marcas que confiaron en mí</p>
+    <div class="brands-list">
+      <div class="brand-pill">[Marca 1]</div><div class="brand-pill">[Marca 2]</div>
+      <div class="brand-pill">[Marca 3]</div><div class="brand-pill">[Marca 4]</div>
+      <div class="brand-pill">[Marca 5]</div><div class="brand-pill">[Marca 6]</div>
+      <div class="brand-pill">[Marca 7]</div><div class="brand-pill">[Marca 8]</div>
+    </div>
+  </div>
+
+  <div style="padding:4rem 5vw 6rem;" class="reveal">
+    <div class="sec-label">Red de trabajo</div>
+    <h2 class="sec-title" style="margin-bottom:2.5rem;">Socios &<br><em>Colegas</em></h2>
+    <div class="colegas-grid">
+      <div class="colega-card"><div class="colega-avatar">👨‍🍳</div><div class="colega-name">[Nombre]</div><div class="colega-role">[Rol]</div></div>
+      <div class="colega-card"><div class="colega-avatar">👨‍🍳</div><div class="colega-name">[Nombre]</div><div class="colega-role">[Rol]</div></div>
+      <div class="colega-card"><div class="colega-avatar">👩‍🍳</div><div class="colega-name">[Nombre]</div><div class="colega-role">[Rol]</div></div>
+      <div class="colega-card"><div class="colega-avatar">🎬</div><div class="colega-name">[Nombre]</div><div class="colega-role">[Productor]</div></div>
+    </div>
+  </div>
+
+  <footer><div class="footer-inner"><div><span class="f-logo">Javo<span>.</span></span><p class="f-tagline">Cocinero apasionado del norte argentino.</p><p class="f-location">Salta, Argentina</p></div><div class="f-col"><h4>Secciones</h4><ul><li><a onclick="showPage('servicios')">Servicios</a></li><li><a onclick="showPage('productos')">Productos</a></li><li><a onclick="showPage('metricas')">Métricas</a></li></ul></div><div class="f-col"><h4>Contacto</h4><ul><li><a href="mailto:javoelizalde2001@gmail.com">Email</a></li><li><a href="https://wa.me/543874105902" target="_blank">WhatsApp</a></li></ul></div><div class="f-col"><h4>Volver</h4><ul><li><a onclick="showPage('home')">← Inicio</a></li></ul></div></div><div class="footer-bottom"><span class="footer-copy">© 2025 Javo Te Cocina · Salta, ARG</span><div class="soc-links"><a class="soc-link">IG</a><a class="soc-link">YT</a><a class="soc-link">TK</a></div></div></footer>
+</div>
+
+<!-- ════════════════════════ SERVICIOS ════════════════════════ -->
+<div id="page-servicios" class="page-section">
+  <div class="page-hero"><div class="page-hero-bg"></div><div class="page-hero-content"><div class="sec-label">Lo que hago</div><h2 class="sec-title">Servicios &<br><em>Cotizaciones</em></h2><p class="sec-sub">Eventos presenciales o contenido digital — en ambos llevás mi sello.</p></div></div>
+  <div style="padding:3rem 5vw 6rem;">
+    <div class="services-tabs reveal">
+      <button class="tab-btn active" onclick="switchTab('tab-eventos',event)">🔥 Eventos & Catering</button>
+      <button class="tab-btn" onclick="switchTab('tab-redes',event)">📱 Redes & Contenido Digital</button>
+    </div>
+    <div id="tab-eventos" class="service-panel active">
+      <div class="service-features">
+        <div>
+          <h3 style="font-family:var(--font-display);font-size:2.2rem;font-weight:700;color:var(--sal);margin-bottom:1.5rem;">Eventos &<br><em style="font-style:italic;color:var(--puna);">Catering</em></h3>
+          <p style="font-family:var(--font-body);font-size:0.88rem;color:rgba(245,237,216,0.55);line-height:1.85;margin-bottom:2rem;font-style:italic;">Desde cenas íntimas hasta eventos corporativos. Cada detalle planificado, cada plato con mi firma.</p>
+          <ul class="feature-list">
+            <li><strong>Cenas privadas:</strong> íntimas, cumpleaños, aniversarios.</li>
+            <li><strong>Asados & BBQ:</strong> parrilla premium con cortes seleccionados.</li>
+            <li><strong>Eventos corporativos:</strong> team buildings y cenas de empresa.</li>
+            <li><strong>Casamientos:</strong> menú completo y coordinación total.</li>
+            <li><strong>Clases & talleres:</strong> grupos reducidos, presencial o virtual.</li>
+            <li><strong>Consultoría:</strong> desarrollo de carta y formación de equipos.</li>
+          </ul>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:1px;background:rgba(196,133,58,0.08);margin-top:2.5rem;">
+            <img src="img/p32.jpg" alt="" style="width:100%;aspect-ratio:4/3;object-fit:cover;filter:sepia(0.15);">
+            <img src="img/p33.jpg" alt="" style="width:100%;aspect-ratio:4/3;object-fit:cover;filter:sepia(0.15);">
+            <img src="img/p04.jpg" alt="" style="width:100%;aspect-ratio:4/3;object-fit:cover;filter:sepia(0.15);">
+            <img src="img/p05.jpg" alt="" style="width:100%;aspect-ratio:4/3;object-fit:cover;filter:sepia(0.15);">
+          </div>
+        </div>
+        <div>
+          <div class="quote-box">
+            <h3>Cotizá tu evento</h3>
+            <div class="form-grid">
+              <div class="form-row2">
+                <div class="fg"><label>Nombre completo *</label><input type="text" id="ev-nombre" placeholder="Tu nombre"></div>
+                <div class="fg"><label>WhatsApp *</label><input type="tel" id="ev-tel" placeholder="+54 9 387..."></div>
+              </div>
+              <div class="fg"><label>Email *</label><input type="email" id="ev-email" placeholder="tu@email.com"></div>
+              <div class="form-row2">
+                <div class="fg"><label>Tipo de evento</label>
+                  <select id="ev-tipo"><option value="">Seleccioná...</option><option>Cena privada</option><option>Asado / BBQ</option><option>Corporativo</option><option>Cumpleaños</option><option>Casamiento</option><option>Clase / Taller</option><option>Consultoría</option><option>Otro</option></select>
+                </div>
+                <div class="fg"><label>Personas</label><input type="number" id="ev-personas" placeholder="Ej: 30" min="1"></div>
+              </div>
+              <div class="fg"><label>Fecha estimada</label><input type="date" id="ev-fecha"></div>
+              <div class="fg"><label>Contame tu evento</label><textarea rows="4" id="ev-msg" placeholder="Lugar, preferencias, restricciones alimentarias..."></textarea></div>
+              <button class="btn-fire btn-full" id="btn-eventos" onclick="enviarCotizacion('eventos')">Enviar Cotización →</button>
+              <a href="https://wa.me/543874105902?text=Hola%20Javo!%20Quiero%20cotizar%20un%20evento." target="_blank" class="btn-ghost btn-full" style="clip-path:none;margin-top:0.5rem;display:block;text-align:center;text-decoration:none;padding:0.85rem;">💬 WhatsApp directo</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div id="tab-redes" class="service-panel">
+      <div class="service-features">
+        <div>
+          <h3 style="font-family:var(--font-display);font-size:2.2rem;font-weight:700;color:var(--sal);margin-bottom:1.5rem;">Contenido &<br><em style="font-style:italic;color:var(--puna);">Videos Promocionales</em></h3>
+          <p style="font-family:var(--font-body);font-size:0.88rem;color:rgba(245,237,216,0.55);line-height:1.85;margin-bottom:2rem;font-style:italic;">Contenido gastronómico de alto impacto para marcas que quieren conectar de verdad.</p>
+          <ul class="feature-list">
+            <li><strong>Videos patrocinados:</strong> tu producto integrado de forma natural.</li>
+            <li><strong>Reels & TikToks:</strong> contenido nativo para cada plataforma.</li>
+            <li><strong>Embajadas de marca:</strong> colaboración continua.</li>
+            <li><strong>Lanzamientos de producto:</strong> cobertura exclusiva.</li>
+            <li><strong>Apariciones en medios:</strong> TV, radio, podcasts.</li>
+          </ul>
+          <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:rgba(196,133,58,0.08);margin-top:2rem;">
+            <img src="img/p24.jpg" alt="" style="width:100%;aspect-ratio:1;object-fit:cover;filter:sepia(0.15);">
+            <img src="img/p25.jpg" alt="" style="width:100%;aspect-ratio:1;object-fit:cover;filter:sepia(0.15);">
+            <img src="img/p14.jpg" alt="" style="width:100%;aspect-ratio:1;object-fit:cover;filter:sepia(0.15);">
+          </div>
+        </div>
+        <div>
+          <div class="quote-box">
+            <h3>Cotizá una campaña</h3>
+            <div class="form-grid">
+              <div class="form-row2">
+                <div class="fg"><label>Nombre / Empresa *</label><input type="text" id="rd-nombre" placeholder="Tu nombre o marca"></div>
+                <div class="fg"><label>WhatsApp *</label><input type="tel" id="rd-tel" placeholder="+54 9 387..."></div>
+              </div>
+              <div class="fg"><label>Email *</label><input type="email" id="rd-email" placeholder="contacto@marca.com"></div>
+              <div class="fg"><label>Tipo de contenido</label>
+                <select id="rd-tipo"><option value="">Seleccioná...</option><option>Video patrocinado único</option><option>Pack de Reels / TikToks</option><option>Embajada mensual</option><option>Lanzamiento de producto</option><option>Consultoría de contenido</option><option>Otro</option></select>
+              </div>
+              <div class="fg"><label>Producto a promocionar</label><input type="text" id="rd-producto" placeholder="¿Qué querés que muestre?"></div>
+              <div class="fg"><label>Objetivos</label><textarea rows="3" id="rd-msg" placeholder="Qué querés lograr — reconocimiento, ventas, lanzamiento..."></textarea></div>
+              <button class="btn-fire btn-full" id="btn-redes" onclick="enviarCotizacion('redes')">Solicitar Media Kit →</button>
+              <a href="https://wa.me/543874105902?text=Hola%20Javo!%20Quiero%20cotizar%20contenido%20para%20redes." target="_blank" class="btn-ghost btn-full" style="clip-path:none;margin-top:0.5rem;display:block;text-align:center;text-decoration:none;padding:0.85rem;">💬 WhatsApp directo</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <footer><div class="footer-inner"><div><span class="f-logo">Javo<span>.</span></span><p class="f-tagline">Cocinero apasionado del norte argentino.</p><p class="f-location">Salta, Argentina</p></div><div class="f-col"><h4>Servicios</h4><ul><li><a>Eventos Privados</a></li><li><a>Asados Premium</a></li><li><a>Contenido Digital</a></li></ul></div><div class="f-col"><h4>Contacto</h4><ul><li><a href="mailto:javoelizalde2001@gmail.com">Email</a></li><li><a href="https://wa.me/543874105902" target="_blank">WhatsApp</a></li></ul></div><div class="f-col"><h4>Volver</h4><ul><li><a onclick="showPage('home')">← Inicio</a></li></ul></div></div><div class="footer-bottom"><span class="footer-copy">© 2025 Javo Te Cocina</span><div class="soc-links"><a class="soc-link">IG</a><a class="soc-link">YT</a><a class="soc-link">TK</a></div></div></footer>
+</div>
+
+<!-- ════════════════════════ PRODUCTOS ════════════════════════ -->
+<div id="page-productos" class="page-section">
+  <div class="page-hero"><div class="page-hero-bg"></div><div class="page-hero-content"><div class="sec-label">Marketplace</div><h2 class="sec-title">Shop<br><em>Javo Te Cocina</em></h2><p class="sec-sub">Hornos, cuchillos, accesorios y productos seleccionados con mi sello.</p></div></div>
+  <div style="padding:3rem 5vw 6rem;">
+    <div class="product-categories reveal">
+      <button class="cat-btn active" onclick="filterProducts('todos',this)">Todos</button>
+      <button class="cat-btn" onclick="filterProducts('parrilla',this)">🔥 Parrilla</button>
+      <button class="cat-btn" onclick="filterProducts('cuchillos',this)">🔪 Cuchillos</button>
+      <button class="cat-btn" onclick="filterProducts('hornos',this)">🫕 Hornos</button>
+      <button class="cat-btn" onclick="filterProducts('accesorios',this)">🧰 Accesorios</button>
+      <button class="cat-btn" onclick="filterProducts('marca',this)">⭐ Marca Propia</button>
+    </div>
+    <div class="products-grid reveal" id="products-grid">
+      <div class="product-card" data-cat="parrilla"><div class="product-img"><img src="img/p08.jpg" alt="Parrilla"><div class="product-badge">Recomendado</div></div><div class="product-body"><div class="product-name">Parrilla Premium Inox</div><div class="product-desc">Acero inoxidable 304, regulable en altura. La que uso en todos mis eventos.</div><div class="product-price">$XX.XXX</div><button class="product-btn" onclick="openCheckout('Parrilla Premium Inox','XX.XXX')">Comprar →</button></div></div>
+      <div class="product-card" data-cat="parrilla"><div class="product-img"><img src="img/p09.jpg" alt="Asador Cruz"></div><div class="product-body"><div class="product-name">Asador Cruz Artesanal</div><div class="product-desc">Hierro forjado a mano. Para el asado que merece ser recordado.</div><div class="product-price">$XX.XXX</div><button class="product-btn" onclick="openCheckout('Asador Cruz Artesanal','XX.XXX')">Comprar →</button></div></div>
+      <div class="product-card" data-cat="cuchillos marca"><div class="product-img"><img src="img/p11.jpg" alt="Cuchillo"><div class="product-badge">Marca Propia</div></div><div class="product-body"><div class="product-name">Cuchillo Javo — Chef 20cm</div><div class="product-desc">Acero alemán, mango ergonómico. Mi firma en acero.</div><div class="product-price">$XX.XXX</div><button class="product-btn" onclick="openCheckout('Cuchillo Javo — Chef 20cm','XX.XXX')">Comprar →</button></div></div>
+      <div class="product-card" data-cat="cuchillos"><div class="product-img"><img src="img/p21.jpg" alt="Set cuchillos"></div><div class="product-body"><div class="product-name">Set Parrillero 3 Piezas</div><div class="product-desc">Cuchillo, deshuesador y cuchilla. El set que no puede faltar.</div><div class="product-price">$XX.XXX</div><button class="product-btn" onclick="openCheckout('Set Parrillero 3 Piezas','XX.XXX')">Comprar →</button></div></div>
+      <div class="product-card" data-cat="hornos"><div class="product-img"><img src="img/p23.jpg" alt="Horno barro"></div><div class="product-body"><div class="product-name">Horno de Barro Artesanal</div><div class="product-desc">Construcción tradicional, temperatura uniforme.</div><div class="product-price">$XX.XXX</div><button class="product-btn" onclick="openCheckout('Horno de Barro Artesanal','XX.XXX')">Comprar →</button></div></div>
+      <div class="product-card" data-cat="hornos"><div class="product-img"><img src="img/p22.jpg" alt="Ahumador"></div><div class="product-body"><div class="product-name">Ahumador Offset Premium</div><div class="product-desc">Cámara separada, termómetro incorporado.</div><div class="product-price">$XX.XXX</div><button class="product-btn" onclick="openCheckout('Ahumador Offset Premium','XX.XXX')">Comprar →</button></div></div>
+      <div class="product-card" data-cat="accesorios"><div class="product-img"><img src="img/p30.jpg" alt="Tabla roble"></div><div class="product-body"><div class="product-name">Tabla — Roble Macizo</div><div class="product-desc">50x30cm, madera de roble nacional.</div><div class="product-price">$XX.XXX</div><button class="product-btn" onclick="openCheckout('Tabla Roble Macizo','XX.XXX')">Comprar →</button></div></div>
+      <div class="product-card" data-cat="accesorios marca"><div class="product-img"><img src="img/p07.jpg" alt="Delantal"><div class="product-badge">Marca Propia</div></div><div class="product-body"><div class="product-name">Delantal Javo Te Cocina</div><div class="product-desc">Canvas de alta resistencia, ajustable.</div><div class="product-price">$XX.XXX</div><button class="product-btn" onclick="openCheckout('Delantal Javo Te Cocina','XX.XXX')">Comprar →</button></div></div>
+    </div>
+  </div>
+  <div class="modal-overlay" id="checkout-modal">
+    <div class="modal">
+      <button class="modal-close" onclick="closeCheckout()">✕</button>
+      <div class="modal-title">Finalizar Compra</div>
+      <div class="modal-product" id="modal-product-info"></div>
+      <div class="form-grid" style="gap:1rem;margin-bottom:1.5rem;">
+        <div class="form-row2"><div class="fg"><label>Nombre</label><input type="text" id="co-nombre" placeholder="Tu nombre"></div><div class="fg"><label>Apellido</label><input type="text" id="co-apellido" placeholder="Tu apellido"></div></div>
+        <div class="fg"><label>Email</label><input type="email" id="co-email" placeholder="tu@email.com"></div>
+        <div class="fg"><label>Teléfono</label><input type="tel" id="co-tel" placeholder="+54 9 387..."></div>
+        <div class="fg"><label>Dirección de entrega</label><input type="text" id="co-dir" placeholder="Calle, número, ciudad, provincia"></div>
+      </div>
+      <p style="font-family:var(--font-data);font-size:0.6rem;letter-spacing:0.18em;text-transform:uppercase;color:var(--niebla);margin-bottom:1rem;">Método de pago</p>
+      <div class="payment-methods">
+        <div class="pay-method" onclick="selectPayment('mp',this)"><div class="pay-icon">💙</div><div class="pay-label">Mercado Pago</div></div>
+        <div class="pay-method" onclick="selectPayment('transfer',this)"><div class="pay-icon">🏦</div><div class="pay-label">Transferencia</div></div>
+        <div class="pay-method" onclick="selectPayment('card',this)"><div class="pay-icon">💳</div><div class="pay-label">Tarjeta</div></div>
+      </div>
+      <div class="pay-detail" id="pay-mp">
+        <p style="font-family:var(--font-body);font-size:0.85rem;color:rgba(245,237,216,0.65);line-height:1.8;font-style:italic;margin-bottom:1.25rem;">Checkout seguro de <strong style="color:var(--sal);font-style:normal;">Mercado Pago</strong>. Todas las tarjetas, débito y saldo MP. Hasta 12 cuotas.</p>
+        <button class="btn-fire btn-full" onclick="pagarConMP()" style="clip-path:none;">Pagar con Mercado Pago →</button>
+      </div>
+      <div class="pay-detail" id="pay-transfer">
+        <div class="transfer-info" style="line-height:2.2;">
+          <p><strong>Banco:</strong> [Tu banco]</p>
+          <p><strong>CBU/CVU:</strong> [Tu CBU]</p>
+          <p><strong>Alias:</strong> JAVO.TE.COCINA</p>
+          <p><strong>Titular:</strong> [Tu nombre real]</p>
+          <p style="margin-top:0.75rem;color:var(--puna);font-style:italic;">Enviá el comprobante a <strong style="font-style:normal;">javoelizalde2001@gmail.com</strong></p>
+        </div>
+        <button class="btn-fire btn-full" onclick="confirmarTransferencia()" style="margin-top:1.25rem;clip-path:none;">Confirmar pedido →</button>
+      </div>
+      <div class="pay-detail" id="pay-card">
+        <div class="form-grid" style="gap:1rem;">
+          <div class="fg"><label>Número de tarjeta</label><input type="text" id="card-num" placeholder="0000 0000 0000 0000" maxlength="19"></div>
+          <div class="form-row2"><div class="fg"><label>Vencimiento</label><input type="text" id="card-exp" placeholder="MM/AA" maxlength="5"></div><div class="fg"><label>CVV</label><input type="text" id="card-cvv" placeholder="123" maxlength="4"></div></div>
+          <div class="fg"><label>Nombre en tarjeta</label><input type="text" id="card-name" placeholder="NOMBRE APELLIDO"></div>
+          <div class="fg"><label>Cuotas</label><select id="card-cuotas"><option>1 cuota sin interés</option><option>3 cuotas sin interés</option><option>6 cuotas sin interés</option><option>12 cuotas sin interés</option></select></div>
+          <button class="btn-fire btn-full" onclick="pagarConMP()" style="clip-path:none;">Pagar →</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <footer><div class="footer-inner"><div><span class="f-logo">Javo<span>.</span></span><p class="f-tagline">Productos seleccionados con mi sello personal.</p><p class="f-location">Salta, Argentina</p></div><div class="f-col"><h4>Categorías</h4><ul><li><a>Parrilla</a></li><li><a>Cuchillos</a></li><li><a>Hornos</a></li><li><a>Accesorios</a></li></ul></div><div class="f-col"><h4>Soporte</h4><ul><li><a href="mailto:javoelizalde2001@gmail.com">Contacto</a></li><li><a href="https://wa.me/543874105902" target="_blank">WhatsApp</a></li></ul></div><div class="f-col"><h4>Volver</h4><ul><li><a onclick="showPage('home')">← Inicio</a></li></ul></div></div><div class="footer-bottom"><span class="footer-copy">© 2025 Javo Te Cocina</span><div class="soc-links"><a class="soc-link">IG</a><a class="soc-link">YT</a><a class="soc-link">TK</a></div></div></footer>
+</div>
+
+<!-- ════════════════════════ MÉTRICAS ════════════════════════ -->
+<div id="page-metricas" class="page-section">
+  <div class="page-hero"><div class="page-hero-bg"></div><div class="page-hero-content"><div class="sec-label">Presencia Digital</div><h2 class="sec-title">Mis<br><em>Métricas</em></h2><p class="sec-sub">Números reales, audiencia real. Más de 50K seguidores en tres plataformas.</p></div></div>
+  <div style="padding:2rem 5vw 0;">
+    <div class="metrics-hero-nums reveal">
+      <div class="metric-big"><div class="platform-icon">📸</div><div class="main-num">XX<span>K</span></div><div class="platform-name">Instagram</div><div class="sub-stats"><div class="sub-stat"><div class="n">X.X%</div><div class="l">Engagement</div></div><div class="sub-stat"><div class="n">XXK</div><div class="l">Alcance/post</div></div><div class="sub-stat"><div class="n">XXX</div><div class="l">Posts</div></div></div></div>
+      <div class="metric-big"><div class="platform-icon">🎵</div><div class="main-num">XX<span>K</span></div><div class="platform-name">TikTok</div><div class="sub-stats"><div class="sub-stat"><div class="n">X.X%</div><div class="l">Engagement</div></div><div class="sub-stat"><div class="n">XXK</div><div class="l">Views/video</div></div><div class="sub-stat"><div class="n">XXX</div><div class="l">Videos</div></div></div></div>
+      <div class="metric-big"><div class="platform-icon">▶️</div><div class="main-num">XX<span>K</span></div><div class="platform-name">YouTube</div><div class="sub-stats"><div class="sub-stat"><div class="n">XX%</div><div class="l">Retención</div></div><div class="sub-stat"><div class="n">XXK</div><div class="l">Views/video</div></div><div class="sub-stat"><div class="n">XX</div><div class="l">Videos</div></div></div></div>
+    </div>
+    <div style="background:var(--barro);padding:3rem;text-align:center;margin:1px 0;" class="reveal">
+      <div style="font-family:var(--font-data);font-size:0.6rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--niebla);margin-bottom:0.75rem;">Total unificado</div>
+      <div style="font-family:var(--font-display);font-size:5rem;font-weight:700;color:var(--sal);line-height:1;">50<span style="color:var(--puna);">K+</span></div>
+      <div style="font-family:var(--font-body);font-size:0.82rem;color:rgba(245,237,216,0.45);margin-top:0.5rem;font-style:italic;">seguidores en todas las plataformas</div>
+    </div>
+  </div>
+  <div style="padding:4rem 5vw;" class="reveal">
+    <h3 style="font-family:var(--font-display);font-size:1.6rem;font-weight:700;color:var(--sal);margin-bottom:2.5rem;">Composición de audiencia</h3>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:5rem;">
+      <div><p style="font-family:var(--font-data);font-size:0.6rem;letter-spacing:0.14em;text-transform:uppercase;color:var(--niebla);margin-bottom:1.5rem;">Por edad</p>
+        <div class="bar-chart">
+          <div class="bar-row"><div class="bar-label">18–24 años</div><div class="bar-track"><div class="bar-fill" style="width:22%"></div></div><div class="bar-val">22%</div></div>
+          <div class="bar-row"><div class="bar-label">25–34 años</div><div class="bar-track"><div class="bar-fill" style="width:38%"></div></div><div class="bar-val">38%</div></div>
+          <div class="bar-row"><div class="bar-label">35–44 años</div><div class="bar-track"><div class="bar-fill" style="width:28%"></div></div><div class="bar-val">28%</div></div>
+          <div class="bar-row"><div class="bar-label">45+ años</div><div class="bar-track"><div class="bar-fill" style="width:12%"></div></div><div class="bar-val">12%</div></div>
+        </div>
+      </div>
+      <div><p style="font-family:var(--font-data);font-size:0.6rem;letter-spacing:0.14em;text-transform:uppercase;color:var(--niebla);margin-bottom:1.5rem;">Por país</p>
+        <div class="bar-chart">
+          <div class="bar-row"><div class="bar-label">Argentina</div><div class="bar-track"><div class="bar-fill" style="width:65%"></div></div><div class="bar-val">65%</div></div>
+          <div class="bar-row"><div class="bar-label">Uruguay</div><div class="bar-track"><div class="bar-fill" style="width:10%"></div></div><div class="bar-val">10%</div></div>
+          <div class="bar-row"><div class="bar-label">Chile</div><div class="bar-track"><div class="bar-fill" style="width:8%"></div></div><div class="bar-val">8%</div></div>
+          <div class="bar-row"><div class="bar-label">Resto LATAM</div><div class="bar-track"><div class="bar-fill" style="width:17%"></div></div><div class="bar-val">17%</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div style="padding:0 5vw 2rem;"><div class="sec-label">Contenido destacado</div><h3 style="font-family:var(--font-display);font-size:1.75rem;font-weight:700;color:var(--sal);margin-bottom:2.5rem;">Mis mejores <em style="font-style:italic;color:var(--puna);">publicaciones</em></h3></div>
+  <div class="media-gallery reveal">
+    <div class="media-item" onclick="openLightbox(0)"><img src="img/p24.jpg" alt=""><div class="media-overlay"><div class="media-platform">Instagram · [XK likes]</div></div></div>
+    <div class="media-item" onclick="openLightbox(1)"><img src="img/p25.jpg" alt=""><div class="media-overlay"><div class="media-platform">TikTok · [XK views]</div></div></div>
+    <div class="media-item" onclick="openLightbox(2)"><img src="img/p14.jpg" alt=""><div class="media-overlay"><div class="media-platform">YouTube · [XK views]</div></div></div>
+    <div class="media-item" onclick="openLightbox(3)"><img src="img/p15.jpg" alt=""><div class="media-overlay"><div class="media-platform">Instagram · [XK likes]</div></div></div>
+    <div class="media-item" onclick="openLightbox(4)"><img src="img/p16.jpg" alt=""><div class="media-overlay"><div class="media-platform">Reel · [XK views]</div></div></div>
+    <div class="media-item" onclick="openLightbox(5)"><img src="img/p17.jpg" alt=""><div class="media-overlay"><div class="media-platform">TikTok · [XK views]</div></div></div>
+    <div class="media-item" onclick="openLightbox(6)"><img src="img/p18.jpg" alt=""><div class="media-overlay"><div class="media-platform">Instagram · [XK likes]</div></div></div>
+    <div class="media-item" onclick="openLightbox(7)"><img src="img/p19.jpg" alt=""><div class="media-overlay"><div class="media-platform">YouTube · [XK views]</div></div></div>
+  </div>
+  <div style="padding:5rem 5vw;" class="reveal">
+    <div style="background:var(--barro);border:1px solid rgba(196,133,58,0.18);padding:4rem;text-align:center;">
+      <div style="font-family:var(--font-data);font-size:0.62rem;letter-spacing:0.22em;text-transform:uppercase;color:var(--puna);margin-bottom:1rem;">¿Sos una marca?</div>
+      <h3 style="font-family:var(--font-display);font-size:2.2rem;font-weight:700;color:var(--sal);margin-bottom:1rem;">Trabajemos juntos</h3>
+      <p style="font-family:var(--font-body);font-size:0.88rem;color:rgba(245,237,216,0.5);margin-bottom:2rem;max-width:380px;margin-left:auto;margin-right:auto;line-height:1.8;font-style:italic;">Pedí mi media kit con métricas detalladas y propuestas de colaboración.</p>
+      <button class="btn-fire" onclick="showPage('servicios')">Solicitar Media Kit →</button>
+    </div>
+  </div>
+  <footer><div class="footer-inner"><div><span class="f-logo">Javo<span>.</span></span><p class="f-tagline">Presencia digital en Instagram, TikTok y YouTube.</p><p class="f-location">Salta, Argentina</p></div><div class="f-col"><h4>Plataformas</h4><ul><li><a>Instagram</a></li><li><a>TikTok</a></li><li><a>YouTube</a></li></ul></div><div class="f-col"><h4>Trabajar juntos</h4><ul><li><a onclick="showPage('servicios')">Contenido digital</a></li></ul></div><div class="f-col"><h4>Volver</h4><ul><li><a onclick="showPage('home')">← Inicio</a></li></ul></div></div><div class="footer-bottom"><span class="footer-copy">© 2025 Javo Te Cocina</span><div class="soc-links"><a class="soc-link">IG</a><a class="soc-link">YT</a><a class="soc-link">TK</a></div></div></footer>
+</div>
+
+<!-- ════════════════════════ RECETARIOS ════════════════════════ -->
+<div id="page-recetarios" class="page-section">
+  <div class="page-hero"><div class="page-hero-bg"></div><div class="page-hero-content"><div class="sec-label">Conocimiento en papel</div><h2 class="sec-title">Recetarios &<br><em>Cursos Online</em></h2><p class="sec-sub">Mis recetas organizadas por técnica. Llevá el asado, el disco y el horno a otro nivel.</p></div></div>
+  <div style="padding:3rem 5vw;">
+    <div class="sec-label">Elegí tu tipo de cocción</div>
+    <div class="recetario-cats reveal">
+      <div class="recetario-cat"><div class="recetario-cat-img"><img src="img/p32.jpg" alt="Parrilla"><div class="recetario-cat-img-overlay"></div></div><div class="recetario-cat-body"><span class="recetario-cat-icon">🔥</span><div class="recetario-cat-name">Parrilla & Asado</div><div class="recetario-cat-desc">Cortes, técnicas de fuego y secretos del asado perfecto.</div><div class="recetario-cat-badge">X recetarios</div></div></div>
+      <div class="recetario-cat"><div class="recetario-cat-img"><img src="img/p33.jpg" alt="Disco"><div class="recetario-cat-img-overlay"></div></div><div class="recetario-cat-body"><span class="recetario-cat-icon">🌀</span><div class="recetario-cat-name">Disco de Arado</div><div class="recetario-cat-desc">Guisos, salteados y todo lo que se puede hacer en el disco.</div><div class="recetario-cat-badge">X recetarios</div></div></div>
+      <div class="recetario-cat"><div class="recetario-cat-img"><img src="img/p04.jpg" alt="Horno"><div class="recetario-cat-img-overlay"></div></div><div class="recetario-cat-body"><span class="recetario-cat-icon">🫕</span><div class="recetario-cat-name">Hornos</div><div class="recetario-cat-desc">Barro, convección o eléctrico — técnicas para cada tipo.</div><div class="recetario-cat-badge">X recetarios</div></div></div>
+      <div class="recetario-cat"><div class="recetario-cat-img"><img src="img/p05.jpg" alt="Ahumador"><div class="recetario-cat-img-overlay"></div></div><div class="recetario-cat-body"><span class="recetario-cat-icon">💨</span><div class="recetario-cat-name">Ahumador</div><div class="recetario-cat-desc">Maderas, temperaturas y el humo como ingrediente.</div><div class="recetario-cat-badge">X recetarios</div></div></div>
+      <div class="recetario-cat"><div class="recetario-cat-img"><img src="img/p28.jpg" alt="Cocina"><div class="recetario-cat-img-overlay"></div></div><div class="recetario-cat-body"><span class="recetario-cat-icon">🍳</span><div class="recetario-cat-name">Cocina</div><div class="recetario-cat-desc">Técnicas clásicas, salsas y los platos que completan la mesa.</div><div class="recetario-cat-badge">X recetarios</div></div></div>
+      <div class="recetario-cat"><div class="recetario-cat-img"><img src="img/p29.jpg" alt="Frescos"><div class="recetario-cat-img-overlay"></div></div><div class="recetario-cat-body"><span class="recetario-cat-icon">🥗</span><div class="recetario-cat-name">Frescos & Crudos</div><div class="recetario-cat-desc">Ensaladas, ceviches y preparaciones en frío.</div><div class="recetario-cat-badge">X recetarios</div></div></div>
+    </div>
+  </div>
+  <div class="smoke-band reveal" style="margin-top:2rem;">
+    <div style="max-width:1100px;margin:0 auto;">
+      <div class="sec-label">Comprá y descargá</div>
+      <h3 style="font-family:var(--font-display);font-size:1.85rem;font-weight:700;color:var(--sal);margin-bottom:2.5rem;">Recetarios &<br><em style="font-style:italic;color:var(--puna);">Cursos disponibles</em></h3>
+      <div class="book-card">
+        <div class="book-cover"><img src="img/p32.jpg" alt="Recetario Parrilla"></div>
+        <div>
+          <div style="font-family:var(--font-data);font-size:0.58rem;letter-spacing:0.18em;text-transform:uppercase;color:var(--puna);margin-bottom:0.75rem;">📖 Recetario Digital · Parrilla</div>
+          <div class="book-title">[Nombre del Recetario]</div>
+          <p style="font-family:var(--font-body);font-size:0.83rem;color:var(--niebla);line-height:1.7;margin-bottom:1rem;font-style:italic;">[Descripción — qué incluye, qué lo hace especial.]</p>
+          <div class="book-price">$XX.XXX</div>
+          <ul class="book-includes"><li>+XX recetas exclusivas con fotos</li><li>Técnicas paso a paso</li><li>PDF descargable + actualizaciones</li><li>Acceso de por vida</li></ul>
+          <button class="btn-fire" onclick="openCheckout('[Nombre del Recetario]','XX.XXX')">Comprar Recetario →</button>
+        </div>
+      </div>
+      <div class="book-card">
+        <div class="book-cover"><img src="img/p04.jpg" alt="Curso Online"></div>
+        <div>
+          <div style="font-family:var(--font-data);font-size:0.58rem;letter-spacing:0.18em;text-transform:uppercase;color:var(--puna);margin-bottom:0.75rem;">🎓 Curso Online</div>
+          <div class="book-title">[Nombre del Curso]</div>
+          <p style="font-family:var(--font-body);font-size:0.83rem;color:var(--niebla);line-height:1.7;margin-bottom:1rem;font-style:italic;">[Descripción — qué se aprende, cuántas horas.]</p>
+          <div class="book-price">$XX.XXX</div>
+          <ul class="book-includes"><li>XX horas de video HD</li><li>Material descargable</li><li>Comunidad privada de alumnos</li><li>Certificado de completado</li></ul>
+          <button class="btn-fire" onclick="openCheckout('[Nombre del Curso]','XX.XXX')">Comprar Curso →</button>
+        </div>
+      </div>
+      <div style="text-align:center;padding:3rem 0 1rem;">
+        <p style="font-family:var(--font-body);font-size:0.82rem;color:var(--niebla);margin-bottom:1.5rem;font-style:italic;">Más recetarios próximamente. Anotate.</p>
+        <div style="display:flex;gap:1rem;justify-content:center;max-width:400px;margin:0 auto;">
+          <input type="email" id="rec-waitlist-email" placeholder="tu@email.com" style="flex:1;background:rgba(44,26,14,0.7);border:1px solid rgba(196,133,58,0.2);color:var(--sal);font-family:var(--font-body);font-size:0.88rem;padding:0.85rem 1rem;outline:none;">
+          <button class="btn-fire" style="clip-path:none;white-space:nowrap;" onclick="suscribirWaitlist()">Avisar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <footer><div class="footer-inner"><div><span class="f-logo">Javo<span>.</span></span><p class="f-tagline">Conocimiento gastronómico del norte argentino.</p><p class="f-location">Salta, Argentina</p></div><div class="f-col"><h4>Categorías</h4><ul><li><a>Parrilla</a></li><li><a>Disco</a></li><li><a>Hornos</a></li><li><a>Ahumador</a></li></ul></div><div class="f-col"><h4>Soporte</h4><ul><li><a href="mailto:javoelizalde2001@gmail.com">Contacto</a></li></ul></div><div class="f-col"><h4>Volver</h4><ul><li><a onclick="showPage('home')">← Inicio</a></li></ul></div></div><div class="footer-bottom"><span class="footer-copy">© 2025 Javo Te Cocina</span><div class="soc-links"><a class="soc-link">IG</a><a class="soc-link">YT</a><a class="soc-link">TK</a></div></div></footer>
+</div>
+
+<!-- ════════════════════════ EVENTOS ════════════════════════ -->
+<div id="page-eventos" class="page-section">
+  <div class="page-hero"><div class="page-hero-bg"></div><div class="page-hero-content"><div class="sec-label">Historia viva</div><h2 class="sec-title">Eventos<br><em>Pasados</em></h2><p class="sec-sub">Los momentos que marcaron mi carrera — con fotos, videos y las historias detrás.</p></div></div>
+  <div style="padding:3rem 5vw 6rem;">
+    <div class="eventos-grid reveal">
+      <div class="evento-card featured">
+        <div class="evento-photos single"><img src="img/p33.jpg" alt="Evento destacado"></div>
+        <div class="evento-body"><div class="evento-date">[Mes XXXX · Ciudad, Salta]</div><div class="evento-name">[Nombre del Evento Más Importante]</div><div class="evento-desc">[Descripción completa — qué fue, para quién, qué lo hizo especial, qué se cocinó, cuántas personas.]</div><div class="evento-tags"><span class="evento-tag">[Tipo]</span><span class="evento-tag">[XX personas]</span><span class="evento-tag">[Lugar]</span></div></div>
+      </div>
+      <div class="evento-card">
+        <div class="evento-photos" style="display:grid;grid-template-columns:1fr 1fr;gap:1px;"><img src="img/p08.jpg" alt="" style="width:100%;aspect-ratio:4/3;object-fit:cover;filter:sepia(0.15);"><img src="img/p09.jpg" alt="" style="width:100%;aspect-ratio:4/3;object-fit:cover;filter:sepia(0.15);"></div>
+        <div class="evento-body"><div class="evento-date">[Mes XXXX · Ciudad]</div><div class="evento-name">[Nombre del Evento]</div><div class="evento-desc">[Descripción breve.]</div><div class="evento-tags"><span class="evento-tag">[Tipo]</span><span class="evento-tag">[XX personas]</span></div></div>
+      </div>
+      <div class="evento-card">
+        <div class="evento-photos" style="display:grid;grid-template-columns:1fr 1fr;gap:1px;"><img src="img/p22.jpg" alt="" style="width:100%;aspect-ratio:4/3;object-fit:cover;filter:sepia(0.15);"><img src="img/p23.jpg" alt="" style="width:100%;aspect-ratio:4/3;object-fit:cover;filter:sepia(0.15);"></div>
+        <div class="evento-body"><div class="evento-date">[Mes XXXX · Ciudad]</div><div class="evento-name">[Nombre del Evento]</div><div class="evento-desc">[Descripción breve.]</div><div class="evento-tags"><span class="evento-tag">[Tipo]</span><span class="evento-tag">[XX personas]</span></div></div>
+      </div>
+      <div class="evento-card">
+        <div class="evento-photos"><img src="img/p24.jpg" alt="" style="width:100%;aspect-ratio:4/3;object-fit:cover;filter:sepia(0.15);"><img src="img/p25.jpg" alt="" style="width:100%;aspect-ratio:4/3;object-fit:cover;filter:sepia(0.15);"><img src="img/p26.jpg" alt="" style="width:100%;aspect-ratio:4/3;object-fit:cover;filter:sepia(0.15);"></div>
+        <div class="evento-body"><div class="evento-date">[Mes XXXX · Ciudad]</div><div class="evento-name">[Nombre del Evento]</div><div class="evento-desc">[Descripción breve.]</div><div class="evento-tags"><span class="evento-tag">[Tipo]</span><span class="evento-tag">[XX personas]</span></div></div>
+      </div>
+      <div class="evento-card">
+        <div class="evento-photos"><img src="img/p27.jpg" alt="" style="width:100%;aspect-ratio:4/3;object-fit:cover;filter:sepia(0.15);"><img src="img/p28.jpg" alt="" style="width:100%;aspect-ratio:4/3;object-fit:cover;filter:sepia(0.15);"><img src="img/p29.jpg" alt="" style="width:100%;aspect-ratio:4/3;object-fit:cover;filter:sepia(0.15);"></div>
+        <div class="evento-body"><div class="evento-date">[Mes XXXX · Ciudad]</div><div class="evento-name">[Nombre del Evento]</div><div class="evento-desc">[Descripción breve.]</div><div class="evento-tags"><span class="evento-tag">[Tipo]</span><span class="evento-tag">[XX personas]</span></div></div>
+      </div>
+    </div>
+    <div style="text-align:center;margin-top:4rem;padding:4rem;background:var(--barro);border:1px solid rgba(196,133,58,0.15);" class="reveal">
+      <div style="font-family:var(--font-data);font-size:0.62rem;letter-spacing:0.22em;text-transform:uppercase;color:var(--puna);margin-bottom:1rem;">Tu evento puede estar acá</div>
+      <h3 style="font-family:var(--font-display);font-size:2.2rem;font-weight:700;color:var(--sal);margin-bottom:1rem;">Creemos algo <em style="font-style:italic;color:var(--puna);">inolvidable</em></h3>
+      <p style="font-family:var(--font-body);font-size:0.88rem;color:rgba(245,237,216,0.5);margin-bottom:2rem;max-width:380px;margin-left:auto;margin-right:auto;line-height:1.8;font-style:italic;">Cada evento que hago se convierte en un recuerdo. Sumá el tuyo.</p>
+      <button class="btn-fire" onclick="showPage('servicios')">Cotizar Mi Evento →</button>
+    </div>
+  </div>
+  <footer><div class="footer-inner"><div><span class="f-logo">Javo<span>.</span></span><p class="f-tagline">Cocinero apasionado del norte argentino.</p><p class="f-location">Salta, Argentina</p></div><div class="f-col"><h4>Eventos</h4><ul><li><a onclick="showPage('servicios')">Cotizar evento</a></li></ul></div><div class="f-col"><h4>Más</h4><ul><li><a onclick="showPage('quien')">Quién Soy</a></li><li><a onclick="showPage('metricas')">Métricas</a></li></ul></div><div class="f-col"><h4>Volver</h4><ul><li><a onclick="showPage('home')">← Inicio</a></li></ul></div></div><div class="footer-bottom"><span class="footer-copy">© 2025 Javo Te Cocina · Salta, ARG</span><div class="soc-links"><a class="soc-link">IG</a><a class="soc-link">YT</a><a class="soc-link">TK</a></div></div></footer>
+</div>
+
+<!-- LIGHTBOX -->
+<div class="lightbox" id="lightbox" onclick="closeLightbox()">
+  <button class="lightbox-close" onclick="closeLightbox()">✕</button>
+  <img id="lightbox-img" src="" alt="">
+  <div class="lightbox-nav" onclick="event.stopPropagation()">
+    <button class="lightbox-btn" onclick="lightboxNav(-1)">← Anterior</button>
+    <button class="lightbox-btn" onclick="lightboxNav(1)">Siguiente →</button>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+<script>
+// ── CURSOR
+const cur=document.getElementById('cur'),ring=document.getElementById('curRing');
+let mx=0,my=0,rx=0,ry=0;
+document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cur.style.transform=`translate(${mx-5}px,${my-5}px)`;});
+(function a(){rx+=(mx-rx)*0.1;ry+=(my-ry)*0.1;ring.style.transform=`translate(${rx-15}px,${ry-15}px)`;requestAnimationFrame(a)})();
+
+// ── NAV SCROLL
+window.addEventListener('scroll',()=>document.getElementById('navbar').classList.toggle('scrolled',window.scrollY>50),{passive:true});
+
+// ── ROUTER
+function showPage(id){
+  document.querySelectorAll('.page-section').forEach(p=>p.classList.remove('active'));
+  document.getElementById('page-'+id).classList.add('active');
+  window.scrollTo({top:0,behavior:'instant'});
+  setTimeout(initReveals,80);
+}
+function initReveals(){
+  const obs=new IntersectionObserver(e=>{e.forEach(x=>{if(x.isIntersecting){x.target.classList.add('vis');obs.unobserve(x.target);}});},{threshold:0.08,rootMargin:'0px 0px -40px 0px'});
+  document.querySelectorAll('.page-section.active .reveal:not(.vis)').forEach(r=>obs.observe(r));
+}
+initReveals();
+
+// ── SERVICE TABS
+function switchTab(panelId,ev){
+  document.querySelectorAll('#page-servicios .service-panel').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('#page-servicios .tab-btn').forEach(b=>b.classList.remove('active'));
+  document.getElementById(panelId).classList.add('active');
+  ev.target.classList.add('active');
+}
+
+// ── TOAST
+function showToast(title,msg,type=''){
+  const t=document.getElementById('toast');
+  document.getElementById('toast-title').textContent=title;
+  document.getElementById('toast-msg').textContent=msg;
+  t.className='toast '+(type||'');
+  t.classList.add('show');
+  setTimeout(()=>t.classList.remove('show'),5000);
+}
+
+// ── SUPABASE
+async function guardarEnSupabase(tabla,datos){
+  if(CONFIG.SUPABASE_URL.includes('TU_PROYECTO'))return true;
+  try{
+    const r=await fetch(`${CONFIG.SUPABASE_URL}/rest/v1/${tabla}`,{
+      method:'POST',
+      headers:{'apikey':CONFIG.SUPABASE_ANON_KEY,'Authorization':'Bearer '+CONFIG.SUPABASE_ANON_KEY,'Content-Type':'application/json','Prefer':'return=minimal'},
+      body:JSON.stringify(datos)
+    });
+    return r.ok;
+  }catch(e){console.error('Supabase:',e);return false;}
+}
+
+// ── EMAILJS
+async function mandarEmail(asunto,cuerpo){
+  if(CONFIG.EMAILJS_SERVICE_ID.includes('TU_SERVICE'))return true;
+  try{
+    emailjs.init(CONFIG.EMAILJS_PUBLIC_KEY);
+    await emailjs.send(CONFIG.EMAILJS_SERVICE_ID,CONFIG.EMAILJS_TEMPLATE_ID,{to_email:CONFIG.EMAIL_DESTINO,subject:asunto,message:cuerpo,reply_to:cuerpo.match(/Email: ([^\n]+)/)?.[1]||''});
+    return true;
+  }catch(e){console.error('EmailJS:',e);return false;}
+}
+
+// ── CALLMEBOT WHATSAPP
+async function mandarWhatsApp(mensaje){
+  if(CONFIG.CALLMEBOT_APIKEY.includes('TU_APIKEY'))return true;
+  try{
+    await fetch(`https://api.callmebot.com/whatsapp.php?phone=${CONFIG.WHATSAPP_NUMBER}&text=${encodeURIComponent(mensaje)}&apikey=${CONFIG.CALLMEBOT_APIKEY}`);
+    return true;
+  }catch(e){console.error('CallMeBot:',e);return false;}
+}
+
+// ── ENVIAR COTIZACIONES
+async function enviarCotizacion(tipo){
+  let datos,cuerpo,asunto,btnId;
+  if(tipo==='eventos'){
+    const n=document.getElementById('ev-nombre').value.trim();
+    const t=document.getElementById('ev-tel').value.trim();
+    const e=document.getElementById('ev-email').value.trim();
+    if(!n||!t||!e){showToast('Faltan datos','Completá nombre, WhatsApp y email.','error');return;}
+    datos={tipo_consulta:'evento',nombre:n,telefono:t,email:e,tipo_evento:document.getElementById('ev-tipo').value,personas:document.getElementById('ev-personas').value,fecha:document.getElementById('ev-fecha').value,mensaje:document.getElementById('ev-msg').value,fecha_consulta:new Date().toISOString()};
+    asunto=`🔥 Nueva cotización de evento — ${n}`;
+    cuerpo=`COTIZACIÓN DE EVENTO\n\nNombre: ${n}\nTeléfono: ${t}\nEmail: ${e}\nTipo: ${datos.tipo_evento}\nPersonas: ${datos.personas||'—'}\nFecha: ${datos.fecha||'—'}\n\nMensaje:\n${datos.mensaje||'—'}`;
+    btnId='btn-eventos';
+  }else{
+    const n=document.getElementById('rd-nombre').value.trim();
+    const t=document.getElementById('rd-tel').value.trim();
+    const e=document.getElementById('rd-email').value.trim();
+    if(!n||!t||!e){showToast('Faltan datos','Completá nombre, WhatsApp y email.','error');return;}
+    datos={tipo_consulta:'redes',nombre:n,telefono:t,email:e,tipo_contenido:document.getElementById('rd-tipo').value,producto:document.getElementById('rd-producto').value,mensaje:document.getElementById('rd-msg').value,fecha_consulta:new Date().toISOString()};
+    asunto=`📱 Nueva consulta de redes — ${n}`;
+    cuerpo=`CONSULTA DE REDES\n\nNombre: ${n}\nTeléfono: ${t}\nEmail: ${e}\nTipo: ${datos.tipo_contenido}\nProducto: ${datos.producto||'—'}\n\nObjetivos:\n${datos.mensaje||'—'}`;
+    btnId='btn-redes';
+  }
+  const btn=document.getElementById(btnId);
+  btn.disabled=true;btn.textContent='Enviando...';
+  await Promise.all([guardarEnSupabase('consultas',datos),mandarEmail(asunto,cuerpo),mandarWhatsApp(asunto+'\n\n'+cuerpo.slice(0,280))]);
+  btn.textContent='✓ Enviado';
+  showToast('¡Cotización enviada! 🔥','Javo te va a contactar en menos de 24hs.','success');
+  setTimeout(()=>{btn.disabled=false;btn.textContent=tipo==='eventos'?'Enviar Cotización →':'Solicitar Media Kit →';},4000);
+}
+
+// ── WAITLIST
+async function suscribirWaitlist(){
+  const email=document.getElementById('rec-waitlist-email').value.trim();
+  if(!email||!email.includes('@')){showToast('Email inválido','Ingresá un email válido.','error');return;}
+  await Promise.all([guardarEnSupabase('waitlist',{email,fecha:new Date().toISOString()}),mandarEmail('📧 Nueva suscripción waitlist',`Email: ${email}`)]);
+  document.getElementById('rec-waitlist-email').value='';
+  showToast('¡Anotado! 📖','Te avisamos cuando salga el próximo recetario.','success');
+}
+
+// ── PRODUCT FILTER
+function filterProducts(cat,btn){
+  document.querySelectorAll('.cat-btn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  document.querySelectorAll('.product-card').forEach(c=>{
+    c.style.display=(cat==='todos'||( c.dataset.cat||'').includes(cat))?'block':'none';
+  });
+}
+
+// ── CHECKOUT
+let coProducto='',coPrecio='';
+function openCheckout(nombre,precio){
+  coProducto=nombre;coPrecio=precio;
+  document.getElementById('modal-product-info').textContent=`${nombre} — $${precio} ARS`;
+  document.getElementById('checkout-modal').classList.add('open');
+  document.querySelectorAll('.pay-detail').forEach(d=>d.classList.remove('show'));
+  document.querySelectorAll('.pay-method').forEach(m=>m.classList.remove('selected'));
+}
+function closeCheckout(){document.getElementById('checkout-modal').classList.remove('open');}
+function selectPayment(type,el){
+  document.querySelectorAll('.pay-method').forEach(m=>m.classList.remove('selected'));
+  document.querySelectorAll('.pay-detail').forEach(d=>d.classList.remove('show'));
+  el.classList.add('selected');
+  document.getElementById('pay-'+type).classList.add('show');
+}
+
+// ── MERCADO PAGO
+async function pagarConMP(){
+  const nombre=document.getElementById('co-nombre').value.trim();
+  const email=document.getElementById('co-email').value.trim();
+  const dir=document.getElementById('co-dir').value.trim();
+  if(!nombre||!email){showToast('Faltan datos','Completá nombre y email.','error');return;}
+  showToast('Preparando pago...','Conectando con Mercado Pago...','');
+  try{
+    const resp=await fetch('/api/create_preference',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({title:coProducto,price:parseFloat(coPrecio.replace(/\./g,'')),quantity:1,buyer_email:email,buyer_name:nombre})});
+    const data=await resp.json();
+    if(data.init_point){
+      await guardarEnSupabase('pedidos',{producto:coProducto,precio:coPrecio,nombre,email,direccion:dir,metodo_pago:'mercadopago',estado:'pendiente',fecha:new Date().toISOString()});
+      window.open(data.init_point,'_blank');
+    }else throw new Error('no init_point');
+  }catch(e){
+    const msg=encodeURIComponent(`Hola Javo! Quiero comprar: ${coProducto} ($${coPrecio})\nNombre: ${nombre}\nEmail: ${email}`);
+    window.open(`https://wa.me/${CONFIG.WHATSAPP_NUMBER}?text=${msg}`,'_blank');
+  }
+}
+
+async function confirmarTransferencia(){
+  const nombre=document.getElementById('co-nombre').value.trim();
+  const email=document.getElementById('co-email').value.trim();
+  if(!nombre||!email){showToast('Faltan datos','Completá tus datos.','error');return;}
+  const datos={producto:coProducto,precio:coPrecio,nombre,email,direccion:document.getElementById('co-dir').value,metodo_pago:'transferencia',estado:'pendiente_pago',fecha:new Date().toISOString()};
+  await Promise.all([
+    guardarEnSupabase('pedidos',datos),
+    mandarEmail(`💰 Nuevo pedido transferencia — ${nombre}`,`Producto: ${coProducto}\nPrecio: $${coPrecio}\nNombre: ${nombre}\nEmail: ${email}`),
+    mandarWhatsApp(`💰 Nuevo pedido por transferencia!\nProducto: ${coProducto}\nCliente: ${nombre}\nEmail: ${email}`)
+  ]);
+  closeCheckout();
+  showToast('¡Pedido confirmado! 🏦','Revisá tu email con los datos. Mandá el comprobante y te enviamos.','success');
+}
+
+// ── LIGHTBOX
+const lbImgs=['img/p24.jpg','img/p25.jpg','img/p14.jpg','img/p15.jpg','img/p16.jpg','img/p17.jpg','img/p18.jpg','img/p19.jpg'];
+let lbIdx=0;
+function openLightbox(i){lbIdx=i;document.getElementById('lightbox-img').src=lbImgs[i];document.getElementById('lightbox').classList.add('open');}
+function closeLightbox(){document.getElementById('lightbox').classList.remove('open');}
+function lightboxNav(d){lbIdx=(lbIdx+d+lbImgs.length)%lbImgs.length;document.getElementById('lightbox-img').src=lbImgs[lbIdx];}
+</script>
+</body>
+</html>
