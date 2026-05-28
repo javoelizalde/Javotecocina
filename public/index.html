@@ -1064,38 +1064,6 @@ footer{background:var(--tierra);border-top:1px solid rgba(196,133,58,0.12);paddi
       <div class="product-card" data-cat="cuchillos keveri"><div class="product-img"><img src="https://images.unsplash.com/photo-1567620905732-2d1ec7ab7445?w=400&q=80" alt="Cuchillos Opinel Set 4"></div><div class="product-body"><div class="product-name">Set Cuchillos Opinel x4</div><div class="product-desc">4 cuchillos de acero inoxidable francés. El complemento perfecto para el parrillero moderno.</div><div class="product-price">$59.900</div><button class="product-btn" onclick="openCheckout('Set Cuchillos Opinel x4','59.900')">Comprar →</button></div></div>
     </div>
   </div>
-  <div class="modal-overlay" id="checkout-modal">
-    <div class="modal">
-      <button class="modal-close" onclick="closeCheckout()">✕</button>
-      <div class="modal-title">Finalizar Compra</div>
-      <div class="modal-product" id="modal-product-info"></div>
-      <div class="form-grid" style="gap:1rem;margin-bottom:1.5rem;">
-        <div class="form-row2"><div class="fg"><label>Nombre</label><input type="text" id="co-nombre" placeholder="Tu nombre"></div><div class="fg"><label>Apellido</label><input type="text" id="co-apellido" placeholder="Tu apellido"></div></div>
-        <div class="fg"><label>Email</label><input type="email" id="co-email" placeholder="tu@email.com"></div>
-        <div class="fg"><label>Teléfono</label><input type="tel" id="co-tel" placeholder="+54 9 387..."></div>
-        <div class="fg"><label>Dirección de entrega</label><input type="text" id="co-dir" placeholder="Calle, número, ciudad, provincia"></div>
-      </div>
-      <p style="font-family:var(--font-data);font-size:0.6rem;letter-spacing:0.18em;text-transform:uppercase;color:var(--niebla);margin-bottom:1rem;">Método de pago</p>
-      <div class="payment-methods">
-        <div class="pay-method" onclick="selectPayment('mp',this)"><div class="pay-icon">💙</div><div class="pay-label">Mercado Pago / Tarjeta</div></div>
-        <div class="pay-method" onclick="selectPayment('transfer',this)"><div class="pay-icon">🏦</div><div class="pay-label">Transferencia</div></div>
-      </div>
-      <div class="pay-detail" id="pay-mp">
-        <p style="font-family:var(--font-body);font-size:0.85rem;color:rgba(245,237,216,0.65);line-height:1.8;font-style:italic;margin-bottom:1.25rem;">Checkout seguro de <strong style="color:var(--sal);font-style:normal;">Mercado Pago</strong>. Pagá con tarjeta de crédito, débito, saldo MP o en cuotas. Redirige al checkout oficial de MP.</p>
-        <button class="btn-fire btn-full" onclick="pagarConMP()" style="clip-path:none;">Pagar ahora →</button>
-      </div>
-      <div class="pay-detail" id="pay-transfer">
-        <div class="transfer-info" style="line-height:2.2;">
-          <p><strong>Banco:</strong> [Tu banco]</p>
-          <p><strong>CBU/CVU:</strong> [Tu CBU]</p>
-          <p><strong>Alias:</strong> JAVO.TE.COCINA</p>
-          <p><strong>Titular:</strong> [Tu nombre real]</p>
-          <p style="margin-top:0.75rem;color:var(--puna);font-style:italic;">Enviá el comprobante a <strong style="font-style:normal;">javoelizalde2001@gmail.com</strong></p>
-        </div>
-        <button class="btn-fire btn-full" onclick="confirmarTransferencia()" style="margin-top:1.25rem;clip-path:none;">Confirmar pedido →</button>
-      </div>
-    </div>
-  </div>
   <footer><div class="footer-inner"><div><span class="f-logo">Javo<span>.</span></span><p class="f-tagline">Productos seleccionados con mi sello personal.</p><p class="f-location">Salta, Argentina</p></div><div class="f-col"><h4>Categorías</h4><ul><li><a>Parrilla</a></li><li><a>Cuchillos</a></li><li><a>Hornos</a></li><li><a>Accesorios</a></li></ul></div><div class="f-col"><h4>Soporte</h4><ul><li><a href="mailto:javoelizalde2001@gmail.com">Contacto</a></li><li><a href="https://wa.me/543874105902" target="_blank">WhatsApp</a></li></ul></div><div class="f-col"><h4>Volver</h4><ul><li><a onclick="showPage('home')">← Inicio</a></li></ul></div></div><div class="footer-bottom"><span class="footer-copy">© 2025 Javo Te Cocina</span><div class="soc-links"><a class="soc-link">IG</a><a class="soc-link">YT</a><a class="soc-link">TK</a></div></div></footer>
 </div>
 
@@ -1674,10 +1642,20 @@ async function guardarEnSupabase(tabla,datos){
 async function mandarEmail(asunto,cuerpo){
   if(CONFIG.EMAILJS_SERVICE_ID.includes('TU_SERVICE'))return true;
   try{
-    emailjs.init(CONFIG.EMAILJS_PUBLIC_KEY);
-    await emailjs.send(CONFIG.EMAILJS_SERVICE_ID,CONFIG.EMAILJS_TEMPLATE_ID,{to_email:CONFIG.EMAIL_DESTINO,subject:asunto,message:cuerpo,reply_to:cuerpo.match(/Email: ([^\n]+)/)?.[1]||''});
+    // EmailJS v4: pasar publicKey directamente en send() sin necesidad de init()
+    await emailjs.send(
+      CONFIG.EMAILJS_SERVICE_ID,
+      CONFIG.EMAILJS_TEMPLATE_ID,
+      {to_email:CONFIG.EMAIL_DESTINO,subject:asunto,message:cuerpo,reply_to:cuerpo.match(/Email: ([^\n]+)/)?.[1]||''},
+      {publicKey: CONFIG.EMAILJS_PUBLIC_KEY}
+    );
     return true;
-  }catch(e){console.error('EmailJS:',e);return false;}
+  }catch(e){
+    console.error('EmailJS error:',e);
+    // Mostrar error visible para debugging en producción
+    showToast('Error al enviar notificación',`EmailJS: ${e?.text||e?.message||JSON.stringify(e)}`,'error');
+    return false;
+  }
 }
 
 // ── CALLMEBOT WHATSAPP
@@ -2037,5 +2015,39 @@ async function loadAdminPanel(){
 // Inicializar auth cuando el DOM esté listo
 initAuth();
 </script>
+
+<!-- ══ CHECKOUT MODAL — debe estar fuera de .page-section para ser visible desde cualquier sección ══ -->
+<div class="modal-overlay" id="checkout-modal">
+  <div class="modal">
+    <button class="modal-close" onclick="closeCheckout()">✕</button>
+    <div class="modal-title">Finalizar Compra</div>
+    <div class="modal-product" id="modal-product-info"></div>
+    <div class="form-grid" style="gap:1rem;margin-bottom:1.5rem;">
+      <div class="form-row2"><div class="fg"><label>Nombre</label><input type="text" id="co-nombre" placeholder="Tu nombre"></div><div class="fg"><label>Apellido</label><input type="text" id="co-apellido" placeholder="Tu apellido"></div></div>
+      <div class="fg"><label>Email</label><input type="email" id="co-email" placeholder="tu@email.com"></div>
+      <div class="fg"><label>Teléfono</label><input type="tel" id="co-tel" placeholder="+54 9 387..."></div>
+      <div class="fg"><label>Dirección de entrega</label><input type="text" id="co-dir" placeholder="Calle, número, ciudad, provincia"></div>
+    </div>
+    <p style="font-family:var(--font-data);font-size:0.6rem;letter-spacing:0.18em;text-transform:uppercase;color:var(--niebla);margin-bottom:1rem;">Método de pago</p>
+    <div class="payment-methods">
+      <div class="pay-method" onclick="selectPayment('mp',this)"><div class="pay-icon">💙</div><div class="pay-label">Mercado Pago / Tarjeta</div></div>
+      <div class="pay-method" onclick="selectPayment('transfer',this)"><div class="pay-icon">🏦</div><div class="pay-label">Transferencia</div></div>
+    </div>
+    <div class="pay-detail" id="pay-mp">
+      <p style="font-family:var(--font-body);font-size:0.85rem;color:rgba(245,237,216,0.65);line-height:1.8;font-style:italic;margin-bottom:1.25rem;">Checkout seguro de <strong style="color:var(--sal);font-style:normal;">Mercado Pago</strong>. Pagá con tarjeta de crédito, débito, saldo MP o en cuotas. Redirige al checkout oficial de MP.</p>
+      <button class="btn-fire btn-full" onclick="pagarConMP()" style="clip-path:none;">Pagar ahora →</button>
+    </div>
+    <div class="pay-detail" id="pay-transfer">
+      <div class="transfer-info" style="line-height:2.2;">
+        <p><strong>Banco:</strong> [Tu banco]</p>
+        <p><strong>CBU/CVU:</strong> [Tu CBU]</p>
+        <p><strong>Alias:</strong> JAVO.TE.COCINA</p>
+        <p><strong>Titular:</strong> [Tu nombre real]</p>
+        <p style="margin-top:0.75rem;color:var(--puna);font-style:italic;">Enviá el comprobante a <strong style="font-style:normal;">javoelizalde2001@gmail.com</strong></p>
+      </div>
+      <button class="btn-fire btn-full" onclick="confirmarTransferencia()" style="margin-top:1.25rem;clip-path:none;">Confirmar pedido →</button>
+    </div>
+  </div>
+</div>
 </body>
 </html>
