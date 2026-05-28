@@ -1,0 +1,1323 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Todo sobre Fierros — Javo Te Cocina</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400;1,600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --tierra: #2C1A0E;
+      --puna: #C4853A;
+      --fuego: #D4521A;
+      --sal: #F5EDD8;
+      --ceniza: #6B5744;
+      --blanco: #FFFFF0;
+    }
+
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      background-color: var(--tierra);
+      color: var(--sal);
+      font-family: 'Libre Baskerville', Georgia, serif;
+      font-size: 16px;
+      line-height: 1.7;
+    }
+
+    /* ── NAV ── */
+    .nav-top {
+      background: rgba(20, 10, 4, 0.95);
+      border-bottom: 1px solid rgba(196, 133, 58, 0.3);
+      padding: 0.75rem 2rem;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      backdrop-filter: blur(6px);
+    }
+
+    .nav-top a {
+      color: var(--puna);
+      text-decoration: none;
+      font-family: 'Space Mono', monospace;
+      font-size: 0.8rem;
+      letter-spacing: 0.05em;
+      transition: color 0.2s;
+    }
+
+    .nav-top a:hover {
+      color: var(--sal);
+    }
+
+    .nav-top a::before {
+      content: '← ';
+    }
+
+    /* ── HERO / PORTADA ── */
+    .hero {
+      background: linear-gradient(
+        160deg,
+        #0d0500 0%,
+        #1a0c04 20%,
+        #2C1A0E 45%,
+        #3d1f08 65%,
+        #5c2a08 80%,
+        #8B3A0F 90%,
+        #D4521A 100%
+      );
+      position: relative;
+      overflow: hidden;
+      padding: 5rem 2rem 4rem;
+      text-align: center;
+      min-height: 60vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+
+    /* Brasas animadas — puntos de luz */
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 120px 60px at 15% 85%, rgba(212,82,26,0.35) 0%, transparent 70%),
+        radial-gradient(ellipse 80px 40px at 75% 90%, rgba(196,133,58,0.3) 0%, transparent 70%),
+        radial-gradient(ellipse 200px 100px at 50% 95%, rgba(212,82,26,0.2) 0%, transparent 70%),
+        radial-gradient(ellipse 60px 30px at 30% 88%, rgba(255,160,50,0.25) 0%, transparent 70%),
+        radial-gradient(ellipse 100px 50px at 88% 82%, rgba(212,82,26,0.2) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .hero::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: repeating-linear-gradient(
+        0deg,
+        transparent,
+        transparent 3px,
+        rgba(0,0,0,0.04) 3px,
+        rgba(0,0,0,0.04) 4px
+      );
+      pointer-events: none;
+    }
+
+    .hero-eyebrow {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.75rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--puna);
+      margin-bottom: 1.5rem;
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(3rem, 10vw, 7rem);
+      font-weight: 700;
+      line-height: 0.95;
+      color: var(--blanco);
+      text-shadow:
+        0 0 80px rgba(212,82,26,0.6),
+        0 2px 4px rgba(0,0,0,0.8);
+      position: relative;
+      z-index: 1;
+      margin-bottom: 1rem;
+    }
+
+    .hero-subtitle {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(1.1rem, 3vw, 1.5rem);
+      font-weight: 300;
+      font-style: italic;
+      color: var(--puna);
+      position: relative;
+      z-index: 1;
+      margin-bottom: 2rem;
+    }
+
+    .hero-divider {
+      width: 80px;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, var(--fuego), transparent);
+      margin: 0 auto 2rem;
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero-meta {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.72rem;
+      letter-spacing: 0.12em;
+      color: var(--ceniza);
+      position: relative;
+      z-index: 1;
+    }
+
+    /* ── CONTAINER ── */
+    .container {
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 0 1.5rem;
+    }
+
+    /* ── INTRO ── */
+    .intro-section {
+      padding: 4rem 0 3rem;
+      border-bottom: 1px solid rgba(196,133,58,0.2);
+    }
+
+    .intro-section p {
+      font-size: 1.1rem;
+      line-height: 1.85;
+      color: var(--sal);
+      max-width: 700px;
+    }
+
+    .section-label {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.7rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--fuego);
+      margin-bottom: 1rem;
+    }
+
+    /* ── GUÍA DE CORTES ── */
+    .guia-section {
+      padding: 4rem 0;
+      border-bottom: 1px solid rgba(196,133,58,0.2);
+    }
+
+    .guia-section h2 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2.2rem;
+      font-weight: 600;
+      color: var(--blanco);
+      margin-bottom: 0.5rem;
+    }
+
+    .guia-section .subtitle {
+      font-style: italic;
+      color: var(--ceniza);
+      margin-bottom: 2rem;
+      font-size: 0.95rem;
+    }
+
+    .table-wrapper {
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    .cortes-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.9rem;
+    }
+
+    .cortes-table thead tr {
+      background: rgba(212,82,26,0.15);
+      border-bottom: 2px solid var(--fuego);
+    }
+
+    .cortes-table th {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.68rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--puna);
+      padding: 0.75rem 1rem;
+      text-align: left;
+      white-space: nowrap;
+    }
+
+    .cortes-table td {
+      padding: 0.75rem 1rem;
+      border-bottom: 1px solid rgba(107,87,68,0.3);
+      color: var(--sal);
+      vertical-align: top;
+    }
+
+    .cortes-table tr:last-child td {
+      border-bottom: none;
+    }
+
+    .cortes-table tr:hover td {
+      background: rgba(61,37,16,0.5);
+    }
+
+    .cortes-table td:nth-child(2),
+    .cortes-table td:nth-child(3),
+    .cortes-table td:nth-child(4) {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.82rem;
+    }
+
+    .temp-badge {
+      display: inline-block;
+      background: rgba(212,82,26,0.2);
+      border: 1px solid rgba(212,82,26,0.4);
+      border-radius: 3px;
+      padding: 0.1rem 0.4rem;
+      color: var(--puna);
+      font-size: 0.75rem;
+    }
+
+    /* ── RECETAS SECTION ── */
+    .recetas-section {
+      padding: 4rem 0 2rem;
+    }
+
+    .recetas-section > h2 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2.2rem;
+      font-weight: 600;
+      color: var(--blanco);
+      margin-bottom: 0.4rem;
+    }
+
+    .recetas-section > .section-intro {
+      color: var(--ceniza);
+      font-style: italic;
+      margin-bottom: 3rem;
+      font-size: 0.95rem;
+    }
+
+    /* ── RECETA CARD ── */
+    .receta-card {
+      background: #3D2510;
+      border-left: 4px solid var(--fuego);
+      border-radius: 0 6px 6px 0;
+      padding: 2.5rem 2rem 2rem;
+      margin-bottom: 2.5rem;
+      position: relative;
+    }
+
+    .receta-number {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.7rem;
+      letter-spacing: 0.2em;
+      color: var(--fuego);
+      opacity: 0.7;
+      margin-bottom: 0.4rem;
+    }
+
+    .receta-card h3 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(1.6rem, 4vw, 2.1rem);
+      font-weight: 700;
+      color: var(--blanco);
+      line-height: 1.15;
+      margin-bottom: 1rem;
+    }
+
+    .badges {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .badge {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.72rem;
+      padding: 0.25rem 0.6rem;
+      border-radius: 3px;
+      white-space: nowrap;
+    }
+
+    .badge-porciones {
+      background: rgba(196,133,58,0.15);
+      border: 1px solid rgba(196,133,58,0.4);
+      color: var(--puna);
+    }
+
+    .badge-prep {
+      background: rgba(107,87,68,0.25);
+      border: 1px solid rgba(107,87,68,0.5);
+      color: #b09880;
+    }
+
+    .badge-coccion {
+      background: rgba(212,82,26,0.12);
+      border: 1px solid rgba(212,82,26,0.35);
+      color: #e0845a;
+    }
+
+    .receta-intro {
+      font-style: italic;
+      color: #c9b89f;
+      margin-bottom: 1.8rem;
+      font-size: 0.97rem;
+      line-height: 1.75;
+      border-left: 2px solid rgba(196,133,58,0.25);
+      padding-left: 1rem;
+    }
+
+    .receta-section-title {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.68rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--puna);
+      margin-bottom: 0.75rem;
+      margin-top: 1.5rem;
+    }
+
+    .ingredientes-list {
+      list-style: none;
+      padding: 0;
+      margin-bottom: 0.5rem;
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 0.3rem 1.5rem;
+    }
+
+    .ingredientes-list li {
+      color: var(--sal);
+      font-size: 0.93rem;
+      padding: 0.2rem 0;
+      border-bottom: 1px dotted rgba(107,87,68,0.3);
+      display: flex;
+      align-items: baseline;
+      gap: 0.4rem;
+    }
+
+    .ingredientes-list li::before {
+      content: '—';
+      color: var(--fuego);
+      flex-shrink: 0;
+      font-size: 0.8rem;
+    }
+
+    .pasos-list {
+      list-style: none;
+      padding: 0;
+      counter-reset: paso-counter;
+      margin-bottom: 0.5rem;
+    }
+
+    .pasos-list li {
+      counter-increment: paso-counter;
+      display: flex;
+      gap: 1rem;
+      margin-bottom: 0.9rem;
+      align-items: flex-start;
+      font-size: 0.93rem;
+      color: var(--sal);
+      line-height: 1.65;
+    }
+
+    .pasos-list li::before {
+      content: counter(paso-counter);
+      font-family: 'Space Mono', monospace;
+      font-size: 0.72rem;
+      font-weight: 700;
+      color: var(--fuego);
+      background: rgba(212,82,26,0.12);
+      border: 1px solid rgba(212,82,26,0.3);
+      border-radius: 3px;
+      width: 24px;
+      height: 24px;
+      min-width: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-top: 0.1rem;
+    }
+
+    .tip-box {
+      background: rgba(212,82,26,0.1);
+      border: 1px solid rgba(212,82,26,0.35);
+      border-left: 3px solid var(--fuego);
+      border-radius: 0 4px 4px 0;
+      padding: 1rem 1.2rem;
+      margin-top: 1.5rem;
+    }
+
+    .tip-box .tip-label {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.65rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--fuego);
+      margin-bottom: 0.4rem;
+      display: block;
+    }
+
+    .tip-box p {
+      color: var(--sal);
+      font-size: 0.92rem;
+      line-height: 1.65;
+      margin: 0;
+    }
+
+    /* ── FOOTER ── */
+    .footer {
+      background: #1a0d05;
+      border-top: 1px solid rgba(196,133,58,0.2);
+      padding: 3rem 2rem 2rem;
+      text-align: center;
+      margin-top: 4rem;
+    }
+
+    .footer-logo {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.8rem;
+      font-weight: 600;
+      color: var(--puna);
+      margin-bottom: 0.4rem;
+    }
+
+    .footer-tagline {
+      font-style: italic;
+      color: var(--ceniza);
+      font-size: 0.9rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 2rem;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-bottom: 1.5rem;
+    }
+
+    .footer-links a {
+      color: var(--ceniza);
+      text-decoration: none;
+      font-family: 'Space Mono', monospace;
+      font-size: 0.72rem;
+      letter-spacing: 0.08em;
+      transition: color 0.2s;
+    }
+
+    .footer-links a:hover {
+      color: var(--puna);
+    }
+
+    .footer-copy {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.65rem;
+      color: rgba(107,87,68,0.6);
+      letter-spacing: 0.05em;
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 640px) {
+      .hero {
+        padding: 4rem 1.5rem 3rem;
+        min-height: 50vh;
+      }
+
+      .receta-card {
+        padding: 1.8rem 1.2rem 1.5rem;
+      }
+
+      .ingredientes-list {
+        grid-template-columns: 1fr;
+      }
+
+      .badges {
+        gap: 0.4rem;
+      }
+
+      .cortes-table th,
+      .cortes-table td {
+        padding: 0.6rem 0.6rem;
+        font-size: 0.82rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav class="nav-top">
+    <a href="/">Volver a javotecocina.com</a>
+  </nav>
+
+  <!-- HERO -->
+  <header class="hero">
+    <p class="hero-eyebrow">Javo Te Cocina · Recetario Vol. I</p>
+    <h1 class="hero-title">Todo sobre<br>Fierros</h1>
+    <p class="hero-subtitle">Dominar el fuego es dominar la parrilla</p>
+    <div class="hero-divider"></div>
+    <p class="hero-meta">14 recetas · Salta, Argentina · Parrilla &amp; Asado</p>
+  </header>
+
+  <!-- INTRO -->
+  <main>
+    <section class="intro-section">
+      <div class="container">
+        <p class="section-label">Presentación</p>
+        <p>
+          El asado es religión en Argentina, pero en el norte tiene su propia liturgia. Javo aprendió a encender
+          el fuego antes de aprender a leer, guiado por el olor del quebracho ardiendo y el chisporroteo de la
+          grasa cayendo sobre las brasas. Creció viendo a su familia reunirse alrededor de la parrilla cada
+          domingo, y entiende que el asado no es solo comida: es un ritual de pertenencia, de tiempo compartido,
+          de identidad norteña.
+        </p>
+        <br />
+        <p>
+          En este recetario comparte todo lo que sabe sobre la parrilla: desde encender las brasas hasta lograr
+          el punto perfecto de cada corte. No hay secretos guardados — solo técnica honesta, instinto cultivado
+          y el respeto profundo que el fuego merece.
+        </p>
+      </div>
+    </section>
+
+    <!-- GUÍA DE CORTES -->
+    <section class="guia-section">
+      <div class="container">
+        <p class="section-label">Referencia rápida</p>
+        <h2>Guía de Cortes</h2>
+        <p class="subtitle">Temperatura interna y tiempo estimado según corte y punto deseado</p>
+
+        <div class="table-wrapper">
+          <table class="cortes-table">
+            <thead>
+              <tr>
+                <th>Corte</th>
+                <th>Punto</th>
+                <th>Temp. interna</th>
+                <th>Tiempo estimado</th>
+                <th>Notas</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Tira de asado</td>
+                <td>Jugoso</td>
+                <td><span class="temp-badge">65–70 °C</span></td>
+                <td>1h 20–1h 40</td>
+                <td>Hueso arriba primeros 40 min</td>
+              </tr>
+              <tr>
+                <td>Vacío</td>
+                <td>Medio</td>
+                <td><span class="temp-badge">68–72 °C</span></td>
+                <td>1h 10–1h 30</td>
+                <td>Cuero crocante, no quemado</td>
+              </tr>
+              <tr>
+                <td>Entraña</td>
+                <td>Medio-rojo</td>
+                <td><span class="temp-badge">55–60 °C</span></td>
+                <td>8–12 min</td>
+                <td>Fuego muy alto, vuelta y vuelta</td>
+              </tr>
+              <tr>
+                <td>Costillar de cerdo</td>
+                <td>Bien cocido</td>
+                <td><span class="temp-badge">74–77 °C</span></td>
+                <td>1h 45–2h 15</td>
+                <td>Cubrir con aluminio los primeros 60 min</td>
+              </tr>
+              <tr>
+                <td>Cordero en mariposa</td>
+                <td>Rosado</td>
+                <td><span class="temp-badge">65–68 °C</span></td>
+                <td>3h–4h</td>
+                <td>Fuego bajo, paciencia obligatoria</td>
+              </tr>
+              <tr>
+                <td>Lechón entero</td>
+                <td>Bien cocido</td>
+                <td><span class="temp-badge">77–80 °C</span></td>
+                <td>5–6h</td>
+                <td>Girar la cruz cada 30 min las primeras 2h</td>
+              </tr>
+              <tr>
+                <td>Pollo entero</td>
+                <td>Completo</td>
+                <td><span class="temp-badge">74 °C pechuga</span></td>
+                <td>1h 20–1h 40</td>
+                <td>Aplanar y poner piedra encima</td>
+              </tr>
+              <tr>
+                <td>Mollejas</td>
+                <td>Doradas y tiernas</td>
+                <td><span class="temp-badge">—</span></td>
+                <td>25–35 min</td>
+                <td>Remojar 2h antes en agua con limón</td>
+              </tr>
+              <tr>
+                <td>Chinchulines</td>
+                <td>Crujientes</td>
+                <td><span class="temp-badge">—</span></td>
+                <td>35–45 min</td>
+                <td>Parrilla alta al inicio, baja para terminar</td>
+              </tr>
+              <tr>
+                <td>Chorizos</td>
+                <td>Interior cocido</td>
+                <td><span class="temp-badge">70 °C</span></td>
+                <td>18–25 min</td>
+                <td>Pinchar solo al final para verificar</td>
+              </tr>
+              <tr>
+                <td>Morcilla</td>
+                <td>Caliente y entera</td>
+                <td><span class="temp-badge">—</span></td>
+                <td>12–18 min</td>
+                <td>Solo brasas suaves, sin llama directa</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- RECETAS -->
+    <section class="recetas-section">
+      <div class="container">
+        <p class="section-label">El recetario</p>
+        <h2>Las 14 Recetas</h2>
+        <p class="section-intro">De la brasa al plato — técnica norteña sin concesiones.</p>
+
+        <!-- RECETA 1 -->
+        <article class="receta-card" id="asado-clasico">
+          <p class="receta-number">01 / 14</p>
+          <h3>Asado Clásico del Domingo</h3>
+          <div class="badges">
+            <span class="badge badge-porciones">10 porciones</span>
+            <span class="badge badge-prep">Prep: 20 min</span>
+            <span class="badge badge-coccion">Cocción: 2 hs</span>
+          </div>
+          <p class="receta-intro">
+            El domingo en casa de la familia de Javo empezaba con el ruido del quebracho partido, no con el despertador.
+            El asado del domingo no es una comida: es una ceremonia de bienvenida. Esta es la receta base, la que une a
+            todos alrededor del fuego sin importar cuántos lleguen a la mesa.
+          </p>
+
+          <p class="receta-section-title">Ingredientes</p>
+          <ul class="ingredientes-list">
+            <li>3 kg de tira de asado (corte grueso)</li>
+            <li>2 kg de vacío entero</li>
+            <li>8 chorizos frescos</li>
+            <li>4 morcillas de sangre</li>
+            <li>Sal parrillera gruesa</li>
+            <li>2 atados de quebracho o leña dura</li>
+            <li>1 taza de chimichurri (ver tip)</li>
+          </ul>
+          <p class="receta-section-title">Para el chimichurri clásico</p>
+          <ul class="ingredientes-list">
+            <li>1 taza de perejil picado fino</li>
+            <li>6 dientes de ajo picados</li>
+            <li>2 cdas de orégano seco</li>
+            <li>1 cda de ají molido</li>
+            <li>½ taza de aceite de oliva</li>
+            <li>3 cdas de vinagre de vino tinto</li>
+            <li>Sal y pimienta negra a gusto</li>
+          </ul>
+
+          <p class="receta-section-title">Preparación</p>
+          <ol class="pasos-list">
+            <li>Encender el fuego con quebracho al menos 45 minutos antes de poner la carne. Esperar a que las brasas estén bien formadas, blancas por fuera y rojas por dentro, sin llama activa.</li>
+            <li>Disponer las brasas de manera pareja bajo la parrilla. La parrilla debe estar a 15 cm de las brasas — ni más cerca ni más lejos. Calentar la parrilla durante 10 minutos antes de poner la carne.</li>
+            <li>Salar la tira de asado generosamente por ambos lados con sal gruesa. Colocar con el hueso hacia arriba primero.</li>
+            <li>Agregar el vacío a la parrilla, con el cuero hacia abajo si lo tiene. Salar por la carne expuesta.</li>
+            <li>Cocinar la tira durante 40 minutos con el hueso arriba. Girar y continuar otros 40–50 minutos del lado de la carne, controlando que las brasas se mantengan parejas.</li>
+            <li>A los 60 minutos de iniciado el fuego, agregar chorizos y morcillas al costado de la parrilla donde el calor es más suave.</li>
+            <li>Preparar el chimichurri mezclando todos los ingredientes. Dejar reposar al menos 20 minutos para que los sabores se integren.</li>
+            <li>Retirar morcillas y chorizos cuando estén bien dorados (15–20 min). Servir como entrada mientras continúa la cocción de las carnes.</li>
+            <li>El vacío está listo cuando al presionarlo con el dedo cede suavemente pero tiene resistencia. La tira está a punto cuando el hueso se separa sin esfuerzo extremo.</li>
+            <li>Retirar, dejar reposar 5 minutos sobre tabla, cortar en porciones y servir con chimichurri en mesa.</li>
+          </ol>
+
+          <div class="tip-box">
+            <span class="tip-label">Tip de Javo</span>
+            <p>La parrilla debe estar exactamente a 15 cm de las brasas, nunca más cerca. Si acercás la parrilla apurando el fuego, la carne se sella por fuera pero queda cruda por dentro. El asado no admite apurones — el fuego manda, vos acompañás.</p>
+          </div>
+        </article>
+
+        <!-- RECETA 2 -->
+        <article class="receta-card" id="tira-de-asado">
+          <p class="receta-number">02 / 14</p>
+          <h3>Tira de Asado al Punto</h3>
+          <div class="badges">
+            <span class="badge badge-porciones">6 porciones</span>
+            <span class="badge badge-prep">Prep: 10 min</span>
+            <span class="badge badge-coccion">Cocción: 1h 30 min</span>
+          </div>
+          <p class="receta-intro">
+            La tira de asado es el corte más democrático de Argentina y el que más fácilmente se arruina por error.
+            Javo cree que la tira solo necesita sal y fuego — cualquier otra cosa es distracción. La técnica de los
+            tres sellados es lo que separa una tira memorable de una mediocre.
+          </p>
+
+          <p class="receta-section-title">Ingredientes</p>
+          <ul class="ingredientes-list">
+            <li>2 kg de tira de asado (3–4 cm de espesor)</li>
+            <li>Sal parrillera gruesa (solo eso)</li>
+          </ul>
+
+          <p class="receta-section-title">Preparación — Técnica de los 3 sellados</p>
+          <ol class="pasos-list">
+            <li>Encender el fuego con buena leña (quebracho ideal) al menos 50 minutos antes. Las brasas deben ser abundantes, parejas y sin llama.</li>
+            <li>Salar la tira por ambos lados con sal gruesa. No masajear — solo apoyar la sal sobre la superficie.</li>
+            <li>Primer sellado: colocar la tira con el hueso hacia arriba sobre la parrilla a 15 cm de las brasas. Este primer tiempo es el más largo: 40 minutos sin mover ni voltear.</li>
+            <li>Girar la tira (hueso hacia abajo). Segundo sellado: 30 minutos del lado de la carne.</li>
+            <li>Girar nuevamente (hueso arriba). Tercer sellado: 15–20 minutos finales. En este punto la grasa entre los huesos debe estar burbujeando y dorada.</li>
+            <li>Retirar y reposar 5 minutos antes de cortar. La tira se sirve sobre tabla de madera, no en plato.</li>
+          </ol>
+
+          <div class="tip-box">
+            <span class="tip-label">Tip de Javo</span>
+            <p>El hueso para arriba los primeros 40 minutos no es capricho — el hueso actúa como escudo térmico y la cocción sube desde abajo de manera uniforme. Si das vuelta la tira antes de tiempo, perdés ese calor acumulado y la carne se endurece.</p>
+          </div>
+        </article>
+
+        <!-- RECETA 3 -->
+        <article class="receta-card" id="vacio">
+          <p class="receta-number">03 / 14</p>
+          <h3>Vacío a la Parrilla</h3>
+          <div class="badges">
+            <span class="badge badge-porciones">6 porciones</span>
+            <span class="badge badge-prep">Prep: 10 min</span>
+            <span class="badge badge-coccion">Cocción: 1h 20 min</span>
+          </div>
+          <p class="receta-intro">
+            En el norte argentino, el vacío es el corte emblema. Tiene la particularidad de la membrana grasa
+            y el cuero que, bien trabajados, se vuelven una capa crocante casi irresistible. Javo lo sirve siempre
+            entero sobre tabla y lo corta en la mesa frente a todos — es parte del show.
+          </p>
+
+          <p class="receta-section-title">Ingredientes</p>
+          <ul class="ingredientes-list">
+            <li>1 vacío entero (2–2.5 kg)</li>
+            <li>Sal gruesa parrillera</li>
+            <li>1 limón (para finalizar)</li>
+          </ul>
+
+          <p class="receta-section-title">Preparación</p>
+          <ol class="pasos-list">
+            <li>El vacío debe estar a temperatura ambiente antes de entrar a la parrilla. Sacarlo de la heladera al menos 30 minutos antes.</li>
+            <li>Salar generosamente por el lado de la carne. El cuero o membrana no necesita sal previa.</li>
+            <li>Colocar el vacío con el cuero o membrana hacia abajo primero. Fuego moderado, parrilla a 18 cm de las brasas.</li>
+            <li>Cocinar 50 minutos del lado del cuero sin mover. La membrana debe quedar dorada y comenzar a tostarse — esto es lo que buscamos.</li>
+            <li>Girar y cocinar 30 minutos del lado de la carne. En este punto la grasa habrá empezado a fundirse hacia adentro del corte.</li>
+            <li>Verificar el punto presionando el centro: debe ceder con suavidad firme. No debe "rebotar" (crudo) ni hundirse sin resistencia (pasado).</li>
+            <li>Retirar, exprimir medio limón sobre la superficie y dejar reposar 5 minutos. Cortar en el sentido contrario a las fibras.</li>
+          </ol>
+
+          <div class="tip-box">
+            <span class="tip-label">Tip de Javo</span>
+            <p>El cuero del vacío debe quedar crocante pero no quemado — hay una diferencia enorme entre dorado oscuro y carbonizado. Si el cuero se quema, la amargura arruina toda la pieza. Controlá el calor bajando brasas si es necesario.</p>
+          </div>
+        </article>
+
+        <!-- RECETA 4 -->
+        <article class="receta-card" id="costillar-cerdo">
+          <p class="receta-number">04 / 14</p>
+          <h3>Costillar de Cerdo a las Brasas</h3>
+          <div class="badges">
+            <span class="badge badge-porciones">8 porciones</span>
+            <span class="badge badge-prep">Prep: 30 min + marinada 4h</span>
+            <span class="badge badge-coccion">Cocción: 2 hs</span>
+          </div>
+          <p class="receta-intro">
+            El cerdo en la parrilla norteña ocupa un lugar especial — se faea en las fiestas y se cocina lento,
+            con paciencia y generosidad. Esta marinada es la receta de la madre de Javo, simplificada al máximo
+            pero sin perder su esencia: ajo, pimentón y limón.
+          </p>
+
+          <p class="receta-section-title">Ingredientes</p>
+          <ul class="ingredientes-list">
+            <li>1 costillar de cerdo entero (2.5 kg aprox)</li>
+            <li>8 dientes de ajo picados</li>
+            <li>3 cdas de pimentón dulce</li>
+            <li>1 cda de pimentón picante</li>
+            <li>Jugo de 2 limones</li>
+            <li>½ taza de aceite de oliva</li>
+            <li>1 cda de sal gruesa</li>
+            <li>1 cdita de orégano seco</li>
+            <li>Pimienta negra molida</li>
+          </ul>
+
+          <p class="receta-section-title">Preparación</p>
+          <ol class="pasos-list">
+            <li>Mezclar el ajo, ambos pimentones, jugo de limón, aceite, sal, orégano y pimienta en un bowl hasta obtener una pasta.</li>
+            <li>Cubrir el costillar con la marinada por ambos lados. Masajear bien entre los huesos. Envolver en film y refrigerar mínimo 4 horas (ideal: de un día para el otro).</li>
+            <li>Sacar el costillar de la heladera 1 hora antes de cocinar para que alcance temperatura ambiente.</li>
+            <li>Preparar brasas moderadas. Colocar el costillar con el lado del hueso hacia abajo sobre la parrilla a 18 cm.</li>
+            <li>Cubrir con papel de aluminio de manera holgada los primeros 60 minutos. Este paso "atrapa" el vapor y cocina el interior sin secar la carne.</li>
+            <li>Quitar el aluminio. Girar y cocinar otros 50–60 minutos destapado, rotando cada 15 minutos para dorar parejo.</li>
+            <li>Los últimos 10 minutos, subir el costillar un poco más cerca de las brasas para caramelizar la marinada exterior.</li>
+            <li>Retirar cuando el hueso se mueve con facilidad al girarlo. Reposar 10 minutos antes de cortar entre huesos.</li>
+          </ol>
+
+          <div class="tip-box">
+            <span class="tip-label">Tip de Javo</span>
+            <p>Tapar con papel de aluminio los primeros 60 minutos no es hacer trampa — es inteligencia. El cerdo necesita tiempo para cocerse por dentro sin quemarse por fuera. Si lo ponés descubierto todo el tiempo, terminás con carbón afuera y carne rosada adentro.</p>
+          </div>
+        </article>
+
+        <!-- RECETA 5 -->
+        <article class="receta-card" id="chorizos-caseros">
+          <p class="receta-number">05 / 14</p>
+          <h3>Chorizos Caseros</h3>
+          <div class="badges">
+            <span class="badge badge-porciones">20 unidades</span>
+            <span class="badge badge-prep">Prep: 40 min + reposo 12h</span>
+            <span class="badge badge-coccion">Cocción: 20 min</span>
+          </div>
+          <p class="receta-intro">
+            Hacer chorizos en casa es uno de esos gestos que convierten la cocina en un acto de amor. Javo
+            aprendió la técnica en una carnicería de barrio en Salta y nunca volvió a comprar chorizos
+            industriales. El secreto está en la proporción de grasa y el comino — inconfundiblemente norteño.
+          </p>
+
+          <p class="receta-section-title">Ingredientes</p>
+          <ul class="ingredientes-list">
+            <li>800 g de carne de cerdo (paleta o pierna)</li>
+            <li>600 g de carne de vacuno (rosbif o paleta)</li>
+            <li>300 g de grasa de cerdo (tocino)</li>
+            <li>6 dientes de ajo picados muy fino</li>
+            <li>2 cdas de pimentón dulce</li>
+            <li>1 cda de pimentón picante</li>
+            <li>½ taza de vino tinto seco</li>
+            <li>1 cda colmada de sal gruesa</li>
+            <li>1 cdita de pimienta negra molida</li>
+            <li>1 cdita de comino molido</li>
+            <li>Tripas naturales de cerdo (remojadas 30 min en agua tibia)</li>
+          </ul>
+
+          <p class="receta-section-title">Preparación</p>
+          <ol class="pasos-list">
+            <li>Picar las carnes y la grasa en trozos pequeños. Mezclar todo en un bowl grande.</li>
+            <li>Agregar ajo, pimentones, sal, pimienta y comino. Mezclar bien con las manos hasta integrar.</li>
+            <li>Agregar el vino tinto de a poco mientras se sigue mezclando. La mezcla debe quedar húmeda pero sin escurrir líquido.</li>
+            <li>Cubrir y refrigerar durante 12 horas para que los sabores se integren y la mezcla se afirme.</li>
+            <li>Lavar las tripas bajo agua corriente. Atar un extremo y colocar sobre el embudo de la embutidora.</li>
+            <li>Embutir la mezcla sin comprimir demasiado — los chorizos deben tener cuerpo pero no estar tensos (explotan al cocinar).</li>
+            <li>Formar porciones de 15 cm retorciendo la tripa cada vez. Atar los extremos y refrigerar 2 horas más antes de cocinar.</li>
+            <li>A la parrilla: brasas medianas, cocinar 18–22 minutos girando cada 5 minutos hasta dorar parejo.</li>
+          </ol>
+
+          <div class="tip-box">
+            <span class="tip-label">Tip de Javo</span>
+            <p>Pinchar el chorizo una sola vez, justo al final, para verificar que el jugo salga claro (no rosado). Pincharlo antes durante la cocción es el error más común — pierde todos los jugos y queda seco. La tripa entera actúa como envoltorio que retiene la humedad.</p>
+          </div>
+        </article>
+
+        <!-- RECETA 6 -->
+        <article class="receta-card" id="morcilla-chimichurri">
+          <p class="receta-number">06 / 14</p>
+          <h3>Morcilla con Chimichurri Picante</h3>
+          <div class="badges">
+            <span class="badge badge-porciones">6 porciones</span>
+            <span class="badge badge-prep">Prep: 5 min</span>
+            <span class="badge badge-coccion">Cocción: 15 min</span>
+          </div>
+          <p class="receta-intro">
+            La morcilla es lo primero que sale de la parrilla y lo primero que desaparece de la tabla. En el norte
+            de Argentina se acompaña con chimichurri de ají del monte — un condimento que tiene más historia que
+            receta escrita. Javo la sirve con pan de campo tostado directamente en la parrilla.
+          </p>
+
+          <p class="receta-section-title">Ingredientes</p>
+          <ul class="ingredientes-list">
+            <li>6 morcillas de sangre frescas</li>
+            <li>Pan de campo (o pan de molde grueso)</li>
+            <li>2 cdas de perejil picado fino</li>
+            <li>4 dientes de ajo picados</li>
+            <li>2 ajíes del monte (o ají molido picante)</li>
+            <li>1 cda de orégano seco</li>
+            <li>½ taza de aceite de oliva</li>
+            <li>2 cdas de vinagre de vino tinto</li>
+            <li>Sal a gusto</li>
+          </ul>
+
+          <p class="receta-section-title">Preparación</p>
+          <ol class="pasos-list">
+            <li>Preparar el chimichurri picante: mezclar perejil, ajo, ajíes del monte (picados finos o en polvo), orégano, aceite, vinagre y sal. Reservar al menos 15 minutos.</li>
+            <li>Asegurarse de que las brasas estén formadas y suaves — sin llama activa. La morcilla necesita calor moderado y parejo.</li>
+            <li>Colocar las morcillas en el extremo más fresco de la parrilla, lejos de la concentración de brasas.</li>
+            <li>Cocinar 12–15 minutos girando suavemente cada 4 minutos. No presionar ni pinchar — la morcilla debe calentarse de adentro hacia afuera.</li>
+            <li>Tostar el pan de campo sobre la parrilla durante los últimos 3 minutos, hasta que quede dorado y crujiente.</li>
+            <li>Retirar la morcilla cuando la piel esté bien dorada y ligeramente tensa. Servir de inmediato con pan y chimichurri.</li>
+          </ol>
+
+          <div class="tip-box">
+            <span class="tip-label">Tip de Javo</span>
+            <p>La morcilla no necesita llama, solo brasas suaves. Es una embutición ya cocida — el objetivo es calentarla y dorar la piel, no cocinarla de cero. Con llama directa la piel se rompe y pierde el jugo. Con brasas suaves queda entera, jugosa y perfecta.</p>
+          </div>
+        </article>
+
+        <!-- RECETA 7 -->
+        <article class="receta-card" id="mollejas">
+          <p class="receta-number">07 / 14</p>
+          <h3>Mollejas a la Parrilla</h3>
+          <div class="badges">
+            <span class="badge badge-porciones">4 porciones</span>
+            <span class="badge badge-prep">Prep: 20 min + remojo 2h</span>
+            <span class="badge badge-coccion">Cocción: 30 min</span>
+          </div>
+          <p class="receta-intro">
+            Las mollejas son las reinas de la parrilla norteña y el corte que más respeto requiere. Cuando
+            están bien limpias y bien cocinadas, tienen una textura cremosa por dentro y una costra dorada por
+            fuera que no tiene comparación. Javo insiste: la limpieza previa no es opcional.
+          </p>
+
+          <p class="receta-section-title">Ingredientes</p>
+          <ul class="ingredientes-list">
+            <li>800 g de mollejas de corazón</li>
+            <li>Sal gruesa parrillera</li>
+            <li>2 limones</li>
+            <li>Agua fría</li>
+          </ul>
+
+          <p class="receta-section-title">Preparación</p>
+          <ol class="pasos-list">
+            <li>Limpiar las mollejas: retirar membranas gruesas y tejido graso visible. No eliminar toda la grasa — algo de grasa es lo que las hace cremosas.</li>
+            <li>Colocar en un bowl con agua fría, el jugo de 1 limón y sal. Dejar en remojo 2 horas en la heladera. Este paso elimina el sabor fuerte y aclara el tejido.</li>
+            <li>Retirar del agua, secar con papel de cocina. Salar con sal gruesa por todos lados.</li>
+            <li>Llevar a la parrilla sobre brasas medias-altas. Primer sellado: 8–10 minutos sin mover, hasta que se forme costra dorada en la base.</li>
+            <li>Girar cuidadosamente. Segundo sellado: 8 minutos más. Las mollejas irán reduciéndose y tomando forma compacta.</li>
+            <li>Reducir el calor (subir la parrilla o correr brasas) y continuar 10 minutos más girando ocasionalmente hasta que estén completamente doradas.</li>
+            <li>Retirar y exprimir limón fresco por encima. Servir de inmediato — las mollejas no esperan.</li>
+          </ol>
+
+          <div class="tip-box">
+            <span class="tip-label">Tip de Javo</span>
+            <p>Dejarlas en agua con sal y limón 2 horas antes para limpiarlas es el paso que la mayoría saltea y que arruina todo. Sin ese remojo, las mollejas tienen un sabor metálico intenso que no le gusta a nadie. Con el remojo, se transforman en algo sublime.</p>
+          </div>
+        </article>
+
+        <!-- RECETA 8 -->
+        <article class="receta-card" id="provoleta">
+          <p class="receta-number">08 / 14</p>
+          <h3>Provoleta Ahumada</h3>
+          <div class="badges">
+            <span class="badge badge-porciones">4 porciones</span>
+            <span class="badge badge-prep">Prep: 5 min</span>
+            <span class="badge badge-coccion">Cocción: 15 min</span>
+          </div>
+          <p class="receta-intro">
+            La provoleta es el momento de silencio en medio del bullicio del asado. Cuando aparece en la parrilla,
+            todos dejan de hablar y empiezan a mirar. Javo la hace con un toque de humo que recuerda a las cocinas
+            de campo — simple, contundente, sin adornos innecesarios.
+          </p>
+
+          <p class="receta-section-title">Ingredientes</p>
+          <ul class="ingredientes-list">
+            <li>300–350 g de queso provolone (rebanada de 1.5 cm)</li>
+            <li>1 cda de orégano seco</li>
+            <li>1 cdita de ají molido</li>
+            <li>Aceite de oliva (para pincelar)</li>
+          </ul>
+
+          <p class="receta-section-title">Preparación</p>
+          <ol class="pasos-list">
+            <li>Colocar la rebanada de provolone sobre la parrilla cuando aún está fría o recién tibia — antes de poner el fuego directo debajo.</li>
+            <li>Espolvorear orégano y ají molido sobre la superficie del queso.</li>
+            <li>Con las brasas medias (no altas), dejar que el calor suba lentamente. La provoleta no se debe apresurar.</li>
+            <li>Observar los bordes: cuando comiencen a derretirse y aparecer pequeñas burbujas en la superficie, pincelar levemente con aceite de oliva.</li>
+            <li>Esperar el primer hilo de queso fundido que cae por el borde hacia la parrilla — esa es la señal para actuar.</li>
+            <li>Con una espátula ancha, retirar en un solo movimiento firme. Deslizar sobre tabla o plato de madera caliente.</li>
+            <li>Servir de inmediato con pan de campo. La provoleta espera a nadie.</li>
+          </ol>
+
+          <div class="tip-box">
+            <span class="tip-label">Tip de Javo</span>
+            <p>Esperar ese primer hilo de queso antes de moverla. Ese hilo es la señal que el interior ya está fundido y la base está dorada. Si la movés antes, se rompe y pierde todo el queso. Si esperás demasiado, se pega y se convierte en un desastre. Un solo hilo: ese es el momento.</p>
+          </div>
+        </article>
+
+        <!-- RECETA 9 -->
+        <article class="receta-card" id="cordero">
+          <p class="receta-number">09 / 14</p>
+          <h3>Cordero Entero a las Brasas</h3>
+          <div class="badges">
+            <span class="badge badge-porciones">12 porciones</span>
+            <span class="badge badge-prep">Prep: 30 min</span>
+            <span class="badge badge-coccion">Cocción: 3–4 hs</span>
+          </div>
+          <p class="receta-intro">
+            El cordero entero es la celebración máxima de la parrilla paceña y salteña. Se cocina en ocasiones
+            especiales y requiere tiempo y un fuego que no apure. Javo usa hierbas del monte — tomillo silvestre,
+            romero de quebrada — que le dan una identidad imposible de replicar en otro lugar del mundo.
+          </p>
+
+          <p class="receta-section-title">Ingredientes</p>
+          <ul class="ingredientes-list">
+            <li>1 cordero joven en mariposa (6–8 kg)</li>
+            <li>1 taza de aceite de oliva</li>
+            <li>1 cabeza de ajo (entera, desgranada y picada)</li>
+            <li>4 ramas de romero fresco</li>
+            <li>6 ramas de tomillo fresco</li>
+            <li>Jugo de 2 limones</li>
+            <li>Sal gruesa</li>
+            <li>Pimienta negra</li>
+            <li>1 cda de pimentón dulce</li>
+          </ul>
+
+          <p class="receta-section-title">Preparación</p>
+          <ol class="pasos-list">
+            <li>Preparar la marinada mezclando el aceite, ajo picado, hojas de romero y tomillo, jugo de limón, sal, pimienta y pimentón.</li>
+            <li>Abrir el cordero en mariposa (que el carnicero lo haga si no se tiene práctica): corte por el esternón y aplanado.</li>
+            <li>Marinar el cordero por ambos lados con la mezcla de hierbas. Dejar reposar mínimo 1 hora a temperatura ambiente.</li>
+            <li>Preparar brasas generosas y parejas. La parrilla para cordero entero debe estar a 20 cm de las brasas — más espacio que para otros cortes.</li>
+            <li>Colocar el cordero con el lado de la carne hacia abajo primero. Cocinar 1 hora sin mover, con el fuego moderado.</li>
+            <li>Girar con cuidado (pedir ayuda — pesa). Cocinar del lado del hueso 1 hora más.</li>
+            <li>Continuar girando cada 30–40 minutos, pincelando con el exceso de marinada en cada vuelta, durante 1–2 horas más.</li>
+            <li>El cordero está listo cuando las patas se mueven con facilidad y la temperatura interna en el muslo más grueso es de 65–68 °C.</li>
+            <li>Reposar 15 minutos sobre tabla antes de cortar.</li>
+          </ol>
+
+          <div class="tip-box">
+            <span class="tip-label">Tip de Javo</span>
+            <p>El cordero del norte tiene menos grasa que el patagónico — eso significa que se seca más rápido si no se cuida. Pincelar con la marinada en cada vuelta es fundamental. El fuego bajo y parejo, no el alto y rápido, es lo que garantiza que quede jugoso hasta el hueso.</p>
+          </div>
+        </article>
+
+        <!-- RECETA 10 -->
+        <article class="receta-card" id="entrana">
+          <p class="receta-number">10 / 14</p>
+          <h3>Entraña al Punto Justo</h3>
+          <div class="badges">
+            <span class="badge badge-porciones">4 porciones</span>
+            <span class="badge badge-prep">Prep: 10 min</span>
+            <span class="badge badge-coccion">Cocción: 10 min</span>
+          </div>
+          <p class="receta-intro">
+            La entraña es la única carne en la parrilla que exige velocidad. Javo la describe como "el corte
+            impaciente" — necesita fuego intenso, decisión y exactamente 5 minutos por lado. Pasada un minuto
+            más, ya no es entraña: es suela de zapato. No hay margen de error y eso la hace emocionante.
+          </p>
+
+          <p class="receta-section-title">Ingredientes</p>
+          <ul class="ingredientes-list">
+            <li>600–800 g de entraña fina</li>
+            <li>Sal gruesa parrillera</li>
+          </ul>
+
+          <p class="receta-section-title">Preparación</p>
+          <ol class="pasos-list">
+            <li>Preparar brasas intensas y concentradas — más fuego que para cualquier otro corte. La parrilla a solo 8–10 cm de las brasas.</li>
+            <li>Retirar la membrana plateada que cubre un lado de la entraña tirando con los dedos (facilita la cocción pareja).</li>
+            <li>Salar con sal gruesa por ambos lados justo antes de colocar a la parrilla. No salar antes: la sal extrae humedad.</li>
+            <li>Primer lado: exactamente 5 minutos a fuego muy alto. No mover, no presionar. Dejar que se forme la costra.</li>
+            <li>Girar en un solo movimiento. Segundo lado: 5 minutos exactos.</li>
+            <li>Retirar inmediatamente. La entraña debe lucir un color rosado-rojo al corte transversal — ese es el punto medio-rojo ideal.</li>
+            <li>Cortar en diagonal a las fibras en tiras de 1.5 cm. Servir de inmediato — la entraña no espera.</li>
+          </ol>
+
+          <div class="tip-box">
+            <span class="tip-label">Tip de Javo</span>
+            <p>La entraña es de las pocas carnes que piden fuego alto y punto medio-rojo. Es un corte delgado con mucho colágeno que se ablanda con calor intenso y rápido. Si la cocinás lento como una tira de asado, se endurece. Fuego alto, 5 minutos por lado, y a comer.</p>
+          </div>
+        </article>
+
+        <!-- RECETA 11 -->
+        <article class="receta-card" id="chinchulines">
+          <p class="receta-number">11 / 14</p>
+          <h3>Chinchulines Crujientes</h3>
+          <div class="badges">
+            <span class="badge badge-porciones">4 porciones</span>
+            <span class="badge badge-prep">Prep: 30 min (limpieza)</span>
+            <span class="badge badge-coccion">Cocción: 40 min</span>
+          </div>
+          <p class="receta-intro">
+            Los chinchulines son el corte que divide aguas. O los amás o los despreciás, y Javo los ama con
+            convicción. La clave de unos chinchulines perfectos no está en el fuego sino en la limpieza previa
+            y la paciencia durante la cocción. Bien hechos, tienen una textura crujiente por fuera que no se
+            parece a nada en la mesa.
+          </p>
+
+          <p class="receta-section-title">Ingredientes</p>
+          <ul class="ingredientes-list">
+            <li>800 g de chinchulines frescos</li>
+            <li>2 limones</li>
+            <li>Sal gruesa</li>
+            <li>Agua caliente (para la limpieza)</li>
+          </ul>
+
+          <p class="receta-section-title">Preparación</p>
+          <ol class="pasos-list">
+            <li>Limpiar los chinchulines bajo agua corriente fría. Volcar el interior si es posible y limpiar con agua tibia y el jugo de un limón. Este paso es fundamental para eliminar olores.</li>
+            <li>Trenzar o enrollar los chinchulines en porciones apretadas — esto hace que se cocinen parejos y mantengan la forma.</li>
+            <li>Llevar a la parrilla alta (25–30 cm de las brasas) con fuego moderado. Los primeros 20 minutos son de cocción lenta para eliminar toda la grasa interior.</li>
+            <li>Bajar la parrilla a 15 cm y aumentar el fuego. Girar cada 5 minutos durante 15–20 minutos más, hasta que estén bien dorados y crujientes.</li>
+            <li>Salar con sal gruesa cuando ya estén dorados, no antes. Exprimir limón al retirar.</li>
+            <li>Servir de inmediato cuando aún están calientes y crocantes.</li>
+          </ol>
+
+          <div class="tip-box">
+            <span class="tip-label">Tip de Javo</span>
+            <p>Limpiarlos con limón y agua caliente, y cocinarlos directo sin aceite. El aceite externo es innecesario — los chinchulines tienen suficiente grasa interna que va a fundirse durante la cocción. Agregar aceite los hace pesados y grasos en lugar de crujientes.</p>
+          </div>
+        </article>
+
+        <!-- RECETA 12 -->
+        <article class="receta-card" id="rescoldo">
+          <p class="receta-number">12 / 14</p>
+          <h3>Verduras al Rescoldo</h3>
+          <div class="badges">
+            <span class="badge badge-porciones">6 porciones</span>
+            <span class="badge badge-prep">Prep: 5 min</span>
+            <span class="badge badge-coccion">Cocción: 30–60 min según verdura</span>
+          </div>
+          <p class="receta-intro">
+            El rescoldo es la técnica más antigua del mundo: enterrar los alimentos directamente entre las brasas
+            y las cenizas calientes. En el norte argentino, las abuelas cocinaban batatas y choclos de esta manera
+            antes de que existiera la parrilla. Javo recuperó esta técnica y la convirtió en una guarnición que
+            roba protagonismo a la carne.
+          </p>
+
+          <p class="receta-section-title">Ingredientes</p>
+          <ul class="ingredientes-list">
+            <li>2 berenjenas medianas</li>
+            <li>3 pimientos (rojo, amarillo y verde)</li>
+            <li>2 cebollas grandes</li>
+            <li>3 batatas medianas</li>
+            <li>1 trozo de zapallo (500 g aprox)</li>
+            <li>1 cabeza de ajo entera</li>
+            <li>Aceite de oliva</li>
+            <li>Sal, pimienta, orégano</li>
+          </ul>
+
+          <p class="receta-section-title">Preparación y tiempos</p>
+          <ol class="pasos-list">
+            <li>Generar un buen volumen de brasas antes de comenzar. Se necesitan brasas con cuerpo, no solo brasas superficiales.</li>
+            <li>Enterrar las batatas y el zapallo directamente entre las brasas. Son las más densas y necesitan más tiempo: 50–60 minutos.</li>
+            <li>A los 20 minutos, enterrar las cebollas enteras (con cáscara) y la cabeza de ajo completa.</li>
+            <li>A los 30 minutos, enterrar los pimientos y las berenjenas. Estos son más rápidos: 20–25 minutos.</li>
+            <li>Rotar cada tanto con unas pinzas largas. Las verduras estarán listas cuando al presionarlas se sientan completamente blandas.</li>
+            <li>Retirar con pinzas, dejar enfriar 5 minutos y pelar. La piel carbonizada se saca fácilmente.</li>
+            <li>Cortar, aderezar con aceite de oliva, sal, pimienta y orégano. Servir como guarnición o entrada.</li>
+          </ol>
+
+          <div class="tip-box">
+            <span class="tip-label">Tip de Javo</span>
+            <p>Los pimientos al rescoldo quedan perfectos para pelar y marinar con aceite y ajo. Una vez pelados y cortados en tiras, agregar aceite de oliva generoso, ajo picado, sal y vinagre. Dejar marinar 30 minutos y tenés una ensalada de pimientos asados que supera cualquier cosa que salga de una lata.</p>
+          </div>
+        </article>
+
+        <!-- RECETA 13 -->
+        <article class="receta-card" id="pollo-brasas">
+          <p class="receta-number">13 / 14</p>
+          <h3>Pollo Entero a las Brasas</h3>
+          <div class="badges">
+            <span class="badge badge-porciones">6 porciones</span>
+            <span class="badge badge-prep">Prep: 20 min</span>
+            <span class="badge badge-coccion">Cocción: 1h 30 min</span>
+          </div>
+          <p class="receta-intro">
+            El pollo en la parrilla tiene fama de difícil y la tiene bien ganada — se quema afuera y queda crudo
+            adentro si no se sabe manejar. Javo lo aplana y le pone peso encima, una técnica que garantiza cocción
+            pareja desde los primeros minutos y una piel de un dorado que detiene conversaciones.
+          </p>
+
+          <p class="receta-section-title">Ingredientes</p>
+          <ul class="ingredientes-list">
+            <li>1 pollo entero (1.8–2 kg)</li>
+            <li>4 dientes de ajo picados</li>
+            <li>2 cdas de pimentón dulce</li>
+            <li>½ taza de aceite de oliva</li>
+            <li>Jugo de 1 limón grande</li>
+            <li>1 cda de sal gruesa</li>
+            <li>1 cdita de orégano seco</li>
+            <li>Pimienta negra molida</li>
+          </ul>
+
+          <p class="receta-section-title">Preparación</p>
+          <ol class="pasos-list">
+            <li>Abrir el pollo al medio por el esternón con un cuchillo pesado o tijeras de cocina. Aplanar completamente presionando con las manos sobre la tabla.</li>
+            <li>Mezclar ajo, pimentón, aceite, limón, sal, orégano y pimienta. Cubrir el pollo por todos lados, incluido bajo la piel de la pechuga donde se pueda.</li>
+            <li>Preparar brasas medias y parejas. Colocar el pollo con la piel hacia arriba sobre la parrilla a 20 cm.</li>
+            <li>Poner una piedra limpia y pesada (o una fuente metálica con peso dentro) encima del pollo. Esto lo aplana y garantiza contacto total con la parrilla.</li>
+            <li>Cocinar con la piedra encima los primeros 30 minutos. El fuego moderado cocerá el pollo desde abajo sin quemar.</li>
+            <li>Quitar la piedra, girar el pollo con cuidado. Cocinar del lado de la piel otros 40–50 minutos hasta dorar.</li>
+            <li>Verificar la temperatura en la parte más gruesa del muslo: 74 °C. O cortar para ver que los jugos salgan claros y la carne esté blanca hasta el hueso.</li>
+            <li>Reposar 10 minutos antes de cortar en cuartos.</li>
+          </ol>
+
+          <div class="tip-box">
+            <span class="tip-label">Tip de Javo</span>
+            <p>Aplanar el pollo y cocinar con una piedra encima los primeros 30 minutos es lo que cambia todo. La presión mantiene el contacto con la parrilla y la cocción es uniforme. Sin la piedra, el pollo se arquea, pierde contacto con el calor y las partes elevadas quedan crudas.</p>
+          </div>
+        </article>
+
+        <!-- RECETA 14 -->
+        <article class="receta-card" id="lechon-cruz">
+          <p class="receta-number">14 / 14</p>
+          <h3>Lechón a la Cruz</h3>
+          <div class="badges">
+            <span class="badge badge-porciones">15 porciones</span>
+            <span class="badge badge-prep">Prep: 1h (amarrado)</span>
+            <span class="badge badge-coccion">Cocción: 5–6 hs</span>
+          </div>
+          <p class="receta-intro">
+            El lechón a la cruz es el rey de todas las celebraciones del norte. No es una receta de domingo — es
+            una receta de fiesta, de reunión grande, de esa comida que se anuncia con días de anticipación y
+            alrededor de la que gira el día entero. Javo lo hace cada año en fiestas patrias y dice que la clave
+            no está en la marinada sino en el tiempo y el respeto por el fuego.
+          </p>
+
+          <p class="receta-section-title">Ingredientes</p>
+          <ul class="ingredientes-list">
+            <li>1 lechón entero de 8–10 kg</li>
+            <li>1 cabeza de ajo entera picada</li>
+            <li>2 cdas de pimentón dulce y 1 de picante</li>
+            <li>4 ramas de romero fresco</li>
+            <li>4 ramas de tomillo fresco</li>
+            <li>Jugo de 4 limones</li>
+            <li>1 taza de aceite de oliva</li>
+            <li>Sal gruesa abundante</li>
+            <li>Cruz de hierro (hierro macizo, mínimo 1.5 m de alto)</li>
+          </ul>
+
+          <p class="receta-section-title">Preparación</p>
+          <ol class="pasos-list">
+            <li>La noche anterior, preparar la marinada con ajo, pimentones, hierbas, limón, aceite y sal. Cubrir el lechón por dentro y por fuera, masajeando bien en todas las cavidades. Refrigerar hasta el día siguiente.</li>
+            <li>Amarre del lechón a la cruz: atar los miembros con alambre de hierro grueso (no aluminio, que se funde). El lechón debe estar bien extendido y seguro — no debe moverse durante la cocción.</li>
+            <li>Encender un gran fuego con quebracho al menos 1 hora antes. La base de brasas debe ser generosa — se necesita calor sostenido por 5–6 horas.</li>
+            <li>Clavar la cruz en el suelo a 1 metro del fuego. Esta distancia es fundamental — demasiado cerca quema, demasiado lejos no cocina.</li>
+            <li>Las primeras 2 horas: girar la cruz cada 30 minutos. El lechón cocina de ambos lados de manera alternada. Agregar leña al fuego para mantener el calor.</li>
+            <li>A partir de la hora 3: girar cada 60 minutos. La carne interna ya estará cocinándose y la piel comenzará a tomar color.</li>
+            <li>En las últimas 2 horas, acercar la cruz 20 cm para intensificar el dorado de la piel.</li>
+            <li>El lechón está listo cuando la piel está crocante y brillante, y al pinchar el muslo más grueso los jugos salen completamente claros. Temperatura interna 77–80 °C en el punto más grueso.</li>
+            <li>Dejar reposar 20 minutos en la cruz antes de desatar y cortar.</li>
+          </ol>
+
+          <div class="tip-box">
+            <span class="tip-label">Tip de Javo</span>
+            <p>Girar la cruz cada 30 minutos las primeras 2 horas, luego cada hora. La constancia en los giros es lo que garantiza una cocción pareja. Si te olvidás de girar, un lado se carboniza mientras el otro queda crudo. El fuego manda, pero el cocinero controla.</p>
+          </div>
+        </article>
+
+      </div>
+    </section>
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="footer-logo">Javo Te Cocina</div>
+    <p class="footer-tagline">Cocina del norte argentino · Salta</p>
+    <nav class="footer-links">
+      <a href="/">Inicio</a>
+      <a href="/recetarios/donde-hay-humo.html">Donde Hay Humo</a>
+    </nav>
+    <p class="footer-copy">© 2024 Javo Te Cocina · javotecocina.com · Todos los derechos reservados</p>
+  </footer>
+
+</body>
+</html>

@@ -1,0 +1,1367 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>A Todo Disco — Javo Te Cocina</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,400;1,600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --tierra: #2C1A0E;
+      --puna: #C4853A;
+      --fuego: #D4521A;
+      --sal: #F5EDD8;
+      --ceniza: #6B5744;
+      --blanco: #FFFFF0;
+    }
+
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      background-color: var(--tierra);
+      color: var(--sal);
+      font-family: 'Libre Baskerville', Georgia, serif;
+      font-size: 16px;
+      line-height: 1.75;
+    }
+
+    /* ---- NAV VOLVER ---- */
+    .nav-volver {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(44, 26, 14, 0.95);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--ceniza);
+      padding: 0.75rem 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .nav-volver a {
+      color: var(--puna);
+      text-decoration: none;
+      font-family: 'Space Mono', monospace;
+      font-size: 0.75rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      transition: color 0.2s;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+
+    .nav-volver a:hover {
+      color: var(--fuego);
+    }
+
+    /* ---- PORTADA ---- */
+    .portada {
+      position: relative;
+      min-height: 90vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 4rem 2rem;
+      overflow: hidden;
+    }
+
+    .portada::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse at 15% 20%, rgba(212, 82, 26, 0.2) 0%, transparent 55%),
+        radial-gradient(ellipse at 85% 80%, rgba(196, 133, 58, 0.15) 0%, transparent 55%),
+        radial-gradient(ellipse at 50% 60%, rgba(212, 82, 26, 0.08) 0%, transparent 50%),
+        linear-gradient(170deg, #3D1A08 0%, #2C1A0E 45%, #1A0C04 100%);
+      z-index: 0;
+    }
+
+    /* Efecto brasas disco */
+    .portada::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 600px;
+      height: 200px;
+      background: radial-gradient(ellipse 80% 100% at 50% 100%, rgba(212, 82, 26, 0.18) 0%, transparent 70%);
+      z-index: 0;
+    }
+
+    .portada-contenido {
+      position: relative;
+      z-index: 1;
+      max-width: 700px;
+    }
+
+    .portada-marca {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.7rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--fuego);
+      margin-bottom: 1.5rem;
+      opacity: 0.9;
+    }
+
+    .portada-titulo {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(3.5rem, 10vw, 7rem);
+      font-weight: 700;
+      line-height: 1.05;
+      color: var(--sal);
+      letter-spacing: -0.01em;
+      margin-bottom: 0.5rem;
+    }
+
+    .portada-titulo span {
+      color: var(--fuego);
+      font-style: italic;
+    }
+
+    .portada-subtitulo {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(1.2rem, 3.5vw, 1.8rem);
+      font-weight: 400;
+      font-style: italic;
+      color: var(--ceniza);
+      letter-spacing: 0.04em;
+      margin-bottom: 2.5rem;
+    }
+
+    .portada-divider {
+      width: 80px;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, var(--fuego), transparent);
+      margin: 0 auto 2.5rem;
+    }
+
+    .portada-descripcion {
+      font-family: 'Libre Baskerville', serif;
+      font-size: 1rem;
+      color: var(--sal);
+      opacity: 0.75;
+      max-width: 480px;
+      margin: 0 auto 3rem;
+      line-height: 1.85;
+    }
+
+    .ornamento-fuego {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 1rem;
+      color: var(--fuego);
+      opacity: 0.7;
+      font-size: 1.1rem;
+      margin-bottom: 2rem;
+    }
+
+    .ornamento-fuego::before,
+    .ornamento-fuego::after {
+      content: '';
+      width: 60px;
+      height: 1px;
+      background: var(--fuego);
+      opacity: 0.5;
+    }
+
+    /* ---- INTRO ---- */
+    .intro-section {
+      max-width: 760px;
+      margin: 0 auto;
+      padding: 4rem 1.5rem;
+      border-bottom: 1px solid rgba(107, 87, 68, 0.3);
+    }
+
+    .intro-label {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.65rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--fuego);
+      margin-bottom: 1.5rem;
+    }
+
+    .intro-text {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(1.15rem, 2.5vw, 1.4rem);
+      font-style: italic;
+      line-height: 1.9;
+      color: var(--sal);
+      opacity: 0.9;
+    }
+
+    .intro-text p + p {
+      margin-top: 1.25rem;
+    }
+
+    .intro-firma {
+      margin-top: 2.5rem;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.2rem;
+      font-style: italic;
+      color: var(--fuego);
+    }
+
+    /* ---- ÍNDICE ---- */
+    .indice-section {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 3rem 1.5rem;
+      border-bottom: 1px solid rgba(107, 87, 68, 0.3);
+    }
+
+    .section-label {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.65rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--puna);
+      margin-bottom: 2rem;
+    }
+
+    .indice-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 0.5rem;
+    }
+
+    .indice-item {
+      display: flex;
+      align-items: baseline;
+      gap: 0.75rem;
+      padding: 0.5rem 0;
+      border-bottom: 1px dotted rgba(107, 87, 68, 0.35);
+    }
+
+    .indice-item.emblema a {
+      color: var(--fuego);
+      font-weight: 700;
+    }
+
+    .indice-num {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.65rem;
+      color: var(--fuego);
+      min-width: 1.5rem;
+    }
+
+    .indice-item a {
+      font-family: 'Libre Baskerville', serif;
+      font-size: 0.85rem;
+      color: var(--sal);
+      text-decoration: none;
+      opacity: 0.85;
+      transition: color 0.2s, opacity 0.2s;
+    }
+
+    .indice-item a:hover {
+      color: var(--puna);
+      opacity: 1;
+    }
+
+    /* ---- RECETAS SECTION ---- */
+    .recetas-section {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 2rem 1.5rem 4rem;
+    }
+
+    /* ---- TARJETA RECETA ---- */
+    .receta-card {
+      background: #3D2510;
+      border-left: 4px solid var(--fuego);
+      border-radius: 0 8px 8px 0;
+      padding: 2rem 2rem 2rem 2.25rem;
+      margin-bottom: 3rem;
+      position: relative;
+    }
+
+    .receta-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 40%;
+      height: 100%;
+      background: radial-gradient(ellipse at 100% 0%, rgba(196, 133, 58, 0.04) 0%, transparent 60%);
+      pointer-events: none;
+      border-radius: 0 8px 8px 0;
+    }
+
+    /* ---- TARJETA EMBLEMA (El Disco de Javo) ---- */
+    .receta-card.receta-emblema {
+      background: linear-gradient(145deg, #5C1A06 0%, #7A2208 40%, #D4521A 100%);
+      border-left: 6px solid var(--blanco);
+      border-top: 1px solid rgba(245, 237, 216, 0.25);
+      border-right: 1px solid rgba(245, 237, 216, 0.1);
+      border-bottom: 1px solid rgba(245, 237, 216, 0.1);
+      padding: 3rem 2.5rem;
+      box-shadow:
+        0 0 40px rgba(212, 82, 26, 0.4),
+        0 0 80px rgba(212, 82, 26, 0.15),
+        inset 0 0 60px rgba(0, 0, 0, 0.2);
+    }
+
+    .receta-card.receta-emblema::before {
+      background: radial-gradient(ellipse at 85% 15%, rgba(245, 237, 216, 0.06) 0%, transparent 55%);
+    }
+
+    .sello-emblema {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      background: rgba(245, 237, 216, 0.12);
+      border: 1px solid rgba(245, 237, 216, 0.4);
+      border-radius: 2px;
+      padding: 0.4rem 1rem;
+      margin-bottom: 1.25rem;
+    }
+
+    .sello-emblema span {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.6rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--blanco);
+      opacity: 0.9;
+    }
+
+    .sello-estrella {
+      color: var(--blanco);
+      font-size: 0.8rem;
+    }
+
+    .receta-emblema .receta-num {
+      color: rgba(245, 237, 216, 0.7);
+    }
+
+    .receta-emblema .receta-titulo {
+      color: var(--blanco);
+      font-size: clamp(2rem, 5vw, 3rem);
+      text-shadow: 0 2px 12px rgba(0, 0, 0, 0.3);
+    }
+
+    .receta-emblema .receta-intro {
+      color: var(--blanco);
+      opacity: 0.95;
+      border-bottom-color: rgba(245, 237, 216, 0.2);
+    }
+
+    .receta-emblema .receta-ingredientes-titulo,
+    .receta-emblema .receta-pasos-titulo {
+      color: var(--blanco);
+      opacity: 0.8;
+    }
+
+    .receta-emblema .ingredientes-lista li {
+      color: var(--blanco);
+      opacity: 0.85;
+      border-bottom-color: rgba(245, 237, 216, 0.12);
+    }
+
+    .receta-emblema .ingredientes-lista li::before {
+      color: rgba(245, 237, 216, 0.6);
+    }
+
+    .receta-emblema .pasos-lista li {
+      color: var(--blanco);
+      opacity: 0.85;
+    }
+
+    .receta-emblema .pasos-lista li::before {
+      background: rgba(245, 237, 216, 0.15);
+      border-color: rgba(245, 237, 216, 0.4);
+      color: var(--blanco);
+    }
+
+    .receta-emblema .badge-porciones {
+      background: rgba(245, 237, 216, 0.12);
+      border-color: rgba(245, 237, 216, 0.35);
+      color: var(--blanco);
+    }
+
+    .receta-emblema .badge-prep {
+      background: rgba(245, 237, 216, 0.08);
+      border-color: rgba(245, 237, 216, 0.25);
+      color: var(--blanco);
+      opacity: 0.8;
+    }
+
+    .receta-emblema .badge-coccion {
+      background: rgba(245, 237, 216, 0.12);
+      border-color: rgba(245, 237, 216, 0.35);
+      color: var(--blanco);
+    }
+
+    .receta-emblema .tip-javo {
+      background: rgba(0, 0, 0, 0.25);
+      border-color: rgba(245, 237, 216, 0.3);
+    }
+
+    .receta-emblema .tip-javo::before {
+      color: var(--blanco);
+      opacity: 0.7;
+    }
+
+    .receta-emblema .tip-javo p {
+      color: var(--blanco);
+    }
+
+    /* ---- BADGES ---- */
+    .receta-num {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.6rem;
+      letter-spacing: 0.18em;
+      color: var(--fuego);
+      text-transform: uppercase;
+      margin-bottom: 0.4rem;
+      opacity: 0.8;
+    }
+
+    .receta-titulo {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(1.6rem, 4vw, 2.2rem);
+      font-weight: 700;
+      color: var(--sal);
+      line-height: 1.2;
+      margin-bottom: 1rem;
+    }
+
+    .receta-badges {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.6rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .badge {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.65rem;
+      letter-spacing: 0.05em;
+      padding: 0.3rem 0.75rem;
+      border-radius: 2px;
+      display: flex;
+      align-items: center;
+      gap: 0.35rem;
+    }
+
+    .badge-porciones {
+      background: rgba(196, 133, 58, 0.15);
+      border: 1px solid rgba(196, 133, 58, 0.4);
+      color: var(--puna);
+    }
+
+    .badge-prep {
+      background: rgba(107, 87, 68, 0.2);
+      border: 1px solid rgba(107, 87, 68, 0.4);
+      color: var(--sal);
+      opacity: 0.8;
+    }
+
+    .badge-coccion {
+      background: rgba(212, 82, 26, 0.12);
+      border: 1px solid rgba(212, 82, 26, 0.35);
+      color: var(--fuego);
+    }
+
+    /* ---- INTRO RECETA ---- */
+    .receta-intro {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(1rem, 2.5vw, 1.15rem);
+      font-style: italic;
+      color: var(--sal);
+      opacity: 0.88;
+      line-height: 1.85;
+      margin-bottom: 1.75rem;
+      padding-bottom: 1.5rem;
+      border-bottom: 1px solid rgba(107, 87, 68, 0.35);
+    }
+
+    /* ---- INGREDIENTES ---- */
+    .receta-ingredientes-titulo,
+    .receta-pasos-titulo {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.65rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--puna);
+      margin-bottom: 0.9rem;
+      margin-top: 1.5rem;
+    }
+
+    .ingredientes-lista {
+      list-style: none;
+      padding: 0;
+      columns: 1;
+    }
+
+    @media (min-width: 600px) {
+      .ingredientes-lista {
+        columns: 2;
+        column-gap: 2rem;
+      }
+    }
+
+    .ingredientes-lista li {
+      font-family: 'Libre Baskerville', serif;
+      font-size: 0.9rem;
+      color: var(--sal);
+      opacity: 0.85;
+      padding: 0.3rem 0;
+      border-bottom: 1px dotted rgba(107, 87, 68, 0.25);
+      break-inside: avoid;
+      display: flex;
+      gap: 0.5rem;
+    }
+
+    .ingredientes-lista li::before {
+      content: '—';
+      color: var(--puna);
+      opacity: 0.5;
+      flex-shrink: 0;
+    }
+
+    /* ---- PASOS ---- */
+    .pasos-lista {
+      list-style: none;
+      padding: 0;
+      counter-reset: paso-counter;
+    }
+
+    .pasos-lista li {
+      counter-increment: paso-counter;
+      font-family: 'Libre Baskerville', serif;
+      font-size: 0.9rem;
+      color: var(--sal);
+      opacity: 0.85;
+      line-height: 1.8;
+      margin-bottom: 0.9rem;
+      padding-left: 2.5rem;
+      position: relative;
+    }
+
+    .pasos-lista li::before {
+      content: counter(paso-counter);
+      font-family: 'Space Mono', monospace;
+      font-size: 0.65rem;
+      color: var(--fuego);
+      position: absolute;
+      left: 0;
+      top: 0.15rem;
+      background: rgba(212, 82, 26, 0.12);
+      border: 1px solid rgba(212, 82, 26, 0.3);
+      width: 1.6rem;
+      height: 1.6rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 2px;
+      line-height: 1;
+    }
+
+    /* ---- TIP DE JAVO ---- */
+    .tip-javo {
+      margin-top: 1.75rem;
+      padding: 1.25rem 1.5rem;
+      background: linear-gradient(135deg, rgba(212, 82, 26, 0.15) 0%, rgba(212, 82, 26, 0.08) 100%);
+      border: 1px solid rgba(212, 82, 26, 0.35);
+      border-radius: 4px;
+      position: relative;
+    }
+
+    .tip-javo::before {
+      content: 'Tip de Javo';
+      font-family: 'Space Mono', monospace;
+      font-size: 0.6rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--fuego);
+      display: block;
+      margin-bottom: 0.5rem;
+    }
+
+    .tip-javo p {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(0.95rem, 2.5vw, 1.1rem);
+      font-style: italic;
+      color: var(--sal);
+      line-height: 1.7;
+    }
+
+    /* ---- SEPARADOR ---- */
+    .receta-separador {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+      margin: 1rem 0 2rem;
+      opacity: 0.3;
+    }
+
+    .receta-separador::before,
+    .receta-separador::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--ceniza);
+    }
+
+    .receta-separador span {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.6rem;
+      color: var(--ceniza);
+      letter-spacing: 0.15em;
+    }
+
+    /* ---- FOOTER ---- */
+    footer {
+      background: #1A0E06;
+      border-top: 1px solid rgba(107, 87, 68, 0.3);
+      padding: 3rem 1.5rem 2rem;
+      text-align: center;
+    }
+
+    .footer-titulo {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.5rem;
+      font-style: italic;
+      color: var(--fuego);
+      margin-bottom: 0.4rem;
+    }
+
+    .footer-copy {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.65rem;
+      letter-spacing: 0.1em;
+      color: var(--ceniza);
+      margin-bottom: 1rem;
+    }
+
+    .footer-link {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.65rem;
+      color: var(--fuego);
+      text-decoration: none;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      transition: color 0.2s;
+    }
+
+    .footer-link:hover {
+      color: var(--puna);
+    }
+
+    /* ---- RESPONSIVE ---- */
+    @media (max-width: 600px) {
+      .receta-card {
+        padding: 1.5rem 1.25rem 1.5rem 1.5rem;
+      }
+      .receta-card.receta-emblema {
+        padding: 2rem 1.5rem;
+      }
+      .indice-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* ---- SCROLL ANCHOR OFFSET ---- */
+    [id^="receta-"] {
+      scroll-margin-top: 4rem;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV VOLVER -->
+  <nav class="nav-volver">
+    <a href="/">
+      <span>&#8592;</span>
+      Volver a javotecocina.com
+    </a>
+  </nav>
+
+  <!-- PORTADA -->
+  <header class="portada">
+    <div class="portada-contenido">
+      <p class="portada-marca">Javo Te Cocina &nbsp;·&nbsp; Recetario</p>
+      <div class="ornamento-fuego">
+        <span>&#9632;</span>
+      </div>
+      <h1 class="portada-titulo">A Todo <span>Disco</span></h1>
+      <p class="portada-subtitulo">El arte de cocinar en vuelo</p>
+      <div class="portada-divider"></div>
+      <p class="portada-descripcion">
+        14 recetas para el disco de arado — la herramienta de cocina más noble del campo argentino, en manos de Javo.
+      </p>
+    </div>
+  </header>
+
+  <!-- INTRO -->
+  <section class="intro-section">
+    <p class="intro-label">Palabras de Javo</p>
+    <div class="intro-text">
+      <p>
+        El disco de arado es la herramienta de cocina más democrática que existe. Es un hierro grueso y curvo, reciclado de la agricultura, que se pone sobre el fuego y en media hora ya está listo para recibir lo que le pongas encima. No le importa si sos principiante o experto. No le importa si la receta es sencilla o elaborada. Lo único que pide es fuego y tiempo.
+      </p>
+      <p>
+        Yo aprendí a cocinarlo en el patio de mi casa en Salta, viendo a mi viejo y a sus amigos en los asados del domingo. Ellos no leían recetas: tenían ojo. Sabían por el olor cuándo sellar, por el color cuándo agregar el líquido, por el sonido cuándo bajar el fuego. Eso es lo que intento transmitir acá.
+      </p>
+      <p>
+        "El Disco de Javo" —la primera receta de este libro— lo armé un domingo con lo que había en la heladera: costillar, pollo, chorizo, morcilla, papas, pimientos, todo en capas. Cerré la tapa y esperé. Cuando la abrí, la familia entera se acercó sin que nadie los llamara. Ese disco no para de repetirse desde ese día.
+      </p>
+      <p>
+        Las demás recetas son variaciones sobre el mismo principio: fuego, capas, paciencia, y el disco como protagonista.
+      </p>
+    </div>
+    <p class="intro-firma">— Javo</p>
+  </section>
+
+  <!-- ÍNDICE -->
+  <section class="indice-section">
+    <p class="section-label">Índice de recetas</p>
+    <div class="indice-grid">
+      <div class="indice-item emblema"><span class="indice-num">01</span><a href="#receta-disco-de-javo">&#9733; El Disco de Javo</a></div>
+      <div class="indice-item"><span class="indice-num">02</span><a href="#receta-pollo-especias">Pollo al Disco con Especias del Norte</a></div>
+      <div class="indice-item"><span class="indice-num">03</span><a href="#receta-cordero-disco">Cordero al Disco</a></div>
+      <div class="indice-item"><span class="indice-num">04</span><a href="#receta-costillar-cerdo">Costillar de Cerdo al Disco</a></div>
+      <div class="indice-item"><span class="indice-num">05</span><a href="#receta-papas-rusticas">Papas Rústicas al Disco</a></div>
+      <div class="indice-item"><span class="indice-num">06</span><a href="#receta-cabrito-disco">Cabrito al Disco</a></div>
+      <div class="indice-item"><span class="indice-num">07</span><a href="#receta-cerdo-ciruelas">Disco de Cerdo con Ciruelas</a></div>
+      <div class="indice-item"><span class="indice-num">08</span><a href="#receta-lentejas-disco">Lentejas al Disco</a></div>
+      <div class="indice-item"><span class="indice-num">09</span><a href="#receta-hongos-disco">Revuelto de Hongos al Disco</a></div>
+      <div class="indice-item"><span class="indice-num">10</span><a href="#receta-pollo-limon">Pollo al Disco con Limón y Ajo</a></div>
+      <div class="indice-item"><span class="indice-num">11</span><a href="#receta-verduras-disco">Verduras de Temporada al Disco</a></div>
+      <div class="indice-item"><span class="indice-num">12</span><a href="#receta-arroz-leche">Arroz con Leche al Disco</a></div>
+      <div class="indice-item"><span class="indice-num">13</span><a href="#receta-mariscos-disco">Disco de Mariscos</a></div>
+      <div class="indice-item"><span class="indice-num">14</span><a href="#receta-bondiola-disco">Bondiola al Disco con Barbacoa Norteña</a></div>
+    </div>
+  </section>
+
+  <!-- RECETAS -->
+  <main class="recetas-section">
+
+    <!-- RECETA 1 — EMBLEMA -->
+    <article class="receta-card receta-emblema" id="receta-disco-de-javo">
+      <div class="sello-emblema">
+        <span class="sello-estrella">&#9733;</span>
+        <span>Receta Emblema</span>
+        <span class="sello-estrella">&#9733;</span>
+      </div>
+      <p class="receta-num">Receta 01</p>
+      <h3 class="receta-titulo">El Disco de Javo</h3>
+      <div class="receta-badges">
+        <span class="badge badge-porciones">&#9679; 8 porciones</span>
+        <span class="badge badge-prep">&#128336; Prep: 30 min</span>
+        <span class="badge badge-coccion">&#128293; Cocción: 1h 30min</span>
+      </div>
+      <p class="receta-intro">
+        Este es el disco que lo empezó todo. Un domingo sin plan especial, Javo abrió la heladera y vio lo que había: costillar de cerdo, pollo, chorizo, morcilla, papas, cebollas, pimientos. En vez de decidir qué hacer, lo puso todo en el disco —en capas, con las especias del norte— y tapó con la tapa. Una hora y media después, cuando levantó la tapa, el olor hizo que toda la familia se acercara sola, sin que nadie los llamara. Ese disco es hoy la receta más pedida de Javo, la que define su cocina, la que aparece en cada reunión importante.
+      </p>
+
+      <p class="receta-ingredientes-titulo">Ingredientes</p>
+      <ul class="ingredientes-lista">
+        <li>500 g de costillar de cerdo, en trozos</li>
+        <li>1 pollo entero, trozado</li>
+        <li>3 chorizos, en rodajas gruesas</li>
+        <li>2 morcillas, en rodajas</li>
+        <li>6 papas medianas, en mitades o cuartos</li>
+        <li>3 cebollas grandes, en plumas</li>
+        <li>3 pimientos (rojo, verde, amarillo), en tiras</li>
+        <li>4 tomates maduros, en cuartos</li>
+        <li>1 vaso de vino blanco seco</li>
+        <li>2 cucharaditas de pimentón ahumado</li>
+        <li>1 cucharadita de comino molido</li>
+        <li>1 cucharadita de ají molido</li>
+        <li>Sal gruesa y pimienta negra</li>
+        <li>Aceite para iniciar la cocción</li>
+      </ul>
+
+      <p class="receta-pasos-titulo">Preparación</p>
+      <ol class="pasos-lista">
+        <li>Encender el fuego con leña o carbón y dejar que el disco se caliente bien a fuego fuerte. El disco está listo cuando una gota de agua evaporiza al instante.</li>
+        <li>Agregar un chorro de aceite y sellar el costillar de cerdo con sal gruesa a fuego fuerte. Dorar bien de todos lados, unos 5 minutos. Retirar y reservar sin limpiar el disco.</li>
+        <li>En la misma grasa del cerdo, sellar el pollo trozado hasta dorar. Salpimentar. Reservar junto al cerdo.</li>
+        <li>Bajar levemente el fuego. Colocar en el fondo del disco una capa de cebollas en plumas. Sobre ellas, el costillar y el pollo sellados. Incorporar el chorizo y la morcilla en rodajas alrededor.</li>
+        <li>Agregar las papas por los costados del disco, rellenando los espacios. Distribuir los pimientos en tiras y los tomates en cuartos por encima de todo.</li>
+        <li>Espolvorear el pimentón ahumado, el comino y el ají molido sobre todo el conjunto. Verter el vino blanco por los bordes del disco para que genere vapor desde abajo.</li>
+        <li>Tapar el disco con su tapa o con una chapa. Bajar el fuego al mínimo. Cocinar 50-60 minutos sin abrir la tapa. Los jugos de todas las carnes y verduras crearán una salsa natural dentro del disco.</li>
+        <li>Abrir la tapa, girar suavemente las papas y el costillar para bañarlos con los jugos acumulados. Si falta líquido, agregar medio vaso de agua o caldo. Volver a tapar y cocinar 20-30 minutos más hasta que las papas estén tiernas y la carne se deshaga del hueso.</li>
+        <li>Servir el disco en la mesa, destapando delante de todos. Cada uno sirve directamente del disco.</li>
+      </ol>
+
+      <div class="tip-javo">
+        <p>"Este disco lo hice por primera vez para mi familia, y desde ese día no para de pedirme que lo repita. El secreto está en las capas y en no apurar el fuego. Las capas hacen que cada ingrediente aporte su jugo al de abajo, y todos esos jugos juntos forman una salsa que ninguna receta podría crear de otra manera. El fuego lento es lo que transforma los ingredientes en un plato: con apuro, solo tenés carne cocida. Con paciencia, tenés algo que no se olvida."</p>
+      </div>
+    </article>
+
+    <div class="receta-separador"><span>&#9632;</span></div>
+
+    <!-- RECETA 2 -->
+    <article class="receta-card" id="receta-pollo-especias">
+      <p class="receta-num">Receta 02</p>
+      <h3 class="receta-titulo">Pollo al Disco con Especias del Norte</h3>
+      <div class="receta-badges">
+        <span class="badge badge-porciones">&#9679; 6 porciones</span>
+        <span class="badge badge-prep">&#128336; Prep: 20 min</span>
+        <span class="badge badge-coccion">&#128293; Cocción: 1 hora</span>
+      </div>
+      <p class="receta-intro">
+        El pollo al disco es la puerta de entrada al universo del disco de arado. Es la receta con la que Javo recomienda empezar a quienes nunca cocinaron en disco antes, porque el pollo perdona los errores de temperatura y de tiempo mejor que otras carnes. Las especias del norte —comino, pimentón ahumado, ají amarillo— transforman un pollo común en algo que huele y sabe al noroeste argentino.
+      </p>
+
+      <p class="receta-ingredientes-titulo">Ingredientes</p>
+      <ul class="ingredientes-lista">
+        <li>1 pollo entero (aprox. 2 kg), trozado</li>
+        <li>4 papas medianas, en cuartos</li>
+        <li>2 cebollas grandes, en plumas</li>
+        <li>4 dientes de ajo, aplastados</li>
+        <li>1 cucharadita de comino molido</li>
+        <li>2 cucharaditas de pimentón dulce o ahumado</li>
+        <li>1 ají amarillo fresco o pasta, al gusto</li>
+        <li>1 vaso de caldo de pollo</li>
+        <li>Sal, pimienta, aceite</li>
+      </ul>
+
+      <p class="receta-pasos-titulo">Preparación</p>
+      <ol class="pasos-lista">
+        <li>Calentar el disco a fuego fuerte. Agregar aceite y dorar el pollo en dos tandas para no enfriar el disco: primero los trozos más grandes (muslos y pata-muslo), luego las pechugas. Salpimentar. Reservar.</li>
+        <li>En el mismo disco, rehogar la cebolla y el ajo aplastado a fuego medio hasta transparentar, unos 5 minutos.</li>
+        <li>Agregar el pimentón, el comino y el ají amarillo. Revolver 1 minuto.</li>
+        <li>Devolver el pollo al disco, colocar las papas alrededor. Verter el caldo, tapar y cocinar a fuego suave 35-40 minutos.</li>
+        <li>Destapar, dar vuelta el pollo y las papas. Si el fondo está muy seco, agregar un poco más de caldo. Cocinar destapado 10 minutos más para que la salsa reduzca.</li>
+        <li>Servir directo del disco con pan criollo para mojar la salsa.</li>
+      </ol>
+
+      <div class="tip-javo">
+        <p>Dorar el pollo antes de agregar las verduras hace toda la diferencia: esa costra dorada no solo da sabor, sino que retiene los jugos dentro de la carne durante la cocción tapada. Un pollo que no se selló antes de tapar queda hervido, no cocinado al disco.</p>
+      </div>
+    </article>
+
+    <div class="receta-separador"><span>&#9632;</span></div>
+
+    <!-- RECETA 3 -->
+    <article class="receta-card" id="receta-cordero-disco">
+      <p class="receta-num">Receta 03</p>
+      <h3 class="receta-titulo">Cordero al Disco</h3>
+      <div class="receta-badges">
+        <span class="badge badge-porciones">&#9679; 8 porciones</span>
+        <span class="badge badge-prep">&#128336; Prep: 30 min</span>
+        <span class="badge badge-coccion">&#128293; Cocción: 2 horas</span>
+      </div>
+      <p class="receta-intro">
+        El cordero en disco pide tiempo y respeto. Es una carne que en Salta tiene historia propia: llega desde las pasturas de la Puna y la Quebrada, donde los animales crecen en alturas que les dan una textura y un sabor distintos al cordero de otras regiones. Al disco, con un fondo de cebollas, hierbas del monte y vino tinto, el cordero se vuelve tierno sin esfuerzo —solo hace falta el fuego lento y la tapa bien cerrada—.
+      </p>
+
+      <p class="receta-ingredientes-titulo">Ingredientes</p>
+      <ul class="ingredientes-lista">
+        <li>1.5 kg de paleta de cordero, en trozos</li>
+        <li>3 cebollas grandes, en cuartos</li>
+        <li>4 tomates maduros, en cubos</li>
+        <li>1 cabeza de ajo, los dientes aplastados</li>
+        <li>Hierbas del monte: orégano, tomillo, romero seco</li>
+        <li>1 vaso de vino tinto</li>
+        <li>1/2 vaso de agua o caldo</li>
+        <li>Sal gruesa, pimienta negra</li>
+        <li>Aceite</li>
+      </ul>
+
+      <p class="receta-pasos-titulo">Preparación</p>
+      <ol class="pasos-lista">
+        <li>Calentar el disco bien a fuego fuerte. Sellar el cordero en aceite caliente, en tandas, hasta que esté dorado de todos lados. Salpimentar con generosidad. Retirar y reservar.</li>
+        <li>Bajar el fuego a medio. Rehogar la cebolla en cuartos y el ajo aplastado en la grasa que dejó el cordero, unos 8 minutos hasta que empiecen a dorarse.</li>
+        <li>Agregar el tomate en cubos, las hierbas secas y revolver. Cocinar 5 minutos.</li>
+        <li>Devolver el cordero al disco. Verter el vino tinto por los bordes para desglasar los fondos del disco. Agregar el agua o caldo. Tapar.</li>
+        <li>Cocinar a fuego suave durante 1h 30min mínimo, revisando cada 30 minutos para que no quede sin líquido. Si es necesario, agregar un poco más de agua.</li>
+        <li>El cordero está listo cuando la carne se separa del hueso con solo empujarla con el dedo. Ajustar sal y servir.</li>
+      </ol>
+
+      <div class="tip-javo">
+        <p>El cordero pide fuego suave y tiempo. No hay atajos. Si se apura el fuego, la carne queda dura por fuera y cruda por dentro. Con fuego lento y tapa puesta, el disco se convierte en un horno que cocina a vapor en sus propios jugos, y el resultado es una carne que no necesita cuchillo.</p>
+      </div>
+    </article>
+
+    <div class="receta-separador"><span>&#9632;</span></div>
+
+    <!-- RECETA 4 -->
+    <article class="receta-card" id="receta-costillar-cerdo">
+      <p class="receta-num">Receta 04</p>
+      <h3 class="receta-titulo">Costillar de Cerdo al Disco</h3>
+      <div class="receta-badges">
+        <span class="badge badge-porciones">&#9679; 6 porciones</span>
+        <span class="badge badge-prep">&#128336; Prep: 20 min</span>
+        <span class="badge badge-coccion">&#128293; Cocción: 1h 20min</span>
+      </div>
+      <p class="receta-intro">
+        El costillar de cerdo tiene esa cualidad de la grasa que se derrite lentamente entre los huesos y se convierte en una salsa natural, sin que nadie haga nada especial para lograrlo. Al disco, con papas noisette doradas en esa misma grasa y una cebolla que se carameliza sola en el calor lento, el costillar se convierte en uno de los platos más satisfactorios que Javo cocina. La salsa de ciruelas es el toque que eleva el conjunto.
+      </p>
+
+      <p class="receta-ingredientes-titulo">Ingredientes</p>
+      <ul class="ingredientes-lista">
+        <li>1.2 kg de costillar de cerdo, en trozos de 3 costillas</li>
+        <li>6 papas medianas, en cubos chicos (noisette)</li>
+        <li>2 cebollas grandes, en plumas</li>
+        <li>1/2 taza de ciruelas pasas sin carozo</li>
+        <li>1/2 vaso de vino blanco</li>
+        <li>1 cucharada de miel</li>
+        <li>Sal gruesa, pimienta, tomillo fresco</li>
+        <li>Aceite</li>
+      </ul>
+
+      <p class="receta-pasos-titulo">Preparación</p>
+      <ol class="pasos-lista">
+        <li>Calentar el disco a fuego muy fuerte. Agregar apenas aceite y sellar el costillar a fuego intenso: la corteza debe quedar bien dorada y crujiente. Salpimentar. Retirar.</li>
+        <li>En la grasa del costillar, dorar las papas noisette a fuego fuerte revolviendo hasta que estén doradas de todos lados. No hace falta que estén cocidas por dentro. Retirar y reservar.</li>
+        <li>Bajar el fuego a medio. Rehogar la cebolla en plumas hasta que empiece a caramelizarse, unos 10-12 minutos, revolviendo ocasionalmente.</li>
+        <li>Devolver el costillar sobre la cebolla caramelizada. Agregar el vino blanco, el tomillo y la miel. Tapar y cocinar a fuego suave 30 minutos.</li>
+        <li>Incorporar las papas noisette alrededor del costillar. Distribuir las ciruelas pasas por encima. Tapar y cocinar 25-30 minutos más hasta que las papas estén tiernas y las ciruelas se hayan hidratado con los jugos.</li>
+        <li>Destapar los últimos 5 minutos para reducir y glasear la salsa. Servir en el disco.</li>
+      </ol>
+
+      <div class="tip-javo">
+        <p>El costillar necesita ese sellado fuerte al inicio, sin concesiones. Un sellado débil significa una superficie que no crujirá ni tendrá sabor. El fuego debe estar al máximo cuando entra el costillar al disco: ese golpe de calor es el que cierra los poros y guarda todo el jugo adentro para la cocción lenta que viene después.</p>
+      </div>
+    </article>
+
+    <div class="receta-separador"><span>&#9632;</span></div>
+
+    <!-- RECETA 5 -->
+    <article class="receta-card" id="receta-papas-rusticas">
+      <p class="receta-num">Receta 05</p>
+      <h3 class="receta-titulo">Papas Rústicas al Disco</h3>
+      <div class="receta-badges">
+        <span class="badge badge-porciones">&#9679; 6 porciones</span>
+        <span class="badge badge-prep">&#128336; Prep: 15 min</span>
+        <span class="badge badge-coccion">&#128293; Cocción: 45 min</span>
+      </div>
+      <p class="receta-intro">
+        Las papas rústicas al disco son el acompañamiento que roba el protagonismo. Javo las hace con cáscara porque la cáscara es donde está el sabor, y en cuartos irregulares porque las superficies irregulares toman mejor el dorado. Con ajo entero que se va confitando en el aceite y romero que perfuma todo el disco, son el complemento ideal para cualquier carne, pero también funcionan perfectamente solas como plato de media tarde.
+      </p>
+
+      <p class="receta-ingredientes-titulo">Ingredientes</p>
+      <ul class="ingredientes-lista">
+        <li>1 kg de papas medianas con cáscara, lavadas</li>
+        <li>1 cabeza de ajo entera, los dientes sin pelar</li>
+        <li>3-4 ramas de romero fresco</li>
+        <li>Sal gruesa en cantidad generosa</li>
+        <li>Aceite de oliva, 4-5 cucharadas</li>
+        <li>Pimienta negra</li>
+      </ul>
+
+      <p class="receta-pasos-titulo">Preparación</p>
+      <ol class="pasos-lista">
+        <li>Cortar las papas en cuartos irregulares sin pelar. No buscar uniformidad: los trozos de distintos tamaños crean diferentes texturas en el resultado final.</li>
+        <li>Calentar el disco con aceite de oliva a fuego medio-fuerte. Cuando el aceite esté caliente (pero no humeante), agregar los dientes de ajo sin pelar y el romero fresco. Dejar que aromaticen el aceite 1-2 minutos.</li>
+        <li>Agregar las papas en una sola capa sobre el disco. No revolver durante los primeros 5 minutos para que se forme la corteza.</li>
+        <li>Salar generosamente con sal gruesa. Revolver y dejar quietas otros 5 minutos. Repetir este proceso.</li>
+        <li>Cuando las papas estén doradas de varios lados (unos 20 minutos), bajar el fuego, tapar el disco y cocinar 20-25 minutos más hasta que estén tiernas por dentro. Las papas están listas cuando al pincharlas con un tenedor no ofrecen resistencia.</li>
+        <li>Servir directamente del disco, con los dientes de ajo confitados —que se pueden exprimir sobre las papas— y las ramas de romero.</li>
+      </ol>
+
+      <div class="tip-javo">
+        <p>Cortar las papas en cuartos irregulares en lugar de en trozos prolijos y del mismo tamaño no es descuido: es estrategia. Los bordes irregulares generan más superficie de contacto con el hierro caliente, lo que significa más dorado, más textura, más sabor. Las papas "prolijas" quedan uniformes. Las rústicas quedan memorables.</p>
+      </div>
+    </article>
+
+    <div class="receta-separador"><span>&#9632;</span></div>
+
+    <!-- RECETA 6 -->
+    <article class="receta-card" id="receta-cabrito-disco">
+      <p class="receta-num">Receta 06</p>
+      <h3 class="receta-titulo">Cabrito al Disco</h3>
+      <div class="receta-badges">
+        <span class="badge badge-porciones">&#9679; 8 porciones</span>
+        <span class="badge badge-prep">&#128336; Prep: 30 min + 12h marinada</span>
+        <span class="badge badge-coccion">&#128293; Cocción: 2h 30min</span>
+      </div>
+      <p class="receta-intro">
+        El cabrito es el animal de las fiestas en el norte argentino. Liviano, de carne blanca y sabor delicado, pide marinada para que sus sabores se abran antes de entrar al calor. Javo lo marina con ajo, limón y hierbas desde la noche anterior, y lo cocina en el disco sobre papas andinas que absorben todos los jugos de la carne. Es un plato de celebración que no necesita más justificación que un buen fuego y gente alrededor.
+      </p>
+
+      <p class="receta-ingredientes-titulo">Ingredientes</p>
+      <ul class="ingredientes-lista">
+        <li>1.5 kg de cabrito, en trozos (pierna, costillas, espalda)</li>
+        <li>Jugo de 2 limones</li>
+        <li>6 dientes de ajo, picados finos</li>
+        <li>Orégano, tomillo, romero seco</li>
+        <li>Aceite de oliva, 4 cucharadas</li>
+        <li>6 papas andinas o comunes, en mitades</li>
+        <li>1 vaso de caldo de verduras</li>
+        <li>Sal gruesa, pimienta</li>
+      </ul>
+
+      <p class="receta-pasos-titulo">Preparación</p>
+      <ol class="pasos-lista">
+        <li>La noche anterior: mezclar el jugo de limón, el ajo picado, las hierbas secas, el aceite, sal y pimienta. Cubrir los trozos de cabrito con esta marinada, envolver en film y refrigerar 12 horas mínimo.</li>
+        <li>Retirar el cabrito de la heladera 30 minutos antes de cocinar para que llegue a temperatura ambiente. Escurrir y reservar la marinada.</li>
+        <li>Calentar el disco a fuego fuerte. Sellar el cabrito en aceite caliente hasta dorar bien de todos lados. Salpimentar. Retirar.</li>
+        <li>Colocar las papas en mitades en el fondo del disco. Poner el cabrito sobre las papas. Verter la marinada reservada y el caldo de verduras.</li>
+        <li>Tapar y cocinar a fuego suave 2 horas, controlando el líquido y agregando caldo si es necesario. El cabrito está listo cuando la carne se separa sola del hueso.</li>
+        <li>Destapar los últimos 10 minutos para reducir la salsa. Servir en el disco.</li>
+      </ol>
+
+      <div class="tip-javo">
+        <p>Marinar el cabrito 12 horas como mínimo no es opcional —es lo que distingue un cabrito cocinado de un cabrito que fue cocinar—. El ácido del limón ablanda las fibras, el ajo perfuma desde adentro y las hierbas impregnan la carne de manera que el calor del disco no podría hacer solo. Sin marinada, el cabrito es correcto. Con marinada, es memorable.</p>
+      </div>
+    </article>
+
+    <div class="receta-separador"><span>&#9632;</span></div>
+
+    <!-- RECETA 7 -->
+    <article class="receta-card" id="receta-cerdo-ciruelas">
+      <p class="receta-num">Receta 07</p>
+      <h3 class="receta-titulo">Disco de Cerdo con Ciruelas</h3>
+      <div class="receta-badges">
+        <span class="badge badge-porciones">&#9679; 6 porciones</span>
+        <span class="badge badge-prep">&#128336; Prep: 20 min</span>
+        <span class="badge badge-coccion">&#128293; Cocción: 1h 15min</span>
+      </div>
+      <p class="receta-intro">
+        La combinación de cerdo con fruta seca es una de las más antiguas de la cocina europea, traída por los inmigrantes y adaptada al fuego del campo argentino. Javo la tomó y la puso al disco, con cebolla morada caramelizada y vino blanco, y el resultado es una preparación de una elegancia sorprendente para un disco de arado. Las ciruelas pasas se deshacen en la salsa y la redondean con una dulzura que equilibra la riqueza del cerdo.
+      </p>
+
+      <p class="receta-ingredientes-titulo">Ingredientes</p>
+      <ul class="ingredientes-lista">
+        <li>1 kg de lomo de cerdo, en medallones de 2 cm</li>
+        <li>200 g de ciruelas pasas sin carozo</li>
+        <li>2 cebollas moradas grandes, en plumas</li>
+        <li>1 vaso de vino blanco seco</li>
+        <li>Tomillo fresco</li>
+        <li>1 cucharada de miel</li>
+        <li>Sal, pimienta negra, aceite</li>
+      </ul>
+
+      <p class="receta-pasos-titulo">Preparación</p>
+      <ol class="pasos-lista">
+        <li>Calentar el disco a fuego fuerte. Sellar los medallones de lomo en aceite caliente 2-3 minutos por lado hasta dorar. Salpimentar. Retirar y reservar.</li>
+        <li>Bajar el fuego a medio. En la misma grasa, colocar la cebolla morada en plumas. Cocinar lentamente, revolviendo cada tanto, 15-20 minutos hasta que la cebolla quede dorada y caramelizada.</li>
+        <li>Agregar la miel y el tomillo, mezclar 1 minuto. Verter el vino blanco para desglasar: raspar el fondo del disco con cuchara de madera para levantar los sabores concentrados.</li>
+        <li>Devolver los medallones de cerdo al disco sobre la cebolla. Tapar y cocinar a fuego suave 30-35 minutos.</li>
+        <li>Agregar las ciruelas pasas distribuidas sobre la carne. Tapar nuevamente y cocinar 20 minutos más hasta que las ciruelas estén tiernas e integradas a la salsa.</li>
+        <li>Destapar para reducir la salsa 5 minutos. Servir con arroz blanco o papas rústicas.</li>
+      </ol>
+
+      <div class="tip-javo">
+        <p>Las ciruelas se agregan los últimos 20 minutos porque si entran antes se deshacen completamente en la salsa —que no es malo, pero se pierde la textura—. Con 20 minutos se hidratan con los jugos del cerdo y el vino, quedan tiernas pero enteras, y cada bocado que incluye una ciruela tiene ese contraste dulce que hace que el plato sea especial.</p>
+      </div>
+    </article>
+
+    <div class="receta-separador"><span>&#9632;</span></div>
+
+    <!-- RECETA 8 -->
+    <article class="receta-card" id="receta-lentejas-disco">
+      <p class="receta-num">Receta 08</p>
+      <h3 class="receta-titulo">Lentejas al Disco</h3>
+      <div class="receta-badges">
+        <span class="badge badge-porciones">&#9679; 8 porciones</span>
+        <span class="badge badge-prep">&#128336; Prep: 20 min + 4h remojo</span>
+        <span class="badge badge-coccion">&#128293; Cocción: 1 hora</span>
+      </div>
+      <p class="receta-intro">
+        Hay algo que el disco le hace a las lentejas que ninguna olla puede replicar: ese sabor a humo y a hierro que se integra en cada grano durante la cocción a fuego abierto. Las lentejas al disco con chorizo y panceta son el guiso de invierno definitivo —denso, caliente, perfumado a pimentón—, y en el campo salteño son tan bienvenidas como cualquier plato de carne cuando el frío aprieta.
+      </p>
+
+      <p class="receta-ingredientes-titulo">Ingredientes</p>
+      <ul class="ingredientes-lista">
+        <li>500 g de lentejas (remojadas 4 horas)</li>
+        <li>2 chorizos colorados, en rodajas</li>
+        <li>150 g de panceta ahumada, en cubos</li>
+        <li>2 zanahorias, en cubos pequeños</li>
+        <li>2 ramas de apio, picadas</li>
+        <li>3 tomates maduros, picados</li>
+        <li>1 cebolla, picada</li>
+        <li>2 cucharaditas de pimentón</li>
+        <li>Agua o caldo, cantidad suficiente</li>
+        <li>Sal, pimienta, laurel</li>
+      </ul>
+
+      <p class="receta-pasos-titulo">Preparación</p>
+      <ol class="pasos-lista">
+        <li>Escurrir las lentejas remojadas. Calentar el disco a fuego medio. Dorar la panceta en cubos hasta que esté crocante. Incorporar el chorizo en rodajas y dorar 2 minutos más. Retirar y reservar.</li>
+        <li>En la grasa que soltaron, rehogar la cebolla, la zanahoria y el apio hasta transparentar, unos 7 minutos. Agregar el tomate picado y el pimentón. Cocinar 5 minutos.</li>
+        <li>Agregar las lentejas escurridas al disco. Revolver para que se integren con el sofrito.</li>
+        <li>Cubrir con agua o caldo caliente, unos 2 cm por encima de las lentejas. Incorporar la hoja de laurel. Salpimentar.</li>
+        <li>Devolver el chorizo y la panceta al disco. Tapar y cocinar a fuego suave 35-40 minutos, revolviendo ocasionalmente y agregando caldo si se reseca demasiado.</li>
+        <li>Las lentejas están listas cuando están tiernas pero no deshachas. Ajustar sal y retirar el laurel. Servir caliente.</li>
+      </ol>
+
+      <div class="tip-javo">
+        <p>Remojar las lentejas 4 horas antes recorta la cocción a la mitad y mejora la textura: el grano absorbe agua de manera pareja y se cocina de forma uniforme sin que los de afuera se deshagan antes de que los de adentro estén tiernos. Sin remojo se puede hacer, pero el resultado no es el mismo.</p>
+      </div>
+    </article>
+
+    <div class="receta-separador"><span>&#9632;</span></div>
+
+    <!-- RECETA 9 -->
+    <article class="receta-card" id="receta-hongos-disco">
+      <p class="receta-num">Receta 09</p>
+      <h3 class="receta-titulo">Revuelto de Hongos al Disco</h3>
+      <div class="receta-badges">
+        <span class="badge badge-porciones">&#9679; 4 porciones</span>
+        <span class="badge badge-prep">&#128336; Prep: 10 min</span>
+        <span class="badge badge-coccion">&#128293; Cocción: 20 min</span>
+      </div>
+      <p class="receta-intro">
+        Los hongos al disco son la receta más rápida del repertorio y, según muchos que la han probado, una de las más sorprendentes. La clave es el hierro caliente: a diferencia de la sartén de acero inoxidable que enfría con facilidad, el disco de arado retiene el calor de manera tan pareja que los hongos se doran en lugar de hervir en su propio agua. El resultado es un revuelto con textura y sabor concentrado, perfecto como entrada o como guarnición.
+      </p>
+
+      <p class="receta-ingredientes-titulo">Ingredientes</p>
+      <ul class="ingredientes-lista">
+        <li>600 g de hongos variados (portobello, champiñones, gírgola, shiitake)</li>
+        <li>4 cucharadas de manteca</li>
+        <li>4 dientes de ajo, picados finos</li>
+        <li>Perejil fresco picado, abundante</li>
+        <li>Sal gruesa, pimienta negra recién molida</li>
+        <li>Jugo de medio limón (al servir)</li>
+      </ul>
+
+      <p class="receta-pasos-titulo">Preparación</p>
+      <ol class="pasos-lista">
+        <li>Limpiar los hongos con un trapo húmedo (no lavarlos bajo agua: absorben líquido y luego lo sueltan en el disco). Cortar los más grandes en mitades o cuartos; dejar los pequeños enteros.</li>
+        <li>Calentar el disco a fuego muy fuerte, hasta que empiece a humear levemente. Agregar la manteca: debe derretirse y espumar rápido.</li>
+        <li>Colocar los hongos en una sola capa sobre el disco caliente. No revolver durante los primeros 3-4 minutos. Este es el momento crítico: si se mueven, sueltan agua y terminan hirviendo en lugar de dorarse.</li>
+        <li>Cuando los hongos estén dorados de un lado, revolver y dejar que se doren del otro lado, 3-4 minutos más.</li>
+        <li>Agregar el ajo picado, salpimentar y revolver. Cocinar 2 minutos más hasta que el ajo esté fragante pero no quemado.</li>
+        <li>Retirar del fuego, espolvorear generosamente con perejil fresco y un chorrito de limón. Servir de inmediato.</li>
+      </ol>
+
+      <div class="tip-javo">
+        <p>El disco debe estar muy caliente —al punto de empezar a humear— antes de agregar los hongos. Si el disco está tibio, los hongos sueltan toda su agua, se hierven en ese líquido y quedan blandos y sin sabor. Con el disco a máxima temperatura, esa agua se evapora al instante y los hongos se caramelizan. La diferencia es enorme.</p>
+      </div>
+    </article>
+
+    <div class="receta-separador"><span>&#9632;</span></div>
+
+    <!-- RECETA 10 -->
+    <article class="receta-card" id="receta-pollo-limon">
+      <p class="receta-num">Receta 10</p>
+      <h3 class="receta-titulo">Pollo al Disco con Limón y Ajo</h3>
+      <div class="receta-badges">
+        <span class="badge badge-porciones">&#9679; 6 porciones</span>
+        <span class="badge badge-prep">&#128336; Prep: 20 min</span>
+        <span class="badge badge-coccion">&#128293; Cocción: 50 min</span>
+      </div>
+      <p class="receta-intro">
+        Si el pollo con especias norteñas es la versión intensamente aromatizada, el pollo con limón y ajo es la versión mediterránea que Javo adopta con convicción. La simplicidad del limón y el ajo en el hierro del disco produce algo que parece sencillo pero que en la práctica es de una complejidad oculta: el ajo se confita, el limón carameliza, y el pollo absorbe todo eso durante la cocción lenta tapada.
+      </p>
+
+      <p class="receta-ingredientes-titulo">Ingredientes</p>
+      <ul class="ingredientes-lista">
+        <li>1 pollo entero, trozado</li>
+        <li>1 cabeza de ajo entera, los dientes sin pelar</li>
+        <li>3 limones, 2 cortados en mitades y 1 para exprimir al servir</li>
+        <li>Tomillo fresco, varias ramas</li>
+        <li>5 cucharadas de aceite de oliva</li>
+        <li>Sal gruesa, pimienta negra</li>
+      </ul>
+
+      <p class="receta-pasos-titulo">Preparación</p>
+      <ol class="pasos-lista">
+        <li>Calentar el disco a fuego fuerte con el aceite de oliva. Sellar los trozos de pollo con la piel hacia abajo, en tandas, hasta que estén bien dorados. Salpimentar. Retirar.</li>
+        <li>Bajar el fuego a medio. Colocar en el disco los dientes de ajo sin pelar y las mitades de limón con el corte hacia abajo sobre el hierro. Dejar que se doren 3-4 minutos: el limón caramelizará y el ajo tomará color.</li>
+        <li>Devolver el pollo al disco, piel hacia arriba, distribuyendo entre los ajos y los limones. Agregar el tomillo fresco.</li>
+        <li>Tapar y cocinar a fuego medio-suave 30-35 minutos. Los jugos del pollo y los limones irán creando una salsa natural.</li>
+        <li>Destapar y verificar cocción: el pollo debe estar dorado, con los jugos corriendo claros al pincharlo. Cocinar destapado 5-10 minutos más para que la piel quede crujiente.</li>
+        <li>Al momento de servir, exprimir el limón fresco directamente sobre el pollo y los ajos confitados. Los dientes de ajo se pueden exprimir sobre la carne como una pasta suave y dulce.</li>
+      </ol>
+
+      <div class="tip-javo">
+        <p>Exprimir los limones directamente sobre el pollo en la mesa no es solo un gesto: el ácido del limón fresco corta la riqueza de la grasa del pollo y levanta todos los sabores del plato. No lo hagan antes del servicio porque el calor destruye los aromas del limón fresco. En la mesa, frente a todos, ese momento tiene también algo de espectáculo.</p>
+      </div>
+    </article>
+
+    <div class="receta-separador"><span>&#9632;</span></div>
+
+    <!-- RECETA 11 -->
+    <article class="receta-card" id="receta-verduras-disco">
+      <p class="receta-num">Receta 11</p>
+      <h3 class="receta-titulo">Verduras de Temporada al Disco</h3>
+      <div class="receta-badges">
+        <span class="badge badge-porciones">&#9679; 4 porciones</span>
+        <span class="badge badge-prep">&#128336; Prep: 15 min</span>
+        <span class="badge badge-coccion">&#128293; Cocción: 30 min</span>
+      </div>
+      <p class="receta-intro">
+        No todo lo que sale del disco lleva carne. Las verduras de temporada al disco son una de las preparaciones que Javo más defiende como plato independiente: las berenjenas que se caramelizan, los zucchinis que se doran en los bordes, los tomates cherry que estallan y forman una salsa, los pimientos que se ablandan y perfuman todo. Es la cocina del verano en su estado más honesto, y el disco de arado le da un carácter ahumado que ninguna sartén puede dar.
+      </p>
+
+      <p class="receta-ingredientes-titulo">Ingredientes</p>
+      <ul class="ingredientes-lista">
+        <li>2 zucchinis medianos, en rodajas gruesas</li>
+        <li>2 berenjenas medianas, en cubos</li>
+        <li>2 pimientos de colores, en tiras</li>
+        <li>1 cebolla morada, en gajos</li>
+        <li>200 g de tomates cherry, enteros</li>
+        <li>4 dientes de ajo, laminados</li>
+        <li>Aceite de oliva generoso</li>
+        <li>Sal gruesa, pimienta, orégano seco</li>
+      </ul>
+
+      <p class="receta-pasos-titulo">Preparación</p>
+      <ol class="pasos-lista">
+        <li>Calentar el disco a temperatura media: no al máximo, porque las verduras se queman antes de cocinarse por dentro si el calor es excesivo.</li>
+        <li>Agregar aceite de oliva generoso y empezar por las verduras que más tiempo de cocción necesitan: la berenjena y los pimientos. Distribuir en una capa sobre el disco, sin revolver, 5-6 minutos.</li>
+        <li>Agregar la cebolla en gajos y el zucchini. Salpimentar. Revolver suavemente con espátula para que las verduras de abajo pasen arriba. Cocinar 5 minutos más.</li>
+        <li>Incorporar el ajo laminado y los tomates cherry enteros. Espolvorear con orégano. Revolver suavemente una vez más.</li>
+        <li>Cocinar a fuego medio unos 10-15 minutos más revolviendo ocasionalmente, hasta que todas las verduras estén tiernas y con bordes dorados. Los tomates cherry deben haberse abierto y formado una salsa ligera.</li>
+        <li>Servir calientes o a temperatura ambiente, como plato principal con pan o como guarnición.</li>
+      </ol>
+
+      <div class="tip-javo">
+        <p>El disco a temperatura media para las verduras: si está demasiado caliente, los exteriores se queman mientras los interiores siguen crudos. Las verduras piden un calor generoso pero sostenible, que las cocine de manera pareja. El ojo es el mejor termómetro: si el aceite humea demasiado antes de agregar las verduras, sacar el disco del fuego un minuto y dejar que baje la temperatura.</p>
+      </div>
+    </article>
+
+    <div class="receta-separador"><span>&#9632;</span></div>
+
+    <!-- RECETA 12 -->
+    <article class="receta-card" id="receta-arroz-leche">
+      <p class="receta-num">Receta 12</p>
+      <h3 class="receta-titulo">Arroz con Leche al Disco</h3>
+      <div class="receta-badges">
+        <span class="badge badge-porciones">&#9679; 6 porciones</span>
+        <span class="badge badge-prep">&#128336; Prep: 10 min</span>
+        <span class="badge badge-coccion">&#128293; Cocción: 45 min</span>
+      </div>
+      <p class="receta-intro">
+        Hacer arroz con leche en el disco de arado sobre brasas bajas es el postre más sorprendente del repertorio de Javo. Parece difícil pero no lo es: requiere brasas tranquilas, paciencia y una cuchara. El disco de hierro, que retiene el calor de manera tan pareja, le da al arroz una cremosidad que difícilmente se logra en ollas de otro material. Es el final perfecto para un asado largo, cuando las brasas ya bajaron y solo quedan el calor y la conversación.
+      </p>
+
+      <p class="receta-ingredientes-titulo">Ingredientes</p>
+      <ul class="ingredientes-lista">
+        <li>300 g de arroz de grano corto (tipo doble carolina)</li>
+        <li>1.5 litros de leche entera</li>
+        <li>150 g de azúcar</li>
+        <li>1 rama de canela gruesa</li>
+        <li>Cáscara de 1 limón (solo la parte amarilla)</li>
+        <li>1 cucharadita de esencia de vainilla</li>
+        <li>Canela molida para servir</li>
+      </ul>
+
+      <p class="receta-pasos-titulo">Preparación</p>
+      <ol class="pasos-lista">
+        <li>Las brasas deben estar bajas, sin llama: el arroz con leche necesita calor suave y constante, no fuego intenso que lo queme en el fondo.</li>
+        <li>Calentar la leche en el disco con la canela en rama y la cáscara de limón hasta que esté bien caliente pero sin hervir.</li>
+        <li>Agregar el arroz crudo, revolver bien para que los granos queden sumergidos. Cocinar a fuego muy suave, revolviendo cada 5 minutos con cuchara de madera para evitar que se pegue al hierro.</li>
+        <li>A los 20 minutos, agregar el azúcar y la vainilla. Continuar revolviendo cada 5 minutos.</li>
+        <li>Cocinar unos 40-45 minutos en total: el arroz debe estar muy tierno y la preparación debe tener consistencia cremosa y ligeramente espesa. Al enfriar se espesará aún más.</li>
+        <li>Retirar la canela en rama y la cáscara de limón. Servir caliente o a temperatura ambiente, con un toque de canela molida por encima.</li>
+      </ol>
+
+      <div class="tip-javo">
+        <p>Revolver cada 5 minutos es la única norma que no admite excepciones. El arroz con leche en el disco de hierro se pega al fondo con mucha facilidad, y una vez que se quema la parte de abajo, el sabor amargo se distribuye por toda la preparación. Fuego mínimo, cuchara frecuente. Es un postre que premia la atención constante.</p>
+      </div>
+    </article>
+
+    <div class="receta-separador"><span>&#9632;</span></div>
+
+    <!-- RECETA 13 -->
+    <article class="receta-card" id="receta-mariscos-disco">
+      <p class="receta-num">Receta 13</p>
+      <h3 class="receta-titulo">Disco de Mariscos</h3>
+      <div class="receta-badges">
+        <span class="badge badge-porciones">&#9679; 4 porciones</span>
+        <span class="badge badge-prep">&#128336; Prep: 20 min</span>
+        <span class="badge badge-coccion">&#128293; Cocción: 25 min</span>
+      </div>
+      <p class="receta-intro">
+        Los mariscos al disco son la demostración de que esta herramienta no tiene límites. Javo los cocina cuando consigue langostinos frescos en Salta —que llegan del norte del país— y los combina con calamar y mejillones. La clave es velocidad: los mariscos se cocinan rápido y se pasan rápido, y el disco caliente los sella en segundos preservando sus jugos. El resultado es una preparación de pescadería trasladada al campo, con el perfume del pimentón y el ajo encima.
+      </p>
+
+      <p class="receta-ingredientes-titulo">Ingredientes</p>
+      <ul class="ingredientes-lista">
+        <li>400 g de langostinos medianos, pelados y desvenados</li>
+        <li>300 g de calamar, en anillos</li>
+        <li>300 g de mejillones, limpios</li>
+        <li>1 vaso de vino blanco seco</li>
+        <li>4 dientes de ajo, picados finos</li>
+        <li>2 cucharaditas de pimentón dulce</li>
+        <li>Perejil fresco picado abundante</li>
+        <li>Aceite de oliva, sal, pimienta</li>
+        <li>Pan crujiente para acompañar</li>
+      </ul>
+
+      <p class="receta-pasos-titulo">Preparación</p>
+      <ol class="pasos-lista">
+        <li>Calentar el disco a fuego muy fuerte con aceite de oliva. Comenzar por los mejillones: colocarlos en el disco caliente y agregar el vino blanco. Tapar 3-4 minutos hasta que abran. Retirar los que abrieron, descartar los que no abrieron. Reservar el caldo que soltaron.</li>
+        <li>Agregar el calamar en anillos al disco muy caliente. Cocinar 2 minutos a fuego fuerte, revolviendo. No más: el calamar demasiado cocido se vuelve gomoso. Retirar y reservar.</li>
+        <li>Incorporar los langostinos al disco caliente con un poco más de aceite. Sellar 1-2 minutos por lado hasta que cambien de color a rosado-anaranjado. Retirar y reservar.</li>
+        <li>Bajar el fuego a medio. Rehogar el ajo picado en el disco con el caldo de los mejillones, el pimentón y los jugos que quedaron. Cocinar 2 minutos.</li>
+        <li>Devolver todos los mariscos al disco, mezclar suavemente con la salsa y calentar 1-2 minutos. Ajustar sal.</li>
+        <li>Espolvorear con perejil picado abundante y servir de inmediato, con pan crujiente para mojar la salsa.</li>
+      </ol>
+
+      <div class="tip-javo">
+        <p>Agregar los mariscos en orden de mayor a menor tiempo de cocción es la técnica que evita que algo quede crudo mientras otro está pasado. Primero los mejillones (los más lentos), luego el calamar, por último los langostinos (los más rápidos). Si los tres entran juntos al mismo tiempo, cuando los mejillones están listos los langostinos ya están de goma. El orden no es capricho: es ciencia.</p>
+      </div>
+    </article>
+
+    <div class="receta-separador"><span>&#9632;</span></div>
+
+    <!-- RECETA 14 -->
+    <article class="receta-card" id="receta-bondiola-disco">
+      <p class="receta-num">Receta 14</p>
+      <h3 class="receta-titulo">Bondiola al Disco con Barbacoa Norteña</h3>
+      <div class="receta-badges">
+        <span class="badge badge-porciones">&#9679; 6 porciones</span>
+        <span class="badge badge-prep">&#128336; Prep: 20 min</span>
+        <span class="badge badge-coccion">&#128293; Cocción: 2 horas</span>
+      </div>
+      <p class="receta-intro">
+        La bondiola es el corte más agradecido del cerdo: rica en colágeno e infiltrada de grasa, pide cocción lenta para que se deshaga sola. Al disco con la barbacoa norteña de Javo —azúcar negra, ají molido, pimentón ahumado y vinagre de manzana—, la bondiola se convierte en algo parecido al pulled pork norteamericano pero con el alma del norte argentino. Es el plato que más tiempo lleva de este recetario y el que más recompensa esa espera.
+      </p>
+
+      <p class="receta-ingredientes-titulo">Ingredientes</p>
+      <ul class="ingredientes-lista">
+        <li>1.2 kg de bondiola de cerdo entera</li>
+        <li>4 cucharadas de salsa de tomate natural</li>
+        <li>2 cucharadas de azúcar negra o mascabo</li>
+        <li>1 cucharadita de ají molido</li>
+        <li>2 cucharadas de vinagre de manzana</li>
+        <li>4 dientes de ajo, picados finos</li>
+        <li>2 cucharaditas de pimentón ahumado</li>
+        <li>Sal, pimienta, aceite</li>
+        <li>1/2 vaso de agua</li>
+      </ul>
+
+      <p class="receta-pasos-titulo">Preparación</p>
+      <ol class="pasos-lista">
+        <li>Preparar la salsa barbacoa norteña: mezclar la salsa de tomate, el azúcar negra, el ají molido, el vinagre de manzana, el ajo picado y el pimentón ahumado. Reservar.</li>
+        <li>Calentar el disco a fuego fuerte con aceite. Sellar la bondiola entera de todos sus lados hasta que esté bien dorada. Salpimentar. Este paso tarda unos 8-10 minutos.</li>
+        <li>Bajar el fuego al mínimo. Cubrir la bondiola sellada con la mitad de la salsa barbacoa. Agregar el agua por los bordes del disco.</li>
+        <li>Tapar bien el disco y cocinar a fuego muy suave durante 1 hora. Revisar cada 20 minutos: si el fondo se está secando, agregar un poco más de agua.</li>
+        <li>Dar vuelta la bondiola, cubrir con el resto de la salsa barbacoa. Tapar nuevamente y cocinar otra hora a fuego mínimo.</li>
+        <li>La bondiola está lista cuando al presionarla con una cuchara se deshace sin resistencia. Retirar y desmenuzar en trozos grandes. Bañar con los jugos y la salsa reducida del disco. Servir con pan o tortilla.</li>
+      </ol>
+
+      <div class="tip-javo">
+        <p>La bondiola pide fuego lento, nada de apuros. El colágeno que tiene este corte se deshace con el tiempo y la paciencia —y es ese colágeno derretido el que convierte la salsa en algo gelatinoso y brillante—. Si se apura el fuego para acortar los tiempos, el colágeno no llega a romperse y la carne queda dura aunque esté cocida. Dos horas a fuego mínimo es la inversión mínima. Vale cada minuto.</p>
+      </div>
+    </article>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer>
+    <p class="footer-titulo">A Todo Disco</p>
+    <p class="footer-copy">© Javo Te Cocina 2025 &nbsp;·&nbsp; El arte de cocinar en vuelo</p>
+    <a href="/" class="footer-link">javotecocina.com ↗</a>
+  </footer>
+
+</body>
+</html>
