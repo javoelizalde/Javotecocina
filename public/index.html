@@ -1751,12 +1751,13 @@ async function pagarConMP(){
   const nombre=document.getElementById('co-nombre').value.trim();
   const email=document.getElementById('co-email').value.trim();
   const dir=document.getElementById('co-dir').value.trim();
-  if(!nombre||!email){showToast('Faltan datos','Completá nombre y email.','error');return;}
+  if(!email){showToast('Falta el email','Ingresá tu email para continuar.','error');return;}
+  const nombreFinal=nombre||email.split('@')[0];
   showToast('Preparando pago...','Conectando con Mercado Pago...','');
   try{
     // Guardar datos de la compra para recuperarlos al volver desde MP
     if(coSlug) sessionStorage.setItem('javo_pending',JSON.stringify({email,nombre,recetario:coSlug}));
-    const resp=await fetch('/api/create_preference',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({title:coProducto,price:parseFloat(coPrecio.replace(/\./g,'')),quantity:1,buyer_email:email,buyer_name:nombre,recetario:coSlug})});
+    const resp=await fetch('/api/create_preference',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({title:coProducto,price:parseFloat(coPrecio.replace(/\./g,'')),quantity:1,buyer_email:email,buyer_name:nombreFinal,recetario:coSlug})});
     const data=await resp.json();
     if(data.init_point){
       await guardarEnSupabase('pedidos',{producto:coProducto,precio:coPrecio,nombre,email,direccion:dir,metodo_pago:'mercadopago',estado:'pendiente',fecha:new Date().toISOString()});
