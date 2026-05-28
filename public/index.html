@@ -1595,6 +1595,28 @@ async function pagarConMP(){
   }
 }
 
+// ── DEEP LINK desde paywall de recetarios: /?comprar=slug
+(function handleDeepLink(){
+  var p=new URLSearchParams(window.location.search);
+  var slug=p.get('comprar');
+  if(!slug) return;
+  // Limpiar URL sin recargar
+  window.history.replaceState({},'',window.location.pathname);
+  // Mostrar sección recetarios
+  showPage('recetarios');
+  // Mapeo slug → [nombre, precio]
+  var map={
+    'todo-sobre-fierros':  ['Recetario Todo sobre Fierros','34.500'],
+    'a-todo-disco':        ['Recetario A Todo Disco','34.500'],
+    'a-todo-keveri':       ['Recetario A Todo Keveri','34.500'],
+    'donde-hay-humo':      ['Recetario Donde Hay Humo','34.500'],
+    'sabores-saltenos':    ['Recetario Sabores Salteños','34.500'],
+    'lo-fresco-del-norte': ['Recetario Lo Fresco del Norte','34.500']
+  };
+  var info=map[slug];
+  if(info) setTimeout(function(){ openCheckout(info[0],info[1],slug); },350);
+})();
+
 // ── RETORNO DE PAGO (se ejecuta al volver de MercadoPago)
 (async function handlePaymentReturn(){
   const params=new URLSearchParams(window.location.search);
