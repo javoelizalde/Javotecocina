@@ -433,28 +433,72 @@ h2.sec-title em{font-style:italic;color:var(--puna);}
 .transfer-info p{font-family:var(--font-body);font-size:0.85rem;color:rgba(245,237,216,0.65);line-height:2;}
 .transfer-info strong{color:var(--sal);}
 
-/* ── MÉTRICAS ── */
-.metrics-hero-nums{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:rgba(196,133,58,0.1);margin:3rem 0;}
-.metric-big{background:var(--tierra);padding:3rem 2.5rem;text-align:center;}
-.platform-icon{font-size:2rem;margin-bottom:1rem;}
-.main-num{font-family:var(--font-display);font-size:3.8rem;font-weight:700;color:var(--sal);line-height:1;}
-.main-num span{color:var(--puna);}
-.platform-name{font-family:var(--font-data);font-size:0.65rem;letter-spacing:0.18em;text-transform:uppercase;color:var(--niebla);margin-top:0.5rem;}
-.sub-stats{display:flex;gap:1.5rem;justify-content:center;margin-top:1.5rem;}
-.sub-stat .n{font-family:var(--font-data);font-size:1rem;font-weight:700;color:var(--sal);}
-.sub-stat .l{font-family:var(--font-data);font-size:0.55rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--niebla);}
-.bar-chart{display:flex;flex-direction:column;gap:1rem;}
-.bar-row{display:flex;align-items:center;gap:1.25rem;}
-.bar-label{font-family:var(--font-body);font-size:0.8rem;font-style:italic;color:var(--niebla);width:120px;text-align:right;flex-shrink:0;}
-.bar-track{flex:1;height:6px;background:rgba(201,185,154,0.1);}
-.bar-fill{height:100%;background:linear-gradient(to right,var(--fuego),var(--puna));}
-.bar-val{font-family:var(--font-data);font-size:0.72rem;font-weight:700;color:var(--puna);width:50px;flex-shrink:0;}
-.media-gallery{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:rgba(196,133,58,0.08);}
-.media-item{aspect-ratio:1;overflow:hidden;position:relative;cursor:pointer;}
-.media-item img{width:100%;height:100%;object-fit:cover;filter:sepia(0.15);transition:transform 0.4s,filter 0.4s;}
-.media-item:hover img{transform:scale(1.05);filter:sepia(0);}
-.media-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(44,26,14,0.85) 0%,transparent 55%);display:flex;align-items:flex-end;padding:0.75rem;}
-.media-platform{font-family:var(--font-data);font-size:0.58rem;letter-spacing:0.14em;text-transform:uppercase;color:var(--puna);}
+/* ── MEDIA KIT / MÉTRICAS ── */
+.mk-kpi-strip{display:grid;grid-template-columns:1fr 1.4fr 1fr 1fr;gap:1px;background:rgba(196,133,58,0.1);}
+.mk-kpi{background:var(--tierra);padding:3rem 2rem;text-align:center;transition:background 0.3s;}
+.mk-kpi:hover{background:var(--barro);}
+.mk-kpi-hero{background:var(--barro)!important;}
+.mk-kpi-num{font-family:var(--font-display);font-size:4rem;font-weight:700;color:var(--sal);line-height:1;}
+.mk-kpi-num em{color:var(--puna);font-style:normal;font-size:3rem;}
+.mk-kpi-hero .mk-kpi-num{font-size:5.5rem;}
+.mk-kpi-hero .mk-kpi-num em{font-size:4.5rem;}
+.mk-kpi-lbl{font-family:var(--font-data);font-size:0.56rem;letter-spacing:0.14em;text-transform:uppercase;color:var(--niebla);margin-top:0.75rem;line-height:1.65;}
+.mk-kpi-note{font-family:var(--font-body);font-size:0.68rem;color:rgba(245,237,216,0.28);margin-top:0.4rem;font-style:italic;}
+.mk-reach-callout{display:flex;align-items:center;gap:5rem;padding:4.5rem 5vw;background:var(--barro);border-top:1px solid rgba(196,133,58,0.12);border-bottom:1px solid rgba(196,133,58,0.12);}
+.mk-reach-num{font-family:var(--font-display);font-size:9rem;font-weight:700;color:var(--sal);line-height:0.85;flex-shrink:0;}
+.mk-reach-num em{color:var(--fuego);font-style:normal;}
+.mk-reach-eyebrow{font-family:var(--font-data);font-size:0.52rem;letter-spacing:0.22em;text-transform:uppercase;color:var(--puna);margin-bottom:0.5rem;}
+.mk-reach-title{font-family:var(--font-display);font-size:2.2rem;font-weight:600;color:var(--sal);margin-bottom:0.75rem;line-height:1.1;}
+.mk-reach-desc{font-family:var(--font-body);font-size:0.88rem;color:var(--niebla);line-height:1.85;font-style:italic;max-width:540px;}
+.mk-platforms-grid{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:rgba(196,133,58,0.1);}
+.mk-plat-card{background:var(--tierra);padding:3.5rem 3rem;}
+.mk-plat-header{display:flex;align-items:flex-start;gap:1.25rem;margin-bottom:2.5rem;padding-bottom:2rem;border-bottom:1px solid rgba(196,133,58,0.1);}
+.mk-plat-icon{font-size:2rem;flex-shrink:0;margin-top:0.2rem;}
+.mk-plat-name{font-family:var(--font-display);font-size:1.75rem;font-weight:600;color:var(--sal);}
+.mk-plat-handle{font-family:var(--font-data);font-size:0.52rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--puna);text-decoration:none;display:block;margin-top:0.2rem;transition:color 0.25s;}
+.mk-plat-handle:hover{color:var(--brasa);}
+.mk-plat-followers{margin-left:auto;text-align:right;flex-shrink:0;}
+.mk-plat-fnum{font-family:var(--font-display);font-size:2.2rem;font-weight:700;color:var(--sal);line-height:1;}
+.mk-plat-fnum em{color:var(--puna);font-style:normal;font-size:1.6rem;}
+.mk-plat-flbl{font-family:var(--font-data);font-size:0.5rem;letter-spacing:0.14em;text-transform:uppercase;color:var(--niebla);margin-top:0.2rem;}
+.mk-plat-body{display:grid;grid-template-columns:160px 1fr;gap:3rem;align-items:center;}
+.mk-stat-list{display:flex;flex-direction:column;gap:1.5rem;}
+.mk-stat-item{border-bottom:1px solid rgba(196,133,58,0.08);padding-bottom:1.5rem;}
+.mk-stat-item:last-child{border-bottom:none;padding-bottom:0;}
+.mk-stat-val{font-family:var(--font-display);font-size:2.4rem;font-weight:700;color:var(--sal);line-height:1;}
+.mk-stat-val em{color:var(--puna);font-style:normal;font-size:1.75rem;}
+.mk-stat-lbl{font-family:var(--font-data);font-size:0.5rem;letter-spacing:0.14em;text-transform:uppercase;color:var(--niebla);margin-top:0.15rem;}
+.mk-stat-note{font-family:var(--font-body);font-size:0.62rem;color:rgba(245,237,216,0.22);font-style:italic;margin-top:0.05rem;}
+.mk-audience-section{padding:5rem 5vw;display:grid;grid-template-columns:1fr 1fr;gap:7rem;align-items:start;}
+.mk-sec-eyebrow{font-family:var(--font-data);font-size:0.52rem;letter-spacing:0.22em;text-transform:uppercase;color:var(--puna);margin-bottom:0.4rem;}
+.mk-sec-title{font-family:var(--font-display);font-size:2rem;font-weight:600;color:var(--sal);margin-bottom:2.5rem;}
+.mk-donut-layout{display:grid;grid-template-columns:1fr 1fr;gap:2rem;align-items:center;}
+.mk-donut-legend{display:flex;flex-direction:column;gap:1.1rem;}
+.mk-legend-item{display:flex;align-items:center;gap:0.75rem;}
+.mk-legend-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0;}
+.mk-legend-pct{font-family:var(--font-data);font-size:0.92rem;font-weight:700;color:var(--sal);min-width:38px;}
+.mk-legend-lbl{font-family:var(--font-body);font-size:0.78rem;color:var(--niebla);font-style:italic;}
+.mk-gender-bar{height:56px;display:flex;overflow:hidden;margin:1.5rem 0;}
+.mk-gender-m{background:linear-gradient(to right,#D4521A,#C4853A);display:flex;align-items:center;justify-content:center;}
+.mk-gender-f{background:rgba(196,133,58,0.12);border:1px solid rgba(196,133,58,0.15);border-left:none;display:flex;align-items:center;justify-content:center;}
+.mk-gender-lbl{font-family:var(--font-data);font-size:0.68rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;}
+.mk-gender-m .mk-gender-lbl{color:var(--sal);}
+.mk-gender-f .mk-gender-lbl{color:var(--niebla);}
+.mk-gender-nums{display:flex;justify-content:space-between;margin-top:0.75rem;}
+.mk-gender-big{font-family:var(--font-display);font-size:1.6rem;font-weight:700;color:var(--sal);}
+.mk-gender-sub{font-family:var(--font-data);font-size:0.48rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--niebla);display:block;margin-top:0.1rem;}
+.mk-brand-strip{padding:5rem 5vw;background:var(--barro);border-top:1px solid rgba(196,133,58,0.12);}
+.mk-brand-intro{max-width:640px;margin-bottom:3.5rem;}
+.mk-brand-title{font-family:var(--font-display);font-size:2.5rem;font-weight:600;color:var(--sal);margin-bottom:0.5rem;line-height:1.15;}
+.mk-brand-sub{font-family:var(--font-body);font-size:0.88rem;color:var(--niebla);font-style:italic;line-height:1.7;}
+.mk-props-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:rgba(196,133,58,0.1);margin-bottom:3.5rem;}
+.mk-prop{background:var(--tierra);padding:2.25rem 1.75rem;transition:background 0.3s;}
+.mk-prop:hover{background:rgba(44,26,14,0.85);}
+.mk-prop-icon{font-size:1.25rem;margin-bottom:0.75rem;}
+.mk-prop-val{font-family:var(--font-display);font-size:1.9rem;font-weight:700;color:var(--puna);margin-bottom:0.15rem;line-height:1;}
+.mk-prop-key{font-family:var(--font-data);font-size:0.5rem;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:var(--niebla);margin-bottom:0.55rem;}
+.mk-prop-desc{font-family:var(--font-body);font-size:0.76rem;color:rgba(245,237,216,0.4);font-style:italic;line-height:1.6;}
+@media(max-width:900px){.mk-kpi-strip{grid-template-columns:1fr 1fr;}.mk-reach-callout{flex-direction:column;gap:2rem;text-align:center;}.mk-reach-num{font-size:5rem;}.mk-platforms-grid{grid-template-columns:1fr;}.mk-plat-body{grid-template-columns:1fr;justify-items:center;}.mk-audience-section{grid-template-columns:1fr;gap:4rem;padding:3rem 5vw;}.mk-props-grid{grid-template-columns:1fr 1fr;}.mk-donut-layout{grid-template-columns:1fr 1fr;}}
 
 /* ── RECETARIOS ── */
 .recetario-cats{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:rgba(196,133,58,0.08);margin-top:3rem;}
@@ -963,37 +1007,205 @@ footer{background:var(--tierra);border-top:1px solid rgba(196,133,58,0.12);paddi
 
 <!-- ════════════════════════ MÉTRICAS ════════════════════════ -->
 <div id="page-metricas" class="page-section">
-  <div class="page-hero"><div class="page-hero-bg"></div><div class="page-hero-content"><div class="sec-label">Presencia Digital</div><h2 class="sec-title">Mis<br><em>Métricas</em></h2><p class="sec-sub">Números reales, audiencia real. +10M visualizaciones en los últimos 90 días.</p></div></div>
-  <div style="padding:2rem 5vw 0;">
-    <div class="metrics-hero-nums reveal">
-      <div class="metric-big"><div class="platform-icon">📸</div><div class="main-num">8.1<span>M</span></div><div class="platform-name">Instagram</div><div style="font-family:var(--font-data);font-size:0.5rem;letter-spacing:0.14em;text-transform:uppercase;color:var(--puna);opacity:0.75;margin:-0.2rem 0 0.3rem;">Visualizaciones · últimos 90 días</div><div class="sub-stats"><div class="sub-stat"><div class="n">519K</div><div class="l">Interacciones/mes</div></div><div class="sub-stat"><div class="n">4M</div><div class="l">Cuentas · 90 días</div></div><div class="sub-stat"><div class="n">95.7%</div><div class="l">Alcance orgánico</div></div></div></div>
-      <div class="metric-big"><div class="platform-icon">🎵</div><div class="main-num">26<span>K</span></div><div class="platform-name">TikTok</div><div style="font-family:var(--font-data);font-size:0.5rem;letter-spacing:0.14em;text-transform:uppercase;color:var(--niebla);opacity:0.7;margin:-0.2rem 0 0.3rem;">Seguidores actuales</div><div class="sub-stats"><div class="sub-stat"><div class="n">1.9M</div><div class="l">Views · 90 días</div></div><div class="sub-stat"><div class="n">148K</div><div class="l">Likes · 90 días</div></div><div class="sub-stat"><div class="n">35K</div><div class="l">Compartidos · 90 días</div></div></div></div>
-      <div class="metric-big" style="opacity:0.55;"><div class="platform-icon">▶️</div><div class="main-num" style="font-size:2.5rem;padding-top:0.5rem;">Próx.</div><div class="platform-name">YouTube</div><div class="sub-stats"><div class="sub-stat"><div class="n">—</div><div class="l">Canal en</div></div><div class="sub-stat"><div class="n">—</div><div class="l">construcción</div></div><div class="sub-stat"><div class="n">—</div><div class="l">Pronto</div></div></div></div>
+  <div class="page-hero"><div class="page-hero-bg"></div><div class="page-hero-content"><div class="sec-label">Media Kit · Presencia Digital</div><h2 class="sec-title">Alcance<br><em>real</em></h2><p class="sec-sub">Datos verificados de Instagram y TikTok Analytics. Últimos 90 días.</p></div></div>
+
+  <!-- KPI STRIP -->
+  <div class="mk-kpi-strip reveal">
+    <div class="mk-kpi">
+      <div class="mk-kpi-num">83<em>K+</em></div>
+      <div class="mk-kpi-lbl">Seguidores<br>combinados</div>
+      <div class="mk-kpi-note">Instagram 57K · TikTok 26K</div>
     </div>
-    <div style="background:var(--barro);padding:3rem;text-align:center;margin:1px 0;" class="reveal">
-      <div style="font-family:var(--font-data);font-size:0.6rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--niebla);margin-bottom:0.75rem;">Visualizaciones combinadas · últimos 90 días</div>
-      <div style="font-family:var(--font-display);font-size:5rem;font-weight:700;color:var(--sal);line-height:1;">10<span style="color:var(--puna);">M+</span></div>
-      <div style="font-family:var(--font-body);font-size:0.82rem;color:rgba(245,237,216,0.45);margin-top:0.5rem;font-style:italic;">Instagram · TikTok · 4M cuentas alcanzadas</div>
+    <div class="mk-kpi mk-kpi-hero">
+      <div class="mk-kpi-num">10<em>M+</em></div>
+      <div class="mk-kpi-lbl">Visualizaciones<br>últimos 90 días</div>
+      <div class="mk-kpi-note">Instagram + TikTok combinados</div>
+    </div>
+    <div class="mk-kpi">
+      <div class="mk-kpi-num">4<em>M</em></div>
+      <div class="mk-kpi-lbl">Cuentas<br>alcanzadas</div>
+      <div class="mk-kpi-note">Instagram · últimos 90 días</div>
+    </div>
+    <div class="mk-kpi">
+      <div class="mk-kpi-num">95.7<em>%</em></div>
+      <div class="mk-kpi-lbl">Alcance<br>orgánico</div>
+      <div class="mk-kpi-note">Sin publicidad paga</div>
     </div>
   </div>
-  <div style="padding:4rem 5vw;" class="reveal">
-    <h3 style="font-family:var(--font-display);font-size:1.6rem;font-weight:700;color:var(--sal);margin-bottom:2.5rem;">Composición de audiencia</h3>
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:5rem;">
-      <div><p style="font-family:var(--font-data);font-size:0.6rem;letter-spacing:0.14em;text-transform:uppercase;color:var(--niebla);margin-bottom:1.5rem;">Por edad</p>
-        <div class="bar-chart">
-          <div class="bar-row"><div class="bar-label">18–24 años</div><div class="bar-track"><div class="bar-fill" style="width:38%"></div></div><div class="bar-val">38%</div></div>
-          <div class="bar-row"><div class="bar-label">25–34 años</div><div class="bar-track"><div class="bar-fill" style="width:43%"></div></div><div class="bar-val">43%</div></div>
-          <div class="bar-row"><div class="bar-label">35–44 años</div><div class="bar-track"><div class="bar-fill" style="width:10%"></div></div><div class="bar-val">10%</div></div>
-          <div class="bar-row"><div class="bar-label">45+ años</div><div class="bar-track"><div class="bar-fill" style="width:9%"></div></div><div class="bar-val">9%</div></div>
+
+  <!-- REACH CALLOUT -->
+  <div class="mk-reach-callout reveal">
+    <div class="mk-reach-num">70<em>×</em></div>
+    <div>
+      <div class="mk-reach-eyebrow">El dato que importa</div>
+      <div class="mk-reach-title">Multiplicador de alcance</div>
+      <p class="mk-reach-desc">Con 57K seguidores, mi contenido llega a más de 4 millones de cuentas cada 90 días. Sin pauta. Sin artificios. Solo contenido que la plataforma empuja porque conecta de verdad.</p>
+    </div>
+  </div>
+
+  <!-- PLATFORM CARDS -->
+  <div class="mk-platforms-grid reveal">
+    <div class="mk-plat-card">
+      <div class="mk-plat-header">
+        <div class="mk-plat-icon">📸</div>
+        <div>
+          <div class="mk-plat-name">Instagram</div>
+          <a href="https://www.instagram.com/javotecocina/" target="_blank" class="mk-plat-handle">@javotecocina →</a>
+        </div>
+        <div class="mk-plat-followers">
+          <div class="mk-plat-fnum">57<em>K+</em></div>
+          <div class="mk-plat-flbl">Seguidores</div>
         </div>
       </div>
-      <div><p style="font-family:var(--font-data);font-size:0.6rem;letter-spacing:0.14em;text-transform:uppercase;color:var(--niebla);margin-bottom:1.5rem;">Por género</p>
-        <div class="bar-chart">
-          <div class="bar-row"><div class="bar-label">Hombre</div><div class="bar-track"><div class="bar-fill" style="width:67%"></div></div><div class="bar-val">67%</div></div>
-          <div class="bar-row"><div class="bar-label">Mujer</div><div class="bar-track"><div class="bar-fill" style="width:33%"></div></div><div class="bar-val">33%</div></div>
+      <div class="mk-plat-body">
+        <svg viewBox="0 0 160 160" xmlns="http://www.w3.org/2000/svg" style="width:160px;height:160px;flex-shrink:0;">
+          <defs><linearGradient id="igGrad" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#D4521A"/><stop offset="100%" stop-color="#C4853A"/></linearGradient></defs>
+          <circle cx="80" cy="80" r="62" fill="none" stroke="rgba(61,36,16,0.9)" stroke-width="14"/>
+          <circle cx="80" cy="80" r="62" fill="none" stroke="url(#igGrad)" stroke-width="14" stroke-dasharray="312 78" transform="rotate(-90 80 80)" stroke-linecap="round"/>
+          <circle cx="80" cy="80" r="44" fill="#2C1A0E"/>
+          <text x="80" y="74" text-anchor="middle" fill="#F5EDD8" font-family="Cormorant Garamond,serif" font-size="22" font-weight="700">8.1M</text>
+          <text x="80" y="88" text-anchor="middle" fill="#C9B99A" font-family="Space Mono,monospace" font-size="7" letter-spacing="1.5">VIEWS</text>
+          <text x="80" y="99" text-anchor="middle" fill="rgba(201,185,154,0.45)" font-family="Space Mono,monospace" font-size="6" letter-spacing="1">90 DÍAS</text>
+        </svg>
+        <div class="mk-stat-list">
+          <div class="mk-stat-item">
+            <div class="mk-stat-val">519<em>K</em></div>
+            <div class="mk-stat-lbl">Interacciones / mes</div>
+          </div>
+          <div class="mk-stat-item">
+            <div class="mk-stat-val">4<em>M</em></div>
+            <div class="mk-stat-lbl">Cuentas alcanzadas</div>
+            <div class="mk-stat-note">últimos 90 días</div>
+          </div>
+          <div class="mk-stat-item">
+            <div class="mk-stat-val">95.7<em>%</em></div>
+            <div class="mk-stat-lbl">Alcance orgánico</div>
+          </div>
         </div>
-        <p style="font-family:var(--font-data);font-size:0.58rem;letter-spacing:0.1em;color:rgba(245,237,216,0.35);margin-top:1.5rem;font-style:italic;">Fuente: TikTok Analytics · últimos 90 días</p>
       </div>
+    </div>
+    <div class="mk-plat-card">
+      <div class="mk-plat-header">
+        <div class="mk-plat-icon">🎵</div>
+        <div>
+          <div class="mk-plat-name">TikTok</div>
+          <a href="https://www.tiktok.com/@javotecocina" target="_blank" class="mk-plat-handle">@javotecocina →</a>
+        </div>
+        <div class="mk-plat-followers">
+          <div class="mk-plat-fnum">26<em>K</em></div>
+          <div class="mk-plat-flbl">Seguidores</div>
+        </div>
+      </div>
+      <div class="mk-plat-body">
+        <svg viewBox="0 0 160 160" xmlns="http://www.w3.org/2000/svg" style="width:160px;height:160px;flex-shrink:0;">
+          <defs><linearGradient id="ttGrad" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#C4853A"/><stop offset="100%" stop-color="#7A5233"/></linearGradient></defs>
+          <circle cx="80" cy="80" r="62" fill="none" stroke="rgba(61,36,16,0.9)" stroke-width="14"/>
+          <circle cx="80" cy="80" r="62" fill="none" stroke="url(#ttGrad)" stroke-width="14" stroke-dasharray="253 137" transform="rotate(-90 80 80)" stroke-linecap="round"/>
+          <circle cx="80" cy="80" r="44" fill="#2C1A0E"/>
+          <text x="80" y="74" text-anchor="middle" fill="#F5EDD8" font-family="Cormorant Garamond,serif" font-size="22" font-weight="700">1.9M</text>
+          <text x="80" y="88" text-anchor="middle" fill="#C9B99A" font-family="Space Mono,monospace" font-size="7" letter-spacing="1.5">VIEWS</text>
+          <text x="80" y="99" text-anchor="middle" fill="rgba(201,185,154,0.45)" font-family="Space Mono,monospace" font-size="6" letter-spacing="1">90 DÍAS</text>
+        </svg>
+        <div class="mk-stat-list">
+          <div class="mk-stat-item">
+            <div class="mk-stat-val">148<em>K</em></div>
+            <div class="mk-stat-lbl">Likes · 90 días</div>
+          </div>
+          <div class="mk-stat-item">
+            <div class="mk-stat-val">35<em>K</em></div>
+            <div class="mk-stat-lbl">Compartidos · 90 días</div>
+          </div>
+          <div class="mk-stat-item">
+            <div class="mk-stat-val">7.8<em>%</em></div>
+            <div class="mk-stat-lbl">Tasa de engagement</div>
+            <div class="mk-stat-note">148K likes / 1.9M views</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- AUDIENCE -->
+  <div class="mk-audience-section reveal">
+    <div>
+      <div class="mk-sec-eyebrow">Composición de audiencia</div>
+      <div class="mk-sec-title">Por <em style="font-style:italic;color:var(--puna);">edad</em></div>
+      <div class="mk-donut-layout">
+        <svg viewBox="0 0 220 220" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:200px;display:block;">
+          <circle cx="110" cy="110" r="80" fill="none" stroke="rgba(61,36,16,0.9)" stroke-width="28"/>
+          <!-- 18-24: 38% — puna/gold — desde top (-90°) -->
+          <circle cx="110" cy="110" r="80" fill="none" stroke="#C4853A" stroke-width="28" stroke-dasharray="191 312" transform="rotate(-90 110 110)"/>
+          <!-- 25-34: 43% — fuego — desde 136.8° -->
+          <circle cx="110" cy="110" r="80" fill="none" stroke="#D4521A" stroke-width="28" stroke-dasharray="216 287" transform="rotate(46.8 110 110)"/>
+          <!-- 35-44: 10% — ocre — desde 291.6° -->
+          <circle cx="110" cy="110" r="80" fill="none" stroke="#7A5233" stroke-width="28" stroke-dasharray="50 453" transform="rotate(201.6 110 110)"/>
+          <!-- 45+: 9% — tierra — desde 327.6° -->
+          <circle cx="110" cy="110" r="80" fill="none" stroke="#4A3220" stroke-width="28" stroke-dasharray="45 458" transform="rotate(237.6 110 110)"/>
+          <circle cx="110" cy="110" r="62" fill="#2C1A0E"/>
+          <text x="110" y="103" text-anchor="middle" fill="#F5EDD8" font-family="Cormorant Garamond,serif" font-size="28" font-weight="700">81%</text>
+          <text x="110" y="119" text-anchor="middle" fill="#C9B99A" font-family="Space Mono,monospace" font-size="6.5" letter-spacing="1.5">18–34 AÑOS</text>
+        </svg>
+        <div class="mk-donut-legend">
+          <div class="mk-legend-item"><div class="mk-legend-dot" style="background:#C4853A;"></div><div class="mk-legend-pct">38%</div><div class="mk-legend-lbl">18–24 años</div></div>
+          <div class="mk-legend-item"><div class="mk-legend-dot" style="background:#D4521A;"></div><div class="mk-legend-pct">43%</div><div class="mk-legend-lbl">25–34 años</div></div>
+          <div class="mk-legend-item"><div class="mk-legend-dot" style="background:#7A5233;"></div><div class="mk-legend-pct">10%</div><div class="mk-legend-lbl">35–44 años</div></div>
+          <div class="mk-legend-item"><div class="mk-legend-dot" style="background:#4A3220;border:1px solid rgba(196,133,58,0.3);"></div><div class="mk-legend-pct">9%</div><div class="mk-legend-lbl">45+ años</div></div>
+          <div style="margin-top:1rem;padding-top:1rem;border-top:1px solid rgba(196,133,58,0.1);font-family:var(--font-body);font-size:0.68rem;color:rgba(245,237,216,0.25);font-style:italic;">TikTok Analytics · 90 días</div>
+        </div>
+      </div>
+    </div>
+    <div>
+      <div class="mk-sec-eyebrow">Composición de audiencia</div>
+      <div class="mk-sec-title">Por <em style="font-style:italic;color:var(--puna);">género</em></div>
+      <div class="mk-gender-bar">
+        <div class="mk-gender-m" style="width:67%;"><span class="mk-gender-lbl">67%</span></div>
+        <div class="mk-gender-f" style="width:33%;"><span class="mk-gender-lbl">33%</span></div>
+      </div>
+      <div class="mk-gender-nums">
+        <div><div class="mk-gender-big">67%</div><span class="mk-gender-sub">Hombre</span></div>
+        <div style="text-align:right;"><div class="mk-gender-big">33%</div><span class="mk-gender-sub">Mujer</span></div>
+      </div>
+      <p style="font-family:var(--font-body);font-size:0.82rem;color:rgba(245,237,216,0.38);font-style:italic;margin-top:2.5rem;line-height:1.75;">Audiencia predominantemente masculina en el rango ideal para marcas de parrilla, cocina al fuego, herramientas y gastronomía del NOA.</p>
+      <p style="font-family:var(--font-body);font-size:0.66rem;color:rgba(245,237,216,0.2);font-style:italic;margin-top:1.5rem;">Fuente: TikTok Analytics · últimos 90 días</p>
+    </div>
+  </div>
+
+  <!-- BRAND PROPS -->
+  <div class="mk-brand-strip reveal">
+    <div class="mk-brand-intro">
+      <div class="mk-sec-eyebrow">Para marcas y colaboraciones</div>
+      <div class="mk-brand-title">¿Por qué trabajar con Javo?</div>
+      <p class="mk-brand-sub">Una audiencia joven, real y comprometida con la cocina del norte. Alcance orgánico que muy pocos creadores logran a este tamaño de comunidad.</p>
+    </div>
+    <div class="mk-props-grid">
+      <div class="mk-prop">
+        <div class="mk-prop-icon">🔥</div>
+        <div class="mk-prop-val">81%</div>
+        <div class="mk-prop-key">Audiencia 18–34</div>
+        <div class="mk-prop-desc">El segmento más valioso para marcas de cocina, gastronomía y estilo de vida activo.</div>
+      </div>
+      <div class="mk-prop">
+        <div class="mk-prop-icon">📍</div>
+        <div class="mk-prop-val">NOA</div>
+        <div class="mk-prop-key">Identidad única</div>
+        <div class="mk-prop-desc">Cocina del norte argentino. Nicho con muy poca competencia y alta fidelidad de audiencia.</div>
+      </div>
+      <div class="mk-prop">
+        <div class="mk-prop-icon">✦</div>
+        <div class="mk-prop-val">95.7%</div>
+        <div class="mk-prop-key">Alcance orgánico</div>
+        <div class="mk-prop-desc">Sin publicidad paga. El alcance viene del contenido real, lo que se traduce en confianza genuina.</div>
+      </div>
+      <div class="mk-prop">
+        <div class="mk-prop-icon">📲</div>
+        <div class="mk-prop-val">70×</div>
+        <div class="mk-prop-key">Multiplicador</div>
+        <div class="mk-prop-desc">57K seguidores, 4M cuentas alcanzadas. El contenido va mucho más allá de la base de seguidores.</div>
+      </div>
+    </div>
+    <div style="text-align:center;">
+      <p style="font-family:var(--font-data);font-size:0.56rem;letter-spacing:0.18em;text-transform:uppercase;color:rgba(201,185,154,0.4);margin-bottom:1.75rem;">Pedí el media kit completo con métricas detalladas</p>
+      <a href="mailto:javoelizalde2001@gmail.com" style="display:inline-block;padding:0.9rem 2.75rem;background:var(--fuego);font-family:var(--font-data);font-size:0.62rem;letter-spacing:0.16em;text-transform:uppercase;color:var(--sal);text-decoration:none;transition:background 0.25s;" onmouseover="this.style.background='var(--brasa)'" onmouseout="this.style.background='var(--fuego)'">Contactar para colaboraciones →</a>
     </div>
   </div>
   <div style="padding:0 5vw 4rem;" class="reveal">
@@ -1054,14 +1266,6 @@ footer{background:var(--tierra);border-top:1px solid rgba(196,133,58,0.12);paddi
         <div class="vcard vcard-more" style="opacity:0.4;"><div class="vcard-more-inner"><div style="font-size:2.5rem;margin-bottom:1rem;">🎬</div><div>Próximamente</div></div></div>
         <div class="vcard vcard-more" style="opacity:0.4;"><div class="vcard-more-inner"><div style="font-size:2.5rem;margin-bottom:1rem;">🎬</div><div>Próximamente</div></div></div>
       </div>
-    </div>
-  </div>
-  <div style="padding:5rem 5vw;" class="reveal">
-    <div style="background:var(--barro);border:1px solid rgba(196,133,58,0.18);padding:4rem;text-align:center;">
-      <div style="font-family:var(--font-data);font-size:0.62rem;letter-spacing:0.22em;text-transform:uppercase;color:var(--puna);margin-bottom:1rem;">¿Sos una marca?</div>
-      <h3 style="font-family:var(--font-display);font-size:2.2rem;font-weight:700;color:var(--sal);margin-bottom:1rem;">Trabajemos juntos</h3>
-      <p style="font-family:var(--font-body);font-size:0.88rem;color:rgba(245,237,216,0.5);margin-bottom:2rem;max-width:380px;margin-left:auto;margin-right:auto;line-height:1.8;font-style:italic;">Pedí mi media kit con métricas detalladas y propuestas de colaboración.</p>
-      <button class="btn-fire" onclick="showPage('servicios')">Solicitar Media Kit →</button>
     </div>
   </div>
   <footer><div class="footer-inner"><div><span class="f-logo">Javo<span>.</span></span><p class="f-tagline">Presencia digital en Instagram, TikTok y YouTube.</p><p class="f-location">Salta, Argentina</p></div><div class="f-col"><h4>Plataformas</h4><ul><li><a>Instagram</a></li><li><a>TikTok</a></li><li><a>YouTube</a></li></ul></div><div class="f-col"><h4>Trabajar juntos</h4><ul><li><a onclick="showPage('servicios')">Contenido digital</a></li></ul></div><div class="f-col"><h4>Volver</h4><ul><li><a onclick="showPage('home')">← Inicio</a></li></ul></div></div><div class="footer-bottom"><span class="footer-copy">© 2025 Javo Te Cocina</span><div class="soc-links"><a class="soc-link">IG</a><a class="soc-link">YT</a><a class="soc-link">TK</a></div></div></footer>
