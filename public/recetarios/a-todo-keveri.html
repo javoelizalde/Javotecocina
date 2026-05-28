@@ -582,6 +582,7 @@
 <script>
 (function(){
   var slug='a-todo-keveri';
+  if(localStorage.getItem('javo_admin_v1')==='1'){document.getElementById('javo-paywall').remove();return;}
   var token=localStorage.getItem('javo_access_a-todo-keveri');
   if(token){try{var d=JSON.parse(atob(token));if(d.slug===slug&&d.exp>Date.now()){document.getElementById('javo-paywall').remove();return;}}catch(e){}}
   document.body.style.overflow='hidden';

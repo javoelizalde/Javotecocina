@@ -608,6 +608,7 @@
 <script>
 (function(){
   var slug='donde-hay-humo';
+  if(localStorage.getItem('javo_admin_v1')==='1'){document.getElementById('javo-paywall').remove();return;}
   var token=localStorage.getItem('javo_access_donde-hay-humo');
   if(token){try{var d=JSON.parse(atob(token));if(d.slug===slug&&d.exp>Date.now()){document.getElementById('javo-paywall').remove();return;}}catch(e){}}
   document.body.style.overflow='hidden';

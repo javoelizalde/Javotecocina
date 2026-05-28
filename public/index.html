@@ -684,7 +684,61 @@ footer{background:var(--tierra);border-top:1px solid rgba(196,133,58,0.12);paddi
 /* ── REVEAL ── */
 .reveal{opacity:0;transform:translateY(22px);transition:opacity 0.75s ease,transform 0.75s ease;}
 .reveal.vis{opacity:1;transform:none;}
+
+/* ── AUTH MODAL ────────────────────────────────────────────── */
+.auth-modal{position:fixed;inset:0;z-index:99000;background:rgba(26,10,5,0.88);backdrop-filter:blur(6px);display:flex;align-items:center;justify-content:center;padding:1rem;opacity:0;pointer-events:none;transition:opacity 0.25s;}
+.auth-modal.open{opacity:1;pointer-events:all;}
+.auth-card{background:var(--barro);border:1px solid rgba(196,133,58,0.25);padding:2.5rem 2rem;max-width:400px;width:100%;position:relative;}
+.auth-close{position:absolute;top:0.9rem;right:1rem;background:none;border:none;color:rgba(245,237,216,0.4);font-size:1.2rem;cursor:pointer;padding:0.2rem;transition:color 0.2s;line-height:1;}
+.auth-close:hover{color:var(--sal);}
+.auth-brand{font-family:var(--font-display);font-size:1.6rem;font-weight:700;color:var(--sal);text-align:center;margin-bottom:1.5rem;}
+.auth-brand span{color:var(--puna);}
+.auth-tabs{display:flex;margin-bottom:1.75rem;border-bottom:1px solid rgba(196,133,58,0.2);}
+.auth-tab{flex:1;background:none;border:none;font-family:var(--font-data);font-size:0.63rem;letter-spacing:0.12em;text-transform:uppercase;color:rgba(245,237,216,0.35);padding:0.7rem;cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-1px;transition:color 0.2s,border-color 0.2s;}
+.auth-tab.active{color:var(--puna);border-bottom-color:var(--puna);}
+.auth-tab:hover:not(.active){color:rgba(245,237,216,0.7);}
+.auth-input{display:block;width:100%;background:rgba(245,237,216,0.04);border:1px solid rgba(196,133,58,0.18);color:var(--sal);font-family:var(--font-body);font-size:0.875rem;padding:0.7rem 0.9rem;margin-bottom:0.7rem;outline:none;transition:border-color 0.2s;}
+.auth-input:focus{border-color:var(--puna);}
+.auth-input::placeholder{color:rgba(245,237,216,0.25);}
+.auth-submit{width:100%;background:var(--fuego);border:none;color:var(--sal);font-family:var(--font-data);font-size:0.65rem;letter-spacing:0.12em;text-transform:uppercase;padding:0.85rem;cursor:pointer;margin-top:0.25rem;transition:background 0.2s;}
+.auth-submit:hover{background:var(--brasa);}
+.auth-msg{font-size:0.76rem;font-family:var(--font-body);color:var(--puna);min-height:1.1rem;margin-bottom:0.4rem;}
+/* ── NAV AUTH ── */
+.nav-auth{display:flex;align-items:center;gap:0.65rem;margin-left:0.75rem;}
+#nav-login-btn{background:none;border:1px solid rgba(196,133,58,0.35);color:rgba(245,237,216,0.55);font-family:var(--font-data);font-size:0.63rem;letter-spacing:0.1em;text-transform:uppercase;padding:0.28rem 0.7rem;cursor:pointer;transition:all 0.2s;}
+#nav-login-btn:hover{border-color:var(--puna);color:var(--puna);}
+.nav-user-area{display:none;align-items:center;gap:0.65rem;}
+#nav-user-name{font-family:var(--font-data);font-size:0.6rem;letter-spacing:0.08em;text-transform:uppercase;color:var(--puna);max-width:120px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+#nav-admin-link{display:none;background:var(--puna);border:none;color:var(--tierra);font-family:var(--font-data);font-size:0.58rem;letter-spacing:0.1em;text-transform:uppercase;padding:0.28rem 0.6rem;cursor:pointer;font-weight:700;transition:background 0.2s;}
+#nav-admin-link:hover{background:var(--brasa);}
+#nav-signout-btn{background:none;border:none;color:rgba(245,237,216,0.3);font-family:var(--font-data);font-size:0.58rem;letter-spacing:0.08em;text-transform:uppercase;cursor:pointer;padding:0;transition:color 0.2s;}
+#nav-signout-btn:hover{color:rgba(245,237,216,0.65);}
+/* ── ADMIN PANEL ── */
+#page-admin{background:var(--tierra);}
+.admin-wrap{max-width:1100px;margin:0 auto;padding:5rem 5vw 6rem;}
+.admin-eyebrow-tag{font-family:var(--font-data);font-size:0.6rem;letter-spacing:0.22em;text-transform:uppercase;color:var(--puna);margin-bottom:0.75rem;}
+.admin-h1{font-family:var(--font-display);font-size:3.5rem;font-weight:700;color:var(--sal);margin-bottom:3rem;}
+.admin-stats-bar{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:rgba(196,133,58,0.1);margin-bottom:3.5rem;}
+.admin-stat{background:var(--barro);padding:1.75rem 2rem;}
+.admin-stat-num{font-family:var(--font-display);font-size:2.8rem;font-weight:700;color:var(--sal);line-height:1;}
+.admin-stat-label{font-family:var(--font-data);font-size:0.58rem;letter-spacing:0.15em;text-transform:uppercase;color:rgba(245,237,216,0.35);margin-top:0.35rem;}
+.admin-section{margin-bottom:3.5rem;}
+.admin-section-title{font-family:var(--font-display);font-size:1.5rem;font-weight:700;color:var(--sal);border-bottom:1px solid rgba(196,133,58,0.18);padding-bottom:0.7rem;margin-bottom:1.5rem;}
+.admin-rec-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:rgba(196,133,58,0.1);}
+.admin-rec-card{background:var(--tierra);padding:1.4rem 1.5rem;transition:background 0.2s;}
+.admin-rec-card:hover{background:var(--barro);}
+.admin-rec-name{font-family:var(--font-display);font-size:1rem;font-weight:700;color:var(--sal);margin-bottom:0.5rem;}
+.admin-rec-card a{color:var(--puna);font-family:var(--font-data);font-size:0.6rem;letter-spacing:0.08em;text-transform:uppercase;text-decoration:none;transition:color 0.2s;}
+.admin-rec-card a:hover{color:var(--brasa);}
+.admin-table-wrap{overflow-x:auto;}
+.admin-table{width:100%;border-collapse:collapse;font-family:var(--font-data);font-size:0.68rem;letter-spacing:0.04em;}
+.admin-table th{color:rgba(245,237,216,0.35);text-transform:uppercase;letter-spacing:0.14em;border-bottom:1px solid rgba(196,133,58,0.18);padding:0.7rem 1rem;text-align:left;font-weight:400;}
+.admin-table td{color:var(--sal);border-bottom:1px solid rgba(196,133,58,0.07);padding:0.7rem 1rem;}
+.admin-table tr:hover td{background:rgba(196,133,58,0.04);}
+.admin-loading-msg{text-align:center;padding:3rem;font-family:var(--font-data);font-size:0.62rem;letter-spacing:0.12em;text-transform:uppercase;color:rgba(245,237,216,0.25);}
+@media(max-width:700px){.admin-stats-bar{grid-template-columns:1fr 1fr;}.admin-rec-grid{grid-template-columns:1fr 1fr;}.admin-h1{font-size:2.5rem;}}
 </style>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
 </head>
 <body>
 
@@ -703,6 +757,14 @@ footer{background:var(--tierra);border-top:1px solid rgba(196,133,58,0.12);paddi
     <li><a onclick="showPage('eventos')">Eventos</a></li>
     <li><a class="nav-cta" onclick="showPage('servicios')">Cotizar</a></li>
   </ul>
+  <div class="nav-auth">
+    <button id="nav-login-btn" onclick="openAuthModal()">Ingresar</button>
+    <div class="nav-user-area" id="nav-user-area">
+      <span id="nav-user-name"></span>
+      <button id="nav-admin-link" onclick="showPage('admin')">Panel</button>
+      <button id="nav-signout-btn" onclick="javoSignOut()">Salir</button>
+    </div>
+  </div>
 </nav>
 
 <!-- ════════════════════════ HOME ════════════════════════ -->
@@ -1437,6 +1499,92 @@ footer{background:var(--tierra);border-top:1px solid rgba(196,133,58,0.12);paddi
 </div>
 
 <!-- LIGHTBOX -->
+<!-- ════════════ AUTH MODAL ════════════ -->
+<div id="auth-modal" class="auth-modal" onclick="if(event.target===this)closeAuthModal()">
+  <div class="auth-card">
+    <button class="auth-close" onclick="closeAuthModal()">✕</button>
+    <div class="auth-brand">Javo<span>.</span></div>
+    <div class="auth-tabs">
+      <button class="auth-tab active" id="tab-login" onclick="switchAuthTab('login')">Ingresar</button>
+      <button class="auth-tab" id="tab-register" onclick="switchAuthTab('register')">Registrarse</button>
+    </div>
+    <!-- LOGIN -->
+    <div id="auth-login-form">
+      <input id="auth-email" class="auth-input" type="email" placeholder="Email" autocomplete="email">
+      <input id="auth-password" class="auth-input" type="password" placeholder="Contraseña" autocomplete="current-password">
+      <div id="auth-msg" class="auth-msg"></div>
+      <button class="auth-submit" onclick="javoSignIn()">Ingresar →</button>
+    </div>
+    <!-- REGISTER -->
+    <div id="auth-register-form" style="display:none">
+      <input id="auth-reg-name" class="auth-input" type="text" placeholder="Tu nombre" autocomplete="name">
+      <input id="auth-reg-email" class="auth-input" type="email" placeholder="Email" autocomplete="email">
+      <input id="auth-reg-password" class="auth-input" type="password" placeholder="Contraseña (mín. 6 caracteres)" autocomplete="new-password">
+      <div id="auth-reg-msg" class="auth-msg"></div>
+      <button class="auth-submit" onclick="javoSignUp()">Crear cuenta →</button>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════ ADMIN PANEL ════════════ -->
+<div id="page-admin" class="page-section">
+  <div class="admin-wrap">
+    <div class="admin-eyebrow-tag">Panel de Administración · Solo Javo</div>
+    <div class="admin-h1">Dashboard</div>
+    <div class="admin-stats-bar">
+      <div class="admin-stat">
+        <div class="admin-stat-num" id="admin-total-compras">—</div>
+        <div class="admin-stat-label">Compras totales</div>
+      </div>
+      <div class="admin-stat">
+        <div class="admin-stat-num">6</div>
+        <div class="admin-stat-label">Recetarios activos</div>
+      </div>
+      <div class="admin-stat">
+        <div class="admin-stat-num" id="admin-ultima-compra">—</div>
+        <div class="admin-stat-label">Última compra</div>
+      </div>
+    </div>
+
+    <div class="admin-section">
+      <div class="admin-section-title">Recetarios — Acceso directo</div>
+      <div class="admin-rec-grid">
+        <div class="admin-rec-card">
+          <div class="admin-rec-name">Sabores Salteños</div>
+          <a href="/recetarios/sabores-saltenos.html" target="_blank">Abrir recetario →</a>
+        </div>
+        <div class="admin-rec-card">
+          <div class="admin-rec-name">Todo sobre Fierros</div>
+          <a href="/recetarios/todo-sobre-fierros.html" target="_blank">Abrir recetario →</a>
+        </div>
+        <div class="admin-rec-card">
+          <div class="admin-rec-name">Donde Hay Humo</div>
+          <a href="/recetarios/donde-hay-humo.html" target="_blank">Abrir recetario →</a>
+        </div>
+        <div class="admin-rec-card">
+          <div class="admin-rec-name">A Todo Keveri</div>
+          <a href="/recetarios/a-todo-keveri.html" target="_blank">Abrir recetario →</a>
+        </div>
+        <div class="admin-rec-card">
+          <div class="admin-rec-name">Lo Fresco del Norte</div>
+          <a href="/recetarios/lo-fresco-del-norte.html" target="_blank">Abrir recetario →</a>
+        </div>
+        <div class="admin-rec-card">
+          <div class="admin-rec-name">A Todo Disco</div>
+          <a href="/recetarios/a-todo-disco.html" target="_blank">Abrir recetario →</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="admin-section">
+      <div class="admin-section-title">Compras registradas</div>
+      <div id="admin-purchases-container">
+        <div class="admin-loading-msg">Cargando...</div>
+      </div>
+    </div>
+  </div>
+</div>
+
 <div class="lightbox" id="lightbox" onclick="closeLightbox()">
   <button class="lightbox-close" onclick="closeLightbox()">✕</button>
   <img id="lightbox-img" src="" alt="">
@@ -1461,9 +1609,12 @@ window.addEventListener('scroll',()=>document.getElementById('navbar').classList
 // ── ROUTER
 function showPage(id){
   document.querySelectorAll('.page-section').forEach(p=>p.classList.remove('active'));
-  document.getElementById('page-'+id).classList.add('active');
+  const page=document.getElementById('page-'+id);
+  if(!page) return;
+  page.classList.add('active');
   window.scrollTo({top:0,behavior:'instant'});
   setTimeout(initReveals,80);
+  if(id==='admin') setTimeout(loadAdminPanel,150);
 }
 function initReveals(){
   const obs=new IntersectionObserver(e=>{e.forEach(x=>{if(x.isIntersecting){x.target.classList.add('vis');obs.unobserve(x.target);}});},{threshold:0.08,rootMargin:'0px 0px -40px 0px'});
@@ -1691,6 +1842,167 @@ let lbIdx=0;
 function openLightbox(i){lbIdx=i;document.getElementById('lightbox-img').src=lbImgs[i];document.getElementById('lightbox').classList.add('open');}
 function closeLightbox(){document.getElementById('lightbox').classList.remove('open');}
 function lightboxNav(d){lbIdx=(lbIdx+d+lbImgs.length)%lbImgs.length;document.getElementById('lightbox-img').src=lbImgs[lbIdx];}
+
+// ══════════════════════════════════════════════════════════════
+// AUTH — Supabase
+// ══════════════════════════════════════════════════════════════
+const ADMIN_EMAIL='javoelizalde2001@gmail.com';
+const ADMIN_SLUGS=['todo-sobre-fierros','a-todo-disco','a-todo-keveri','donde-hay-humo','sabores-saltenos','lo-fresco-del-norte'];
+let _sbClient=null;
+
+function getSB(){
+  if(_sbClient) return _sbClient;
+  _sbClient=window.supabase.createClient(CONFIG.SUPABASE_URL,CONFIG.SUPABASE_ANON_KEY);
+  return _sbClient;
+}
+
+async function initAuth(){
+  try{
+    const sb=getSB();
+    const {data:{session}}=await sb.auth.getSession();
+    renderAuthState(session?.user||null);
+    sb.auth.onAuthStateChange((_evt,session)=>renderAuthState(session?.user||null));
+  }catch(e){console.error('initAuth:',e);}
+}
+
+function renderAuthState(user){
+  const loginBtn=document.getElementById('nav-login-btn');
+  const userArea=document.getElementById('nav-user-area');
+  const nameEl=document.getElementById('nav-user-name');
+  const adminBtn=document.getElementById('nav-admin-link');
+  if(!loginBtn) return;
+  if(user){
+    loginBtn.style.display='none';
+    userArea.style.display='flex';
+    nameEl.textContent=user.user_metadata?.nombre||user.email.split('@')[0];
+    const isAdmin=user.email.toLowerCase()===ADMIN_EMAIL.toLowerCase();
+    if(isAdmin){
+      localStorage.setItem('javo_admin_v1','1');
+      adminBtn.style.display='inline-block';
+      // Desbloquear todos los recetarios para el admin
+      ADMIN_SLUGS.forEach(slug=>{
+        const tok=btoa(JSON.stringify({slug,email:user.email,exp:Date.now()+365*24*60*60*1000}));
+        localStorage.setItem('javo_access_'+slug,tok);
+      });
+    }else{
+      localStorage.removeItem('javo_admin_v1');
+      adminBtn.style.display='none';
+    }
+    // Pre-completar email en checkout si está vacío
+    const coEmail=document.getElementById('co-email');
+    if(coEmail&&!coEmail.value) coEmail.value=user.email;
+  }else{
+    loginBtn.style.display='inline-block';
+    userArea.style.display='none';
+    nameEl.textContent='';
+    adminBtn.style.display='none';
+    localStorage.removeItem('javo_admin_v1');
+  }
+}
+
+// ── Auth modal
+function openAuthModal(){document.getElementById('auth-modal').classList.add('open');}
+function closeAuthModal(){document.getElementById('auth-modal').classList.remove('open');}
+function switchAuthTab(tab){
+  document.getElementById('auth-login-form').style.display=tab==='login'?'':'none';
+  document.getElementById('auth-register-form').style.display=tab==='register'?'':'none';
+  document.getElementById('tab-login').classList.toggle('active',tab==='login');
+  document.getElementById('tab-register').classList.toggle('active',tab==='register');
+  document.getElementById('auth-msg').textContent='';
+  document.getElementById('auth-reg-msg').textContent='';
+}
+
+async function javoSignIn(){
+  const email=document.getElementById('auth-email').value.trim();
+  const pass=document.getElementById('auth-password').value;
+  const msg=document.getElementById('auth-msg');
+  msg.style.color='var(--puna)';msg.textContent='';
+  if(!email||!pass){msg.style.color='#D4521A';msg.textContent='Completá email y contraseña.';return;}
+  msg.textContent='Ingresando…';
+  try{
+    const sb=getSB();
+    const {error}=await sb.auth.signInWithPassword({email,password:pass});
+    if(error){
+      msg.style.color='#D4521A';
+      msg.textContent=error.message.includes('Invalid')||error.message.includes('credentials')?'Email o contraseña incorrectos.':error.message;
+    }else{
+      closeAuthModal();
+      showToast('¡Bienvenido! 🔥','Sesión iniciada correctamente.','success');
+    }
+  }catch(e){msg.style.color='#D4521A';msg.textContent='Error de conexión. Intentá de nuevo.';}
+}
+
+async function javoSignUp(){
+  const nombre=document.getElementById('auth-reg-name').value.trim();
+  const email=document.getElementById('auth-reg-email').value.trim();
+  const pass=document.getElementById('auth-reg-password').value;
+  const msg=document.getElementById('auth-reg-msg');
+  msg.style.color='var(--puna)';msg.textContent='';
+  if(!nombre||!email||!pass){msg.style.color='#D4521A';msg.textContent='Completá todos los campos.';return;}
+  if(pass.length<6){msg.style.color='#D4521A';msg.textContent='La contraseña debe tener al menos 6 caracteres.';return;}
+  msg.textContent='Creando cuenta…';
+  try{
+    const sb=getSB();
+    const {error}=await sb.auth.signUp({email,password:pass,options:{data:{nombre}}});
+    if(error){
+      msg.style.color='#D4521A';
+      msg.textContent=error.message.includes('already')?'Ya existe una cuenta con ese email.':error.message;
+    }else{
+      msg.style.color='var(--puna)';
+      msg.textContent='¡Listo! Revisá tu email para confirmar la cuenta.';
+      setTimeout(closeAuthModal,2800);
+      showToast('¡Cuenta creada! 🎉','Revisá tu email para confirmarla.','success');
+    }
+  }catch(e){msg.style.color='#D4521A';msg.textContent='Error de conexión. Intentá de nuevo.';}
+}
+
+async function javoSignOut(){
+  try{await getSB().auth.signOut();}catch(e){}
+  localStorage.removeItem('javo_admin_v1');
+  showToast('Sesión cerrada','Hasta pronto. 👋','');
+}
+
+// ── Admin panel
+async function loadAdminPanel(){
+  const container=document.getElementById('admin-purchases-container');
+  if(!container) return;
+  // Verificar que sea admin
+  if(localStorage.getItem('javo_admin_v1')!=='1'){
+    container.innerHTML='<div class="admin-loading-msg">Acceso restringido.</div>';
+    return;
+  }
+  container.innerHTML='<div class="admin-loading-msg">Cargando compras…</div>';
+  try{
+    const sb=getSB();
+    const {data,error}=await sb.from('compras').select('*').order('fecha',{ascending:false});
+    if(error) throw error;
+    // Actualizar stats
+    const totalEl=document.getElementById('admin-total-compras');
+    const ultimaEl=document.getElementById('admin-ultima-compra');
+    if(totalEl) totalEl.textContent=data?data.length:0;
+    if(ultimaEl&&data&&data.length>0) ultimaEl.textContent=new Date(data[0].fecha).toLocaleDateString('es-AR');
+    // Renderizar tabla
+    if(!data||data.length===0){
+      container.innerHTML='<div class="admin-loading-msg">No hay compras registradas aún.</div>';
+      return;
+    }
+    container.innerHTML=`<div class="admin-table-wrap"><table class="admin-table">
+      <thead><tr><th>Email</th><th>Recetario</th><th>Payment ID</th><th>Fecha</th></tr></thead>
+      <tbody>${data.map(r=>`<tr>
+        <td>${r.email||'—'}</td>
+        <td>${r.recetario||'—'}</td>
+        <td style="font-size:0.6rem;opacity:0.6">${r.payment_id||'—'}</td>
+        <td>${r.fecha?new Date(r.fecha).toLocaleDateString('es-AR',{day:'2-digit',month:'2-digit',year:'numeric'}):'—'}</td>
+      </tr>`).join('')}</tbody>
+    </table></div>`;
+  }catch(e){
+    console.error('loadAdminPanel:',e);
+    container.innerHTML='<div class="admin-loading-msg">Error al cargar. Revisá la consola.</div>';
+  }
+}
+
+// Inicializar auth cuando el DOM esté listo
+initAuth();
 </script>
 </body>
 </html>
