@@ -640,43 +640,96 @@ async function javoVerificar(){
 
       <!-- INTRO -->
       <section class="intro-section">
-        <p>El Keveri no es un horno cualquiera. Es un horno multifuncional a carbón argentino que permite desde un fast grill intenso hasta un ahumado lento y suave, pasando por pizza a la piedra, pan artesanal y cocción al vacío. Fui uno de los primeros chefs en confiar en Keveri, y este recetario demuestra todo lo que puede hacer.</p>
+        <p>El Keveri H1 no es un horno cualquiera. Es un horno y grill multifuncional a carbón diseñado por <strong>Antonio Montes</strong>, Co-Fundador y Diseñador de Keveri — en Argentina lo vas a encontrar como <strong>Hake</strong>. Cinco modos de cocción precisos: desde un ahumado lento a 100°C hasta pizza a la piedra a 450°C. Fui uno de los primeros chefs del NOA en incorporarlo, y este recetario demuestra todo lo que puede hacer.</p>
         <p>Cuando me lo trajeron al restaurante por primera vez, lo miré y pensé: "¿esto reemplaza a mi horno de barro?" No lo reemplaza. Es otra cosa. Es la evolución del asado argentino — un artefacto que toma la inteligencia de nuestro fuego de siempre y le da precisión. Con el Keveri podés hacer pizza a 400 grados y a la hora siguiente ahumar una bondiola a 110. Eso no lo hace ningún otro horno.</p>
 
         <!-- FICHA KEVERI -->
         <div class="ficha-keveri" id="keveri-intro">
           <img src="https://images.unsplash.com/photo-sg5oPGXTa4A?w=900&auto=format&fit=crop" alt="El Keveri" class="receta-foto" />
-          <h3>El Keveri</h3>
-          <p class="ficha-subtitle">Horno a carbón de origen argentino — ficha técnica</p>
+          <h3>El Keveri H1</h3>
+          <p class="ficha-subtitle">Horno & grill a carbón — diseñado por Antonio Montes</p>
           <div class="ficha-grid">
+            <div class="ficha-item">
+              <span class="fi-label">Creador</span>
+              <span class="fi-valor"><strong>Antonio Montes</strong>, Co-Fundador y Diseñador del Keveri H1.</span>
+            </div>
+            <div class="ficha-item">
+              <span class="fi-label">En Argentina</span>
+              <span class="fi-valor">Comercializado como <strong>Hake</strong>. El mismo horno, identidad local.</span>
+            </div>
             <div class="ficha-item">
               <span class="fi-label">Combustible</span>
               <span class="fi-valor"><strong>Carbón vegetal</strong> o leña de quebracho. Sin gas, sin electricidad.</span>
             </div>
             <div class="ficha-item">
               <span class="fi-label">Rango de temperatura</span>
-              <span class="fi-valor"><strong>80°C a 500°C+</strong> — el rango más amplio de cualquier horno doméstico.</span>
-            </div>
-            <div class="ficha-item">
-              <span class="fi-label">Origen</span>
-              <span class="fi-valor"><strong>Argentina</strong> — diseñado y fabricado a nivel nacional.</span>
-            </div>
-            <div class="ficha-item">
-              <span class="fi-label">Diferencial</span>
-              <span class="fi-valor">Domina <strong>todo el rango térmico</strong> con un solo combustible: carbón.</span>
+              <span class="fi-valor"><strong>100°C a 450°C+</strong> — 5 modos precisos en un solo horno.</span>
             </div>
           </div>
           <div class="ficha-modos">
-            <span class="fi-label">Modos de uso</span>
+            <span class="fi-label">Los 5 modos oficiales (Manual Keveri H1)</span>
             <div class="modos-list">
-              <span class="modo-badge">Fast Grill 300–500°C</span>
-              <span class="modo-badge">Cocción Indirecta 150–220°C</span>
-              <span class="modo-badge">Slow Smoke 80–130°C</span>
-              <span class="modo-badge">Pizza a la Piedra 350–400°C</span>
-              <span class="modo-badge">Pan Artesanal 180–220°C</span>
-              <span class="modo-badge">Cocción al Vacío</span>
+              <span class="modo-badge">🐢 Low &amp; Slow · 100–130°C</span>
+              <span class="modo-badge">🥩 Classic · 160–200°C</span>
+              <span class="modo-badge">🍞 Baker · 230–270°C</span>
+              <span class="modo-badge">🔥 Fast Grill · 330–380°C</span>
+              <span class="modo-badge">🍕 Pizza · 400–450°C</span>
             </div>
           </div>
+        </div>
+
+        <!-- TABLA DE TIEMPOS -->
+        <div class="ficha-keveri" style="border-left-color:var(--puna);">
+          <h3 style="font-size:1.25rem;">Referencia rápida de cocción</h3>
+          <p class="ficha-subtitle">Tiempos y temperaturas por alimento — Keveri H1</p>
+          <table style="width:100%;border-collapse:collapse;font-family:'Space Mono',monospace;font-size:0.7rem;margin-top:0.5rem;">
+            <thead>
+              <tr style="border-bottom:1px solid rgba(212,82,26,0.4);">
+                <th style="text-align:left;padding:8px 4px;color:var(--fuego);letter-spacing:0.1em;text-transform:uppercase;">Corte / Preparación</th>
+                <th style="text-align:center;padding:8px 4px;color:var(--fuego);letter-spacing:0.1em;text-transform:uppercase;">Modo</th>
+                <th style="text-align:center;padding:8px 4px;color:var(--fuego);letter-spacing:0.1em;text-transform:uppercase;">Temp.</th>
+                <th style="text-align:center;padding:8px 4px;color:var(--fuego);letter-spacing:0.1em;text-transform:uppercase;">Tiempo</th>
+              </tr>
+            </thead>
+            <tbody style="color:var(--sal);">
+              <tr style="border-bottom:1px solid rgba(61,36,16,0.8);">
+                <td style="padding:7px 4px;">Pizza a la piedra</td>
+                <td style="text-align:center;padding:7px 4px;color:var(--puna);">Pizza</td>
+                <td style="text-align:center;padding:7px 4px;">400–450°C</td>
+                <td style="text-align:center;padding:7px 4px;">8–10 min</td>
+              </tr>
+              <tr style="border-bottom:1px solid rgba(61,36,16,0.8);">
+                <td style="padding:7px 4px;">Pollo mariposa</td>
+                <td style="text-align:center;padding:7px 4px;color:var(--puna);">Fast Grill</td>
+                <td style="text-align:center;padding:7px 4px;">330–380°C</td>
+                <td style="text-align:center;padding:7px 4px;">35 min</td>
+              </tr>
+              <tr style="border-bottom:1px solid rgba(61,36,16,0.8);">
+                <td style="padding:7px 4px;">Focaccia / Pan de campo</td>
+                <td style="text-align:center;padding:7px 4px;color:var(--puna);">Baker</td>
+                <td style="text-align:center;padding:7px 4px;">230–270°C</td>
+                <td style="text-align:center;padding:7px 4px;">20–30 min</td>
+              </tr>
+              <tr style="border-bottom:1px solid rgba(61,36,16,0.8);">
+                <td style="padding:7px 4px;">Costillar / cordero entero</td>
+                <td style="text-align:center;padding:7px 4px;color:var(--puna);">Classic</td>
+                <td style="text-align:center;padding:7px 4px;">160–200°C</td>
+                <td style="text-align:center;padding:7px 4px;">2.5–3 h</td>
+              </tr>
+              <tr style="border-bottom:1px solid rgba(61,36,16,0.8);">
+                <td style="padding:7px 4px;">Bondiola ahumada</td>
+                <td style="text-align:center;padding:7px 4px;color:var(--puna);">Low &amp; Slow</td>
+                <td style="text-align:center;padding:7px 4px;">100–130°C</td>
+                <td style="text-align:center;padding:7px 4px;">6–8 h</td>
+              </tr>
+              <tr>
+                <td style="padding:7px 4px;">Ribs 3-2-1</td>
+                <td style="text-align:center;padding:7px 4px;color:var(--puna);">Low &amp; Slow</td>
+                <td style="text-align:center;padding:7px 4px;">110–120°C</td>
+                <td style="text-align:center;padding:7px 4px;">6 h</td>
+              </tr>
+            </tbody>
+          </table>
         </div>
 
         <p>En este recetario están las preparaciones que más uso con el Keveri en el restaurante y en eventos. Desde la pizza más crocante que vas a comer hasta una bondiola que se desarma con mirarla. El secreto es uno solo: aprender a leer el carbón.</p>
@@ -721,11 +774,11 @@ async function javoVerificar(){
 
           <p class="receta-subtitulo">Ingredientes</p>
           <ul class="ingredientes-lista">
-            <li><span class="cantidad">500 g</span>Harina 000 (o 00 italiana)</li>
-            <li><span class="cantidad">10 g</span>Levadura seca activa (o 200 g de masa madre activa)</li>
-            <li><span class="cantidad">300 ml</span>Agua tibia (no más de 40°C)</li>
+            <li><span class="cantidad">600 g</span>Harina de trigo (mín. 13.5% proteínas — tipo 00 italiana o fuerza)</li>
+            <li><span class="cantidad">3 g</span>Levadura fresca (o 1 g levadura seca)</li>
+            <li><span class="cantidad">380 ml</span>Agua tibia (no más de 40°C)</li>
             <li><span class="cantidad">12 g</span>Sal fina</li>
-            <li><span class="cantidad">2 cdas</span>Aceite de oliva extra virgen</li>
+            <li><span class="cantidad">1 cda</span>Aceite de oliva extra virgen</li>
             <li><span class="cantidad">400 g</span>Mozzarella fresca, escurrida y desmenuzada</li>
             <li><span class="cantidad">300 g</span>Tomates perita maduros</li>
             <li><span class="cantidad">2 dientes</span>Ajo</li>
