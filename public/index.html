@@ -544,6 +544,30 @@ h2.sec-title em{font-style:italic;color:var(--puna);}
   font-style:italic;transition:all 0.25s;
 }
 .brand-pill:hover{border-color:rgba(196,133,58,0.4);color:var(--sal);}
+.brand-logo-pill{display:inline-flex;align-items:center;gap:0.5rem;padding:0.45rem 1rem;border:1px solid rgba(196,133,58,0.2);border-radius:2rem;text-decoration:none;color:var(--niebla);font-family:var(--font-body);font-size:0.8rem;transition:all 0.3s;background:rgba(196,133,58,0.03);font-style:italic;}
+.brand-logo-pill:hover{border-color:rgba(196,133,58,0.45);color:var(--sal);}
+.brand-logo-pill img{width:22px;height:22px;object-fit:contain;border-radius:50%;background:white;padding:2px;flex-shrink:0;}
+/* Video platform sections */
+.video-plat-section{margin-bottom:3.5rem;}
+.video-plat-header{display:flex;align-items:center;gap:1rem;margin-bottom:1.5rem;padding-bottom:0.75rem;border-bottom:1px solid rgba(196,133,58,0.12);}
+.video-plat-name{font-family:var(--font-display);font-size:1.4rem;font-weight:600;color:var(--sal);flex:1;}
+.video-plat-link{font-family:var(--font-data);font-size:0.58rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--puna);text-decoration:none;transition:color 0.3s;}
+.video-plat-link:hover{color:var(--brasa);}
+.video-cards-row{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:rgba(196,133,58,0.08);}
+.vcard{background:var(--tierra);overflow:hidden;transition:background 0.3s;text-decoration:none;color:inherit;display:block;}
+.vcard:hover{background:var(--barro);}
+.vcard-thumb{aspect-ratio:4/5;position:relative;overflow:hidden;background:var(--barro);}
+.vcard-thumb img{width:100%;height:100%;object-fit:cover;filter:sepia(0.15);transition:filter 0.4s,transform 0.4s;}
+.vcard:hover .vcard-thumb img{filter:sepia(0);transform:scale(1.04);}
+.vcard-play{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,0.25);transition:background 0.3s;font-size:2.5rem;color:white;text-shadow:0 2px 12px rgba(0,0,0,0.6);}
+.vcard:hover .vcard-play{background:rgba(0,0,0,0.45);}
+.vcard-body{padding:1.25rem;}
+.vcard-plat{font-family:var(--font-data);font-size:0.55rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--puna);margin-bottom:0.4rem;}
+.vcard-title{font-family:var(--font-display);font-size:1.05rem;font-weight:600;color:var(--sal);margin-bottom:0.35rem;}
+.vcard-stat{font-family:var(--font-body);font-size:0.72rem;color:var(--niebla);}
+.vcard-more{display:flex;align-items:center;justify-content:center;min-height:280px;}
+.vcard-more-inner{text-align:center;font-family:var(--font-display);font-size:0.95rem;color:var(--sal);padding:2rem;line-height:1.6;}
+.vcard-embed{padding:0;overflow:hidden;}
 .colegas-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:rgba(196,133,58,0.08);}
 .colega-card{background:var(--tierra);padding:1.75rem;text-align:center;transition:background 0.3s;}
 .colega-card:hover{background:var(--barro);}
@@ -757,10 +781,15 @@ footer{background:var(--tierra);border-top:1px solid rgba(196,133,58,0.12);paddi
   <div class="brands-strip reveal">
     <p class="brands-label">Marcas que confiaron en mí</p>
     <div class="brands-list">
-      <div class="brand-pill">[Marca 1]</div><div class="brand-pill">[Marca 2]</div>
-      <div class="brand-pill">[Marca 3]</div><div class="brand-pill">[Marca 4]</div>
-      <div class="brand-pill">[Marca 5]</div><div class="brand-pill">[Marca 6]</div>
-      <div class="brand-pill">[Marca 7]</div><div class="brand-pill">[Marca 8]</div>
+      <a href="https://www.stellaartois.com" target="_blank" class="brand-logo-pill"><img src="https://logo.clearbit.com/stellaartois.com" alt="Stella Artois" onerror="this.style.display='none'"><span>Stella Artois</span></a>
+      <a href="https://www.hellmanns.com" target="_blank" class="brand-logo-pill"><img src="https://logo.clearbit.com/hellmanns.com" alt="Hellmann's" onerror="this.style.display='none'"><span>Hellmann's</span></a>
+      <a href="https://www.lays.com" target="_blank" class="brand-logo-pill"><img src="https://logo.clearbit.com/lays.com" alt="Lay's" onerror="this.style.display='none'"><span>Lay's</span></a>
+      <a href="https://www.pepsi.com" target="_blank" class="brand-logo-pill"><img src="https://logo.clearbit.com/pepsi.com" alt="Pepsi" onerror="this.style.display='none'"><span>Pepsi</span></a>
+      <a href="https://www.kankayargentina.com" target="_blank" class="brand-logo-pill"><img src="https://logo.clearbit.com/kankayargentina.com" alt="Kankay" onerror="this.style.display='none'"><span>Kankay</span></a>
+      <a href="https://www.lafrancisca.com" target="_blank" class="brand-logo-pill"><img src="https://logo.clearbit.com/lafrancisca.com" alt="La Francisca" onerror="this.style.display='none'"><span>La Francisca</span></a>
+      <a href="https://www.salvitaalimentos.com" target="_blank" class="brand-logo-pill"><img src="https://logo.clearbit.com/salvitaalimentos.com" alt="Salvita" onerror="this.style.display='none'"><span>Salvita</span></a>
+      <div class="brand-pill">Otito</div>
+      <div class="brand-pill">BigChoice</div>
     </div>
   </div>
 
@@ -967,16 +996,65 @@ footer{background:var(--tierra);border-top:1px solid rgba(196,133,58,0.12);paddi
       </div>
     </div>
   </div>
-  <div style="padding:0 5vw 2rem;"><div class="sec-label">Contenido destacado</div><h3 style="font-family:var(--font-display);font-size:1.75rem;font-weight:700;color:var(--sal);margin-bottom:2.5rem;">Mis mejores <em style="font-style:italic;color:var(--puna);">publicaciones</em></h3></div>
-  <div class="media-gallery reveal">
-    <div class="media-item" onclick="openLightbox(0)"><img src="img/p24.jpg" alt=""><div class="media-overlay"><div class="media-platform">Instagram · [XK likes]</div></div></div>
-    <div class="media-item" onclick="openLightbox(1)"><img src="img/p25.jpg" alt=""><div class="media-overlay"><div class="media-platform">TikTok · [XK views]</div></div></div>
-    <div class="media-item" onclick="openLightbox(2)"><img src="img/p14.jpg" alt=""><div class="media-overlay"><div class="media-platform">YouTube · [XK views]</div></div></div>
-    <div class="media-item" onclick="openLightbox(3)"><img src="img/p15.jpg" alt=""><div class="media-overlay"><div class="media-platform">Instagram · [XK likes]</div></div></div>
-    <div class="media-item" onclick="openLightbox(4)"><img src="img/p16.jpg" alt=""><div class="media-overlay"><div class="media-platform">Reel · [XK views]</div></div></div>
-    <div class="media-item" onclick="openLightbox(5)"><img src="img/p17.jpg" alt=""><div class="media-overlay"><div class="media-platform">TikTok · [XK views]</div></div></div>
-    <div class="media-item" onclick="openLightbox(6)"><img src="img/p18.jpg" alt=""><div class="media-overlay"><div class="media-platform">Instagram · [XK likes]</div></div></div>
-    <div class="media-item" onclick="openLightbox(7)"><img src="img/p19.jpg" alt=""><div class="media-overlay"><div class="media-platform">YouTube · [XK views]</div></div></div>
+  <div style="padding:0 5vw 4rem;" class="reveal">
+    <div class="sec-label" style="margin-bottom:0.75rem;">Contenido destacado</div>
+    <h3 style="font-family:var(--font-display);font-size:1.75rem;font-weight:700;color:var(--sal);margin-bottom:3rem;">Mis mejores <em style="font-style:italic;color:var(--puna);">publicaciones</em></h3>
+
+    <!-- INSTAGRAM -->
+    <div class="video-plat-section">
+      <div class="video-plat-header">
+        <span style="font-size:1.4rem;">📸</span>
+        <span class="video-plat-name">Instagram</span>
+        <a href="https://www.instagram.com/javotecocina/" target="_blank" class="video-plat-link">@javotecocina →</a>
+      </div>
+      <div class="video-cards-row">
+        <a href="https://www.instagram.com/reel/DLp0LGmRfuz/" target="_blank" class="vcard">
+          <div class="vcard-thumb"><img src="img/p24.jpg" alt="Reel tarta de coco"><div class="vcard-play">▶</div></div>
+          <div class="vcard-body"><div class="vcard-plat">Instagram Reel</div><div class="vcard-title">Tarta de coco 🥥</div><div class="vcard-stat">❤️ 619 likes</div></div>
+        </a>
+        <a href="https://www.instagram.com/reel/DKdEbJmRdrU/" target="_blank" class="vcard">
+          <div class="vcard-thumb"><img src="img/p25.jpg" alt="Reel llegada a Instagram"><div class="vcard-play">▶</div></div>
+          <div class="vcard-body"><div class="vcard-plat">Instagram Reel</div><div class="vcard-title">Javo llega a Instagram</div><div class="vcard-stat">❤️ 123 likes</div></div>
+        </a>
+        <a href="https://www.instagram.com/javotecocina/" target="_blank" class="vcard vcard-more">
+          <div class="vcard-more-inner"><div style="font-size:2rem;margin-bottom:0.75rem;">📸</div><div>Ver todo el contenido</div><div style="font-size:0.72rem;opacity:0.5;margin-top:0.4rem;">@javotecocina</div></div>
+        </a>
+      </div>
+    </div>
+
+    <!-- TIKTOK -->
+    <div class="video-plat-section">
+      <div class="video-plat-header">
+        <span style="font-size:1.4rem;">🎵</span>
+        <span class="video-plat-name">TikTok</span>
+        <a href="https://www.tiktok.com/@javotecocina" target="_blank" class="video-plat-link">@javotecocina →</a>
+      </div>
+      <div class="video-cards-row">
+        <div class="vcard vcard-embed">
+          <blockquote class="tiktok-embed" cite="https://www.tiktok.com/@javotecocina/video/7637619087052410119" data-video-id="7637619087052410119" style="max-width:100%;min-width:280px;border:none;margin:0;"></blockquote>
+        </div>
+        <a href="https://www.tiktok.com/@javotecocina" target="_blank" class="vcard vcard-more">
+          <div class="vcard-more-inner"><div style="font-size:2rem;margin-bottom:0.75rem;">🎵</div><div>Ver más videos</div><div style="font-size:0.72rem;opacity:0.5;margin-top:0.4rem;">@javotecocina</div></div>
+        </a>
+        <div class="vcard vcard-more" style="opacity:0.4;">
+          <div class="vcard-more-inner"><div style="font-size:2rem;margin-bottom:0.75rem;">🎵</div><div>Próximamente</div><div style="font-size:0.72rem;opacity:0.5;margin-top:0.4rem;">Más videos</div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- YOUTUBE -->
+    <div class="video-plat-section" style="opacity:0.55;">
+      <div class="video-plat-header">
+        <span style="font-size:1.4rem;">▶️</span>
+        <span class="video-plat-name">YouTube</span>
+        <span style="font-family:var(--font-data);font-size:0.58rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--niebla);">Próximamente</span>
+      </div>
+      <div class="video-cards-row">
+        <div class="vcard vcard-more"><div class="vcard-more-inner"><div style="font-size:2.5rem;margin-bottom:1rem;">▶️</div><div>Canal en construcción</div><div style="font-size:0.72rem;opacity:0.5;margin-top:0.4rem;font-style:italic;">Pronto en YouTube</div></div></div>
+        <div class="vcard vcard-more" style="opacity:0.4;"><div class="vcard-more-inner"><div style="font-size:2.5rem;margin-bottom:1rem;">🎬</div><div>Próximamente</div></div></div>
+        <div class="vcard vcard-more" style="opacity:0.4;"><div class="vcard-more-inner"><div style="font-size:2.5rem;margin-bottom:1rem;">🎬</div><div>Próximamente</div></div></div>
+      </div>
+    </div>
   </div>
   <div style="padding:5rem 5vw;" class="reveal">
     <div style="background:var(--barro);border:1px solid rgba(196,133,58,0.18);padding:4rem;text-align:center;">
@@ -1088,6 +1166,7 @@ footer{background:var(--tierra);border-top:1px solid rgba(196,133,58,0.12);paddi
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+<script async src="https://www.tiktok.com/embed.js"></script>
 <script>
 // ── CURSOR
 const cur=document.getElementById('cur'),ring=document.getElementById('curRing');
