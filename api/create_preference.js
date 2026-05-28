@@ -11,7 +11,7 @@ module.exports = async function handler(req, res) {
   if (req.method === 'OPTIONS') return res.status(200).end();
   if (req.method !== 'POST') return res.status(405).json({ error: 'Method not allowed' });
 
-  const { title, price, quantity = 1, buyer_email, buyer_name } = req.body;
+  const { title, price, quantity = 1, buyer_email, buyer_name, recetario } = req.body;
   if (!title || !price) return res.status(400).json({ error: 'Faltan datos del producto' });
 
   const accessToken = process.env.MP_ACCESS_TOKEN;
@@ -28,6 +28,7 @@ module.exports = async function handler(req, res) {
       },
       auto_return: 'approved',
       statement_descriptor: 'JAVOTECOCINA',
+      external_reference: recetario || '',
     };
 
     const response = await fetch('https://api.mercadopago.com/checkout/preferences', {

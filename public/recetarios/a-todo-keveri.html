@@ -564,6 +564,50 @@
 </head>
 <body>
 
+<!-- PAYWALL -->
+<div id="javo-paywall" style="position:fixed;inset:0;z-index:99999;background:#1A0A05;display:flex;align-items:center;justify-content:center;padding:1.5rem;">
+  <div style="max-width:440px;width:100%;background:#2C1A0E;border:1px solid rgba(196,133,58,0.25);padding:2.5rem 2rem;text-align:center;font-family:'Libre Baskerville',Georgia,serif;">
+    <div style="font-size:2rem;margin-bottom:1rem;">🔒</div>
+    <div style="font-family:'Cormorant Garamond',Georgia,serif;font-size:1.6rem;font-weight:700;color:#F5EDD8;margin-bottom:0.5rem;">A Todo Keveri</div>
+    <p style="font-size:0.82rem;color:rgba(245,237,216,0.6);line-height:1.7;margin-bottom:1.5rem;font-style:italic;">Este recetario es exclusivo para compradores. Completá el pago para acceder.</p>
+    <div style="font-family:'Space Mono',monospace;font-size:1.3rem;color:#C4853A;font-weight:700;margin-bottom:1.5rem;">ARS $34.500</div>
+    <a href="/#recetarios" style="display:block;background:#D4521A;color:#FFFFF0;text-decoration:none;font-family:'Space Mono',monospace;font-size:0.7rem;letter-spacing:0.12em;text-transform:uppercase;padding:0.85rem 1.5rem;margin-bottom:1.5rem;">Comprar ahora →</a>
+    <div style="height:1px;background:rgba(196,133,58,0.2);margin-bottom:1.5rem;position:relative;"><span style="position:absolute;top:-0.6rem;left:50%;transform:translateX(-50%);background:#2C1A0E;padding:0 0.75rem;font-size:0.7rem;color:rgba(245,237,216,0.4);">o si ya compraste</span></div>
+    <p style="font-size:0.78rem;color:rgba(245,237,216,0.55);margin-bottom:0.75rem;">Ingresá el email con el que pagaste:</p>
+    <input id="pw-email" type="email" placeholder="tu@email.com" style="width:100%;box-sizing:border-box;background:rgba(44,26,14,0.8);border:1px solid rgba(196,133,58,0.3);color:#F5EDD8;font-family:'Libre Baskerville',serif;font-size:0.85rem;padding:0.75rem 1rem;margin-bottom:0.75rem;outline:none;">
+    <button onclick="javoVerificar()" style="width:100%;background:rgba(196,133,58,0.15);border:1px solid #C4853A;color:#C4853A;font-family:'Space Mono',monospace;font-size:0.7rem;letter-spacing:0.1em;text-transform:uppercase;padding:0.75rem;cursor:pointer;">Verificar acceso →</button>
+    <div id="pw-msg" style="font-size:0.78rem;min-height:1.2em;margin-top:0.75rem;color:#D4521A;font-style:italic;"></div>
+  </div>
+</div>
+<script>
+(function(){
+  var slug='a-todo-keveri';
+  var token=localStorage.getItem('javo_access_a-todo-keveri');
+  if(token){try{var d=JSON.parse(atob(token));if(d.slug===slug&&d.exp>Date.now()){document.getElementById('javo-paywall').remove();return;}}catch(e){}}
+  document.body.style.overflow='hidden';
+})();
+async function javoVerificar(){
+  var email=document.getElementById('pw-email').value.trim();
+  var msg=document.getElementById('pw-msg');
+  if(!email||!email.includes('@')){msg.textContent='Ingresá un email válido.';return;}
+  msg.style.color='#C4853A';msg.textContent='Verificando...';
+  try{
+    var r=await fetch('/api/verify_purchase',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({email:email,recetario:'a-todo-keveri'})});
+    var data=await r.json();
+    if(data.access){
+      var token=btoa(JSON.stringify({slug:'a-todo-keveri',email:email,exp:Date.now()+365*24*60*60*1000}));
+      localStorage.setItem('javo_access_a-todo-keveri',token);
+      document.getElementById('javo-paywall').remove();
+      document.body.style.overflow='';
+    }else{
+      msg.style.color='#D4521A';
+      msg.textContent='No encontramos una compra con ese email para este recetario.';
+    }
+  }catch(e){msg.style.color='#D4521A';msg.textContent='Error de conexión. Intentá de nuevo.';}
+}
+</script>
+<!-- FIN PAYWALL -->
+
   <!-- NAV -->
   <nav class="nav-volver">
     <a href="/">Volver a javotecocina.com</a>
