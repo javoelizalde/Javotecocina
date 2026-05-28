@@ -909,13 +909,12 @@ footer{background:var(--tierra);border-top:1px solid rgba(196,133,58,0.12);paddi
       </div>
       <p style="font-family:var(--font-data);font-size:0.6rem;letter-spacing:0.18em;text-transform:uppercase;color:var(--niebla);margin-bottom:1rem;">Método de pago</p>
       <div class="payment-methods">
-        <div class="pay-method" onclick="selectPayment('mp',this)"><div class="pay-icon">💙</div><div class="pay-label">Mercado Pago</div></div>
+        <div class="pay-method" onclick="selectPayment('mp',this)"><div class="pay-icon">💙</div><div class="pay-label">Mercado Pago / Tarjeta</div></div>
         <div class="pay-method" onclick="selectPayment('transfer',this)"><div class="pay-icon">🏦</div><div class="pay-label">Transferencia</div></div>
-        <div class="pay-method" onclick="selectPayment('card',this)"><div class="pay-icon">💳</div><div class="pay-label">Tarjeta</div></div>
       </div>
       <div class="pay-detail" id="pay-mp">
-        <p style="font-family:var(--font-body);font-size:0.85rem;color:rgba(245,237,216,0.65);line-height:1.8;font-style:italic;margin-bottom:1.25rem;">Checkout seguro de <strong style="color:var(--sal);font-style:normal;">Mercado Pago</strong>. Todas las tarjetas, débito y saldo MP. Hasta 12 cuotas.</p>
-        <button class="btn-fire btn-full" onclick="pagarConMP()" style="clip-path:none;">Pagar con Mercado Pago →</button>
+        <p style="font-family:var(--font-body);font-size:0.85rem;color:rgba(245,237,216,0.65);line-height:1.8;font-style:italic;margin-bottom:1.25rem;">Checkout seguro de <strong style="color:var(--sal);font-style:normal;">Mercado Pago</strong>. Pagá con tarjeta de crédito, débito, saldo MP o en cuotas. Redirige al checkout oficial de MP.</p>
+        <button class="btn-fire btn-full" onclick="pagarConMP()" style="clip-path:none;">Pagar ahora →</button>
       </div>
       <div class="pay-detail" id="pay-transfer">
         <div class="transfer-info" style="line-height:2.2;">
@@ -926,15 +925,6 @@ footer{background:var(--tierra);border-top:1px solid rgba(196,133,58,0.12);paddi
           <p style="margin-top:0.75rem;color:var(--puna);font-style:italic;">Enviá el comprobante a <strong style="font-style:normal;">javoelizalde2001@gmail.com</strong></p>
         </div>
         <button class="btn-fire btn-full" onclick="confirmarTransferencia()" style="margin-top:1.25rem;clip-path:none;">Confirmar pedido →</button>
-      </div>
-      <div class="pay-detail" id="pay-card">
-        <div class="form-grid" style="gap:1rem;">
-          <div class="fg"><label>Número de tarjeta</label><input type="text" id="card-num" placeholder="0000 0000 0000 0000" maxlength="19"></div>
-          <div class="form-row2"><div class="fg"><label>Vencimiento</label><input type="text" id="card-exp" placeholder="MM/AA" maxlength="5"></div><div class="fg"><label>CVV</label><input type="text" id="card-cvv" placeholder="123" maxlength="4"></div></div>
-          <div class="fg"><label>Nombre en tarjeta</label><input type="text" id="card-name" placeholder="NOMBRE APELLIDO"></div>
-          <div class="fg"><label>Cuotas</label><select id="card-cuotas"><option>1 cuota sin interés</option><option>3 cuotas sin interés</option><option>6 cuotas sin interés</option><option>12 cuotas sin interés</option></select></div>
-          <button class="btn-fire btn-full" onclick="pagarConMP()" style="clip-path:none;">Pagar →</button>
-        </div>
       </div>
     </div>
   </div>
@@ -1227,6 +1217,9 @@ function openCheckout(nombre,precio){
   document.getElementById('checkout-modal').classList.add('open');
   document.querySelectorAll('.pay-detail').forEach(d=>d.classList.remove('show'));
   document.querySelectorAll('.pay-method').forEach(m=>m.classList.remove('selected'));
+  // Auto-seleccionar Mercado Pago
+  const mpBtn=document.querySelector('.pay-method');
+  if(mpBtn) selectPayment('mp',mpBtn);
 }
 function closeCheckout(){document.getElementById('checkout-modal').classList.remove('open');}
 function selectPayment(type,el){
@@ -1251,8 +1244,8 @@ async function pagarConMP(){
       window.open(data.init_point,'_blank');
     }else throw new Error('no init_point');
   }catch(e){
-    const msg=encodeURIComponent(`Hola Javo! Quiero comprar: ${coProducto} ($${coPrecio})\nNombre: ${nombre}\nEmail: ${email}`);
-    window.open(`https://wa.me/${CONFIG.WHATSAPP_NUMBER}?text=${msg}`,'_blank');
+    console.error('Error MP:',e);
+    showToast('Error al procesar el pago','Intentá de nuevo o escribinos a javoelizalde2001@gmail.com','error');
   }
 }
 
@@ -1263,8 +1256,7 @@ async function confirmarTransferencia(){
   const datos={producto:coProducto,precio:coPrecio,nombre,email,direccion:document.getElementById('co-dir').value,metodo_pago:'transferencia',estado:'pendiente_pago',fecha:new Date().toISOString()};
   await Promise.all([
     guardarEnSupabase('pedidos',datos),
-    mandarEmail(`💰 Nuevo pedido transferencia — ${nombre}`,`Producto: ${coProducto}\nPrecio: $${coPrecio}\nNombre: ${nombre}\nEmail: ${email}`),
-    mandarWhatsApp(`💰 Nuevo pedido por transferencia!\nProducto: ${coProducto}\nCliente: ${nombre}\nEmail: ${email}`)
+    mandarEmail(`💰 Nuevo pedido transferencia — ${nombre}`,`Producto: ${coProducto}\nPrecio: $${coPrecio}\nNombre: ${nombre}\nEmail: ${email}\nDirección: ${datos.direccion||'—'}`)
   ]);
   closeCheckout();
   showToast('¡Pedido confirmado! 🏦','Revisá tu email con los datos. Mandá el comprobante y te enviamos.','success');
