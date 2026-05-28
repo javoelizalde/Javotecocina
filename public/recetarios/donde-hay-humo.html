@@ -586,6 +586,17 @@
         font-size: 0.82rem;
       }
     }
+/* ── ÍNDICE */
+.recetario-indice{background:rgba(196,133,58,0.06);border:1px solid rgba(196,133,58,0.18);padding:2rem 2.5rem;margin:0 auto 3rem;max-width:820px;border-radius:2px;}
+.indice-titulo{font-family:'Space Mono',monospace;font-size:0.62rem;letter-spacing:0.22em;text-transform:uppercase;color:#C4853A;margin-bottom:1.25rem;}
+.indice-lista{list-style:none;columns:2;gap:2rem;padding:0;margin:0;}
+.indice-lista li{margin-bottom:0.55rem;break-inside:avoid;}
+.indice-lista a{color:rgba(245,237,216,0.6);text-decoration:none;font-size:0.82rem;font-family:'Libre Baskerville',serif;transition:color 0.2s;display:flex;align-items:baseline;gap:0.4rem;}
+.indice-lista a:hover{color:#C4853A;}
+.indice-num{font-family:'Space Mono',monospace;font-size:0.6rem;color:#C4853A;opacity:0.65;flex-shrink:0;}
+@media(max-width:600px){.indice-lista{columns:1;}}
+/* ── FOTOS */
+.receta-foto{width:100%;max-height:300px;object-fit:cover;display:block;margin-bottom:1.5rem;filter:brightness(0.82) sepia(0.12);}
   </style>
 </head>
 <body>
@@ -657,7 +668,7 @@ async function javoVerificar(){
         <p>
           El humo es el condimento más antiguo de la humanidad. Antes de la sal, antes del aceite, antes de
           cualquier especia, nuestros antepasados descubrieron que exponer la carne al humo la conservaba y la
-          transformaba en algo más complejo, más profundo, más memorable. Javo descubrió el ahumado como una
+          transformaba en algo más complejo, más profundo, más memorable. Descubrí el ahumado como una
           extensión natural de la parrilla — donde el fuego se convierte en tiempo, y el tiempo en sabor.
         </p>
         <p>
@@ -777,6 +788,24 @@ async function javoVerificar(){
         <h2>Las 12 Recetas</h2>
         <p class="section-intro">Tiempo, humo y paciencia — los tres ingredientes que no se compran.</p>
 
+        <nav class="recetario-indice">
+          <div class="indice-titulo">Índice de recetas</div>
+          <ul class="indice-lista">
+            <li><a href="#costillar-ahumado"><span class="indice-num">01</span>Costillar de Cerdo Ahumado</a></li>
+            <li><a href="#pollo-ahumado"><span class="indice-num">02</span>Pollo Entero Ahumado</a></li>
+            <li><a href="#bondiola-ahumada"><span class="indice-num">03</span>Bondiola Ahumada</a></li>
+            <li><a href="#brisket"><span class="indice-num">04</span>Brisket Norteño (Marucha)</a></li>
+            <li><a href="#panceta-ahumada"><span class="indice-num">05</span>Panceta Ahumada Casera</a></li>
+            <li><a href="#trucha-ahumada"><span class="indice-num">06</span>Trucha Ahumada del Río</a></li>
+            <li><a href="#queso-ahumado"><span class="indice-num">07</span>Queso Ahumado Artesanal</a></li>
+            <li><a href="#papas-ahumadas"><span class="indice-num">08</span>Papas Ahumadas con Manteca de Hierbas</a></li>
+            <li><a href="#jalapeños-rellenos"><span class="indice-num">09</span>Jalapeños Rellenos Ahumados</a></li>
+            <li><a href="#aceitunas-ahumadas"><span class="indice-num">10</span>Aceitunas Ahumadas con Especias</a></li>
+            <li><a href="#ribs-321"><span class="indice-num">11</span>Ribs de Cerdo Ahumados (Técnica 3-2-1)</a></li>
+            <li><a href="#vegetales-salsa"><span class="indice-num">12</span>Vegetales Ahumados para Pasta</a></li>
+          </ul>
+        </nav>
+
         <!-- RECETA 1 -->
         <article class="receta-card" id="costillar-ahumado">
           <p class="receta-number">01 / 12</p>
@@ -787,10 +816,11 @@ async function javoVerificar(){
             <span class="badge badge-coccion">Cocción: 5–6 hs</span>
             <span class="badge badge-temp">110 °C</span>
           </div>
+          <img class="receta-foto" src="https://images.unsplash.com/photo-1529694157872-4e0c0f3b238b?w=900&auto=format&fit=crop" alt="Costillar de Cerdo Ahumado" loading="lazy">
           <p class="receta-intro">
             Este es el costillar que convierte escépticos en creyentes. El rub de azúcar negra crea una corteza
             oscura y caramelizada — el "bark" — que contrasta con la carne jugosa y perfumada de adentro.
-            Javo lo sirve sin salsa: las buenas costillas no necesitan esconderse.
+            Lo sirvo sin salsa: las buenas costillas no necesitan esconderse.
           </p>
 
           <p class="receta-section-title">Para el rub (mezcla de especias)</p>
@@ -822,7 +852,7 @@ async function javoVerificar(){
           </ol>
 
           <div class="tip-box">
-            <span class="tip-label">Tip de Javo</span>
+            <span class="tip-label">Mi tip</span>
             <p>Aplicar el rub la noche anterior y dejar en heladera sin cubrir. El azúcar y la sal del rub extraen levemente la humedad superficial y la reabsorben, formando una especie de salmuera seca. El resultado es una corteza (bark) más oscura, más sabrosa y mejor adherida a la carne.</p>
           </div>
         </article>
@@ -837,8 +867,9 @@ async function javoVerificar(){
             <span class="badge badge-coccion">Cocción: 3–4 hs</span>
             <span class="badge badge-temp">120 °C</span>
           </div>
+          <img class="receta-foto" src="https://images.unsplash.com/photo-1598103442097-8b74394b95c3?w=900&auto=format&fit=crop" alt="Pollo Entero Ahumado" loading="lazy">
           <p class="receta-intro">
-            El pollo ahumado tiene fama de resultar seco, y Javo encontró la solución hace años: el brine, una
+            El pollo ahumado tiene fama de resultar seco, y encontré la solución hace años: el brine, una
             salmuera aromatizada que transforma la proteína del pollo desde adentro. Con el brine previo,
             el pollo ahumado queda tan jugoso que parece increíble que haya pasado 3 horas en el ahumador.
           </p>
@@ -875,7 +906,7 @@ async function javoVerificar(){
           </ol>
 
           <div class="tip-box">
-            <span class="tip-label">Tip de Javo</span>
+            <span class="tip-label">Mi tip</span>
             <p>El brine previo hace toda la diferencia en jugosidad. La sal penetra en la proteína muscular y la modifica de manera que retiene más humedad durante la cocción larga. Sin brine, el pollo ahumado pierde 25–30% de su peso en agua. Con brine, pierde menos de 15%.</p>
           </div>
         </article>
@@ -890,11 +921,12 @@ async function javoVerificar(){
             <span class="badge badge-coccion">Cocción: 8 hs</span>
             <span class="badge badge-temp">110 °C</span>
           </div>
+          <img class="receta-foto" src="https://images.unsplash.com/photo-1544025162-d76538f498e0?w=900&auto=format&fit=crop" alt="Bondiola Ahumada" loading="lazy">
           <p class="receta-intro">
             La bondiola es la pieza perfecta para el pulled pork al estilo norteño. Tiene suficiente grasa
             intramuscular para soportar 8 horas de calor sin secarse, y una textura final que se deshilacha
-            con dos tenedores. Javo la sirve sobre pan de campo con encurtidos caseros — una combinación
-            que convirtió en estrella de sus eventos.
+            con dos tenedores. La sirvo sobre pan de campo con encurtidos caseros — una combinación
+            que convirtió en estrella de mis eventos.
           </p>
 
           <p class="receta-section-title">Para el glaze (pincelado)</p>
@@ -927,7 +959,7 @@ async function javoVerificar(){
           </ol>
 
           <div class="tip-box">
-            <span class="tip-label">Tip de Javo</span>
+            <span class="tip-label">Mi tip</span>
             <p>A 90 °C internos, envolver en papel de carnicero y dejar reposar 1 hora mínimo. Este reposo no es opcional. El calor sigue trabajando adentro del envoltorio, terminando de fundir el colágeno en gelatina que reabsorbe la carne. Una bondiola sin reposo es buena. Una bondiola con 1 hora de reposo es extraordinaria.</p>
           </div>
         </article>
@@ -942,10 +974,11 @@ async function javoVerificar(){
             <span class="badge badge-coccion">Cocción: 10–12 hs</span>
             <span class="badge badge-temp">110 °C</span>
           </div>
+          <img class="receta-foto" src="https://images.unsplash.com/photo-1558030137-a56c1b002c8b?w=900&auto=format&fit=crop" alt="Brisket Norteño (Marucha)" loading="lazy">
           <p class="receta-intro">
             La marucha — o brisket — es la "reina del ahumado" y la prueba más exigente para cualquier
             ahumador. Es un corte de pecho bovino lleno de colágeno y tejido conectivo que solo se vuelve
-            tierno con calor bajo y tiempo largo. Javo lo hace a lo Texas: solo sal y pimienta gruesa, sin
+            tierno con calor bajo y tiempo largo. Lo hago a lo Texas: solo sal y pimienta gruesa, sin
             distracciones. El quebracho y el tiempo hacen el resto.
           </p>
 
@@ -970,7 +1003,7 @@ async function javoVerificar(){
           </ol>
 
           <div class="tip-box">
-            <span class="tip-label">Tip de Javo</span>
+            <span class="tip-label">Mi tip</span>
             <p>El "stall" a 72 °C es normal y es lo que confunde a todos. En ese punto, la evaporación de la superficie enfría la carne a la misma velocidad que el ahumador la calienta — es un empate temporal. No subas la temperatura: dale tiempo. El stall puede durar 3 horas. Tené paciencia y confianza.</p>
           </div>
         </article>
@@ -985,11 +1018,12 @@ async function javoVerificar(){
             <span class="badge badge-coccion">Ahumado: 6 hs</span>
             <span class="badge badge-temp">70–75 °C</span>
           </div>
+          <img class="receta-foto" src="https://images.unsplash.com/photo-1529694157872-4e0c0f3b238b?w=900&auto=format&fit=crop" alt="Panceta Ahumada Casera" loading="lazy">
           <p class="receta-intro">
             Hacer panceta ahumada desde cero es uno de los proyectos más satisfactorios de la cocina de fuego.
             El proceso de curado transforma la carne de cerdo en algo completamente distinto — con una intensidad
-            de sabor que ningún producto industrial puede replicar. Javo la usa como base de muchos platos y la
-            regala en fiestas envuelta en papel de carnicero.
+            de sabor que ningún producto industrial puede replicar. La uso como base de muchos platos y la
+            regalo en fiestas envuelta en papel de carnicero.
           </p>
 
           <p class="receta-section-title">Para el curado en seco</p>
@@ -1021,7 +1055,7 @@ async function javoVerificar(){
           </ol>
 
           <div class="tip-box">
-            <span class="tip-label">Tip de Javo</span>
+            <span class="tip-label">Mi tip</span>
             <p>El curado en seco requiere voltear la pieza cada 2 días en la heladera. Al voltear, los jugos que se acumulan en el fondo bañan la parte que estaba arriba. Si no se voltea, el curado es desparejo — un lado queda muy salado y el otro insípido.</p>
           </div>
         </article>
@@ -1036,8 +1070,9 @@ async function javoVerificar(){
             <span class="badge badge-coccion">Cocción: 2 hs</span>
             <span class="badge badge-temp">80 °C</span>
           </div>
+          <img class="receta-foto" src="https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2?w=900&auto=format&fit=crop" alt="Trucha Ahumada del Río" loading="lazy">
           <p class="receta-intro">
-            La trucha de los ríos del NOA tiene un sabor a montaña que Javo respeta con una preparación
+            La trucha de los ríos del NOA tiene un sabor a montaña que respeto con una preparación
             mínima. El olivo le aporta un perfume mediterráneo que suena extraño en el norte argentino pero
             funciona de manera magistral: el aroma del olivo se lleva bien con la suavidad de la trucha de río.
           </p>
@@ -1069,7 +1104,7 @@ async function javoVerificar(){
           </ol>
 
           <div class="tip-box">
-            <span class="tip-label">Tip de Javo</span>
+            <span class="tip-label">Mi tip</span>
             <p>La trucha está lista cuando la carne se separa fácil de las espinas al presionar con el dedo. Si resiste, necesita más tiempo. Si se deshace sola, está pasada. El pescado ahumado no da segunda oportunidad — estar atento en la última media hora marca la diferencia.</p>
           </div>
         </article>
@@ -1084,10 +1119,11 @@ async function javoVerificar(){
             <span class="badge badge-coccion">Ahumado en frío: 3–4 hs</span>
             <span class="badge badge-temp">Máx. 30 °C</span>
           </div>
+          <img class="receta-foto" src="https://images.unsplash.com/photo-1452195100486-9cc805987862?w=900&auto=format&fit=crop" alt="Queso Ahumado Artesanal" loading="lazy">
           <p class="receta-intro">
             El ahumado en frío del queso es la técnica más delicada de este recetario. No hay cocción — solo
-            humo circulando alrededor de un queso maduro que absorbe los aromas lentamente. Javo usa queso de
-            cabra de productores locales de Salta cuando puede conseguirlo, y la diferencia respecto al
+            humo circulando alrededor de un queso maduro que absorbe los aromas lentamente. Uso queso de
+            cabra de productores locales de Salta cuando puedo conseguirlo, y la diferencia respecto al
             provolone industrial es notable.
           </p>
 
@@ -1110,7 +1146,7 @@ async function javoVerificar(){
           </ol>
 
           <div class="tip-box">
-            <span class="tip-label">Tip de Javo</span>
+            <span class="tip-label">Mi tip</span>
             <p>Nunca ahumar queso fresco — necesita ser un queso maduro. El queso fresco tiene demasiada humedad y se derrite con cualquier calor. Un queso maduro tiene la estructura proteica y la corteza necesarias para soportar horas de exposición al humo sin colapsar.</p>
           </div>
         </article>
@@ -1125,10 +1161,11 @@ async function javoVerificar(){
             <span class="badge badge-coccion">Cocción: 2 hs</span>
             <span class="badge badge-temp">130 °C</span>
           </div>
+          <img class="receta-foto" src="https://images.unsplash.com/photo-1518977676405-19e752e345e4?w=900&auto=format&fit=crop" alt="Papas Ahumadas con Manteca de Hierbas" loading="lazy">
           <p class="receta-intro">
             Las papas ahumadas son la guarnición que nadie esperaba y todos piden de nuevo. En el norte argentino,
             la papa tiene un lugar especial en la gastronomía — especialmente en las alturas de la Puna, donde
-            las variedades nativas tienen sabores imposibles de encontrar en el llano. Javo las hace con papas
+            las variedades nativas tienen sabores imposibles de encontrar en el llano. Las hago con papas
             comunes pero la manteca de hierbas las eleva completamente.
           </p>
 
@@ -1161,7 +1198,7 @@ async function javoVerificar(){
           </ol>
 
           <div class="tip-box">
-            <span class="tip-label">Tip de Javo</span>
+            <span class="tip-label">Mi tip</span>
             <p>Pinchar las papas varias veces antes de poner al ahumador. Sin agujeros, el vapor que se forma adentro no tiene por dónde salir y la papa explota — no metafóricamente. Limpia todo el ahumador. Con 8–10 pinchazos con tenedor, el vapor escapa y la papa se cocina pareja y limpia.</p>
           </div>
         </article>
@@ -1176,8 +1213,9 @@ async function javoVerificar(){
             <span class="badge badge-coccion">Cocción: 1h 30 min</span>
             <span class="badge badge-temp">130 °C</span>
           </div>
+          <img class="receta-foto" src="https://images.unsplash.com/photo-1583577612013-4dfe6e4e5474?w=900&auto=format&fit=crop" alt="Jalapeños Rellenos Ahumados" loading="lazy">
           <p class="receta-intro">
-            Estos jalapeños rellenos ahumados son el aperitivo que Javo sirve en sus eventos mientras el
+            Estos jalapeños rellenos ahumados son el aperitivo que sirvo en mis eventos mientras el
             brisket o la bondiola terminan. El locoto, variedad norteña del jalapeño con más complejidad y
             menos agresividad que el jalapeño mexicano, los convierte en algo único. El relleno de queso
             crema con choclo y panceta es una combinación que funciona en todos los contextos.
@@ -1208,7 +1246,7 @@ async function javoVerificar(){
           </ol>
 
           <div class="tip-box">
-            <span class="tip-label">Tip de Javo</span>
+            <span class="tip-label">Mi tip</span>
             <p>Cortar el jalapeño a lo largo sin separar las mitades — debe quedar como un libro abierto que se puede volver a cerrar levemente. Si lo cortás en dos partes separadas, el relleno se cae durante el ahumado. El corte "libro" mantiene el relleno en su lugar y presenta mejor en la mesa.</p>
           </div>
         </article>
@@ -1223,8 +1261,9 @@ async function javoVerificar(){
             <span class="badge badge-coccion">Ahumado: 1 hs</span>
             <span class="badge badge-temp">120 °C</span>
           </div>
+          <img class="receta-foto" src="https://images.unsplash.com/photo-1474979266404-7eaacbcd87c5?w=900&auto=format&fit=crop" alt="Aceitunas Ahumadas con Especias" loading="lazy">
           <p class="receta-intro">
-            Las aceitunas ahumadas son el regalo que Javo trae cuando va a cenar a la casa de alguien. Un frasco
+            Las aceitunas ahumadas son el regalo que llevo cuando voy a cenar a la casa de alguien. Un frasco
             de aceitunas ahumadas en aceite con tomillo y pimentón no parece gran cosa hasta que se las prueba —
             y después de eso, las aceitunas comunes parecen insípidas. Son también perfectas para servir antes
             de un asado largo mientras el fuego toma temperatura.
@@ -1255,7 +1294,7 @@ async function javoVerificar(){
           </ol>
 
           <div class="tip-box">
-            <span class="tip-label">Tip de Javo</span>
+            <span class="tip-label">Mi tip</span>
             <p>Quedan mejor si se dejan marinar en el aceite del ahumado 24 horas. El aceite caliente que vertés sobre las aceitunas recién salidas del ahumador absorbe todos los aromas del tomillo, el ajo y el humo. Ese aceite infusionado es casi tan valioso como las aceitunas — guardarlo para mojar pan de campo.</p>
           </div>
         </article>
@@ -1270,9 +1309,10 @@ async function javoVerificar(){
             <span class="badge badge-coccion">Cocción: 6 hs</span>
             <span class="badge badge-temp">120 °C</span>
           </div>
+          <img class="receta-foto" src="https://images.unsplash.com/photo-1558030137-a56c1b002c8b?w=900&auto=format&fit=crop" alt="Ribs de Cerdo Ahumados (Técnica 3-2-1)" loading="lazy">
           <p class="receta-intro">
             La técnica 3-2-1 (tres horas ahumando, dos envueltas, una con glasé) es el método más confiable
-            para costillas perfectas. Javo le agrega su toque norteño al glasé final con miel de caña salteña y
+            para costillas perfectas. Le agrego mi toque norteño al glasé final con miel de caña salteña y
             un splash de bourbon que equilibra el dulce con amargor. El resultado tiene una textura que se
             separa del hueso con suavidad pero no "cae" sola — eso se llama "competition bite".
           </p>
@@ -1313,7 +1353,7 @@ async function javoVerificar(){
           </ol>
 
           <div class="tip-box">
-            <span class="tip-label">Tip de Javo</span>
+            <span class="tip-label">Mi tip</span>
             <p>El glasé final de miel + salsa BBQ + bourbon se aplica cada 20 minutos la última hora — no de una sola vez. Cada aplicación se carameliza antes de agregar la siguiente, creando capas de sabor superpuestas. Una sola aplicación al final da una costra que se cae. Tres aplicaciones dan una laca.</p>
           </div>
         </article>
@@ -1328,10 +1368,11 @@ async function javoVerificar(){
             <span class="badge badge-coccion">Cocción: 1h 30 min</span>
             <span class="badge badge-temp">130 °C</span>
           </div>
+          <img class="receta-foto" src="https://images.unsplash.com/photo-1540420773420-3366772f4999?w=900&auto=format&fit=crop" alt="Vegetales Ahumados para Pasta" loading="lazy">
           <p class="receta-intro">
-            Esta receta nació en un asado de domingo en que Javo tenía vegetales de más y decidió meterlos
+            Esta receta nació en un asado de domingo en que tenía vegetales de más y decidí meterlos
             en el ahumador sin un plan concreto. El resultado — una salsa de tomates y pimientos ahumados
-            procesada con ajo ahumado como crema — es ahora una de las preparaciones más pedidas en sus
+            procesada con ajo ahumado como crema — es ahora una de las preparaciones más pedidas en mis
             clases. Demuestra que el ahumador no es solo para carnes.
           </p>
 
@@ -1367,7 +1408,7 @@ async function javoVerificar(){
           </ol>
 
           <div class="tip-box">
-            <span class="tip-label">Tip de Javo</span>
+            <span class="tip-label">Mi tip</span>
             <p>El ajo ahumado entero se convierte en una crema suave — exprimirlo directo sobre la salsa. Esa crema de ajo ahumado es el elemento diferenciador de toda la receta. Sola, untada sobre pan de campo tostado, ya vale el tiempo de ahumado. En la salsa, transforma un simple pomarola en algo que tiene profundidad y misterio.</p>
           </div>
         </article>

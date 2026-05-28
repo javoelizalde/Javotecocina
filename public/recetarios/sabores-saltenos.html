@@ -572,6 +572,18 @@
     [id^="receta-"] {
       scroll-margin-top: 4rem;
     }
+
+/* ── ÍNDICE */
+.recetario-indice{background:rgba(196,133,58,0.06);border:1px solid rgba(196,133,58,0.18);padding:2rem 2.5rem;margin:0 auto 3rem;max-width:820px;border-radius:2px;}
+.indice-titulo{font-family:'Space Mono',monospace;font-size:0.62rem;letter-spacing:0.22em;text-transform:uppercase;color:#C4853A;margin-bottom:1.25rem;}
+.indice-lista{list-style:none;columns:2;gap:2rem;padding:0;margin:0;}
+.indice-lista li{margin-bottom:0.55rem;break-inside:avoid;}
+.indice-lista a{color:rgba(245,237,216,0.6);text-decoration:none;font-size:0.82rem;font-family:'Libre Baskerville',serif;transition:color 0.2s;display:flex;align-items:baseline;gap:0.4rem;}
+.indice-lista a:hover{color:#C4853A;}
+.indice-num{font-family:'Space Mono',monospace;font-size:0.6rem;color:#C4853A;opacity:0.65;flex-shrink:0;}
+@media(max-width:600px){.indice-lista{columns:1;}}
+/* ── FOTOS */
+.receta-foto{width:100%;max-height:300px;object-fit:cover;display:block;margin-bottom:1.5rem;filter:brightness(0.82) sepia(0.12);}
   </style>
 </head>
 <body>
@@ -690,6 +702,27 @@ async function javoVerificar(){
   <!-- RECETAS -->
   <main class="recetas-section">
 
+    <nav class="recetario-indice">
+  <div class="indice-titulo">Índice de recetas</div>
+  <ul class="indice-lista">
+    <li><a href="#receta-empanadas-saltenas"><span class="indice-num">01</span>Empanadas Salteñas</a></li>
+    <li><a href="#receta-humitas"><span class="indice-num">02</span>Humitas en Chala</a></li>
+    <li><a href="#receta-tamales"><span class="indice-num">03</span>Tamales Salteños</a></li>
+    <li><a href="#receta-locro"><span class="indice-num">04</span>Locro Norteño</a></li>
+    <li><a href="#receta-carbonada"><span class="indice-num">05</span>Carbonada Salteña</a></li>
+    <li><a href="#receta-cordero-cruz"><span class="indice-num">06</span>Cordero a la Cruz</a></li>
+    <li><a href="#receta-chanfaina"><span class="indice-num">07</span>Chanfaina Salteña</a></li>
+    <li><a href="#receta-tortilla-rescoldo"><span class="indice-num">08</span>Tortilla de Rescoldo</a></li>
+    <li><a href="#receta-guiso-maiz"><span class="indice-num">09</span>Guiso de Maíz Blanco</a></li>
+    <li><a href="#receta-charqui"><span class="indice-num">10</span>Charqui con Papa</a></li>
+    <li><a href="#receta-mazamorra"><span class="indice-num">11</span>Mazamorra Norteña</a></li>
+    <li><a href="#receta-llajua"><span class="indice-num">12</span>Llajua Casera</a></li>
+    <li><a href="#receta-pan-campo"><span class="indice-num">13</span>Pan de Campo al Rescoldo</a></li>
+    <li><a href="#receta-sopa-mote"><span class="indice-num">14</span>Sopa de Mote</a></li>
+    <li><a href="#receta-api-morado"><span class="indice-num">15</span>Api Morado</a></li>
+  </ul>
+</nav>
+
     <!-- RECETA 1 -->
     <article class="receta-card" id="receta-empanadas-saltenas">
       <p class="receta-num">Receta 01</p>
@@ -699,8 +732,9 @@ async function javoVerificar(){
         <span class="badge badge-prep">&#128336; Prep: 90 min</span>
         <span class="badge badge-coccion">&#128293; Cocción: 25 min</span>
       </div>
+      <img class="receta-foto" src="https://images.unsplash.com/photo-1604902396830-aca29e19b067?w=900&auto=format&fit=crop" alt="Empanadas Salteñas" loading="lazy">
       <p class="receta-intro">
-        En Salta, las empanadas no son una comida: son un acontecimiento. No existe reunión familiar, festejo de barrio ni tarde de lluvia que no convoque a esta masa estirada a mano y rellena con paciencia. El debate eterno entre fritas y al horno es, en mi casa, un debate sin fin —las fritas ganan casi siempre—. La clave no está solo en el relleno sino en ese repulgue en forma de trenza que Javo aprendió mirando a su abuela, sin que nadie le enseñara con palabras.
+        En Salta, las empanadas no son una comida: son un acontecimiento. No existe reunión familiar, festejo de barrio ni tarde de lluvia que no convoque a esta masa estirada a mano y rellena con paciencia. El debate eterno entre fritas y al horno es, en mi casa, un debate sin fin —las fritas ganan casi siempre—. La clave no está solo en el relleno sino en ese repulgue en forma de trenza que aprendí mirando a mi abuela, sin que nadie me enseñara con palabras.
       </p>
 
       <p class="receta-ingredientes-titulo">Ingredientes</p>
@@ -747,6 +781,7 @@ async function javoVerificar(){
         <span class="badge badge-prep">&#128336; Prep: 60 min</span>
         <span class="badge badge-coccion">&#128293; Cocción: 45 min</span>
       </div>
+      <img class="receta-foto" src="https://images.unsplash.com/photo-1594213959828-40fc04f46bc9?w=900&auto=format&fit=crop" alt="Humitas en Chala" loading="lazy">
       <p class="receta-intro">
         La humita es uno de los platos más antiguos del NOA, un alimento que los pueblos originarios andinos ya preparaban antes de la llegada española. En Salta, se come en casa y en los mercados, envuelta en sus propias chalas —las hojas del choclo— que le dan un perfume singular. La versión salteña lleva queso y ají, un perfecto equilibrio entre la dulzura natural del choclo y el calor leve del pimiento molido.
       </p>
@@ -790,6 +825,7 @@ async function javoVerificar(){
         <span class="badge badge-prep">&#128336; Prep: 90 min</span>
         <span class="badge badge-coccion">&#128293; Cocción: 60 min</span>
       </div>
+      <img class="receta-foto" src="https://images.unsplash.com/photo-1551504734-5ee1c4a1479b?w=900&auto=format&fit=crop" alt="Tamales Salteños" loading="lazy">
       <p class="receta-intro">
         Si las empanadas son la reina del norte, los tamales son su historia más profunda. Llegaron desde Mesoamérica hace siglos, adoptados y transformados por cada cultura que los tocó, y en Salta adquirieron su identidad propia: masa de maíz blanco pisado, relleno jugoso de carne y papas, envueltos en chala y cocidos al vapor. En muchos hogares salteños se hacen tamales para las fiestas, para los cumpleaños, para los días que merecen algo especial.
       </p>
@@ -836,8 +872,9 @@ async function javoVerificar(){
         <span class="badge badge-prep">&#128336; Prep: 30 min</span>
         <span class="badge badge-coccion">&#128293; Cocción: 3 horas</span>
       </div>
+      <img class="receta-foto" src="https://images.unsplash.com/photo-1547592180-85f173990554?w=900&auto=format&fit=crop" alt="Locro Norteño" loading="lazy">
       <p class="receta-intro">
-        El locro es el plato de patria. Se come el 25 de Mayo, el 9 de Julio, el día que hay frío de verdad. En el NOA, el locro es una ceremonia lenta: la olla empieza antes del mediodía y cuando llega la tarde, toda la casa huele a eso que no se puede explicar bien pero que significa hogar. Javo lo hace con tripa gorda y cuerito de cerdo porque, según él, sin esos ingredientes el locro es solo una sopa de maíz. Con ellos, es otra cosa.
+        El locro es el plato de patria. Se come el 25 de Mayo, el 9 de Julio, el día que hay frío de verdad. En el NOA, el locro es una ceremonia lenta: la olla empieza antes del mediodía y cuando llega la tarde, toda la casa huele a eso que no se puede explicar bien pero que significa hogar. Lo hago con tripa gorda y cuerito de cerdo porque, para mí, sin esos ingredientes el locro es solo una sopa de maíz. Con ellos, es otra cosa.
       </p>
 
       <p class="receta-ingredientes-titulo">Ingredientes</p>
@@ -882,8 +919,9 @@ async function javoVerificar(){
         <span class="badge badge-prep">&#128336; Prep: 20 min</span>
         <span class="badge badge-coccion">&#128293; Cocción: 1h 30min</span>
       </div>
+      <img class="receta-foto" src="https://images.unsplash.com/photo-1534939561126-855b8675edd7?w=900&auto=format&fit=crop" alt="Carbonada Salteña" loading="lazy">
       <p class="receta-intro">
-        La carbonada es uno de esos platos que exige ser presentado como corresponde: dentro de un zapallo vaciado asado al horno, donde la pared anaranjada sigue largando su dulzura a la guarnición durante toda la comida. En Salta se la hace con lo que la estación trae —choclo, batata, papas andinas—, un guiso de invierno que también celebra la abundancia del verano tardío. Javo la sirve siempre en el zapallo, porque dice que sacarla de ahí sería un sacrilegio.
+        La carbonada es uno de esos platos que exige ser presentado como corresponde: dentro de un zapallo vaciado asado al horno, donde la pared anaranjada sigue largando su dulzura a la guarnición durante toda la comida. En Salta se la hace con lo que la estación trae —choclo, batata, papas andinas—, un guiso de invierno que también celebra la abundancia del verano tardío. La sirvo siempre en el zapallo, porque para mí sacarla de ahí sería un sacrilegio.
       </p>
 
       <p class="receta-ingredientes-titulo">Ingredientes</p>
@@ -927,8 +965,9 @@ async function javoVerificar(){
         <span class="badge badge-prep">&#128336; Prep: 30 min</span>
         <span class="badge badge-coccion">&#128293; Cocción: 4–5 horas</span>
       </div>
+      <img class="receta-foto" src="https://images.unsplash.com/photo-1555939594-58d7cb561ad1?w=900&auto=format&fit=crop" alt="Cordero a la Cruz" loading="lazy">
       <p class="receta-intro">
-        Hay algo casi ritual en el cordero a la cruz. La imagen del animal extendido frente al fuego, los palos clavados en la tierra, el humo que sube lento en la tarde, los hombres sentados alrededor tomando mate y esperando —eso es Salta en su versión más verdadera—. Javo aprendió a hacer cordero a la cruz en el campo, donde el único reloj es el color de la carne y la distancia al fuego se mide con la mano abierta. No existe método más elemental, ni resultado más glorioso.
+        Hay algo casi ritual en el cordero a la cruz. La imagen del animal extendido frente al fuego, los palos clavados en la tierra, el humo que sube lento en la tarde, los hombres sentados alrededor tomando mate y esperando —eso es Salta en su versión más verdadera—. Aprendí a hacer cordero a la cruz en el campo, donde el único reloj es el color de la carne y la distancia al fuego se mide con la mano abierta. No existe método más elemental, ni resultado más glorioso.
       </p>
 
       <p class="receta-ingredientes-titulo">Ingredientes</p>
@@ -968,8 +1007,9 @@ async function javoVerificar(){
         <span class="badge badge-prep">&#128336; Prep: 40 min</span>
         <span class="badge badge-coccion">&#128293; Cocción: 1 hora</span>
       </div>
+      <img class="receta-foto" src="https://images.unsplash.com/photo-1534939561126-855b8675edd7?w=900&auto=format&fit=crop" alt="Chanfaina Salteña" loading="lazy">
       <p class="receta-intro">
-        La chanfaina es la cocina de la honestidad: usa lo que otros descartan y lo convierte en algo sabroso y nutritivo. En el norte, las achuras de cordero —pulmón, corazón, riñón— no se tiran jamás. La chanfaina es una receta de campo, de jornada larga, de gente que aprovecha el animal entero. Javo la hace con ají amarillo y papas, una combinación que le da color y cuerpo, y la sirve como plato principal sin disculpas.
+        La chanfaina es la cocina de la honestidad: usa lo que otros descartan y lo convierte en algo sabroso y nutritivo. En el norte, las achuras de cordero —pulmón, corazón, riñón— no se tiran jamás. La chanfaina es una receta de campo, de jornada larga, de gente que aprovecha el animal entero. La hago con ají amarillo y papas, una combinación que le da color y cuerpo, y la sirvo como plato principal sin disculpas.
       </p>
 
       <p class="receta-ingredientes-titulo">Ingredientes</p>
@@ -1012,8 +1052,9 @@ async function javoVerificar(){
         <span class="badge badge-prep">&#128336; Prep: 15 min</span>
         <span class="badge badge-coccion">&#128293; Cocción: 40 min</span>
       </div>
+      <img class="receta-foto" src="https://images.unsplash.com/photo-1509440159596-0249088772ff?w=900&auto=format&fit=crop" alt="Tortilla de Rescoldo" loading="lazy">
       <p class="receta-intro">
-        La tortilla de rescoldo es la respuesta del campo cuando no hay horno ni sartén. Solo hace falta fuego, harina y paciencia. Se hace enterrando la masa entre las brasas apagadas —el rescoldo—, ese calor suave y envolvente que cocina sin quemar, que forma una corteza casi ahumada y un interior esponjoso. Es el pan de los arrierros, de los pastores, de los que duermen bajo las estrellas en la Puna. Javo la hace en el patio y dice que nunca sale igual dos veces, pero siempre sale buena.
+        La tortilla de rescoldo es la respuesta del campo cuando no hay horno ni sartén. Solo hace falta fuego, harina y paciencia. Se hace enterrando la masa entre las brasas apagadas —el rescoldo—, ese calor suave y envolvente que cocina sin quemar, que forma una corteza casi ahumada y un interior esponjoso. Es el pan de los arrierros, de los pastores, de los que duermen bajo las estrellas en la Puna. La hago en el patio y nunca sale igual dos veces, pero siempre sale buena.
       </p>
 
       <p class="receta-ingredientes-titulo">Ingredientes</p>
@@ -1051,6 +1092,7 @@ async function javoVerificar(){
         <span class="badge badge-prep">&#128336; Prep: 20 min</span>
         <span class="badge badge-coccion">&#128293; Cocción: 2 horas</span>
       </div>
+      <img class="receta-foto" src="https://images.unsplash.com/photo-1547592180-85f173990554?w=900&auto=format&fit=crop" alt="Guiso de Maíz Blanco" loading="lazy">
       <p class="receta-intro">
         El guiso de maíz blanco es cocina de invierno profundo. En los pueblos de la Puna, donde el frío llega hasta los huesos, este plato es un abrazo: denso, caliente, con ese sabor austero y honesto del maíz cocido lentamente con costilla y chorizo. No tiene complicaciones ni pretensiones. Es puro norte argentino servido en un plato hondo.
       </p>
@@ -1095,8 +1137,9 @@ async function javoVerificar(){
         <span class="badge badge-prep">&#128336; Prep: 15 min</span>
         <span class="badge badge-coccion">&#128293; Cocción: 45 min</span>
       </div>
+      <img class="receta-foto" src="https://images.unsplash.com/photo-1529694157872-4e0c0f3b238b?w=900&auto=format&fit=crop" alt="Charqui con Papa" loading="lazy">
       <p class="receta-intro">
-        El charqui —carne deshidratada y salada— es una de las técnicas de conservación más antiguas de los Andes. Los pueblos originarios lo hacían con llama o vicuña, secándola al sol y al frío seco de la Puna. Hoy se hace con vacuno, pero la tradición sigue. Javo lo rescató como plato cotidiano: deshilachado, rehidratado y mezclado con papas andinas y ají molido. Simple, montañoso, profundamente salteño.
+        El charqui —carne deshidratada y salada— es una de las técnicas de conservación más antiguas de los Andes. Los pueblos originarios lo hacían con llama o vicuña, secándola al sol y al frío seco de la Puna. Hoy se hace con vacuno, pero la tradición sigue. Lo rescaté como plato cotidiano de mi repertorio: deshilachado, rehidratado y mezclado con papas andinas y ají molido. Simple, montañoso, profundamente salteño.
       </p>
 
       <p class="receta-ingredientes-titulo">Ingredientes</p>
@@ -1136,8 +1179,9 @@ async function javoVerificar(){
         <span class="badge badge-prep">&#128336; Prep: 10 min</span>
         <span class="badge badge-coccion">&#128293; Cocción: 1 hora</span>
       </div>
+      <img class="receta-foto" src="https://images.unsplash.com/photo-1621996346565-e3dbc646d9a9?w=900&auto=format&fit=crop" alt="Mazamorra Norteña" loading="lazy">
       <p class="receta-intro">
-        La mazamorra es el postre de los abuelos. Espesa, blanca, perfumada de canela y limón, se comía en el patio de tierra después de la cena, mirando las estrellas. Javo la hace en invierno, cuando el maíz blanco pisado ya está en la despensa desde el verano. Es un postre sin pretensiones que tiene la capacidad de transportar de golpe a la infancia, a los domingos en la casa familiar, a la olla que siempre estaba en el fuego.
+        La mazamorra es el postre de los abuelos. Espesa, blanca, perfumada de canela y limón, se comía en el patio de tierra después de la cena, mirando las estrellas. La hago en invierno, cuando el maíz blanco pisado ya está en la despensa desde el verano. Es un postre sin pretensiones que tiene la capacidad de transportar de golpe a la infancia, a los domingos en la casa familiar, a la olla que siempre estaba en el fuego.
       </p>
 
       <p class="receta-ingredientes-titulo">Ingredientes</p>
@@ -1176,6 +1220,7 @@ async function javoVerificar(){
         <span class="badge badge-prep">&#128336; Prep: 10 min</span>
         <span class="badge badge-coccion">&#128293; Sin cocción</span>
       </div>
+      <img class="receta-foto" src="https://images.unsplash.com/photo-1583577612013-4dfe6e4e5474?w=900&auto=format&fit=crop" alt="Llajua Casera" loading="lazy">
       <p class="receta-intro">
         La llajua es la salsa sagrada del norte. Ninguna mesa salteña que se respete carece de llajua: va con las empanadas, con el locro, con el asado, con el charqui, con el pan. Va con todo. Se muele en batán —una piedra plana ancestral— o en licuadora, y su alma es la quirquiña, esa hierba aromática de hoja pequeña que no tiene reemplazo exacto en el mundo. Sin quirquiña, la llajua sabe bien. Con quirquiña, sabe a Salta.
       </p>
@@ -1212,8 +1257,9 @@ async function javoVerificar(){
         <span class="badge badge-prep">&#128336; Prep: 20 min</span>
         <span class="badge badge-coccion">&#128293; Cocción: 50 min</span>
       </div>
+      <img class="receta-foto" src="https://images.unsplash.com/photo-1509440159596-0249088772ff?w=900&auto=format&fit=crop" alt="Pan de Campo al Rescoldo" loading="lazy">
       <p class="receta-intro">
-        El pan de campo es el hermano mayor de la tortilla de rescoldo. Lleva levadura, por eso esponja más, y se cocina cubierto con una olla de hierro fundido que atrapa el vapor y el calor, simulando un horno de barro. Javo lo hace los domingos en el patio, y la regla es simple: el pan sale cuando sale, y cuando sale hay que comerlo de inmediato, con manteca o con lo que haya. No hay mejor pan en el mundo que uno recién salido del rescoldo.
+        El pan de campo es el hermano mayor de la tortilla de rescoldo. Lleva levadura, por eso esponja más, y se cocina cubierto con una olla de hierro fundido que atrapa el vapor y el calor, simulando un horno de barro. Lo hago los domingos en el patio, y la regla es simple: el pan sale cuando sale, y cuando sale hay que comerlo de inmediato, con manteca o con lo que haya. No hay mejor pan en el mundo que uno recién salido del rescoldo.
       </p>
 
       <p class="receta-ingredientes-titulo">Ingredientes</p>
@@ -1254,8 +1300,9 @@ async function javoVerificar(){
         <span class="badge badge-prep">&#128336; Prep: 20 min</span>
         <span class="badge badge-coccion">&#128293; Cocción: 1h 30min</span>
       </div>
+      <img class="receta-foto" src="https://images.unsplash.com/photo-1547592180-85f173990554?w=900&auto=format&fit=crop" alt="Sopa de Mote" loading="lazy">
       <p class="receta-intro">
-        El mote —maíz cocido con cal que pierde la cáscara— es uno de los ingredientes más ancestrales de los Andes. La sopa de mote es el plato de invierno absoluto en la Puna: el maíz hinchado flota en un caldo denso de costilla y verduras, y cada cucharada da calor desde adentro. En los pueblos de altura donde la temperatura baja bajo cero, esta sopa es medicina y alimento al mismo tiempo. Javo la aprendió de una señora del mercado que se la explicó mientras la cocinaba, sin receta ni medidas.
+        El mote —maíz cocido con cal que pierde la cáscara— es uno de los ingredientes más ancestrales de los Andes. La sopa de mote es el plato de invierno absoluto en la Puna: el maíz hinchado flota en un caldo denso de costilla y verduras, y cada cucharada da calor desde adentro. En los pueblos de altura donde la temperatura baja bajo cero, esta sopa es medicina y alimento al mismo tiempo. La aprendí de una señora del mercado que me la explicó mientras la cocinaba, sin receta ni medidas.
       </p>
 
       <p class="receta-ingredientes-titulo">Ingredientes</p>
@@ -1297,8 +1344,9 @@ async function javoVerificar(){
         <span class="badge badge-prep">&#128336; Prep: 10 min</span>
         <span class="badge badge-coccion">&#128293; Cocción: 20 min</span>
       </div>
+      <img class="receta-foto" src="https://images.unsplash.com/photo-1544145945-f90425340c7e?w=900&auto=format&fit=crop" alt="Api Morado" loading="lazy">
       <p class="receta-intro">
-        El api morado es la bebida de los mercados. En el mercado San Miguel de Salta, desde temprano en la mañana, se puede ver a las vendedoras sirviendo este líquido espeso y perfumado en vasos de vidrio, coronado con un chorrito de limón que cambia su color de morado a rosa. Es caliente, dulce, especiado, y perfecto para el frío de la mañana serrana. Javo lo toma como desayuno cuando el invierno aprieta, y dice que ningún café le da el mismo calor interior que un vaso de api.
+        El api morado es la bebida de los mercados. En el mercado San Miguel de Salta, desde temprano en la mañana, se puede ver a las vendedoras sirviendo este líquido espeso y perfumado en vasos de vidrio, coronado con un chorrito de limón que cambia su color de morado a rosa. Es caliente, dulce, especiado, y perfecto para el frío de la mañana serrana. Lo tomo como desayuno cuando el invierno aprieta, y para mí ningún café da el mismo calor interior que un vaso de api.
       </p>
 
       <p class="receta-ingredientes-titulo">Ingredientes</p>

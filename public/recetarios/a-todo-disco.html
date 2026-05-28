@@ -684,6 +684,18 @@
     [id^="receta-"] {
       scroll-margin-top: 4rem;
     }
+
+/* ── ÍNDICE */
+.recetario-indice{background:rgba(196,133,58,0.06);border:1px solid rgba(196,133,58,0.18);padding:2rem 2.5rem;margin:0 auto 3rem;max-width:820px;border-radius:2px;}
+.indice-titulo{font-family:'Space Mono',monospace;font-size:0.62rem;letter-spacing:0.22em;text-transform:uppercase;color:#C4853A;margin-bottom:1.25rem;}
+.indice-lista{list-style:none;columns:2;gap:2rem;padding:0;margin:0;}
+.indice-lista li{margin-bottom:0.55rem;break-inside:avoid;}
+.indice-lista a{color:rgba(245,237,216,0.6);text-decoration:none;font-size:0.82rem;font-family:'Libre Baskerville',serif;transition:color 0.2s;display:flex;align-items:baseline;gap:0.4rem;}
+.indice-lista a:hover{color:#C4853A;}
+.indice-num{font-family:'Space Mono',monospace;font-size:0.6rem;color:#C4853A;opacity:0.65;flex-shrink:0;}
+@media(max-width:600px){.indice-lista{columns:1;}}
+/* ── FOTOS */
+.receta-foto{width:100%;max-height:300px;object-fit:cover;display:block;margin-bottom:1.5rem;filter:brightness(0.82) sepia(0.12);}
   </style>
 </head>
 <body>
@@ -801,6 +813,26 @@ async function javoVerificar(){
   <!-- RECETAS -->
   <main class="recetas-section">
 
+    <nav class="recetario-indice">
+      <div class="indice-titulo">Índice de recetas</div>
+      <ul class="indice-lista">
+        <li><a href="#receta-disco-de-javo"><span class="indice-num">01</span>El Disco de Javo</a></li>
+        <li><a href="#receta-pollo-especias"><span class="indice-num">02</span>Pollo al Disco con Especias del Norte</a></li>
+        <li><a href="#receta-cordero-disco"><span class="indice-num">03</span>Cordero al Disco</a></li>
+        <li><a href="#receta-costillar-cerdo"><span class="indice-num">04</span>Costillar de Cerdo al Disco</a></li>
+        <li><a href="#receta-papas-rusticas"><span class="indice-num">05</span>Papas Rústicas al Disco</a></li>
+        <li><a href="#receta-cabrito-disco"><span class="indice-num">06</span>Cabrito al Disco</a></li>
+        <li><a href="#receta-cerdo-ciruelas"><span class="indice-num">07</span>Disco de Cerdo con Ciruelas</a></li>
+        <li><a href="#receta-lentejas-disco"><span class="indice-num">08</span>Lentejas al Disco</a></li>
+        <li><a href="#receta-hongos-disco"><span class="indice-num">09</span>Revuelto de Hongos al Disco</a></li>
+        <li><a href="#receta-pollo-limon"><span class="indice-num">10</span>Pollo al Disco con Limón y Ajo</a></li>
+        <li><a href="#receta-verduras-disco"><span class="indice-num">11</span>Verduras de Temporada al Disco</a></li>
+        <li><a href="#receta-osobuco-disco"><span class="indice-num">12</span>Osobuco Braseado al Disco</a></li>
+        <li><a href="#receta-mariscos-disco"><span class="indice-num">13</span>Disco de Mariscos</a></li>
+        <li><a href="#receta-bondiola-disco"><span class="indice-num">14</span>Bondiola al Disco con Barbacoa Norteña</a></li>
+      </ul>
+    </nav>
+
     <!-- RECETA 1 — EMBLEMA -->
     <article class="receta-card receta-emblema" id="receta-disco-de-javo">
       <div class="sello-emblema">
@@ -815,6 +847,7 @@ async function javoVerificar(){
         <span class="badge badge-prep">&#128336; Prep: 20 min</span>
         <span class="badge badge-coccion">&#128293; Cocción: 45 min</span>
       </div>
+      <img class="receta-foto" src="https://images.unsplash.com/photo-1604908176997-125f25cc6f3d?w=900&auto=format&fit=crop" alt="El Disco de Javo" loading="lazy">
       <p class="receta-intro">
         Esta es mi receta. La que no falta cuando hay gente. Pollo al disco con arroz, verduras y cerveza negra. La clave está en usar patamuslo deshuesada cortada en cubitos — se sella rápido, queda jugosa, y se integra perfecto cuando vuelve al disco sobre el arroz ya casi listo. El arroz que uso es doble carolina, de los que se pasan: cuando cocina en las verduras con la cerveza negra, suelta el almidón y queda cremoso sin necesidad de agregar crema. Eso es lo que lo hace distinto. Si no conseguís doble carolina, usá arroz común y terminá con un chorro de crema — también queda perfecto.
       </p>
@@ -865,8 +898,9 @@ async function javoVerificar(){
         <span class="badge badge-prep">&#128336; Prep: 20 min</span>
         <span class="badge badge-coccion">&#128293; Cocción: 1 hora</span>
       </div>
+      <img class="receta-foto" src="https://images.unsplash.com/photo-1598103442097-8b74394b95c3?w=900&auto=format&fit=crop" alt="Pollo al Disco con Especias del Norte" loading="lazy">
       <p class="receta-intro">
-        El pollo al disco es la puerta de entrada al universo del disco de arado. Es la receta con la que Javo recomienda empezar a quienes nunca cocinaron en disco antes, porque el pollo perdona los errores de temperatura y de tiempo mejor que otras carnes. Las especias del norte —comino, pimentón ahumado, ají amarillo— transforman un pollo común en algo que huele y sabe al noroeste argentino.
+        El pollo al disco es la puerta de entrada al universo del disco de arado. Es la receta con la que recomiendo empezar a quienes nunca cocinaron en disco antes, porque el pollo perdona los errores de temperatura y de tiempo mejor que otras carnes. Las especias del norte —comino, pimentón ahumado, ají amarillo— transforman un pollo común en algo que huele y sabe al noroeste argentino.
       </p>
 
       <p class="receta-ingredientes-titulo">Ingredientes</p>
@@ -908,6 +942,7 @@ async function javoVerificar(){
         <span class="badge badge-prep">&#128336; Prep: 30 min</span>
         <span class="badge badge-coccion">&#128293; Cocción: 2 horas</span>
       </div>
+      <img class="receta-foto" src="https://images.unsplash.com/photo-1555939594-58d7cb561ad1?w=900&auto=format&fit=crop" alt="Cordero al Disco" loading="lazy">
       <p class="receta-intro">
         El cordero en disco pide tiempo y respeto. Es una carne que en Salta tiene historia propia: llega desde las pasturas de la Puna y la Quebrada, donde los animales crecen en alturas que les dan una textura y un sabor distintos al cordero de otras regiones. Al disco, con un fondo de cebollas, hierbas del monte y vino tinto, el cordero se vuelve tierno sin esfuerzo —solo hace falta el fuego lento y la tapa bien cerrada—.
       </p>
@@ -951,8 +986,9 @@ async function javoVerificar(){
         <span class="badge badge-prep">&#128336; Prep: 20 min</span>
         <span class="badge badge-coccion">&#128293; Cocción: 1h 20min</span>
       </div>
+      <img class="receta-foto" src="https://images.unsplash.com/photo-1529694157872-4e0c0f3b238b?w=900&auto=format&fit=crop" alt="Costillar de Cerdo al Disco" loading="lazy">
       <p class="receta-intro">
-        El costillar de cerdo tiene esa cualidad de la grasa que se derrite lentamente entre los huesos y se convierte en una salsa natural, sin que nadie haga nada especial para lograrlo. Al disco, con papas noisette doradas en esa misma grasa y una cebolla que se carameliza sola en el calor lento, el costillar se convierte en uno de los platos más satisfactorios que Javo cocina. La salsa de ciruelas es el toque que eleva el conjunto.
+        El costillar de cerdo tiene esa cualidad de la grasa que se derrite lentamente entre los huesos y se convierte en una salsa natural, sin que nadie haga nada especial para lograrlo. Al disco, con papas noisette doradas en esa misma grasa y una cebolla que se carameliza sola en el calor lento, el costillar se convierte en uno de los platos más satisfactorios que cocino. La salsa de ciruelas es el toque que eleva el conjunto.
       </p>
 
       <p class="receta-ingredientes-titulo">Ingredientes</p>
@@ -993,8 +1029,9 @@ async function javoVerificar(){
         <span class="badge badge-prep">&#128336; Prep: 15 min</span>
         <span class="badge badge-coccion">&#128293; Cocción: 45 min</span>
       </div>
+      <img class="receta-foto" src="https://images.unsplash.com/photo-1518977676405-19e752e345e4?w=900&auto=format&fit=crop" alt="Papas Rústicas al Disco" loading="lazy">
       <p class="receta-intro">
-        Las papas rústicas al disco son el acompañamiento que roba el protagonismo. Javo las hace con cáscara porque la cáscara es donde está el sabor, y en cuartos irregulares porque las superficies irregulares toman mejor el dorado. Con ajo entero que se va confitando en el aceite y romero que perfuma todo el disco, son el complemento ideal para cualquier carne, pero también funcionan perfectamente solas como plato de media tarde.
+        Las papas rústicas al disco son el acompañamiento que roba el protagonismo. Las hago con cáscara porque la cáscara es donde está el sabor, y en cuartos irregulares porque las superficies irregulares toman mejor el dorado. Con ajo entero que se va confitando en el aceite y romero que perfuma todo el disco, son el complemento ideal para cualquier carne, pero también funcionan perfectamente solas como plato de media tarde.
       </p>
 
       <p class="receta-ingredientes-titulo">Ingredientes</p>
@@ -1033,8 +1070,9 @@ async function javoVerificar(){
         <span class="badge badge-prep">&#128336; Prep: 30 min + 12h marinada</span>
         <span class="badge badge-coccion">&#128293; Cocción: 2h 30min</span>
       </div>
+      <img class="receta-foto" src="https://images.unsplash.com/photo-1555939594-58d7cb561ad1?w=900&auto=format&fit=crop" alt="Cabrito al Disco" loading="lazy">
       <p class="receta-intro">
-        El cabrito es el animal de las fiestas en el norte argentino. Liviano, de carne blanca y sabor delicado, pide marinada para que sus sabores se abran antes de entrar al calor. Javo lo marina con ajo, limón y hierbas desde la noche anterior, y lo cocina en el disco sobre papas andinas que absorben todos los jugos de la carne. Es un plato de celebración que no necesita más justificación que un buen fuego y gente alrededor.
+        El cabrito es el animal de las fiestas en el norte argentino. Liviano, de carne blanca y sabor delicado, pide marinada para que sus sabores se abran antes de entrar al calor. Lo marino con ajo, limón y hierbas desde la noche anterior, y lo cocino en el disco sobre papas andinas que absorben todos los jugos de la carne. Es un plato de celebración que no necesita más justificación que un buen fuego y gente alrededor.
       </p>
 
       <p class="receta-ingredientes-titulo">Ingredientes</p>
@@ -1075,8 +1113,9 @@ async function javoVerificar(){
         <span class="badge badge-prep">&#128336; Prep: 20 min</span>
         <span class="badge badge-coccion">&#128293; Cocción: 1h 15min</span>
       </div>
+      <img class="receta-foto" src="https://images.unsplash.com/photo-1544025162-d76538f498e0?w=900&auto=format&fit=crop" alt="Disco de Cerdo con Ciruelas" loading="lazy">
       <p class="receta-intro">
-        La combinación de cerdo con fruta seca es una de las más antiguas de la cocina europea, traída por los inmigrantes y adaptada al fuego del campo argentino. Javo la tomó y la puso al disco, con cebolla morada caramelizada y vino blanco, y el resultado es una preparación de una elegancia sorprendente para un disco de arado. Las ciruelas pasas se deshacen en la salsa y la redondean con una dulzura que equilibra la riqueza del cerdo.
+        La combinación de cerdo con fruta seca es una de las más antiguas de la cocina europea, traída por los inmigrantes y adaptada al fuego del campo argentino. La tomé y la puse al disco, con cebolla morada caramelizada y vino blanco, y el resultado es una preparación de una elegancia sorprendente para un disco de arado. Las ciruelas pasas se deshacen en la salsa y la redondean con una dulzura que equilibra la riqueza del cerdo.
       </p>
 
       <p class="receta-ingredientes-titulo">Ingredientes</p>
@@ -1116,6 +1155,7 @@ async function javoVerificar(){
         <span class="badge badge-prep">&#128336; Prep: 20 min + 4h remojo</span>
         <span class="badge badge-coccion">&#128293; Cocción: 1 hora</span>
       </div>
+      <img class="receta-foto" src="https://images.unsplash.com/photo-1547592180-85f173990554?w=900&auto=format&fit=crop" alt="Lentejas al Disco" loading="lazy">
       <p class="receta-intro">
         Hay algo que el disco le hace a las lentejas que ninguna olla puede replicar: ese sabor a humo y a hierro que se integra en cada grano durante la cocción a fuego abierto. Las lentejas al disco con chorizo y panceta son el guiso de invierno definitivo —denso, caliente, perfumado a pimentón—, y en el campo salteño son tan bienvenidas como cualquier plato de carne cuando el frío aprieta.
       </p>
@@ -1160,8 +1200,9 @@ async function javoVerificar(){
         <span class="badge badge-prep">&#128336; Prep: 10 min</span>
         <span class="badge badge-coccion">&#128293; Cocción: 20 min</span>
       </div>
+      <img class="receta-foto" src="https://images.unsplash.com/photo-1504545102780-26774c1bb073?w=900&auto=format&fit=crop" alt="Revuelto de Hongos al Disco" loading="lazy">
       <p class="receta-intro">
-        Los hongos al disco son la receta más rápida del repertorio y, según muchos que la han probado, una de las más sorprendentes. La clave es el hierro caliente: a diferencia de la sartén de acero inoxidable que enfría con facilidad, el disco de arado retiene el calor de manera tan pareja que los hongos se doran en lugar de hervir en su propio agua. El resultado es un revuelto con textura y sabor concentrado, perfecto como entrada o como guarnición.
+        Los hongos al disco son la receta más rápida de mi repertorio y, según muchos que la han probado, una de las más sorprendentes. La clave es el hierro caliente: a diferencia de la sartén de acero inoxidable que enfría con facilidad, el disco de arado retiene el calor de manera tan pareja que los hongos se doran en lugar de hervir en su propio agua. El resultado es un revuelto con textura y sabor concentrado, perfecto como entrada o como guarnición.
       </p>
 
       <p class="receta-ingredientes-titulo">Ingredientes</p>
@@ -1200,8 +1241,9 @@ async function javoVerificar(){
         <span class="badge badge-prep">&#128336; Prep: 20 min</span>
         <span class="badge badge-coccion">&#128293; Cocción: 50 min</span>
       </div>
+      <img class="receta-foto" src="https://images.unsplash.com/photo-1598103442097-8b74394b95c3?w=900&auto=format&fit=crop" alt="Pollo al Disco con Limón y Ajo" loading="lazy">
       <p class="receta-intro">
-        Si el pollo con especias norteñas es la versión intensamente aromatizada, el pollo con limón y ajo es la versión mediterránea que Javo adopta con convicción. La simplicidad del limón y el ajo en el hierro del disco produce algo que parece sencillo pero que en la práctica es de una complejidad oculta: el ajo se confita, el limón carameliza, y el pollo absorbe todo eso durante la cocción lenta tapada.
+        Si el pollo con especias norteñas es la versión intensamente aromatizada, el pollo con limón y ajo es la versión mediterránea que adopto con convicción. La simplicidad del limón y el ajo en el hierro del disco produce algo que parece sencillo pero que en la práctica es de una complejidad oculta: el ajo se confita, el limón carameliza, y el pollo absorbe todo eso durante la cocción lenta tapada.
       </p>
 
       <p class="receta-ingredientes-titulo">Ingredientes</p>
@@ -1240,8 +1282,9 @@ async function javoVerificar(){
         <span class="badge badge-prep">&#128336; Prep: 15 min</span>
         <span class="badge badge-coccion">&#128293; Cocción: 30 min</span>
       </div>
+      <img class="receta-foto" src="https://images.unsplash.com/photo-1540420773420-3366772f4999?w=900&auto=format&fit=crop" alt="Verduras de Temporada al Disco" loading="lazy">
       <p class="receta-intro">
-        No todo lo que sale del disco lleva carne. Las verduras de temporada al disco son una de las preparaciones que Javo más defiende como plato independiente: las berenjenas que se caramelizan, los zucchinis que se doran en los bordes, los tomates cherry que estallan y forman una salsa, los pimientos que se ablandan y perfuman todo. Es la cocina del verano en su estado más honesto, y el disco de arado le da un carácter ahumado que ninguna sartén puede dar.
+        No todo lo que sale del disco lleva carne. Las verduras de temporada al disco son una de las preparaciones que más defiendo como plato independiente: las berenjenas que se caramelizan, los zucchinis que se doran en los bordes, los tomates cherry que estallan y forman una salsa, los pimientos que se ablandan y perfuman todo. Es la cocina del verano en su estado más honesto, y el disco de arado le da un carácter ahumado que ninguna sartén puede dar.
       </p>
 
       <p class="receta-ingredientes-titulo">Ingredientes</p>
@@ -1282,8 +1325,9 @@ async function javoVerificar(){
         <span class="badge badge-prep">&#128336; Prep: 20 min</span>
         <span class="badge badge-coccion">&#128293; Cocción: 2 horas</span>
       </div>
+      <img class="receta-foto" src="https://images.unsplash.com/photo-1534939561126-855b8675edd7?w=900&auto=format&fit=crop" alt="Osobuco Braseado al Disco" loading="lazy">
       <p class="receta-intro">
-        El osobuco al disco es la demostración máxima de lo que puede hacer el hierro grueso con tiempo y fuego bajo. La carne que rodea el hueso, con el tuétano adentro, necesita calor húmedo y sostenido para fundirse en una salsa que se hace sola. El disco tapado crea exactamente eso: un ambiente de braseado que no le pide nada a ningún horno de restaurante. Este es el plato que saco cuando quiero mostrar que el disco de arado no es solo para revueltos rápidos — es también para las preparaciones largas que construyen sabor en capas.
+        El osobuco al disco es la demostración máxima de lo que puede hacer el hierro grueso con tiempo y fuego bajo. La carne que rodea el hueso, con el tuétano adentro, necesita calor húmedo y sostenido para fundirse en una salsa que se hace sola. El disco tapado crea exactamente eso: un ambiente de braseado que no le pide nada a ningún horno de restaurante. Es el plato que saco cuando quiero mostrar que el disco de arado no es solo para revueltos rápidos — es también para las preparaciones largas que construyen sabor en capas.
       </p>
 
       <p class="receta-ingredientes-titulo">Ingredientes</p>
@@ -1332,8 +1376,9 @@ async function javoVerificar(){
         <span class="badge badge-prep">&#128336; Prep: 20 min</span>
         <span class="badge badge-coccion">&#128293; Cocción: 25 min</span>
       </div>
+      <img class="receta-foto" src="https://images.unsplash.com/photo-1565680018434-b513d5e5fd47?w=900&auto=format&fit=crop" alt="Disco de Mariscos" loading="lazy">
       <p class="receta-intro">
-        Los mariscos al disco son la demostración de que esta herramienta no tiene límites. Javo los cocina cuando consigue langostinos frescos en Salta —que llegan del norte del país— y los combina con calamar y mejillones. La clave es velocidad: los mariscos se cocinan rápido y se pasan rápido, y el disco caliente los sella en segundos preservando sus jugos. El resultado es una preparación de pescadería trasladada al campo, con el perfume del pimentón y el ajo encima.
+        Los mariscos al disco son la demostración de que esta herramienta no tiene límites. Los cocino cuando consigo langostinos frescos en Salta —que llegan del norte del país— y los combino con calamar y mejillones. La clave es velocidad: los mariscos se cocinan rápido y se pasan rápido, y el disco caliente los sella en segundos preservando sus jugos. El resultado es una preparación de pescadería trasladada al campo, con el perfume del pimentón y el ajo encima.
       </p>
 
       <p class="receta-ingredientes-titulo">Ingredientes</p>
@@ -1375,8 +1420,9 @@ async function javoVerificar(){
         <span class="badge badge-prep">&#128336; Prep: 20 min</span>
         <span class="badge badge-coccion">&#128293; Cocción: 2 horas</span>
       </div>
+      <img class="receta-foto" src="https://images.unsplash.com/photo-1544025162-d76538f498e0?w=900&auto=format&fit=crop" alt="Bondiola al Disco con Barbacoa Norteña" loading="lazy">
       <p class="receta-intro">
-        La bondiola es el corte más agradecido del cerdo: rica en colágeno e infiltrada de grasa, pide cocción lenta para que se deshaga sola. Al disco con la barbacoa norteña de Javo —azúcar negra, ají molido, pimentón ahumado y vinagre de manzana—, la bondiola se convierte en algo parecido al pulled pork norteamericano pero con el alma del norte argentino. Es el plato que más tiempo lleva de este recetario y el que más recompensa esa espera.
+        La bondiola es el corte más agradecido del cerdo: rica en colágeno e infiltrada de grasa, pide cocción lenta para que se deshaga sola. Al disco con mi barbacoa norteña —azúcar negra, ají molido, pimentón ahumado y vinagre de manzana—, la bondiola se convierte en algo parecido al pulled pork norteamericano pero con el alma del norte argentino. Es el plato que más tiempo lleva de este recetario y el que más recompensa esa espera.
       </p>
 
       <p class="receta-ingredientes-titulo">Ingredientes</p>

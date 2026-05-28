@@ -543,6 +543,18 @@
         font-size: 0.82rem;
       }
     }
+
+    /* ── ÍNDICE */
+    .recetario-indice{background:rgba(196,133,58,0.06);border:1px solid rgba(196,133,58,0.18);padding:2rem 2.5rem;margin:0 auto 3rem;max-width:820px;border-radius:2px;}
+    .indice-titulo{font-family:'Space Mono',monospace;font-size:0.62rem;letter-spacing:0.22em;text-transform:uppercase;color:#C4853A;margin-bottom:1.25rem;}
+    .indice-lista{list-style:none;columns:2;gap:2rem;padding:0;margin:0;}
+    .indice-lista li{margin-bottom:0.55rem;break-inside:avoid;}
+    .indice-lista a{color:rgba(245,237,216,0.6);text-decoration:none;font-size:0.82rem;font-family:'Libre Baskerville',serif;transition:color 0.2s;display:flex;align-items:baseline;gap:0.4rem;}
+    .indice-lista a:hover{color:#C4853A;}
+    .indice-num{font-family:'Space Mono',monospace;font-size:0.6rem;color:#C4853A;opacity:0.65;flex-shrink:0;}
+    @media(max-width:600px){.indice-lista{columns:1;}}
+    /* ── FOTOS */
+    .receta-foto{width:100%;max-height:300px;object-fit:cover;display:block;margin-bottom:1.5rem;filter:brightness(0.82) sepia(0.12);}
   </style>
 </head>
 <body>
@@ -612,15 +624,15 @@ async function javoVerificar(){
       <div class="container">
         <p class="section-label">Presentación</p>
         <p>
-          El asado es religión en Argentina, pero en el norte tiene su propia liturgia. Javo aprendió a encender
+          El asado es religión en Argentina, pero en el norte tiene su propia liturgia. Aprendí a encender
           el fuego antes de aprender a leer, guiado por el olor del quebracho ardiendo y el chisporroteo de la
-          grasa cayendo sobre las brasas. Creció viendo a su familia reunirse alrededor de la parrilla cada
-          domingo, y entiende que el asado no es solo comida: es un ritual de pertenencia, de tiempo compartido,
+          grasa cayendo sobre las brasas. Crecí viendo a mi familia reunirse alrededor de la parrilla cada
+          domingo, y entiendo que el asado no es solo comida: es un ritual de pertenencia, de tiempo compartido,
           de identidad norteña.
         </p>
         <br />
         <p>
-          En este recetario comparte todo lo que sabe sobre la parrilla: desde encender las brasas hasta lograr
+          En este recetario comparto todo lo que sé sobre la parrilla: desde encender las brasas hasta lograr
           el punto perfecto de cada corte. No hay secretos guardados — solo técnica honesta, instinto cultivado
           y el respeto profundo que el fuego merece.
         </p>
@@ -736,6 +748,26 @@ async function javoVerificar(){
         <h2>Las 14 Recetas</h2>
         <p class="section-intro">De la brasa al plato — técnica norteña sin concesiones.</p>
 
+        <nav class="recetario-indice">
+          <div class="indice-titulo">Índice de recetas</div>
+          <ul class="indice-lista">
+            <li><a href="#asado-clasico"><span class="indice-num">01</span>Asado Clásico del Domingo</a></li>
+            <li><a href="#tira-de-asado"><span class="indice-num">02</span>Tira de Asado al Punto</a></li>
+            <li><a href="#vacio"><span class="indice-num">03</span>Vacío a la Parrilla</a></li>
+            <li><a href="#costillar-cerdo"><span class="indice-num">04</span>Costillar de Cerdo a las Brasas</a></li>
+            <li><a href="#chorizos-caseros"><span class="indice-num">05</span>Chorizos Caseros</a></li>
+            <li><a href="#morcilla-chimichurri"><span class="indice-num">06</span>Morcilla con Chimichurri Picante</a></li>
+            <li><a href="#mollejas"><span class="indice-num">07</span>Mollejas a la Parrilla</a></li>
+            <li><a href="#provoleta"><span class="indice-num">08</span>Provoleta Ahumada</a></li>
+            <li><a href="#cordero"><span class="indice-num">09</span>Cordero Entero a las Brasas</a></li>
+            <li><a href="#entrana"><span class="indice-num">10</span>Entraña al Punto Justo</a></li>
+            <li><a href="#chinchulines"><span class="indice-num">11</span>Chinchulines Crujientes</a></li>
+            <li><a href="#rescoldo"><span class="indice-num">12</span>Verduras al Rescoldo</a></li>
+            <li><a href="#pollo-brasas"><span class="indice-num">13</span>Pollo Entero a las Brasas</a></li>
+            <li><a href="#lechon-cruz"><span class="indice-num">14</span>Lechón a la Cruz</a></li>
+          </ul>
+        </nav>
+
         <!-- RECETA 1 -->
         <article class="receta-card" id="asado-clasico">
           <p class="receta-number">01 / 14</p>
@@ -745,9 +777,10 @@ async function javoVerificar(){
             <span class="badge badge-prep">Prep: 20 min</span>
             <span class="badge badge-coccion">Cocción: 2 hs</span>
           </div>
+          <img class="receta-foto" src="https://images.unsplash.com/photo-1555939594-58d7cb561ad1?w=900&auto=format&fit=crop" alt="Asado Clásico del Domingo" />
           <p class="receta-intro">
-            El domingo en casa de la familia de Javo empezaba con el ruido del quebracho partido, no con el despertador.
-            El asado del domingo no es una comida: es una ceremonia de bienvenida. Esta es la receta base, la que une a
+            El domingo en mi casa empezaba con el ruido del quebracho partido, no con el despertador.
+            El asado del domingo no es una comida: es una ceremonia de bienvenida. Esta es mi receta base, la que une a
             todos alrededor del fuego sin importar cuántos lleguen a la mesa.
           </p>
 
@@ -787,7 +820,7 @@ async function javoVerificar(){
           </ol>
 
           <div class="tip-box">
-            <span class="tip-label">Tip de Javo</span>
+            <span class="tip-label">Tip mío</span>
             <p>La parrilla debe estar exactamente a 15 cm de las brasas, nunca más cerca. Si acercás la parrilla apurando el fuego, la carne se sella por fuera pero queda cruda por dentro. El asado no admite apurones — el fuego manda, vos acompañás.</p>
           </div>
         </article>
@@ -801,9 +834,10 @@ async function javoVerificar(){
             <span class="badge badge-prep">Prep: 10 min</span>
             <span class="badge badge-coccion">Cocción: 1h 30 min</span>
           </div>
+          <img class="receta-foto" src="https://images.unsplash.com/photo-1529694157872-4e0c0f3b238b?w=900&auto=format&fit=crop" alt="Tira de Asado al Punto" />
           <p class="receta-intro">
             La tira de asado es el corte más democrático de Argentina y el que más fácilmente se arruina por error.
-            Javo cree que la tira solo necesita sal y fuego — cualquier otra cosa es distracción. La técnica de los
+            Yo creo que la tira solo necesita sal y fuego — cualquier otra cosa es distracción. La técnica de los
             tres sellados es lo que separa una tira memorable de una mediocre.
           </p>
 
@@ -824,7 +858,7 @@ async function javoVerificar(){
           </ol>
 
           <div class="tip-box">
-            <span class="tip-label">Tip de Javo</span>
+            <span class="tip-label">Tip mío</span>
             <p>El hueso para arriba los primeros 40 minutos no es capricho — el hueso actúa como escudo térmico y la cocción sube desde abajo de manera uniforme. Si das vuelta la tira antes de tiempo, perdés ese calor acumulado y la carne se endurece.</p>
           </div>
         </article>
@@ -838,10 +872,11 @@ async function javoVerificar(){
             <span class="badge badge-prep">Prep: 10 min</span>
             <span class="badge badge-coccion">Cocción: 1h 20 min</span>
           </div>
+          <img class="receta-foto" src="https://images.unsplash.com/photo-1544025162-d76538f498e0?w=900&auto=format&fit=crop" alt="Vacío a la Parrilla" />
           <p class="receta-intro">
             En el norte argentino, el vacío es el corte emblema. Tiene la particularidad de la membrana grasa
-            y el cuero que, bien trabajados, se vuelven una capa crocante casi irresistible. Javo lo sirve siempre
-            entero sobre tabla y lo corta en la mesa frente a todos — es parte del show.
+            y el cuero que, bien trabajados, se vuelven una capa crocante casi irresistible. Yo lo sirvo siempre
+            entero sobre tabla y lo corto en la mesa frente a todos — es parte del show.
           </p>
 
           <p class="receta-section-title">Ingredientes</p>
@@ -863,7 +898,7 @@ async function javoVerificar(){
           </ol>
 
           <div class="tip-box">
-            <span class="tip-label">Tip de Javo</span>
+            <span class="tip-label">Tip mío</span>
             <p>El cuero del vacío debe quedar crocante pero no quemado — hay una diferencia enorme entre dorado oscuro y carbonizado. Si el cuero se quema, la amargura arruina toda la pieza. Controlá el calor bajando brasas si es necesario.</p>
           </div>
         </article>
@@ -877,9 +912,10 @@ async function javoVerificar(){
             <span class="badge badge-prep">Prep: 30 min + marinada 4h</span>
             <span class="badge badge-coccion">Cocción: 2 hs</span>
           </div>
+          <img class="receta-foto" src="https://images.unsplash.com/photo-1558030137-a56c1b002c8b?w=900&auto=format&fit=crop" alt="Costillar de Cerdo a las Brasas" />
           <p class="receta-intro">
             El cerdo en la parrilla norteña ocupa un lugar especial — se faea en las fiestas y se cocina lento,
-            con paciencia y generosidad. Esta marinada es la receta de la madre de Javo, simplificada al máximo
+            con paciencia y generosidad. Esta marinada es la receta de mi madre, simplificada al máximo
             pero sin perder su esencia: ajo, pimentón y limón.
           </p>
 
@@ -909,7 +945,7 @@ async function javoVerificar(){
           </ol>
 
           <div class="tip-box">
-            <span class="tip-label">Tip de Javo</span>
+            <span class="tip-label">Tip mío</span>
             <p>Tapar con papel de aluminio los primeros 60 minutos no es hacer trampa — es inteligencia. El cerdo necesita tiempo para cocerse por dentro sin quemarse por fuera. Si lo ponés descubierto todo el tiempo, terminás con carbón afuera y carne rosada adentro.</p>
           </div>
         </article>
@@ -923,9 +959,10 @@ async function javoVerificar(){
             <span class="badge badge-prep">Prep: 40 min + reposo 12h</span>
             <span class="badge badge-coccion">Cocción: 20 min</span>
           </div>
+          <img class="receta-foto" src="https://images.unsplash.com/photo-1529694157872-4e0c0f3b238b?w=900&auto=format&fit=crop" alt="Chorizos Caseros" />
           <p class="receta-intro">
-            Hacer chorizos en casa es uno de esos gestos que convierten la cocina en un acto de amor. Javo
-            aprendió la técnica en una carnicería de barrio en Salta y nunca volvió a comprar chorizos
+            Hacer chorizos en casa es uno de esos gestos que convierten la cocina en un acto de amor. Aprendí
+            la técnica en una carnicería de barrio en Salta y nunca volví a comprar chorizos
             industriales. El secreto está en la proporción de grasa y el comino — inconfundiblemente norteño.
           </p>
 
@@ -957,7 +994,7 @@ async function javoVerificar(){
           </ol>
 
           <div class="tip-box">
-            <span class="tip-label">Tip de Javo</span>
+            <span class="tip-label">Tip mío</span>
             <p>Pinchar el chorizo una sola vez, justo al final, para verificar que el jugo salga claro (no rosado). Pincharlo antes durante la cocción es el error más común — pierde todos los jugos y queda seco. La tripa entera actúa como envoltorio que retiene la humedad.</p>
           </div>
         </article>
@@ -971,10 +1008,11 @@ async function javoVerificar(){
             <span class="badge badge-prep">Prep: 5 min</span>
             <span class="badge badge-coccion">Cocción: 15 min</span>
           </div>
+          <img class="receta-foto" src="https://images.unsplash.com/photo-1544025162-d76538f498e0?w=900&auto=format&fit=crop" alt="Morcilla con Chimichurri Picante" />
           <p class="receta-intro">
             La morcilla es lo primero que sale de la parrilla y lo primero que desaparece de la tabla. En el norte
             de Argentina se acompaña con chimichurri de ají del monte — un condimento que tiene más historia que
-            receta escrita. Javo la sirve con pan de campo tostado directamente en la parrilla.
+            receta escrita. Yo la sirvo con pan de campo tostado directamente en la parrilla.
           </p>
 
           <p class="receta-section-title">Ingredientes</p>
@@ -1001,7 +1039,7 @@ async function javoVerificar(){
           </ol>
 
           <div class="tip-box">
-            <span class="tip-label">Tip de Javo</span>
+            <span class="tip-label">Tip mío</span>
             <p>La morcilla no necesita llama, solo brasas suaves. Es una embutición ya cocida — el objetivo es calentarla y dorar la piel, no cocinarla de cero. Con llama directa la piel se rompe y pierde el jugo. Con brasas suaves queda entera, jugosa y perfecta.</p>
           </div>
         </article>
@@ -1015,10 +1053,11 @@ async function javoVerificar(){
             <span class="badge badge-prep">Prep: 20 min + remojo 2h</span>
             <span class="badge badge-coccion">Cocción: 30 min</span>
           </div>
+          <img class="receta-foto" src="https://images.unsplash.com/photo-1555939594-58d7cb561ad1?w=900&auto=format&fit=crop" alt="Mollejas a la Parrilla" />
           <p class="receta-intro">
             Las mollejas son las reinas de la parrilla norteña y el corte que más respeto requiere. Cuando
             están bien limpias y bien cocinadas, tienen una textura cremosa por dentro y una costra dorada por
-            fuera que no tiene comparación. Javo insiste: la limpieza previa no es opcional.
+            fuera que no tiene comparación. Yo insisto: la limpieza previa no es opcional.
           </p>
 
           <p class="receta-section-title">Ingredientes</p>
@@ -1041,7 +1080,7 @@ async function javoVerificar(){
           </ol>
 
           <div class="tip-box">
-            <span class="tip-label">Tip de Javo</span>
+            <span class="tip-label">Tip mío</span>
             <p>Dejarlas en agua con sal y limón 2 horas antes para limpiarlas es el paso que la mayoría saltea y que arruina todo. Sin ese remojo, las mollejas tienen un sabor metálico intenso que no le gusta a nadie. Con el remojo, se transforman en algo sublime.</p>
           </div>
         </article>
@@ -1055,9 +1094,10 @@ async function javoVerificar(){
             <span class="badge badge-prep">Prep: 5 min</span>
             <span class="badge badge-coccion">Cocción: 15 min</span>
           </div>
+          <img class="receta-foto" src="https://images.unsplash.com/photo-1452195100486-9cc805987862?w=900&auto=format&fit=crop" alt="Provoleta Ahumada" />
           <p class="receta-intro">
             La provoleta es el momento de silencio en medio del bullicio del asado. Cuando aparece en la parrilla,
-            todos dejan de hablar y empiezan a mirar. Javo la hace con un toque de humo que recuerda a las cocinas
+            todos dejan de hablar y empiezan a mirar. Yo la hago con un toque de humo que recuerda a las cocinas
             de campo — simple, contundente, sin adornos innecesarios.
           </p>
 
@@ -1081,7 +1121,7 @@ async function javoVerificar(){
           </ol>
 
           <div class="tip-box">
-            <span class="tip-label">Tip de Javo</span>
+            <span class="tip-label">Tip mío</span>
             <p>Esperar ese primer hilo de queso antes de moverla. Ese hilo es la señal que el interior ya está fundido y la base está dorada. Si la movés antes, se rompe y pierde todo el queso. Si esperás demasiado, se pega y se convierte en un desastre. Un solo hilo: ese es el momento.</p>
           </div>
         </article>
@@ -1095,9 +1135,10 @@ async function javoVerificar(){
             <span class="badge badge-prep">Prep: 30 min</span>
             <span class="badge badge-coccion">Cocción: 3–4 hs</span>
           </div>
+          <img class="receta-foto" src="https://images.unsplash.com/photo-1555939594-58d7cb561ad1?w=900&auto=format&fit=crop" alt="Cordero Entero a las Brasas" />
           <p class="receta-intro">
             El cordero entero es la celebración máxima de la parrilla paceña y salteña. Se cocina en ocasiones
-            especiales y requiere tiempo y un fuego que no apure. Javo usa hierbas del monte — tomillo silvestre,
+            especiales y requiere tiempo y un fuego que no apure. Yo uso hierbas del monte — tomillo silvestre,
             romero de quebrada — que le dan una identidad imposible de replicar en otro lugar del mundo.
           </p>
 
@@ -1128,7 +1169,7 @@ async function javoVerificar(){
           </ol>
 
           <div class="tip-box">
-            <span class="tip-label">Tip de Javo</span>
+            <span class="tip-label">Tip mío</span>
             <p>El cordero del norte tiene menos grasa que el patagónico — eso significa que se seca más rápido si no se cuida. Pincelar con la marinada en cada vuelta es fundamental. El fuego bajo y parejo, no el alto y rápido, es lo que garantiza que quede jugoso hasta el hueso.</p>
           </div>
         </article>
@@ -1142,8 +1183,9 @@ async function javoVerificar(){
             <span class="badge badge-prep">Prep: 10 min</span>
             <span class="badge badge-coccion">Cocción: 10 min</span>
           </div>
+          <img class="receta-foto" src="https://images.unsplash.com/photo-1529694157872-4e0c0f3b238b?w=900&auto=format&fit=crop" alt="Entraña al Punto Justo" />
           <p class="receta-intro">
-            La entraña es la única carne en la parrilla que exige velocidad. Javo la describe como "el corte
+            La entraña es la única carne en la parrilla que exige velocidad. Yo la llamo "el corte
             impaciente" — necesita fuego intenso, decisión y exactamente 5 minutos por lado. Pasada un minuto
             más, ya no es entraña: es suela de zapato. No hay margen de error y eso la hace emocionante.
           </p>
@@ -1166,7 +1208,7 @@ async function javoVerificar(){
           </ol>
 
           <div class="tip-box">
-            <span class="tip-label">Tip de Javo</span>
+            <span class="tip-label">Tip mío</span>
             <p>La entraña es de las pocas carnes que piden fuego alto y punto medio-rojo. Es un corte delgado con mucho colágeno que se ablanda con calor intenso y rápido. Si la cocinás lento como una tira de asado, se endurece. Fuego alto, 5 minutos por lado, y a comer.</p>
           </div>
         </article>
@@ -1180,8 +1222,9 @@ async function javoVerificar(){
             <span class="badge badge-prep">Prep: 30 min (limpieza)</span>
             <span class="badge badge-coccion">Cocción: 40 min</span>
           </div>
+          <img class="receta-foto" src="https://images.unsplash.com/photo-1544025162-d76538f498e0?w=900&auto=format&fit=crop" alt="Chinchulines Crujientes" />
           <p class="receta-intro">
-            Los chinchulines son el corte que divide aguas. O los amás o los despreciás, y Javo los ama con
+            Los chinchulines son el corte que divide aguas. O los amás o los despreciás, y yo los amo con
             convicción. La clave de unos chinchulines perfectos no está en el fuego sino en la limpieza previa
             y la paciencia durante la cocción. Bien hechos, tienen una textura crujiente por fuera que no se
             parece a nada en la mesa.
@@ -1206,7 +1249,7 @@ async function javoVerificar(){
           </ol>
 
           <div class="tip-box">
-            <span class="tip-label">Tip de Javo</span>
+            <span class="tip-label">Tip mío</span>
             <p>Limpiarlos con limón y agua caliente, y cocinarlos directo sin aceite. El aceite externo es innecesario — los chinchulines tienen suficiente grasa interna que va a fundirse durante la cocción. Agregar aceite los hace pesados y grasos en lugar de crujientes.</p>
           </div>
         </article>
@@ -1220,10 +1263,11 @@ async function javoVerificar(){
             <span class="badge badge-prep">Prep: 5 min</span>
             <span class="badge badge-coccion">Cocción: 30–60 min según verdura</span>
           </div>
+          <img class="receta-foto" src="https://images.unsplash.com/photo-1540420773420-3366772f4999?w=900&auto=format&fit=crop" alt="Verduras al Rescoldo" />
           <p class="receta-intro">
             El rescoldo es la técnica más antigua del mundo: enterrar los alimentos directamente entre las brasas
             y las cenizas calientes. En el norte argentino, las abuelas cocinaban batatas y choclos de esta manera
-            antes de que existiera la parrilla. Javo recuperó esta técnica y la convirtió en una guarnición que
+            antes de que existiera la parrilla. Yo recuperé esta técnica y la convertí en una guarnición que
             roba protagonismo a la carne.
           </p>
 
@@ -1251,7 +1295,7 @@ async function javoVerificar(){
           </ol>
 
           <div class="tip-box">
-            <span class="tip-label">Tip de Javo</span>
+            <span class="tip-label">Tip mío</span>
             <p>Los pimientos al rescoldo quedan perfectos para pelar y marinar con aceite y ajo. Una vez pelados y cortados en tiras, agregar aceite de oliva generoso, ajo picado, sal y vinagre. Dejar marinar 30 minutos y tenés una ensalada de pimientos asados que supera cualquier cosa que salga de una lata.</p>
           </div>
         </article>
@@ -1265,9 +1309,10 @@ async function javoVerificar(){
             <span class="badge badge-prep">Prep: 20 min</span>
             <span class="badge badge-coccion">Cocción: 1h 30 min</span>
           </div>
+          <img class="receta-foto" src="https://images.unsplash.com/photo-1598103442097-8b74394b95c3?w=900&auto=format&fit=crop" alt="Pollo Entero a las Brasas" />
           <p class="receta-intro">
             El pollo en la parrilla tiene fama de difícil y la tiene bien ganada — se quema afuera y queda crudo
-            adentro si no se sabe manejar. Javo lo aplana y le pone peso encima, una técnica que garantiza cocción
+            adentro si no se sabe manejar. Yo lo aplano y le pongo peso encima, una técnica que garantiza cocción
             pareja desde los primeros minutos y una piel de un dorado que detiene conversaciones.
           </p>
 
@@ -1296,7 +1341,7 @@ async function javoVerificar(){
           </ol>
 
           <div class="tip-box">
-            <span class="tip-label">Tip de Javo</span>
+            <span class="tip-label">Tip mío</span>
             <p>Aplanar el pollo y cocinar con una piedra encima los primeros 30 minutos es lo que cambia todo. La presión mantiene el contacto con la parrilla y la cocción es uniforme. Sin la piedra, el pollo se arquea, pierde contacto con el calor y las partes elevadas quedan crudas.</p>
           </div>
         </article>
@@ -1310,10 +1355,11 @@ async function javoVerificar(){
             <span class="badge badge-prep">Prep: 1h (amarrado)</span>
             <span class="badge badge-coccion">Cocción: 5–6 hs</span>
           </div>
+          <img class="receta-foto" src="https://images.unsplash.com/photo-1555939594-58d7cb561ad1?w=900&auto=format&fit=crop" alt="Lechón a la Cruz" />
           <p class="receta-intro">
             El lechón a la cruz es el rey de todas las celebraciones del norte. No es una receta de domingo — es
             una receta de fiesta, de reunión grande, de esa comida que se anuncia con días de anticipación y
-            alrededor de la que gira el día entero. Javo lo hace cada año en fiestas patrias y dice que la clave
+            alrededor de la que gira el día entero. Yo lo hago cada año en fiestas patrias y sé que la clave
             no está en la marinada sino en el tiempo y el respeto por el fuego.
           </p>
 
@@ -1344,7 +1390,7 @@ async function javoVerificar(){
           </ol>
 
           <div class="tip-box">
-            <span class="tip-label">Tip de Javo</span>
+            <span class="tip-label">Tip mío</span>
             <p>Girar la cruz cada 30 minutos las primeras 2 horas, luego cada hora. La constancia en los giros es lo que garantiza una cocción pareja. Si te olvidás de girar, un lado se carboniza mientras el otro queda crudo. El fuego manda, pero el cocinero controla.</p>
           </div>
         </article>
