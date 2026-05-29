@@ -39,7 +39,7 @@ const CONFIG = {
   "@context":"https://schema.org","@type":"Person",
   "name":"Javo Te Cocina","url":"https://javotecocina.com",
   "jobTitle":"Cocinero y Creador de Experiencias Gastronómicas",
-  "address":{"@type":"PostalAddress","addressLocality":"Salta","addressCountry":"AR"}
+  "address":{"@type":"PostalAddress","addressLocality":"Buenos Aires","addressRegion":"Salta","addressCountry":"AR"}
 }
 </script>
 
@@ -128,8 +128,8 @@ nav.scrolled{
   position:relative;overflow:hidden;
 }
 .hero-left{
-  display:flex;flex-direction:column;justify-content:flex-end;
-  padding:0 5vw 10vh;position:relative;z-index:2;
+  display:flex;flex-direction:column;justify-content:center;
+  padding:80px 5vw 4vh;position:relative;z-index:2;
 }
 .hero-right{position:relative;overflow:hidden;}
 .hero-right img{
@@ -498,6 +498,26 @@ h2.sec-title em{font-style:italic;color:var(--puna);}
 .mk-prop-val{font-family:var(--font-display);font-size:1.9rem;font-weight:700;color:var(--puna);margin-bottom:0.15rem;line-height:1;}
 .mk-prop-key{font-family:var(--font-data);font-size:0.5rem;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:var(--niebla);margin-bottom:0.55rem;}
 .mk-prop-desc{font-family:var(--font-body);font-size:0.76rem;color:rgba(245,237,216,0.4);font-style:italic;line-height:1.6;}
+@media(max-width:768px){
+  #hero{grid-template-columns:1fr;grid-template-rows:45vw 1fr;}
+  .hero-right{grid-row:1;grid-column:1;}
+  .hero-right::after{background:linear-gradient(to top,var(--tierra) 0%,transparent 55%);}
+  .hero-left{grid-row:2;grid-column:1;padding:2.5rem 6vw 4rem;justify-content:flex-start;}
+  h1.hero-title{font-size:clamp(2.4rem,9vw,4rem);}
+  .hero-desc{font-size:0.88rem;margin-bottom:2rem;}
+  .stats-row{grid-template-columns:1fr 1fr;}
+  .nav-cards{grid-template-columns:1fr 1fr;}
+  .footer-inner{grid-template-columns:1fr 1fr;gap:2rem;}
+  .about-grid{grid-template-columns:1fr;padding:3rem 5vw;}
+  .about-photo-overlay{display:none;}
+  .service-features{grid-template-columns:1fr;gap:2rem;}
+  .form-row2{grid-template-columns:1fr;}
+}
+@media(max-width:480px){
+  .nav-cards{grid-template-columns:1fr;}
+  .footer-inner{grid-template-columns:1fr;}
+  .mk-props-grid{grid-template-columns:1fr 1fr;}
+}
 @media(max-width:900px){.mk-kpi-strip{grid-template-columns:1fr 1fr;}.mk-reach-callout{flex-direction:column;gap:2rem;text-align:center;}.mk-reach-num{font-size:5rem;}.mk-platforms-grid{grid-template-columns:1fr;}.mk-plat-body{grid-template-columns:1fr;justify-items:center;}.mk-audience-section{grid-template-columns:1fr;gap:4rem;padding:3rem 5vw;}.mk-props-grid{grid-template-columns:1fr 1fr;}.mk-donut-layout{grid-template-columns:1fr 1fr;}}
 
 /* ── RECETARIOS ── */
@@ -774,10 +794,10 @@ footer{background:var(--tierra);border-top:1px solid rgba(196,133,58,0.12);paddi
     <div class="hero-horizon"></div>
     <div class="hero-left">
       <div style="position:relative;z-index:2;">
-        <div class="hero-location">Salta · Norte Argentino</div>
+        <div class="hero-location">Salta · Buenos Aires · Argentina</div>
         <div class="hero-eyebrow">Cocinero Apasionado & Creador</div>
-        <h1 class="hero-title">El fuego<br>que<br><em>despierta</em><br>sentidos</h1>
-        <p class="hero-desc">Del norte argentino para el mundo. Cocina auténtica, eventos únicos y el sabor que te lleva de vuelta a casa.</p>
+        <h1 class="hero-title">Cocina real.<br>Contenido<br><em>auténtico.</em><br>Experiencias<br>inolvidables.</h1>
+        <p class="hero-desc">Cocinero, creador de contenido y productor de experiencias gastronómicas. De Salta, al mundo.</p>
         <div style="display:flex;gap:1.25rem;flex-wrap:wrap;">
           <button class="btn-fire" onclick="showPage('servicios')">Cotizar Mi Evento</button>
           <button class="btn-ghost" onclick="showPage('quien')">Conocerme</button>
@@ -790,10 +810,10 @@ footer{background:var(--tierra);border-top:1px solid rgba(196,133,58,0.12);paddi
   </div>
 
   <div class="stats-row reveal">
-    <div class="stat-box"><div class="stat-n">XX<span>+</span></div><div class="stat-l">Eventos Realizados</div></div>
-    <div class="stat-box"><div class="stat-n">50K<span>+</span></div><div class="stat-l">Seguidores Totales</div></div>
-    <div class="stat-box"><div class="stat-n">XX<span>+</span></div><div class="stat-l">Recetas Publicadas</div></div>
-    <div class="stat-box"><div class="stat-n">XX<span>+</span></div><div class="stat-l">Colaboraciones</div></div>
+    <div class="stat-box"><div class="stat-n">30<span>+</span></div><div class="stat-l">Eventos Realizados</div></div>
+    <div class="stat-box"><div class="stat-n">83K<span>+</span></div><div class="stat-l">Seguidores Totales</div></div>
+    <div class="stat-box"><div class="stat-n">120<span>+</span></div><div class="stat-l">Recetas Publicadas</div></div>
+    <div class="stat-box"><div class="stat-n">15<span>+</span></div><div class="stat-l">Marcas Aliadas</div></div>
   </div>
 
   <div class="section-nav">
@@ -825,9 +845,9 @@ footer{background:var(--tierra);border-top:1px solid rgba(196,133,58,0.12);paddi
       <div><span class="f-logo">Javo<span>.</span></span><p class="f-tagline">Cocinero apasionado del norte argentino. Experiencias gastronómicas únicas.</p><p class="f-location">24° 47' S — Salta, Argentina</p></div>
       <div class="f-col"><h4>Secciones</h4><ul><li><a onclick="showPage('quien')">Quién Soy</a></li><li><a onclick="showPage('servicios')">Servicios</a></li><li><a onclick="showPage('productos')">Productos</a></li><li><a onclick="showPage('metricas')">Métricas</a></li></ul></div>
       <div class="f-col"><h4>Más</h4><ul><li><a onclick="showPage('recetarios')">Recetarios</a></li><li><a onclick="showPage('eventos')">Eventos</a></li><li><a onclick="showPage('servicios')">Cotizar</a></li></ul></div>
-      <div class="f-col"><h4>Contacto</h4><ul><li><a href="mailto:javoelizalde2001@gmail.com">Email</a></li><li><a href="https://wa.me/543874105902" target="_blank">WhatsApp</a></li><li><a href="#" target="_blank">Instagram</a></li><li><a href="#" target="_blank">YouTube</a></li><li><a href="#" target="_blank">TikTok</a></li></ul></div>
+      <div class="f-col"><h4>Contacto</h4><ul><li><a href="mailto:javoelizalde2001@gmail.com">Email</a></li><li><a href="https://wa.me/543874105902" target="_blank">WhatsApp</a></li><li><a href="https://instagram.com/javotecocina" target="_blank">Instagram</a></li><li><a href="#" target="_blank">YouTube</a></li><li><a href="https://tiktok.com/@javotecocina" target="_blank">TikTok</a></li></ul></div>
     </div>
-    <div class="footer-bottom"><span class="footer-copy">© 2025 Javo Te Cocina · javotecocina.com · Salta, Argentina</span><div class="soc-links"><a class="soc-link" href="#">IG</a><a class="soc-link" href="#">YT</a><a class="soc-link" href="#">TK</a><a class="soc-link" href="https://wa.me/543874105902" target="_blank">WA</a></div></div>
+    <div class="footer-bottom"><span class="footer-copy">© 2025 Javo Te Cocina · javotecocina.com · Salta, Argentina</span><div class="soc-links"><a class="soc-link" href="https://instagram.com/javotecocina" target="_blank">IG</a><a class="soc-link" href="#">YT</a><a class="soc-link" href="https://tiktok.com/@javotecocina" target="_blank">TK</a><a class="soc-link" href="https://wa.me/543874105902" target="_blank">WA</a></div></div>
   </footer>
 </div>
 
@@ -837,14 +857,14 @@ footer{background:var(--tierra);border-top:1px solid rgba(196,133,58,0.12);paddi
     <div class="about-photo-stack">
       <img class="about-photo-main" src="img/p01.jpg" alt="Javo Te Cocina">
       <img class="about-photo-overlay" src="img/p06.jpg" alt="Javo cocinando">
-      <div class="about-photo-badge">Salta · ARG</div>
+      <div class="about-photo-badge">Salta → BsAs</div>
     </div>
     <div>
       <div class="sec-label">Quién Soy</div>
       <h2 class="sec-title">Más que cocinar.<br><em>Una experiencia.</em></h2>
-      <p style="font-family:var(--font-body);font-size:0.93rem;color:rgba(245,237,216,0.6);line-height:1.85;margin-bottom:1.25rem;font-style:italic;">[Tu historia personal — de dónde venís en Salta, qué te llevó a la cocina, qué te hace diferente.]</p>
-      <p style="font-family:var(--font-body);font-size:0.93rem;color:rgba(245,237,216,0.6);line-height:1.85;margin-bottom:1.75rem;font-style:italic;">[Segundo párrafo — tu recorrido, tus influencias, tus logros o lo que te define como cocinero.]</p>
-      <div class="mission-block"><p>"[Tu frase más poderosa — la que resume por qué cocinás.]"</p></div>
+      <p style="font-family:var(--font-body);font-size:0.93rem;color:rgba(245,237,216,0.6);line-height:1.85;margin-bottom:1.25rem;">Soy Javo Elizalde, fundador de Javo Te Cocina, creador de contenido gastronómico y especialista en experiencias culinarias. Combino mi pasión por la cocina con la comunicación digital para desarrollar contenido auténtico, entretenido y de alto impacto para una comunidad en constante crecimiento.</p>
+      <p style="font-family:var(--font-body);font-size:0.93rem;color:rgba(245,237,216,0.6);line-height:1.85;margin-bottom:1.75rem;">Desde festivales y eventos corporativos hasta recetas y colaboraciones con marcas, mi objetivo es conectar personas a través de la gastronomía y transformar cada comida en una experiencia memorable.</p>
+      <div class="mission-block"><p>"Cada plato es una historia. Cada evento, un momento que no se olvida."</p></div>
       <div class="values-grid">
         <div class="val-card"><span class="val-icon">🔥</span><div class="val-title">Misión</div><div class="val-text">Crear experiencias gastronómicas que marquen momentos imborrables en cada mesa.</div></div>
         <div class="val-card"><span class="val-icon">✦</span><div class="val-title">Visión</div><div class="val-text">Ser la referencia gastronómica del norte argentino y de Latinoamérica.</div></div>
@@ -855,10 +875,10 @@ footer{background:var(--tierra);border-top:1px solid rgba(196,133,58,0.12);paddi
   </div>
 
   <div class="stats-row reveal">
-    <div class="stat-box"><div class="stat-n">XX<span>+</span></div><div class="stat-l">Eventos Realizados</div></div>
-    <div class="stat-box"><div class="stat-n">XX<span>+</span></div><div class="stat-l">Videos en Colaboración</div></div>
-    <div class="stat-box"><div class="stat-n">50K<span>+</span></div><div class="stat-l">Seguidores Totales</div></div>
-    <div class="stat-box"><div class="stat-n">XX<span>+</span></div><div class="stat-l">Marcas Aliadas</div></div>
+    <div class="stat-box"><div class="stat-n">30<span>+</span></div><div class="stat-l">Eventos Realizados</div></div>
+    <div class="stat-box"><div class="stat-n">5K<span>+</span></div><div class="stat-l">Personas Atendidas</div></div>
+    <div class="stat-box"><div class="stat-n">83K<span>+</span></div><div class="stat-l">Seguidores Totales</div></div>
+    <div class="stat-box"><div class="stat-n">15<span>+</span></div><div class="stat-l">Marcas Aliadas</div></div>
   </div>
 
   <div class="smoke-band angled reveal">
@@ -925,7 +945,7 @@ footer{background:var(--tierra);border-top:1px solid rgba(196,133,58,0.12);paddi
     </div>
   </div>
 
-  <footer><div class="footer-inner"><div><span class="f-logo">Javo<span>.</span></span><p class="f-tagline">Cocinero apasionado del norte argentino.</p><p class="f-location">Salta, Argentina</p></div><div class="f-col"><h4>Secciones</h4><ul><li><a onclick="showPage('servicios')">Servicios</a></li><li><a onclick="showPage('productos')">Productos</a></li><li><a onclick="showPage('metricas')">Métricas</a></li></ul></div><div class="f-col"><h4>Contacto</h4><ul><li><a href="mailto:javoelizalde2001@gmail.com">Email</a></li><li><a href="https://wa.me/543874105902" target="_blank">WhatsApp</a></li></ul></div><div class="f-col"><h4>Volver</h4><ul><li><a onclick="showPage('home')">← Inicio</a></li></ul></div></div><div class="footer-bottom"><span class="footer-copy">© 2025 Javo Te Cocina · Salta, ARG</span><div class="soc-links"><a class="soc-link">IG</a><a class="soc-link">YT</a><a class="soc-link">TK</a></div></div></footer>
+  <footer><div class="footer-inner"><div><span class="f-logo">Javo<span>.</span></span><p class="f-tagline">Cocinero apasionado del norte argentino.</p><p class="f-location">Salta, Argentina</p></div><div class="f-col"><h4>Secciones</h4><ul><li><a onclick="showPage('servicios')">Servicios</a></li><li><a onclick="showPage('productos')">Productos</a></li><li><a onclick="showPage('metricas')">Métricas</a></li></ul></div><div class="f-col"><h4>Contacto</h4><ul><li><a href="mailto:javoelizalde2001@gmail.com">Email</a></li><li><a href="https://wa.me/543874105902" target="_blank">WhatsApp</a></li></ul></div><div class="f-col"><h4>Volver</h4><ul><li><a onclick="showPage('home')">← Inicio</a></li></ul></div></div><div class="footer-bottom"><span class="footer-copy">© 2025 Javo Te Cocina · Salta, ARG</span><div class="soc-links"><a class="soc-link" href="https://instagram.com/javotecocina" target="_blank">IG</a><a class="soc-link" href="#">YT</a><a class="soc-link" href="https://tiktok.com/@javotecocina" target="_blank">TK</a></div></div></footer>
 </div>
 
 <!-- ════════════════════════ SERVICIOS ════════════════════════ -->
@@ -1020,7 +1040,7 @@ footer{background:var(--tierra);border-top:1px solid rgba(196,133,58,0.12);paddi
       </div>
     </div>
   </div>
-  <footer><div class="footer-inner"><div><span class="f-logo">Javo<span>.</span></span><p class="f-tagline">Cocinero apasionado del norte argentino.</p><p class="f-location">Salta, Argentina</p></div><div class="f-col"><h4>Servicios</h4><ul><li><a>Eventos Privados</a></li><li><a>Asados Premium</a></li><li><a>Contenido Digital</a></li></ul></div><div class="f-col"><h4>Contacto</h4><ul><li><a href="mailto:javoelizalde2001@gmail.com">Email</a></li><li><a href="https://wa.me/543874105902" target="_blank">WhatsApp</a></li></ul></div><div class="f-col"><h4>Volver</h4><ul><li><a onclick="showPage('home')">← Inicio</a></li></ul></div></div><div class="footer-bottom"><span class="footer-copy">© 2025 Javo Te Cocina</span><div class="soc-links"><a class="soc-link">IG</a><a class="soc-link">YT</a><a class="soc-link">TK</a></div></div></footer>
+  <footer><div class="footer-inner"><div><span class="f-logo">Javo<span>.</span></span><p class="f-tagline">Cocinero apasionado del norte argentino.</p><p class="f-location">Salta, Argentina</p></div><div class="f-col"><h4>Servicios</h4><ul><li><a>Eventos Privados</a></li><li><a>Asados Premium</a></li><li><a>Contenido Digital</a></li></ul></div><div class="f-col"><h4>Contacto</h4><ul><li><a href="mailto:javoelizalde2001@gmail.com">Email</a></li><li><a href="https://wa.me/543874105902" target="_blank">WhatsApp</a></li></ul></div><div class="f-col"><h4>Volver</h4><ul><li><a onclick="showPage('home')">← Inicio</a></li></ul></div></div><div class="footer-bottom"><span class="footer-copy">© 2025 Javo Te Cocina</span><div class="soc-links"><a class="soc-link" href="https://instagram.com/javotecocina" target="_blank">IG</a><a class="soc-link" href="#">YT</a><a class="soc-link" href="https://tiktok.com/@javotecocina" target="_blank">TK</a></div></div></footer>
 </div>
 
 <!-- ════════════════════════ PRODUCTOS ════════════════════════ -->
@@ -1064,7 +1084,7 @@ footer{background:var(--tierra);border-top:1px solid rgba(196,133,58,0.12);paddi
       <div class="product-card" data-cat="cuchillos keveri"><div class="product-img"><img src="https://images.unsplash.com/photo-1567620905732-2d1ec7ab7445?w=400&q=80" alt="Cuchillos Opinel Set 4"></div><div class="product-body"><div class="product-name">Set Cuchillos Opinel x4</div><div class="product-desc">4 cuchillos de acero inoxidable francés. El complemento perfecto para el parrillero moderno.</div><div class="product-price">$59.900</div><button class="product-btn" onclick="openCheckout('Set Cuchillos Opinel x4','59.900')">Comprar →</button></div></div>
     </div>
   </div>
-  <footer><div class="footer-inner"><div><span class="f-logo">Javo<span>.</span></span><p class="f-tagline">Productos seleccionados con mi sello personal.</p><p class="f-location">Salta, Argentina</p></div><div class="f-col"><h4>Categorías</h4><ul><li><a>Parrilla</a></li><li><a>Cuchillos</a></li><li><a>Hornos</a></li><li><a>Accesorios</a></li></ul></div><div class="f-col"><h4>Soporte</h4><ul><li><a href="mailto:javoelizalde2001@gmail.com">Contacto</a></li><li><a href="https://wa.me/543874105902" target="_blank">WhatsApp</a></li></ul></div><div class="f-col"><h4>Volver</h4><ul><li><a onclick="showPage('home')">← Inicio</a></li></ul></div></div><div class="footer-bottom"><span class="footer-copy">© 2025 Javo Te Cocina</span><div class="soc-links"><a class="soc-link">IG</a><a class="soc-link">YT</a><a class="soc-link">TK</a></div></div></footer>
+  <footer><div class="footer-inner"><div><span class="f-logo">Javo<span>.</span></span><p class="f-tagline">Productos seleccionados con mi sello personal.</p><p class="f-location">Salta, Argentina</p></div><div class="f-col"><h4>Categorías</h4><ul><li><a>Parrilla</a></li><li><a>Cuchillos</a></li><li><a>Hornos</a></li><li><a>Accesorios</a></li></ul></div><div class="f-col"><h4>Soporte</h4><ul><li><a href="mailto:javoelizalde2001@gmail.com">Contacto</a></li><li><a href="https://wa.me/543874105902" target="_blank">WhatsApp</a></li></ul></div><div class="f-col"><h4>Volver</h4><ul><li><a onclick="showPage('home')">← Inicio</a></li></ul></div></div><div class="footer-bottom"><span class="footer-copy">© 2025 Javo Te Cocina</span><div class="soc-links"><a class="soc-link" href="https://instagram.com/javotecocina" target="_blank">IG</a><a class="soc-link" href="#">YT</a><a class="soc-link" href="https://tiktok.com/@javotecocina" target="_blank">TK</a></div></div></footer>
 </div>
 
 <!-- ════════════════════════ MÉTRICAS ════════════════════════ -->
@@ -1330,7 +1350,7 @@ footer{background:var(--tierra);border-top:1px solid rgba(196,133,58,0.12);paddi
       </div>
     </div>
   </div>
-  <footer><div class="footer-inner"><div><span class="f-logo">Javo<span>.</span></span><p class="f-tagline">Presencia digital en Instagram, TikTok y YouTube.</p><p class="f-location">Salta, Argentina</p></div><div class="f-col"><h4>Plataformas</h4><ul><li><a>Instagram</a></li><li><a>TikTok</a></li><li><a>YouTube</a></li></ul></div><div class="f-col"><h4>Trabajar juntos</h4><ul><li><a onclick="showPage('servicios')">Contenido digital</a></li></ul></div><div class="f-col"><h4>Volver</h4><ul><li><a onclick="showPage('home')">← Inicio</a></li></ul></div></div><div class="footer-bottom"><span class="footer-copy">© 2025 Javo Te Cocina</span><div class="soc-links"><a class="soc-link">IG</a><a class="soc-link">YT</a><a class="soc-link">TK</a></div></div></footer>
+  <footer><div class="footer-inner"><div><span class="f-logo">Javo<span>.</span></span><p class="f-tagline">Presencia digital en Instagram, TikTok y YouTube.</p><p class="f-location">Salta, Argentina</p></div><div class="f-col"><h4>Plataformas</h4><ul><li><a>Instagram</a></li><li><a>TikTok</a></li><li><a>YouTube</a></li></ul></div><div class="f-col"><h4>Trabajar juntos</h4><ul><li><a onclick="showPage('servicios')">Contenido digital</a></li></ul></div><div class="f-col"><h4>Volver</h4><ul><li><a onclick="showPage('home')">← Inicio</a></li></ul></div></div><div class="footer-bottom"><span class="footer-copy">© 2025 Javo Te Cocina</span><div class="soc-links"><a class="soc-link" href="https://instagram.com/javotecocina" target="_blank">IG</a><a class="soc-link" href="#">YT</a><a class="soc-link" href="https://tiktok.com/@javotecocina" target="_blank">TK</a></div></div></footer>
 </div>
 
 <!-- ════════════════════════ RECETARIOS ════════════════════════ -->
@@ -1451,27 +1471,74 @@ footer{background:var(--tierra);border-top:1px solid rgba(196,133,58,0.12);paddi
 <div id="page-eventos" class="page-section">
   <div class="page-hero"><div class="page-hero-bg"></div><div class="page-hero-content"><div class="sec-label">Historia viva</div><h2 class="sec-title">Eventos<br><em>Pasados</em></h2><p class="sec-sub">Los momentos que marcaron mi carrera — con fotos, videos y las historias detrás.</p></div></div>
   <div style="padding:3rem 5vw 6rem;">
+
+    <!-- STAT DESTACADO -->
+    <div style="display:flex;align-items:center;gap:3rem;padding:3rem 0 4rem;border-bottom:1px solid rgba(196,133,58,0.12);margin-bottom:4rem;" class="reveal">
+      <div style="flex-shrink:0;">
+        <div style="font-family:var(--font-display);font-size:6rem;font-weight:700;color:var(--sal);line-height:1;">5K<em style="color:var(--puna);font-style:normal;font-size:4rem;">+</em></div>
+        <div style="font-family:var(--font-data);font-size:0.58rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--niebla);margin-top:0.25rem;">personas atendidas</div>
+      </div>
+      <p style="font-family:var(--font-body);font-size:0.95rem;color:rgba(245,237,216,0.55);line-height:1.85;font-style:italic;max-width:480px;">En festivales, eventos corporativos, activaciones de marca y experiencias privadas a lo largo y ancho de Argentina.</p>
+    </div>
+
+    <!-- CATEGORÍAS DE EVENTOS -->
     <div class="eventos-grid reveal">
+
+      <!-- 1. EXPERIENCIAS DE MARCA — featured -->
       <div class="evento-card featured">
-        <div class="evento-photos single"><img src="img/p33.jpg" alt="Evento destacado"></div>
-        <div class="evento-body"><div class="evento-date">[Mes XXXX · Ciudad, Salta]</div><div class="evento-name">[Nombre del Evento Más Importante]</div><div class="evento-desc">[Descripción completa — qué fue, para quién, qué lo hizo especial, qué se cocinó, cuántas personas.]</div><div class="evento-tags"><span class="evento-tag">[Tipo]</span><span class="evento-tag">[XX personas]</span><span class="evento-tag">[Lugar]</span></div></div>
+        <div class="evento-photos"><img src="img/p32.jpg" alt="Experiencias de Marca" style="width:100%;aspect-ratio:21/7;object-fit:cover;filter:sepia(0.15);grid-column:span 3;"><img src="img/p33.jpg" alt="" style="width:100%;aspect-ratio:4/3;object-fit:cover;filter:sepia(0.15);"><img src="img/p14.jpg" alt="" style="width:100%;aspect-ratio:4/3;object-fit:cover;filter:sepia(0.15);"><img src="img/p24.jpg" alt="" style="width:100%;aspect-ratio:4/3;object-fit:cover;filter:sepia(0.15);"></div>
+        <div class="evento-body">
+          <div class="evento-date">Activaciones · Argentina</div>
+          <div class="evento-name">Experiencias de Marca</div>
+          <div class="evento-desc">Diseño y ejecución de activaciones gastronómicas para marcas que buscan conectar con su audiencia de manera auténtica. Desde lanzamientos de productos hasta eventos promocionales — gastronomía, entretenimiento y contenido digital para maximizar el impacto de cada marca.</div>
+          <div class="evento-tags"><span class="evento-tag">Activaciones</span><span class="evento-tag">Contenido Digital</span><span class="evento-tag">Lanzamientos</span><span class="evento-tag">15+ marcas</span></div>
+        </div>
       </div>
+
+      <!-- 2. EVENTOS PROPIOS -->
       <div class="evento-card">
-        <div class="evento-photos" style="display:grid;grid-template-columns:1fr 1fr;gap:1px;"><img src="img/p08.jpg" alt="" style="width:100%;aspect-ratio:4/3;object-fit:cover;filter:sepia(0.15);"><img src="img/p09.jpg" alt="" style="width:100%;aspect-ratio:4/3;object-fit:cover;filter:sepia(0.15);"></div>
-        <div class="evento-body"><div class="evento-date">[Mes XXXX · Ciudad]</div><div class="evento-name">[Nombre del Evento]</div><div class="evento-desc">[Descripción breve.]</div><div class="evento-tags"><span class="evento-tag">[Tipo]</span><span class="evento-tag">[XX personas]</span></div></div>
+        <div class="evento-photos"><img src="img/p04.jpg" alt="" style="width:100%;aspect-ratio:4/3;object-fit:cover;filter:sepia(0.15);"><img src="img/p05.jpg" alt="" style="width:100%;aspect-ratio:4/3;object-fit:cover;filter:sepia(0.15);"><img src="img/p06.jpg" alt="" style="width:100%;aspect-ratio:4/3;object-fit:cover;filter:sepia(0.15);"></div>
+        <div class="evento-body">
+          <div class="evento-date">Producción Propia · Salta</div>
+          <div class="evento-name">Eventos Propios & Comunidad</div>
+          <div class="evento-desc">Creación y producción de eventos exclusivos para la comunidad de Javo Te Cocina. Convocatoria, sponsors, experiencia gastronómica — encuentros donde personas, marcas y cocina se conectan de verdad.</div>
+          <div class="evento-tags"><span class="evento-tag">Comunidad</span><span class="evento-tag">Sponsors</span><span class="evento-tag">Producción Integral</span></div>
+        </div>
       </div>
+
+      <!-- 3. ASADOS Y PARRILLAS -->
       <div class="evento-card">
-        <div class="evento-photos" style="display:grid;grid-template-columns:1fr 1fr;gap:1px;"><img src="img/p22.jpg" alt="" style="width:100%;aspect-ratio:4/3;object-fit:cover;filter:sepia(0.15);"><img src="img/p23.jpg" alt="" style="width:100%;aspect-ratio:4/3;object-fit:cover;filter:sepia(0.15);"></div>
-        <div class="evento-body"><div class="evento-date">[Mes XXXX · Ciudad]</div><div class="evento-name">[Nombre del Evento]</div><div class="evento-desc">[Descripción breve.]</div><div class="evento-tags"><span class="evento-tag">[Tipo]</span><span class="evento-tag">[XX personas]</span></div></div>
+        <div class="evento-photos"><img src="img/p08.jpg" alt="" style="width:100%;aspect-ratio:4/3;object-fit:cover;filter:sepia(0.15);"><img src="img/p09.jpg" alt="" style="width:100%;aspect-ratio:4/3;object-fit:cover;filter:sepia(0.15);"><img src="img/p10.jpg" alt="" style="width:100%;aspect-ratio:4/3;object-fit:cover;filter:sepia(0.15);"></div>
+        <div class="evento-body">
+          <div class="evento-date">Eventos Sociales & Celebraciones</div>
+          <div class="evento-name">Asados & Parrillas en Vivo</div>
+          <div class="evento-desc">Producción de experiencias de fuego y cocina en vivo para eventos sociales y celebraciones privadas. Desde grupos reducidos hasta eventos de gran escala — logística, personal de servicio y catering integral.</div>
+          <div class="evento-tags"><span class="evento-tag">Parrilla Premium</span><span class="evento-tag">Cocina en Vivo</span><span class="evento-tag">Catering</span></div>
+        </div>
       </div>
+
+      <!-- 4. EXPERIENCIAS A DOMICILIO -->
       <div class="evento-card">
-        <div class="evento-photos"><img src="img/p24.jpg" alt="" style="width:100%;aspect-ratio:4/3;object-fit:cover;filter:sepia(0.15);"><img src="img/p25.jpg" alt="" style="width:100%;aspect-ratio:4/3;object-fit:cover;filter:sepia(0.15);"><img src="img/p26.jpg" alt="" style="width:100%;aspect-ratio:4/3;object-fit:cover;filter:sepia(0.15);"></div>
-        <div class="evento-body"><div class="evento-date">[Mes XXXX · Ciudad]</div><div class="evento-name">[Nombre del Evento]</div><div class="evento-desc">[Descripción breve.]</div><div class="evento-tags"><span class="evento-tag">[Tipo]</span><span class="evento-tag">[XX personas]</span></div></div>
+        <div class="evento-photos"><img src="img/p13.jpg" alt="" style="width:100%;aspect-ratio:4/3;object-fit:cover;filter:sepia(0.15);"><img src="img/p15.jpg" alt="" style="width:100%;aspect-ratio:4/3;object-fit:cover;filter:sepia(0.15);"><img src="img/p16.jpg" alt="" style="width:100%;aspect-ratio:4/3;object-fit:cover;filter:sepia(0.15);"></div>
+        <div class="evento-body">
+          <div class="evento-date">Experiencias Íntimas</div>
+          <div class="evento-name">Cocina Gourmet a Domicilio</div>
+          <div class="evento-desc">Propuestas exclusivas de cocina gourmet y criolla desarrolladas en el hogar de los clientes. Menús personalizados de varios pasos, elaborados de manera artesanal en un formato íntimo y memorable.</div>
+          <div class="evento-tags"><span class="evento-tag">Menú Personalizado</span><span class="evento-tag">Gourmet</span><span class="evento-tag">Íntimo</span></div>
+        </div>
       </div>
+
+      <!-- 5. CORPORATIVOS Y TEAM BUILDING -->
       <div class="evento-card">
-        <div class="evento-photos"><img src="img/p27.jpg" alt="" style="width:100%;aspect-ratio:4/3;object-fit:cover;filter:sepia(0.15);"><img src="img/p28.jpg" alt="" style="width:100%;aspect-ratio:4/3;object-fit:cover;filter:sepia(0.15);"><img src="img/p29.jpg" alt="" style="width:100%;aspect-ratio:4/3;object-fit:cover;filter:sepia(0.15);"></div>
-        <div class="evento-body"><div class="evento-date">[Mes XXXX · Ciudad]</div><div class="evento-name">[Nombre del Evento]</div><div class="evento-desc">[Descripción breve.]</div><div class="evento-tags"><span class="evento-tag">[Tipo]</span><span class="evento-tag">[XX personas]</span></div></div>
+        <div class="evento-photos"><img src="img/p17.jpg" alt="" style="width:100%;aspect-ratio:4/3;object-fit:cover;filter:sepia(0.15);"><img src="img/p18.jpg" alt="" style="width:100%;aspect-ratio:4/3;object-fit:cover;filter:sepia(0.15);"><img src="img/p19.jpg" alt="" style="width:100%;aspect-ratio:4/3;object-fit:cover;filter:sepia(0.15);"></div>
+        <div class="evento-body">
+          <div class="evento-date">Empresas & Organizaciones</div>
+          <div class="evento-name">Corporativos & Team Building</div>
+          <div class="evento-desc">Experiencias donde la gastronomía conecta equipos y genera engagement. Como cocinero, anfitrión y presentador, combino entretenimiento, contenido y cocina adaptados a los objetivos de cada organización.</div>
+          <div class="evento-tags"><span class="evento-tag">Team Building</span><span class="evento-tag">Presentador</span><span class="evento-tag">Corporativo</span></div>
+        </div>
       </div>
+
     </div>
     <div style="text-align:center;margin-top:4rem;padding:4rem;background:var(--barro);border:1px solid rgba(196,133,58,0.15);" class="reveal">
       <div style="font-family:var(--font-data);font-size:0.62rem;letter-spacing:0.22em;text-transform:uppercase;color:var(--puna);margin-bottom:1rem;">Tu evento puede estar acá</div>
@@ -1480,7 +1547,7 @@ footer{background:var(--tierra);border-top:1px solid rgba(196,133,58,0.12);paddi
       <button class="btn-fire" onclick="showPage('servicios')">Cotizar Mi Evento →</button>
     </div>
   </div>
-  <footer><div class="footer-inner"><div><span class="f-logo">Javo<span>.</span></span><p class="f-tagline">Cocinero apasionado del norte argentino.</p><p class="f-location">Salta, Argentina</p></div><div class="f-col"><h4>Eventos</h4><ul><li><a onclick="showPage('servicios')">Cotizar evento</a></li></ul></div><div class="f-col"><h4>Más</h4><ul><li><a onclick="showPage('quien')">Quién Soy</a></li><li><a onclick="showPage('metricas')">Métricas</a></li></ul></div><div class="f-col"><h4>Volver</h4><ul><li><a onclick="showPage('home')">← Inicio</a></li></ul></div></div><div class="footer-bottom"><span class="footer-copy">© 2025 Javo Te Cocina · Salta, ARG</span><div class="soc-links"><a class="soc-link">IG</a><a class="soc-link">YT</a><a class="soc-link">TK</a></div></div></footer>
+  <footer><div class="footer-inner"><div><span class="f-logo">Javo<span>.</span></span><p class="f-tagline">Cocinero apasionado del norte argentino.</p><p class="f-location">Salta, Argentina</p></div><div class="f-col"><h4>Eventos</h4><ul><li><a onclick="showPage('servicios')">Cotizar evento</a></li></ul></div><div class="f-col"><h4>Más</h4><ul><li><a onclick="showPage('quien')">Quién Soy</a></li><li><a onclick="showPage('metricas')">Métricas</a></li></ul></div><div class="f-col"><h4>Volver</h4><ul><li><a onclick="showPage('home')">← Inicio</a></li></ul></div></div><div class="footer-bottom"><span class="footer-copy">© 2025 Javo Te Cocina · Salta, ARG</span><div class="soc-links"><a class="soc-link" href="https://instagram.com/javotecocina" target="_blank">IG</a><a class="soc-link" href="#">YT</a><a class="soc-link" href="https://tiktok.com/@javotecocina" target="_blank">TK</a></div></div></footer>
 </div>
 
 <!-- LIGHTBOX -->
