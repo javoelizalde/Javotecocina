@@ -691,13 +691,6 @@ h2.sec-title em{font-style:italic;color:var(--puna);}
 .nav-hamburger.open span:nth-child(1){transform:rotate(45deg) translate(4px,4px);}
 .nav-hamburger.open span:nth-child(2){opacity:0;}
 .nav-hamburger.open span:nth-child(3){transform:rotate(-45deg) translate(4px,-4px);}
-/* Brand initial fallback */
-.brand-pill-initial{
-  width:56px;height:56px;border-radius:8px;flex-shrink:0;
-  background:rgba(196,133,58,0.08);border:1px solid rgba(196,133,58,0.18);
-  display:flex;align-items:center;justify-content:center;
-  font-family:var(--font-display);font-size:1.4rem;font-weight:700;color:var(--puna);
-}
 
 /* ── SERVICE TABS REDISEÑADAS ── */
 .services-tabs{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:rgba(196,133,58,0.12);margin-bottom:3rem;}
@@ -899,6 +892,24 @@ footer{background:var(--tierra);border-top:1px solid rgba(196,133,58,0.12);paddi
     </div>
   </div>
 
+  <div class="brands-strip reveal">
+    <p class="brands-label">Marcas que confiaron en mí</p>
+    <div class="brands-list">
+      <a href="https://www.stellaartois.com" target="_blank" class="brand-logo-pill"><img src="https://logo.clearbit.com/stellaartois.com" alt="Stella Artois" onerror="this.closest('.brand-logo-pill').style.display='none'"><span>Stella Artois</span></a>
+      <a href="https://www.hellmanns.com.ar" target="_blank" class="brand-logo-pill"><img src="https://logo.clearbit.com/hellmanns.com" alt="Hellmann's" onerror="this.closest('.brand-logo-pill').style.display='none'"><span>Hellmann's</span></a>
+      <a href="https://www.lays.com" target="_blank" class="brand-logo-pill"><img src="https://logo.clearbit.com/lays.com" alt="Lay's" onerror="this.closest('.brand-logo-pill').style.display='none'"><span>Lay's</span></a>
+      <a href="https://www.pepsi.com" target="_blank" class="brand-logo-pill"><img src="https://logo.clearbit.com/pepsi.com" alt="Pepsi" onerror="this.closest('.brand-logo-pill').style.display='none'"><span>Pepsi</span></a>
+      <a href="https://www.rappi.com.ar" target="_blank" class="brand-logo-pill"><img src="https://logo.clearbit.com/rappi.com" alt="Rappi" onerror="this.closest('.brand-logo-pill').style.display='none'"><span>Rappi</span></a>
+      <a href="https://www.kankay.com.ar" target="_blank" class="brand-logo-pill"><img src="https://logo.clearbit.com/kankay.com.ar" alt="Kankay" onerror="this.closest('.brand-logo-pill').style.display='none'"><span>Kankay</span></a>
+      <a href="https://www.salvitaalimentos.com" target="_blank" class="brand-logo-pill"><img src="https://logo.clearbit.com/salvitaalimentos.com" alt="Salvita" onerror="this.closest('.brand-logo-pill').style.display='none'"><span>Salvita</span></a>
+      <a href="https://www.keverifood.com" target="_blank" class="brand-logo-pill"><img src="https://logo.clearbit.com/keverifood.com" alt="Keveri" onerror="this.closest('.brand-logo-pill').style.display='none'"><span>Keveri</span></a>
+      <a href="https://www.pampagourmet.com.ar" target="_blank" class="brand-logo-pill"><img src="https://logo.clearbit.com/pampagourmet.com.ar" alt="Pampa Gourmet" onerror="this.closest('.brand-logo-pill').style.display='none'"><span>Pampa Gourmet</span></a>
+      <a href="https://www.instagram.com/legionextranjera.salta" target="_blank" class="brand-logo-pill"><img src="https://logo.clearbit.com/legionextranjera.com.ar" alt="Legión Extranjera" onerror="this.closest('.brand-logo-pill').style.display='none'"><span>Legión Extranjera</span></a>
+      <a href="https://quentosnacks.com" target="_blank" class="brand-logo-pill"><img src="https://logo.clearbit.com/quentosnacks.com" alt="Quento Snacks" onerror="this.closest('.brand-logo-pill').style.display='none'"><span>Quento Snacks</span></a>
+      <a href="https://www.lafrancisca.com" target="_blank" class="brand-logo-pill"><img src="https://logo.clearbit.com/lafrancisca.com" alt="La Francisca" onerror="this.closest('.brand-logo-pill').style.display='none'"><span>La Francisca</span></a>
+    </div>
+  </div>
+
   <div style="padding:0 0 6rem;">
     <div style="display:grid;grid-template-columns:repeat(5,1fr);height:260px;gap:1px;background:rgba(196,133,58,0.08);" class="reveal">
       <img src="img/p08.jpg" alt="" style="width:100%;height:100%;object-fit:cover;filter:sepia(0.15);">
@@ -985,23 +996,6 @@ footer{background:var(--tierra);border-top:1px solid rgba(196,133,58,0.12);paddi
     </div>
   </div>
 
-  <div class="brands-strip reveal">
-    <p class="brands-label">Marcas que confiaron en mí</p>
-    <div class="brands-list">
-      <a href="https://www.stellaartois.com" target="_blank" class="brand-logo-pill"><img src="https://logo.clearbit.com/stellaartois.com" alt="S" onerror="this.outerHTML='<div class=\'brand-pill-initial\'>S</div>'"><span>Stella Artois</span></a>
-      <a href="https://www.hellmanns.com.ar" target="_blank" class="brand-logo-pill"><img src="https://logo.clearbit.com/hellmanns.com" alt="H" onerror="this.outerHTML='<div class=\'brand-pill-initial\'>H</div>'"><span>Hellmann's</span></a>
-      <a href="https://www.lays.com" target="_blank" class="brand-logo-pill"><img src="https://logo.clearbit.com/lays.com" alt="L" onerror="this.outerHTML='<div class=\'brand-pill-initial\'>L</div>'"><span>Lay's</span></a>
-      <a href="https://www.pepsi.com" target="_blank" class="brand-logo-pill"><img src="https://logo.clearbit.com/pepsi.com" alt="P" onerror="this.outerHTML='<div class=\'brand-pill-initial\'>P</div>'"><span>Pepsi</span></a>
-      <a href="https://www.rappi.com.ar" target="_blank" class="brand-logo-pill"><img src="https://logo.clearbit.com/rappi.com" alt="R" onerror="this.outerHTML='<div class=\'brand-pill-initial\'>R</div>'"><span>Rappi</span></a>
-      <a href="https://www.kankay.com.ar" target="_blank" class="brand-logo-pill"><img src="https://logo.clearbit.com/kankay.com.ar" alt="K" onerror="this.outerHTML='<div class=\'brand-pill-initial\'>K</div>'"><span>Kankay</span></a>
-      <a href="https://www.salvitaalimentos.com" target="_blank" class="brand-logo-pill"><img src="https://logo.clearbit.com/salvitaalimentos.com" alt="S" onerror="this.outerHTML='<div class=\'brand-pill-initial\'>S</div>'"><span>Salvita</span></a>
-      <a href="https://www.keverifood.com" target="_blank" class="brand-logo-pill"><img src="https://logo.clearbit.com/keverifood.com" alt="K" onerror="this.outerHTML='<div class=\'brand-pill-initial\'>K</div>'"><span>Keveri</span></a>
-      <a href="https://www.pampagourmet.com.ar" target="_blank" class="brand-logo-pill"><img src="https://logo.clearbit.com/pampagourmet.com.ar" alt="P" onerror="this.outerHTML='<div class=\'brand-pill-initial\'>P</div>'"><span>Pampa Gourmet</span></a>
-      <a href="https://www.instagram.com/legionextranjera.salta" target="_blank" class="brand-logo-pill"><div class="brand-pill-initial">L</div><span>Legión Extranjera</span></a>
-      <a href="https://quentosnacks.com" target="_blank" class="brand-logo-pill"><img src="https://logo.clearbit.com/quentosnacks.com" alt="Q" onerror="this.outerHTML='<div class=\'brand-pill-initial\'>Q</div>'"><span>Quento Snacks</span></a>
-      <a href="https://www.lafrancisca.com" target="_blank" class="brand-logo-pill"><img src="https://logo.clearbit.com/lafrancisca.com" alt="F" onerror="this.outerHTML='<div class=\'brand-pill-initial\'>F</div>'"><span>La Francisca</span></a>
-    </div>
-  </div>
 
   <div style="padding:4rem 5vw 6rem;" class="reveal">
     <div class="sec-label">Red de trabajo</div>
