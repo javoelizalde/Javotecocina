@@ -627,7 +627,9 @@ h2.sec-title em{font-style:italic;color:var(--puna);}
 .val-text{font-family:var(--font-body);font-size:0.8rem;color:var(--niebla);line-height:1.65;font-style:italic;}
 .brands-strip{padding:4rem 5vw;border-top:1px solid rgba(196,133,58,0.1);}
 .brands-label{font-family:var(--font-data);font-size:0.58rem;letter-spacing:0.22em;text-transform:uppercase;color:var(--niebla);text-align:center;margin-bottom:2.5rem;opacity:0.6;}
-.brands-list{display:flex;flex-wrap:wrap;gap:1px;justify-content:center;background:rgba(196,133,58,0.08);}
+.brands-list{display:grid;grid-template-columns:repeat(5,1fr);gap:1px;background:rgba(196,133,58,0.08);}
+@media(max-width:900px){.brands-list{grid-template-columns:repeat(3,1fr);}}
+@media(max-width:480px){.brands-list{grid-template-columns:repeat(2,1fr);}}
 .brand-logo-pill{
   display:flex;flex-direction:column;align-items:center;justify-content:center;
   gap:0.65rem;padding:2rem 2.25rem;min-width:110px;
@@ -907,7 +909,6 @@ footer{background:var(--tierra);border-top:1px solid rgba(196,133,58,0.12);paddi
       <a href="https://www.legionextranjera.com.ar" target="_blank" class="brand-logo-pill"><img src="img/logo-legion-extranjera.png" alt="Legión Extranjera" style="background:#fff;padding:7px;"><span>Legión Extranjera</span></a>
       <a href="https://www.lafrancisca.com" target="_blank" class="brand-logo-pill"><img src="img/logo-la-francisca.svg" alt="La Francisca" style="background:#fff;padding:7px;"><span>La Francisca</span></a>
       <a href="#" target="_blank" class="brand-logo-pill"><img src="img/logo-salvita.png" alt="Salvita" style="background:#fff;padding:7px;"><span>Salvita</span></a>
-      <a href="#" target="_blank" class="brand-logo-pill"><img src="img/logo-pampa-gourmet.svg" alt="Pampa Gourmet" style="background:#fff;padding:7px;"><span>Pampa Gourmet</span></a>
       <a href="#" target="_blank" class="brand-logo-pill"><img src="img/logo-quento-snacks.svg" alt="Quento Snacks" style="background:#fff;padding:7px;"><span>Quento Snacks</span></a>
     </div>
   </div>
