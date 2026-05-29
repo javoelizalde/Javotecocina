@@ -10,6 +10,8 @@
 <meta property="og:url" content="https://javotecocina.com">
 <link rel="canonical" href="https://javotecocina.com">
 <title>Javo Te Cocina | Salta, Argentina</title>
+<link rel="icon" type="image/png" href="img/logo-jtc-black.png">
+<link rel="apple-touch-icon" href="img/logo-jtc-black.png">
 
 <!-- 3 TIPOGRAFÍAS — rústicas, con carácter -->
 <!-- 1. Cormorant Garamond — display, títulos grandes, elegancia rústica -->
@@ -101,11 +103,13 @@ nav.scrolled{
   border-bottom:1px solid rgba(196,133,58,0.2);
 }
 .nav-logo{
+  display:flex;align-items:center;gap:0.6rem;
   font-family:var(--font-display);
   font-size:1.55rem;font-weight:700;letter-spacing:0.04em;
   color:var(--sal);text-decoration:none;
 }
-.nav-logo span{color:var(--puna);}
+.nav-logo img{height:38px;width:auto;display:block;}
+.nav-logo-txt span{color:var(--puna);}
 .nav-links{display:flex;gap:1.75rem;list-style:none;align-items:center;}
 .nav-links a{
   font-family:var(--font-data);
@@ -746,6 +750,7 @@ footer{background:var(--tierra);border-top:1px solid rgba(196,133,58,0.12);paddi
 .footer-inner{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:4rem;margin-bottom:4rem;}
 .f-logo{font-family:var(--font-display);font-size:1.8rem;font-weight:700;color:var(--sal);display:block;margin-bottom:1rem;}
 .f-logo span{color:var(--puna);}
+.f-logo-img{height:64px;width:auto;display:block;margin-bottom:1.25rem;}
 .f-tagline{font-family:var(--font-body);font-size:0.82rem;color:var(--niebla);line-height:1.7;max-width:230px;font-style:italic;}
 .f-location{font-family:var(--font-data);font-size:0.58rem;letter-spacing:0.18em;text-transform:uppercase;color:rgba(196,133,58,0.45);margin-top:0.75rem;}
 .f-col h4{font-family:var(--font-data);font-size:0.58rem;letter-spacing:0.24em;text-transform:uppercase;color:var(--puna);margin-bottom:1.25rem;}
@@ -829,7 +834,7 @@ footer{background:var(--tierra);border-top:1px solid rgba(196,133,58,0.12);paddi
 <div class="toast" id="toast"><div class="toast-title" id="toast-title"></div><div class="toast-msg" id="toast-msg"></div></div>
 
 <nav id="navbar">
-  <a href="#" class="nav-logo" onclick="showPage('home')">Javo<span>.</span></a>
+  <a href="#" class="nav-logo" onclick="showPage('home')"><img src="img/logo-jtc-white.png" alt="Javo Te Cocina"><span class="nav-logo-txt">Javo<span>.</span></span></a>
   <ul class="nav-links">
     <li><a onclick="showPage('quien')">Quién Soy</a></li>
     <li><a onclick="showPage('servicios')">Servicios</a></li>
@@ -924,7 +929,7 @@ footer{background:var(--tierra);border-top:1px solid rgba(196,133,58,0.12);paddi
 
   <footer>
     <div class="footer-inner">
-      <div><span class="f-logo">Javo<span>.</span></span><p class="f-tagline">Cocinero apasionado del norte argentino. Experiencias gastronómicas únicas.</p><p class="f-location">24° 47' S — Salta, Argentina</p></div>
+      <div><img class="f-logo-img" src="img/logo-jtc-white.png" alt="Javo Te Cocina"><p class="f-tagline">Cocinero apasionado del norte argentino. Experiencias gastronómicas únicas.</p><p class="f-location">24° 47' S — Salta, Argentina</p></div>
       <div class="f-col"><h4>Secciones</h4><ul><li><a onclick="showPage('quien')">Quién Soy</a></li><li><a onclick="showPage('servicios')">Servicios</a></li><li><a onclick="showPage('productos')">Productos</a></li><li><a onclick="showPage('metricas')">Métricas</a></li></ul></div>
       <div class="f-col"><h4>Más</h4><ul><li><a onclick="showPage('recetarios')">Recetarios</a></li><li><a onclick="showPage('eventos')">Eventos</a></li><li><a onclick="showPage('servicios')">Cotizar</a></li></ul></div>
       <div class="f-col"><h4>Contacto</h4><ul><li><a href="mailto:javoelizalde2001@gmail.com">Email</a></li><li><a href="https://wa.me/543874105902" target="_blank">WhatsApp</a></li><li><a href="https://instagram.com/javotecocina" target="_blank">Instagram</a></li><li><a href="#" target="_blank">YouTube</a></li><li><a href="https://tiktok.com/@javotecocina" target="_blank">TikTok</a></li></ul></div>
@@ -1010,7 +1015,7 @@ footer{background:var(--tierra);border-top:1px solid rgba(196,133,58,0.12);paddi
     </div>
   </div>
 
-  <footer><div class="footer-inner"><div><span class="f-logo">Javo<span>.</span></span><p class="f-tagline">Cocinero apasionado del norte argentino.</p><p class="f-location">Salta, Argentina</p></div><div class="f-col"><h4>Secciones</h4><ul><li><a onclick="showPage('servicios')">Servicios</a></li><li><a onclick="showPage('productos')">Productos</a></li><li><a onclick="showPage('metricas')">Métricas</a></li></ul></div><div class="f-col"><h4>Contacto</h4><ul><li><a href="mailto:javoelizalde2001@gmail.com">Email</a></li><li><a href="https://wa.me/543874105902" target="_blank">WhatsApp</a></li></ul></div><div class="f-col"><h4>Volver</h4><ul><li><a onclick="showPage('home')">← Inicio</a></li></ul></div></div><div class="footer-bottom"><span class="footer-copy">© 2025 Javo Te Cocina · Salta, ARG</span><div class="soc-links"><a class="soc-link" href="https://instagram.com/javotecocina" target="_blank">IG</a><a class="soc-link" href="#">YT</a><a class="soc-link" href="https://tiktok.com/@javotecocina" target="_blank">TK</a></div></div></footer>
+  <footer><div class="footer-inner"><div><img class="f-logo-img" src="img/logo-jtc-white.png" alt="Javo Te Cocina"><p class="f-tagline">Cocinero apasionado del norte argentino.</p><p class="f-location">Salta, Argentina</p></div><div class="f-col"><h4>Secciones</h4><ul><li><a onclick="showPage('servicios')">Servicios</a></li><li><a onclick="showPage('productos')">Productos</a></li><li><a onclick="showPage('metricas')">Métricas</a></li></ul></div><div class="f-col"><h4>Contacto</h4><ul><li><a href="mailto:javoelizalde2001@gmail.com">Email</a></li><li><a href="https://wa.me/543874105902" target="_blank">WhatsApp</a></li></ul></div><div class="f-col"><h4>Volver</h4><ul><li><a onclick="showPage('home')">← Inicio</a></li></ul></div></div><div class="footer-bottom"><span class="footer-copy">© 2025 Javo Te Cocina · Salta, ARG</span><div class="soc-links"><a class="soc-link" href="https://instagram.com/javotecocina" target="_blank">IG</a><a class="soc-link" href="#">YT</a><a class="soc-link" href="https://tiktok.com/@javotecocina" target="_blank">TK</a></div></div></footer>
 </div>
 
 <!-- ════════════════════════ SERVICIOS ════════════════════════ -->
@@ -1113,7 +1118,7 @@ footer{background:var(--tierra);border-top:1px solid rgba(196,133,58,0.12);paddi
       </div>
     </div>
   </div>
-  <footer><div class="footer-inner"><div><span class="f-logo">Javo<span>.</span></span><p class="f-tagline">Cocinero apasionado del norte argentino.</p><p class="f-location">Salta, Argentina</p></div><div class="f-col"><h4>Servicios</h4><ul><li><a>Eventos Privados</a></li><li><a>Asados Premium</a></li><li><a>Contenido Digital</a></li></ul></div><div class="f-col"><h4>Contacto</h4><ul><li><a href="mailto:javoelizalde2001@gmail.com">Email</a></li><li><a href="https://wa.me/543874105902" target="_blank">WhatsApp</a></li></ul></div><div class="f-col"><h4>Volver</h4><ul><li><a onclick="showPage('home')">← Inicio</a></li></ul></div></div><div class="footer-bottom"><span class="footer-copy">© 2025 Javo Te Cocina</span><div class="soc-links"><a class="soc-link" href="https://instagram.com/javotecocina" target="_blank">IG</a><a class="soc-link" href="#">YT</a><a class="soc-link" href="https://tiktok.com/@javotecocina" target="_blank">TK</a></div></div></footer>
+  <footer><div class="footer-inner"><div><img class="f-logo-img" src="img/logo-jtc-white.png" alt="Javo Te Cocina"><p class="f-tagline">Cocinero apasionado del norte argentino.</p><p class="f-location">Salta, Argentina</p></div><div class="f-col"><h4>Servicios</h4><ul><li><a>Eventos Privados</a></li><li><a>Asados Premium</a></li><li><a>Contenido Digital</a></li></ul></div><div class="f-col"><h4>Contacto</h4><ul><li><a href="mailto:javoelizalde2001@gmail.com">Email</a></li><li><a href="https://wa.me/543874105902" target="_blank">WhatsApp</a></li></ul></div><div class="f-col"><h4>Volver</h4><ul><li><a onclick="showPage('home')">← Inicio</a></li></ul></div></div><div class="footer-bottom"><span class="footer-copy">© 2025 Javo Te Cocina</span><div class="soc-links"><a class="soc-link" href="https://instagram.com/javotecocina" target="_blank">IG</a><a class="soc-link" href="#">YT</a><a class="soc-link" href="https://tiktok.com/@javotecocina" target="_blank">TK</a></div></div></footer>
 </div>
 
 <!-- ════════════════════════ PRODUCTOS ════════════════════════ -->
@@ -1157,7 +1162,7 @@ footer{background:var(--tierra);border-top:1px solid rgba(196,133,58,0.12);paddi
       <div class="product-card" data-cat="cuchillos keveri"><div class="product-img"><img src="https://images.unsplash.com/photo-1567620905732-2d1ec7ab7445?w=400&q=80" alt="Cuchillos Opinel Set 4"></div><div class="product-body"><div class="product-name">Set Cuchillos Opinel x4</div><div class="product-desc">4 cuchillos de acero inoxidable francés. El complemento perfecto para el parrillero moderno.</div><div class="product-price">$59.900</div><button class="product-btn" onclick="openCheckout('Set Cuchillos Opinel x4','59.900')">Comprar →</button></div></div>
     </div>
   </div>
-  <footer><div class="footer-inner"><div><span class="f-logo">Javo<span>.</span></span><p class="f-tagline">Productos seleccionados con mi sello personal.</p><p class="f-location">Salta, Argentina</p></div><div class="f-col"><h4>Categorías</h4><ul><li><a>Parrilla</a></li><li><a>Cuchillos</a></li><li><a>Hornos</a></li><li><a>Accesorios</a></li></ul></div><div class="f-col"><h4>Soporte</h4><ul><li><a href="mailto:javoelizalde2001@gmail.com">Contacto</a></li><li><a href="https://wa.me/543874105902" target="_blank">WhatsApp</a></li></ul></div><div class="f-col"><h4>Volver</h4><ul><li><a onclick="showPage('home')">← Inicio</a></li></ul></div></div><div class="footer-bottom"><span class="footer-copy">© 2025 Javo Te Cocina</span><div class="soc-links"><a class="soc-link" href="https://instagram.com/javotecocina" target="_blank">IG</a><a class="soc-link" href="#">YT</a><a class="soc-link" href="https://tiktok.com/@javotecocina" target="_blank">TK</a></div></div></footer>
+  <footer><div class="footer-inner"><div><img class="f-logo-img" src="img/logo-jtc-white.png" alt="Javo Te Cocina"><p class="f-tagline">Productos seleccionados con mi sello personal.</p><p class="f-location">Salta, Argentina</p></div><div class="f-col"><h4>Categorías</h4><ul><li><a>Parrilla</a></li><li><a>Cuchillos</a></li><li><a>Hornos</a></li><li><a>Accesorios</a></li></ul></div><div class="f-col"><h4>Soporte</h4><ul><li><a href="mailto:javoelizalde2001@gmail.com">Contacto</a></li><li><a href="https://wa.me/543874105902" target="_blank">WhatsApp</a></li></ul></div><div class="f-col"><h4>Volver</h4><ul><li><a onclick="showPage('home')">← Inicio</a></li></ul></div></div><div class="footer-bottom"><span class="footer-copy">© 2025 Javo Te Cocina</span><div class="soc-links"><a class="soc-link" href="https://instagram.com/javotecocina" target="_blank">IG</a><a class="soc-link" href="#">YT</a><a class="soc-link" href="https://tiktok.com/@javotecocina" target="_blank">TK</a></div></div></footer>
 </div>
 
 <!-- ════════════════════════ MÉTRICAS ════════════════════════ -->
@@ -1423,7 +1428,7 @@ footer{background:var(--tierra);border-top:1px solid rgba(196,133,58,0.12);paddi
       </div>
     </div>
   </div>
-  <footer><div class="footer-inner"><div><span class="f-logo">Javo<span>.</span></span><p class="f-tagline">Presencia digital en Instagram, TikTok y YouTube.</p><p class="f-location">Salta, Argentina</p></div><div class="f-col"><h4>Plataformas</h4><ul><li><a>Instagram</a></li><li><a>TikTok</a></li><li><a>YouTube</a></li></ul></div><div class="f-col"><h4>Trabajar juntos</h4><ul><li><a onclick="showPage('servicios')">Contenido digital</a></li></ul></div><div class="f-col"><h4>Volver</h4><ul><li><a onclick="showPage('home')">← Inicio</a></li></ul></div></div><div class="footer-bottom"><span class="footer-copy">© 2025 Javo Te Cocina</span><div class="soc-links"><a class="soc-link" href="https://instagram.com/javotecocina" target="_blank">IG</a><a class="soc-link" href="#">YT</a><a class="soc-link" href="https://tiktok.com/@javotecocina" target="_blank">TK</a></div></div></footer>
+  <footer><div class="footer-inner"><div><img class="f-logo-img" src="img/logo-jtc-white.png" alt="Javo Te Cocina"><p class="f-tagline">Presencia digital en Instagram, TikTok y YouTube.</p><p class="f-location">Salta, Argentina</p></div><div class="f-col"><h4>Plataformas</h4><ul><li><a>Instagram</a></li><li><a>TikTok</a></li><li><a>YouTube</a></li></ul></div><div class="f-col"><h4>Trabajar juntos</h4><ul><li><a onclick="showPage('servicios')">Contenido digital</a></li></ul></div><div class="f-col"><h4>Volver</h4><ul><li><a onclick="showPage('home')">← Inicio</a></li></ul></div></div><div class="footer-bottom"><span class="footer-copy">© 2025 Javo Te Cocina</span><div class="soc-links"><a class="soc-link" href="https://instagram.com/javotecocina" target="_blank">IG</a><a class="soc-link" href="#">YT</a><a class="soc-link" href="https://tiktok.com/@javotecocina" target="_blank">TK</a></div></div></footer>
 </div>
 
 <!-- ════════════════════════ RECETARIOS ════════════════════════ -->
@@ -1537,7 +1542,7 @@ footer{background:var(--tierra);border-top:1px solid rgba(196,133,58,0.12);paddi
       </div>
     </div>
   </div>
-  <footer><div class="footer-inner"><div><span class="f-logo">Javo<span>.</span></span><p class="f-tagline">Conocimiento gastronómico del norte argentino.</p><p class="f-location">Salta, Argentina</p></div><div class="f-col"><h4>Recetarios</h4><ul><li><a href="/recetarios/todo-sobre-fierros.html" target="_blank">Todo sobre Fierros</a></li><li><a href="/recetarios/a-todo-disco.html" target="_blank">A Todo Disco</a></li><li><a href="/recetarios/a-todo-keveri.html" target="_blank">A Todo Keveri</a></li></ul></div><div class="f-col"><h4>Más recetarios</h4><ul><li><a href="/recetarios/donde-hay-humo.html" target="_blank">Donde Hay Humo</a></li><li><a href="/recetarios/sabores-saltenos.html" target="_blank">Sabores Salteños</a></li><li><a href="/recetarios/lo-fresco-del-norte.html" target="_blank">Lo Fresco del Norte</a></li></ul></div><div class="f-col"><h4>Soporte</h4><ul><li><a href="mailto:javoelizalde2001@gmail.com">Contacto</a></li><li><a onclick="showPage('home')">← Inicio</a></li></ul></div></div><div class="footer-bottom"><span class="footer-copy">© 2025 Javo Te Cocina</span><div class="soc-links"><a class="soc-link" href="https://instagram.com/javotecocina" target="_blank">IG</a><a class="soc-link" href="https://tiktok.com/@javotecocina" target="_blank">TK</a></div></div></footer>
+  <footer><div class="footer-inner"><div><img class="f-logo-img" src="img/logo-jtc-white.png" alt="Javo Te Cocina"><p class="f-tagline">Conocimiento gastronómico del norte argentino.</p><p class="f-location">Salta, Argentina</p></div><div class="f-col"><h4>Recetarios</h4><ul><li><a href="/recetarios/todo-sobre-fierros.html" target="_blank">Todo sobre Fierros</a></li><li><a href="/recetarios/a-todo-disco.html" target="_blank">A Todo Disco</a></li><li><a href="/recetarios/a-todo-keveri.html" target="_blank">A Todo Keveri</a></li></ul></div><div class="f-col"><h4>Más recetarios</h4><ul><li><a href="/recetarios/donde-hay-humo.html" target="_blank">Donde Hay Humo</a></li><li><a href="/recetarios/sabores-saltenos.html" target="_blank">Sabores Salteños</a></li><li><a href="/recetarios/lo-fresco-del-norte.html" target="_blank">Lo Fresco del Norte</a></li></ul></div><div class="f-col"><h4>Soporte</h4><ul><li><a href="mailto:javoelizalde2001@gmail.com">Contacto</a></li><li><a onclick="showPage('home')">← Inicio</a></li></ul></div></div><div class="footer-bottom"><span class="footer-copy">© 2025 Javo Te Cocina</span><div class="soc-links"><a class="soc-link" href="https://instagram.com/javotecocina" target="_blank">IG</a><a class="soc-link" href="https://tiktok.com/@javotecocina" target="_blank">TK</a></div></div></footer>
 </div>
 
 <!-- ════════════════════════ EVENTOS ════════════════════════ -->
@@ -1620,7 +1625,7 @@ footer{background:var(--tierra);border-top:1px solid rgba(196,133,58,0.12);paddi
       <button class="btn-fire" onclick="showPage('servicios')">Cotizar Mi Evento →</button>
     </div>
   </div>
-  <footer><div class="footer-inner"><div><span class="f-logo">Javo<span>.</span></span><p class="f-tagline">Cocinero apasionado del norte argentino.</p><p class="f-location">Salta, Argentina</p></div><div class="f-col"><h4>Eventos</h4><ul><li><a onclick="showPage('servicios')">Cotizar evento</a></li></ul></div><div class="f-col"><h4>Más</h4><ul><li><a onclick="showPage('quien')">Quién Soy</a></li><li><a onclick="showPage('metricas')">Métricas</a></li></ul></div><div class="f-col"><h4>Volver</h4><ul><li><a onclick="showPage('home')">← Inicio</a></li></ul></div></div><div class="footer-bottom"><span class="footer-copy">© 2025 Javo Te Cocina · Salta, ARG</span><div class="soc-links"><a class="soc-link" href="https://instagram.com/javotecocina" target="_blank">IG</a><a class="soc-link" href="#">YT</a><a class="soc-link" href="https://tiktok.com/@javotecocina" target="_blank">TK</a></div></div></footer>
+  <footer><div class="footer-inner"><div><img class="f-logo-img" src="img/logo-jtc-white.png" alt="Javo Te Cocina"><p class="f-tagline">Cocinero apasionado del norte argentino.</p><p class="f-location">Salta, Argentina</p></div><div class="f-col"><h4>Eventos</h4><ul><li><a onclick="showPage('servicios')">Cotizar evento</a></li></ul></div><div class="f-col"><h4>Más</h4><ul><li><a onclick="showPage('quien')">Quién Soy</a></li><li><a onclick="showPage('metricas')">Métricas</a></li></ul></div><div class="f-col"><h4>Volver</h4><ul><li><a onclick="showPage('home')">← Inicio</a></li></ul></div></div><div class="footer-bottom"><span class="footer-copy">© 2025 Javo Te Cocina · Salta, ARG</span><div class="soc-links"><a class="soc-link" href="https://instagram.com/javotecocina" target="_blank">IG</a><a class="soc-link" href="#">YT</a><a class="soc-link" href="https://tiktok.com/@javotecocina" target="_blank">TK</a></div></div></footer>
 </div>
 
 <!-- LIGHTBOX -->
