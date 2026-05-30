@@ -10,8 +10,8 @@
 <meta property="og:url" content="https://javotecocina.com">
 <link rel="canonical" href="https://javotecocina.com">
 <title>Javo Te Cocina | Salta, Argentina</title>
-<link rel="icon" type="image/png" href="img/logo-jtc-nav.png">
-<link rel="apple-touch-icon" href="img/logo-jtc-nav.png">
+<link rel="icon" type="image/png" href="img/favicon-jtc.png">
+<link rel="apple-touch-icon" href="img/favicon-jtc.png">
 
 <!-- 3 TIPOGRAFÍAS — rústicas, con carácter -->
 <!-- 1. Cormorant Garamond — display, títulos grandes, elegancia rústica -->
@@ -135,8 +135,8 @@ nav.scrolled{
   position:relative;overflow:hidden;
 }
 .hero-left{
-  display:flex;flex-direction:column;justify-content:center;
-  padding:80px 5vw 4vh;position:relative;z-index:2;
+  display:flex;flex-direction:column;justify-content:flex-start;
+  padding:120px 5vw 6vh;position:relative;z-index:2;
 }
 .hero-right{position:relative;overflow:hidden;}
 .hero-right img{
@@ -505,6 +505,29 @@ h2.sec-title em{font-style:italic;color:var(--puna);}
 .mk-prop-val{font-family:var(--font-display);font-size:1.9rem;font-weight:700;color:var(--puna);margin-bottom:0.15rem;line-height:1;}
 .mk-prop-key{font-family:var(--font-data);font-size:0.5rem;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:var(--niebla);margin-bottom:0.55rem;}
 .mk-prop-desc{font-family:var(--font-body);font-size:0.76rem;color:rgba(245,237,216,0.4);font-style:italic;line-height:1.6;}
+/* ── NAVBAR RESPONSIVE (tablets y mobile) ── */
+@media(max-width:900px){
+  /* navbar siempre con fondo para que el menú se vea */
+  nav{background:rgba(44,26,14,0.95);backdrop-filter:blur(12px);}
+  .nav-logo img{height:32px;}
+  .nav-logo-txt{font-size:1.15rem;}
+  /* nav hamburger — bien visible */
+  .nav-hamburger{
+    display:flex;background:var(--fuego);border-color:var(--fuego);
+    padding:8px 13px 6px;
+  }
+  .nav-hamburger span{background:var(--sal);height:2px;}
+  .nav-hamburger-lbl{color:rgba(245,237,216,0.9);font-size:0.5rem;}
+  .nav-links{
+    display:none;position:fixed;top:68px;left:0;right:0;bottom:0;
+    background:rgba(44,26,14,0.98);backdrop-filter:blur(20px);
+    flex-direction:column;align-items:center;justify-content:center;
+    gap:2.25rem;z-index:150;list-style:none;padding:0;
+  }
+  .nav-links.open{display:flex;}
+  .nav-links a{font-size:0.95rem;letter-spacing:0.18em;color:rgba(245,237,216,0.85);}
+  .nav-auth{display:none;}
+}
 @media(max-width:768px){
   /* hero */
   #hero{grid-template-columns:1fr;grid-template-rows:55vw 1fr;}
@@ -513,17 +536,6 @@ h2.sec-title em{font-style:italic;color:var(--puna);}
   .hero-left{grid-row:2;grid-column:1;padding:2rem 6vw 4rem;justify-content:flex-start;}
   h1.hero-title{font-size:clamp(2.2rem,8vw,3.5rem);}
   .hero-desc{font-size:0.86rem;margin-bottom:2rem;}
-  /* nav hamburger */
-  .nav-hamburger{display:flex;}
-  .nav-links{
-    display:none;position:fixed;top:68px;left:0;right:0;bottom:0;
-    background:rgba(44,26,14,0.97);backdrop-filter:blur(20px);
-    flex-direction:column;align-items:center;justify-content:center;
-    gap:2.25rem;z-index:150;list-style:none;padding:0;
-  }
-  .nav-links.open{display:flex;}
-  .nav-links a{font-size:0.85rem;letter-spacing:0.18em;color:rgba(245,237,216,0.7);}
-  .nav-auth{display:none;}
   /* grids */
   .stats-row{grid-template-columns:1fr 1fr;}
   .nav-cards{grid-template-columns:1fr 1fr;}
