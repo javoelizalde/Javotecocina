@@ -10,8 +10,8 @@
 <meta property="og:url" content="https://javotecocina.com">
 <link rel="canonical" href="https://javotecocina.com">
 <title>Javo Te Cocina | Salta, Argentina</title>
-<link rel="icon" type="image/png" href="img/logo-jtc-black.png">
-<link rel="apple-touch-icon" href="img/logo-jtc-black.png">
+<link rel="icon" type="image/png" href="img/logo-jtc-nav.png">
+<link rel="apple-touch-icon" href="img/logo-jtc-nav.png">
 
 <!-- 3 TIPOGRAFÍAS — rústicas, con carácter -->
 <!-- 1. Cormorant Garamond — display, títulos grandes, elegancia rústica -->
@@ -109,9 +109,7 @@ nav.scrolled{
   color:var(--sal);text-decoration:none;
 }
 .nav-logo img{height:40px;width:auto;display:block;}
-.hero-brand{display:flex;align-items:center;gap:0.85rem;margin-bottom:1.75rem;}
-.hero-brand img{height:64px;width:auto;display:block;}
-.hero-brand span{font-family:var(--font-display);font-size:1.7rem;font-weight:700;letter-spacing:0.02em;color:var(--sal);}
+.nav-logo-txt{font-family:var(--font-display);font-size:1.45rem;font-weight:700;letter-spacing:0.02em;color:var(--sal);}
 .nav-logo-txt span{color:var(--puna);}
 .nav-links{display:flex;gap:1.75rem;list-style:none;align-items:center;}
 .nav-links a{
@@ -837,7 +835,7 @@ footer{background:var(--tierra);border-top:1px solid rgba(196,133,58,0.12);paddi
 <div class="toast" id="toast"><div class="toast-title" id="toast-title"></div><div class="toast-msg" id="toast-msg"></div></div>
 
 <nav id="navbar">
-  <a href="#" class="nav-logo" onclick="showPage('home')"><img src="img/logo-jtc-nav.png" alt="Javotecocina"></a>
+  <a href="#" class="nav-logo" onclick="showPage('home')"><img src="img/logo-jtc-header.png" alt="Javotecocina"><span class="nav-logo-txt">Javotecocina</span></a>
   <ul class="nav-links">
     <li><a onclick="showPage('quien')">Quién Soy</a></li>
     <li><a onclick="showPage('servicios')">Servicios</a></li>
@@ -868,7 +866,6 @@ footer{background:var(--tierra);border-top:1px solid rgba(196,133,58,0.12);paddi
     <div class="hero-horizon"></div>
     <div class="hero-left">
       <div style="position:relative;z-index:2;">
-        <div class="hero-brand"><img src="img/logo-jtc-header.png" alt="Javotecocina"><span>Javotecocina</span></div>
         <div class="hero-location">Salta · Buenos Aires · Argentina</div>
         <div class="hero-eyebrow">Cocinero Apasionado & Creador</div>
         <h1 class="hero-title">Cocina real.<br>Contenido<br><em>auténtico.</em><br>Experiencias<br>inolvidables.</h1>
