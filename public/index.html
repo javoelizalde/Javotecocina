@@ -108,7 +108,10 @@ nav.scrolled{
   font-size:1.55rem;font-weight:700;letter-spacing:0.04em;
   color:var(--sal);text-decoration:none;
 }
-.nav-logo img{height:30px;width:auto;display:block;}
+.nav-logo img{height:40px;width:auto;display:block;}
+.hero-brand{display:flex;align-items:center;gap:0.85rem;margin-bottom:1.75rem;}
+.hero-brand img{height:64px;width:auto;display:block;}
+.hero-brand span{font-family:var(--font-display);font-size:1.7rem;font-weight:700;letter-spacing:0.02em;color:var(--sal);}
 .nav-logo-txt span{color:var(--puna);}
 .nav-links{display:flex;gap:1.75rem;list-style:none;align-items:center;}
 .nav-links a{
@@ -834,7 +837,7 @@ footer{background:var(--tierra);border-top:1px solid rgba(196,133,58,0.12);paddi
 <div class="toast" id="toast"><div class="toast-title" id="toast-title"></div><div class="toast-msg" id="toast-msg"></div></div>
 
 <nav id="navbar">
-  <a href="#" class="nav-logo" onclick="showPage('home')"><img src="img/logo-jtc-white-h.png" alt="Javo Te Cocina"></a>
+  <a href="#" class="nav-logo" onclick="showPage('home')"><img src="img/logo-jtc-nav.png" alt="Javotecocina"></a>
   <ul class="nav-links">
     <li><a onclick="showPage('quien')">Quién Soy</a></li>
     <li><a onclick="showPage('servicios')">Servicios</a></li>
@@ -865,6 +868,7 @@ footer{background:var(--tierra);border-top:1px solid rgba(196,133,58,0.12);paddi
     <div class="hero-horizon"></div>
     <div class="hero-left">
       <div style="position:relative;z-index:2;">
+        <div class="hero-brand"><img src="img/logo-jtc-header.png" alt="Javotecocina"><span>Javotecocina</span></div>
         <div class="hero-location">Salta · Buenos Aires · Argentina</div>
         <div class="hero-eyebrow">Cocinero Apasionado & Creador</div>
         <h1 class="hero-title">Cocina real.<br>Contenido<br><em>auténtico.</em><br>Experiencias<br>inolvidables.</h1>
