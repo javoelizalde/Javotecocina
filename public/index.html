@@ -663,235 +663,14 @@ footer{background:var(--dark);border-top:1px solid rgba(245,237,228,.06);}
       <h2 class="sec-title" style="color:var(--dark);">Recetarios<br><em>para llevar</em><br>el fuego a casa.</h2>
       <p class="sec-desc" style="color:var(--muted);">PDFs descargables. Comprá y accedé al instante. Conocimiento del norte para dominar el fuego.</p>
     </div>
-    <div class="digital-grid">
-
-      <div class="digital-card featured reveal">
-        <img class="dc-img" src="img/p27.jpg" alt="Todo sobre Fierros" style="object-position:center 30%;">
-        <div class="dc-tag">📖 Parrilla</div>
-        <div class="dc-title">Todo sobre Fierros</div>
-        <p class="dc-desc">14 recetas de parrilla con técnica real. Tira, vacío, costillar, mollejas, chorizos caseros y guía completa de cortes con temperaturas internas.</p>
-        <div class="dc-footer">
-          <div class="dc-price">$34.700<small>ARS</small></div>
-        </div>
-        <div class="dc-actions">
-          <button class="btn-ver" onclick="openModal('fierros')">Ver más</button>
-          <button class="btn-buy" onclick="comprarRecetario('https://mpago.la/2Rk4Mu5','Todo sobre Fierros')">Comprar →</button>
-        </div>
-      </div>
-
-      <div class="digital-card reveal">
-        <img class="dc-img" src="img/p33.jpg" alt="A Todo Disco" style="object-position:center 70%;">
-        <div class="dc-tag">🌀 Disco de Arado</div>
-        <div class="dc-title">A Todo Disco</div>
-        <p class="dc-desc">14 recetas de disco de arado, incluyendo "El Disco de Javo" — mi receta emblema. Cordero, costillar, pollo y osobuco braseado.</p>
-        <div class="dc-footer">
-          <div class="dc-price">$38.900<small>ARS</small></div>
-        </div>
-        <div class="dc-actions">
-          <button class="btn-ver" onclick="openModal('disco')">Ver más</button>
-          <button class="btn-buy" onclick="comprarRecetario('https://mpago.la/1Eaouxj','A Todo Disco')">Comprar →</button>
-        </div>
-      </div>
-
-      <div class="digital-card reveal">
-        <img class="dc-img" src="img/p02.jpg" alt="A Todo Keveri" style="object-position:center 15%;">
-        <div class="dc-tag">⚡ Keveri</div>
-        <div class="dc-title">A Todo Keveri</div>
-        <p class="dc-desc">13 recetas para el horno multifuncional a carbón. Pizza a la piedra, bondiola al slow smoke, fast grill y pan artesanal.</p>
-        <div class="dc-footer">
-          <div class="dc-price">$34.700<small>ARS</small></div>
-        </div>
-        <div class="dc-actions">
-          <button class="btn-ver" onclick="openModal('keveri')">Ver más</button>
-          <button class="btn-buy" onclick="comprarRecetario('https://mpago.la/1EPmaSB','A Todo Keveri')">Comprar →</button>
-        </div>
-      </div>
-
-      <div class="digital-card reveal">
-        <img class="dc-img" src="img/p08.jpg" alt="Donde Hay Humo" style="object-position:center 10%;">
-        <div class="dc-tag">💨 Ahumador</div>
-        <div class="dc-title">Donde Hay Humo</div>
-        <p class="dc-desc">12 recetas de ahumado lento. Brisket, bondiola pulled pork, ribs 3-2-1, trucha y guía completa de maderas (quebracho, manzano, cerezo).</p>
-        <div class="dc-footer">
-          <div class="dc-price">$34.700<small>ARS</small></div>
-        </div>
-        <div class="dc-actions">
-          <button class="btn-ver" onclick="openModal('humo')">Ver más</button>
-          <button class="btn-buy" onclick="comprarRecetario('https://mpago.la/2RTHuzA','Donde Hay Humo')">Comprar →</button>
-        </div>
-      </div>
-
-      <div class="digital-card featured reveal">
-        <img class="dc-img" src="img/p28.jpg" alt="Sabores Salteños" style="object-position:center 40%;">
-        <div class="dc-tag">🌶️ Cocina NOA</div>
-        <div class="dc-title">Sabores Salteños</div>
-        <p class="dc-desc">15 recetas de la cocina norteña: empanadas, humitas, tamales, locro, carbonada y cordero a la cruz. Mi homenaje a Salta.</p>
-        <div class="dc-footer">
-          <div class="dc-price">$34.700<small>ARS</small></div>
-        </div>
-        <div class="dc-actions">
-          <button class="btn-ver" onclick="openModal('saltenos')">Ver más</button>
-          <button class="btn-buy" onclick="comprarRecetario('https://mpago.la/1Kwh2qe','Sabores Salteños')">Comprar →</button>
-        </div>
-      </div>
-
-      <div class="digital-card reveal">
-        <img class="dc-img" src="img/p11.jpg" alt="Lo Fresco del Norte" style="object-position:center 35%;">
-        <div class="dc-tag">🥗 Frescos</div>
-        <div class="dc-title">Lo Fresco del Norte</div>
-        <p class="dc-desc">11 recetas de crudos y ensaladas NOA: ceviches de trucha, quinoa, gazpacho norteño y chimichurri madre. Ingredientes del norte, técnica fina.</p>
-        <div class="dc-footer">
-          <div class="dc-price">$34.700<small>ARS</small></div>
-        </div>
-        <div class="dc-actions">
-          <button class="btn-ver" onclick="openModal('fresco')">Ver más</button>
-          <button class="btn-buy" onclick="comprarRecetario('https://mpago.la/1y5iGdK','Lo Fresco del Norte')">Comprar →</button>
-        </div>
-      </div>
-
+    <div class="digital-grid" id="recetariosGrid">
+      <div style="grid-column:1/-1;text-align:center;padding:3rem 0;color:var(--muted);font-size:.9rem;">Cargando recetarios...</div>
     </div>
   </div>
 </section>
 
-<!-- MODALES DE RECETARIOS -->
-<div class="modal-bg" id="modal-fierros" onclick="closeModalBg(event,'modal-fierros')">
-  <div class="modal-box">
-    <button class="modal-close" onclick="closeModal('modal-fierros')">✕</button>
-    <img class="modal-header-img" src="img/p27.jpg" alt="Todo sobre Fierros">
-    <div class="modal-body">
-      <div class="modal-tag">📖 Recetario Digital · Parrilla</div>
-      <div class="modal-title">Todo sobre Fierros</div>
-      <p class="modal-desc">14 recetas de parrilla con técnica real. Tira de asado, vacío, costillar entero, mollejas, chorizos caseros, lechón a la cruz y guía completa de cortes con temperaturas internas. Todo lo que aprendí frente al fuego durante años.</p>
-      <ul class="modal-includes">
-        <li>14 recetas con técnicas paso a paso</li>
-        <li>Guía de cortes y temperaturas internas</li>
-        <li>Secretos del fuego y manejo de brasas</li>
-        <li>PDF descargable de alta calidad</li>
-        <li>Acceso de por vida</li>
-        <li>Vista previa gratuita</li>
-      </ul>
-      <div class="modal-footer">
-        <div class="modal-price">$34.700 ARS</div>
-        <button class="btn-primary" onclick="comprarRecetario('https://mpago.la/2Rk4Mu5','Todo sobre Fierros')">Comprar ahora →</button>
-      </div>
-    </div>
-  </div>
-</div>
-
-<div class="modal-bg" id="modal-disco" onclick="closeModalBg(event,'modal-disco')">
-  <div class="modal-box">
-    <button class="modal-close" onclick="closeModal('modal-disco')">✕</button>
-    <img class="modal-header-img" src="img/p33.jpg" alt="A Todo Disco" style="object-position:center 65%;">
-    <div class="modal-body">
-      <div class="modal-tag">📖 Recetario Digital · Disco de Arado</div>
-      <div class="modal-title">A Todo Disco</div>
-      <p class="modal-desc">14 recetas de disco de arado, incluyendo "El Disco de Javo" — mi receta emblema que marcó mi carrera. Cordero braseado, costillar, pollo al disco, lentejas con chorizo, osobuco y mucho más. El disco no tiene límites.</p>
-      <ul class="modal-includes">
-        <li>14 recetas + receta emblema destacada</li>
-        <li>Técnicas de fuego y capas para el disco</li>
-        <li>Tiempos y manejo del calor</li>
-        <li>PDF descargable de alta calidad</li>
-        <li>Acceso de por vida</li>
-      </ul>
-      <div class="modal-footer">
-        <div class="modal-price">$38.900 ARS</div>
-        <button class="btn-primary" onclick="comprarRecetario('https://mpago.la/1Eaouxj','A Todo Disco')">Comprar ahora →</button>
-      </div>
-    </div>
-  </div>
-</div>
-
-<div class="modal-bg" id="modal-keveri" onclick="closeModalBg(event,'modal-keveri')">
-  <div class="modal-box">
-    <button class="modal-close" onclick="closeModal('modal-keveri')">✕</button>
-    <img class="modal-header-img" src="img/p02.jpg" alt="A Todo Keveri">
-    <div class="modal-body">
-      <div class="modal-tag">📖 Recetario Digital · Keveri</div>
-      <div class="modal-title">A Todo Keveri</div>
-      <p class="modal-desc">13 recetas para el horno multifuncional a carbón que va del 110°C al 500°C. Pizza a la piedra, bondiola slow smoke, fast grill de pollo, pan artesanal, medialunas y mucho más. Todo en uno.</p>
-      <ul class="modal-includes">
-        <li>13 recetas para todos los modos del Keveri</li>
-        <li>Ficha técnica y guía de temperaturas</li>
-        <li>Técnicas fast grill y slow smoke</li>
-        <li>PDF descargable de alta calidad</li>
-        <li>Acceso de por vida</li>
-      </ul>
-      <div class="modal-footer">
-        <div class="modal-price">$34.700 ARS</div>
-        <button class="btn-primary" onclick="comprarRecetario('https://mpago.la/1EPmaSB','A Todo Keveri')">Comprar ahora →</button>
-      </div>
-    </div>
-  </div>
-</div>
-
-<div class="modal-bg" id="modal-humo" onclick="closeModalBg(event,'modal-humo')">
-  <div class="modal-box">
-    <button class="modal-close" onclick="closeModal('modal-humo')">✕</button>
-    <img class="modal-header-img" src="img/p08.jpg" alt="Donde Hay Humo">
-    <div class="modal-body">
-      <div class="modal-tag">📖 Recetario Digital · Ahumador</div>
-      <div class="modal-title">Donde Hay Humo</div>
-      <p class="modal-desc">12 recetas de ahumado lento. Brisket americano, bondiola pulled pork, ribs 3-2-1, trucha entera, queso gouda ahumado y guía completa de maderas: quebracho, manzano, cerezo, nogal y olivo. El humo como ingrediente.</p>
-      <ul class="modal-includes">
-        <li>12 recetas de ahumado low & slow</li>
-        <li>Guía completa de maderas y sabores</li>
-        <li>Temperaturas y tiempos exactos</li>
-        <li>PDF descargable de alta calidad</li>
-        <li>Acceso de por vida</li>
-      </ul>
-      <div class="modal-footer">
-        <div class="modal-price">$34.700 ARS</div>
-        <button class="btn-primary" onclick="comprarRecetario('https://mpago.la/2RTHuzA','Donde Hay Humo')">Comprar ahora →</button>
-      </div>
-    </div>
-  </div>
-</div>
-
-<div class="modal-bg" id="modal-saltenos" onclick="closeModalBg(event,'modal-saltenos')">
-  <div class="modal-box">
-    <button class="modal-close" onclick="closeModal('modal-saltenos')">✕</button>
-    <img class="modal-header-img" src="img/p28.jpg" alt="Sabores Salteños">
-    <div class="modal-body">
-      <div class="modal-tag">📖 Recetario Digital · Cocina NOA</div>
-      <div class="modal-title">Sabores Salteños</div>
-      <p class="modal-desc">15 recetas de la cocina norteña: empanadas salteñas, humitas en chala, tamales, locro, carbonada, cordero a la cruz, charqui, mazamorra y más. Mi homenaje a Salta y a la tierra donde aprendí a cocinar.</p>
-      <ul class="modal-includes">
-        <li>15 recetas de identidad salteña y NOA</li>
-        <li>Historia y contexto cultural de cada plato</li>
-        <li>Ingredientes del norte y dónde conseguirlos</li>
-        <li>PDF descargable de alta calidad</li>
-        <li>Acceso de por vida</li>
-      </ul>
-      <div class="modal-footer">
-        <div class="modal-price">$34.700 ARS</div>
-        <button class="btn-primary" onclick="comprarRecetario('https://mpago.la/1Kwh2qe','Sabores Salteños')">Comprar ahora →</button>
-      </div>
-    </div>
-  </div>
-</div>
-
-<div class="modal-bg" id="modal-fresco" onclick="closeModalBg(event,'modal-fresco')">
-  <div class="modal-box">
-    <button class="modal-close" onclick="closeModal('modal-fresco')">✕</button>
-    <img class="modal-header-img" src="img/p11.jpg" alt="Lo Fresco del Norte">
-    <div class="modal-body">
-      <div class="modal-tag">📖 Recetario Digital · Frescos</div>
-      <div class="modal-title">Lo Fresco del Norte</div>
-      <p class="modal-desc">11 recetas de la otra cara de Javo: ceviches de trucha del norte, tartar, carpaccio, ensaladas con quinoa real, gazpacho norteño y el chimichurri madre de Salta. Ingredientes del NOA, técnica fina y sabores limpios.</p>
-      <ul class="modal-includes">
-        <li>11 recetas frescas con ingredientes NOA</li>
-        <li>Despensa del norte: trucha, locoto, quirquiña</li>
-        <li>Técnicas de corte y emplatado</li>
-        <li>PDF descargable de alta calidad</li>
-        <li>Acceso de por vida</li>
-      </ul>
-      <div class="modal-footer">
-        <div class="modal-price">$34.700 ARS</div>
-        <button class="btn-primary" onclick="comprarRecetario('https://mpago.la/1y5iGdK','Lo Fresco del Norte')">Comprar ahora →</button>
-      </div>
-    </div>
-  </div>
-</div>
+<!-- MODALES DE RECETARIOS (generados dinámicamente) -->
+<div id="recetariosModales"></div>
 
 <!-- ═══════════ PORTFOLIO ═══════════ -->
 <section class="portfolio" id="portfolio">
@@ -1557,10 +1336,10 @@ window.addEventListener('scroll',()=>{
 },{passive:true});
 
 /* ── SCROLL REVEAL ── */
-const observer=new IntersectionObserver(entries=>{
+window._revealObserver=new IntersectionObserver(entries=>{
   entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');}});
 },{threshold:.12});
-document.querySelectorAll('.reveal').forEach(el=>observer.observe(el));
+document.querySelectorAll('.reveal').forEach(el=>window._revealObserver.observe(el));
 
 /* ── MOBILE MENU ── */
 function toggleMobileMenu(){
@@ -1664,6 +1443,62 @@ async function sendColaboWA(){
 function consultarProducto(nombre){
   const msg=`Hola Javo! 👋 Me interesa el producto: *${nombre}*.\n\n¿Podés darme más información sobre disponibilidad, precio y envío?\n\n¡Gracias! 🙌`;
   window.open('https://wa.me/543874105902?text='+encodeURIComponent(msg),'_blank');
+}
+
+/* ── RECETARIOS DINÁMICOS ── */
+async function loadRecetariosPublic(){
+  try{
+    const r=await fetch(`${SUPA_URL}/rest/v1/recetarios?activo=eq.true&order=orden.asc.nullslast,created_at.asc`,{
+      headers:{'apikey':SUPA_KEY,'Authorization':'Bearer '+SUPA_KEY}
+    });
+    if(!r.ok)return;
+    const list=await r.json();
+    if(!list.length)return;
+    const grid=document.getElementById('recetariosGrid');
+    const modalesContainer=document.getElementById('recetariosModales');
+    const esc=s=>String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;');
+    grid.innerHTML=list.map(rec=>{
+      const precio=rec.precio?'$'+Number(rec.precio).toLocaleString('es-AR'):'';
+      const slug='rec'+rec.id;
+      return`<div class="digital-card ${rec.featured?'featured':''} reveal">
+        <img class="dc-img" src="${esc(rec.foto_url||'')}" alt="${esc(rec.titulo||'')}">
+        <div class="dc-tag">${esc(rec.tag||'')}</div>
+        <div class="dc-title">${esc(rec.titulo||'')}</div>
+        <p class="dc-desc">${esc(rec.descripcion_corta||'')}</p>
+        <div class="dc-footer"><div class="dc-price">${precio}<small>ARS</small></div></div>
+        <div class="dc-actions">
+          <button class="btn-ver" onclick="openModal('${slug}')">Ver más</button>
+          <button class="btn-buy" onclick="comprarRecetario('${esc(rec.mp_link||'')}','${esc(rec.titulo||'')}')">Comprar →</button>
+        </div>
+      </div>`;
+    }).join('');
+    modalesContainer.innerHTML=list.map(rec=>{
+      const slug='rec'+rec.id;
+      const precio=rec.precio?'$'+Number(rec.precio).toLocaleString('es-AR')+' ARS':'';
+      const includes=rec.includes?rec.includes.split('\n').filter(Boolean).map(i=>`<li>${esc(i.trim())}</li>`).join(''):'';
+      return`<div class="modal-bg" id="modal-${slug}" onclick="closeModalBg(event,'modal-${slug}')">
+        <div class="modal-box">
+          <button class="modal-close" onclick="closeModal('modal-${slug}')">✕</button>
+          <img class="modal-header-img" src="${esc(rec.foto_url||'')}" alt="${esc(rec.titulo||'')}">
+          <div class="modal-body">
+            <div class="modal-tag">📖 Recetario Digital · ${esc(rec.tag||'')}</div>
+            <div class="modal-title">${esc(rec.titulo||'')}</div>
+            <p class="modal-desc">${esc(rec.descripcion_larga||rec.descripcion_corta||'')}</p>
+            <ul class="modal-includes">${includes}</ul>
+            <div class="modal-footer">
+              <div class="modal-price">${precio}</div>
+              <button class="btn-primary" onclick="comprarRecetario('${esc(rec.mp_link||'')}','${esc(rec.titulo||'')}')">Comprar ahora →</button>
+            </div>
+          </div>
+        </div>
+      </div>`;
+    }).join('');
+    // Re-observar elementos reveal recién creados
+    document.querySelectorAll('#recetariosGrid .reveal').forEach(el=>{
+      if(window._revealObserver)window._revealObserver.observe(el);
+      else el.classList.add('visible');
+    });
+  }catch(e){}
 }
 
 /* ── MODALES RECETARIOS ── */
@@ -1813,6 +1648,7 @@ function togglePortfolio(){
 
 // Init on load
 document.addEventListener('DOMContentLoaded',async()=>{
+  loadRecetariosPublic();
   await loadReviews();
   testiInit();
   buildRatingSummary();
