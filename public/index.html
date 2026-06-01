@@ -143,6 +143,29 @@ nav.scrolled{background:rgba(26,18,11,.92);backdrop-filter:blur(12px);padding:.9
 .portfolio-item:hover .portfolio-overlay{opacity:1;}
 .portfolio-cat{font-family:'Barlow Condensed',sans-serif;font-size:.7rem;font-weight:600;letter-spacing:.15em;text-transform:uppercase;color:var(--ember);margin-bottom:.3rem;}
 .portfolio-name{font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:700;color:var(--ash);}
+.portfolio-cta{font-family:'Barlow Condensed',sans-serif;font-size:.7rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:rgba(245,237,228,.55);margin-top:.5rem;transition:color .2s;}
+.portfolio-item:hover .portfolio-cta{color:var(--ember);}
+.portfolio-item{cursor:pointer;}
+.portfolio-extra{display:none;}
+.portfolio-extra.visible{display:block;}
+.port-ver-mas{text-align:center;margin-top:2.5rem;}
+@media(max-width:768px){
+  .portfolio-item:nth-child(n+4):not(.portfolio-extra){display:none;}
+  .portfolio-item:nth-child(n+4).mobile-visible{display:block;}
+}
+
+/* Portfolio story modals */
+.port-modal-box{background:var(--dark);border-radius:4px;max-width:780px;width:100%;max-height:92vh;overflow-y:auto;position:relative;border:1px solid rgba(245,237,228,.08);}
+.port-modal-hero{width:100%;height:320px;object-fit:cover;display:block;}
+.port-modal-body{padding:2rem 2.5rem 2.5rem;}
+.port-modal-label{font-family:'Barlow Condensed',sans-serif;font-size:.7rem;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--ember);margin-bottom:.65rem;display:flex;align-items:center;gap:.6rem;}
+.port-modal-label::before{content:'';display:block;width:20px;height:1px;background:var(--ember);}
+.port-modal-title{font-family:'Playfair Display',serif;font-size:1.9rem;font-weight:700;color:var(--ash);line-height:1.15;margin-bottom:1.25rem;}
+.port-modal-story{font-size:.95rem;font-weight:300;color:rgba(245,237,228,.65);line-height:1.85;}
+.port-modal-story p{margin-bottom:1rem;}
+.port-modal-story p:last-child{margin-bottom:0;}
+.port-modal-close{position:absolute;top:1rem;right:1rem;background:rgba(26,18,11,.6);border:1px solid rgba(245,237,228,.1);border-radius:2px;font-size:1rem;color:rgba(245,237,228,.6);width:32px;height:32px;display:flex;align-items:center;justify-content:center;transition:color .2s,border-color .2s;}
+.port-modal-close:hover{color:var(--ash);border-color:rgba(245,237,228,.3);}
 
 /* ── BRANDS ── */
 .brands-sec{background:var(--cream);}
@@ -843,66 +866,168 @@ footer{background:var(--dark);border-top:1px solid rgba(245,237,228,.06);}
         <button class="filter-btn" onclick="filterPortfolio(this,'contenido')">Contenido</button>
       </div>
     </div>
-    <div class="portfolio-grid reveal">
-      <div class="portfolio-item" data-cat="marcas" data-size="featured">
+    <div class="portfolio-grid reveal" id="portfolioGrid">
+      <div class="portfolio-item" data-cat="marcas" onclick="openPortModal('pm1')">
         <img class="portfolio-thumb" src="img/p32.jpg" alt="Experiencias de Marca">
         <div class="portfolio-overlay">
           <div class="portfolio-cat">Marcas</div>
           <div class="portfolio-name">Experiencias de Marca</div>
+          <div class="portfolio-cta">Ver historia →</div>
         </div>
       </div>
-      <div class="portfolio-item" data-cat="parrilla">
+      <div class="portfolio-item" data-cat="parrilla" onclick="openPortModal('pm2')">
         <img class="portfolio-thumb" src="img/p27.jpg" alt="Asado & Parrilla">
         <div class="portfolio-overlay">
           <div class="portfolio-cat">Parrilla</div>
           <div class="portfolio-name">Asado & Parrilla</div>
+          <div class="portfolio-cta">Ver historia →</div>
         </div>
       </div>
-      <div class="portfolio-item" data-cat="eventos">
+      <div class="portfolio-item" data-cat="eventos" onclick="openPortModal('pm3')">
         <img class="portfolio-thumb" src="img/p14.jpg" alt="Eventos Propios">
         <div class="portfolio-overlay">
           <div class="portfolio-cat">Eventos</div>
           <div class="portfolio-name">Eventos Propios</div>
+          <div class="portfolio-cta">Ver historia →</div>
         </div>
       </div>
-      <div class="portfolio-item" data-cat="contenido">
-        <img class="portfolio-thumb" src="img/p02.jpg" alt="Contenido Digital">
+      <div class="portfolio-item" data-cat="contenido" onclick="openPortModal('pm4')">
+        <img class="portfolio-thumb" src="img/p02.jpg" alt="Keveri & Fuego">
         <div class="portfolio-overlay">
           <div class="portfolio-cat">Contenido</div>
           <div class="portfolio-name">Keveri & Fuego</div>
+          <div class="portfolio-cta">Ver historia →</div>
         </div>
       </div>
-      <div class="portfolio-item" data-cat="eventos" data-size="featured">
+      <div class="portfolio-item" data-cat="eventos" onclick="openPortModal('pm5')">
         <img class="portfolio-thumb" src="img/p24.jpg" alt="Corporativos">
         <div class="portfolio-overlay">
           <div class="portfolio-cat">Eventos</div>
           <div class="portfolio-name">Corporativos & Team Building</div>
+          <div class="portfolio-cta">Ver historia →</div>
         </div>
       </div>
-      <div class="portfolio-item" data-cat="parrilla">
+      <div class="portfolio-item" data-cat="parrilla" onclick="openPortModal('pm6')">
         <img class="portfolio-thumb" src="img/p09.jpg" alt="Cocina a Domicilio">
         <div class="portfolio-overlay">
           <div class="portfolio-cat">Parrilla</div>
           <div class="portfolio-name">Cocina a Domicilio</div>
+          <div class="portfolio-cta">Ver historia →</div>
         </div>
       </div>
-      <div class="portfolio-item" data-cat="marcas">
+      <!-- Items extra: ocultos por defecto -->
+      <div class="portfolio-item portfolio-extra" data-cat="contenido" onclick="openPortModal('pm7')">
         <img class="portfolio-thumb" src="img/p33.jpg" alt="A Todo Disco">
         <div class="portfolio-overlay">
           <div class="portfolio-cat">Contenido</div>
           <div class="portfolio-name">A Todo Disco</div>
+          <div class="portfolio-cta">Ver historia →</div>
         </div>
       </div>
-      <div class="portfolio-item" data-cat="contenido">
-        <img class="portfolio-thumb" src="img/p28.jpg" alt="Sabores Soltenos">
+      <div class="portfolio-item portfolio-extra" data-cat="contenido" onclick="openPortModal('pm8')">
+        <img class="portfolio-thumb" src="img/p28.jpg" alt="Sabores Salteños">
         <div class="portfolio-overlay">
           <div class="portfolio-cat">Contenido</div>
-          <div class="portfolio-name">Sabores Saltenos</div>
+          <div class="portfolio-name">Sabores Salteños</div>
+          <div class="portfolio-cta">Ver historia →</div>
         </div>
       </div>
     </div>
+    <div class="port-ver-mas reveal" id="portVerMas">
+      <button class="btn-outline" id="portVerMasBtn" onclick="togglePortfolio()" style="color:var(--ash);border-color:rgba(245,237,228,.25);">Ver todas las experiencias →</button>
+    </div>
   </div>
 </section>
+
+<!-- MODALES PORTFOLIO -->
+<div class="modal-bg" id="pm1" onclick="closePortModal(event,'pm1')">
+  <div class="port-modal-box">
+    <button class="port-modal-close" onclick="closePortModal2('pm1')">✕</button>
+    <img class="port-modal-hero" src="img/p32.jpg" alt="Experiencias de Marca">
+    <div class="port-modal-body">
+      <div class="port-modal-label">Marcas</div>
+      <div class="port-modal-title">Experiencias de Marca</div>
+      <div class="port-modal-story"><p>Historia próximamente.</p></div>
+    </div>
+  </div>
+</div>
+<div class="modal-bg" id="pm2" onclick="closePortModal(event,'pm2')">
+  <div class="port-modal-box">
+    <button class="port-modal-close" onclick="closePortModal2('pm2')">✕</button>
+    <img class="port-modal-hero" src="img/p27.jpg" alt="Asado & Parrilla">
+    <div class="port-modal-body">
+      <div class="port-modal-label">Parrilla</div>
+      <div class="port-modal-title">Asado & Parrilla</div>
+      <div class="port-modal-story"><p>Historia próximamente.</p></div>
+    </div>
+  </div>
+</div>
+<div class="modal-bg" id="pm3" onclick="closePortModal(event,'pm3')">
+  <div class="port-modal-box">
+    <button class="port-modal-close" onclick="closePortModal2('pm3')">✕</button>
+    <img class="port-modal-hero" src="img/p14.jpg" alt="Eventos Propios">
+    <div class="port-modal-body">
+      <div class="port-modal-label">Eventos</div>
+      <div class="port-modal-title">Eventos Propios</div>
+      <div class="port-modal-story"><p>Historia próximamente.</p></div>
+    </div>
+  </div>
+</div>
+<div class="modal-bg" id="pm4" onclick="closePortModal(event,'pm4')">
+  <div class="port-modal-box">
+    <button class="port-modal-close" onclick="closePortModal2('pm4')">✕</button>
+    <img class="port-modal-hero" src="img/p02.jpg" alt="Keveri & Fuego">
+    <div class="port-modal-body">
+      <div class="port-modal-label">Contenido</div>
+      <div class="port-modal-title">Keveri & Fuego</div>
+      <div class="port-modal-story"><p>Historia próximamente.</p></div>
+    </div>
+  </div>
+</div>
+<div class="modal-bg" id="pm5" onclick="closePortModal(event,'pm5')">
+  <div class="port-modal-box">
+    <button class="port-modal-close" onclick="closePortModal2('pm5')">✕</button>
+    <img class="port-modal-hero" src="img/p24.jpg" alt="Corporativos">
+    <div class="port-modal-body">
+      <div class="port-modal-label">Eventos</div>
+      <div class="port-modal-title">Corporativos & Team Building</div>
+      <div class="port-modal-story"><p>Historia próximamente.</p></div>
+    </div>
+  </div>
+</div>
+<div class="modal-bg" id="pm6" onclick="closePortModal(event,'pm6')">
+  <div class="port-modal-box">
+    <button class="port-modal-close" onclick="closePortModal2('pm6')">✕</button>
+    <img class="port-modal-hero" src="img/p09.jpg" alt="Cocina a Domicilio">
+    <div class="port-modal-body">
+      <div class="port-modal-label">Parrilla</div>
+      <div class="port-modal-title">Cocina a Domicilio</div>
+      <div class="port-modal-story"><p>Historia próximamente.</p></div>
+    </div>
+  </div>
+</div>
+<div class="modal-bg" id="pm7" onclick="closePortModal(event,'pm7')">
+  <div class="port-modal-box">
+    <button class="port-modal-close" onclick="closePortModal2('pm7')">✕</button>
+    <img class="port-modal-hero" src="img/p33.jpg" alt="A Todo Disco" style="object-position:center 70%;">
+    <div class="port-modal-body">
+      <div class="port-modal-label">Contenido</div>
+      <div class="port-modal-title">A Todo Disco</div>
+      <div class="port-modal-story"><p>Historia próximamente.</p></div>
+    </div>
+  </div>
+</div>
+<div class="modal-bg" id="pm8" onclick="closePortModal(event,'pm8')">
+  <div class="port-modal-box">
+    <button class="port-modal-close" onclick="closePortModal2('pm8')">✕</button>
+    <img class="port-modal-hero" src="img/p28.jpg" alt="Sabores Salteños">
+    <div class="port-modal-body">
+      <div class="port-modal-label">Contenido</div>
+      <div class="port-modal-title">Sabores Salteños</div>
+      <div class="port-modal-story"><p>Historia próximamente.</p></div>
+    </div>
+  </div>
+</div>
 <!-- ═══════════ MARCAS ═══════════ -->
 <section class="brands-sec" id="marcas">
   <div class="container">
@@ -1444,6 +1569,30 @@ function enviarTestimonio(){
   document.getElementById('t-texto').value='';
   document.getElementById('t-estrellas').dataset.val='0';
   document.getElementById('t-estrellas').querySelectorAll('span').forEach(s=>s.classList.remove('on'));
+}
+
+/* ── PORTFOLIO MODALS ── */
+function openPortModal(id){
+  document.getElementById(id).classList.add('open');
+  document.body.style.overflow='hidden';
+}
+function closePortModal(e,id){
+  if(e.target===e.currentTarget){
+    document.getElementById(id).classList.remove('open');
+    document.body.style.overflow='';
+  }
+}
+function closePortModal2(id){
+  document.getElementById(id).classList.remove('open');
+  document.body.style.overflow='';
+}
+let portExpanded=false;
+function togglePortfolio(){
+  portExpanded=!portExpanded;
+  document.querySelectorAll('.portfolio-extra').forEach(el=>el.classList.toggle('visible',portExpanded));
+  document.querySelectorAll('.portfolio-item:nth-child(n+4)').forEach(el=>el.classList.toggle('mobile-visible',portExpanded));
+  const btn=document.getElementById('portVerMasBtn');
+  btn.textContent=portExpanded?'Ver menos ↑':'Ver todas las experiencias →';
 }
 
 // Init on load
