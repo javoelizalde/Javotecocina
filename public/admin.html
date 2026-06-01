@@ -134,6 +134,12 @@ body{font-family:'Barlow',sans-serif;background:var(--dark);color:var(--ash);min
 .upload-area input{display:none;}
 .upload-hint{font-size:.82rem;color:var(--muted);line-height:1.5;}
 .upload-preview{width:100%;height:130px;object-fit:cover;border-radius:3px;margin-top:.75rem;display:none;}
+.pdf-upload-area{border:2px dashed var(--border);border-radius:4px;padding:1.25rem;text-align:center;cursor:pointer;transition:border .2s;}
+.pdf-upload-area:hover{border-color:var(--fire);}
+.pdf-upload-area input{display:none;}
+.pdf-current{display:flex;align-items:center;gap:.65rem;background:rgba(46,204,113,.08);border:1px solid rgba(46,204,113,.2);border-radius:3px;padding:.65rem .85rem;margin-top:.65rem;font-size:.82rem;}
+.pdf-current a{color:var(--success);text-decoration:none;flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+.pdf-current a:hover{text-decoration:underline;}
 .save-err{color:var(--danger);font-size:.8rem;margin-top:.5rem;display:none;}
 .loader{text-align:center;padding:2.5rem 1rem;color:var(--muted);font-size:.85rem;}
 .empty-state{text-align:center;padding:3rem 1rem;color:var(--muted);}
@@ -324,6 +330,19 @@ body{font-family:'Barlow',sans-serif;background:var(--dark);color:var(--ash);min
         <img id="rec-foto-preview" class="upload-preview">
       </div>
     </div>
+    <div class="form-row">
+      <label>PDF del recetario</label>
+      <div class="pdf-upload-area" onclick="document.getElementById('rec-pdf-input').click()">
+        <input type="file" id="rec-pdf-input" accept="application/pdf" onchange="selectPdf(this)">
+        <div class="upload-hint">📄 Tocá para subir el PDF<br><small>Solo archivos PDF · Máx. 50MB</small></div>
+      </div>
+      <div id="rec-pdf-current" style="display:none;" class="pdf-current">
+        <span>📄</span>
+        <a id="rec-pdf-link" href="" target="_blank">Ver PDF actual</a>
+        <button class="btn-sm btn-reject" style="padding:.25rem .5rem;font-size:.65rem;" onclick="removePdf()">Quitar</button>
+      </div>
+      <div id="rec-pdf-selected" style="display:none;font-size:.8rem;color:var(--success);margin-top:.5rem;padding:.5rem .75rem;background:rgba(46,204,113,.08);border-radius:3px;"></div>
+    </div>
     <div class="form-row-check">
       <input type="checkbox" id="rec-activo" checked>
       <label for="rec-activo">Visible en la web</label>
@@ -344,6 +363,8 @@ const SUPA_KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJ
 let authToken=null;
 let allReviews=[],allEventLeads=[],allCollabLeads=[],allRecetarios=[];
 let currentRecFotoFile=null;
+let currentRecPdfFile=null;
+let currentRecPdfUrl=null; // pdf existente en DB
 let currentReviewFilter='pending';
 let currentLeadFilter='eventos';
 
@@ -482,6 +503,7 @@ function renderRecetarios(){
         <div class="rec-card-actions">
           <button class="btn-sm btn-edit" onclick="editRecetario(${r.id})">✏️ Editar</button>
           <button class="btn-sm btn-ghost" onclick="toggleRecActivo(${r.id},${!!r.activo})">${r.activo?'Ocultar':'Activar'}</button>
+          ${r.pdf_url?`<a class="btn-sm btn-approve" href="${r.pdf_url}" target="_blank" style="text-decoration:none;display:inline-block;">📄 Ver PDF</a>`:'<span style="font-size:.68rem;color:var(--muted);">Sin PDF</span>'}
         </div>
       </div>
     </div>`;
@@ -500,10 +522,13 @@ function openRecModal(){
   document.getElementById('rec-activo').checked=true;
   document.getElementById('rec-foto-preview').style.display='none';
   document.getElementById('rec-foto-input').value='';
+  document.getElementById('rec-pdf-input').value='';
+  document.getElementById('rec-pdf-current').style.display='none';
+  document.getElementById('rec-pdf-selected').style.display='none';
   document.getElementById('recSaveErr').style.display='none';
   document.getElementById('recModalTitle').textContent='Nuevo recetario';
   document.getElementById('recSaveBtn').textContent='Guardar';
-  currentRecFotoFile=null;
+  currentRecFotoFile=null;currentRecPdfFile=null;currentRecPdfUrl=null;
   document.getElementById('recModal').classList.add('open');
 }
 
@@ -522,10 +547,19 @@ function editRecetario(id){
   document.getElementById('recSaveErr').style.display='none';
   document.getElementById('recModalTitle').textContent='Editar recetario';
   document.getElementById('recSaveBtn').textContent='Guardar cambios';
-  currentRecFotoFile=null;
+  currentRecFotoFile=null;currentRecPdfFile=null;
+  currentRecPdfUrl=r.pdf_url||null;
   const prev=document.getElementById('rec-foto-preview');
   if(r.foto_url){prev.src=r.foto_url;prev.style.display='block';}
   else prev.style.display='none';
+  // PDF existente
+  document.getElementById('rec-pdf-input').value='';
+  document.getElementById('rec-pdf-selected').style.display='none';
+  const pdfCur=document.getElementById('rec-pdf-current');
+  if(r.pdf_url){
+    document.getElementById('rec-pdf-link').href=r.pdf_url;
+    pdfCur.style.display='flex';
+  } else {pdfCur.style.display='none';}
   document.getElementById('recModal').classList.add('open');
 }
 
@@ -539,6 +573,44 @@ function previewFoto(input){
     p.src=e.target.result;p.style.display='block';
   };
   reader.readAsDataURL(file);
+}
+
+function selectPdf(input){
+  const file=input.files[0];
+  if(!file)return;
+  if(file.size>50*1024*1024){alert('El PDF supera los 50MB. Elegí uno más chico.');input.value='';return;}
+  currentRecPdfFile=file;
+  const sel=document.getElementById('rec-pdf-selected');
+  sel.textContent=`✓ ${file.name} (${(file.size/1024/1024).toFixed(1)} MB)`;
+  sel.style.display='block';
+  document.getElementById('rec-pdf-current').style.display='none';
+}
+
+function removePdf(){
+  currentRecPdfUrl=null;
+  currentRecPdfFile=null;
+  document.getElementById('rec-pdf-current').style.display='none';
+  document.getElementById('rec-pdf-selected').style.display='none';
+  document.getElementById('rec-pdf-input').value='';
+}
+
+async function uploadPdf(file){
+  const fname=`recetarios/${Date.now()}.pdf`;
+  const r=await fetch(`${SUPA_URL}/storage/v1/object/recetarios-pdf/${fname}`,{
+    method:'POST',
+    headers:{'apikey':SUPA_KEY,'Authorization':'Bearer '+authToken,'Content-Type':'application/pdf','x-upsert':'true'},
+    body:file
+  });
+  if(!r.ok){console.error('PDF upload error',await r.text());return null;}
+  // URL firmada válida 10 años (315360000 segundos)
+  const sign=await fetch(`${SUPA_URL}/storage/v1/object/sign/recetarios-pdf/${fname}`,{
+    method:'POST',
+    headers:{'Content-Type':'application/json','apikey':SUPA_KEY,'Authorization':'Bearer '+authToken},
+    body:JSON.stringify({expiresIn:315360000})
+  });
+  if(!sign.ok)return null;
+  const sd=await sign.json();
+  return`${SUPA_URL}/storage/v1${sd.signedURL}`;
 }
 
 async function uploadFoto(file){
@@ -566,6 +638,12 @@ async function saveRecetario(){
     foto_url=await uploadFoto(currentRecFotoFile);
     if(!foto_url){errEl.textContent='Error al subir la foto. Intentá de nuevo.';errEl.style.display='block';saveBtn.textContent='Guardar';saveBtn.disabled=false;return;}
   }
+  let pdf_url=currentRecPdfUrl; // null si se quitó, url si se mantuvo
+  if(currentRecPdfFile){
+    saveBtn.textContent='Subiendo PDF...';
+    pdf_url=await uploadPdf(currentRecPdfFile);
+    if(!pdf_url){errEl.textContent='Error al subir el PDF. Intentá de nuevo.';errEl.style.display='block';saveBtn.textContent='Guardar';saveBtn.disabled=false;return;}
+  }
   const data={
     titulo,
     tag:document.getElementById('rec-tag').value.trim()||null,
@@ -575,7 +653,8 @@ async function saveRecetario(){
     mp_link:document.getElementById('rec-mp').value.trim()||null,
     includes:document.getElementById('rec-includes').value.trim()||null,
     activo:document.getElementById('rec-activo').checked,
-    foto_url
+    foto_url,
+    pdf_url
   };
   const r=id?await apiPatch('recetarios',id,data):await apiPost('recetarios',data);
   saveBtn.textContent='Guardar';saveBtn.disabled=false;
