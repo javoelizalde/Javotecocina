@@ -450,7 +450,9 @@ footer{background:var(--dark);border-top:1px solid rgba(245,237,228,.06);}
     <li><a href="#contratar" class="nav-cta">Cotizar</a></li>
   </ul>
   <div class="nav-user" id="navUser">
-    <button class="nav-user-btn" id="navUserBtn" onclick="toggleUserMenu()" title="Mi cuenta">👤</button>
+    <button class="nav-user-btn" id="navUserBtn" onclick="toggleUserMenu()" title="Mi cuenta">
+      <svg id="navUserIcon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+    </button>
     <div class="user-dropdown" id="userDropdown">
       <div class="user-dd-email" id="userDdEmail"></div>
       <button class="user-dd-item" onclick="closeUserMenu()">Mis compras</button>
@@ -1421,11 +1423,12 @@ function updateUserUI(){
   const btn=document.getElementById('navUserBtn');
   if(!btn)return;
   if(userToken&&userEmail){
-    btn.textContent=userEmail.charAt(0).toUpperCase();
+    btn.innerHTML=`<span style="font-family:'Barlow Condensed',sans-serif;font-size:.9rem;font-weight:800;letter-spacing:.03em;">${userEmail.charAt(0).toUpperCase()}</span>`;
     btn.classList.add('logged-in');
     document.getElementById('userDdEmail').textContent=userEmail;
   } else {
-    btn.innerHTML='👤';btn.classList.remove('logged-in');
+    btn.innerHTML='<svg id="navUserIcon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>';
+    btn.classList.remove('logged-in');
   }
 }
 
