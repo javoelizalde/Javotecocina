@@ -258,12 +258,33 @@ textarea{resize:vertical;min-height:90px;}
 /* ── TESTIMONIOS ── */
 .testi-sec{background:var(--dark);}
 .testi-sec .sec-title{color:var(--ash);}
-.testi-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;margin-top:3.5rem;}
-.testi-card{padding:2rem;background:rgba(245,237,228,.04);border:1px solid rgba(245,237,228,.07);border-radius:4px;}
-.testi-stars{color:var(--ember);font-size:1rem;margin-bottom:1rem;letter-spacing:.15em;}
-.testi-text{font-family:'Playfair Display',serif;font-size:.975rem;font-style:italic;color:rgba(245,237,228,.75);line-height:1.7;margin-bottom:1.5rem;}
+
+/* Rating summary */
+.rating-summary{display:flex;align-items:center;gap:3rem;margin-top:3rem;margin-bottom:2.5rem;padding:2rem 2.5rem;background:rgba(245,237,228,.04);border:1px solid rgba(245,237,228,.07);border-radius:4px;flex-wrap:wrap;}
+.rating-big{text-align:center;flex-shrink:0;}
+.rating-num{font-family:'Barlow Condensed',sans-serif;font-size:4rem;font-weight:800;color:var(--ash);line-height:1;display:block;}
+.rating-stars-row{color:var(--ember);font-size:1.2rem;letter-spacing:.1em;margin:.25rem 0;}
+.rating-total{font-family:'Barlow Condensed',sans-serif;font-size:.7rem;letter-spacing:.12em;text-transform:uppercase;color:rgba(245,237,228,.35);}
+.rating-bars{flex:1;min-width:180px;display:flex;flex-direction:column;gap:.5rem;}
+.rating-bar-row{display:flex;align-items:center;gap:.65rem;}
+.rating-bar-label{font-family:'Barlow Condensed',sans-serif;font-size:.7rem;font-weight:600;color:rgba(245,237,228,.4);width:20px;text-align:right;flex-shrink:0;}
+.rating-bar-track{flex:1;height:6px;background:rgba(245,237,228,.08);border-radius:3px;overflow:hidden;}
+.rating-bar-fill{height:100%;background:var(--ember);border-radius:3px;transition:width .6s ease;}
+.rating-bar-count{font-family:'Barlow Condensed',sans-serif;font-size:.7rem;color:rgba(245,237,228,.3);width:16px;flex-shrink:0;}
+
+/* Carousel */
+.testi-carousel{position:relative;}
+.testi-track{display:flex;transition:transform .45s cubic-bezier(.4,0,.2,1);}
+.testi-card{min-width:100%;padding:2.5rem;background:rgba(245,237,228,.04);border:1px solid rgba(245,237,228,.07);border-radius:4px;box-sizing:border-box;}
+.testi-stars{color:var(--ember);font-size:1.1rem;margin-bottom:1rem;letter-spacing:.12em;}
+.testi-text{font-family:'Playfair Display',serif;font-size:1.05rem;font-style:italic;color:rgba(245,237,228,.78);line-height:1.75;margin-bottom:1.75rem;}
 .testi-author{font-family:'Barlow Condensed',sans-serif;font-size:.75rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--ember);}
 .testi-role{font-size:.78rem;color:rgba(245,237,228,.35);margin-top:.2rem;}
+.testi-nav{display:flex;justify-content:center;gap:.6rem;margin-top:1.5rem;}
+.testi-dot{width:28px;height:4px;border-radius:2px;background:rgba(245,237,228,.18);border:none;transition:background .25s,width .25s;}
+.testi-dot.active{background:var(--ember);width:44px;}
+
+/* Form */
 .testi-form-wrap{margin-top:4rem;padding-top:3rem;border-top:1px solid rgba(245,237,228,.08);}
 .testi-form-title{font-family:'Playfair Display',serif;font-size:1.6rem;font-weight:700;color:var(--ash);margin-bottom:.5rem;}
 .testi-form-sub{font-size:.875rem;color:rgba(245,237,228,.45);margin-bottom:2rem;}
@@ -274,6 +295,13 @@ textarea{resize:vertical;min-height:90px;}
 .testi-input::placeholder{color:rgba(245,237,228,.25);}
 .testi-submit{padding:.85rem 2rem;background:var(--fire);color:#fff;border:none;border-radius:2px;font-family:'Barlow Condensed',sans-serif;font-size:.9rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;transition:background .2s;}
 .testi-submit:hover{background:var(--ember);}
+
+/* Star picker */
+.star-label{font-family:'Barlow Condensed',sans-serif;font-size:.73rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:rgba(245,237,228,.5);display:block;margin-bottom:.5rem;}
+.star-picker{display:flex;gap:.2rem;margin:.1rem 0 .5rem;}
+.star-picker span{font-size:2.2rem;color:rgba(245,237,228,.3);line-height:1;transition:color .1s,transform .1s;user-select:none;-webkit-user-select:none;}
+.star-picker span.on{color:var(--ember);}
+.star-picker span:hover{transform:scale(1.12);}
 
 /* ── FOOTER ── */
 footer{background:var(--dark);border-top:1px solid rgba(245,237,228,.06);}
@@ -1070,10 +1098,8 @@ footer{background:var(--dark);border-top:1px solid rgba(245,237,228,.06);}
           <div class="testi-role">Asado privado · 35 personas</div>
         </div>
       </div>
-      <div class="testi-nav">
-        <button class="testi-arrow" onclick="testiMove(-1)" aria-label="Anterior">&#8592;</button>
+      <div class="testi-nav" id="testiNav">
         <div class="testi-dots" id="testiDots"></div>
-        <button class="testi-arrow" onclick="testiMove(1)" aria-label="Siguiente">&#8594;</button>
       </div>
     </div>
 
@@ -1092,12 +1118,12 @@ footer{background:var(--dark);border-top:1px solid rgba(245,237,228,.06);}
         </div>
         <div class="form-group full">
           <span class="star-label">Tu calificación *</span>
-          <div class="star-picker" id="t-estrellas" data-val="0">
-            <span data-v="1">★</span>
-            <span data-v="2">★</span>
-            <span data-v="3">★</span>
-            <span data-v="4">★</span>
-            <span data-v="5">★</span>
+          <div class="star-picker" id="t-estrellas" data-val="0" onmouseleave="hoverStar(this,+this.dataset.val)">
+            <span data-v="1" onclick="pickStar(1)" onmouseenter="hoverStar(this.parentNode,1)">★</span>
+            <span data-v="2" onclick="pickStar(2)" onmouseenter="hoverStar(this.parentNode,2)">★</span>
+            <span data-v="3" onclick="pickStar(3)" onmouseenter="hoverStar(this.parentNode,3)">★</span>
+            <span data-v="4" onclick="pickStar(4)" onmouseenter="hoverStar(this.parentNode,4)">★</span>
+            <span data-v="5" onclick="pickStar(5)" onmouseenter="hoverStar(this.parentNode,5)">★</span>
           </div>
         </div>
         <div class="form-group full">
@@ -1303,36 +1329,44 @@ document.addEventListener('keydown',e=>{
   }
 });
 
+/* ── STAR PICKER ── */
+function hoverStar(picker,v){
+  picker.querySelectorAll('span').forEach(s=>s.classList.toggle('on',+s.dataset.v<=v));
+}
+function pickStar(v){
+  const picker=document.getElementById('t-estrellas');
+  picker.dataset.val=v;
+  hoverStar(picker,v);
+}
+
 /* ── CAROUSEL TESTIMONIOS ── */
 let testiIdx=0,testiTotal=0,testiTimer=null;
 function testiInit(){
   const cards=document.querySelectorAll('#testiTrack .testi-card');
   testiTotal=cards.length;
-  const nav=document.querySelector('.testi-nav');
-  // Single card: no carousel needed
-  if(testiTotal<=1){
-    if(nav)nav.style.display='none';
+  const carousel=document.querySelector('.testi-carousel');
+  if(testiTotal===0){if(carousel)carousel.style.display='none';return;}
+  if(testiTotal===1){
+    document.getElementById('testiNav').style.display='none';
     return;
   }
-  if(nav)nav.style.display='';
   const dots=document.getElementById('testiDots');
   dots.innerHTML='';
   for(let i=0;i<testiTotal;i++){
     const d=document.createElement('button');
     d.className='testi-dot'+(i===0?' active':'');
     d.setAttribute('aria-label','Reseña '+(i+1));
-    d.onclick=()=>testiGo(i);
+    d.onclick=()=>{testiGo(i);clearInterval(testiTimer);testiAutoplay();};
     dots.appendChild(d);
   }
   testiGo(0);
   testiAutoplay();
-  // Touch/swipe
   let tx=0;
   const track=document.getElementById('testiTrack');
   track.addEventListener('touchstart',e=>{tx=e.touches[0].clientX;},{passive:true});
   track.addEventListener('touchend',e=>{
     const dx=e.changedTouches[0].clientX-tx;
-    if(Math.abs(dx)>40)testiMove(dx<0?1:-1);
+    if(Math.abs(dx)>40){testiMove(dx<0?1:-1);}
   },{passive:true});
 }
 function testiGo(i){
@@ -1375,32 +1409,6 @@ function buildRatingSummary(){
   });
 }
 
-/* ── STAR PICKER ── */
-function initStarPicker(){
-  const picker=document.getElementById('t-estrellas');
-  if(!picker)return;
-  picker.querySelectorAll('span').forEach(star=>{
-    star.addEventListener('mouseenter',()=>{
-      const v=+star.dataset.v;
-      picker.querySelectorAll('span').forEach(s=>s.classList.toggle('on',+s.dataset.v<=v));
-    });
-    star.addEventListener('mouseleave',()=>{
-      const val=+picker.dataset.val;
-      picker.querySelectorAll('span').forEach(s=>s.classList.toggle('on',+s.dataset.v<=val));
-    });
-    star.addEventListener('click',()=>{
-      picker.dataset.val=star.dataset.v;
-      picker.querySelectorAll('span').forEach(s=>s.classList.toggle('on',+s.dataset.v<=+star.dataset.v));
-    });
-    // Mobile touch
-    star.addEventListener('touchend',e=>{
-      e.preventDefault();
-      picker.dataset.val=star.dataset.v;
-      picker.querySelectorAll('span').forEach(s=>s.classList.toggle('on',+s.dataset.v<=+star.dataset.v));
-    },{passive:false});
-  });
-}
-
 /* ── TESTIMONIO — ENVIAR ── */
 function enviarTestimonio(){
   const nombre=document.getElementById('t-nombre').value.trim();
@@ -1424,7 +1432,6 @@ function enviarTestimonio(){
 document.addEventListener('DOMContentLoaded',()=>{
   testiInit();
   buildRatingSummary();
-  initStarPicker();
 });
 </script>
 </body>
