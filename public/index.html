@@ -1308,6 +1308,13 @@ let testiIdx=0,testiTotal=0,testiTimer=null;
 function testiInit(){
   const cards=document.querySelectorAll('#testiTrack .testi-card');
   testiTotal=cards.length;
+  const nav=document.querySelector('.testi-nav');
+  // Single card: no carousel needed
+  if(testiTotal<=1){
+    if(nav)nav.style.display='none';
+    return;
+  }
+  if(nav)nav.style.display='';
   const dots=document.getElementById('testiDots');
   dots.innerHTML='';
   for(let i=0;i<testiTotal;i++){
