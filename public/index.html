@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="es">
 <head>
 <meta charset="UTF-8">
@@ -129,10 +129,10 @@ nav.scrolled{background:rgba(26,18,11,.92);backdrop-filter:blur(12px);padding:.9
 .about-num-label{font-size:.8rem;color:rgba(245,237,228,.45);margin-top:.25rem;}
 
 /* ── PORTFOLIO ── */
-.portfolio{background:var(--cream);}
+.portfolio{background:var(--dark);}
 .portfolio-header{display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:3rem;flex-wrap:wrap;gap:1.5rem;}
 .portfolio-filters{display:flex;gap:.5rem;flex-wrap:wrap;}
-.filter-btn{font-family:'Barlow Condensed',sans-serif;font-size:.8rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;padding:.4rem 1rem;border:1px solid rgba(26,18,11,.2);background:transparent;color:var(--muted);border-radius:2px;transition:all .2s;}
+.filter-btn{font-family:'Barlow Condensed',sans-serif;font-size:.8rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;padding:.4rem 1rem;border:1px solid rgba(245,237,228,.18);background:transparent;color:rgba(245,237,228,.45);border-radius:2px;transition:all .2s;}
 .filter-btn:hover,.filter-btn.active{background:var(--fire);border-color:var(--fire);color:#fff;}
 .portfolio-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;}
 .portfolio-item{position:relative;aspect-ratio:4/3;overflow:hidden;background:var(--smoke);}
@@ -145,15 +145,15 @@ nav.scrolled{background:rgba(26,18,11,.92);backdrop-filter:blur(12px);padding:.9
 .portfolio-name{font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:700;color:var(--ash);}
 
 /* ── BRANDS ── */
-.brands-sec{background:var(--dark);}
-.brands-sec .sec-title{color:var(--ash);}
-.brands-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:1px;background:rgba(245,237,228,.06);margin-top:3rem;}
-.brand-pill{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.65rem;padding:2rem 1.5rem;background:var(--dark);transition:background .3s;text-decoration:none;}
-.brand-pill:hover{background:rgba(200,75,17,.08);}
+.brands-sec{background:var(--cream);}
+.brands-sec .sec-title{color:var(--dark);}
+.brands-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:1px;background:rgba(26,18,11,.08);margin-top:3rem;}
+.brand-pill{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.65rem;padding:2rem 1.5rem;background:var(--cream);transition:background .3s;text-decoration:none;}
+.brand-pill:hover{background:rgba(200,75,17,.07);}
 .brand-pill img{width:56px;height:56px;object-fit:contain;background:#fff;border-radius:6px;padding:6px;filter:grayscale(.15);transition:filter .3s,transform .3s;}
 .brand-pill:hover img{filter:grayscale(0);transform:scale(1.06);}
-.brand-pill span{font-family:'Barlow Condensed',sans-serif;font-size:.5rem;letter-spacing:.14em;text-transform:uppercase;color:rgba(245,237,228,.35);white-space:nowrap;}
-.brand-pill:hover span{color:rgba(245,237,228,.65);}
+.brand-pill span{font-family:'Barlow Condensed',sans-serif;font-size:.5rem;letter-spacing:.14em;text-transform:uppercase;color:rgba(26,18,11,.35);white-space:nowrap;}
+.brand-pill:hover span{color:rgba(26,18,11,.65);}
 
 /* ── SERVICIOS ── */
 .services-sec{background:var(--cream);}
@@ -336,10 +336,10 @@ footer{background:var(--dark);border-top:1px solid rgba(245,237,228,.06);}
 <!-- Mobile menu -->
 <div class="mobile-menu" id="mobileMenu">
   <a href="#sobre" onclick="closeMobileMenu()">Quién Soy</a>
-  <a href="#portfolio" onclick="closeMobileMenu()">Portfolio</a>
   <a href="#servicios" onclick="closeMobileMenu()">Servicios</a>
-  <a href="#recetarios" onclick="closeMobileMenu()">Recetarios</a>
   <a href="#productos" onclick="closeMobileMenu()">Productos</a>
+  <a href="#recetarios" onclick="closeMobileMenu()">Recetarios</a>
+  <a href="#portfolio" onclick="closeMobileMenu()">Portfolio</a>
   <a href="#contratar" onclick="closeMobileMenu()" class="mob-cta">Cotizar Evento</a>
 </div>
 
@@ -351,10 +351,10 @@ footer{background:var(--dark);border-top:1px solid rgba(245,237,228,.06);}
   </a>
   <ul class="nav-links">
     <li><a href="#sobre">Quién Soy</a></li>
-    <li><a href="#portfolio">Portfolio</a></li>
     <li><a href="#servicios">Servicios</a></li>
-    <li><a href="#recetarios">Recetarios</a></li>
     <li><a href="#productos">Productos</a></li>
+    <li><a href="#recetarios">Recetarios</a></li>
+    <li><a href="#portfolio">Portfolio</a></li>
     <li><a href="#contratar" class="nav-cta">Cotizar</a></li>
   </ul>
   <button class="hamburger" id="hamburger" aria-label="Menú" onclick="toggleMobileMenu()">
@@ -427,104 +427,7 @@ footer{background:var(--dark);border-top:1px solid rgba(245,237,228,.06);}
   </div>
 </section>
 
-<!-- ═══════════ PORTFOLIO ═══════════ -->
-<section class="portfolio" id="portfolio">
-  <div class="container">
-    <div class="portfolio-header reveal">
-      <div>
-        <div class="sec-label">Eventos & Contenido</div>
-        <h2 class="sec-title" style="color:var(--dark);">Portfolio de<br><em>Experiencias</em></h2>
-      </div>
-      <div class="portfolio-filters">
-        <button class="filter-btn active" onclick="filterPortfolio(this,'todo')">Todo</button>
-        <button class="filter-btn" onclick="filterPortfolio(this,'eventos')">Eventos</button>
-        <button class="filter-btn" onclick="filterPortfolio(this,'marcas')">Marcas</button>
-        <button class="filter-btn" onclick="filterPortfolio(this,'parrilla')">Parrilla</button>
-        <button class="filter-btn" onclick="filterPortfolio(this,'contenido')">Contenido</button>
-      </div>
-    </div>
-    <div class="portfolio-grid reveal">
-      <div class="portfolio-item" data-cat="marcas" data-size="featured">
-        <img class="portfolio-thumb" src="img/p32.jpg" alt="Experiencias de Marca">
-        <div class="portfolio-overlay">
-          <div class="portfolio-cat">Marcas</div>
-          <div class="portfolio-name">Experiencias de Marca</div>
-        </div>
-      </div>
-      <div class="portfolio-item" data-cat="parrilla">
-        <img class="portfolio-thumb" src="img/p27.jpg" alt="Asado & Parrilla">
-        <div class="portfolio-overlay">
-          <div class="portfolio-cat">Parrilla</div>
-          <div class="portfolio-name">Asado & Parrilla</div>
-        </div>
-      </div>
-      <div class="portfolio-item" data-cat="eventos">
-        <img class="portfolio-thumb" src="img/p14.jpg" alt="Eventos Propios">
-        <div class="portfolio-overlay">
-          <div class="portfolio-cat">Eventos</div>
-          <div class="portfolio-name">Eventos Propios</div>
-        </div>
-      </div>
-      <div class="portfolio-item" data-cat="contenido">
-        <img class="portfolio-thumb" src="img/p08.jpg" alt="Contenido Digital">
-        <div class="portfolio-overlay">
-          <div class="portfolio-cat">Contenido</div>
-          <div class="portfolio-name">Keveri & Fuego</div>
-        </div>
-      </div>
-      <div class="portfolio-item" data-cat="eventos" data-size="featured">
-        <img class="portfolio-thumb" src="img/p24.jpg" alt="Corporativos">
-        <div class="portfolio-overlay">
-          <div class="portfolio-cat">Eventos</div>
-          <div class="portfolio-name">Corporativos & Team Building</div>
-        </div>
-      </div>
-      <div class="portfolio-item" data-cat="parrilla">
-        <img class="portfolio-thumb" src="img/p09.jpg" alt="Cocina a Domicilio">
-        <div class="portfolio-overlay">
-          <div class="portfolio-cat">Parrilla</div>
-          <div class="portfolio-name">Cocina a Domicilio</div>
-        </div>
-      </div>
-      <div class="portfolio-item" data-cat="marcas">
-        <img class="portfolio-thumb" src="img/p33.jpg" alt="A Todo Disco">
-        <div class="portfolio-overlay">
-          <div class="portfolio-cat">Contenido</div>
-          <div class="portfolio-name">A Todo Disco</div>
-        </div>
-      </div>
-      <div class="portfolio-item" data-cat="contenido">
-        <img class="portfolio-thumb" src="img/p28.jpg" alt="Sabores Salteños">
-        <div class="portfolio-overlay">
-          <div class="portfolio-cat">Contenido</div>
-          <div class="portfolio-name">Sabores Salteños</div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ═══════════ MARCAS ═══════════ -->
-<section class="brands-sec" id="marcas">
-  <div class="container">
-    <div class="reveal">
-      <div class="sec-label">Confiaron en mí</div>
-      <h2 class="sec-title">Marcas que <em>eligieron</em><br>el fuego del norte.</h2>
-    </div>
-    <div class="brands-grid reveal">
-      <a href="#" class="brand-pill"><img src="img/logo-stella.svg" alt="Stella Artois"><span>Stella Artois</span></a>
-      <a href="#" class="brand-pill"><img src="img/logo-hellmanns.svg" alt="Hellmann's"><span>Hellmann's</span></a>
-      <a href="#" class="brand-pill"><img src="img/logo-lays.svg" alt="Lay's"><span>Lay's</span></a>
-      <a href="#" class="brand-pill"><img src="img/logo-pepsi.svg" alt="Pepsi"><span>Pepsi</span></a>
-      <a href="#" class="brand-pill"><img src="img/logo-rappi.svg" alt="Rappi"><span>Rappi</span></a>
-      <a href="#" class="brand-pill"><img src="img/logo-keveri.avif" alt="Keveri"><span>Keveri</span></a>
-      <a href="#" class="brand-pill"><img src="img/logo-legion-extranjera.png" alt="Legión Extranjera"><span>Legión Extranjera</span></a>
-      <a href="#" class="brand-pill"><img src="img/logo-la-francisca.svg" alt="La Francisca"><span>La Francisca</span></a>
-      <a href="#" class="brand-pill"><img src="img/logo-salvita.png" alt="Salvita"><span>Salvita</span></a>
-      <a href="#" class="brand-pill"><img src="img/logo-quento-snacks.svg" alt="Quento Snacks"><span>Quento Snacks</span></a>
-    </div>
-  </div>
-</section>
+<!-- ═══════════ SERVICIOS ═══════════ -- movido arriba, aparece aquí como espacio -->
 
 <!-- ═══════════ SERVICIOS ═══════════ -->
 <section class="services-sec" id="servicios">
@@ -575,81 +478,58 @@ footer{background:var(--dark);border-top:1px solid rgba(245,237,228,.06);}
   </div>
 </section>
 
-<!-- ═══════════ CONTRATAR ═══════════ -->
-<section class="hire-sec" id="contratar">
+<!-- ═══════════ PRODUCTOS FÍSICOS ═══════════ -->
+<section class="products-sec" id="productos">
   <div class="container">
-    <div class="hire-grid">
-      <div class="reveal">
-        <div class="sec-label">Trabajemos juntos</div>
-        <h2 class="sec-title">Cotizá tu<br><em>evento</em><br>ahora.</h2>
-        <p class="sec-desc">Completá el formulario y te respondo por WhatsApp con todos los detalles y presupuesto a medida.</p>
-        <div class="hire-perks">
-          <div class="hire-perk">
-            <div class="hire-perk-icon">🔥</div>
-            <div><div class="hire-perk-title">Respuesta en menos de 24hs</div><div class="hire-perk-desc">Te contacto directamente para entender cada detalle de tu evento.</div></div>
-          </div>
-          <div class="hire-perk">
-            <div class="hire-perk-icon">📋</div>
-            <div><div class="hire-perk-title">Propuesta personalizada</div><div class="hire-perk-desc">No hay eventos iguales. Cada presupuesto es diseñado a medida.</div></div>
-          </div>
-          <div class="hire-perk">
-            <div class="hire-perk-icon">✅</div>
-            <div><div class="hire-perk-title">+30 eventos realizados</div><div class="hire-perk-desc">Experiencia en eventos privados, corporativos y activaciones de marca.</div></div>
-          </div>
-          <div class="hire-perk">
-            <div class="hire-perk-icon">📍</div>
-            <div><div class="hire-perk-title">Buenos Aires y todo el país</div><div class="hire-perk-desc">Viajo donde sea necesario para que tu evento sea perfecto.</div></div>
-          </div>
+    <div class="reveal">
+      <div class="sec-label">Tienda</div>
+      <h2 class="sec-title">Herramientas<br>para el <em>fuego.</em></h2>
+      <p class="sec-desc" style="color:rgba(245,237,228,.6);">Productos seleccionados por Javo. Consultá disponibilidad y te respondemos por WhatsApp.</p>
+    </div>
+    <div class="products-grid">
+      <div class="prod-card reveal">
+        <div class="prod-img">
+          <img src="img/p22.jpg" alt="Cuchillo de Campo">
+          <div class="prod-badge">Artesanal</div>
+        </div>
+        <div class="prod-body">
+          <div class="prod-cat">Cuchillería</div>
+          <div class="prod-name">Cuchillo de Campo Artesanal</div>
+          <p class="prod-desc">Hoja de acero inoxidable, mango de quebracho. Forjado a mano por artesanos del norte.</p>
+          <button class="prod-wa" onclick="consultarProducto('Cuchillo de Campo Artesanal')">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.09.543 4.057 1.49 5.771L.057 23.882a.5.5 0 00.587.625l6.266-1.642A11.95 11.95 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22a9.944 9.944 0 01-5.09-1.396l-.365-.218-3.785.993.992-3.668-.24-.38A9.96 9.96 0 012 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/></svg>
+            Consultar por WhatsApp
+          </button>
         </div>
       </div>
-      <div class="hire-form-wrap reveal">
-        <div class="form-title">Cotizar evento</div>
-        <div class="form-sub">Completá los datos y te contactamos por WhatsApp</div>
-        <div class="form-group">
-          <label for="h-tipo">Tipo de servicio *</label>
-          <select id="h-tipo">
-            <option value="">Seleccioná una opción</option>
-            <option>Asado & Parrilla privado</option>
-            <option>Evento corporativo</option>
-            <option>Activación de marca</option>
-            <option>Clase magistral / Workshop</option>
-            <option>Cocina a domicilio</option>
-            <option>Contenido para redes</option>
-            <option>Embajada / Canje</option>
-          </select>
+      <div class="prod-card reveal">
+        <div class="prod-img">
+          <img src="img/p23.jpg" alt="Tabla de Quebracho">
         </div>
-        <div class="form-row">
-          <div class="form-group">
-            <label for="h-nombre">Nombre *</label>
-            <input type="text" id="h-nombre" placeholder="Tu nombre">
-          </div>
-          <div class="form-group">
-            <label for="h-email">Email</label>
-            <input type="email" id="h-email" placeholder="tu@email.com">
-          </div>
+        <div class="prod-body">
+          <div class="prod-cat">Utensilios</div>
+          <div class="prod-name">Tabla de Quebracho</div>
+          <p class="prod-desc">Madera nativa del norte. Resistente, aromática y perfecta para servir y cortar. Cada tabla es única.</p>
+          <button class="prod-wa" onclick="consultarProducto('Tabla de Quebracho')">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.09.543 4.057 1.49 5.771L.057 23.882a.5.5 0 00.587.625l6.266-1.642A11.95 11.95 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22a9.944 9.944 0 01-5.09-1.396l-.365-.218-3.785.993.992-3.668-.24-.38A9.96 9.96 0 012 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/></svg>
+            Consultar por WhatsApp
+          </button>
         </div>
-        <div class="form-row">
-          <div class="form-group">
-            <label for="h-fecha">Fecha del evento</label>
-            <input type="text" id="h-fecha" placeholder="ej. 15 de agosto 2025">
-          </div>
-          <div class="form-group">
-            <label for="h-personas">Cantidad de personas</label>
-            <input type="text" id="h-personas" placeholder="ej. 40 personas">
-          </div>
+      </div>
+      <div class="prod-card reveal">
+        <div class="prod-img">
+          <img src="img/p09.jpg" alt="Blend de Especias NOA">
+          <div class="prod-badge">Exclusivo</div>
         </div>
-        <div class="form-group">
-          <label for="h-ciudad">Ciudad *</label>
-          <input type="text" id="h-ciudad" placeholder="¿Dónde es el evento?">
+        <div class="prod-body">
+          <div class="prod-cat">Especias</div>
+          <div class="prod-name">Blend de Especias NOA — Javo</div>
+          <p class="prod-desc">Mezcla exclusiva de pimentón ahumado, comino, ají molido y hierbas andinas. El condimento de Salta en tu cocina.</p>
+          <button class="prod-wa" onclick="consultarProducto('Blend de Especias NOA Javo')">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.09.543 4.057 1.49 5.771L.057 23.882a.5.5 0 00.587.625l6.266-1.642A11.95 11.95 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22a9.944 9.944 0 01-5.09-1.396l-.365-.218-3.785.993.992-3.668-.24-.38A9.96 9.96 0 012 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/></svg>
+            Consultar por WhatsApp
+          </button>
         </div>
-        <div class="form-group">
-          <label for="h-detalle">Detalles adicionales</label>
-          <textarea id="h-detalle" placeholder="Contame más sobre el evento, menú que tenés en mente, presupuesto estimado..."></textarea>
-        </div>
-        <button class="form-submit" onclick="sendEventoWA()">
-          <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.09.543 4.057 1.49 5.771L.057 23.882a.5.5 0 00.587.625l6.266-1.642A11.95 11.95 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22a9.944 9.944 0 01-5.09-1.396l-.365-.218-3.785.993.992-3.668-.24-.38A9.96 9.96 0 012 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/></svg>
-          Enviar por WhatsApp
-        </button>
       </div>
     </div>
   </div>
@@ -893,58 +773,179 @@ footer{background:var(--dark);border-top:1px solid rgba(245,237,228,.06);}
   </div>
 </div>
 
-<!-- ═══════════ PRODUCTOS FÍSICOS ═══════════ -->
-<section class="products-sec" id="productos">
+<!-- ═══════════ PORTFOLIO ═══════════ -->
+<section class="portfolio" id="portfolio">
+  <div class="container">
+    <div class="portfolio-header reveal">
+      <div>
+        <div class="sec-label">Eventos & Contenido</div>
+        <h2 class="sec-title" style="color:var(--ash);">Portfolio de<br><em>Experiencias</em></h2>
+      </div>
+      <div class="portfolio-filters">
+        <button class="filter-btn active" onclick="filterPortfolio(this,'todo')">Todo</button>
+        <button class="filter-btn" onclick="filterPortfolio(this,'eventos')">Eventos</button>
+        <button class="filter-btn" onclick="filterPortfolio(this,'marcas')">Marcas</button>
+        <button class="filter-btn" onclick="filterPortfolio(this,'parrilla')">Parrilla</button>
+        <button class="filter-btn" onclick="filterPortfolio(this,'contenido')">Contenido</button>
+      </div>
+    </div>
+    <div class="portfolio-grid reveal">
+      <div class="portfolio-item" data-cat="marcas" data-size="featured">
+        <img class="portfolio-thumb" src="img/p32.jpg" alt="Experiencias de Marca">
+        <div class="portfolio-overlay">
+          <div class="portfolio-cat">Marcas</div>
+          <div class="portfolio-name">Experiencias de Marca</div>
+        </div>
+      </div>
+      <div class="portfolio-item" data-cat="parrilla">
+        <img class="portfolio-thumb" src="img/p27.jpg" alt="Asado & Parrilla">
+        <div class="portfolio-overlay">
+          <div class="portfolio-cat">Parrilla</div>
+          <div class="portfolio-name">Asado & Parrilla</div>
+        </div>
+      </div>
+      <div class="portfolio-item" data-cat="eventos">
+        <img class="portfolio-thumb" src="img/p14.jpg" alt="Eventos Propios">
+        <div class="portfolio-overlay">
+          <div class="portfolio-cat">Eventos</div>
+          <div class="portfolio-name">Eventos Propios</div>
+        </div>
+      </div>
+      <div class="portfolio-item" data-cat="contenido">
+        <img class="portfolio-thumb" src="img/p08.jpg" alt="Contenido Digital">
+        <div class="portfolio-overlay">
+          <div class="portfolio-cat">Contenido</div>
+          <div class="portfolio-name">Keveri & Fuego</div>
+        </div>
+      </div>
+      <div class="portfolio-item" data-cat="eventos" data-size="featured">
+        <img class="portfolio-thumb" src="img/p24.jpg" alt="Corporativos">
+        <div class="portfolio-overlay">
+          <div class="portfolio-cat">Eventos</div>
+          <div class="portfolio-name">Corporativos & Team Building</div>
+        </div>
+      </div>
+      <div class="portfolio-item" data-cat="parrilla">
+        <img class="portfolio-thumb" src="img/p09.jpg" alt="Cocina a Domicilio">
+        <div class="portfolio-overlay">
+          <div class="portfolio-cat">Parrilla</div>
+          <div class="portfolio-name">Cocina a Domicilio</div>
+        </div>
+      </div>
+      <div class="portfolio-item" data-cat="marcas">
+        <img class="portfolio-thumb" src="img/p33.jpg" alt="A Todo Disco">
+        <div class="portfolio-overlay">
+          <div class="portfolio-cat">Contenido</div>
+          <div class="portfolio-name">A Todo Disco</div>
+        </div>
+      </div>
+      <div class="portfolio-item" data-cat="contenido">
+        <img class="portfolio-thumb" src="img/p28.jpg" alt="Sabores Soltenos">
+        <div class="portfolio-overlay">
+          <div class="portfolio-cat">Contenido</div>
+          <div class="portfolio-name">Sabores Saltenos</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- ═══════════ MARCAS ═══════════ -->
+<section class="brands-sec" id="marcas">
   <div class="container">
     <div class="reveal">
-      <div class="sec-label">Tienda</div>
-      <h2 class="sec-title">Herramientas<br>para el <em>fuego.</em></h2>
-      <p class="sec-desc" style="color:rgba(245,237,228,.6);">Productos seleccionados por Javo. Consultá disponibilidad y te respondemos por WhatsApp.</p>
+      <div class="sec-label">Confiaron en mí</div>
+      <h2 class="sec-title">Marcas que <em>eligieron</em><br>el fuego del norte.</h2>
     </div>
-    <div class="products-grid">
-      <div class="prod-card reveal">
-        <div class="prod-img">
-          <img src="img/p22.jpg" alt="Cuchillo de Campo">
-          <div class="prod-badge">Artesanal</div>
-        </div>
-        <div class="prod-body">
-          <div class="prod-cat">Cuchillería</div>
-          <div class="prod-name">Cuchillo de Campo Artesanal</div>
-          <p class="prod-desc">Hoja de acero inoxidable, mango de quebracho. Forjado a mano por artesanos del norte.</p>
-          <button class="prod-wa" onclick="consultarProducto('Cuchillo de Campo Artesanal')">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.09.543 4.057 1.49 5.771L.057 23.882a.5.5 0 00.587.625l6.266-1.642A11.95 11.95 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22a9.944 9.944 0 01-5.09-1.396l-.365-.218-3.785.993.992-3.668-.24-.38A9.96 9.96 0 012 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/></svg>
-            Consultar por WhatsApp
-          </button>
+    <div class="brands-grid reveal">
+      <a href="#" class="brand-pill"><img src="img/logo-stella.svg" alt="Stella Artois"><span>Stella Artois</span></a>
+      <a href="#" class="brand-pill"><img src="img/logo-hellmanns.svg" alt="Hellmann's"><span>Hellmann's</span></a>
+      <a href="#" class="brand-pill"><img src="img/logo-lays.svg" alt="Lay's"><span>Lay's</span></a>
+      <a href="#" class="brand-pill"><img src="img/logo-pepsi.svg" alt="Pepsi"><span>Pepsi</span></a>
+      <a href="#" class="brand-pill"><img src="img/logo-rappi.svg" alt="Rappi"><span>Rappi</span></a>
+      <a href="#" class="brand-pill"><img src="img/logo-keveri.avif" alt="Keveri"><span>Keveri</span></a>
+      <a href="#" class="brand-pill"><img src="img/logo-legion-extranjera.png" alt="Legión Extranjera"><span>Legión Extranjera</span></a>
+      <a href="#" class="brand-pill"><img src="img/logo-la-francisca.svg" alt="La Francisca"><span>La Francisca</span></a>
+      <a href="#" class="brand-pill"><img src="img/logo-salvita.png" alt="Salvita"><span>Salvita</span></a>
+      <a href="#" class="brand-pill"><img src="img/logo-quento-snacks.svg" alt="Quento Snacks"><span>Quento Snacks</span></a>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ CONTRATAR ═══════════ -->
+<section class="hire-sec" id="contratar">
+  <div class="container">
+    <div class="hire-grid">
+      <div class="reveal">
+        <div class="sec-label">Trabajemos juntos</div>
+        <h2 class="sec-title">Cotizá tu<br><em>evento</em><br>ahora.</h2>
+        <p class="sec-desc">Completá el formulario y te respondo por WhatsApp con todos los detalles y presupuesto a medida.</p>
+        <div class="hire-perks">
+          <div class="hire-perk">
+            <div class="hire-perk-icon">🔥</div>
+            <div><div class="hire-perk-title">Respuesta en menos de 24hs</div><div class="hire-perk-desc">Te contacto directamente para entender cada detalle de tu evento.</div></div>
+          </div>
+          <div class="hire-perk">
+            <div class="hire-perk-icon">📋</div>
+            <div><div class="hire-perk-title">Propuesta personalizada</div><div class="hire-perk-desc">No hay eventos iguales. Cada presupuesto es diseñado a medida.</div></div>
+          </div>
+          <div class="hire-perk">
+            <div class="hire-perk-icon">✅</div>
+            <div><div class="hire-perk-title">+30 eventos realizados</div><div class="hire-perk-desc">Experiencia en eventos privados, corporativos y activaciones de marca.</div></div>
+          </div>
+          <div class="hire-perk">
+            <div class="hire-perk-icon">📍</div>
+            <div><div class="hire-perk-title">Buenos Aires y todo el país</div><div class="hire-perk-desc">Viajo donde sea necesario para que tu evento sea perfecto.</div></div>
+          </div>
         </div>
       </div>
-      <div class="prod-card reveal">
-        <div class="prod-img">
-          <img src="img/p23.jpg" alt="Tabla de Quebracho">
+      <div class="hire-form-wrap reveal">
+        <div class="form-title">Cotizar evento</div>
+        <div class="form-sub">Completá los datos y te contactamos por WhatsApp</div>
+        <div class="form-group">
+          <label for="h-tipo">Tipo de servicio *</label>
+          <select id="h-tipo">
+            <option value="">Seleccioná una opción</option>
+            <option>Asado & Parrilla privado</option>
+            <option>Evento corporativo</option>
+            <option>Activación de marca</option>
+            <option>Clase magistral / Workshop</option>
+            <option>Cocina a domicilio</option>
+            <option>Contenido para redes</option>
+            <option>Embajada / Canje</option>
+          </select>
         </div>
-        <div class="prod-body">
-          <div class="prod-cat">Utensilios</div>
-          <div class="prod-name">Tabla de Quebracho</div>
-          <p class="prod-desc">Madera nativa del norte. Resistente, aromática y perfecta para servir y cortar. Cada tabla es única.</p>
-          <button class="prod-wa" onclick="consultarProducto('Tabla de Quebracho')">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.09.543 4.057 1.49 5.771L.057 23.882a.5.5 0 00.587.625l6.266-1.642A11.95 11.95 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22a9.944 9.944 0 01-5.09-1.396l-.365-.218-3.785.993.992-3.668-.24-.38A9.96 9.96 0 012 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/></svg>
-            Consultar por WhatsApp
-          </button>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="h-nombre">Nombre *</label>
+            <input type="text" id="h-nombre" placeholder="Tu nombre">
+          </div>
+          <div class="form-group">
+            <label for="h-email">Email</label>
+            <input type="email" id="h-email" placeholder="tu@email.com">
+          </div>
         </div>
-      </div>
-      <div class="prod-card reveal">
-        <div class="prod-img">
-          <img src="img/p09.jpg" alt="Blend de Especias NOA">
-          <div class="prod-badge">Exclusivo</div>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="h-fecha">Fecha del evento</label>
+            <input type="text" id="h-fecha" placeholder="ej. 15 de agosto 2025">
+          </div>
+          <div class="form-group">
+            <label for="h-personas">Cantidad de personas</label>
+            <input type="text" id="h-personas" placeholder="ej. 40 personas">
+          </div>
         </div>
-        <div class="prod-body">
-          <div class="prod-cat">Especias</div>
-          <div class="prod-name">Blend de Especias NOA — Javo</div>
-          <p class="prod-desc">Mezcla exclusiva de pimentón ahumado, comino, ají molido y hierbas andinas. El condimento de Salta en tu cocina.</p>
-          <button class="prod-wa" onclick="consultarProducto('Blend de Especias NOA Javo')">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.09.543 4.057 1.49 5.771L.057 23.882a.5.5 0 00.587.625l6.266-1.642A11.95 11.95 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22a9.944 9.944 0 01-5.09-1.396l-.365-.218-3.785.993.992-3.668-.24-.38A9.96 9.96 0 012 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/></svg>
-            Consultar por WhatsApp
-          </button>
+        <div class="form-group">
+          <label for="h-ciudad">Ciudad *</label>
+          <input type="text" id="h-ciudad" placeholder="¿Dónde es el evento?">
         </div>
+        <div class="form-group">
+          <label for="h-detalle">Detalles adicionales</label>
+          <textarea id="h-detalle" placeholder="Contame más sobre el evento, menú que tenés en mente, presupuesto estimado..."></textarea>
+        </div>
+        <button class="form-submit" onclick="sendEventoWA()">
+          <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.09.543 4.057 1.49 5.771L.057 23.882a.5.5 0 00.587.625l6.266-1.642A11.95 11.95 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22a9.944 9.944 0 01-5.09-1.396l-.365-.218-3.785.993.992-3.668-.24-.38A9.96 9.96 0 012 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/></svg>
+          Enviar por WhatsApp
+        </button>
       </div>
     </div>
   </div>
@@ -1016,8 +1017,9 @@ footer{background:var(--dark);border-top:1px solid rgba(245,237,228,.06);}
       <h4>Secciones</h4>
       <ul>
         <li><a href="#sobre">Quién Soy</a></li>
-        <li><a href="#portfolio">Portfolio</a></li>
         <li><a href="#servicios">Servicios</a></li>
+        <li><a href="#productos">Productos</a></li>
+        <li><a href="#portfolio">Portfolio</a></li>
         <li><a href="#contratar">Cotizar</a></li>
       </ul>
     </div>
