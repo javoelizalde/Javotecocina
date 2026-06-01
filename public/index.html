@@ -183,7 +183,15 @@ nav.scrolled{background:rgba(26,18,11,.92);backdrop-filter:blur(12px);padding:.9
 .form-group{margin-bottom:1.25rem;}
 .form-row{display:grid;grid-template-columns:1fr 1fr;gap:1rem;}
 label{display:block;font-family:'Barlow Condensed',sans-serif;font-size:.73rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--earth);margin-bottom:.4rem;}
-input[type="text"],input[type="email"],input[type="tel"],select,textarea{width:100%;padding:.75rem 1rem;border:1px solid rgba(26,18,11,.15);border-radius:2px;font-family:'Barlow',sans-serif;font-size:.875rem;color:var(--dark);background:var(--cream);transition:border-color .2s;outline:none;appearance:none;}
+input[type="text"],input[type="email"],input[type="tel"],input[type="date"],select,textarea{width:100%;padding:.75rem 1rem;border:1px solid rgba(26,18,11,.15);border-radius:2px;font-family:'Barlow',sans-serif;font-size:.875rem;color:var(--dark);background:var(--cream);transition:border-color .2s;outline:none;appearance:none;}
+input[type="date"]::-webkit-calendar-picker-indicator{opacity:.45;cursor:pointer;}
+
+/* ── FORM TABS ── */
+.form-tabs{display:flex;gap:0;margin-bottom:1.75rem;border:1px solid rgba(26,18,11,.12);border-radius:3px;overflow:hidden;}
+.form-tab-btn{flex:1;padding:.65rem 1rem;font-family:'Barlow Condensed',sans-serif;font-size:.78rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;background:transparent;border:none;color:var(--muted);transition:background .2s,color .2s;}
+.form-tab-btn.active{background:var(--fire);color:#fff;}
+.form-panel{display:none;}
+.form-panel.active{display:block;}
 input:focus,select:focus,textarea:focus{border-color:var(--fire);}
 textarea{resize:vertical;min-height:90px;}
 .form-submit{width:100%;padding:1rem;background:var(--fire);color:#fff;border:none;border-radius:2px;font-family:'Barlow Condensed',sans-serif;font-size:.95rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;transition:background .2s;margin-top:.5rem;display:flex;align-items:center;justify-content:center;gap:.75rem;}
@@ -899,53 +907,119 @@ footer{background:var(--dark);border-top:1px solid rgba(245,237,228,.06);}
         </div>
       </div>
       <div class="hire-form-wrap reveal">
-        <div class="form-title">Cotizar evento</div>
-        <div class="form-sub">Completá los datos y te contactamos por WhatsApp</div>
-        <div class="form-group">
-          <label for="h-tipo">Tipo de servicio *</label>
-          <select id="h-tipo">
-            <option value="">Seleccioná una opción</option>
-            <option>Asado & Parrilla privado</option>
-            <option>Evento corporativo</option>
-            <option>Activación de marca</option>
-            <option>Clase magistral / Workshop</option>
-            <option>Cocina a domicilio</option>
-            <option>Contenido para redes</option>
-            <option>Embajada / Canje</option>
-          </select>
+        <!-- TABS -->
+        <div class="form-tabs">
+          <button class="form-tab-btn active" id="tab-evento" onclick="switchTab('evento')">🔥 Cotizar Evento</button>
+          <button class="form-tab-btn" id="tab-colabo" onclick="switchTab('colabo')">📱 Colaboración en Redes</button>
         </div>
-        <div class="form-row">
+
+        <!-- PANEL EVENTO -->
+        <div class="form-panel active" id="panel-evento">
+          <div class="form-title">Cotizar evento</div>
+          <div class="form-sub">Completá los datos y te contactamos por WhatsApp</div>
           <div class="form-group">
-            <label for="h-nombre">Nombre *</label>
-            <input type="text" id="h-nombre" placeholder="Tu nombre">
+            <label for="h-tipo">Tipo de servicio *</label>
+            <select id="h-tipo">
+              <option value="">Seleccioná una opción</option>
+              <option>Asado & Parrilla privado</option>
+              <option>Evento corporativo</option>
+              <option>Activación de marca</option>
+              <option>Clase magistral / Workshop</option>
+              <option>Cocina a domicilio</option>
+              <option>Embajada / Canje</option>
+            </select>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="h-nombre">Nombre *</label>
+              <input type="text" id="h-nombre" placeholder="Tu nombre">
+            </div>
+            <div class="form-group">
+              <label for="h-email">Email</label>
+              <input type="email" id="h-email" placeholder="tu@email.com">
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="h-fecha">Fecha del evento</label>
+              <input type="date" id="h-fecha">
+            </div>
+            <div class="form-group">
+              <label for="h-personas">Cantidad de personas</label>
+              <input type="text" id="h-personas" placeholder="ej. 40 personas">
+            </div>
           </div>
           <div class="form-group">
-            <label for="h-email">Email</label>
-            <input type="email" id="h-email" placeholder="tu@email.com">
-          </div>
-        </div>
-        <div class="form-row">
-          <div class="form-group">
-            <label for="h-fecha">Fecha del evento</label>
-            <input type="text" id="h-fecha" placeholder="ej. 15 de agosto 2025">
+            <label for="h-ciudad">Ciudad *</label>
+            <input type="text" id="h-ciudad" placeholder="¿Dónde es el evento?">
           </div>
           <div class="form-group">
-            <label for="h-personas">Cantidad de personas</label>
-            <input type="text" id="h-personas" placeholder="ej. 40 personas">
+            <label for="h-detalle">Detalles adicionales</label>
+            <textarea id="h-detalle" placeholder="Contame más sobre el evento, menú que tenés en mente, presupuesto estimado..."></textarea>
           </div>
+          <button class="form-submit" onclick="sendEventoWA()">
+            <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.09.543 4.057 1.49 5.771L.057 23.882a.5.5 0 00.587.625l6.266-1.642A11.95 11.95 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22a9.944 9.944 0 01-5.09-1.396l-.365-.218-3.785.993.992-3.668-.24-.38A9.96 9.96 0 012 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/></svg>
+            Enviar por WhatsApp
+          </button>
         </div>
-        <div class="form-group">
-          <label for="h-ciudad">Ciudad *</label>
-          <input type="text" id="h-ciudad" placeholder="¿Dónde es el evento?">
+
+        <!-- PANEL COLABORACIÓN -->
+        <div class="form-panel" id="panel-colabo">
+          <div class="form-title">Colaboración en Redes</div>
+          <div class="form-sub">Completá los datos y te contactamos por WhatsApp</div>
+          <div class="form-group">
+            <label for="c-tipo">Tipo de colaboración *</label>
+            <select id="c-tipo">
+              <option value="">Seleccioná una opción</option>
+              <option>Reel patrocinado</option>
+              <option>Story / Stories</option>
+              <option>Post en feed</option>
+              <option>Campaña completa (varios contenidos)</option>
+              <option>Embajada de marca</option>
+              <option>Canje / Gifting</option>
+              <option>Live / Streaming</option>
+              <option>Otro</option>
+            </select>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="c-nombre">Nombre o empresa *</label>
+              <input type="text" id="c-nombre" placeholder="Tu nombre o marca">
+            </div>
+            <div class="form-group">
+              <label for="c-email">Email *</label>
+              <input type="email" id="c-email" placeholder="tu@empresa.com">
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="c-plataforma">Plataforma principal</label>
+            <select id="c-plataforma">
+              <option value="">Seleccioná una opción</option>
+              <option>Instagram</option>
+              <option>TikTok</option>
+              <option>YouTube</option>
+              <option>Todas las plataformas</option>
+            </select>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="c-fecha">Fecha estimada</label>
+              <input type="date" id="c-fecha">
+            </div>
+            <div class="form-group">
+              <label for="c-presupuesto">Presupuesto estimado</label>
+              <input type="text" id="c-presupuesto" placeholder="ej. $50.000 ARS o USD 200">
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="c-detalle">Concepto / brief de la campaña</label>
+            <textarea id="c-detalle" placeholder="Contame el producto, el objetivo de la campaña y cualquier referencia visual o tono que tengas en mente..."></textarea>
+          </div>
+          <button class="form-submit" onclick="sendColaboWA()">
+            <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.09.543 4.057 1.49 5.771L.057 23.882a.5.5 0 00.587.625l6.266-1.642A11.95 11.95 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22a9.944 9.944 0 01-5.09-1.396l-.365-.218-3.785.993.992-3.668-.24-.38A9.96 9.96 0 012 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/></svg>
+            Enviar por WhatsApp
+          </button>
         </div>
-        <div class="form-group">
-          <label for="h-detalle">Detalles adicionales</label>
-          <textarea id="h-detalle" placeholder="Contame más sobre el evento, menú que tenés en mente, presupuesto estimado..."></textarea>
-        </div>
-        <button class="form-submit" onclick="sendEventoWA()">
-          <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.09.543 4.057 1.49 5.771L.057 23.882a.5.5 0 00.587.625l6.266-1.642A11.95 11.95 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22a9.944 9.944 0 01-5.09-1.396l-.365-.218-3.785.993.992-3.668-.24-.38A9.96 9.96 0 012 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/></svg>
-          Enviar por WhatsApp
-        </button>
       </div>
     </div>
   </div>
@@ -1105,29 +1179,66 @@ function filterPortfolio(btn,cat){
   });
 }
 
+/* ── FORM TABS ── */
+function switchTab(tab){
+  document.querySelectorAll('.form-tab-btn').forEach(b=>b.classList.remove('active'));
+  document.querySelectorAll('.form-panel').forEach(p=>p.classList.remove('active'));
+  document.getElementById('tab-'+tab).classList.add('active');
+  document.getElementById('panel-'+tab).classList.add('active');
+}
+
 /* ── WHATSAPP — EVENTO ── */
 function sendEventoWA(){
   const tipo=document.getElementById('h-tipo').value;
   const nombre=document.getElementById('h-nombre').value.trim();
   const email=document.getElementById('h-email').value.trim();
-  const fecha=document.getElementById('h-fecha').value.trim();
+  const fechaRaw=document.getElementById('h-fecha').value;
   const personas=document.getElementById('h-personas').value.trim();
   const ciudad=document.getElementById('h-ciudad').value.trim();
   const detalle=document.getElementById('h-detalle').value.trim();
   if(!tipo){alert('Por favor seleccioná el tipo de servicio.');return;}
   if(!nombre){alert('Por favor ingresá tu nombre.');return;}
   if(!ciudad){alert('Por favor ingresá la ciudad del evento.');return;}
+  const fecha=fechaRaw?new Date(fechaRaw+'T12:00:00').toLocaleDateString('es-AR',{day:'numeric',month:'long',year:'numeric'}):'A confirmar';
   const msg=
 `Hola Javo! 👋 Te escribo desde tu web para cotizar un evento.
 
 📋 *Tipo de servicio:* ${tipo}
 👤 *Nombre:* ${nombre}${email?'\n📧 *Email:* '+email:''}
-📅 *Fecha:* ${fecha||'A confirmar'}
+📅 *Fecha:* ${fecha}
 👥 *Personas:* ${personas||'A confirmar'}
 📍 *Ciudad:* ${ciudad}
 💬 *Detalles:* ${detalle||'—'}
 
 ¡Quedo a la espera de tu respuesta! 🔥`;
+  window.open('https://wa.me/543874105902?text='+encodeURIComponent(msg),'_blank');
+}
+
+/* ── WHATSAPP — COLABORACIÓN ── */
+function sendColaboWA(){
+  const tipo=document.getElementById('c-tipo').value;
+  const nombre=document.getElementById('c-nombre').value.trim();
+  const email=document.getElementById('c-email').value.trim();
+  const plataforma=document.getElementById('c-plataforma').value;
+  const fechaRaw=document.getElementById('c-fecha').value;
+  const presupuesto=document.getElementById('c-presupuesto').value.trim();
+  const detalle=document.getElementById('c-detalle').value.trim();
+  if(!tipo){alert('Por favor seleccioná el tipo de colaboración.');return;}
+  if(!nombre){alert('Por favor ingresá tu nombre o empresa.');return;}
+  if(!email){alert('Por favor ingresá tu email.');return;}
+  const fecha=fechaRaw?new Date(fechaRaw+'T12:00:00').toLocaleDateString('es-AR',{day:'numeric',month:'long',year:'numeric'}):'A confirmar';
+  const msg=
+`Hola Javo! 👋 Te escribo desde tu web para proponer una colaboración en redes.
+
+📱 *Tipo de colaboración:* ${tipo}
+🏢 *Nombre / Empresa:* ${nombre}
+📧 *Email:* ${email}
+🎯 *Plataforma:* ${plataforma||'A definir'}
+📅 *Fecha estimada:* ${fecha}
+💰 *Presupuesto:* ${presupuesto||'A definir'}
+💬 *Brief / Concepto:* ${detalle||'—'}
+
+¡Quedo a la espera de tu respuesta! 🙌`;
   window.open('https://wa.me/543874105902?text='+encodeURIComponent(msg),'_blank');
 }
 
