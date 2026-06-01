@@ -239,8 +239,40 @@ textarea{resize:vertical;min-height:90px;}
 .dc-actions{display:flex;gap:.75rem;margin-top:1.25rem;}
 .btn-ver{display:inline-block;background:transparent;color:var(--fire);padding:.55rem 1.25rem;font-family:'Barlow Condensed',sans-serif;font-size:.8rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;border-radius:2px;border:1px solid rgba(200,75,17,.4);transition:background .2s,color .2s;}
 .btn-ver:hover{background:rgba(200,75,17,.08);}
-.btn-buy{display:inline-block;background:var(--fire);color:#fff;padding:.55rem 1.25rem;font-family:'Barlow Condensed',sans-serif;font-size:.8rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;border-radius:2px;border:none;transition:background .2s;}
+.btn-buy{display:inline-block;background:var(--fire);color:#fff;padding:.55rem 1.25rem;font-family:'Barlow Condensed',sans-serif;font-size:.8rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;border-radius:2px;border:none;transition:background .2s;cursor:pointer;}
 .btn-buy:hover{background:var(--ember);}
+
+/* ── USER NAV ── */
+.nav-user{position:relative;margin-left:.5rem;}
+.nav-user-btn{background:transparent;border:1px solid rgba(245,237,228,.2);border-radius:50%;width:34px;height:34px;display:flex;align-items:center;justify-content:center;cursor:pointer;color:var(--ash);font-size:.9rem;transition:border-color .2s,background .2s;flex-shrink:0;}
+.nav-user-btn:hover{border-color:var(--ember);background:rgba(200,75,17,.1);}
+.nav-user-btn.logged-in{background:var(--fire);border-color:var(--fire);font-family:'Barlow Condensed',sans-serif;font-size:.85rem;font-weight:800;letter-spacing:.03em;}
+.user-dropdown{position:absolute;top:calc(100% + .65rem);right:0;background:var(--dark);border:1px solid rgba(245,237,228,.1);border-radius:4px;min-width:190px;padding:.5rem 0;display:none;z-index:300;box-shadow:0 8px 32px rgba(0,0,0,.5);}
+.user-dropdown.open{display:block;}
+.user-dd-email{padding:.5rem 1rem .7rem;font-size:.72rem;color:var(--muted);border-bottom:1px solid rgba(245,237,228,.06);margin-bottom:.3rem;word-break:break-all;}
+.user-dd-item{display:block;width:100%;padding:.55rem 1rem;font-size:.83rem;color:var(--ash);cursor:pointer;transition:background .15s;background:transparent;border:none;text-align:left;font-family:'Barlow',sans-serif;}
+.user-dd-item:hover{background:rgba(245,237,228,.05);}
+.user-dd-item.danger{color:#E74C3C;}
+
+/* ── LOGIN MODAL ── */
+.login-modal-box{background:var(--dark);border:1px solid rgba(245,237,228,.1);border-radius:6px;max-width:400px;width:calc(100% - 2rem);padding:2.25rem;position:relative;}
+.login-modal-title{font-family:'Playfair Display',serif;font-size:1.5rem;font-weight:700;color:var(--ash);margin-bottom:.35rem;}
+.login-modal-sub{font-size:.85rem;color:var(--muted);margin-bottom:1.5rem;line-height:1.55;}
+.login-context{background:rgba(200,75,17,.08);border:1px solid rgba(200,75,17,.15);border-radius:3px;padding:.75rem 1rem;margin-bottom:1.25rem;font-size:.82rem;color:rgba(245,237,228,.75);line-height:1.5;display:none;}
+.btn-google{width:100%;padding:.8rem;background:#fff;border:none;border-radius:3px;color:#1a1a1a;font-family:'Barlow',sans-serif;font-size:.9rem;font-weight:600;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:.65rem;transition:background .2s;margin-bottom:1.25rem;}
+.btn-google:hover{background:#f0f0f0;}
+.login-divider{display:flex;align-items:center;gap:.75rem;margin-bottom:1.1rem;}
+.login-divider::before,.login-divider::after{content:'';flex:1;height:1px;background:rgba(245,237,228,.1);}
+.login-divider span{font-size:.75rem;color:var(--muted);}
+.login-field{width:100%;padding:.7rem .9rem;background:rgba(245,237,228,.06);border:1px solid rgba(245,237,228,.1);border-radius:3px;color:var(--ash);font-family:'Barlow',sans-serif;font-size:.88rem;outline:none;margin-bottom:.7rem;transition:border .2s;}
+.login-field:focus{border-color:rgba(200,75,17,.5);}
+.btn-login-submit{width:100%;padding:.8rem;background:var(--fire);border:none;border-radius:3px;color:#fff;font-family:'Barlow Condensed',sans-serif;font-size:.9rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;cursor:pointer;margin-bottom:.9rem;transition:background .2s;}
+.btn-login-submit:hover{background:var(--ember);}
+.login-err{color:#E74C3C;font-size:.8rem;margin-bottom:.7rem;display:none;}
+.login-toggle{text-align:center;font-size:.8rem;color:var(--muted);}
+.login-toggle a{color:var(--ember);cursor:pointer;}
+.login-skip{text-align:center;margin-top:.6rem;}
+.login-skip a{font-size:.78rem;color:var(--muted);cursor:pointer;text-decoration:underline;}
 
 /* ── MODAL ── */
 .modal-bg{display:none;position:fixed;inset:0;background:rgba(26,18,11,.88);z-index:800;align-items:center;justify-content:center;padding:1.5rem;}
@@ -400,6 +432,7 @@ footer{background:var(--dark);border-top:1px solid rgba(245,237,228,.06);}
   <a href="#recetarios" onclick="closeMobileMenu()">Recetarios</a>
   <a href="#portfolio" onclick="closeMobileMenu()">Portfolio</a>
   <a href="#contratar" onclick="closeMobileMenu()" class="mob-cta">Cotizar Evento</a>
+  <a href="#" onclick="closeMobileMenu();toggleUserMenu();" style="margin-top:.5rem;opacity:.7;">👤 Mi cuenta</a>
 </div>
 
 <!-- NAVBAR -->
@@ -416,6 +449,14 @@ footer{background:var(--dark);border-top:1px solid rgba(245,237,228,.06);}
     <li><a href="#portfolio">Portfolio</a></li>
     <li><a href="#contratar" class="nav-cta">Cotizar</a></li>
   </ul>
+  <div class="nav-user" id="navUser">
+    <button class="nav-user-btn" id="navUserBtn" onclick="toggleUserMenu()" title="Mi cuenta">👤</button>
+    <div class="user-dropdown" id="userDropdown">
+      <div class="user-dd-email" id="userDdEmail"></div>
+      <button class="user-dd-item" onclick="closeUserMenu()">Mis compras</button>
+      <button class="user-dd-item danger" onclick="doUserLogout()">Cerrar sesión</button>
+    </div>
+  </div>
   <button class="hamburger" id="hamburger" aria-label="Menú" onclick="toggleMobileMenu()">
     <span></span><span></span><span></span>
   </button>
@@ -632,7 +673,7 @@ footer{background:var(--dark);border-top:1px solid rgba(245,237,228,.06);}
         </div>
         <div class="dc-actions">
           <button class="btn-ver" onclick="openModal('fierros')">Ver más</button>
-          <a class="btn-buy" href="https://mpago.la/2Rk4Mu5" target="_blank">Comprar →</a>
+          <button class="btn-buy" onclick="comprarRecetario('https://mpago.la/2Rk4Mu5','Todo sobre Fierros')">Comprar →</button>
         </div>
       </div>
 
@@ -646,7 +687,7 @@ footer{background:var(--dark);border-top:1px solid rgba(245,237,228,.06);}
         </div>
         <div class="dc-actions">
           <button class="btn-ver" onclick="openModal('disco')">Ver más</button>
-          <a class="btn-buy" href="https://mpago.la/1Eaouxj" target="_blank">Comprar →</a>
+          <button class="btn-buy" onclick="comprarRecetario('https://mpago.la/1Eaouxj','A Todo Disco')">Comprar →</button>
         </div>
       </div>
 
@@ -660,7 +701,7 @@ footer{background:var(--dark);border-top:1px solid rgba(245,237,228,.06);}
         </div>
         <div class="dc-actions">
           <button class="btn-ver" onclick="openModal('keveri')">Ver más</button>
-          <a class="btn-buy" href="https://mpago.la/1EPmaSB" target="_blank">Comprar →</a>
+          <button class="btn-buy" onclick="comprarRecetario('https://mpago.la/1EPmaSB','A Todo Keveri')">Comprar →</button>
         </div>
       </div>
 
@@ -674,7 +715,7 @@ footer{background:var(--dark);border-top:1px solid rgba(245,237,228,.06);}
         </div>
         <div class="dc-actions">
           <button class="btn-ver" onclick="openModal('humo')">Ver más</button>
-          <a class="btn-buy" href="https://mpago.la/2RTHuzA" target="_blank">Comprar →</a>
+          <button class="btn-buy" onclick="comprarRecetario('https://mpago.la/2RTHuzA','Donde Hay Humo')">Comprar →</button>
         </div>
       </div>
 
@@ -688,7 +729,7 @@ footer{background:var(--dark);border-top:1px solid rgba(245,237,228,.06);}
         </div>
         <div class="dc-actions">
           <button class="btn-ver" onclick="openModal('saltenos')">Ver más</button>
-          <a class="btn-buy" href="https://mpago.la/1Kwh2qe" target="_blank">Comprar →</a>
+          <button class="btn-buy" onclick="comprarRecetario('https://mpago.la/1Kwh2qe','Sabores Salteños')">Comprar →</button>
         </div>
       </div>
 
@@ -702,7 +743,7 @@ footer{background:var(--dark);border-top:1px solid rgba(245,237,228,.06);}
         </div>
         <div class="dc-actions">
           <button class="btn-ver" onclick="openModal('fresco')">Ver más</button>
-          <a class="btn-buy" href="https://mpago.la/1y5iGdK" target="_blank">Comprar →</a>
+          <button class="btn-buy" onclick="comprarRecetario('https://mpago.la/1y5iGdK','Lo Fresco del Norte')">Comprar →</button>
         </div>
       </div>
 
@@ -716,7 +757,7 @@ footer{background:var(--dark);border-top:1px solid rgba(245,237,228,.06);}
         </div>
         <div class="dc-actions">
           <button class="btn-ver" onclick="openModal('fresco')">Ver más</button>
-          <a class="btn-buy" href="https://mpago.la/1y5iGdK" target="_blank">Comprar →</a>
+          <button class="btn-buy" onclick="comprarRecetario('https://mpago.la/1y5iGdK','Lo Fresco del Norte')">Comprar →</button>
         </div>
       </div>
 
@@ -743,7 +784,7 @@ footer{background:var(--dark);border-top:1px solid rgba(245,237,228,.06);}
       </ul>
       <div class="modal-footer">
         <div class="modal-price">$34.700 ARS</div>
-        <a class="btn-primary" href="https://mpago.la/2Rk4Mu5" target="_blank">Comprar ahora →</a>
+        <button class="btn-primary" onclick="comprarRecetario('https://mpago.la/2Rk4Mu5','Todo sobre Fierros')">Comprar ahora →</button>
       </div>
     </div>
   </div>
@@ -766,7 +807,7 @@ footer{background:var(--dark);border-top:1px solid rgba(245,237,228,.06);}
       </ul>
       <div class="modal-footer">
         <div class="modal-price">$38.900 ARS</div>
-        <a class="btn-primary" href="https://mpago.la/1Eaouxj" target="_blank">Comprar ahora →</a>
+        <button class="btn-primary" onclick="comprarRecetario('https://mpago.la/1Eaouxj','A Todo Disco')">Comprar ahora →</button>
       </div>
     </div>
   </div>
@@ -789,7 +830,7 @@ footer{background:var(--dark);border-top:1px solid rgba(245,237,228,.06);}
       </ul>
       <div class="modal-footer">
         <div class="modal-price">$34.700 ARS</div>
-        <a class="btn-primary" href="https://mpago.la/1EPmaSB" target="_blank">Comprar ahora →</a>
+        <button class="btn-primary" onclick="comprarRecetario('https://mpago.la/1EPmaSB','A Todo Keveri')">Comprar ahora →</button>
       </div>
     </div>
   </div>
@@ -812,7 +853,7 @@ footer{background:var(--dark);border-top:1px solid rgba(245,237,228,.06);}
       </ul>
       <div class="modal-footer">
         <div class="modal-price">$34.700 ARS</div>
-        <a class="btn-primary" href="https://mpago.la/2RTHuzA" target="_blank">Comprar ahora →</a>
+        <button class="btn-primary" onclick="comprarRecetario('https://mpago.la/2RTHuzA','Donde Hay Humo')">Comprar ahora →</button>
       </div>
     </div>
   </div>
@@ -835,7 +876,7 @@ footer{background:var(--dark);border-top:1px solid rgba(245,237,228,.06);}
       </ul>
       <div class="modal-footer">
         <div class="modal-price">$34.700 ARS</div>
-        <a class="btn-primary" href="https://mpago.la/1Kwh2qe" target="_blank">Comprar ahora →</a>
+        <button class="btn-primary" onclick="comprarRecetario('https://mpago.la/1Kwh2qe','Sabores Salteños')">Comprar ahora →</button>
       </div>
     </div>
   </div>
@@ -858,7 +899,7 @@ footer{background:var(--dark);border-top:1px solid rgba(245,237,228,.06);}
       </ul>
       <div class="modal-footer">
         <div class="modal-price">$31.800 ARS</div>
-        <a class="btn-primary" href="https://mpago.la/1y5iGdK" target="_blank">Comprar ahora →</a>
+        <button class="btn-primary" onclick="comprarRecetario('https://mpago.la/1y5iGdK','Lo Fresco del Norte')">Comprar ahora →</button>
       </div>
     </div>
   </div>
@@ -1344,6 +1385,139 @@ footer{background:var(--dark);border-top:1px solid rgba(245,237,228,.06);}
 </footer>
 
 <script>
+/* ── USER AUTH ── */
+let userToken=null,userEmail=null,loginMode='login',pendingPurchaseUrl=null;
+
+// OAuth callback — Supabase redirige acá con #access_token=...
+(function(){
+  const hash=window.location.hash;
+  if(hash&&hash.includes('access_token')){
+    const p=new URLSearchParams(hash.substring(1));
+    const t=p.get('access_token');
+    if(t){
+      fetch(`${location.origin}`,{method:'HEAD'}); // dummy to keep context
+      fetch('https://nudthkwuzhxflwirzmqd.supabase.co/auth/v1/user',{
+        headers:{'apikey':'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im51ZHRoa3d1emh4Zmx3aXJ6bXFkIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzk5MjkwNjAsImV4cCI6MjA5NTUwNTA2MH0.XW6BJ4NPam-KdwbSwR4giRAS03aH23G3it-8pwSWrZw','Authorization':'Bearer '+t}
+      }).then(r=>r.json()).then(u=>{
+        userToken=t;userEmail=u.email||'';
+        localStorage.setItem('jtc_user_token',t);
+        localStorage.setItem('jtc_user_email',userEmail);
+        updateUserUI();
+        history.replaceState(null,'',window.location.pathname);
+        if(pendingPurchaseUrl){window.open(pendingPurchaseUrl,'_blank');pendingPurchaseUrl=null;}
+      });
+    }
+  }
+})();
+
+// Session guardada
+(function(){
+  const t=localStorage.getItem('jtc_user_token');
+  const e=localStorage.getItem('jtc_user_email');
+  if(t&&e){userToken=t;userEmail=e;updateUserUI();}
+})();
+
+function updateUserUI(){
+  const btn=document.getElementById('navUserBtn');
+  if(!btn)return;
+  if(userToken&&userEmail){
+    btn.textContent=userEmail.charAt(0).toUpperCase();
+    btn.classList.add('logged-in');
+    document.getElementById('userDdEmail').textContent=userEmail;
+  } else {
+    btn.innerHTML='👤';btn.classList.remove('logged-in');
+  }
+}
+
+function toggleUserMenu(){
+  if(!userToken){openLoginModal();return;}
+  document.getElementById('userDropdown').classList.toggle('open');
+}
+function closeUserMenu(){document.getElementById('userDropdown').classList.remove('open');}
+
+function openLoginModal(url,titulo){
+  if(url)pendingPurchaseUrl=url;
+  const skipEl=document.getElementById('loginSkip');
+  const ctxEl=document.getElementById('loginContext');
+  if(url){
+    skipEl.style.display='block';
+    ctxEl.style.display='block';
+    ctxEl.textContent=titulo?`Iniciá sesión para guardar tu compra de "${titulo}" y acceder a tus descargas.`:'Iniciá sesión para guardar tu compra.';
+  } else {
+    skipEl.style.display='none';ctxEl.style.display='none';
+  }
+  document.getElementById('userLoginErr').style.display='none';
+  document.getElementById('loginModal').classList.add('open');
+  document.body.style.overflow='hidden';
+}
+function closeLoginModal(){
+  document.getElementById('loginModal').classList.remove('open');
+  document.body.style.overflow='';
+}
+function closeLoginModalBg(e){if(e.target===e.currentTarget)closeLoginModal();}
+function skipLogin(){
+  closeLoginModal();
+  if(pendingPurchaseUrl){window.open(pendingPurchaseUrl,'_blank');pendingPurchaseUrl=null;}
+}
+
+function toggleLoginMode(){
+  loginMode=loginMode==='login'?'register':'login';
+  document.getElementById('loginSubmitBtn').textContent=loginMode==='login'?'Ingresar':'Crear cuenta';
+  document.getElementById('loginToggleText').textContent=loginMode==='login'?'¿No tenés cuenta?':'¿Ya tenés cuenta?';
+  document.getElementById('loginToggleLink').textContent=loginMode==='login'?'Registrate':'Iniciá sesión';
+}
+
+async function doUserLogin(){
+  const email=document.getElementById('userEmailInput').value.trim();
+  const pass=document.getElementById('userPassInput').value;
+  const errEl=document.getElementById('userLoginErr');
+  errEl.style.display='none';
+  if(!email||!pass){errEl.textContent='Completá email y contraseña.';errEl.style.display='block';return;}
+  const url=loginMode==='login'
+    ?'https://nudthkwuzhxflwirzmqd.supabase.co/auth/v1/token?grant_type=password'
+    :'https://nudthkwuzhxflwirzmqd.supabase.co/auth/v1/signup';
+  try{
+    const r=await fetch(url,{
+      method:'POST',
+      headers:{'Content-Type':'application/json','apikey':'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im51ZHRoa3d1emh4Zmx3aXJ6bXFkIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzk5MjkwNjAsImV4cCI6MjA5NTUwNTA2MH0.XW6BJ4NPam-KdwbSwR4giRAS03aH23G3it-8pwSWrZw'},
+      body:JSON.stringify({email,password:pass})
+    });
+    const d=await r.json();
+    if(!r.ok||!d.access_token){
+      errEl.textContent=loginMode==='login'?'Email o contraseña incorrectos.':'No se pudo crear la cuenta.';
+      errEl.style.display='block';return;
+    }
+    userToken=d.access_token;userEmail=d.user?.email||email;
+    localStorage.setItem('jtc_user_token',userToken);
+    localStorage.setItem('jtc_user_email',userEmail);
+    updateUserUI();closeLoginModal();
+    if(pendingPurchaseUrl){window.open(pendingPurchaseUrl,'_blank');pendingPurchaseUrl=null;}
+  }catch(e){errEl.textContent='Error de conexión. Intentá de nuevo.';errEl.style.display='block';}
+}
+
+function loginWithGoogle(){
+  const redirect=encodeURIComponent(window.location.origin+window.location.pathname);
+  window.location.href=`https://nudthkwuzhxflwirzmqd.supabase.co/auth/v1/authorize?provider=google&redirect_to=${redirect}`;
+}
+
+function doUserLogout(){
+  userToken=null;userEmail=null;
+  localStorage.removeItem('jtc_user_token');localStorage.removeItem('jtc_user_email');
+  updateUserUI();closeUserMenu();
+}
+
+function comprarRecetario(url,titulo){
+  if(userToken){window.open(url,'_blank');}
+  else{openLoginModal(url,titulo);}
+}
+
+// Cerrar dropdown al click fuera
+document.addEventListener('click',e=>{
+  const dd=document.getElementById('userDropdown');
+  const btn=document.getElementById('navUserBtn');
+  if(dd&&dd.classList.contains('open')&&!dd.contains(e.target)&&e.target!==btn){closeUserMenu();}
+});
+
 /* ── SUPABASE ── */
 const SUPA_URL='https://nudthkwuzhxflwirzmqd.supabase.co';
 const SUPA_KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im51ZHRoa3d1emh4Zmx3aXJ6bXFkIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzk5MjkwNjAsImV4cCI6MjA5NTUwNTA2MH0.XW6BJ4NPam-KdwbSwR4giRAS03aH23G3it-8pwSWrZw';
@@ -1655,5 +1829,31 @@ document.addEventListener('DOMContentLoaded',async()=>{
   buildRatingSummary();
 });
 </script>
+
+<!-- ── LOGIN MODAL ── -->
+<div class="modal-bg" id="loginModal" onclick="closeLoginModalBg(event)">
+  <div class="login-modal-box">
+    <button class="modal-close" onclick="closeLoginModal()">✕</button>
+    <div class="login-modal-title" id="loginModalTitle">Iniciá sesión</div>
+    <div class="login-modal-sub">Para guardar tus compras y acceder a tus descargas.</div>
+    <div class="login-context" id="loginContext"></div>
+    <div class="login-err" id="userLoginErr"></div>
+    <button class="btn-google" onclick="loginWithGoogle()">
+      <svg width="18" height="18" viewBox="0 0 18 18" xmlns="http://www.w3.org/2000/svg"><path fill="#4285F4" d="M17.64 9.2c0-.637-.057-1.251-.164-1.84H9v3.481h4.844c-.209 1.125-.843 2.078-1.796 2.717v2.258h2.908C16.658 14.013 17.64 11.71 17.64 9.2z"/><path fill="#34A853" d="M9 18c2.43 0 4.467-.806 5.956-2.184l-2.908-2.258c-.806.54-1.837.86-3.048.86-2.344 0-4.328-1.584-5.036-3.711H.957v2.332C2.438 15.983 5.482 18 9 18z"/><path fill="#FBBC05" d="M3.964 10.707c-.18-.54-.282-1.117-.282-1.707s.102-1.167.282-1.707V4.961H.957C.347 6.175 0 7.55 0 9s.348 2.825.957 4.039l3.007-2.332z"/><path fill="#EA4335" d="M9 3.58c1.321 0 2.508.454 3.44 1.345l2.582-2.58C13.463.891 11.426 0 9 0 5.482 0 2.438 2.017.957 4.961L3.964 7.293C4.672 5.166 6.656 3.58 9 3.58z"/></svg>
+      Continuar con Google
+    </button>
+    <div class="login-divider"><span>o</span></div>
+    <input class="login-field" id="userEmailInput" type="email" placeholder="Email" autocomplete="email">
+    <input class="login-field" id="userPassInput" type="password" placeholder="Contraseña" autocomplete="current-password">
+    <button class="btn-login-submit" id="loginSubmitBtn" onclick="doUserLogin()">Ingresar</button>
+    <div class="login-toggle">
+      <span id="loginToggleText">¿No tenés cuenta?</span>
+      <a onclick="toggleLoginMode()"> <span id="loginToggleLink">Registrate</span></a>
+    </div>
+    <div class="login-skip" id="loginSkip" style="display:none;">
+      <a onclick="skipLogin()">Continuar sin cuenta →</a>
+    </div>
+  </div>
+</div>
 </body>
 </html>
