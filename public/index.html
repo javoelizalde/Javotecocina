@@ -651,7 +651,7 @@ footer{background:var(--dark);border-top:1px solid rgba(245,237,228,.06);}
       </div>
 
       <div class="digital-card reveal">
-        <img class="dc-img" src="img/p02.jpg" alt="A Todo Keveri" style="object-position:center 40%;">
+        <img class="dc-img" src="img/p02.jpg" alt="A Todo Keveri" style="object-position:center 15%;">
         <div class="dc-tag">⚡ Keveri</div>
         <div class="dc-title">A Todo Keveri</div>
         <p class="dc-desc">13 recetas para el horno multifuncional a carbón. Pizza a la piedra, bondiola al slow smoke, fast grill y pan artesanal.</p>
@@ -665,7 +665,7 @@ footer{background:var(--dark);border-top:1px solid rgba(245,237,228,.06);}
       </div>
 
       <div class="digital-card reveal">
-        <img class="dc-img" src="img/p08.jpg" alt="Donde Hay Humo" style="object-position:center 35%;">
+        <img class="dc-img" src="img/p08.jpg" alt="Donde Hay Humo" style="object-position:center 10%;">
         <div class="dc-tag">💨 Ahumador</div>
         <div class="dc-title">Donde Hay Humo</div>
         <p class="dc-desc">12 recetas de ahumado lento. Brisket, bondiola pulled pork, ribs 3-2-1, trucha y guía completa de maderas (quebracho, manzano, cerezo).</p>
@@ -1330,6 +1330,42 @@ footer{background:var(--dark);border-top:1px solid rgba(245,237,228,.06);}
 </footer>
 
 <script>
+/* ── SUPABASE ── */
+const SUPA_URL='https://nudthkwuzhxflwirzmqd.supabase.co';
+const SUPA_KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im51ZHRoa3d1emh4Zmx3aXJ6bXFkIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzk5MjkwNjAsImV4cCI6MjA5NTUwNTA2MH0.XW6BJ4NPam-KdwbSwR4giRAS03aH23G3it-8pwSWrZw';
+
+async function supaInsert(table,data){
+  try{
+    await fetch(`${SUPA_URL}/rest/v1/${table}`,{
+      method:'POST',
+      headers:{'Content-Type':'application/json','apikey':SUPA_KEY,'Authorization':'Bearer '+SUPA_KEY,'Prefer':'return=minimal'},
+      body:JSON.stringify(data)
+    });
+  }catch(e){}
+}
+
+async function loadReviews(){
+  try{
+    const r=await fetch(`${SUPA_URL}/rest/v1/reviews?aprobado=eq.true&order=created_at.asc`,{
+      headers:{'apikey':SUPA_KEY,'Authorization':'Bearer '+SUPA_KEY}
+    });
+    if(!r.ok)return;
+    const list=await r.json();
+    if(!list.length)return;
+    const track=document.getElementById('testiTrack');
+    // Clear static placeholder cards, replace with DB data
+    track.innerHTML='';
+    list.forEach(rev=>{
+      const s=parseInt(rev.estrellas)||5;
+      const el=document.createElement('div');
+      el.className='testi-card';
+      el.dataset.stars=s;
+      el.innerHTML=`<div class="testi-stars">${'★'.repeat(s)+'☆'.repeat(5-s)}</div><p class="testi-text">"${rev.comentario}"</p><div class="testi-author">${rev.nombre||'Anónimo'}</div><div class="testi-role">${rev.tipo||''}</div>`;
+      track.appendChild(el);
+    });
+  }catch(e){}
+}
+
 /* ── CURSOR ── */
 const cur=document.getElementById('cursor');
 document.addEventListener('mousemove',e=>{cur.style.left=e.clientX+'px';cur.style.top=e.clientY+'px';});
@@ -1391,7 +1427,7 @@ function switchTab(tab){
 }
 
 /* ── WHATSAPP — EVENTO ── */
-function sendEventoWA(){
+async function sendEventoWA(){
   const tipo=document.getElementById('h-tipo').value;
   const nombre=document.getElementById('h-nombre').value.trim();
   const email=document.getElementById('h-email').value.trim();
@@ -1403,6 +1439,7 @@ function sendEventoWA(){
   if(!nombre){alert('Por favor ingresá tu nombre.');return;}
   if(!ciudad){alert('Por favor ingresá la ciudad del evento.');return;}
   const fecha=fechaRaw?new Date(fechaRaw+'T12:00:00').toLocaleDateString('es-AR',{day:'numeric',month:'long',year:'numeric'}):'A confirmar';
+  supaInsert('event_leads',{tipo_evento:tipo,nombre,email:email||'',fecha,personas:personas||'',lugar:ciudad,detalle:detalle||''});
   const msg=
 `Hola Javo! 👋 Te escribo desde tu web para cotizar un evento.
 
@@ -1418,7 +1455,7 @@ function sendEventoWA(){
 }
 
 /* ── WHATSAPP — COLABORACIÓN ── */
-function sendColaboWA(){
+async function sendColaboWA(){
   const tipo=document.getElementById('c-tipo').value;
   const nombre=document.getElementById('c-nombre').value.trim();
   const email=document.getElementById('c-email').value.trim();
@@ -1430,6 +1467,7 @@ function sendColaboWA(){
   if(!nombre){alert('Por favor ingresá tu nombre o empresa.');return;}
   if(!email){alert('Por favor ingresá tu email.');return;}
   const fecha=fechaRaw?new Date(fechaRaw+'T12:00:00').toLocaleDateString('es-AR',{day:'numeric',month:'long',year:'numeric'}):'A confirmar';
+  supaInsert('collab_leads',{tipo,nombre,email,plataforma:plataforma||'',fecha,presupuesto:presupuesto||'',detalle:detalle||''});
   const msg=
 `Hola Javo! 👋 Te escribo desde tu web para proponer una colaboración en redes.
 
@@ -1553,13 +1591,14 @@ function buildRatingSummary(){
 }
 
 /* ── TESTIMONIO — ENVIAR ── */
-function enviarTestimonio(){
+async function enviarTestimonio(){
   const nombre=document.getElementById('t-nombre').value.trim();
   const ref=document.getElementById('t-ref').value.trim();
   const texto=document.getElementById('t-texto').value.trim();
   const estrellas=document.getElementById('t-estrellas').dataset.val;
   if(!estrellas||estrellas==='0'){alert('Por favor seleccioná una calificación con las estrellas.');return;}
   if(!texto){alert('Por favor escribí tu comentario.');return;}
+  await supaInsert('reviews',{nombre:nombre||'Anónimo',tipo:ref||'',estrellas:parseInt(estrellas),comentario:texto});
   const starsStr='★'.repeat(+estrellas)+'☆'.repeat(5-+estrellas);
   const msg=`Hola Javo! 👋 Te dejo una reseña desde tu web:\n\n⭐ *Calificación:* ${starsStr} (${estrellas}/5)\n👤 *Nombre:* ${nombre||'Anónimo'}\n📌 *Referencia:* ${ref||'—'}\n💬 *Comentario:* ${texto}`;
   window.open('https://wa.me/543874105902?text='+encodeURIComponent(msg),'_blank');
@@ -1596,7 +1635,8 @@ function togglePortfolio(){
 }
 
 // Init on load
-document.addEventListener('DOMContentLoaded',()=>{
+document.addEventListener('DOMContentLoaded',async()=>{
+  await loadReviews();
   testiInit();
   buildRatingSummary();
 });
