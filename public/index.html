@@ -1032,31 +1032,55 @@ footer{background:var(--dark);border-top:1px solid rgba(245,237,228,.06);}
       <div class="sec-label">Lo que dicen</div>
       <h2 class="sec-title">Palabras de quienes<br><em>vivieron</em> la experiencia.</h2>
     </div>
-    <div class="testi-grid reveal">
-      <div class="testi-card">
-        <div class="testi-stars">★★★★★</div>
-        <p class="testi-text">"Contratar a Javo para nuestro evento corporativo fue una de las mejores decisiones. No solo cocinó de manera espectacular — creó una experiencia que todavía comentan nuestros clientes."</p>
-        <div class="testi-author">Empresa · Buenos Aires</div>
-        <div class="testi-role">Evento Corporativo · 80 personas</div>
+    <!-- RATING SUMMARY -->
+    <div class="rating-summary reveal" id="ratingSummary">
+      <div class="rating-big">
+        <span class="rating-num" id="ratingNum">5.0</span>
+        <div class="rating-stars-row" id="ratingStars">★★★★★</div>
+        <div class="rating-total" id="ratingTotal">3 reseñas</div>
       </div>
-      <div class="testi-card">
-        <div class="testi-stars">★★★★★</div>
-        <p class="testi-text">"El recetario de Sabores Salteños es una joya. Cada receta con su contexto cultural, los ingredientes bien explicados. Se nota el amor y el conocimiento que hay detrás."</p>
-        <div class="testi-author">Gabriela M.</div>
-        <div class="testi-role">Recetario Sabores Salteños</div>
-      </div>
-      <div class="testi-card">
-        <div class="testi-stars">★★★★★</div>
-        <p class="testi-text">"El asado que preparó Javo para mi cumpleaños fue inolvidable. Llegó con toda su energía, explicó cada corte, y la gente no paró de hablar de la comida durante semanas."</p>
-        <div class="testi-author">Martín R.</div>
-        <div class="testi-role">Asado privado · 35 personas</div>
+      <div class="rating-bars" id="ratingBars">
+        <div class="rating-bar-row"><span class="rating-bar-label">5★</span><div class="rating-bar-track"><div class="rating-bar-fill" id="bar5" style="width:100%"></div></div><span class="rating-bar-count" id="cnt5">3</span></div>
+        <div class="rating-bar-row"><span class="rating-bar-label">4★</span><div class="rating-bar-track"><div class="rating-bar-fill" id="bar4" style="width:0%"></div></div><span class="rating-bar-count" id="cnt4">0</span></div>
+        <div class="rating-bar-row"><span class="rating-bar-label">3★</span><div class="rating-bar-track"><div class="rating-bar-fill" id="bar3" style="width:0%"></div></div><span class="rating-bar-count" id="cnt3">0</span></div>
+        <div class="rating-bar-row"><span class="rating-bar-label">2★</span><div class="rating-bar-track"><div class="rating-bar-fill" id="bar2" style="width:0%"></div></div><span class="rating-bar-count" id="cnt2">0</span></div>
+        <div class="rating-bar-row"><span class="rating-bar-label">1★</span><div class="rating-bar-track"><div class="rating-bar-fill" id="bar1" style="width:0%"></div></div><span class="rating-bar-count" id="cnt1">0</span></div>
       </div>
     </div>
 
-    <!-- FORMULARIO PARA DEJAR COMENTARIO -->
+    <!-- CAROUSEL -->
+    <div class="testi-carousel reveal">
+      <div class="testi-track" id="testiTrack">
+        <div class="testi-card" data-stars="5">
+          <div class="testi-stars">★★★★★</div>
+          <p class="testi-text">"Contratar a Javo para nuestro evento corporativo fue una de las mejores decisiones. No solo cocinó de manera espectacular — creó una experiencia que todavía comentan nuestros clientes."</p>
+          <div class="testi-author">Empresa · Buenos Aires</div>
+          <div class="testi-role">Evento Corporativo · 80 personas</div>
+        </div>
+        <div class="testi-card" data-stars="5">
+          <div class="testi-stars">★★★★★</div>
+          <p class="testi-text">"El recetario de Sabores Salteños es una joya. Cada receta con su contexto cultural, los ingredientes bien explicados. Se nota el amor y el conocimiento que hay detrás."</p>
+          <div class="testi-author">Gabriela M.</div>
+          <div class="testi-role">Recetario Sabores Salteños</div>
+        </div>
+        <div class="testi-card" data-stars="5">
+          <div class="testi-stars">★★★★★</div>
+          <p class="testi-text">"El asado que preparó Javo para mi cumpleaños fue inolvidable. Llegó con toda su energía, explicó cada corte, y la gente no paró de hablar de la comida durante semanas."</p>
+          <div class="testi-author">Martín R.</div>
+          <div class="testi-role">Asado privado · 35 personas</div>
+        </div>
+      </div>
+      <div class="testi-nav">
+        <button class="testi-arrow" onclick="testiMove(-1)" aria-label="Anterior">&#8592;</button>
+        <div class="testi-dots" id="testiDots"></div>
+        <button class="testi-arrow" onclick="testiMove(1)" aria-label="Siguiente">&#8594;</button>
+      </div>
+    </div>
+
+    <!-- FORMULARIO PARA DEJAR RESEÑA -->
     <div class="testi-form-wrap reveal">
       <div class="testi-form-title">¿Trabajaste con Javo?</div>
-      <p class="testi-form-sub">Dejá tu comentario sobre un evento, recetario o servicio. Tu opinión aparecerá en la próxima actualización de la página.</p>
+      <p class="testi-form-sub">Dejá tu reseña completa. Aparecerá en el carrusel en la próxima actualización de la página.</p>
       <div class="testi-form-inner">
         <div class="form-group">
           <label style="color:rgba(245,237,228,.4);">Nombre</label>
@@ -1067,13 +1091,23 @@ footer{background:var(--dark);border-top:1px solid rgba(245,237,228,.06);}
           <input class="testi-input" type="text" id="t-ref" placeholder="ej. Asado de cumpleaños, Recetario NOA…">
         </div>
         <div class="form-group full">
+          <span class="star-label">Tu calificación *</span>
+          <div class="star-picker" id="t-estrellas" data-val="0">
+            <span data-v="1">★</span>
+            <span data-v="2">★</span>
+            <span data-v="3">★</span>
+            <span data-v="4">★</span>
+            <span data-v="5">★</span>
+          </div>
+        </div>
+        <div class="form-group full">
           <label style="color:rgba(245,237,228,.4);">Tu comentario</label>
           <textarea class="testi-input" id="t-texto" rows="4" placeholder="Contanos tu experiencia…"></textarea>
         </div>
         <div>
-          <button class="testi-submit" onclick="enviarTestimonio()">Enviar comentario</button>
+          <button class="testi-submit" onclick="enviarTestimonio()">Enviar reseña</button>
         </div>
-        <div id="t-ok" style="display:none;align-items:center;color:var(--ember);font-family:'Barlow Condensed',sans-serif;font-size:.85rem;letter-spacing:.08em;">✓ ¡Gracias! Javo revisará tu comentario.</div>
+        <div id="t-ok" style="display:none;align-items:center;color:var(--ember);font-family:'Barlow Condensed',sans-serif;font-size:.85rem;letter-spacing:.08em;">✓ ¡Gracias! Javo revisará tu reseña.</div>
       </div>
     </div>
   </div>
@@ -1269,20 +1303,122 @@ document.addEventListener('keydown',e=>{
   }
 });
 
+/* ── CAROUSEL TESTIMONIOS ── */
+let testiIdx=0,testiTotal=0,testiTimer=null;
+function testiInit(){
+  const cards=document.querySelectorAll('#testiTrack .testi-card');
+  testiTotal=cards.length;
+  const dots=document.getElementById('testiDots');
+  dots.innerHTML='';
+  for(let i=0;i<testiTotal;i++){
+    const d=document.createElement('button');
+    d.className='testi-dot'+(i===0?' active':'');
+    d.setAttribute('aria-label','Reseña '+(i+1));
+    d.onclick=()=>testiGo(i);
+    dots.appendChild(d);
+  }
+  testiGo(0);
+  testiAutoplay();
+  // Touch/swipe
+  let tx=0;
+  const track=document.getElementById('testiTrack');
+  track.addEventListener('touchstart',e=>{tx=e.touches[0].clientX;},{passive:true});
+  track.addEventListener('touchend',e=>{
+    const dx=e.changedTouches[0].clientX-tx;
+    if(Math.abs(dx)>40)testiMove(dx<0?1:-1);
+  },{passive:true});
+}
+function testiGo(i){
+  testiIdx=i;
+  document.getElementById('testiTrack').style.transform=`translateX(-${i*100}%)`;
+  document.querySelectorAll('.testi-dot').forEach((d,j)=>d.classList.toggle('active',j===i));
+}
+function testiMove(dir){
+  testiGo((testiIdx+dir+testiTotal)%testiTotal);
+  clearInterval(testiTimer);
+  testiAutoplay();
+}
+function testiAutoplay(){
+  testiTimer=setInterval(()=>testiGo((testiIdx+1)%testiTotal),5000);
+}
+
+/* ── RATING SUMMARY ── */
+function buildRatingSummary(){
+  const cards=document.querySelectorAll('#testiTrack .testi-card');
+  const counts={1:0,2:0,3:0,4:0,5:0};
+  let total=0,sum=0;
+  cards.forEach(c=>{
+    const s=parseInt(c.dataset.stars)||5;
+    counts[s]=(counts[s]||0)+1;
+    sum+=s;total++;
+  });
+  if(!total)return;
+  const avg=(sum/total).toFixed(1);
+  document.getElementById('ratingNum').textContent=avg;
+  const fullStars=Math.round(sum/total);
+  document.getElementById('ratingStars').textContent='★'.repeat(fullStars)+'☆'.repeat(5-fullStars);
+  document.getElementById('ratingTotal').textContent=total+' reseña'+(total===1?'':'s');
+  const max=Math.max(...Object.values(counts));
+  [1,2,3,4,5].forEach(n=>{
+    const cnt=counts[n]||0;
+    const bar=document.getElementById('bar'+n);
+    const countEl=document.getElementById('cnt'+n);
+    if(bar)bar.style.width=(max>0?(cnt/max*100):0)+'%';
+    if(countEl)countEl.textContent=cnt;
+  });
+}
+
+/* ── STAR PICKER ── */
+function initStarPicker(){
+  const picker=document.getElementById('t-estrellas');
+  if(!picker)return;
+  picker.querySelectorAll('span').forEach(star=>{
+    star.addEventListener('mouseenter',()=>{
+      const v=+star.dataset.v;
+      picker.querySelectorAll('span').forEach(s=>s.classList.toggle('on',+s.dataset.v<=v));
+    });
+    star.addEventListener('mouseleave',()=>{
+      const val=+picker.dataset.val;
+      picker.querySelectorAll('span').forEach(s=>s.classList.toggle('on',+s.dataset.v<=val));
+    });
+    star.addEventListener('click',()=>{
+      picker.dataset.val=star.dataset.v;
+      picker.querySelectorAll('span').forEach(s=>s.classList.toggle('on',+s.dataset.v<=+star.dataset.v));
+    });
+    // Mobile touch
+    star.addEventListener('touchend',e=>{
+      e.preventDefault();
+      picker.dataset.val=star.dataset.v;
+      picker.querySelectorAll('span').forEach(s=>s.classList.toggle('on',+s.dataset.v<=+star.dataset.v));
+    },{passive:false});
+  });
+}
+
 /* ── TESTIMONIO — ENVIAR ── */
 function enviarTestimonio(){
   const nombre=document.getElementById('t-nombre').value.trim();
   const ref=document.getElementById('t-ref').value.trim();
   const texto=document.getElementById('t-texto').value.trim();
+  const estrellas=document.getElementById('t-estrellas').dataset.val;
+  if(!estrellas||estrellas==='0'){alert('Por favor seleccioná una calificación con las estrellas.');return;}
   if(!texto){alert('Por favor escribí tu comentario.');return;}
-  // Envía al email de Javo vía WhatsApp (puede conectarse a EmailJS en el futuro)
-  const msg=`Hola Javo! 👋 Te dejo un testimonio desde tu web:\n\n*Nombre:* ${nombre||'Anónimo'}\n*Referencia:* ${ref||'—'}\n*Comentario:* ${texto}`;
+  const starsStr='★'.repeat(+estrellas)+'☆'.repeat(5-+estrellas);
+  const msg=`Hola Javo! 👋 Te dejo una reseña desde tu web:\n\n⭐ *Calificación:* ${starsStr} (${estrellas}/5)\n👤 *Nombre:* ${nombre||'Anónimo'}\n📌 *Referencia:* ${ref||'—'}\n💬 *Comentario:* ${texto}`;
   window.open('https://wa.me/543874105902?text='+encodeURIComponent(msg),'_blank');
   document.getElementById('t-ok').style.display='flex';
   document.getElementById('t-nombre').value='';
   document.getElementById('t-ref').value='';
   document.getElementById('t-texto').value='';
+  document.getElementById('t-estrellas').dataset.val='0';
+  document.getElementById('t-estrellas').querySelectorAll('span').forEach(s=>s.classList.remove('on'));
 }
+
+// Init on load
+document.addEventListener('DOMContentLoaded',()=>{
+  testiInit();
+  buildRatingSummary();
+  initStarPicker();
+});
 </script>
 </body>
 </html>
