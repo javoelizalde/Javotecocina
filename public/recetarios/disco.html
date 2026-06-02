@@ -1,0 +1,810 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>A Todo Disco — Javotecocina</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Barlow:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Barlow+Condensed:ital,wght@0,600;0,700;0,800;0,900;1,800;1,900&family=Lora:ital,wght@0,400;0,500;0,600;1,400;1,500;1,600&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+:root{
+  --fire:#BF460F;--ember:#E0760F;--gold:#C9A14A;
+  --dark:#170F09;--dark2:#211610;
+  --paper:#FBF6EE;--paper2:#F3E9DA;--warm:#EFE3D2;
+  --ink:#241509;--muted:#7C6450;--soft:#9A8771;--line:#E0D4C4;--line2:#CDBCA6;
+}
+body{font-family:'Barlow',sans-serif;background:#B8A795;color:var(--ink);font-size:11pt;line-height:1.6;}
+
+.page{width:210mm;min-height:297mm;background:var(--paper);margin:0 auto 8mm;position:relative;overflow:hidden;print-color-adjust:exact;-webkit-print-color-adjust:exact;}
+@media print{body{background:#fff;}.page{margin:0;page-break-after:always;}.no-print{display:none!important;}}
+@page{size:A4;margin:0;}
+
+.no-print{position:fixed;bottom:1.5rem;right:1.5rem;z-index:999;background:var(--fire);color:#fff;border:none;padding:.8rem 1.6rem;font-family:'Barlow Condensed',sans-serif;font-size:.85rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;border-radius:3px;cursor:pointer;box-shadow:0 4px 18px rgba(191,70,15,.45);}
+.no-print:hover{background:var(--ember);}
+
+/* placeholders de foto */
+.ph{display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#241610 0%,#3a2415 55%,#241610 100%);position:relative;}
+.ph span{font-family:'Barlow Condensed',sans-serif;font-size:8pt;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:rgba(245,237,228,.32);text-align:center;padding:0 6mm;}
+.ph::before{content:'📷';position:absolute;top:6mm;left:50%;transform:translateX(-50%);font-size:13pt;opacity:.25;}
+
+/* RUNNING HEADER */
+.rh{position:absolute;top:0;left:0;right:0;display:flex;justify-content:space-between;align-items:center;padding:6mm 14mm 0;z-index:5;}
+.rh-brand{font-family:'Barlow Condensed',sans-serif;font-size:6.5pt;font-weight:800;letter-spacing:.24em;text-transform:uppercase;color:var(--fire);}
+.rh-pg{font-family:'Lora',serif;font-size:7.5pt;font-style:italic;color:var(--soft);}
+.rh-rule{position:absolute;top:11mm;left:14mm;right:14mm;height:.5pt;background:var(--line2);}
+
+/* PORTADA */
+.cover{background:var(--dark);display:flex;flex-direction:column;justify-content:flex-end;}
+.cover-photo{position:absolute;inset:0;}
+.cover-photo.ph::before{top:14mm;font-size:18pt;}
+.cover-photo::after{content:'';position:absolute;inset:0;background:linear-gradient(to bottom,rgba(23,15,9,.12) 0%,rgba(23,15,9,.5) 42%,rgba(23,15,9,.98) 100%);}
+.cover-c{position:relative;z-index:2;padding:16mm 15mm 15mm;}
+.cover-eyebrow{font-family:'Barlow Condensed',sans-serif;font-size:7.5pt;font-weight:700;letter-spacing:.3em;text-transform:uppercase;color:var(--ember);margin-bottom:4mm;}
+.cover-series{font-family:'Lora',serif;font-size:8.5pt;font-style:italic;letter-spacing:.04em;color:rgba(251,246,238,.55);margin-bottom:6mm;}
+.cover-title{font-family:'Barlow Condensed',sans-serif;font-size:62pt;font-weight:900;line-height:.86;text-transform:uppercase;color:#FBF6EE;margin-bottom:6mm;}
+.cover-title em{font-style:italic;color:var(--ember);}
+.cover-tag{font-family:'Lora',serif;font-size:11pt;font-weight:400;color:rgba(251,246,238,.72);line-height:1.65;max-width:124mm;margin-bottom:11mm;}
+.cover-pills{display:flex;gap:3mm;flex-wrap:wrap;padding-top:8mm;border-top:.5pt solid rgba(251,246,238,.18);}
+.cover-pill{font-family:'Barlow Condensed',sans-serif;font-size:6.5pt;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:rgba(251,246,238,.42);padding:1.5mm 3mm;border:.5pt solid rgba(251,246,238,.18);border-radius:1px;}
+
+/* DEDICATORIA */
+.ded{background:var(--dark2);display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:28mm 24mm;}
+.ded-orn{font-size:10pt;letter-spacing:.4em;color:var(--ember);opacity:.5;margin-bottom:16mm;}
+.ded-text{font-family:'Lora',serif;font-size:16pt;font-weight:400;font-style:italic;color:rgba(251,246,238,.85);line-height:1.85;max-width:142mm;}
+.ded-firma{margin-top:16mm;font-family:'Barlow Condensed',sans-serif;font-size:7pt;font-weight:700;letter-spacing:.3em;text-transform:uppercase;color:var(--ember);}
+
+/* PRÓLOGO */
+.intro{padding:18mm 15mm 14mm;}
+.sec-label{font-family:'Barlow Condensed',sans-serif;font-size:7pt;font-weight:700;letter-spacing:.3em;text-transform:uppercase;color:var(--fire);margin-bottom:3mm;}
+.intro-title{font-family:'Barlow Condensed',sans-serif;font-size:38pt;font-weight:900;font-style:italic;line-height:.94;color:var(--dark);margin:3mm 0 11mm;}
+.intro-body{columns:2;column-gap:9mm;font-family:'Lora',serif;font-size:10pt;line-height:1.8;color:var(--ink);}
+.intro-body p{margin-bottom:4mm;text-align:justify;}
+.intro-body .lead{font-size:12.5pt;font-weight:500;font-style:italic;color:var(--fire);line-height:1.6;column-span:all;margin-bottom:8mm;padding-bottom:8mm;border-bottom:.5pt solid var(--line);}
+.intro-body .drop::first-letter{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:30pt;float:left;line-height:.8;margin:1mm 2mm 0 0;color:var(--fire);}
+
+/* ÍNDICE */
+.idx{padding:18mm 15mm 14mm;}
+.idx-title{font-family:'Barlow Condensed',sans-serif;font-size:36pt;font-weight:900;text-transform:uppercase;color:var(--dark);margin-bottom:2.5mm;}
+.idx-sub{font-family:'Lora',serif;font-style:italic;font-size:9.5pt;color:var(--muted);margin-bottom:7mm;}
+.idx-cat{font-family:'Barlow Condensed',sans-serif;font-size:7pt;font-weight:700;letter-spacing:.24em;text-transform:uppercase;color:var(--fire);margin:4.5mm 0 1.5mm;padding-bottom:1.5mm;border-bottom:1pt solid var(--fire);}
+.idx-row{display:flex;align-items:baseline;gap:2mm;padding:1.8mm 0;font-size:10pt;border-bottom:.5pt solid var(--line);}
+.idx-n{font-family:'Barlow Condensed',sans-serif;font-size:8pt;font-weight:700;color:var(--ember);min-width:8mm;}
+.idx-name{flex:1;font-weight:500;color:var(--ink);}
+.idx-p{font-family:'Lora',serif;font-style:italic;font-size:9pt;color:var(--soft);}
+
+/* RECETA */
+.recipe{padding:15mm 14mm 11mm;display:flex;flex-direction:column;height:297mm;}
+.r-head{display:flex;justify-content:space-between;align-items:flex-end;gap:6mm;margin-bottom:3.5mm;}
+.r-head-l{flex:1;}
+.r-cat{font-family:'Barlow Condensed',sans-serif;font-size:7pt;font-weight:700;letter-spacing:.24em;text-transform:uppercase;color:var(--fire);margin-bottom:1.5mm;}
+.r-title{font-family:'Barlow Condensed',sans-serif;font-size:29pt;font-weight:900;line-height:.92;text-transform:uppercase;color:var(--dark);}
+.r-num{font-family:'Barlow Condensed',sans-serif;font-size:30pt;font-weight:900;color:var(--line2);line-height:.8;}
+.r-meta{display:flex;flex-wrap:wrap;margin-bottom:5mm;border-top:.5pt solid var(--line);border-bottom:.5pt solid var(--line);}
+.r-meta-it{flex:1;padding:1.8mm 0;text-align:center;border-right:.5pt solid var(--line);}
+.r-meta-it:last-child{border-right:none;}
+.r-meta-k{font-family:'Barlow Condensed',sans-serif;font-size:6pt;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--soft);margin-bottom:.8mm;}
+.r-meta-v{font-family:'Barlow Condensed',sans-serif;font-size:9pt;font-weight:800;color:var(--dark);text-transform:uppercase;}
+.r-note{font-family:'Lora',serif;font-size:9pt;font-style:italic;line-height:1.5;color:var(--muted);margin-bottom:4mm;padding-left:5mm;border-left:2px solid var(--ember);}
+.r-img{width:100%;height:58mm;border-radius:3px;overflow:hidden;margin-bottom:5mm;background:var(--warm);box-shadow:0 2px 10px rgba(23,15,9,.12);flex-shrink:0;}
+.r-img img{width:100%;height:100%;object-fit:cover;display:block;}
+.r-cols{display:grid;grid-template-columns:58mm 1fr;grid-template-rows:auto 1fr;column-gap:8mm;row-gap:5mm;flex:1;}
+.col-ing{grid-column:1;grid-row:1;}
+.col-pasos{grid-column:2;grid-row:1 / span 2;display:flex;flex-direction:column;}
+.r-cols > .tip{grid-column:1;grid-row:2;align-self:start;margin-top:4mm;}
+.ing-head,.paso-head{font-family:'Barlow Condensed',sans-serif;font-size:7.5pt;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:var(--fire);margin-bottom:3.5mm;padding-bottom:1.5mm;border-bottom:1pt solid var(--fire);}
+.ing-group{margin-bottom:3.5mm;}
+.ing-glabel{font-family:'Barlow Condensed',sans-serif;font-size:6.5pt;font-weight:700;text-transform:uppercase;letter-spacing:.12em;color:var(--ember);margin:2.5mm 0 1.5mm;}
+.ing-row{display:flex;gap:2mm;padding:1mm 0;font-size:7.7pt;line-height:1.35;border-bottom:.5pt solid var(--line);}
+.ing-qty{font-weight:700;min-width:14mm;color:var(--dark);font-size:7.5pt;}
+.ing-name{color:var(--ink);flex:1;}
+.paso{display:flex;gap:3mm;margin-bottom:2.4mm;align-items:flex-start;}
+.paso-n{font-family:'Barlow Condensed',sans-serif;font-size:11.5pt;font-weight:900;color:var(--fire);line-height:1;min-width:5.5mm;opacity:.55;margin-top:.4mm;}
+.paso-txt{font-size:7.9pt;line-height:1.45;color:var(--ink);text-align:justify;}
+.paso-txt b{color:var(--dark);font-weight:700;}
+.tip{margin-top:0;background:var(--paper2);border-left:3px solid var(--fire);padding:3mm 4mm;border-radius:0 2px 2px 0;}
+.tip-label{font-family:'Barlow Condensed',sans-serif;font-size:6.5pt;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--fire);margin-bottom:1.5mm;}
+.tip-txt{font-family:'Lora',serif;font-size:7.8pt;line-height:1.45;color:var(--ink);font-style:italic;}
+
+/* SECCIÓN / GUÍA */
+.guia-cover{background:var(--dark2);display:flex;flex-direction:column;justify-content:flex-end;position:relative;overflow:hidden;}
+.guia-photo{position:absolute;inset:0;}
+.guia-photo::after{content:'';position:absolute;inset:0;background:linear-gradient(to bottom,rgba(23,15,9,.25) 0%,rgba(23,15,9,.72) 55%,rgba(23,15,9,1) 100%);}
+.guia-c{position:relative;z-index:2;padding:16mm 15mm 15mm;}
+.guia-eyebrow{font-family:'Barlow Condensed',sans-serif;font-size:7pt;font-weight:700;letter-spacing:.28em;text-transform:uppercase;color:var(--ember);margin-bottom:4mm;}
+.guia-title{font-family:'Barlow Condensed',sans-serif;font-size:50pt;font-weight:900;line-height:.9;text-transform:uppercase;color:#FBF6EE;margin-bottom:6mm;}
+.guia-desc{font-family:'Lora',serif;font-size:11pt;font-style:italic;color:rgba(251,246,238,.6);line-height:1.65;max-width:128mm;}
+.gp{padding:16mm 14mm 12mm;}
+.g-title{font-family:'Barlow Condensed',sans-serif;font-size:19pt;font-weight:800;text-transform:uppercase;color:var(--dark);margin-bottom:4mm;padding-bottom:2.5mm;border-bottom:1.5pt solid var(--fire);}
+.g-text{font-family:'Lora',serif;font-size:9.5pt;line-height:1.7;color:var(--ink);margin-bottom:4mm;text-align:justify;}
+.g-grid{display:grid;grid-template-columns:1fr 1fr;gap:4mm;margin-bottom:7mm;}
+.g-card{background:var(--paper2);border:.5pt solid var(--line);border-radius:2px;padding:4mm;}
+.g-card-title{font-family:'Barlow Condensed',sans-serif;font-size:9pt;font-weight:800;text-transform:uppercase;color:var(--fire);margin-bottom:2mm;}
+.g-card p,.g-card li{font-size:7.8pt;line-height:1.6;color:var(--ink);}
+.g-card ul{padding-left:3.5mm;margin-top:1.5mm;}
+.g-card li{margin-bottom:1mm;}
+
+/* CONTRACUBIERTA */
+.back{background:var(--dark);display:flex;flex-direction:column;justify-content:space-between;padding:18mm 16mm;position:relative;overflow:hidden;}
+.back::before{content:'';position:absolute;bottom:-22mm;right:-22mm;width:130mm;height:130mm;border-radius:50%;border:20mm solid rgba(191,70,15,.06);}
+.back-quote{position:relative;z-index:2;}
+.back-quote::before{content:'"';display:block;font-family:'Lora',serif;font-size:54pt;color:var(--fire);opacity:.4;line-height:.6;margin-bottom:4mm;}
+.back-quote p{font-family:'Lora',serif;font-size:16pt;font-weight:400;font-style:italic;color:rgba(251,246,238,.75);line-height:1.7;max-width:135mm;}
+.back-bottom{position:relative;z-index:2;}
+.back-brand{font-family:'Barlow Condensed',sans-serif;font-size:22pt;font-weight:900;letter-spacing:.1em;text-transform:uppercase;color:var(--fire);margin-bottom:2mm;}
+.back-web{font-family:'Lora',serif;font-style:italic;font-size:8.5pt;color:rgba(251,246,238,.3);}
+</style>
+</head>
+<body>
+<button class="no-print" onclick="window.print()">⬇ Guardar como PDF</button>
+
+<!-- PORTADA -->
+<div class="page cover">
+  <div class="cover-photo ph"><span>Foto de portada · El disco sobre el fuego</span></div>
+  <div class="cover-c">
+    <div class="cover-eyebrow">Javotecocina</div>
+    <div class="cover-series">Recetarios digitales · Volumen II</div>
+    <div class="cover-title">A Todo<br><em>Disco</em></div>
+    <div class="cover-tag">Trece recetas para dominar el disco de arado: del salteado al guiso, de la carne al mar. Una sola olla de hierro, fuego con llama y comida pensada para compartir.</div>
+    <div class="cover-pills">
+      <div class="cover-pill">13 Recetas</div>
+      <div class="cover-pill">Disco de Arado</div>
+      <div class="cover-pill">Curado &amp; Fuego</div>
+      <div class="cover-pill">Javo Elizalde · Salta</div>
+    </div>
+  </div>
+</div>
+
+<!-- DEDICATORIA -->
+<div class="page ded">
+  <div class="ded-orn">— ✦ —</div>
+  <div class="ded-text">A los que entienden que cocinar para muchos<br>no es una obligación, sino la manera más honesta<br>de decir: quedate, sentate, comé conmigo.</div>
+  <div class="ded-firma">Javotecocina</div>
+</div>
+
+<!-- PRÓLOGO -->
+<div class="page intro">
+  <div class="rh"><div class="rh-brand">Javotecocina</div><div class="rh-pg">A Todo Disco</div><div class="rh-rule"></div></div>
+  <div style="margin-top:13mm;">
+    <div class="sec-label">Prólogo</div>
+    <div class="intro-title">Una herramienta<br>de campo,<br>vuelta fuego.</div>
+    <div class="intro-body">
+      <p class="lead">El disco de arado nació atado a la tierra, como una pieza más de trabajo. Alguien, alguna vez, le dio vuelta el sentido: lo levantó del surco y lo puso sobre el fuego. Ahí empezó todo.</p>
+      <p class="drop">Me gusta esa historia porque dice mucho de cómo cocino. En el disco no hay nada sofisticado: es hierro, llama y una sola olla enorme donde entra de todo. Pero esa sencillez es engañosa. El disco pide oficio, pide leer el fuego, pide saber cuándo mover la comida del centro al borde y cuándo dejarla quieta. Tiene su carácter, y aprenderlo lleva su tiempo.</p>
+      <p>La gran diferencia con la parrilla está justamente en el fuego. Acá no buscamos la brasa quieta: buscamos la llama. Madera seca que prenda y tire fuego, porque el disco trabaja con el calor vivo lamiéndole el fondo. Más llama para sellar y saltear, llama mansa y pareja para las cocciones largas. Esa es la primera lección, y por eso este libro arranca justamente por ahí.</p>
+      <p>Vas a notar algunas constantes que son mías: la cerveza negra, que me gusta sumar a muchas recetas porque le da cuerpo y un fondo dulzón inconfundible, y mi base de siempre —sal, pimienta y pimentón— sobre la que después voy agregando lo que cada plato pide.</p>
+      <p>Pero por encima de todo, el disco es una manera de juntar gente. No se cocina para uno: se cocina para una mesa entera, para la familia, para los amigos que caen sin avisar. Una receta de disco nunca rinde para dos. Por eso todo lo que vas a encontrar acá está pensado para diez.</p>
+      <p>Hacelas tuyas. Cambiá, sumá, animate. Como siempre, el mejor final es que estas recetas dejen de ser mías y pasen a ser parte de tus propias juntadas.</p>
+    </div>
+  </div>
+</div>
+
+<!-- ÍNDICE -->
+<div class="page idx">
+  <div class="rh"><div class="rh-brand">Javotecocina</div><div class="rh-pg">A Todo Disco</div><div class="rh-rule"></div></div>
+  <div style="margin-top:13mm;">
+    <div class="idx-title">Índice</div>
+    <div class="idx-sub">Trece recetas, la técnica del disco y una mesa pensada para compartir.</div>
+    <div class="idx-cat">Técnica base</div>
+    <div class="idx-row"><span class="idx-n">—</span><span class="idx-name">Cómo curar el disco · tres métodos</span><span class="idx-p">pág. 6</span></div>
+    <div class="idx-row"><span class="idx-n">—</span><span class="idx-name">El fuego del disco</span><span class="idx-p">pág. 7</span></div>
+    <div class="idx-cat">La de la casa</div>
+    <div class="idx-row"><span class="idx-n">01</span><span class="idx-name">El Disco de Javo</span><span class="idx-p">pág. 8</span></div>
+    <div class="idx-cat">Carnes</div>
+    <div class="idx-row"><span class="idx-n">02</span><span class="idx-name">Pata-muslo criollo</span><span class="idx-p">pág. 9</span></div>
+    <div class="idx-row"><span class="idx-n">03</span><span class="idx-name">Pechito de cerdo a la cerveza negra</span><span class="idx-p">pág. 10</span></div>
+    <div class="idx-row"><span class="idx-n">04</span><span class="idx-name">Bondiola a la crema de mostaza</span><span class="idx-p">pág. 11</span></div>
+    <div class="idx-row"><span class="idx-n">05</span><span class="idx-name">Bondiola agridulce a la cerveza negra</span><span class="idx-p">pág. 12</span></div>
+    <div class="idx-row"><span class="idx-n">06</span><span class="idx-name">Cordero al romero y vino tinto</span><span class="idx-p">pág. 13</span></div>
+    <div class="idx-row"><span class="idx-n">07</span><span class="idx-name">Osobuco braseado</span><span class="idx-p">pág. 14</span></div>
+    <div class="idx-row"><span class="idx-n">08</span><span class="idx-name">Ojo de bife envuelto en panceta</span><span class="idx-p">pág. 15</span></div>
+    <div class="idx-row"><span class="idx-n">09</span><span class="idx-name">Lomo Stroganoff</span><span class="idx-p">pág. 16</span></div>
+    <div class="idx-cat">Achuras &amp; Guisos</div>
+    <div class="idx-row"><span class="idx-n">10</span><span class="idx-name">Mollejas al verdeo</span><span class="idx-p">pág. 17</span></div>
+    <div class="idx-row"><span class="idx-n">11</span><span class="idx-name">Guiso de lentejas</span><span class="idx-p">pág. 18</span></div>
+    <div class="idx-cat">Del mar</div>
+    <div class="idx-row"><span class="idx-n">12</span><span class="idx-name">Paella de mariscos</span><span class="idx-p">pág. 19</span></div>
+    <div class="idx-row"><span class="idx-n">13</span><span class="idx-name">Rabas al ajillo fritas</span><span class="idx-p">pág. 20</span></div>
+    <div class="idx-cat">Para cerrar</div>
+    <div class="idx-row"><span class="idx-n">—</span><span class="idx-name">La mesa del disco · guarniciones y salsas</span><span class="idx-p">pág. 21</span></div>
+  </div>
+</div>
+
+<!-- TÉCNICA: PORTADA -->
+<div class="page guia-cover">
+  <div class="guia-photo ph"><span>Foto · Disco curado y el fuego con llama</span></div>
+  <div class="guia-c">
+    <div class="guia-eyebrow">Técnica base · A Todo Disco</div>
+    <div class="guia-title">Curado<br>&amp; Fuego</div>
+    <div class="guia-desc">Antes de la primera receta, lo primero: cómo dejar el disco listo para cocinar y cómo manejar la llama, que es el verdadero secreto de todo lo que viene después.</div>
+  </div>
+</div>
+
+<!-- TÉCNICA: CURADO -->
+<div class="page gp">
+  <div class="rh"><div class="rh-brand">Javotecocina</div><div class="rh-pg">Técnica base</div><div class="rh-rule"></div></div>
+  <div style="margin-top:13mm;">
+    <div class="g-title">Cómo curar el disco</div>
+    <div class="g-text">Un disco nuevo —o uno que estuvo guardado— viene con restos de fábrica, óxido o pintura, y un gusto a hierro que hay que sacarle antes de cocinar. Curarlo es sellar el metal y crear esa capa oscura y antiadherente que hace que todo se despegue solo. Te dejo los tres métodos que uso; el del aceite es mi preferido.</div>
+    <div class="g-grid">
+      <div class="g-card"><div class="g-card-title">① Con aceite — mi método</div><p>Lavá y secá bien el disco. Ponelo al fuego y, cuando esté caliente, sumá una capa generosa de aceite neutro (girasol o maíz). Dejá que se caliente hasta que humee y el aceite se oscurezca y se adhiera al metal. Dejá enfriar, limpiá el excedente y repetí dos o tres veces. Cada capa lo deja más negro y más sellado.</p></div>
+      <div class="g-card"><div class="g-card-title">② Con sal gruesa</div><p>Cubrí el fondo con una buena capa de sal gruesa y llevala al fuego fuerte. La sal se va a tostar y a oscurecer, absorbiendo la humedad y las impurezas del metal. Movela y frotala con un trapo o papel resistente, descartala y, al final, sellá con una capa fina de aceite.</p></div>
+      <div class="g-card"><div class="g-card-title">③ Con grasa y cáscaras</div><p>Frotá el disco con grasa vacuna o de cerdo y cociná dentro cáscaras de papa y de cebolla hasta que se ennegrezcan. Esas cáscaras se llevan el gusto a hierro y a óxido. Descartá todo, limpiá y terminá con una capa de aceite. Es el método más de campo, y funciona.</p></div>
+      <div class="g-card"><div class="g-card-title">Mantenimiento</div><p>Después de cada uso, limpiá el disco en caliente solo con agua y, si hace falta, una esponja —nunca detergente, que se come el curado. Secalo bien sobre el fuego y pasale una capita fina de aceite antes de guardarlo. Así cada vez está mejor.</p></div>
+    </div>
+  </div>
+</div>
+
+<!-- TÉCNICA: FUEGO -->
+<div class="page gp">
+  <div class="rh"><div class="rh-brand">Javotecocina</div><div class="rh-pg">Técnica base</div><div class="rh-rule"></div></div>
+  <div style="margin-top:13mm;">
+    <div class="g-title">El fuego del disco</div>
+    <div class="g-text">Acá está la diferencia más grande con la parrilla. En el disco la clave es que siempre haya llama. No trabajamos con la brasa quieta, sino con el fuego vivo lamiendo el fondo de hierro. Por eso necesitás madera seca, que prenda fácil y tire llama. Después, todo es saber regular esa llama según la receta y el momento.</div>
+    <div class="g-grid">
+      <div class="g-card"><div class="g-card-title">🔥 Para sellar y saltear</div><p>Carnes, pollo, cerdo: llama fuerte. Querés que el disco esté bien caliente para sellar rápido, dorar y retirar. Si el fuego está flojo, la carne suelta agua y se hierve en lugar de dorarse.</p></div>
+      <div class="g-card"><div class="g-card-title">🔥 Para cocción completa</div><p>Cuando toda la cocción se hace en el disco, sin retirar y casi sin líquido, el fuego no tiene que estar tan fuerte. Una llama más pareja y contenida cocina parejo de adentro hacia afuera y evita que quede dorado por fuera y crudo por dentro.</p></div>
+      <div class="g-card"><div class="g-card-title">🔥 Para guisos y braseados</div><p>Arrancá fuerte para sellar y levantar sabor, y después bajá a una llama media y sostenida para la cocción larga. Es el ritmo de casi todos los guisos: golpe de fuego al principio, paciencia después.</p></div>
+      <div class="g-card"><div class="g-card-title">↔ La zona del disco</div><p>El disco concentra el calor en el centro y se enfría hacia los bordes. Usá eso a tu favor: cociná fuerte en el centro y corré hacia el borde lo que ya está listo o lo que querés mantener caliente sin pasarlo. El borde es tu zona de reserva.</p></div>
+    </div>
+    <div class="g-text" style="margin-top:1mm;"><b>Para regular la llama:</b> sumá maderas finas para levantarla rápido, o dejá consumir y acercá las brasas para bajarla. Tené siempre leña seca a mano: un disco se queda sin fuego en el peor momento si te confiás.</div>
+  </div>
+</div>
+
+<!-- 01 EL DISCO DE JAVO -->
+<div class="page recipe">
+  <div class="rh"><div class="rh-brand">Javotecocina</div><div class="rh-pg">La de la casa</div><div class="rh-rule"></div></div>
+  <div class="r-head" style="margin-top:11mm;">
+    <div class="r-head-l"><div class="r-cat">Receta 01 · La de la casa</div><div class="r-title">El Disco de Javo</div></div>
+    <div class="r-num">01</div>
+  </div>
+  <div class="r-meta">
+    <div class="r-meta-it"><div class="r-meta-k">Tiempo</div><div class="r-meta-v">1 hora</div></div>
+    <div class="r-meta-it"><div class="r-meta-k">Comensales</div><div class="r-meta-v">10</div></div>
+    <div class="r-meta-it"><div class="r-meta-k">Fuego</div><div class="r-meta-v">Llama fuerte</div></div>
+    <div class="r-meta-it"><div class="r-meta-k">Dificultad</div><div class="r-meta-v">Media</div></div>
+  </div>
+  <div class="r-note">Esta es la receta que lleva mi nombre, y no por casualidad: es la que más veces hice y la que mejor resume mi manera de entender el disco. Pollo, cerveza negra y arroz que se va cocinando con todos los sabores juntos. Es contundente, es generosa y nunca falla.</div>
+  <div class="r-img ph"><span>Foto · El Disco de Javo</span></div>
+  <div class="r-cols">
+    <div class="col-ing">
+      <div class="ing-head">Ingredientes</div>
+      <div class="ing-row"><span class="ing-qty">2 kg</span><span class="ing-name">Pata-muslo deshuesado, en cubos</span></div>
+      <div class="ing-row"><span class="ing-qty">3 latas</span><span class="ing-name">Cerveza negra</span></div>
+      <div class="ing-row"><span class="ing-qty">2 L</span><span class="ing-name">Caldo de pollo o de verduras</span></div>
+      <div class="ing-row"><span class="ing-qty">4</span><span class="ing-name">Cebollas medianas</span></div>
+      <div class="ing-row"><span class="ing-qty">3</span><span class="ing-name">Zanahorias</span></div>
+      <div class="ing-row"><span class="ing-qty">2</span><span class="ing-name">Morrones</span></div>
+      <div class="ing-row"><span class="ing-qty">2 dientes</span><span class="ing-name">Ajo</span></div>
+      <div class="ing-row"><span class="ing-qty">200 g</span><span class="ing-name">Hongos</span></div>
+      <div class="ing-row"><span class="ing-qty">c/n</span><span class="ing-name">Cebolla de verdeo o ciboulette</span></div>
+      <div class="ing-row"><span class="ing-qty">10 tazas</span><span class="ing-name">Arroz (una tacita por comensal)</span></div>
+      <div class="ing-row"><span class="ing-qty">c/n</span><span class="ing-name">Sal, pimienta y pimentón</span></div>
+    </div>
+    <div class="col-pasos">
+      <div class="paso-head">Preparación</div>
+      <div class="paso"><div class="paso-n">1</div><div class="paso-txt"><b>Sellá el pollo.</b> Con el disco bien caliente y llama fuerte, salteá el pollo cortado en cubos hasta que esté dorado por todos lados. Condimentá con sal, pimienta y pimentón. Una vez doradito, retiralo y reservalo.</div></div>
+      <div class="paso"><div class="paso-n">2</div><div class="paso-txt"><b>Las verduras.</b> Agregá un poco de aceite al disco y sumá todas las verduras menos los hongos: cebolla, zanahoria, morrón y ajo. Salteá hasta que estén tiernas y empiecen a tomar color.</div></div>
+      <div class="paso"><div class="paso-n">3</div><div class="paso-txt"><b>Hongos y arroz.</b> Incorporá los hongos y el arroz. Integrá y mezclá todo bien, dejando que el arroz se nacare un par de minutos junto a las verduras y tome el sabor del fondo.</div></div>
+      <div class="paso"><div class="paso-n">4</div><div class="paso-txt"><b>Los líquidos, de a poco.</b> Volvé a sumar el pollo y empezá a agregar los líquidos alternando: cerveza, agua, cerveza, agua. A medida que el arroz va absorbiendo y el líquido se evapora, sumás la siguiente tanda. Así los sabores se integran capa por capa.</div></div>
+      <div class="paso"><div class="paso-n">5</div><div class="paso-txt"><b>15 a 20 minutos a fuego fuerte.</b> Seguí agregando líquido hasta que el arroz absorba todo y quede cocido y cremoso, con una textura jugosa que no llega a ser seca. Ese es el punto.</div></div>
+      <div class="paso"><div class="paso-n">6</div><div class="paso-txt"><b>El toque final.</b> Apagá el fuego y terminá con cebolla de verdeo o ciboulette picada por encima. Llevá el disco entero a la mesa: se come del disco, entre todos.</div></div>
+    </div>
+    <div class="tip"><div class="tip-label">🔥 El consejo de Javo</div><div class="tip-txt">El secreto está en no apurar los líquidos. Si tirás todo junto, el arroz se hierve y pierde gracia. Agregando de a poco, alternando cerveza y agua, cada tanda concentra más sabor. La cerveza negra es la que le da ese fondo oscuro y profundo que lo hace inconfundible.</div></div>
+  </div>
+</div>
+
+<!-- 02 PATA-MUSLO CRIOLLO -->
+<div class="page recipe">
+  <div class="rh"><div class="rh-brand">Javotecocina</div><div class="rh-pg">Carnes</div><div class="rh-rule"></div></div>
+  <div class="r-head" style="margin-top:11mm;">
+    <div class="r-head-l"><div class="r-cat">Receta 02 · Carnes</div><div class="r-title">Pata-muslo criollo</div></div>
+    <div class="r-num">02</div>
+  </div>
+  <div class="r-meta">
+    <div class="r-meta-it"><div class="r-meta-k">Tiempo</div><div class="r-meta-v">1 h 15 min</div></div>
+    <div class="r-meta-it"><div class="r-meta-k">Comensales</div><div class="r-meta-v">10</div></div>
+    <div class="r-meta-it"><div class="r-meta-k">Fuego</div><div class="r-meta-v">Fuerte → medio</div></div>
+    <div class="r-meta-it"><div class="r-meta-k">Dificultad</div><div class="r-meta-v">Básica</div></div>
+  </div>
+  <div class="r-note">El pollo de toda la vida, el del guiso de la abuela pero hecho en disco. Sin arroz esta vez: acá manda la papa, que se cocina en el mismo fondo y se impregna de todo. Honesto, criollo y de los que dejan a todos contentos.</div>
+  <div class="r-img ph"><span>Foto · Pata-muslo criollo</span></div>
+  <div class="r-cols">
+    <div class="col-ing">
+      <div class="ing-head">Ingredientes</div>
+      <div class="ing-row"><span class="ing-qty">3 kg</span><span class="ing-name">Pata-muslo trozado (con hueso)</span></div>
+      <div class="ing-row"><span class="ing-qty">4</span><span class="ing-name">Cebollas</span></div>
+      <div class="ing-row"><span class="ing-qty">3</span><span class="ing-name">Morrones</span></div>
+      <div class="ing-row"><span class="ing-qty">4</span><span class="ing-name">Tomates (o 1 lata de triturado)</span></div>
+      <div class="ing-row"><span class="ing-qty">8</span><span class="ing-name">Papas medianas, en cubos</span></div>
+      <div class="ing-row"><span class="ing-qty">2 tazas</span><span class="ing-name">Arvejas (opcional)</span></div>
+      <div class="ing-row"><span class="ing-qty">3 dientes</span><span class="ing-name">Ajo</span></div>
+      <div class="ing-row"><span class="ing-qty">750 ml</span><span class="ing-name">Vino blanco (o 2 latas de cerveza rubia)</span></div>
+      <div class="ing-row"><span class="ing-qty">1,5 L</span><span class="ing-name">Caldo de verduras</span></div>
+      <div class="ing-row"><span class="ing-qty">2 hojas</span><span class="ing-name">Laurel</span></div>
+      <div class="ing-row"><span class="ing-qty">c/n</span><span class="ing-name">Sal, pimienta y pimentón</span></div>
+    </div>
+    <div class="col-pasos">
+      <div class="paso-head">Preparación</div>
+      <div class="paso"><div class="paso-n">1</div><div class="paso-txt"><b>Sellá el pollo.</b> Llama fuerte y disco caliente. Condimentá las presas con sal, pimienta y pimentón y dorálas bien por todos lados. Retirá y reservá.</div></div>
+      <div class="paso"><div class="paso-n">2</div><div class="paso-txt"><b>El sofrito.</b> En el mismo fondo, salteá la cebolla, el morrón y el ajo hasta que estén bien tiernos. Sumá el tomate y dejá que se cocine unos minutos hasta que pierda el agua.</div></div>
+      <div class="paso"><div class="paso-n">3</div><div class="paso-txt"><b>Desglasá con el vino.</b> Volvé a poner el pollo, sumá el vino blanco (o la cerveza rubia) y dejá que evapore el alcohol un par de minutos, rascando el fondo para levantar todo el sabor pegado.</div></div>
+      <div class="paso"><div class="paso-n">4</div><div class="paso-txt"><b>Caldo y papas.</b> Agregá el caldo, el laurel y las papas en cubos. Bajá a fuego medio y cociná unos 35 a 40 minutos, hasta que el pollo esté tierno y la papa cocida y deshaciéndose apenas en los bordes para espesar la salsa.</div></div>
+      <div class="paso"><div class="paso-n">5</div><div class="paso-txt"><b>Arvejas al final.</b> Si las usás, sumalas en los últimos 5 minutos para que queden enteras y verdes. Probá y corregí la sal antes de servir.</div></div>
+    </div>
+    <div class="tip"><div class="tip-label">🔥 El consejo de Javo</div><div class="tip-txt">Dejá que algunas papas se deshagan un poco: son las que naturalmente espesan el caldo y lo vuelven una salsa con cuerpo, sin necesidad de agregar harina ni nada. Con vino blanco queda más fresco; con cerveza rubia, un poco más redondo. Las dos versiones valen.</div></div>
+  </div>
+</div>
+
+<!-- 03 PECHITO DE CERDO -->
+<div class="page recipe">
+  <div class="rh"><div class="rh-brand">Javotecocina</div><div class="rh-pg">Carnes</div><div class="rh-rule"></div></div>
+  <div class="r-head" style="margin-top:11mm;">
+    <div class="r-head-l"><div class="r-cat">Receta 03 · Carnes</div><div class="r-title">Pechito de cerdo<br>a la cerveza negra</div></div>
+    <div class="r-num">03</div>
+  </div>
+  <div class="r-meta">
+    <div class="r-meta-it"><div class="r-meta-k">Tiempo</div><div class="r-meta-v">1 h 30 min</div></div>
+    <div class="r-meta-it"><div class="r-meta-k">Comensales</div><div class="r-meta-v">10</div></div>
+    <div class="r-meta-it"><div class="r-meta-k">Fuego</div><div class="r-meta-v">Fuerte → medio</div></div>
+    <div class="r-meta-it"><div class="r-meta-k">Dificultad</div><div class="r-meta-v">Media</div></div>
+  </div>
+  <div class="r-note">El pechito es uno de los cortes más sabrosos del cerdo, y braseado lento en cerveza negra se vuelve algo difícil de olvidar. Lo termino con un glaseado de azúcar negra y pimentón ahumado que le arma una costra entre dulce y ahumada. Se deshace solo.</div>
+  <div class="r-img ph"><span>Foto · Pechito de cerdo a la cerveza negra</span></div>
+  <div class="r-cols">
+    <div class="col-ing">
+      <div class="ing-head">Ingredientes</div>
+      <div class="ing-row"><span class="ing-qty">3,5 kg</span><span class="ing-name">Pechito de cerdo en trozos</span></div>
+      <div class="ing-row"><span class="ing-qty">3</span><span class="ing-name">Cebollas</span></div>
+      <div class="ing-row"><span class="ing-qty">4 dientes</span><span class="ing-name">Ajo</span></div>
+      <div class="ing-row"><span class="ing-qty">4 latas</span><span class="ing-name">Cerveza negra</span></div>
+      <div class="ing-row"><span class="ing-qty">3 cdas</span><span class="ing-name">Azúcar negra</span></div>
+      <div class="ing-row"><span class="ing-qty">2 cdas</span><span class="ing-name">Pimentón ahumado</span></div>
+      <div class="ing-row"><span class="ing-qty">2 hojas</span><span class="ing-name">Laurel</span></div>
+      <div class="ing-row"><span class="ing-qty">c/n</span><span class="ing-name">Sal y pimienta</span></div>
+    </div>
+    <div class="col-pasos">
+      <div class="paso-head">Preparación</div>
+      <div class="paso"><div class="paso-n">1</div><div class="paso-txt"><b>Sellá fuerte.</b> Condimentá el pechito con sal y pimienta. Con llama fuerte, dorálo bien por todos lados hasta que tome una costra dorada. La grasa propia del pechito va a empezar a soltarse y a perfumar el disco. Retirá y reservá.</div></div>
+      <div class="paso"><div class="paso-n">2</div><div class="paso-txt"><b>La cebolla.</b> En esa grasa, dorá la cebolla y el ajo hasta que estén transparentes y apenas tostados.</div></div>
+      <div class="paso"><div class="paso-n">3</div><div class="paso-txt"><b>Brasear en cerveza.</b> Volvé a poner el pechito, sumá el laurel y cubrí con la cerveza negra. Bajá a fuego medio y dejá brasear alrededor de una hora, hasta que la carne esté tierna y se empiece a separar del hueso.</div></div>
+      <div class="paso"><div class="paso-n">4</div><div class="paso-txt"><b>El glaseado.</b> Cuando esté tierno y el líquido bien reducido, subí la llama y sumá el azúcar negra y el pimentón ahumado. Movés para que se integre y se forme una laca espesa y brillante que envuelva cada trozo.</div></div>
+      <div class="paso"><div class="paso-n">5</div><div class="paso-txt"><b>El punto justo.</b> Retirá apenas la salsa esté espesa y el pechito glaseado. No lo dejes de más sobre el fuego fuerte o el azúcar se quema y amarga.</div></div>
+    </div>
+    <div class="tip"><div class="tip-label">🔥 El consejo de Javo</div><div class="tip-txt">No tengas apuro con el braseado: el pechito necesita su hora para ablandarse de verdad. Y guardá el glaseado para el final, cuando ya está tierno. El azúcar negra y el pimentón ahumado juntos arman ese sabor entre dulce, ahumado y profundo que lo diferencia de cualquier otro guiso de cerdo.</div></div>
+  </div>
+</div>
+
+<!-- 04 BONDIOLA CREMA DE MOSTAZA -->
+<div class="page recipe">
+  <div class="rh"><div class="rh-brand">Javotecocina</div><div class="rh-pg">Carnes</div><div class="rh-rule"></div></div>
+  <div class="r-head" style="margin-top:11mm;">
+    <div class="r-head-l"><div class="r-cat">Receta 04 · Carnes</div><div class="r-title">Bondiola a la<br>crema de mostaza</div></div>
+    <div class="r-num">04</div>
+  </div>
+  <div class="r-meta">
+    <div class="r-meta-it"><div class="r-meta-k">Tiempo</div><div class="r-meta-v">50 min</div></div>
+    <div class="r-meta-it"><div class="r-meta-k">Comensales</div><div class="r-meta-v">10</div></div>
+    <div class="r-meta-it"><div class="r-meta-k">Fuego</div><div class="r-meta-v">Fuerte → suave</div></div>
+    <div class="r-meta-it"><div class="r-meta-k">Dificultad</div><div class="r-meta-v">Media</div></div>
+  </div>
+  <div class="r-note">Bondiola en bifes, cebolla en juliana, champiñones y una crema de mostaza que se suma recién al final para que no se corte. Servida con un puré bien manteca y crema, es de esas comidas que parecen de restaurante pero salen de una sola olla de hierro.</div>
+  <div class="r-img ph"><span>Foto · Bondiola a la crema de mostaza</span></div>
+  <div class="r-cols">
+    <div class="col-ing">
+      <div class="ing-head">Ingredientes</div>
+      <div class="ing-row"><span class="ing-qty">3 kg</span><span class="ing-name">Bondiola de cerdo en bifes</span></div>
+      <div class="ing-row"><span class="ing-qty">1,5 kg</span><span class="ing-name">Cebolla en juliana</span></div>
+      <div class="ing-row"><span class="ing-qty">1 kg</span><span class="ing-name">Champiñones en láminas</span></div>
+      <div class="ing-row"><span class="ing-qty">1 kg</span><span class="ing-name">Crema de leche</span></div>
+      <div class="ing-row"><span class="ing-qty">250 g</span><span class="ing-name">Mostaza</span></div>
+      <div class="ing-row"><span class="ing-qty">c/n</span><span class="ing-name">Sal, pimienta y pimentón</span></div>
+      <div class="ing-glabel">Puré de papa</div>
+      <div class="ing-row"><span class="ing-qty">2 kg</span><span class="ing-name">Papas</span></div>
+      <div class="ing-row"><span class="ing-qty">150 g</span><span class="ing-name">Manteca</span></div>
+      <div class="ing-row"><span class="ing-qty">300 ml</span><span class="ing-name">Crema</span></div>
+      <div class="ing-row"><span class="ing-qty">c/n</span><span class="ing-name">Sal</span></div>
+    </div>
+    <div class="col-pasos">
+      <div class="paso-head">Preparación</div>
+      <div class="paso"><div class="paso-n">1</div><div class="paso-txt"><b>Dorá la bondiola.</b> Condimentá los bifes con sal, pimienta y pimentón. Con llama fuerte, sellálos bien dorados de los dos lados. No hace falta cocinarlos del todo todavía: terminan en la salsa. Retirá y reservá.</div></div>
+      <div class="paso"><div class="paso-n">2</div><div class="paso-txt"><b>La cebolla en juliana.</b> En el fondo de la bondiola, sumá la cebolla y cocinala a fuego medio hasta que esté bien tierna y dulce, casi caramelizada. Tomate el tiempo: es la base de sabor del plato.</div></div>
+      <div class="paso"><div class="paso-n">3</div><div class="paso-txt"><b>Los champiñones.</b> Incorporá los champiñones en láminas y salteá hasta que suelten el agua y se doren.</div></div>
+      <div class="paso"><div class="paso-n">4</div><div class="paso-txt"><b>Volvé la bondiola.</b> Reincorporá los bifes con su jugo y bajá la llama a suave para que se terminen de cocinar sin endurecerse.</div></div>
+      <div class="paso"><div class="paso-n">5</div><div class="paso-txt"><b>La crema y la mostaza, al final.</b> Recién ahora sumá la crema y la mostaza. Integrá bien y dejá que tome temperatura sin que llegue a hervir fuerte, para que no se corte. Probá y corregí la sal.</div></div>
+      <div class="paso"><div class="paso-n">6</div><div class="paso-txt"><b>El puré.</b> Mientras tanto, herví las papas, pisalas y montá el puré con la manteca y la crema y una buena pizca de sal. Serví la bondiola con su salsa sobre el puré.</div></div>
+    </div>
+    <div class="tip"><div class="tip-label">🔥 El consejo de Javo</div><div class="tip-txt">La regla de oro de esta receta es que la crema y la mostaza van al final y a fuego suave. Si las sumás antes o con la llama muy fuerte, la crema se corta y se arruina la textura. Sumadas al final, quedan sedosas y envuelven la bondiola como tiene que ser.</div></div>
+  </div>
+</div>
+
+<!-- 05 BONDIOLA AGRIDULCE -->
+<div class="page recipe">
+  <div class="rh"><div class="rh-brand">Javotecocina</div><div class="rh-pg">Carnes</div><div class="rh-rule"></div></div>
+  <div class="r-head" style="margin-top:11mm;">
+    <div class="r-head-l"><div class="r-cat">Receta 05 · Carnes</div><div class="r-title">Bondiola agridulce<br>a la cerveza negra</div></div>
+    <div class="r-num">05</div>
+  </div>
+  <div class="r-meta">
+    <div class="r-meta-it"><div class="r-meta-k">Tiempo</div><div class="r-meta-v">1 h 15 min</div></div>
+    <div class="r-meta-it"><div class="r-meta-k">Comensales</div><div class="r-meta-v">10</div></div>
+    <div class="r-meta-it"><div class="r-meta-k">Fuego</div><div class="r-meta-v">Fuerte</div></div>
+    <div class="r-meta-it"><div class="r-meta-k">Dificultad</div><div class="r-meta-v">Media</div></div>
+  </div>
+  <div class="r-note">Otra cara de la bondiola, esta vez glaseada: seis latas de cerveza negra reducidas hasta quedar espesas, y un golpe final de mostaza y miel que la vuelve agridulce. La sirvo con cubitos de papa y batata al horno, que se llevan perfecto con ese dulzor.</div>
+  <div class="r-img ph"><span>Foto · Bondiola agridulce</span></div>
+  <div class="r-cols">
+    <div class="col-ing">
+      <div class="ing-head">Ingredientes</div>
+      <div class="ing-row"><span class="ing-qty">3 kg</span><span class="ing-name">Bondiola de cerdo en trozos</span></div>
+      <div class="ing-row"><span class="ing-qty">3</span><span class="ing-name">Cebollas</span></div>
+      <div class="ing-row"><span class="ing-qty">6 latas</span><span class="ing-name">Cerveza negra</span></div>
+      <div class="ing-row"><span class="ing-qty">150 g</span><span class="ing-name">Mostaza</span></div>
+      <div class="ing-row"><span class="ing-qty">150 g</span><span class="ing-name">Miel</span></div>
+      <div class="ing-row"><span class="ing-qty">c/n</span><span class="ing-name">Sal, pimienta y pimentón</span></div>
+      <div class="ing-glabel">Para acompañar</div>
+      <div class="ing-row"><span class="ing-qty">1,5 kg</span><span class="ing-name">Papas en cubos, al horno</span></div>
+      <div class="ing-row"><span class="ing-qty">1,5 kg</span><span class="ing-name">Batata / boniato en cubos, al horno</span></div>
+    </div>
+    <div class="col-pasos">
+      <div class="paso-head">Preparación</div>
+      <div class="paso"><div class="paso-n">1</div><div class="paso-txt"><b>Dorá la bondiola.</b> Condimentála con sal, pimienta y pimentón. Con llama fuerte, dorála bien por todos lados hasta sellarla. Retirá y reservá.</div></div>
+      <div class="paso"><div class="paso-n">2</div><div class="paso-txt"><b>La cebolla.</b> En el mismo fondo, dorá la cebolla hasta que esté tierna y tomando color.</div></div>
+      <div class="paso"><div class="paso-n">3</div><div class="paso-txt"><b>Cerveza y reducción.</b> Volvé a poner la bondiola y cubrí con las seis latas de cerveza negra. Mantené el fuego fuerte y dejá reducir, sin apuro pero sin bajar la llama, hasta que el líquido se concentre y empiece a espesar. Acá se cocina la carne y se arma la salsa al mismo tiempo.</div></div>
+      <div class="paso"><div class="paso-n">4</div><div class="paso-txt"><b>El golpe agridulce.</b> Cuando la salsa esté espesa y brillante, sumá la mostaza y la miel. Integrá bien y retirá del fuego al minuto: lo justo para que se mezcle y glasee, sin que la miel se queme.</div></div>
+      <div class="paso"><div class="paso-n">5</div><div class="paso-txt"><b>Para servir.</b> Acompañá con los cubos de papa y batata al horno. La salsa agridulce sobre la batata es una combinación que no falla.</div></div>
+    </div>
+    <div class="tip"><div class="tip-label">🔥 El consejo de Javo</div><div class="tip-txt">El secreto está en la reducción: seis latas de cerveza negra parecen muchas, pero al concentrarse dejan una salsa oscura, densa y con un fondo dulzón que es el alma del plato. La mostaza y la miel van al final, justo antes de retirar, para que terminen de armar el agridulce sin perder frescura.</div></div>
+  </div>
+</div>
+
+<!-- 06 CORDERO ROMERO VINO -->
+<div class="page recipe">
+  <div class="rh"><div class="rh-brand">Javotecocina</div><div class="rh-pg">Carnes</div><div class="rh-rule"></div></div>
+  <div class="r-head" style="margin-top:11mm;">
+    <div class="r-head-l"><div class="r-cat">Receta 06 · Carnes</div><div class="r-title">Cordero al romero<br>y vino tinto</div></div>
+    <div class="r-num">06</div>
+  </div>
+  <div class="r-meta">
+    <div class="r-meta-it"><div class="r-meta-k">Tiempo</div><div class="r-meta-v">2 horas</div></div>
+    <div class="r-meta-it"><div class="r-meta-k">Comensales</div><div class="r-meta-v">10</div></div>
+    <div class="r-meta-it"><div class="r-meta-k">Fuego</div><div class="r-meta-v">Fuerte → medio</div></div>
+    <div class="r-meta-it"><div class="r-meta-k">Dificultad</div><div class="r-meta-v">Media-alta</div></div>
+  </div>
+  <div class="r-note">El cordero es una carne con carácter, y el romero y el vino tinto le quedan como anillo al dedo. Acá salgo un poco de la cebolla y sumo zanahoria y puerro, que le dan dulzor y redondean la salsa. Braseado lento, queda para deshacerse.</div>
+  <div class="r-img ph"><span>Foto · Cordero al romero y vino tinto</span></div>
+  <div class="r-cols">
+    <div class="col-ing">
+      <div class="ing-head">Ingredientes</div>
+      <div class="ing-row"><span class="ing-qty">3 kg</span><span class="ing-name">Cordero trozado (paleta o pierna)</span></div>
+      <div class="ing-row"><span class="ing-qty">2</span><span class="ing-name">Cebollas</span></div>
+      <div class="ing-row"><span class="ing-qty">4</span><span class="ing-name">Zanahorias en rodajas</span></div>
+      <div class="ing-row"><span class="ing-qty">2</span><span class="ing-name">Puerros</span></div>
+      <div class="ing-row"><span class="ing-qty">1 cabeza</span><span class="ing-name">Ajo</span></div>
+      <div class="ing-row"><span class="ing-qty">3 ramas</span><span class="ing-name">Romero fresco</span></div>
+      <div class="ing-row"><span class="ing-qty">1 L</span><span class="ing-name">Vino tinto</span></div>
+      <div class="ing-row"><span class="ing-qty">1 L</span><span class="ing-name">Caldo</span></div>
+      <div class="ing-row"><span class="ing-qty">c/n</span><span class="ing-name">Sal, pimienta y pimentón</span></div>
+    </div>
+    <div class="col-pasos">
+      <div class="paso-head">Preparación</div>
+      <div class="paso"><div class="paso-n">1</div><div class="paso-txt"><b>Sellá el cordero.</b> Condimentado con sal, pimienta y pimentón, dorálo con llama fuerte hasta una buena costra dorada por todos lados. El cordero suelta su grasa: aprovechala para el sofrito. Retirá y reservá.</div></div>
+      <div class="paso"><div class="paso-n">2</div><div class="paso-txt"><b>Las verduras.</b> En ese fondo, salteá la cebolla, la zanahoria, el puerro y el ajo hasta que estén tiernos y dorados. La zanahoria va a aportar un dulzor natural que equilibra el cordero.</div></div>
+      <div class="paso"><div class="paso-n">3</div><div class="paso-txt"><b>Romero y vino.</b> Sumá el romero y volvé a poner el cordero. Agregá el vino tinto y dejá reducir a fuego fuerte unos minutos para que evapore el alcohol y concentre.</div></div>
+      <div class="paso"><div class="paso-n">4</div><div class="paso-txt"><b>Braseado largo.</b> Sumá el caldo, bajá a fuego medio y dejá brasear alrededor de una hora y media, removiendo de vez en cuando, hasta que la carne ceda sola y la salsa esté espesa y perfumada.</div></div>
+      <div class="paso"><div class="paso-n">5</div><div class="paso-txt"><b>Servir.</b> Probá y corregí la sal. Serví el cordero bien bañado en su salsa de vino y romero.</div></div>
+    </div>
+    <div class="tip"><div class="tip-label">🔥 El consejo de Javo</div><div class="tip-txt">El romero es intenso, así que con tres ramas alcanza: si te pasás, tapa todo. Y no te saltees la reducción del vino antes de sumar el caldo; ese paso le saca el filo alcohólico y deja solo el cuerpo y el color del tinto en la salsa.</div></div>
+  </div>
+</div>
+
+<!-- 07 OSOBUCO -->
+<div class="page recipe">
+  <div class="rh"><div class="rh-brand">Javotecocina</div><div class="rh-pg">Carnes</div><div class="rh-rule"></div></div>
+  <div class="r-head" style="margin-top:11mm;">
+    <div class="r-head-l"><div class="r-cat">Receta 07 · Carnes</div><div class="r-title">Osobuco braseado</div></div>
+    <div class="r-num">07</div>
+  </div>
+  <div class="r-meta">
+    <div class="r-meta-it"><div class="r-meta-k">Tiempo</div><div class="r-meta-v">2 h 30 min</div></div>
+    <div class="r-meta-it"><div class="r-meta-k">Comensales</div><div class="r-meta-v">10</div></div>
+    <div class="r-meta-it"><div class="r-meta-k">Fuego</div><div class="r-meta-v">Fuerte → suave</div></div>
+    <div class="r-meta-it"><div class="r-meta-k">Dificultad</div><div class="r-meta-v">Media-alta</div></div>
+  </div>
+  <div class="r-note">El osobuco es paciencia pura. Esas rodajas con el hueso y su caracú en el centro, braseadas lento en vino tinto hasta que la carne se desprende sola, dan una de las salsas más ricas que se pueden lograr en un disco. Vale cada minuto de espera.</div>
+  <div class="r-img ph"><span>Foto · Osobuco braseado</span></div>
+  <div class="r-cols">
+    <div class="col-ing">
+      <div class="ing-head">Ingredientes</div>
+      <div class="ing-row"><span class="ing-qty">3,5 kg</span><span class="ing-name">Osobuco en rodajas gruesas</span></div>
+      <div class="ing-row"><span class="ing-qty">c/n</span><span class="ing-name">Harina (para enharinar)</span></div>
+      <div class="ing-row"><span class="ing-qty">3</span><span class="ing-name">Cebollas</span></div>
+      <div class="ing-row"><span class="ing-qty">3</span><span class="ing-name">Zanahorias</span></div>
+      <div class="ing-row"><span class="ing-qty">2</span><span class="ing-name">Tallos de apio</span></div>
+      <div class="ing-row"><span class="ing-qty">4 dientes</span><span class="ing-name">Ajo</span></div>
+      <div class="ing-row"><span class="ing-qty">1 lata</span><span class="ing-name">Tomate triturado</span></div>
+      <div class="ing-row"><span class="ing-qty">1 L</span><span class="ing-name">Vino tinto</span></div>
+      <div class="ing-row"><span class="ing-qty">1 L</span><span class="ing-name">Caldo</span></div>
+      <div class="ing-row"><span class="ing-qty">c/n</span><span class="ing-name">Laurel, tomillo, sal y pimienta</span></div>
+    </div>
+    <div class="col-pasos">
+      <div class="paso-head">Preparación</div>
+      <div class="paso"><div class="paso-n">1</div><div class="paso-txt"><b>Sellá el osobuco.</b> Condimentá y pasá apenas las rodajas por harina. Con llama fuerte, dorálas bien de los dos lados: ese sellado dorado es la base del color y el sabor de la salsa. Retirá y reservá.</div></div>
+      <div class="paso"><div class="paso-n">2</div><div class="paso-txt"><b>El mirepoix.</b> En el fondo, salteá cebolla, zanahoria, apio y ajo, todo en cubos chicos, hasta que estén tiernos y dorados. Esta trilogía es la base aromática del braseado.</div></div>
+      <div class="paso"><div class="paso-n">3</div><div class="paso-txt"><b>Vino y tomate.</b> Sumá el vino tinto y dejá reducir a la mitad a fuego fuerte. Agregá el tomate triturado, el laurel y el tomillo, y cociná unos minutos.</div></div>
+      <div class="paso"><div class="paso-n">4</div><div class="paso-txt"><b>Braseado de 2 horas.</b> Volvé a poner el osobuco, sumá el caldo hasta cubrir y bajá a fuego suave. Brasealo cerca de dos horas, dándolo vuelta cada tanto, hasta que la carne se desprenda del hueso y el caracú esté blando.</div></div>
+      <div class="paso"><div class="paso-n">5</div><div class="paso-txt"><b>La salsa.</b> Si quedó muy líquida, subí la llama los últimos minutos para reducirla. Serví cada rodaja con bastante salsa y, ojo, que nadie se pierda el caracú del centro del hueso.</div></div>
+    </div>
+    <div class="tip"><div class="tip-label">🔥 El consejo de Javo</div><div class="tip-txt">No te saltes el enharinado ni el sellado fuerte: esa costra es la que después espesa y oscurece la salsa. Y el braseado es a fuego suave y sostenido, nunca a hervor fuerte; si lo apurás, la carne queda dura en vez de deshacerse. El osobuco premia al que espera.</div></div>
+  </div>
+</div>
+
+<!-- 08 OJO DE BIFE -->
+<div class="page recipe">
+  <div class="rh"><div class="rh-brand">Javotecocina</div><div class="rh-pg">Carnes</div><div class="rh-rule"></div></div>
+  <div class="r-head" style="margin-top:11mm;">
+    <div class="r-head-l"><div class="r-cat">Receta 08 · Carnes</div><div class="r-title">Ojo de bife<br>envuelto en panceta</div></div>
+    <div class="r-num">08</div>
+  </div>
+  <div class="r-meta">
+    <div class="r-meta-it"><div class="r-meta-k">Tiempo</div><div class="r-meta-v">35 min</div></div>
+    <div class="r-meta-it"><div class="r-meta-k">Comensales</div><div class="r-meta-v">10</div></div>
+    <div class="r-meta-it"><div class="r-meta-k">Fuego</div><div class="r-meta-v">Llama fuerte</div></div>
+    <div class="r-meta-it"><div class="r-meta-k">Dificultad</div><div class="r-meta-v">Media</div></div>
+  </div>
+  <div class="r-note">Mi manera favorita de hacer el ojo de bife en disco: cada bife bien condimentado, con el canto envuelto en panceta y atado con hilo, sellado fuerte y terminado con una reducción de vino tinto. Lo sirvo con puré de boniato, que con su dulzor le queda perfecto.</div>
+  <div class="r-img ph"><span>Foto · Ojo de bife envuelto en panceta</span></div>
+  <div class="r-cols">
+    <div class="col-ing">
+      <div class="ing-head">Ingredientes</div>
+      <div class="ing-row"><span class="ing-qty">10</span><span class="ing-name">Ojos de bife (≈250 g c/u)</span></div>
+      <div class="ing-row"><span class="ing-qty">20 fetas</span><span class="ing-name">Panceta</span></div>
+      <div class="ing-row"><span class="ing-qty">c/n</span><span class="ing-name">Hilo de cocina</span></div>
+      <div class="ing-row"><span class="ing-qty">750 ml</span><span class="ing-name">Vino tinto</span></div>
+      <div class="ing-row"><span class="ing-qty">c/n</span><span class="ing-name">Sal, pimienta y pimentón</span></div>
+      <div class="ing-glabel">Puré de boniato</div>
+      <div class="ing-row"><span class="ing-qty">2 kg</span><span class="ing-name">Boniato</span></div>
+      <div class="ing-row"><span class="ing-qty">120 g</span><span class="ing-name">Manteca</span></div>
+      <div class="ing-row"><span class="ing-qty">c/n</span><span class="ing-name">Sal</span></div>
+    </div>
+    <div class="col-pasos">
+      <div class="paso-head">Preparación</div>
+      <div class="paso"><div class="paso-n">1</div><div class="paso-txt"><b>Armá los bifes.</b> Condimentá bien cada ojo de bife con sal, pimienta y pimentón. Envolvé el canto (el contorno) de cada uno con dos fetas de panceta y atá con hilo de cocina para que mantenga la forma y la panceta no se suelte.</div></div>
+      <div class="paso"><div class="paso-n">2</div><div class="paso-txt"><b>Sellá fuerte.</b> Con el disco bien caliente y llama fuerte, sellá los bifes de los dos lados hasta dorarlos. La panceta del canto se va a dorar y aromatizar todo. Buscá un punto jugoso a medio en el centro.</div></div>
+      <div class="paso"><div class="paso-n">3</div><div class="paso-txt"><b>Reducción de vino.</b> Retirá los bifes y mantenelos al calor. En el fondo, con todo el jugo y el dorado de la panceta, sumá el vino tinto y dejá reducir a fuego fuerte hasta que espese y quede una salsa brillante.</div></div>
+      <div class="paso"><div class="paso-n">4</div><div class="paso-txt"><b>El puré de boniato.</b> Herví el boniato, pisalo y montalo con la manteca y sal hasta que quede cremoso. Su dulzor natural es el contrapunto perfecto del bife y la panceta.</div></div>
+      <div class="paso"><div class="paso-n">5</div><div class="paso-txt"><b>Servir.</b> Sacá el hilo, serví cada bife sobre el puré de boniato y bañá con la reducción de vino tinto.</div></div>
+    </div>
+    <div class="tip"><div class="tip-label">🔥 El consejo de Javo</div><div class="tip-txt">No te olvides de sacar el hilo antes de servir. Y atá la panceta firme pero sin ahorcar la carne: tiene que sostener la forma sin apretar de más. El ojo de bife es un corte noble, así que cuidá el punto: jugoso a medio es donde mejor se luce.</div></div>
+  </div>
+</div>
+
+<!-- 09 LOMO STROGANOFF -->
+<div class="page recipe">
+  <div class="rh"><div class="rh-brand">Javotecocina</div><div class="rh-pg">Carnes</div><div class="rh-rule"></div></div>
+  <div class="r-head" style="margin-top:11mm;">
+    <div class="r-head-l"><div class="r-cat">Receta 09 · Carnes</div><div class="r-title">Lomo Stroganoff</div></div>
+    <div class="r-num">09</div>
+  </div>
+  <div class="r-meta">
+    <div class="r-meta-it"><div class="r-meta-k">Tiempo</div><div class="r-meta-v">40 min</div></div>
+    <div class="r-meta-it"><div class="r-meta-k">Comensales</div><div class="r-meta-v">10</div></div>
+    <div class="r-meta-it"><div class="r-meta-k">Fuego</div><div class="r-meta-v">Fuerte → suave</div></div>
+    <div class="r-meta-it"><div class="r-meta-k">Dificultad</div><div class="r-meta-v">Media</div></div>
+  </div>
+  <div class="r-note">Un clásico de origen ruso que se aclimató perfecto a nuestras mesas. Tiras de lomo, champiñones y una crema con mostaza que envuelve todo. En el disco sale espectacular porque el sellado fuerte del lomo le da un sabor que la sartén no logra. Va con arroz blanco al lado.</div>
+  <div class="r-img ph"><span>Foto · Lomo Stroganoff</span></div>
+  <div class="r-cols">
+    <div class="col-ing">
+      <div class="ing-head">Ingredientes</div>
+      <div class="ing-row"><span class="ing-qty">1,7 kg</span><span class="ing-name">Lomo vacuno en tiras</span></div>
+      <div class="ing-row"><span class="ing-qty">650 g</span><span class="ing-name">Champiñones en láminas</span></div>
+      <div class="ing-row"><span class="ing-qty">3</span><span class="ing-name">Cebollas en pluma</span></div>
+      <div class="ing-row"><span class="ing-qty">650 ml</span><span class="ing-name">Crema de leche</span></div>
+      <div class="ing-row"><span class="ing-qty">3 cdas</span><span class="ing-name">Mostaza</span></div>
+      <div class="ing-row"><span class="ing-qty">1 chorro</span><span class="ing-name">Vino blanco, coñac o vodka (para desglasar)</span></div>
+      <div class="ing-row"><span class="ing-qty">c/n</span><span class="ing-name">Manteca y aceite</span></div>
+      <div class="ing-row"><span class="ing-qty">c/n</span><span class="ing-name">Sal, pimienta y paprika</span></div>
+      <div class="ing-row"><span class="ing-qty">c/n</span><span class="ing-name">Arroz blanco, para acompañar</span></div>
+    </div>
+    <div class="col-pasos">
+      <div class="paso-head">Preparación</div>
+      <div class="paso"><div class="paso-n">1</div><div class="paso-txt"><b>Sellá el lomo.</b> Con manteca y un poco de aceite y llama fuerte, sellá las tiras de lomo condimentadas con sal, pimienta y paprika. Que se doren rápido por fuera y queden jugosas por dentro. Trabajá en tandas para no amontonar. Retirá y reservá.</div></div>
+      <div class="paso"><div class="paso-n">2</div><div class="paso-txt"><b>Cebolla y champiñones.</b> En el mismo fondo, salteá la cebolla en pluma hasta que esté transparente. Sumá los champiñones y cocinálos hasta que doren y suelten su agua.</div></div>
+      <div class="paso"><div class="paso-n">3</div><div class="paso-txt"><b>Desglasá.</b> Agregá el chorro de coñac (o vino blanco, o vodka) y rascá el fondo para levantar todo el sabor dorado. Dejá evaporar el alcohol.</div></div>
+      <div class="paso"><div class="paso-n">4</div><div class="paso-txt"><b>La crema.</b> Bajá la llama a suave y sumá la crema y la mostaza. Integrá hasta tener una salsa homogénea, sin dejar que hierva fuerte.</div></div>
+      <div class="paso"><div class="paso-n">5</div><div class="paso-txt"><b>Unir y servir.</b> Volvé a poner el lomo con su jugo, mezclá y dale apenas un golpe de calor para que se integre sin recocer la carne. Serví con arroz blanco al lado.</div></div>
+    </div>
+    <div class="tip"><div class="tip-label">🔥 El consejo de Javo</div><div class="tip-txt">El lomo se suma al final y casi no se cocina en la crema: si lo dejás hervir, se endurece y pierde toda la nobleza del corte. Sellalo fuerte y rápido al principio, y reincorporalo recién sobre el final, lo justo para que tome temperatura.</div></div>
+  </div>
+</div>
+
+<!-- 10 MOLLEJAS AL VERDEO -->
+<div class="page recipe">
+  <div class="rh"><div class="rh-brand">Javotecocina</div><div class="rh-pg">Achuras</div><div class="rh-rule"></div></div>
+  <div class="r-head" style="margin-top:11mm;">
+    <div class="r-head-l"><div class="r-cat">Receta 10 · Achuras</div><div class="r-title">Mollejas al verdeo</div></div>
+    <div class="r-num">10</div>
+  </div>
+  <div class="r-meta">
+    <div class="r-meta-it"><div class="r-meta-k">Tiempo</div><div class="r-meta-v">50 min + marinada</div></div>
+    <div class="r-meta-it"><div class="r-meta-k">Comensales</div><div class="r-meta-v">10</div></div>
+    <div class="r-meta-it"><div class="r-meta-k">Fuego</div><div class="r-meta-v">Fuerte → suave</div></div>
+    <div class="r-meta-it"><div class="r-meta-k">Dificultad</div><div class="r-meta-v">Media</div></div>
+  </div>
+  <div class="r-note">Las mismas mollejas que adoro en la parrilla, esta vez al disco y bañadas en una salsa de verdeo con crema. El sellado fuerte les da la costra dorada y la salsa las envuelve suave. Una entrada elegante que sale de una olla de hierro: ese contraste me encanta.</div>
+  <div class="r-img ph"><span>Foto · Mollejas al verdeo</span></div>
+  <div class="r-cols">
+    <div class="col-ing">
+      <div class="ing-head">Ingredientes</div>
+      <div class="ing-row"><span class="ing-qty">2,5 kg</span><span class="ing-name">Mollejas de corazón</span></div>
+      <div class="ing-row"><span class="ing-qty">3</span><span class="ing-name">Limones (para marinar)</span></div>
+      <div class="ing-row"><span class="ing-qty">3 atados</span><span class="ing-name">Cebolla de verdeo</span></div>
+      <div class="ing-row"><span class="ing-qty">400 ml</span><span class="ing-name">Vino blanco</span></div>
+      <div class="ing-row"><span class="ing-qty">600 ml</span><span class="ing-name">Crema de leche</span></div>
+      <div class="ing-row"><span class="ing-qty">80 g</span><span class="ing-name">Manteca</span></div>
+      <div class="ing-row"><span class="ing-qty">c/n</span><span class="ing-name">Sal y pimienta</span></div>
+    </div>
+    <div class="col-pasos">
+      <div class="paso-head">Preparación</div>
+      <div class="paso"><div class="paso-n">1</div><div class="paso-txt"><b>Mollejas listas.</b> Marinálas en jugo de limón un rato largo —idealmente desde la noche anterior, como en la parrilla—, blanqueálas en agua hirviendo 5 minutos y limpialas de membranas. Quedan firmes y listas para sellar.</div></div>
+      <div class="paso"><div class="paso-n">2</div><div class="paso-txt"><b>Sellado fuerte.</b> Con el disco bien caliente y llama fuerte, sellá las mollejas hasta que estén doradas y crocantes por fuera. Retiralas y reservalas.</div></div>
+      <div class="paso"><div class="paso-n">3</div><div class="paso-txt"><b>El verdeo.</b> Bajá la llama, sumá la manteca y la cebolla de verdeo picada (la parte blanca y la verde) y rehogá hasta que esté tierna y perfumada.</div></div>
+      <div class="paso"><div class="paso-n">4</div><div class="paso-txt"><b>Vino y crema.</b> Subí un poco el fuego, sumá el vino blanco y dejá reducir a la mitad. Bajá de nuevo a suave y agregá la crema, integrando hasta tener una salsa sedosa. Salpimentá.</div></div>
+      <div class="paso"><div class="paso-n">5</div><div class="paso-txt"><b>Unir.</b> Volvé a poner las mollejas en la salsa, apenas un par de minutos para que se impregnen sin perder la costra. Serví enseguida, con bastante salsa de verdeo.</div></div>
+    </div>
+    <div class="tip"><div class="tip-label">🔥 El consejo de Javo</div><div class="tip-txt">Sellá bien las mollejas antes de meterlas en la salsa: esa costra dorada es la que aguanta el contacto con la crema sin que se ablanden del todo. Y sumalas al final, casi sobre el plato, para que mantengan el contraste entre lo crocante de afuera y lo cremoso de la salsa.</div></div>
+  </div>
+</div>
+
+<!-- 11 GUISO DE LENTEJAS -->
+<div class="page recipe">
+  <div class="rh"><div class="rh-brand">Javotecocina</div><div class="rh-pg">Guisos</div><div class="rh-rule"></div></div>
+  <div class="r-head" style="margin-top:11mm;">
+    <div class="r-head-l"><div class="r-cat">Receta 11 · Guisos</div><div class="r-title">Guiso de lentejas</div></div>
+    <div class="r-num">11</div>
+  </div>
+  <div class="r-meta">
+    <div class="r-meta-it"><div class="r-meta-k">Tiempo</div><div class="r-meta-v">1 h 30 min</div></div>
+    <div class="r-meta-it"><div class="r-meta-k">Comensales</div><div class="r-meta-v">10</div></div>
+    <div class="r-meta-it"><div class="r-meta-k">Fuego</div><div class="r-meta-v">Fuerte → medio</div></div>
+    <div class="r-meta-it"><div class="r-meta-k">Dificultad</div><div class="r-meta-v">Básica</div></div>
+  </div>
+  <div class="r-note">El guiso de lentejas es comida de invierno, de las que llenan el alma. Panceta y chorizo colorado para el sabor ahumado, y unos cubitos de pechito de cerdo si querés llevarlo más arriba. En el disco, hecho para una mesa larga, es de lo más reconfortante que hay.</div>
+  <div class="r-img ph"><span>Foto · Guiso de lentejas</span></div>
+  <div class="r-cols">
+    <div class="col-ing">
+      <div class="ing-head">Ingredientes</div>
+      <div class="ing-row"><span class="ing-qty">1 kg</span><span class="ing-name">Lentejas</span></div>
+      <div class="ing-row"><span class="ing-qty">300 g</span><span class="ing-name">Panceta en cubos</span></div>
+      <div class="ing-row"><span class="ing-qty">4</span><span class="ing-name">Chorizos colorados</span></div>
+      <div class="ing-row"><span class="ing-qty">500 g</span><span class="ing-name">Pechito de cerdo en cubos (opcional)</span></div>
+      <div class="ing-row"><span class="ing-qty">3</span><span class="ing-name">Cebollas</span></div>
+      <div class="ing-row"><span class="ing-qty">2</span><span class="ing-name">Morrones</span></div>
+      <div class="ing-row"><span class="ing-qty">3</span><span class="ing-name">Zanahorias</span></div>
+      <div class="ing-row"><span class="ing-qty">4</span><span class="ing-name">Papas en cubos</span></div>
+      <div class="ing-row"><span class="ing-qty">1 lata</span><span class="ing-name">Tomate triturado</span></div>
+      <div class="ing-row"><span class="ing-qty">2 L</span><span class="ing-name">Caldo</span></div>
+      <div class="ing-row"><span class="ing-qty">c/n</span><span class="ing-name">Pimentón, comino, laurel, sal y pimienta</span></div>
+    </div>
+    <div class="col-pasos">
+      <div class="paso-head">Preparación</div>
+      <div class="paso"><div class="paso-n">1</div><div class="paso-txt"><b>Las grasas con sabor.</b> Con llama fuerte, dorá la panceta, el chorizo colorado en rodajas y el pechito de cerdo (si lo usás). Que larguen su grasa y se doren: ese fondo es el alma del guiso. Si soltaron mucha grasa, retirá un poco.</div></div>
+      <div class="paso"><div class="paso-n">2</div><div class="paso-txt"><b>El sofrito.</b> Sumá la cebolla, el morrón y la zanahoria y rehogá hasta que estén tiernos. Agregá el pimentón y un toque de comino fuera del hervor para que no se quemen y perfumen todo.</div></div>
+      <div class="paso"><div class="paso-n">3</div><div class="paso-txt"><b>Tomate y lentejas.</b> Incorporá el tomate triturado y las lentejas, mezclá bien para que tomen el sabor del fondo.</div></div>
+      <div class="paso"><div class="paso-n">4</div><div class="paso-txt"><b>Caldo y cocción.</b> Cubrí con el caldo, sumá el laurel y bajá a fuego medio. Cociná unos 40 minutos. A media cocción sumá las papas, que además ayudan a espesar.</div></div>
+      <div class="paso"><div class="paso-n">5</div><div class="paso-txt"><b>El punto.</b> El guiso está listo cuando las lentejas están tiernas y el caldo espeso y untuoso. Probá y corregí la sal. Dejalo reposar unos minutos antes de servir: gana cuerpo.</div></div>
+    </div>
+    <div class="tip"><div class="tip-label">🔥 El consejo de Javo</div><div class="tip-txt">Las lentejas comunes no necesitan remojo previo, pero si las dejás en agua un par de horas se cocinan más parejas. No te excedas con el caldo de entrada: siempre estás a tiempo de sumar, pero sacar es imposible. Un buen guiso de lentejas tiene que quedar espeso, nunca aguado.</div></div>
+  </div>
+</div>
+
+<!-- 12 PAELLA -->
+<div class="page recipe">
+  <div class="rh"><div class="rh-brand">Javotecocina</div><div class="rh-pg">Del mar</div><div class="rh-rule"></div></div>
+  <div class="r-head" style="margin-top:11mm;">
+    <div class="r-head-l"><div class="r-cat">Receta 12 · Del mar</div><div class="r-title">Paella de mariscos</div></div>
+    <div class="r-num">12</div>
+  </div>
+  <div class="r-meta">
+    <div class="r-meta-it"><div class="r-meta-k">Tiempo</div><div class="r-meta-v">1 hora</div></div>
+    <div class="r-meta-it"><div class="r-meta-k">Comensales</div><div class="r-meta-v">10</div></div>
+    <div class="r-meta-it"><div class="r-meta-k">Fuego</div><div class="r-meta-v">Fuerte → medio</div></div>
+    <div class="r-meta-it"><div class="r-meta-k">Dificultad</div><div class="r-meta-v">Media-alta</div></div>
+  </div>
+  <div class="r-note">El disco y la paella nacieron para encontrarse: esa superficie ancha es ideal para que el arroz se cocine parejo y agarre el fondo. Esta es solo de mar, cargada de mariscos, con el azafrán como protagonista. Una fiesta de color y de sabor para el centro de la mesa.</div>
+  <div class="r-img ph"><span>Foto · Paella de mariscos</span></div>
+  <div class="r-cols">
+    <div class="col-ing">
+      <div class="ing-head">Ingredientes</div>
+      <div class="ing-row"><span class="ing-qty">1 kg</span><span class="ing-name">Arroz</span></div>
+      <div class="ing-row"><span class="ing-qty">1 kg</span><span class="ing-name">Mejillones</span></div>
+      <div class="ing-row"><span class="ing-qty">1 kg</span><span class="ing-name">Langostinos</span></div>
+      <div class="ing-row"><span class="ing-qty">750 g</span><span class="ing-name">Calamares en anillos</span></div>
+      <div class="ing-row"><span class="ing-qty">750 g</span><span class="ing-name">Almejas</span></div>
+      <div class="ing-row"><span class="ing-qty">2</span><span class="ing-name">Morrones</span></div>
+      <div class="ing-row"><span class="ing-qty">3</span><span class="ing-name">Tomates</span></div>
+      <div class="ing-row"><span class="ing-qty">1</span><span class="ing-name">Cebolla y 3 dientes de ajo</span></div>
+      <div class="ing-row"><span class="ing-qty">2,5 L</span><span class="ing-name">Caldo de pescado</span></div>
+      <div class="ing-row"><span class="ing-qty">c/n</span><span class="ing-name">Azafrán (o colorante / cúrcuma)</span></div>
+      <div class="ing-row"><span class="ing-qty">c/n</span><span class="ing-name">Arvejas, limón, sal y pimienta</span></div>
+    </div>
+    <div class="col-pasos">
+      <div class="paso-head">Preparación</div>
+      <div class="paso"><div class="paso-n">1</div><div class="paso-txt"><b>Sellá los mariscos.</b> Con llama fuerte, salteá rápido los langostinos y los calamares, lo justo para que tomen color. Retiralos y reservalos: vuelven al final para no recocerlos.</div></div>
+      <div class="paso"><div class="paso-n">2</div><div class="paso-txt"><b>El sofrito.</b> En el mismo fondo, rehogá la cebolla, el ajo, el morrón y el tomate hasta armar una base bien tierna y sabrosa.</div></div>
+      <div class="paso"><div class="paso-n">3</div><div class="paso-txt"><b>El arroz.</b> Sumá el arroz y nacaralo un par de minutos, mezclando con el sofrito para que tome todo el sabor antes de los líquidos.</div></div>
+      <div class="paso"><div class="paso-n">4</div><div class="paso-txt"><b>Caldo y azafrán.</b> Disolvé el azafrán (o el sustituto) en el caldo caliente y volcalo sobre el arroz. Distribuí parejo y, a partir de acá, no revuelvas más: la paella se cocina quieta para que se forme el fondo tostado.</div></div>
+      <div class="paso"><div class="paso-n">5</div><div class="paso-txt"><b>Los mariscos, en orden.</b> A media cocción, clavá los mejillones y las almejas con la valva hacia abajo y sumá las arvejas. Sobre el final, devolvé los langostinos y calamares que reservaste.</div></div>
+      <div class="paso"><div class="paso-n">6</div><div class="paso-txt"><b>Reposo.</b> Cuando el arroz absorbió el líquido y está al dente, apagá el fuego y dejá reposar 5 minutos tapado con un repasador. Serví con gajos de limón.</div></div>
+    </div>
+    <div class="tip"><div class="tip-label">🔥 El consejo de Javo</div><div class="tip-txt">Si no conseguís azafrán, no te frenes: un buen colorante para paella o una cucharadita de cúrcuma cumplen perfecto con el color y parte del sabor. La regla sagrada es no revolver el arroz una vez que entró el caldo: así se forma el "socarrat", ese fondo tostado que es lo mejor de toda la paella.</div></div>
+  </div>
+</div>
+
+<!-- 13 RABAS -->
+<div class="page recipe">
+  <div class="rh"><div class="rh-brand">Javotecocina</div><div class="rh-pg">Del mar</div><div class="rh-rule"></div></div>
+  <div class="r-head" style="margin-top:11mm;">
+    <div class="r-head-l"><div class="r-cat">Receta 13 · Del mar</div><div class="r-title">Rabas al ajillo<br>fritas</div></div>
+    <div class="r-num">13</div>
+  </div>
+  <div class="r-meta">
+    <div class="r-meta-it"><div class="r-meta-k">Tiempo</div><div class="r-meta-v">40 min</div></div>
+    <div class="r-meta-it"><div class="r-meta-k">Comensales</div><div class="r-meta-v">10</div></div>
+    <div class="r-meta-it"><div class="r-meta-k">Fuego</div><div class="r-meta-v">Llama fuerte</div></div>
+    <div class="r-meta-it"><div class="r-meta-k">Dificultad</div><div class="r-meta-v">Media</div></div>
+  </div>
+  <div class="r-note">El disco es una freidora gigante perfecta: el aceite toma bien la temperatura y se pueden hacer rabas para todos de una sola vez. Crocantes por fuera, tiernas por dentro, terminadas con ajo y perejil y un buen chorro de limón. Imposible que sobren.</div>
+  <div class="r-img ph"><span>Foto · Rabas al ajillo fritas</span></div>
+  <div class="r-cols">
+    <div class="col-ing">
+      <div class="ing-head">Ingredientes</div>
+      <div class="ing-row"><span class="ing-qty">2 kg</span><span class="ing-name">Anillos de calamar (rabas)</span></div>
+      <div class="ing-row"><span class="ing-qty">2</span><span class="ing-name">Limones (para marinar) + más para servir</span></div>
+      <div class="ing-row"><span class="ing-qty">500 g</span><span class="ing-name">Harina</span></div>
+      <div class="ing-row"><span class="ing-qty">4</span><span class="ing-name">Huevos</span></div>
+      <div class="ing-row"><span class="ing-qty">c/n</span><span class="ing-name">Aceite para freír</span></div>
+      <div class="ing-row"><span class="ing-qty">6 dientes</span><span class="ing-name">Ajo picado</span></div>
+      <div class="ing-row"><span class="ing-qty">1 atado</span><span class="ing-name">Perejil picado</span></div>
+      <div class="ing-row"><span class="ing-qty">c/n</span><span class="ing-name">Sal</span></div>
+    </div>
+    <div class="col-pasos">
+      <div class="paso-head">Preparación</div>
+      <div class="paso"><div class="paso-n">1</div><div class="paso-txt"><b>Preparar las rabas.</b> Marinálas en jugo de limón con sal unos 15 minutos: el limón las tierniza y les saca cualquier olor fuerte. Escurrilas y secalas bien con papel, que es clave para que el rebozado pegue y queden crocantes.</div></div>
+      <div class="paso"><div class="paso-n">2</div><div class="paso-txt"><b>El rebozado.</b> Pasá los anillos primero por harina, después por huevo batido y de nuevo por harina. Esa doble harina con el huevo en el medio es lo que arma una costra firme y dorada que no se desarma al freír.</div></div>
+      <div class="paso"><div class="paso-n">3</div><div class="paso-txt"><b>El aceite a punto.</b> Calentá abundante aceite en el disco con llama fuerte. Tiene que estar bien caliente: si tirás una rabita y burbujea enseguida, está listo. Aceite tibio = rabas aceitosas y blandas.</div></div>
+      <div class="paso"><div class="paso-n">4</div><div class="paso-txt"><b>Freír en tandas.</b> Echá las rabas de a tandas, sin amontonar, para que el aceite no baje de temperatura. Un par de minutos hasta que estén doradas y crocantes. Escurrilas sobre papel y salá apenas salen.</div></div>
+      <div class="paso"><div class="paso-n">5</div><div class="paso-txt"><b>El ajillo.</b> Aparte, dorá apenas el ajo y el perejil picados en un poco de aceite de oliva, sin que el ajo se queme. Al servir las rabas, regalas con ese ajillo y exprimí limón fresco por encima.</div></div>
+    </div>
+    <div class="tip"><div class="tip-label">🔥 El consejo de Javo</div><div class="tip-txt">Dos claves para rabas perfectas: secar bien el calamar antes de rebozar, y freír en aceite bien caliente y en tandas. Si las amontonás, el aceite se enfría, sueltan agua y quedan gomosas. Mejor varias tandas rápidas que todo junto. Y el limón, siempre recién exprimido al servir.</div></div>
+  </div>
+</div>
+
+<!-- CIERRE: LA MESA DEL DISCO -->
+<div class="page gp">
+  <div class="rh"><div class="rh-brand">Javotecocina</div><div class="rh-pg">Para cerrar</div><div class="rh-rule"></div></div>
+  <div style="margin-top:13mm;">
+    <div class="g-title">La mesa del disco</div>
+    <div class="g-text">Ninguna de estas recetas se come sola. El disco es comida para compartir, y una buena mesa se arma con lo que la rodea: un pan para mojar la salsa, una ensalada fresca que corte la contundencia, una salsa criolla que le va bien a casi todo. Te dejo las guarniciones y salsas que más uso para acompañar todo lo que hay en este libro.</div>
+    <div class="g-grid">
+      <div class="g-card"><div class="g-card-title">🥖 Pan casero</div><p>Para las recetas con salsa —osobuco, cordero, pechito— el pan no es opcional. Un buen pan campo o una flauta crocante para hacer el clásico "barquito" y no dejar nada en el disco. Si te animás, hacelo casero; si no, que sea de panadería y del día.</p></div>
+      <div class="g-card"><div class="g-card-title">🍅 Salsa criolla</div><p>Tomate, cebolla y morrón cortados bien chicos, con aceite, vinagre, sal y un toque de orégano. Fresca, ácida y crocante, es el contrapunto perfecto para las carnes y los glaseados dulces. Mejor si la preparás un rato antes para que tome sabor.</p></div>
+      <div class="g-card"><div class="g-card-title">🥗 Ensaladas frescas</div><p>Una verde simple con buen aceite de oliva y limón, o la criolla de lechuga, tomate y cebolla. Su función es cortar la contundencia del disco y refrescar el paladar entre bocado y bocado. No la compliques: cuanto más simple, mejor cumple.</p></div>
+      <div class="g-card"><div class="g-card-title">🥔 Puré, papas y batatas</div><p>El puré de papa o de boniato —con sal, manteca y crema— es la cama ideal para la bondiola y el ojo de bife. Y los cubos de papa y batata al horno acompañan de diez los platos agridulces. El dulzor de la batata juega siempre a favor.</p></div>
+    </div>
+    <div class="g-text" style="font-style:italic;color:var(--muted);margin-top:1mm;">Y por encima de todo, lo más importante de la mesa del disco no se cocina: son las manos que se estiran al mismo tiempo, los platos que se pasan, la sobremesa que se estira. El disco se cocina para muchos y se come entre todos. Esa, al final, es toda su receta.</div>
+  </div>
+</div>
+
+<!-- CONTRACUBIERTA -->
+<div class="page back">
+  <div class="back-quote"><p>El disco no sabe de apuros ni de porciones individuales. Se cocina para muchos y se come entre todos. Esa es toda su filosofía.</p></div>
+  <div class="back-bottom">
+    <div class="back-brand">Javotecocina</div>
+    <div class="back-web">javotecocina.com · Salta, Argentina</div>
+  </div>
+</div>
+
+</body>
+</html>
