@@ -1,0 +1,1834 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Todo sobre Fierros — Javotecocina</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Barlow:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,600&family=Barlow+Condensed:ital,wght@0,600;0,700;0,800;0,900;1,700;1,800&display=swap" rel="stylesheet">
+<style>
+/* ── RESET & BASE ── */
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --fire: #C84B11;
+  --ember: #E8730A;
+  --dark: #1A120B;
+  --brown: #5C2E00;
+  --cream: #FDFAF5;
+  --warm: #F5EDE4;
+  --muted: #8B7355;
+  --border: #D9CDBF;
+  --text: #2A1A0E;
+}
+
+body {
+  font-family: 'Barlow', sans-serif;
+  background: #e8e0d8;
+  color: var(--text);
+  font-size: 11pt;
+  line-height: 1.7;
+}
+
+/* ── PAGE SETUP ── */
+.page {
+  width: 210mm;
+  min-height: 297mm;
+  background: var(--cream);
+  margin: 0 auto 12mm;
+  position: relative;
+  overflow: hidden;
+}
+
+@media print {
+  body { background: white; }
+  .page {
+    margin: 0;
+    page-break-after: always;
+    box-shadow: none;
+  }
+  .no-print { display: none !important; }
+}
+
+@page {
+  size: A4;
+  margin: 0;
+}
+
+/* ── PRINT BUTTON ── */
+.no-print {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  background: var(--fire);
+  color: white;
+  border: none;
+  padding: .85rem 1.75rem;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: .9rem;
+  font-weight: 700;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  border-radius: 3px;
+  cursor: pointer;
+  box-shadow: 0 4px 20px rgba(200,75,17,.4);
+  z-index: 999;
+}
+.no-print:hover { background: var(--ember); }
+
+/* ══════════════════════════════════════
+   PORTADA
+══════════════════════════════════════ */
+.cover {
+  background: var(--dark);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 0;
+  position: relative;
+}
+
+.cover-bg {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(to bottom, rgba(26,18,11,0.15) 0%, rgba(26,18,11,0.7) 55%, rgba(26,18,11,1) 100%),
+    url('../img/p27.jpg') center 30% / cover no-repeat;
+}
+
+.cover-content {
+  position: relative;
+  z-index: 2;
+  padding: 18mm 16mm 16mm;
+}
+
+.cover-brand {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 8pt;
+  font-weight: 700;
+  letter-spacing: .25em;
+  text-transform: uppercase;
+  color: var(--ember);
+  margin-bottom: 6mm;
+}
+
+.cover-series {
+  font-family: 'Barlow', sans-serif;
+  font-size: 8pt;
+  font-weight: 300;
+  letter-spacing: .15em;
+  text-transform: uppercase;
+  color: rgba(245,237,228,.5);
+  margin-bottom: 4mm;
+}
+
+.cover-title {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 52pt;
+  font-weight: 900;
+  line-height: .92;
+  text-transform: uppercase;
+  color: #F5EDE4;
+  margin-bottom: 5mm;
+}
+
+.cover-title em {
+  font-style: italic;
+  color: var(--ember);
+}
+
+.cover-subtitle {
+  font-size: 10pt;
+  font-weight: 300;
+  color: rgba(245,237,228,.65);
+  line-height: 1.6;
+  max-width: 120mm;
+  margin-bottom: 10mm;
+}
+
+.cover-meta {
+  display: flex;
+  align-items: center;
+  gap: 6mm;
+  padding-top: 7mm;
+  border-top: 1px solid rgba(245,237,228,.12);
+}
+
+.cover-meta-item {
+  font-size: 7.5pt;
+  font-weight: 600;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: rgba(245,237,228,.4);
+}
+
+.cover-meta-dot {
+  width: 3px;
+  height: 3px;
+  border-radius: 50%;
+  background: var(--fire);
+  opacity: .6;
+}
+
+/* ══════════════════════════════════════
+   DEDICATORIA
+══════════════════════════════════════ */
+.dedicatoria-page {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 22mm 22mm;
+  background: var(--dark);
+}
+
+.dedicatoria-ornament {
+  font-size: 18pt;
+  margin-bottom: 12mm;
+  opacity: .4;
+}
+
+.dedicatoria-text {
+  font-family: 'Barlow', sans-serif;
+  font-size: 14pt;
+  font-weight: 300;
+  font-style: italic;
+  color: rgba(245,237,228,.85);
+  line-height: 1.8;
+  max-width: 140mm;
+}
+
+.dedicatoria-firma {
+  margin-top: 14mm;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 8pt;
+  font-weight: 700;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+  color: var(--ember);
+}
+
+/* ══════════════════════════════════════
+   PRÓLOGO
+══════════════════════════════════════ */
+.prologo-page {
+  padding: 16mm 16mm 14mm;
+  display: flex;
+  flex-direction: column;
+}
+
+.page-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 5mm;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 10mm;
+}
+
+.page-header-brand {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 7.5pt;
+  font-weight: 800;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+  color: var(--fire);
+}
+
+.page-header-title {
+  font-family: 'Barlow', sans-serif;
+  font-size: 7.5pt;
+  font-weight: 400;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.section-label {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 7pt;
+  font-weight: 700;
+  letter-spacing: .25em;
+  text-transform: uppercase;
+  color: var(--fire);
+  margin-bottom: 3mm;
+}
+
+.prologo-title {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 32pt;
+  font-weight: 800;
+  font-style: italic;
+  line-height: 1;
+  color: var(--dark);
+  margin-bottom: 8mm;
+}
+
+.prologo-body {
+  columns: 2;
+  column-gap: 8mm;
+  font-size: 9.5pt;
+  line-height: 1.75;
+  color: var(--text);
+}
+
+.prologo-body p {
+  margin-bottom: 4mm;
+  text-align: justify;
+}
+
+.prologo-body p.lead {
+  font-size: 11pt;
+  font-weight: 500;
+  color: var(--brown);
+  line-height: 1.65;
+  column-span: all;
+  margin-bottom: 6mm;
+}
+
+/* ══════════════════════════════════════
+   ÍNDICE
+══════════════════════════════════════ */
+.indice-page {
+  padding: 16mm 16mm 14mm;
+}
+
+.indice-title {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 32pt;
+  font-weight: 900;
+  text-transform: uppercase;
+  color: var(--dark);
+  margin-bottom: 10mm;
+}
+
+.indice-section {
+  margin-bottom: 7mm;
+}
+
+.indice-section-title {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 7pt;
+  font-weight: 700;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+  color: var(--fire);
+  margin-bottom: 3mm;
+  padding-bottom: 1.5mm;
+  border-bottom: 1px solid var(--border);
+}
+
+.indice-item {
+  display: flex;
+  align-items: baseline;
+  gap: 2mm;
+  padding: 2mm 0;
+  font-size: 10pt;
+  color: var(--text);
+}
+
+.indice-num {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 8pt;
+  font-weight: 700;
+  color: var(--ember);
+  min-width: 8mm;
+}
+
+.indice-name {
+  font-weight: 500;
+  flex: 1;
+}
+
+.indice-dots {
+  flex: 1;
+  border-bottom: 1px dotted var(--border);
+  margin: 0 2mm 1.5mm;
+}
+
+.indice-page-num {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 8pt;
+  font-weight: 700;
+  color: var(--muted);
+  min-width: 6mm;
+  text-align: right;
+}
+
+/* ══════════════════════════════════════
+   RECETA — APERTURA (página completa con foto)
+══════════════════════════════════════ */
+.recipe-cover {
+  background: var(--dark);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  position: relative;
+}
+
+.recipe-cover-bg {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+}
+
+.recipe-cover-bg::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to bottom, rgba(26,18,11,0.1) 0%, rgba(26,18,11,0.5) 50%, rgba(26,18,11,.95) 100%);
+}
+
+.recipe-cover-content {
+  position: relative;
+  z-index: 2;
+  padding: 14mm 14mm 12mm;
+}
+
+.recipe-num {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 72pt;
+  font-weight: 900;
+  line-height: 1;
+  color: rgba(245,237,228,.06);
+  position: absolute;
+  top: 8mm;
+  right: 10mm;
+}
+
+.recipe-cover-tag {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 7pt;
+  font-weight: 700;
+  letter-spacing: .22em;
+  text-transform: uppercase;
+  color: var(--ember);
+  margin-bottom: 3mm;
+}
+
+.recipe-cover-title {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 38pt;
+  font-weight: 900;
+  line-height: .95;
+  text-transform: uppercase;
+  color: #F5EDE4;
+  margin-bottom: 4mm;
+}
+
+.recipe-cover-desc {
+  font-size: 9.5pt;
+  font-weight: 300;
+  color: rgba(245,237,228,.65);
+  line-height: 1.65;
+  max-width: 110mm;
+  margin-bottom: 7mm;
+}
+
+.recipe-pills {
+  display: flex;
+  gap: 3mm;
+  flex-wrap: wrap;
+}
+
+.pill {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 7pt;
+  font-weight: 700;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  padding: 1.5mm 3.5mm;
+  border: 1px solid rgba(245,237,228,.2);
+  border-radius: 1px;
+  color: rgba(245,237,228,.5);
+}
+
+/* ══════════════════════════════════════
+   RECETA — CONTENIDO
+══════════════════════════════════════ */
+.recipe-page {
+  padding: 14mm 14mm 12mm;
+}
+
+.recipe-header-inline {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 7mm;
+  padding-bottom: 5mm;
+  border-bottom: 2px solid var(--fire);
+}
+
+.recipe-title-small {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 22pt;
+  font-weight: 900;
+  text-transform: uppercase;
+  line-height: 1;
+  color: var(--dark);
+}
+
+.recipe-title-small span {
+  display: block;
+  font-size: 7pt;
+  font-weight: 700;
+  letter-spacing: .18em;
+  color: var(--fire);
+  margin-bottom: 1.5mm;
+  font-style: normal;
+  text-transform: uppercase;
+}
+
+.recipe-meta-pills {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 1.5mm;
+}
+
+.recipe-meta-pill {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 7pt;
+  font-weight: 700;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.recipe-meta-pill strong {
+  color: var(--dark);
+  font-weight: 800;
+}
+
+.recipe-cols {
+  display: grid;
+  grid-template-columns: 68mm 1fr;
+  gap: 8mm;
+}
+
+/* Ingredientes */
+.ingredientes-block h3 {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 8pt;
+  font-weight: 700;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  color: var(--fire);
+  margin-bottom: 4mm;
+}
+
+.ingrediente-group {
+  margin-bottom: 4mm;
+}
+
+.ingrediente-group-title {
+  font-size: 7.5pt;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: .08em;
+  color: var(--muted);
+  margin-bottom: 1.5mm;
+  padding-bottom: 1mm;
+  border-bottom: 1px solid var(--border);
+}
+
+.ingrediente-item {
+  display: flex;
+  gap: 2mm;
+  padding: 1.2mm 0;
+  font-size: 8.5pt;
+  border-bottom: 1px solid rgba(217,205,191,.4);
+  line-height: 1.4;
+}
+
+.ing-cantidad {
+  font-weight: 700;
+  color: var(--dark);
+  min-width: 16mm;
+  font-size: 8pt;
+}
+
+.ing-nombre {
+  color: var(--text);
+  flex: 1;
+}
+
+/* Preparación */
+.preparacion-block h3 {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 8pt;
+  font-weight: 700;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  color: var(--fire);
+  margin-bottom: 4mm;
+}
+
+.paso {
+  display: flex;
+  gap: 3mm;
+  margin-bottom: 4mm;
+  align-items: flex-start;
+}
+
+.paso-num {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 13pt;
+  font-weight: 900;
+  color: var(--fire);
+  line-height: 1;
+  min-width: 6mm;
+  margin-top: .5mm;
+  opacity: .6;
+}
+
+.paso-text {
+  font-size: 8.5pt;
+  line-height: 1.65;
+  color: var(--text);
+  text-align: justify;
+}
+
+/* Consejo del fuego */
+.consejo {
+  margin-top: 5mm;
+  background: rgba(200,75,17,.06);
+  border-left: 3px solid var(--fire);
+  padding: 3mm 4mm;
+  border-radius: 0 2px 2px 0;
+}
+
+.consejo-label {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 6.5pt;
+  font-weight: 700;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  color: var(--fire);
+  margin-bottom: 1.5mm;
+}
+
+.consejo-text {
+  font-size: 8pt;
+  color: var(--text);
+  line-height: 1.6;
+  font-style: italic;
+}
+
+/* ══════════════════════════════════════
+   GUÍA DEL FUEGO (sección final)
+══════════════════════════════════════ */
+.guia-cover {
+  background: var(--dark);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 22mm 18mm;
+  position: relative;
+}
+
+.guia-cover::before {
+  content: 'GUÍA';
+  position: absolute;
+  right: -5mm;
+  top: 50%;
+  transform: translateY(-50%) rotate(90deg);
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 80pt;
+  font-weight: 900;
+  color: rgba(245,237,228,.03);
+  letter-spacing: .05em;
+}
+
+.guia-cover-label {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 7pt;
+  font-weight: 700;
+  letter-spacing: .25em;
+  text-transform: uppercase;
+  color: var(--ember);
+  margin-bottom: 5mm;
+}
+
+.guia-cover-title {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 42pt;
+  font-weight: 900;
+  line-height: .95;
+  text-transform: uppercase;
+  color: #F5EDE4;
+  margin-bottom: 7mm;
+}
+
+.guia-cover-desc {
+  font-size: 10pt;
+  font-weight: 300;
+  color: rgba(245,237,228,.55);
+  line-height: 1.7;
+  max-width: 120mm;
+}
+
+.guia-page {
+  padding: 14mm 14mm 12mm;
+}
+
+.guia-section {
+  margin-bottom: 8mm;
+}
+
+.guia-section-title {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 16pt;
+  font-weight: 800;
+  text-transform: uppercase;
+  color: var(--dark);
+  margin-bottom: 4mm;
+  padding-bottom: 2mm;
+  border-bottom: 2px solid var(--fire);
+}
+
+.guia-section p {
+  font-size: 9pt;
+  line-height: 1.7;
+  color: var(--text);
+  margin-bottom: 3mm;
+  text-align: justify;
+}
+
+.guia-cols {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 6mm;
+  margin-top: 3mm;
+}
+
+.guia-card {
+  background: var(--warm);
+  border: 1px solid var(--border);
+  border-radius: 2px;
+  padding: 4mm;
+}
+
+.guia-card-title {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 9pt;
+  font-weight: 800;
+  text-transform: uppercase;
+  color: var(--fire);
+  margin-bottom: 2mm;
+}
+
+.guia-card p, .guia-card li {
+  font-size: 8pt;
+  color: var(--text);
+  line-height: 1.6;
+}
+
+.guia-card ul {
+  padding-left: 4mm;
+  margin-top: 1.5mm;
+}
+
+.guia-card li {
+  margin-bottom: 1mm;
+}
+
+/* Tabla de temperaturas */
+.temp-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 3mm;
+  font-size: 8.5pt;
+}
+
+.temp-table th {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 7pt;
+  font-weight: 700;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--fire);
+  text-align: left;
+  padding: 2mm 3mm;
+  border-bottom: 2px solid var(--fire);
+}
+
+.temp-table td {
+  padding: 2mm 3mm;
+  border-bottom: 1px solid var(--border);
+  color: var(--text);
+  vertical-align: top;
+  line-height: 1.5;
+}
+
+.temp-table tr:last-child td {
+  border-bottom: none;
+}
+
+.temp-table td:first-child {
+  font-weight: 600;
+  color: var(--dark);
+}
+
+.temp-badge {
+  display: inline-block;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 7pt;
+  font-weight: 700;
+  padding: .5mm 2mm;
+  border-radius: 1px;
+  text-transform: uppercase;
+  letter-spacing: .05em;
+}
+
+.temp-r { background: rgba(200,75,17,.1); color: var(--fire); }
+.temp-m { background: rgba(232,115,10,.1); color: var(--ember); }
+.temp-b { background: rgba(92,46,0,.1); color: var(--brown); }
+
+/* Contracubierta */
+.backcover {
+  background: var(--dark);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 16mm;
+  position: relative;
+  overflow: hidden;
+}
+
+.backcover::before {
+  content: '';
+  position: absolute;
+  bottom: -20mm;
+  right: -20mm;
+  width: 120mm;
+  height: 120mm;
+  border-radius: 50%;
+  border: 18mm solid rgba(200,75,17,.07);
+}
+
+.backcover-quote {
+  font-family: 'Barlow', sans-serif;
+  font-size: 15pt;
+  font-weight: 300;
+  font-style: italic;
+  color: rgba(245,237,228,.7);
+  line-height: 1.65;
+  max-width: 130mm;
+  position: relative;
+  z-index: 2;
+}
+
+.backcover-quote::before {
+  content: '"';
+  font-size: 48pt;
+  font-family: Georgia, serif;
+  color: var(--fire);
+  opacity: .4;
+  line-height: .5;
+  display: block;
+  margin-bottom: 3mm;
+}
+
+.backcover-bottom {
+  position: relative;
+  z-index: 2;
+}
+
+.backcover-brand {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 20pt;
+  font-weight: 900;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--fire);
+  margin-bottom: 2mm;
+}
+
+.backcover-web {
+  font-size: 8pt;
+  color: rgba(245,237,228,.35);
+  letter-spacing: .08em;
+}
+
+/* ── UTILIDADES ── */
+.mt-auto { margin-top: auto; }
+.text-fire { color: var(--fire); }
+.fw-bold { font-weight: 700; }
+</style>
+</head>
+<body>
+
+<button class="no-print" onclick="window.print()">⬇ Exportar PDF</button>
+
+<!-- ══════════════════════════════════════
+     PORTADA
+══════════════════════════════════════ -->
+<div class="page cover">
+  <div class="cover-bg"></div>
+  <div class="cover-content">
+    <div class="cover-brand">Javotecocina</div>
+    <div class="cover-series">Recetarios digitales · Vol. 1</div>
+    <div class="cover-title">Todo<br>sobre<br><em>Fierros</em></div>
+    <div class="cover-subtitle">14 recetas de parrilla con técnica real. Tira, vacío, cordero a la cruz, mollejas, chorizos caseros y todo lo que aprendí frente al fuego.</div>
+    <div class="cover-meta">
+      <div class="cover-meta-item">14 Recetas</div>
+      <div class="cover-meta-dot"></div>
+      <div class="cover-meta-item">Parrilla Argentina</div>
+      <div class="cover-meta-dot"></div>
+      <div class="cover-meta-item">Javo Elizalde</div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════
+     DEDICATORIA
+══════════════════════════════════════ -->
+<div class="page dedicatoria-page">
+  <div class="dedicatoria-ornament">— ✦ —</div>
+  <div class="dedicatoria-text">
+    Mi vieja me dio la vida,<br>
+    y mi viejo con un fuego prendido,<br>
+    las ganas de vivirla.
+  </div>
+  <div class="dedicatoria-firma">Javotecocina</div>
+</div>
+
+<!-- ══════════════════════════════════════
+     PRÓLOGO
+══════════════════════════════════════ -->
+<div class="page prologo-page">
+  <div class="page-header">
+    <div class="page-header-brand">Javotecocina</div>
+    <div class="page-header-title">Todo sobre Fierros</div>
+  </div>
+  <div class="section-label">Prólogo</div>
+  <div class="prologo-title">El fuego<br>lo aprendí<br>de mi viejo.</div>
+  <div class="prologo-body">
+    <p class="lead">Yo no estudié en ninguna escuela de cocina. Aprendí al lado de mi viejo, en campamentos y en el patio de casa, mirando cómo prendía el fuego con calma, sin apuro, como si fuese algo sagrado.</p>
+    <p>No había mucho protocolo. Había leña, había brasa, había carne. Y había una filosofía que nunca me explicó con palabras pero que yo fui entendiendo solo: el asado se come como le gusta al parrillero. No hay una sola manera correcta. Hay una manera que es tuya, que vas construyendo con el tiempo, con los errores, con cada vuelta de carne.</p>
+    <p>Este recetario es eso. No es un manual técnico, no es una guía académica. Es la manera en que yo cocino en los fierros. Las mismas recetas que hago en eventos, en asados con amigos, en las madrugadas de campaña con brasas que duran hasta el amanecer.</p>
+    <p>Uso sal. Solo sal, la mayor parte del tiempo. La salmuera la reservo para cocimientos largos —un costillar de cuatro horas, un cordero a la cruz— porque cuando la carne tiene tiempo, necesita que el sabor entre despacio. El limón lo uso en la parrilla, directamente sobre las brasas, para el pollo y el cerdo: el calor lo transforma, le saca la acidez y le da un fondo suave que no se consigue de otra manera.</p>
+    <p>Cada receta en este libro tiene historia. Algunas las hice cientos de veces. Otras las fui armando de a poco, con ingredientes del norte, con influencias que fui juntando en el camino. Todas son simples. La parrilla no le entra a la complejidad: le entra al fuego, al tiempo y a la honestidad.</p>
+    <p>Espero que las hagás tuyas. Que las modifiques, que les agregues lo que vos le ponés siempre. Que en algún momento dejen de ser mis recetas y sean las tuyas.</p>
+    <p>Ese es el mejor resultado que puedo imaginar.</p>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════
+     ÍNDICE
+══════════════════════════════════════ -->
+<div class="page indice-page">
+  <div class="page-header">
+    <div class="page-header-brand">Javotecocina</div>
+    <div class="page-header-title">Índice</div>
+  </div>
+  <div class="indice-title">Índice</div>
+
+  <div class="indice-section">
+    <div class="indice-section-title">Vacunos</div>
+    <div class="indice-item"><span class="indice-num">01</span><span class="indice-name">Asado de tira a las brasas</span><span class="indice-dots"></span><span class="indice-page-num">6</span></div>
+    <div class="indice-item"><span class="indice-num">02</span><span class="indice-name">Vacío completo con costra de sal</span><span class="indice-dots"></span><span class="indice-page-num">8</span></div>
+    <div class="indice-item"><span class="indice-num">03</span><span class="indice-name">Bife de chorizo con manteca de hierbas</span><span class="indice-dots"></span><span class="indice-page-num">10</span></div>
+    <div class="indice-item"><span class="indice-num">04</span><span class="indice-name">Entraña al limón y ajo</span><span class="indice-dots"></span><span class="indice-page-num">12</span></div>
+    <div class="indice-item"><span class="indice-num">05</span><span class="indice-name">Mollejas crocantes a la parrilla</span><span class="indice-dots"></span><span class="indice-page-num">14</span></div>
+    <div class="indice-item"><span class="indice-num">06</span><span class="indice-name">Riñones al vino tinto</span><span class="indice-dots"></span><span class="indice-page-num">16</span></div>
+    <div class="indice-item"><span class="indice-num">07</span><span class="indice-name">Chinchulín crocante con limón</span><span class="indice-dots"></span><span class="indice-page-num">18</span></div>
+  </div>
+
+  <div class="indice-section">
+    <div class="indice-section-title">Cerdo &amp; Aves</div>
+    <div class="indice-item"><span class="indice-num">08</span><span class="indice-name">Chorizos caseros estilo salteño</span><span class="indice-dots"></span><span class="indice-page-num">20</span></div>
+    <div class="indice-item"><span class="indice-num">09</span><span class="indice-name">Pamplona de cerdo rellena</span><span class="indice-dots"></span><span class="indice-page-num">22</span></div>
+    <div class="indice-item"><span class="indice-num">10</span><span class="indice-name">Lechón a la parrilla — técnica ladrillo y chapa</span><span class="indice-dots"></span><span class="indice-page-num">24</span></div>
+    <div class="indice-item"><span class="indice-num">11</span><span class="indice-name">Pollo a la estaca con salmuera</span><span class="indice-dots"></span><span class="indice-page-num">26</span></div>
+  </div>
+
+  <div class="indice-section">
+    <div class="indice-section-title">Animales enteros &amp; piezas grandes</div>
+    <div class="indice-item"><span class="indice-num">12</span><span class="indice-name">Costillar entero a la cruz</span><span class="indice-dots"></span><span class="indice-page-num">28</span></div>
+    <div class="indice-item"><span class="indice-num">13</span><span class="indice-name">Cordero a la cruz</span><span class="indice-dots"></span><span class="indice-page-num">30</span></div>
+  </div>
+
+  <div class="indice-section">
+    <div class="indice-section-title">Complementos</div>
+    <div class="indice-item"><span class="indice-num">14</span><span class="indice-name">Provoleta ahumada con orégano fresco</span><span class="indice-dots"></span><span class="indice-page-num">32</span></div>
+  </div>
+
+  <div class="indice-section">
+    <div class="indice-section-title">Guía del fuego</div>
+    <div class="indice-item"><span class="indice-num">—</span><span class="indice-name">Leña, brasas y temperatura</span><span class="indice-dots"></span><span class="indice-page-num">34</span></div>
+    <div class="indice-item"><span class="indice-num">—</span><span class="indice-name">Cortes argentinos y puntos de cocción</span><span class="indice-dots"></span><span class="indice-page-num">36</span></div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════
+     RECETA 01 — TIRA DE ASADO
+══════════════════════════════════════ -->
+<div class="page recipe-cover" style="min-height:297mm;">
+  <div class="recipe-cover-bg" style="background-image:url('../img/p27.jpg');background-position:center 25%;"></div>
+  <div class="recipe-num">01</div>
+  <div class="recipe-cover-content">
+    <div class="recipe-cover-tag">Receta 01 · Vacunos</div>
+    <div class="recipe-cover-title">Asado de tira<br>a las brasas</div>
+    <div class="recipe-cover-desc">La receta más argentina de todas. Tira de asado, brasas parejas y el tiempo que haga falta. No hay más secreto que ese.</div>
+    <div class="recipe-pills">
+      <div class="pill">⏱ 1:30 hs</div>
+      <div class="pill">👥 4–6 personas</div>
+      <div class="pill">🔥 Brasas medias</div>
+    </div>
+  </div>
+</div>
+
+<div class="page recipe-page">
+  <div class="page-header">
+    <div class="page-header-brand">Javotecocina</div>
+    <div class="page-header-title">Todo sobre Fierros</div>
+  </div>
+  <div class="recipe-header-inline">
+    <div class="recipe-title-small">
+      <span>Receta 01</span>
+      Asado de tira<br>a las brasas
+    </div>
+    <div class="recipe-meta-pills">
+      <div class="recipe-meta-pill"><strong>Tiempo:</strong> 1 h 30 min</div>
+      <div class="recipe-meta-pill"><strong>Porciones:</strong> 4 a 6</div>
+      <div class="recipe-meta-pill"><strong>Fuego:</strong> Brasas medias</div>
+      <div class="recipe-meta-pill"><strong>Dificultad:</strong> Básica</div>
+    </div>
+  </div>
+  <div class="recipe-cols">
+    <div class="ingredientes-block">
+      <h3>Ingredientes</h3>
+      <div class="ingrediente-group">
+        <div class="ingrediente-item"><span class="ing-cantidad">2 kg</span><span class="ing-nombre">Tira de asado (ancho, con hueso)</span></div>
+        <div class="ingrediente-item"><span class="ing-cantidad">c/n</span><span class="ing-nombre">Sal gruesa</span></div>
+      </div>
+      <div class="ingrediente-group">
+        <div class="ingrediente-group-title">Chimichurri madre (opcional)</div>
+        <div class="ingrediente-item"><span class="ing-cantidad">1 taza</span><span class="ing-nombre">Perejil fresco picado fino</span></div>
+        <div class="ingrediente-item"><span class="ing-cantidad">4 dientes</span><span class="ing-nombre">Ajo picado</span></div>
+        <div class="ingrediente-item"><span class="ing-cantidad">1 cdta</span><span class="ing-nombre">Ají molido</span></div>
+        <div class="ingrediente-item"><span class="ing-cantidad">1 cdta</span><span class="ing-nombre">Orégano seco</span></div>
+        <div class="ingrediente-item"><span class="ing-cantidad">3 cdas</span><span class="ing-nombre">Vinagre de vino tinto</span></div>
+        <div class="ingrediente-item"><span class="ing-cantidad">½ taza</span><span class="ing-nombre">Aceite de girasol</span></div>
+        <div class="ingrediente-item"><span class="ing-cantidad">Sal y pimienta</span><span class="ing-nombre">a gusto</span></div>
+      </div>
+    </div>
+    <div class="preparacion-block">
+      <h3>Preparación</h3>
+      <div class="paso"><div class="paso-num">1</div><div class="paso-text"><strong>El fuego:</strong> Prendé el fuego con tiempo. Necesitás brasas parejas, sin llama. La tira de asado no se apura: si metés la carne sobre fuego vivo, se te quema por afuera y queda cruda por dentro. Esperá hasta que las brasas estén blancas por arriba y rojas por dentro.</div></div>
+      <div class="paso"><div class="paso-num">2</div><div class="paso-text"><strong>La carne:</strong> Sacá la tira de la heladera al menos 30 minutos antes. La carne fría sobre la parrilla caliente se contrae de golpe y pierde jugos. La carne a temperatura ambiente se sella mejor.</div></div>
+      <div class="paso"><div class="paso-num">3</div><div class="paso-text"><strong>Salado:</strong> Salo con sal gruesa justo antes de poner en la parrilla, del lado del hueso primero. No salés antes, no salés mucho después: el momento es ese.</div></div>
+      <div class="paso"><div class="paso-num">4</div><div class="paso-text"><strong>Primer lado:</strong> Colocá la tira con el hueso hacia abajo. No la toques. El hueso protege la carne del calor directo. Dejá así entre 40 y 50 minutos a fuego medio, alimentando las brasas si hace falta.</div></div>
+      <div class="paso"><div class="paso-num">5</div><div class="paso-text"><strong>Vuelta única:</strong> Cuando la grasa de arriba empieza a burbujear y el costado de la carne está completamente cambiado de color, es el momento de dar vuelta. Salás el otro lado, 20 a 30 minutos más y listo.</div></div>
+      <div class="paso"><div class="paso-num">6</div><div class="paso-text"><strong>Reposo:</strong> Antes de cortar, dejá reposar la tira 5 minutos sobre una tabla. Los jugos se redistribuyen y la carne queda mucho más tierna al corte.</div></div>
+      <div class="consejo">
+        <div class="consejo-label">🔥 Consejo del fuego</div>
+        <div class="consejo-text">La tira de asado ancha, con el costillar bien abierto, es otra categoría. No te conformes con la tira fina de supermercado cuando podés pedir al carnicero que te corte de 3 a 4 cm. El hueso le da sabor, la grasa entreveteada le da jugosidad, y el tiempo hace el resto.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════
+     RECETA 02 — VACÍO
+══════════════════════════════════════ -->
+<div class="page recipe-cover" style="min-height:297mm;">
+  <div class="recipe-cover-bg" style="background-image:url('../img/p27.jpg');background-position:center 55%;"></div>
+  <div class="recipe-num">02</div>
+  <div class="recipe-cover-content">
+    <div class="recipe-cover-tag">Receta 02 · Vacunos</div>
+    <div class="recipe-cover-title">Vacío completo<br>con costra de sal</div>
+    <div class="recipe-cover-desc">El vacío completo es el corte que más me gusta trabajar. Tiene grasa, tiene nervio, tiene carácter. La costra de sal lo protege y lo concentra.</div>
+    <div class="recipe-pills">
+      <div class="pill">⏱ 2:00 hs</div>
+      <div class="pill">👥 6–8 personas</div>
+      <div class="pill">🔥 Brasas suaves</div>
+    </div>
+  </div>
+</div>
+
+<div class="page recipe-page">
+  <div class="page-header">
+    <div class="page-header-brand">Javotecocina</div>
+    <div class="page-header-title">Todo sobre Fierros</div>
+  </div>
+  <div class="recipe-header-inline">
+    <div class="recipe-title-small">
+      <span>Receta 02</span>
+      Vacío con<br>costra de sal
+    </div>
+    <div class="recipe-meta-pills">
+      <div class="recipe-meta-pill"><strong>Tiempo:</strong> 2 hs</div>
+      <div class="recipe-meta-pill"><strong>Porciones:</strong> 6 a 8</div>
+      <div class="recipe-meta-pill"><strong>Fuego:</strong> Brasas suaves</div>
+      <div class="recipe-meta-pill"><strong>Dificultad:</strong> Media</div>
+    </div>
+  </div>
+  <div class="recipe-cols">
+    <div class="ingredientes-block">
+      <h3>Ingredientes</h3>
+      <div class="ingrediente-item"><span class="ing-cantidad">1,8–2 kg</span><span class="ing-nombre">Vacío completo (con tapa)</span></div>
+      <div class="ingrediente-item"><span class="ing-cantidad">3–4 cdas</span><span class="ing-nombre">Sal gruesa</span></div>
+      <div class="ingrediente-item"><span class="ing-cantidad">1 cda</span><span class="ing-nombre">Pimienta negra molida</span></div>
+      <div class="ingrediente-item"><span class="ing-cantidad">1 cdta</span><span class="ing-nombre">Ají molido (optativo)</span></div>
+      <div class="ingrediente-item"><span class="ing-cantidad">Agua</span><span class="ing-nombre">para la costra</span></div>
+    </div>
+    <div class="preparacion-block">
+      <h3>Preparación</h3>
+      <div class="paso"><div class="paso-num">1</div><div class="paso-text"><strong>La costra:</strong> Mezclá la sal gruesa con pimienta y una cucharada de agua. Tiene que quedar húmeda pero no pastosa — como arena mojada. Con eso vas a cubrir un solo lado del vacío.</div></div>
+      <div class="paso"><div class="paso-num">2</div><div class="paso-text"><strong>Fuego largo:</strong> Este corte necesita paciencia. Brasas suaves, fuego lateral, nada de llama directa. La idea es cocinarlo despacio para que la grasa se derrita y penetre en la carne.</div></div>
+      <div class="paso"><div class="paso-num">3</div><div class="paso-text"><strong>Primer lado:</strong> Ponés el vacío con la costra de sal hacia arriba y el lado liso hacia las brasas. Así la sal no se quema y la corteza de la carne se sella despacio. Unos 50 minutos.</div></div>
+      <div class="paso"><div class="paso-num">4</div><div class="paso-text"><strong>Vuelta:</strong> Cuando la parte de abajo está bien sellada, lo das vuelta. La costra de sal toca ahora la parrilla y se empieza a derretir hacia adentro. Otros 40 minutos a fuego bajo.</div></div>
+      <div class="paso"><div class="paso-num">5</div><div class="paso-text"><strong>Punto:</strong> El vacío se sirve a punto, no jugoso. La grasa tiene que estar translúcida y la carne ceder al pincharla. Si pinchás y sale líquido rojo, le falta.</div></div>
+      <div class="consejo">
+        <div class="consejo-label">🔥 Consejo del fuego</div>
+        <div class="consejo-text">El vacío completo tiene la "tapa": una capa de grasa más gruesa en uno de los lados. Esa grasa es tu aliada — no la saques antes de cocinar. Se derrite sola, irriga la carne y le da ese sabor que ningún aceite puede reemplazar.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════
+     RECETA 03 — BIFE DE CHORIZO
+══════════════════════════════════════ -->
+<div class="page recipe-page">
+  <div class="page-header">
+    <div class="page-header-brand">Javotecocina</div>
+    <div class="page-header-title">Todo sobre Fierros</div>
+  </div>
+  <div class="recipe-header-inline">
+    <div class="recipe-title-small">
+      <span>Receta 03</span>
+      Bife de chorizo<br>con manteca de hierbas
+    </div>
+    <div class="recipe-meta-pills">
+      <div class="recipe-meta-pill"><strong>Tiempo:</strong> 25 min</div>
+      <div class="recipe-meta-pill"><strong>Porciones:</strong> 2</div>
+      <div class="recipe-meta-pill"><strong>Fuego:</strong> Brasas altas</div>
+      <div class="recipe-meta-pill"><strong>Dificultad:</strong> Básica</div>
+    </div>
+  </div>
+  <div class="recipe-cols">
+    <div class="ingredientes-block">
+      <h3>Ingredientes</h3>
+      <div class="ingrediente-group">
+        <div class="ingrediente-item"><span class="ing-cantidad">2</span><span class="ing-nombre">Bifes de chorizo de 300 g c/u (3 cm de alto)</span></div>
+        <div class="ingrediente-item"><span class="ing-cantidad">c/n</span><span class="ing-nombre">Sal gruesa</span></div>
+      </div>
+      <div class="ingrediente-group">
+        <div class="ingrediente-group-title">Manteca de hierbas</div>
+        <div class="ingrediente-item"><span class="ing-cantidad">100 g</span><span class="ing-nombre">Manteca a temperatura ambiente</span></div>
+        <div class="ingrediente-item"><span class="ing-cantidad">2 dientes</span><span class="ing-nombre">Ajo picado finísimo</span></div>
+        <div class="ingrediente-item"><span class="ing-cantidad">2 cdas</span><span class="ing-nombre">Perejil fresco picado</span></div>
+        <div class="ingrediente-item"><span class="ing-cantidad">1 cdta</span><span class="ing-nombre">Tomillo fresco (o seco)</span></div>
+        <div class="ingrediente-item"><span class="ing-cantidad">Jugo</span><span class="ing-nombre">de ½ limón</span></div>
+        <div class="ingrediente-item"><span class="ing-cantidad">Sal y pimienta</span><span class="ing-nombre">a gusto</span></div>
+      </div>
+    </div>
+    <div class="preparacion-block">
+      <h3>Preparación</h3>
+      <div class="paso"><div class="paso-num">1</div><div class="paso-text"><strong>La manteca:</strong> Un día antes o al menos 2 horas antes, mezclá la manteca con el ajo, perejil, tomillo, limón, sal y pimienta. Hacés un rollo en papel film y lo metés al frío. Que esté bien sólida a la hora de servir.</div></div>
+      <div class="paso"><div class="paso-num">2</div><div class="paso-text"><strong>El bife:</strong> Sacalo de la heladera 30 minutos antes. Los bifes gruesos se cocinan mejor a temperatura ambiente: sellás rápido afuera y el centro llega al punto sin estrés.</div></div>
+      <div class="paso"><div class="paso-num">3</div><div class="paso-text"><strong>Fuego fuerte:</strong> Para el bife querés brasas bien rojas, fuego alto. Primero sellás el costado gordo —la tira de grasa del costado— parado sobre la parrilla unos 3 minutos, así esa grasa se derrite y no queda chiclosa.</div></div>
+      <div class="paso"><div class="paso-num">4</div><div class="paso-text"><strong>Los lados:</strong> 4 a 5 minutos por lado para un punto medio. Salás con sal gruesa justo antes de dar vuelta. Una sola vuelta si podés.</div></div>
+      <div class="paso"><div class="paso-num">5</div><div class="paso-text"><strong>Servir:</strong> Salís del fuego, ponés el bife en el plato y arriba una rodaja de manteca de hierbas. El calor la derrite solo. Nada más.</div></div>
+      <div class="consejo">
+        <div class="consejo-label">🔥 Consejo del fuego</div>
+        <div class="consejo-text">La manteca de hierbas la podés preparar en cantidad y tener en el freezer. Dura meses y le da un final impecable a cualquier corte salido de la parrilla — bife, entraña, costilla.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════
+     RECETA 04 — ENTRAÑA
+══════════════════════════════════════ -->
+<div class="page recipe-page">
+  <div class="page-header">
+    <div class="page-header-brand">Javotecocina</div>
+    <div class="page-header-title">Todo sobre Fierros</div>
+  </div>
+  <div class="recipe-header-inline">
+    <div class="recipe-title-small">
+      <span>Receta 04</span>
+      Entraña al<br>limón y ajo
+    </div>
+    <div class="recipe-meta-pills">
+      <div class="recipe-meta-pill"><strong>Tiempo:</strong> 15 min</div>
+      <div class="recipe-meta-pill"><strong>Porciones:</strong> 2 a 3</div>
+      <div class="recipe-meta-pill"><strong>Fuego:</strong> Brasas altas</div>
+      <div class="recipe-meta-pill"><strong>Dificultad:</strong> Básica</div>
+    </div>
+  </div>
+  <div class="recipe-cols">
+    <div class="ingredientes-block">
+      <h3>Ingredientes</h3>
+      <div class="ingrediente-item"><span class="ing-cantidad">800 g</span><span class="ing-nombre">Entraña (con membrana)</span></div>
+      <div class="ingrediente-item"><span class="ing-cantidad">2</span><span class="ing-nombre">Limones cortados al medio</span></div>
+      <div class="ingrediente-item"><span class="ing-cantidad">3 dientes</span><span class="ing-nombre">Ajo aplastado</span></div>
+      <div class="ingrediente-item"><span class="ing-cantidad">c/n</span><span class="ing-nombre">Sal gruesa</span></div>
+      <div class="ingrediente-item"><span class="ing-cantidad">c/n</span><span class="ing-nombre">Pimienta negra</span></div>
+    </div>
+    <div class="preparacion-block">
+      <h3>Preparación</h3>
+      <div class="paso"><div class="paso-num">1</div><div class="paso-text"><strong>La membrana:</strong> La entraña tiene una membrana plateada en uno de sus lados. Si la dejás, se contrae y acorcha la carne. Sacala con un cuchillo pasándolo entre la membrana y la carne — sale fácil.</div></div>
+      <div class="paso"><div class="paso-num">2</div><div class="paso-text"><strong>Fuego bien fuerte:</strong> La entraña se cocina rápido y a fuego alto. No le des fuego suave: se seca. Querés brasas rojas, vivas, a unos 8 cm de la parrilla.</div></div>
+      <div class="paso"><div class="paso-num">3</div><div class="paso-text"><strong>Los limones a la parrilla:</strong> Antes de poner la carne, poné los limones cortados boca abajo sobre la parrilla caliente. El calor carameliza los azúcares del limón, le saca la acidez y le da un fondo dulce. Los dejás ahí toda la cocción.</div></div>
+      <div class="paso"><div class="paso-num">4</div><div class="paso-text"><strong>Cocción:</strong> Entraña de ese tamaño, 4 a 5 minutos por lado a fuego alto. Salás con sal gruesa y pimienta justo al sacar del fuego. El ajo lo frotas sobre la carne caliente antes de cortar.</div></div>
+      <div class="paso"><div class="paso-num">5</div><div class="paso-text"><strong>Servir:</strong> Cortás en tiras transversales, contra la fibra. Exprimís los limones asados por encima. El jugo ya no pica: es dulce, ahumado y se mezcla con los jugos de la carne.</div></div>
+      <div class="consejo">
+        <div class="consejo-label">🔥 Consejo del fuego</div>
+        <div class="consejo-text">Esta técnica del limón a la parrilla la uso siempre con cortes de cerdo y pollo también. El calor transforma el limón por completo. No te saltes ese paso aunque tengas apuro.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════
+     RECETA 05 — MOLLEJAS
+══════════════════════════════════════ -->
+<div class="page recipe-page">
+  <div class="page-header">
+    <div class="page-header-brand">Javotecocina</div>
+    <div class="page-header-title">Todo sobre Fierros</div>
+  </div>
+  <div class="recipe-header-inline">
+    <div class="recipe-title-small">
+      <span>Receta 05</span>
+      Mollejas<br>crocantes
+    </div>
+    <div class="recipe-meta-pills">
+      <div class="recipe-meta-pill"><strong>Tiempo:</strong> 45 min + remojo</div>
+      <div class="recipe-meta-pill"><strong>Porciones:</strong> 4</div>
+      <div class="recipe-meta-pill"><strong>Fuego:</strong> Brasas medias-altas</div>
+      <div class="recipe-meta-pill"><strong>Dificultad:</strong> Media</div>
+    </div>
+  </div>
+  <div class="recipe-cols">
+    <div class="ingredientes-block">
+      <h3>Ingredientes</h3>
+      <div class="ingrediente-item"><span class="ing-cantidad">800 g</span><span class="ing-nombre">Mollejas de corazón (las redondas)</span></div>
+      <div class="ingrediente-item"><span class="ing-cantidad">1</span><span class="ing-nombre">Limón (jugo)</span></div>
+      <div class="ingrediente-item"><span class="ing-cantidad">c/n</span><span class="ing-nombre">Sal gruesa</span></div>
+      <div class="ingrediente-item"><span class="ing-cantidad">c/n</span><span class="ing-nombre">Pimienta negra</span></div>
+      <div class="ingrediente-item"><span class="ing-cantidad">Agua fría</span><span class="ing-nombre">para el remojo</span></div>
+    </div>
+    <div class="preparacion-block">
+      <h3>Preparación</h3>
+      <div class="paso"><div class="paso-num">1</div><div class="paso-text"><strong>Remojo:</strong> Las mollejas van en agua fría con un chorrito de limón durante al menos 30 minutos. Cambiás el agua una vez. Esto saca la sangre y los sabores amargos. No te saltes este paso.</div></div>
+      <div class="paso"><div class="paso-num">2</div><div class="paso-text"><strong>Blanqueo:</strong> Ponés las mollejas en una olla con agua fría, las llevás al hervor y las cocinás 5 minutos. Las sacás, las pasás por agua fría y las dejás enfriar. Ahora sí las podés limpiar: sacás las membranas y los restos de grasa oscura con los dedos.</div></div>
+      <div class="paso"><div class="paso-num">3</div><div class="paso-text"><strong>Prensado:</strong> Poner las mollejas limpias entre dos tablas con algo pesado encima por 10 minutos. Esto las aplana y les da mejor contacto con la parrilla — más superficie, más costra.</div></div>
+      <div class="paso"><div class="paso-num">4</div><div class="paso-text"><strong>A la parrilla:</strong> Fuego medio-alto. Mollejas directamente sobre la parrilla, sin nada. Sal gruesa y pimienta antes de poner. Las dejás sin tocar hasta que formen costra dorada por abajo — unos 12 minutos. Las das vuelta y otros 8 minutos.</div></div>
+      <div class="consejo">
+        <div class="consejo-label">🔥 Consejo del fuego</div>
+        <div class="consejo-text">Las mollejas de corazón —las redondas— son más firmes y aguantan mejor la parrilla. Las de garganta —más blandas y largas— son más delicadas y se pasan rápido. Si no sabés cuáles son, pedile al carnicero "de corazón" y listo.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════
+     RECETA 06 — RIÑONES
+══════════════════════════════════════ -->
+<div class="page recipe-page">
+  <div class="page-header">
+    <div class="page-header-brand">Javotecocina</div>
+    <div class="page-header-title">Todo sobre Fierros</div>
+  </div>
+  <div class="recipe-header-inline">
+    <div class="recipe-title-small">
+      <span>Receta 06</span>
+      Riñones<br>al vino tinto
+    </div>
+    <div class="recipe-meta-pills">
+      <div class="recipe-meta-pill"><strong>Tiempo:</strong> 20 min + remojo</div>
+      <div class="recipe-meta-pill"><strong>Porciones:</strong> 2 a 4</div>
+      <div class="recipe-meta-pill"><strong>Fuego:</strong> Brasas altas</div>
+      <div class="recipe-meta-pill"><strong>Dificultad:</strong> Media</div>
+    </div>
+  </div>
+  <div class="recipe-cols">
+    <div class="ingredientes-block">
+      <h3>Ingredientes</h3>
+      <div class="ingrediente-item"><span class="ing-cantidad">4</span><span class="ing-nombre">Riñones de ternera medianos</span></div>
+      <div class="ingrediente-item"><span class="ing-cantidad">1 taza</span><span class="ing-nombre">Vino tinto (Malbec o Cabernet)</span></div>
+      <div class="ingrediente-item"><span class="ing-cantidad">3 dientes</span><span class="ing-nombre">Ajo picado</span></div>
+      <div class="ingrediente-item"><span class="ing-cantidad">2 cdas</span><span class="ing-nombre">Perejil picado</span></div>
+      <div class="ingrediente-item"><span class="ing-cantidad">1</span><span class="ing-nombre">Limón (jugo)</span></div>
+      <div class="ingrediente-item"><span class="ing-cantidad">c/n</span><span class="ing-nombre">Sal gruesa y pimienta negra</span></div>
+      <div class="ingrediente-item"><span class="ing-cantidad">Palillos</span><span class="ing-nombre">de madera para armar</span></div>
+    </div>
+    <div class="preparacion-block">
+      <h3>Preparación</h3>
+      <div class="paso"><div class="paso-num">1</div><div class="paso-text"><strong>Limpieza:</strong> Abrís los riñones al medio y sacás el núcleo blanco del centro con tijera o cuchillo —esa parte tiene el olor fuerte. Después los ponés en leche o agua fría con limón por 30 minutos. Cambiás el líquido una vez.</div></div>
+      <div class="paso"><div class="paso-num">2</div><div class="paso-text"><strong>Corte:</strong> Cortás cada mitad en 3 o 4 trozos. Los ensartás en palillos de madera (previamente hidratados en agua 10 min para que no se quemen) formando brochettes de 3 trozos.</div></div>
+      <div class="paso"><div class="paso-num">3</div><div class="paso-text"><strong>Marinada rápida:</strong> En un bol, vino tinto, ajo y un poco de sal. Sumergís los riñones 10 minutos. No más: el vino los "cocina" si los dejás mucho.</div></div>
+      <div class="paso"><div class="paso-num">4</div><div class="paso-text"><strong>Parrilla:</strong> Fuego alto, 3 minutos por lado. Los riñones se comen a punto — si los pasás de cocción quedan gomosos. Tienen que estar tiernos por dentro. Al sacar, perejil picado por encima y limón exprimido.</div></div>
+      <div class="consejo">
+        <div class="consejo-label">🔥 Consejo del fuego</div>
+        <div class="consejo-text">Los riñones son un corte que divide aguas. El secreto para que los que "no les gustan" los coman es la limpieza: si sacás bien el núcleo y los remojás, el sabor fuerte desaparece casi por completo.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════
+     RECETA 07 — CHINCHULÍN
+══════════════════════════════════════ -->
+<div class="page recipe-page">
+  <div class="page-header">
+    <div class="page-header-brand">Javotecocina</div>
+    <div class="page-header-title">Todo sobre Fierros</div>
+  </div>
+  <div class="recipe-header-inline">
+    <div class="recipe-title-small">
+      <span>Receta 07</span>
+      Chinchulín<br>crocante
+    </div>
+    <div class="recipe-meta-pills">
+      <div class="recipe-meta-pill"><strong>Tiempo:</strong> 1 h 20 min</div>
+      <div class="recipe-meta-pill"><strong>Porciones:</strong> 4</div>
+      <div class="recipe-meta-pill"><strong>Fuego:</strong> Brasas medias</div>
+      <div class="recipe-meta-pill"><strong>Dificultad:</strong> Media</div>
+    </div>
+  </div>
+  <div class="recipe-cols">
+    <div class="ingredientes-block">
+      <h3>Ingredientes</h3>
+      <div class="ingrediente-item"><span class="ing-cantidad">1 kg</span><span class="ing-nombre">Chinchulín de ternera (trenzado)</span></div>
+      <div class="ingrediente-item"><span class="ing-cantidad">2</span><span class="ing-nombre">Limones</span></div>
+      <div class="ingrediente-item"><span class="ing-cantidad">c/n</span><span class="ing-nombre">Sal gruesa</span></div>
+      <div class="ingrediente-item"><span class="ing-cantidad">Agua y vinagre</span><span class="ing-nombre">para lavar</span></div>
+    </div>
+    <div class="preparacion-block">
+      <h3>Preparación</h3>
+      <div class="paso"><div class="paso-num">1</div><div class="paso-text"><strong>Lavado:</strong> Abrís el chinchulín a lo largo y lo lavás con agua fría corriente. Pasás por adentro con agua y un chorrito de vinagre. Lo trenzás de nuevo o lo dejás sin trenzar —trenzado queda más crocante afuera y blando adentro; sin trenzar se cocina más parejo.</div></div>
+      <div class="paso"><div class="paso-num">2</div><div class="paso-text"><strong>Primer cocción:</strong> El chinchulín crocante se logra con dos fuegos. Primero lo ponés a fuego bajo, casi sin brasas, durante 40 a 50 minutos. La grasa se derrite sola y se va cocinando desde adentro.</div></div>
+      <div class="paso"><div class="paso-num">3</div><div class="paso-text"><strong>El crocante:</strong> Cuando ya está completamente cocinado, subís el fuego —acercás las brasas o ponés carbón fresco— y lo dejás 15 a 20 minutos más hasta que quede dorado y crocante por todos lados. Ese sonido al morderlo es el premio.</div></div>
+      <div class="paso"><div class="paso-num">4</div><div class="paso-text"><strong>Servir:</strong> Limón exprimido directamente arriba. Sin más. El chinchulín bien hecho no necesita nada más.</div></div>
+      <div class="consejo">
+        <div class="consejo-label">🔥 Consejo del fuego</div>
+        <div class="consejo-text">El error más común es ponerlo directo a fuego fuerte. Se quema por afuera y queda crudo y chicloso por dentro. Siempre dos etapas: primero cocinarlo, después dorarlo. La paciencia acá tiene recompensa directa.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════
+     RECETA 08 — CHORIZOS CASEROS
+══════════════════════════════════════ -->
+<div class="page recipe-page">
+  <div class="page-header">
+    <div class="page-header-brand">Javotecocina</div>
+    <div class="page-header-title">Todo sobre Fierros</div>
+  </div>
+  <div class="recipe-header-inline">
+    <div class="recipe-title-small">
+      <span>Receta 08</span>
+      Chorizos caseros<br>estilo salteño
+    </div>
+    <div class="recipe-meta-pills">
+      <div class="recipe-meta-pill"><strong>Tiempo:</strong> 1 h + reposo</div>
+      <div class="recipe-meta-pill"><strong>Porciones:</strong> 12 unidades</div>
+      <div class="recipe-meta-pill"><strong>Fuego:</strong> Brasas medias</div>
+      <div class="recipe-meta-pill"><strong>Dificultad:</strong> Media-alta</div>
+    </div>
+  </div>
+  <div class="recipe-cols">
+    <div class="ingredientes-block">
+      <h3>Ingredientes</h3>
+      <div class="ingrediente-group">
+        <div class="ingrediente-item"><span class="ing-cantidad">800 g</span><span class="ing-nombre">Carne de cerdo (paleta o bondiola) picada gruesa</span></div>
+        <div class="ingrediente-item"><span class="ing-cantidad">200 g</span><span class="ing-nombre">Grasa de pella</span></div>
+        <div class="ingrediente-item"><span class="ing-cantidad">1 cda</span><span class="ing-nombre">Sal fina</span></div>
+        <div class="ingrediente-item"><span class="ing-cantidad">1 cdta</span><span class="ing-nombre">Pimienta negra molida</span></div>
+        <div class="ingrediente-item"><span class="ing-cantidad">1 cda</span><span class="ing-nombre">Pimentón ahumado</span></div>
+        <div class="ingrediente-item"><span class="ing-cantidad">½ cdta</span><span class="ing-nombre">Comino molido</span></div>
+        <div class="ingrediente-item"><span class="ing-cantidad">½ cdta</span><span class="ing-nombre">Ají molido</span></div>
+        <div class="ingrediente-item"><span class="ing-cantidad">3 dientes</span><span class="ing-nombre">Ajo picado muy fino</span></div>
+        <div class="ingrediente-item"><span class="ing-cantidad">½ taza</span><span class="ing-nombre">Vino blanco seco</span></div>
+        <div class="ingrediente-item"><span class="ing-cantidad">Tripa natural</span><span class="ing-nombre">de cerdo (pedirla al carnicero)</span></div>
+      </div>
+    </div>
+    <div class="preparacion-block">
+      <h3>Preparación</h3>
+      <div class="paso"><div class="paso-num">1</div><div class="paso-text"><strong>La mezcla:</strong> Mezclás la carne picada con la grasa, todos los condimentos y el vino blanco. Tiene que quedar una mezcla homogénea. La probás cocinando una bolita chica en sartén —así ajustás sal y condimentos antes de embutir.</div></div>
+      <div class="paso"><div class="paso-num">2</div><div class="paso-text"><strong>Reposo:</strong> Tapás la mezcla con film y la dejás en la heladera mínimo 2 horas, idealmente toda la noche. Los sabores se integran y la mezcla se afirma.</div></div>
+      <div class="paso"><div class="paso-num">3</div><div class="paso-text"><strong>Embutido:</strong> Con manga pastelera o embutidora, llenás la tripa sin apretar demasiado —si apretás mucho se rompe al cocinarse. Hacés los chorizos del largo que quieras girando la tripa entre cada uno.</div></div>
+      <div class="paso"><div class="paso-num">4</div><div class="paso-text"><strong>Parrilla:</strong> A fuego medio, unos 15 a 18 minutos dando vuelta a mitad. No los pinchés: si los pinchás, pierden todos los jugos. Si se inflan, es normal — la presión baja sola.</div></div>
+      <div class="consejo">
+        <div class="consejo-label">🔥 Consejo del fuego</div>
+        <div class="consejo-text">El comino y el pimentón ahumado son el sello salteño. Sin esos dos, es un chorizo porteño. Con esos dos, es otra cosa. También podés mezclar mitad cerdo y mitad cordero si estás en el norte y tenés acceso.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════
+     RECETA 09 — PAMPLONA
+══════════════════════════════════════ -->
+<div class="page recipe-page">
+  <div class="page-header">
+    <div class="page-header-brand">Javotecocina</div>
+    <div class="page-header-title">Todo sobre Fierros</div>
+  </div>
+  <div class="recipe-header-inline">
+    <div class="recipe-title-small">
+      <span>Receta 09</span>
+      Pamplona de<br>cerdo rellena
+    </div>
+    <div class="recipe-meta-pills">
+      <div class="recipe-meta-pill"><strong>Tiempo:</strong> 1 h 15 min</div>
+      <div class="recipe-meta-pill"><strong>Porciones:</strong> 6</div>
+      <div class="recipe-meta-pill"><strong>Fuego:</strong> Brasas medias</div>
+      <div class="recipe-meta-pill"><strong>Dificultad:</strong> Media</div>
+    </div>
+  </div>
+  <div class="recipe-cols">
+    <div class="ingredientes-block">
+      <h3>Ingredientes</h3>
+      <div class="ingrediente-group">
+        <div class="ingrediente-item"><span class="ing-cantidad">1,2 kg</span><span class="ing-nombre">Lomo de cerdo abierto en mariposa</span></div>
+        <div class="ingrediente-item"><span class="ing-cantidad">c/n</span><span class="ing-nombre">Sal, pimienta y pimentón</span></div>
+      </div>
+      <div class="ingrediente-group">
+        <div class="ingrediente-group-title">Relleno</div>
+        <div class="ingrediente-item"><span class="ing-cantidad">150 g</span><span class="ing-nombre">Jamón cocido en fetas</span></div>
+        <div class="ingrediente-item"><span class="ing-cantidad">150 g</span><span class="ing-nombre">Queso provolone en fetas</span></div>
+        <div class="ingrediente-item"><span class="ing-cantidad">2</span><span class="ing-nombre">Morrones asados y pelados</span></div>
+        <div class="ingrediente-item"><span class="ing-cantidad">1 puñado</span><span class="ing-nombre">Espinaca fresca (optativo)</span></div>
+      </div>
+    </div>
+    <div class="preparacion-block">
+      <h3>Preparación</h3>
+      <div class="paso"><div class="paso-num">1</div><div class="paso-text"><strong>La carne:</strong> Si el carnicero no te la abrió, la abrís con un cuchillo bien afilado haciendo un corte en mariposa para que quede una lámina de unos 2 cm de espesor. La golpeás con un mazo para emparejar.</div></div>
+      <div class="paso"><div class="paso-num">2</div><div class="paso-text"><strong>Sazonar:</strong> Sal, pimienta y pimentón por dentro de la carne abierta. El pimentón le da color y sabor al relleno.</div></div>
+      <div class="paso"><div class="paso-num">3</div><div class="paso-text"><strong>Relleno:</strong> Cubrís toda la superficie con el jamón, después el queso, después los morrones asados. Si usás espinaca, la ponés cruda —se cocina con el calor del relleno.</div></div>
+      <div class="paso"><div class="paso-num">4</div><div class="paso-text"><strong>Rollo:</strong> Enrollás firme desde un extremo, atás con hilo de cocina cada 3 cm para que mantenga la forma. Salás por afuera con sal gruesa.</div></div>
+      <div class="paso"><div class="paso-num">5</div><div class="paso-text"><strong>Parrilla:</strong> A fuego medio, dando vuelta cada 15 minutos, 1 hora en total. Tiene que llegar a 70°C en el centro o, sin termómetro: al pinchar, el jugo que sale tiene que ser claro.</div></div>
+      <div class="consejo">
+        <div class="consejo-label">🔥 Consejo del fuego</div>
+        <div class="consejo-text">Los morrones asados son el secreto de esta pamplona. No uses morrones de frasco: asalos directamente en la parrilla hasta que la piel se ennegrezca, los metés en una bolsa, dejás que suden 10 minutos y la piel sale sola.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════
+     RECETA 10 — LECHÓN CON LADRILLOS
+══════════════════════════════════════ -->
+<div class="page recipe-page">
+  <div class="page-header">
+    <div class="page-header-brand">Javotecocina</div>
+    <div class="page-header-title">Todo sobre Fierros</div>
+  </div>
+  <div class="recipe-header-inline">
+    <div class="recipe-title-small">
+      <span>Receta 10</span>
+      Lechón a la parrilla<br>— técnica ladrillo y chapa
+    </div>
+    <div class="recipe-meta-pills">
+      <div class="recipe-meta-pill"><strong>Tiempo:</strong> 3 a 4 hs</div>
+      <div class="recipe-meta-pill"><strong>Porciones:</strong> 10 a 14</div>
+      <div class="recipe-meta-pill"><strong>Fuego:</strong> Brasas suaves + chapa con brasas</div>
+      <div class="recipe-meta-pill"><strong>Dificultad:</strong> Alta</div>
+    </div>
+  </div>
+  <div class="recipe-cols">
+    <div class="ingredientes-block">
+      <h3>Ingredientes</h3>
+      <div class="ingrediente-item"><span class="ing-cantidad">1</span><span class="ing-nombre">Lechón de 8 a 10 kg (abierto al medio)</span></div>
+      <div class="ingrediente-item"><span class="ing-cantidad">c/n</span><span class="ing-nombre">Sal gruesa</span></div>
+      <div class="ingrediente-group" style="margin-top:4mm;">
+        <div class="ingrediente-group-title">Equipo necesario</div>
+        <div class="ingrediente-item"><span class="ing-cantidad">4 a 6</span><span class="ing-nombre">Ladrillos comunes</span></div>
+        <div class="ingrediente-item"><span class="ing-cantidad">1</span><span class="ing-nombre">Chapa de zinc o hierro (del tamaño del lechón)</span></div>
+        <div class="ingrediente-item"><span class="ing-cantidad">1</span><span class="ing-nombre">Pala o palita para mover brasas</span></div>
+      </div>
+    </div>
+    <div class="preparacion-block">
+      <h3>Preparación</h3>
+      <div class="paso"><div class="paso-num">1</div><div class="paso-text"><strong>La idea del sistema:</strong> Los ladrillos se colocan en las cuatro esquinas de la parrilla como "columnas". La chapa descansa sobre esos ladrillos, formando un techo sobre el lechón. Las brasas se ponen encima de la chapa. El lechón se cocina con calor desde abajo y desde arriba, como en un horno improvisado.</div></div>
+      <div class="paso"><div class="paso-num">2</div><div class="paso-text"><strong>El lechón:</strong> Abrís el lechón bien plano, presionando la columna vertebral hacia abajo para que quede como una mariposa. Salás generosamente con sal gruesa por los dos lados, especialmente por dentro.</div></div>
+      <div class="paso"><div class="paso-num">3</div><div class="paso-text"><strong>Armado:</strong> Ponés el lechón con el lomo hacia abajo —la piel mira para arriba. Las brasas de abajo tienen que ser suaves. Cubrís con la chapa apoyada en los ladrillos. Sobre la chapa, brasas moderadas.</div></div>
+      <div class="paso"><div class="paso-num">4</div><div class="paso-text"><strong>Cocción:</strong> 2 horas con el lomo hacia abajo. La carne se cocina y la piel se va poniendo tensa. A las 2 horas, lo das vuelta con cuidado —la piel queda hacia abajo— y retirás la chapa. Otros 45 a 60 minutos a fuego más fuerte para que la piel quede crocante y dorada.</div></div>
+      <div class="paso"><div class="paso-num">5</div><div class="paso-text"><strong>El punto:</strong> Pinchás el muslo en la parte más gruesa. Si el jugo sale claro, está listo. Si sale rosado, le falta.</div></div>
+      <div class="consejo">
+        <div class="consejo-label">🔥 Consejo del fuego</div>
+        <div class="consejo-text">Este sistema de ladrillo y chapa es artesanal y brillante. El calor superior de la chapa cocina la parte de arriba del lechón sin que tengas que darle vuelta antes de tiempo. Lo inventaron quienes no tenían horno. Funciona mejor que muchos hornos.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════
+     RECETA 11 — POLLO A LA ESTACA
+══════════════════════════════════════ -->
+<div class="page recipe-page">
+  <div class="page-header">
+    <div class="page-header-brand">Javotecocina</div>
+    <div class="page-header-title">Todo sobre Fierros</div>
+  </div>
+  <div class="recipe-header-inline">
+    <div class="recipe-title-small">
+      <span>Receta 11</span>
+      Pollo a la estaca<br>con salmuera
+    </div>
+    <div class="recipe-meta-pills">
+      <div class="recipe-meta-pill"><strong>Tiempo:</strong> 1 h 30 min</div>
+      <div class="recipe-meta-pill"><strong>Porciones:</strong> 4</div>
+      <div class="recipe-meta-pill"><strong>Fuego:</strong> Brasas medias</div>
+      <div class="recipe-meta-pill"><strong>Dificultad:</strong> Media</div>
+    </div>
+  </div>
+  <div class="recipe-cols">
+    <div class="ingredientes-block">
+      <h3>Ingredientes</h3>
+      <div class="ingrediente-group">
+        <div class="ingrediente-item"><span class="ing-cantidad">1</span><span class="ing-nombre">Pollo entero (abierto al medio, tipo mariposa)</span></div>
+      </div>
+      <div class="ingrediente-group">
+        <div class="ingrediente-group-title">Salmuera</div>
+        <div class="ingrediente-item"><span class="ing-cantidad">1 litro</span><span class="ing-nombre">Agua</span></div>
+        <div class="ingrediente-item"><span class="ing-cantidad">3 cdas</span><span class="ing-nombre">Sal gruesa</span></div>
+        <div class="ingrediente-item"><span class="ing-cantidad">3 dientes</span><span class="ing-nombre">Ajo aplastado</span></div>
+        <div class="ingrediente-item"><span class="ing-cantidad">1 cdta</span><span class="ing-nombre">Ají molido</span></div>
+        <div class="ingrediente-item"><span class="ing-cantidad">1 cdta</span><span class="ing-nombre">Orégano</span></div>
+        <div class="ingrediente-item"><span class="ing-cantidad">Jugo</span><span class="ing-nombre">de 1 limón a la parrilla</span></div>
+      </div>
+    </div>
+    <div class="preparacion-block">
+      <h3>Preparación</h3>
+      <div class="paso"><div class="paso-num">1</div><div class="paso-text"><strong>La salmuera:</strong> Disolvés la sal en el agua, agregás el ajo, el ají molido y el orégano. La salmuera no se usa para marinar: se usa para rociar durante la cocción con un pincel o un manojo de hierbas atado. Así el pollo se mantiene húmedo y va tomando sabor de a poco.</div></div>
+      <div class="paso"><div class="paso-num">2</div><div class="paso-text"><strong>El pollo:</strong> Lo abrís en mariposa cortando la columna vertebral (o pedíselo al carnicero). Lo aplastás bien y lo insertás en la estaca en diagonal, con las patas hacia arriba.</div></div>
+      <div class="paso"><div class="paso-num">3</div><div class="paso-text"><strong>Posición:</strong> La estaca se clava en el suelo en diagonal sobre las brasas, no directamente encima. El calor llega indirecto, de costado. Así no se quema y se cocina parejo.</div></div>
+      <div class="paso"><div class="paso-num">4</div><div class="paso-text"><strong>Cada 15 minutos:</strong> Rociás con salmuera usando el pincel. Girás la estaca para que todos los lados reciban calor. El pollo de 1,5 kg necesita entre 1 h 15 min y 1 h 30 min.</div></div>
+      <div class="paso"><div class="paso-num">5</div><div class="paso-text"><strong>Limón:</strong> Asás los limones cortados al medio sobre las brasas. Al final de la cocción, exprimís el limón asado sobre el pollo. El resultado es completamente diferente al limón crudo.</div></div>
+      <div class="consejo">
+        <div class="consejo-label">🔥 Consejo del fuego</div>
+        <div class="consejo-text">La salmuera la uso para el pollo y para el costillar precisamente por eso: cociciones largas donde la carne necesita hidratación constante. El pincel de hierbas le da un aroma extra que el pincel de silicona no va a dar nunca.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════
+     RECETA 12 — COSTILLAR A LA CRUZ
+══════════════════════════════════════ -->
+<div class="page recipe-page">
+  <div class="page-header">
+    <div class="page-header-brand">Javotecocina</div>
+    <div class="page-header-title">Todo sobre Fierros</div>
+  </div>
+  <div class="recipe-header-inline">
+    <div class="recipe-title-small">
+      <span>Receta 12</span>
+      Costillar entero<br>a la cruz
+    </div>
+    <div class="recipe-meta-pills">
+      <div class="recipe-meta-pill"><strong>Tiempo:</strong> 4 hs</div>
+      <div class="recipe-meta-pill"><strong>Porciones:</strong> 8 a 10</div>
+      <div class="recipe-meta-pill"><strong>Fuego:</strong> Brasas suaves y constantes</div>
+      <div class="recipe-meta-pill"><strong>Dificultad:</strong> Alta</div>
+    </div>
+  </div>
+  <div class="recipe-cols">
+    <div class="ingredientes-block">
+      <h3>Ingredientes</h3>
+      <div class="ingrediente-group">
+        <div class="ingrediente-item"><span class="ing-cantidad">4 a 5 kg</span><span class="ing-nombre">Costillar vacuno entero</span></div>
+      </div>
+      <div class="ingrediente-group">
+        <div class="ingrediente-group-title">Salmuera</div>
+        <div class="ingrediente-item"><span class="ing-cantidad">1,5 litros</span><span class="ing-nombre">Agua</span></div>
+        <div class="ingrediente-item"><span class="ing-cantidad">4 cdas</span><span class="ing-nombre">Sal gruesa</span></div>
+        <div class="ingrediente-item"><span class="ing-cantidad">4 dientes</span><span class="ing-nombre">Ajo aplastado</span></div>
+        <div class="ingrediente-item"><span class="ing-cantidad">2 cdtas</span><span class="ing-nombre">Ají molido</span></div>
+        <div class="ingrediente-item"><span class="ing-cantidad">2 cdtas</span><span class="ing-nombre">Orégano</span></div>
+        <div class="ingrediente-item"><span class="ing-cantidad">2 cdas</span><span class="ing-nombre">Vinagre de vino</span></div>
+      </div>
+    </div>
+    <div class="preparacion-block">
+      <h3>Preparación</h3>
+      <div class="paso"><div class="paso-num">1</div><div class="paso-text"><strong>La cruz:</strong> El costillar se clava en la cruz con los huesos mirando hacia el fuego. El hueso actúa como escudo y conductor de calor al mismo tiempo: protege la carne del fuego directo y transmite el calor desde adentro hacia afuera.</div></div>
+      <div class="paso"><div class="paso-num">2</div><div class="paso-text"><strong>El fuego:</strong> El fuego no va debajo del costillar sino de costado, a unos 40 o 50 cm. La distancia es todo. Si lo ponés cerca, se quema y queda seco. Si lo ponés lejos, se cocina con calor indirecto suave. Para 4 horas necesitás leña constante — por eso este asado requiere atención real.</div></div>
+      <div class="paso"><div class="paso-num">3</div><div class="paso-text"><strong>Salmuera:</strong> Preparás la salmuera tibia —no fría, para que no corte la cocción. Cada 30 minutos rociás toda la superficie con un pincel o una rama de perejil atada. Esto mantiene la humedad y va construyendo una costra sabrosa.</div></div>
+      <div class="paso"><div class="paso-num">4</div><div class="paso-text"><strong>Las 4 horas:</strong> Las primeras 2 horas son las más importantes. El costillar empieza a soltar grasa, a cambiar de color. Paciencia. A las 3 horas ya se empieza a ver la costra dorada. La última hora la inclinás un poco más cerca del fuego para dorar la superficie final.</div></div>
+      <div class="paso"><div class="paso-num">5</div><div class="paso-text"><strong>El punto:</strong> El costillar está listo cuando el hueso empieza a separarse de la carne en los extremos y la carne cede completamente al pincharla. Si todavía resiste, le falta.</div></div>
+      <div class="consejo">
+        <div class="consejo-label">🔥 Consejo del fuego</div>
+        <div class="consejo-text">Este es el asado que me enseñó mi viejo en los campamentos. Nada más que leña, sal, salmuera y tiempo. Cuatro horas al costado del fuego es una experiencia, no solo una receta. Ponete cómodo.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════
+     RECETA 13 — CORDERO A LA CRUZ
+══════════════════════════════════════ -->
+<div class="page recipe-page">
+  <div class="page-header">
+    <div class="page-header-brand">Javotecocina</div>
+    <div class="page-header-title">Todo sobre Fierros</div>
+  </div>
+  <div class="recipe-header-inline">
+    <div class="recipe-title-small">
+      <span>Receta 13</span>
+      Cordero<br>a la cruz
+    </div>
+    <div class="recipe-meta-pills">
+      <div class="recipe-meta-pill"><strong>Tiempo:</strong> 5 a 6 hs</div>
+      <div class="recipe-meta-pill"><strong>Porciones:</strong> 14 a 18</div>
+      <div class="recipe-meta-pill"><strong>Fuego:</strong> Leña, brasas constantes</div>
+      <div class="recipe-meta-pill"><strong>Dificultad:</strong> Alta</div>
+    </div>
+  </div>
+  <div class="recipe-cols">
+    <div class="ingredientes-block">
+      <h3>Ingredientes</h3>
+      <div class="ingrediente-group">
+        <div class="ingrediente-item"><span class="ing-cantidad">1</span><span class="ing-nombre">Cordero entero de 12 a 16 kg</span></div>
+      </div>
+      <div class="ingrediente-group">
+        <div class="ingrediente-group-title">Salmuera</div>
+        <div class="ingrediente-item"><span class="ing-cantidad">2 litros</span><span class="ing-nombre">Agua</span></div>
+        <div class="ingrediente-item"><span class="ing-cantidad">5 cdas</span><span class="ing-nombre">Sal gruesa</span></div>
+        <div class="ingrediente-item"><span class="ing-cantidad">6 dientes</span><span class="ing-nombre">Ajo aplastado</span></div>
+        <div class="ingrediente-item"><span class="ing-cantidad">1 cda</span><span class="ing-nombre">Ají molido</span></div>
+        <div class="ingrediente-item"><span class="ing-cantidad">1 rama</span><span class="ing-nombre">Romero fresco</span></div>
+        <div class="ingrediente-item"><span class="ing-cantidad">Jugo</span><span class="ing-nombre">de 2 limones</span></div>
+      </div>
+    </div>
+    <div class="preparacion-block">
+      <h3>Preparación</h3>
+      <div class="paso"><div class="paso-num">1</div><div class="paso-text"><strong>El animal:</strong> El cordero se abre entero, con la columna hacia afuera. Se extiende en la cruz como una mariposa, con las patas atadas a los extremos horizontales. La carne queda expuesta mirando hacia el fuego.</div></div>
+      <div class="paso"><div class="paso-num">2</div><div class="paso-text"><strong>El fuego del cordero:</strong> A diferencia del costillar, el cordero empieza con la parte interior mirando hacia el fuego durante las primeras 3 horas. Esto cocina la carne desde adentro sin tocar la piel todavía.</div></div>
+      <div class="paso"><div class="paso-num">3</div><div class="paso-text"><strong>Salmuera con romero:</strong> El romero fresco va en la salmuera y también se usa como pincel. Le da un perfume que combina perfecto con el sabor del cordero del norte. Rociás cada 25 a 30 minutos.</div></div>
+      <div class="paso"><div class="paso-num">4</div><div class="paso-text"><strong>La vuelta:</strong> A las 3 horas, girás la cruz para que la piel quede mirando el fuego. Acercás un poco más. La piel empieza a dorarse. Las últimas 2 horas son para esa piel: dorada, crocante, con ampollas de grasa que se van caramelizando.</div></div>
+      <div class="paso"><div class="paso-num">5</div><div class="paso-text"><strong>Cortado:</strong> El cordero a la cruz se corta en la misma cruz, en la mesa. Los muslos, el paleto, las costillas, el lomo. Cada parte tiene su textura y su cocción. Las partes más cercanas al fuego siempre están más doradas.</div></div>
+      <div class="consejo">
+        <div class="consejo-label">🔥 Consejo del fuego</div>
+        <div class="consejo-text">El cordero a la cruz es Salta entera puesta en un animal. No es rápido, no es barato, pero es el asado más impresionante que podés hacer. Calculá que con buen fuego y constancia, entre 5 y 6 horas tenés un cordero que se deshace solo.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════
+     RECETA 14 — PROVOLETA
+══════════════════════════════════════ -->
+<div class="page recipe-page">
+  <div class="page-header">
+    <div class="page-header-brand">Javotecocina</div>
+    <div class="page-header-title">Todo sobre Fierros</div>
+  </div>
+  <div class="recipe-header-inline">
+    <div class="recipe-title-small">
+      <span>Receta 14</span>
+      Provoleta ahumada<br>con orégano fresco
+    </div>
+    <div class="recipe-meta-pills">
+      <div class="recipe-meta-pill"><strong>Tiempo:</strong> 10 min</div>
+      <div class="recipe-meta-pill"><strong>Porciones:</strong> 2 a 4</div>
+      <div class="recipe-meta-pill"><strong>Fuego:</strong> Brasas medias</div>
+      <div class="recipe-meta-pill"><strong>Dificultad:</strong> Básica</div>
+    </div>
+  </div>
+  <div class="recipe-cols">
+    <div class="ingredientes-block">
+      <h3>Ingredientes</h3>
+      <div class="ingrediente-item"><span class="ing-cantidad">300 g</span><span class="ing-nombre">Provolone en rodaja de 2 cm</span></div>
+      <div class="ingrediente-item"><span class="ing-cantidad">2 cdas</span><span class="ing-nombre">Orégano fresco (o 1 cda seco)</span></div>
+      <div class="ingrediente-item"><span class="ing-cantidad">1 cdta</span><span class="ing-nombre">Ají molido</span></div>
+      <div class="ing-cantidad" style="min-width:0;font-size:8pt;color:var(--muted);margin-top:3mm;">Opcionales: tomates cherry, aceitunas negras</div>
+    </div>
+    <div class="preparacion-block">
+      <h3>Preparación</h3>
+      <div class="paso"><div class="paso-num">1</div><div class="paso-text"><strong>La parrilla tiene que estar caliente:</strong> Este es el punto más importante. Una parrilla fría o tibia te va a fundir el queso antes de que se forme la costra. Necesitás brasas activas y la parrilla bien caliente —probala con la mano a 8 cm: no podés dejarla más de 2 segundos.</div></div>
+      <div class="paso"><div class="paso-num">2</div><div class="paso-text"><strong>Sin aceite:</strong> El provolone va directo a la parrilla, sin aceite ni manteca. La grasa propia del queso es suficiente. Si le ponés aceite, se derrite antes de sellarse.</div></div>
+      <div class="paso"><div class="paso-num">3</div><div class="paso-text"><strong>No lo toques:</strong> Unos 4 a 5 minutos sin moverlo. Se forma una costra dorada en la parte de abajo. Cuando ves que los bordes empiezan a derretirse pero la base está firme, la das vuelta con una espátula ancha de un solo golpe.</div></div>
+      <div class="paso"><div class="paso-num">4</div><div class="paso-text"><strong>El orégano:</strong> Apenas dás vuelta el queso, ponés el orégano y el ají molido sobre la cara ya cocinada. El calor del queso los tuesta levemente. Otros 3 minutos del otro lado.</div></div>
+      <div class="paso"><div class="paso-num">5</div><div class="paso-text"><strong>Servir de inmediato:</strong> La provoleta espera a nadie. Del fuego al plato y al plato a la mesa. Si se enfría, se endurece y pierde toda la gracia.</div></div>
+      <div class="consejo">
+        <div class="consejo-label">🔥 Consejo del fuego</div>
+        <div class="consejo-text">Yo la sirvo sola, en el centro de la mesa, antes que cualquier otra cosa. Es el ritual de bienvenida del asado. Todos alrededor, con un buen vino. Ese momento vale más que el asado en sí.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════
+     GUÍA DEL FUEGO — PORTADA
+══════════════════════════════════════ -->
+<div class="page guia-cover">
+  <div class="guia-cover-label">Sección final · Todo sobre Fierros</div>
+  <div class="guia-cover-title">Guía<br>del<br>Fuego</div>
+  <div class="guia-cover-desc">Todo lo que necesitás saber sobre leña, brasas, temperaturas y cortes argentinos para que nunca más le errés al punto.</div>
+</div>
+
+<!-- ══════════════════════════════════════
+     GUÍA — LEÑA Y BRASAS
+══════════════════════════════════════ -->
+<div class="page guia-page">
+  <div class="page-header">
+    <div class="page-header-brand">Javotecocina</div>
+    <div class="page-header-title">Guía del Fuego</div>
+  </div>
+
+  <div class="guia-section">
+    <div class="guia-section-title">Leña: la base de todo</div>
+    <p>La leña no es solo combustible. Es sabor, es aroma, es carácter. El norte argentino tiene algunas de las mejores maderas del mundo para asar, y usarlas bien marca la diferencia entre un asado correcto y uno que se recuerda.</p>
+    <div class="guia-cols">
+      <div class="guia-card">
+        <div class="guia-card-title">🌳 Quebracho blanco</div>
+        <p>La reina de la parrilla norteña. Brasa larga, temperatura alta y pareja. Poca llama, mucho calor. Para cortes grandes como el costillar o el cordero, no hay mejor opción. El humo es sutil y agradable.</p>
+      </div>
+      <div class="guia-card">
+        <div class="guia-card-title">🌿 Algarrobo</div>
+        <p>Brasas durísimas, muy calientes. Ideal para cortes rápidos como el bife o la entraña. El aroma es ligeramente dulce y ahumado. Muy usada en el NOA y en los llanos riojanos.</p>
+      </div>
+      <div class="guia-card">
+        <div class="guia-card-title">🪵 Espinillo</div>
+        <p>Muy buena brasa pero con más llama que el quebracho. Hay que trabajarla bien antes de poner la carne. Agradable para principiantes porque se prende rápido.</p>
+      </div>
+      <div class="guia-card">
+        <div class="guia-card-title">⚫ Carbón de quebracho</div>
+        <p>Cuando no tenés leña, el carbón de quebracho real es la mejor alternativa. Evitá el carbón de madera blanda —se apaga rápido y da poca temperatura. Mirá el color gris homogéneo en el saquito: eso es calidad.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="guia-section">
+    <div class="guia-section-title">Cómo leer las brasas</div>
+    <p>La brasa correcta no tiene llama. Tiene calor. Aprender a leer las brasas es lo más importante de la parrilla.</p>
+    <div class="guia-cols">
+      <div class="guia-card">
+        <div class="guia-card-title">🔴 Brasa viva (roja)</div>
+        <p>Temperatura muy alta. Para sellar. Bife, entraña, pollo — cortes rápidos. La mano a 8 cm no aguanta más de 2 segundos.</p>
+      </div>
+      <div class="guia-card">
+        <div class="guia-card-title">⚪ Brasa blanca (cubierta)</div>
+        <p>Temperatura media-alta. La más usada. Tira de asado, vacío, chorizos. La mano aguanta entre 3 y 5 segundos.</p>
+      </div>
+      <div class="guia-card">
+        <div class="guia-card-title">🟤 Brasa gris (baja)</div>
+        <p>Temperatura suave. Cortes largos: costillar, cordero. La mano aguanta más de 6 segundos. Para cocciones de 3 a 6 horas.</p>
+      </div>
+      <div class="guia-card">
+        <div class="guia-card-title">💡 Regla de la mano</div>
+        <p>Ponés la palma a 8 cm de las brasas y contás segundos. 1–2 seg = fuego alto. 3–5 seg = fuego medio. 6+ seg = fuego bajo.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════
+     GUÍA — CORTES Y TEMPERATURAS
+══════════════════════════════════════ -->
+<div class="page guia-page">
+  <div class="page-header">
+    <div class="page-header-brand">Javotecocina</div>
+    <div class="page-header-title">Guía del Fuego</div>
+  </div>
+
+  <div class="guia-section">
+    <div class="guia-section-title">Puntos de cocción y temperaturas internas</div>
+    <p>Si tenés termómetro, usalo. Si no, el método del tacto funciona bien para bifes y cortes medianos.</p>
+    <table class="temp-table">
+      <thead>
+        <tr>
+          <th>Punto</th>
+          <th>Temperatura interna</th>
+          <th>Descripción</th>
+          <th>Método del tacto</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><span class="temp-badge temp-r">Jugoso</span></td>
+          <td>50–54 °C</td>
+          <td>Rojo en el centro, muy tierno. Solo para cortes sin membrana interior.</td>
+          <td>Como la palma de la mano abierta, sin tensar.</td>
+        </tr>
+        <tr>
+          <td><span class="temp-badge temp-m">A punto</span></td>
+          <td>55–62 °C</td>
+          <td>Rosado en el centro, jugoso. El punto clásico argentino.</td>
+          <td>Como tocar la base del pulgar con el dedo medio.</td>
+        </tr>
+        <tr>
+          <td><span class="temp-badge temp-b">Bien hecho</span></td>
+          <td>65–72 °C</td>
+          <td>Sin rosado. Carne firme. Recomendado para cerdo, pollo y achuras.</td>
+          <td>Como tocar la base del pulgar con el dedo anular.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="guia-section" style="margin-top:6mm;">
+    <div class="guia-section-title">Cortes argentinos: guía de referencia</div>
+    <table class="temp-table">
+      <thead>
+        <tr><th>Corte</th><th>Parte del animal</th><th>Fuego ideal</th><th>Tiempo aprox.</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Tira de asado</td><td>Costillar, corte transversal</td><td>Brasa media</td><td>70–90 min</td></tr>
+        <tr><td>Vacío</td><td>Falda, flanco lateral</td><td>Brasa suave</td><td>90–120 min</td></tr>
+        <tr><td>Bife de chorizo</td><td>Lomo alto, sin hueso</td><td>Brasa alta</td><td>20–30 min</td></tr>
+        <tr><td>Entraña</td><td>Diafragma</td><td>Brasa muy alta</td><td>10–15 min</td></tr>
+        <tr><td>Costillar entero</td><td>Costillar completo</td><td>Brasa muy suave</td><td>3 a 4 hs</td></tr>
+        <tr><td>Mollejas</td><td>Timo / glándulas</td><td>Brasa media-alta</td><td>30–40 min</td></tr>
+        <tr><td>Chinchulín</td><td>Intestino delgado</td><td>Brasa media</td><td>60–80 min</td></tr>
+        <tr><td>Riñones</td><td>Riñones</td><td>Brasa alta</td><td>10–15 min</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="guia-section" style="margin-top:6mm;">
+    <div class="guia-section-title">Chimichurri madre</div>
+    <p>Esta es la base. La proporción que uso siempre. Todo lo demás es variante.</p>
+    <div class="guia-cols">
+      <div class="guia-card">
+        <div class="guia-card-title">Ingredientes</div>
+        <ul>
+          <li>1 taza perejil picado fino</li>
+          <li>4 dientes ajo picado</li>
+          <li>1 cdta ají molido</li>
+          <li>1 cdta orégano seco</li>
+          <li>3 cdas vinagre vino tinto</li>
+          <li>½ taza aceite de girasol</li>
+          <li>Sal y pimienta a gusto</li>
+        </ul>
+      </div>
+      <div class="guia-card">
+        <div class="guia-card-title">La regla de oro</div>
+        <p>El chimichurri se prepara el día anterior. Con 24 horas de reposo, los sabores se integran y cambia por completo. El de hoy no es el mismo que el de mañana.</p><br>
+        <p>Guardado en frasco hermético en la heladera, dura hasta 2 semanas.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════
+     CONTRACUBIERTA
+══════════════════════════════════════ -->
+<div class="page backcover">
+  <div class="backcover-quote">
+    El asado se come como le gusta al parrillero.
+    No hay una sola manera correcta.
+    Hay una manera que es tuya.
+  </div>
+  <div class="backcover-bottom">
+    <div class="backcover-brand">Javotecocina</div>
+    <div class="backcover-web">javotecocina.com · Salta, Argentina</div>
+  </div>
+</div>
+
+</body>
+</html>
