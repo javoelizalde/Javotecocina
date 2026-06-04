@@ -1,13 +1,64 @@
 // api/record_purchase.js
-// Registra una compra de recetario en Supabase tras pago aprobado de MercadoPago
+// Registra una compra de recetario en Supabase.
+// Acepta:
+//   A) POST directo desde el frontend con { email, recetario, payment_id }
+//   B) Notificación IPN de Mercado Pago con { type: 'payment', data: { id: '...' } }
 module.exports = async function handler(req, res) {
   res.setHeader('Access-Control-Allow-Origin', 'https://javotecocina.com');
-  res.setHeader('Access-Control-Allow-Methods', 'POST');
+  res.setHeader('Access-Control-Allow-Methods', 'POST, GET');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
   if (req.method === 'OPTIONS') return res.status(200).end();
-  if (req.method !== 'POST') return res.status(405).json({ error: 'Method not allowed' });
 
-  const { email, recetario, payment_id } = req.body || {};
-  if (!email || !recetario) return res.status(400).json({ error: 'Faltan datos' });
+  // MP IPN: GET o POST con query params type=payment&id=X
+  const queryId = req.query?.id || req.query?.['data.id'];
+  const queryType = req.query?.type;
+
+  // Detectar si es IPN de MP
+  if (queryType === 'payment' && queryId) {
+    return await procesarIPN(req, res, queryId);
+  }
+
+  if (req.method === 'POST') {
+    const body = req.body || {};
+    // IPN en body
+    if (body.type === 'payment' && body.data?.id) {
+      return await procesarIPN(req, res, body.data.id);
+    }
+    // Llamada directa del frontend
+    const { email, recetario, payment_id } = body;
+    if (!email || !recetario) return res.status(400).json({ error: 'Faltan datos' });
+    return await registrarCompra(res, email, recetario, payment_id || null);
+  }
+
+  return res.status(405).json({ error: 'Method not allowed' });
+};
+
+async function procesarIPN(req, res, paymentId) {
+  const accessToken = process.env.MP_ACCESS_TOKEN;
+  if (!accessToken) return res.status(200).end(); // siempre 200 a MP
+
+  try {
+    // Obtener datos del pago desde MP
+    const mpRes = await fetch(`https://api.mercadopago.com/v1/payments/${paymentId}`, {
+      headers: { 'Authorization': `Bearer ${accessToken}` }
+    });
+    if (!mpRes.ok) return res.status(200).end();
+    const payment = await mpRes.json();
+
+    if (payment.status !== 'approved') return res.status(200).end();
+
+    const email = payment.payer?.email;
+    const recetario = payment.external_reference;
+    if (!email || !recetario) return res.status(200).end();
+
+    await registrarCompra(res, email, recetario, String(paymentId));
+  } catch (e) {
+    console.error('IPN error:', e);
+    return res.status(200).end(); // siempre 200 a MP para evitar reintentos infinitos
+  }
+}
+
+async function registrarCompra(res, email, recetario, payment_id) {
 
   const SUPABASE_URL = process.env.SUPABASE_URL;
   const SUPABASE_KEY = process.env.SUPABASE_ANON_KEY;

@@ -18,15 +18,17 @@ module.exports = async function handler(req, res) {
   if (!accessToken) return res.status(500).json({ error: 'MP_ACCESS_TOKEN no configurado' });
 
   try {
+    const recRef = encodeURIComponent(recetario || '');
     const preference = {
       items: [{ title, unit_price: Number(price), quantity: Number(quantity), currency_id: 'ARS' }],
       payer: { email: buyer_email || '', name: buyer_name || '' },
       back_urls: {
-        success: 'https://javotecocina.com?pago=exitoso',
-        failure: 'https://javotecocina.com?pago=fallido',
-        pending: 'https://javotecocina.com?pago=pendiente'
+        success: `https://javotecocina.com?pago=exitoso&external_reference=${recRef}`,
+        failure: `https://javotecocina.com?pago=fallido`,
+        pending: `https://javotecocina.com?pago=pendiente&external_reference=${recRef}`
       },
       auto_return: 'approved',
+      notification_url: 'https://javotecocina.com/api/record_purchase',
       statement_descriptor: 'JAVOTECOCINA',
       external_reference: recetario || '',
     };

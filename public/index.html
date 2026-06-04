@@ -31,7 +31,7 @@
   --gap:5rem;
 }
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
-html{scroll-behavior:smooth;font-size:16px;}
+html{scroll-behavior:smooth;font-size:16px;overflow-x:hidden;}
 body{font-family:'Barlow',sans-serif;background:var(--cream);color:var(--dark);overflow-x:hidden;}
 *{cursor:none;}
 img{display:block;max-width:100%;}
@@ -39,8 +39,30 @@ a{cursor:none;}
 button{cursor:none;}
 
 /* ── CURSOR ── */
-.cursor{position:fixed;width:12px;height:12px;background:var(--fire);border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);transition:width .2s,height .2s,background .2s;mix-blend-mode:multiply;}
-.cursor.big{width:32px;height:32px;background:var(--ember);opacity:.6;}
+.cursor{
+  position:fixed;
+  pointer-events:none;
+  z-index:9999;
+  transform:translate(-50%,-50%);
+  transition:transform .15s ease;
+  width:28px;
+  height:36px;
+  /* Cuchillo SVG inline como background — visible en fondos claros y oscuros */
+}
+.cursor::before{
+  content:'';
+  display:block;
+  width:28px;
+  height:36px;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 28 36' fill='none'%3E%3Cpath d='M8 2 C8 2 24 10 22 20 L14 32 L10 28 L18 18 C16 12 6 8 6 8 Z' fill='%23C84B11' stroke='%231A120B' stroke-width='1'/%3E%3Crect x='10' y='28' width='6' height='6' rx='1' fill='%236B4226' stroke='%231A120B' stroke-width='1'/%3E%3C/svg%3E");
+  background-repeat:no-repeat;
+  background-size:contain;
+  filter:drop-shadow(0 1px 3px rgba(0,0,0,.6));
+}
+.cursor.big{
+  transform:translate(-50%,-50%) scale(1.4);
+}
+@media(pointer:coarse){.cursor{display:none;}*,a,button{cursor:auto;}}
 
 /* ── SCROLL REVEAL ── */
 .reveal{opacity:0;transform:translateY(28px);transition:opacity .7s ease,transform .7s ease;}
@@ -64,7 +86,7 @@ button{cursor:none;}
 .btn-wa:hover{background:#1db954;}
 
 /* ── LAYOUT ── */
-.container{max-width:1200px;margin:0 auto;padding:0 2.5rem;}
+.container{max-width:1200px;margin:0 auto;padding:0 2.5rem;width:100%;}
 section{padding:var(--gap) 0;}
 
 /* ── MOBILE MENU ── */
@@ -392,30 +414,42 @@ footer{background:var(--dark);border-top:1px solid rgba(245,237,228,.06);}
 }
 @media(max-width:768px){
   :root{--gap:3.5rem;}
-  .hero-content{padding:0 1.5rem;padding-top:90px;}
+  .hero-content{padding:0 1.25rem;padding-top:90px;max-width:100%;}
   .hero-stats{display:none;}
   .scroll-ind{display:none;}
   .about-grid{grid-template-columns:1fr;gap:3rem;}
   .about-img-wrap{max-height:420px;}
+  .about-accent{display:none;}
+  .about-accent2{display:none;}
   .portfolio-grid{grid-template-columns:1fr 1fr;}
   .portfolio-item[data-size="featured"]{grid-column:span 2;aspect-ratio:4/3;}
   .brands-grid{grid-template-columns:repeat(2,1fr);}
   .hire-grid{grid-template-columns:1fr;gap:3rem;}
+  .hire-form-wrap{padding:1.5rem;}
   .form-row{grid-template-columns:1fr;}
   .testi-grid{grid-template-columns:1fr;}
   .testi-form-inner{grid-template-columns:1fr;}
-  .footer-inner{grid-template-columns:1fr 1fr;gap:2rem;}
-  .footer-bottom{flex-direction:column;align-items:flex-start;}
+  .footer-inner{grid-template-columns:1fr 1fr;gap:2rem;padding:3rem 1.5rem 2rem;}
+  .footer-bottom{flex-direction:column;align-items:flex-start;padding:1.25rem 1.5rem 1.5rem;}
+  .container{padding:0 1.25rem;}
+  .rating-summary{padding:1.25rem 1rem;}
+  nav{padding:1rem 1.25rem;}
 }
 @media(max-width:480px){
   .hero-title{font-size:clamp(2.8rem,12vw,4rem);}
+  .hero-actions{flex-direction:column;align-items:flex-start;}
   .portfolio-grid{grid-template-columns:1fr;}
   .portfolio-item[data-size="featured"]{grid-column:span 1;}
   .brands-grid{grid-template-columns:repeat(2,1fr);}
   .products-grid{grid-template-columns:1fr;}
   .footer-inner{grid-template-columns:1fr;}
-  .modal-box{margin:.5rem;}
+  .modal-box{margin:.5rem;width:calc(100vw - 1rem);}
+  .login-modal-box{margin:.5rem;width:calc(100vw - 1rem);padding:1.5rem;}
   .dc-actions{flex-wrap:wrap;}
+  .port-modal-box{max-height:100vh;border-radius:0;}
+  .hero-actions .btn-primary,.hero-actions .btn-outline{width:100%;text-align:center;}
+  .testi-card{padding:1.5rem;}
+  .services-grid{grid-template-columns:1fr;}
 }
 </style>
 </head>
@@ -455,7 +489,7 @@ footer{background:var(--dark);border-top:1px solid rgba(245,237,228,.06);}
     </button>
     <div class="user-dropdown" id="userDropdown">
       <div class="user-dd-email" id="userDdEmail"></div>
-      <button class="user-dd-item" onclick="closeUserMenu()">Mis compras</button>
+      <button class="user-dd-item" onclick="closeUserMenu();abrirMisCompras();">Mis compras</button>
       <button class="user-dd-item danger" onclick="doUserLogout()">Cerrar sesión</button>
     </div>
   </div>
@@ -1184,6 +1218,122 @@ let userToken=null,userEmail=null,loginMode='login',pendingPurchaseUrl=null;
   if(t&&e){userToken=t;userEmail=e;updateUserUI();}
 })();
 
+// Procesar retorno desde Mercado Pago (?pago=exitoso&payment_id=X&external_reference=Y)
+(async function procesarRetornoMP(){
+  const params=new URLSearchParams(window.location.search);
+  const pago=params.get('pago');
+  const paymentId=params.get('payment_id')||params.get('collection_id');
+  const recetario=params.get('external_reference')||params.get('preference_id');
+  const status=params.get('collection_status')||params.get('status');
+
+  if(pago==='exitoso'||(status&&status==='approved')){
+    // Limpiar URL para que no se reprocese al refrescar
+    history.replaceState(null,'',window.location.pathname);
+
+    const email=localStorage.getItem('jtc_user_email')||userEmail;
+
+    // Mostrar banner de éxito
+    mostrarBannerCompra('exitoso', recetario);
+
+    // Registrar compra si tenemos datos suficientes
+    if(email && recetario){
+      try{
+        await fetch('/api/record_purchase',{
+          method:'POST',
+          headers:{'Content-Type':'application/json'},
+          body:JSON.stringify({email, recetario, payment_id: paymentId||null})
+        });
+      }catch(e){console.error('Error registrando compra:',e);}
+    }
+  } else if(pago==='fallido'||status==='rejected'){
+    history.replaceState(null,'',window.location.pathname);
+    mostrarBannerCompra('fallido', null);
+  } else if(pago==='pendiente'||status==='pending'){
+    history.replaceState(null,'',window.location.pathname);
+    mostrarBannerCompra('pendiente', null);
+  }
+})();
+
+function mostrarBannerCompra(tipo, recetario){
+  const colores={exitoso:'#2ECC71',fallido:'#E74C3C',pendiente:'#E8730A'};
+  const mensajes={
+    exitoso:'✓ ¡Pago aprobado! Tu recetario ya está disponible en tu cuenta.',
+    fallido:'✕ El pago no pudo procesarse. Podés intentarlo de nuevo.',
+    pendiente:'⏳ Tu pago está en proceso. Te avisaremos cuando se acredite.'
+  };
+  const banner=document.createElement('div');
+  banner.id='purchase-banner';
+  banner.style.cssText=`position:fixed;top:0;left:0;right:0;z-index:9000;background:${colores[tipo]};color:#fff;text-align:center;padding:.9rem 2rem;font-family:'Barlow Condensed',sans-serif;font-size:.95rem;font-weight:700;letter-spacing:.06em;display:flex;align-items:center;justify-content:center;gap:1rem;box-shadow:0 2px 12px rgba(0,0,0,.2);`;
+  banner.innerHTML=`<span>${mensajes[tipo]}</span>${tipo==='exitoso'?'<button onclick="verMisCompras()" style="background:rgba(255,255,255,.25);border:none;color:#fff;padding:.35rem 1rem;border-radius:2px;font-family:inherit;font-size:.85rem;font-weight:700;cursor:pointer;">Ver mis compras →</button>':''}
+  <button onclick="document.getElementById(\'purchase-banner\').remove()" style="background:transparent;border:none;color:rgba(255,255,255,.7);font-size:1.2rem;cursor:pointer;margin-left:.5rem;">✕</button>`;
+  document.body.prepend(banner);
+  // Auto-cierre en 12s
+  setTimeout(()=>{if(banner.parentNode)banner.remove();},12000);
+}
+
+function verMisCompras(){
+  const banner=document.getElementById('purchase-banner');
+  if(banner)banner.remove();
+  if(userToken){
+    // Abrir sección de mis compras
+    abrirMisCompras();
+  } else {
+    openLoginModal();
+  }
+}
+
+async function abrirMisCompras(){
+  const email=userEmail||localStorage.getItem('jtc_user_email');
+  if(!email) return;
+  // Cargar recetarios comprados por el usuario
+  try{
+    const r=await fetch(`${SUPA_URL}/rest/v1/compras?email=eq.${encodeURIComponent(email.toLowerCase().trim())}&select=recetario,payment_id,fecha`,{
+      headers:{'apikey':SUPA_KEY,'Authorization':'Bearer '+SUPA_KEY}
+    });
+    if(!r.ok) return;
+    const compras=await r.json();
+    if(!compras.length){
+      alert('Aún no tenés compras registradas.');
+      return;
+    }
+    mostrarModalMisCompras(compras);
+  }catch(e){console.error('Error cargando compras:',e);}
+}
+
+function mostrarModalMisCompras(compras){
+  const existing=document.getElementById('modal-mis-compras');
+  if(existing)existing.remove();
+  const modal=document.createElement('div');
+  modal.id='modal-mis-compras';
+  modal.className='modal-bg open';
+  modal.onclick=e=>{if(e.target===modal){modal.remove();document.body.style.overflow='';}};
+  modal.innerHTML=`
+  <div class="modal-box" style="max-width:500px;">
+    <button class="modal-close" onclick="document.getElementById('modal-mis-compras').remove();document.body.style.overflow=''">✕</button>
+    <div class="modal-body">
+      <div class="modal-tag">👤 Mi Cuenta</div>
+      <div class="modal-title">Mis Compras</div>
+      <p style="font-size:.85rem;color:var(--muted);margin-bottom:1.25rem;">Accedé a tus recetarios descargados</p>
+      ${compras.map(c=>{
+        const rec=window._recetariosData?window._recetariosData.find(r=>r.slug===c.recetario||String(r.id)===c.recetario):null;
+        const nombre=rec?rec.titulo:c.recetario;
+        const pdfUrl=rec?rec.pdf_url:null;
+        const fecha=c.fecha?new Date(c.fecha).toLocaleDateString('es-AR',{day:'numeric',month:'short',year:'numeric'}):'';
+        return`<div style="padding:1rem 0;border-bottom:1px solid rgba(26,18,11,.08);display:flex;align-items:center;justify-content:space-between;gap:1rem;">
+          <div>
+            <div style="font-weight:600;font-size:.9rem;color:var(--dark);">${nombre||'Recetario'}</div>
+            <div style="font-size:.75rem;color:var(--muted);margin-top:.2rem;">Comprado el ${fecha}</div>
+          </div>
+          ${pdfUrl?`<a href="${pdfUrl}" target="_blank" rel="noopener" class="btn-primary" style="padding:.5rem 1rem;font-size:.75rem;white-space:nowrap;text-decoration:none;">📄 Descargar</a>`:'<span style="font-size:.75rem;color:var(--muted);">PDF no disponible</span>'}
+        </div>`;
+      }).join('')}
+    </div>
+  </div>`;
+  document.body.appendChild(modal);
+  document.body.style.overflow='hidden';
+}
+
+
 function updateUserUI(){
   const btn=document.getElementById('navUserBtn');
   if(!btn)return;
@@ -1260,6 +1410,12 @@ async function doUserLogin(){
     localStorage.setItem('jtc_user_email',userEmail);
     updateUserUI();closeLoginModal();
     if(pendingPurchaseUrl){window.open(pendingPurchaseUrl,'_blank');pendingPurchaseUrl=null;}
+    // Reanudar compra pendiente si la había
+    if(window._pendingPurchase){
+      const {recSlug,titulo,precio}=window._pendingPurchase;
+      window._pendingPurchase=null;
+      await _iniciarCompraMercadoPago(recSlug,titulo,precio,userEmail);
+    }
   }catch(e){errEl.textContent='Error de conexión. Intentá de nuevo.';errEl.style.display='block';}
 }
 
@@ -1274,9 +1430,52 @@ function doUserLogout(){
   updateUserUI();closeUserMenu();
 }
 
-function comprarRecetario(url,titulo){
-  if(userToken){window.open(url,'_blank');}
-  else{openLoginModal(url,titulo);}
+/* ── COMPRA RECETARIO VÍA API ── */
+async function comprarRecetario(recSlug, titulo, precio){
+  // recSlug: identificador del recetario (ej: "todo-sobre-fierros")
+  // titulo: nombre del recetario
+  // precio: precio en ARS (número)
+
+  if(!userEmail){
+    // Guardar intento de compra y pedir login
+    openLoginModal(null, titulo);
+    // Cuando el usuario loguea, pendingPurchase se retoma
+    window._pendingPurchase = {recSlug, titulo, precio};
+    return;
+  }
+  await _iniciarCompraMercadoPago(recSlug, titulo, precio, userEmail);
+}
+
+async function _iniciarCompraMercadoPago(recSlug, titulo, precio, email){
+  const btn = document.querySelector(`[data-rec-slug="${recSlug}"] .btn-buy`);
+  if(btn){btn.textContent='Procesando...';btn.disabled=true;}
+
+  try{
+    const r = await fetch('/api/create_preference', {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({
+        title: titulo,
+        price: precio,
+        quantity: 1,
+        buyer_email: email,
+        buyer_name: '',
+        recetario: recSlug
+      })
+    });
+    const d = await r.json();
+    if(!d.init_point){
+      alert('Error al iniciar el pago. Intentá de nuevo.');
+      if(btn){btn.textContent='Comprar →';btn.disabled=false;}
+      return;
+    }
+    // Redirigir a Mercado Pago en la misma pestaña para que la success_url funcione
+    window.location.href = d.init_point;
+  } catch(e){
+    console.error('Error creando preferencia MP:', e);
+    alert('Error de conexión. Intentá de nuevo.');
+    if(btn){btn.textContent='Comprar →';btn.disabled=false;}
+  }
 }
 
 // Cerrar dropdown al click fuera
@@ -1454,27 +1653,30 @@ async function loadRecetariosPublic(){
     if(!r.ok)return;
     const list=await r.json();
     if(!list.length)return;
+    window._recetariosData=list; // Cache para "Mis compras"
     const grid=document.getElementById('recetariosGrid');
     const modalesContainer=document.getElementById('recetariosModales');
     const esc=s=>String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;');
     grid.innerHTML=list.map(rec=>{
-      const precio=rec.precio?'$'+Number(rec.precio).toLocaleString('es-AR'):'';
+      const precioDisplay=rec.precio?'$'+Number(rec.precio).toLocaleString('es-AR'):'';
       const slug='rec'+rec.id;
-      return`<div class="digital-card ${rec.featured?'featured':''} reveal">
+      const recSlug=rec.slug||String(rec.id);
+      return`<div class="digital-card ${rec.featured?'featured':''} reveal" data-rec-slug="${esc(recSlug)}">
         <img class="dc-img" src="${esc(rec.foto_url||'')}" alt="${esc(rec.titulo||'')}">
         <div class="dc-tag">${esc(rec.tag||'')}</div>
         <div class="dc-title">${esc(rec.titulo||'')}</div>
         <p class="dc-desc">${esc(rec.descripcion_corta||'')}</p>
-        <div class="dc-footer"><div class="dc-price">${precio}<small>ARS</small></div></div>
+        <div class="dc-footer"><div class="dc-price">${precioDisplay}<small>ARS</small></div></div>
         <div class="dc-actions">
           <button class="btn-ver" onclick="openModal('${slug}')">Ver más</button>
-          <button class="btn-buy" onclick="comprarRecetario('${esc(rec.mp_link||'')}','${esc(rec.titulo||'')}')">Comprar →</button>
+          <button class="btn-buy" data-rec-slug="${esc(recSlug)}" onclick="comprarRecetario('${esc(recSlug)}','${esc(rec.titulo||'')}',${rec.precio||0})">Comprar →</button>
         </div>
       </div>`;
     }).join('');
     modalesContainer.innerHTML=list.map(rec=>{
       const slug='rec'+rec.id;
-      const precio=rec.precio?'$'+Number(rec.precio).toLocaleString('es-AR')+' ARS':'';
+      const recSlug=rec.slug||String(rec.id);
+      const precioDisplay=rec.precio?'$'+Number(rec.precio).toLocaleString('es-AR')+' ARS':'';
       const includes=rec.includes?rec.includes.split('\n').filter(Boolean).map(i=>`<li>${esc(i.trim())}</li>`).join(''):'';
       return`<div class="modal-bg" id="modal-${slug}" onclick="closeModalBg(event,'modal-${slug}')">
         <div class="modal-box">
@@ -1486,8 +1688,8 @@ async function loadRecetariosPublic(){
             <p class="modal-desc">${esc(rec.descripcion_larga||rec.descripcion_corta||'')}</p>
             <ul class="modal-includes">${includes}</ul>
             <div class="modal-footer">
-              <div class="modal-price">${precio}</div>
-              <button class="btn-primary" onclick="comprarRecetario('${esc(rec.mp_link||'')}','${esc(rec.titulo||'')}')">Comprar ahora →</button>
+              <div class="modal-price">${precioDisplay}</div>
+              <button class="btn-primary" onclick="comprarRecetario('${esc(recSlug)}','${esc(rec.titulo||'')}',${rec.precio||0})">Comprar ahora →</button>
             </div>
           </div>
         </div>

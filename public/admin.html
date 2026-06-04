@@ -334,7 +334,7 @@ body{font-family:'Barlow',sans-serif;background:var(--dark);color:var(--ash);min
       <label>PDF del recetario</label>
       <div class="pdf-upload-area" onclick="document.getElementById('rec-pdf-input').click()">
         <input type="file" id="rec-pdf-input" accept="application/pdf" onchange="selectPdf(this)">
-        <div class="upload-hint">📄 Tocá para subir el PDF<br><small>Solo archivos PDF · Máx. 50MB</small></div>
+        <div class="upload-hint">📄 Tocá para subir el PDF<br><small>Solo archivos PDF · Recomendado hasta 50MB · Máx. 200MB</small></div>
       </div>
       <div id="rec-pdf-current" style="display:none;" class="pdf-current">
         <span>📄</span>
@@ -578,10 +578,17 @@ function previewFoto(input){
 function selectPdf(input){
   const file=input.files[0];
   if(!file)return;
-  if(file.size>50*1024*1024){alert('El PDF supera los 50MB. Elegí uno más chico.');input.value='';return;}
+  // Límite extendido: Supabase Storage soporta hasta 50MB en plan free y más en planes pagos.
+  // Si el PDF supera 50MB, sugerimos comprimir antes de subir pero lo intentamos igual.
+  const sizeMB=(file.size/1024/1024).toFixed(1);
+  if(file.size>200*1024*1024){
+    alert(`El PDF pesa ${sizeMB}MB y supera el límite absoluto de 200MB. Comprimí el archivo antes de subirlo.`);
+    input.value='';return;
+  }
   currentRecPdfFile=file;
   const sel=document.getElementById('rec-pdf-selected');
-  sel.textContent=`✓ ${file.name} (${(file.size/1024/1024).toFixed(1)} MB)`;
+  const warning=file.size>40*1024*1024?` ⚠️ Archivo grande (${sizeMB}MB) — la subida puede tardar varios minutos.`:` (${sizeMB} MB)`;
+  sel.textContent=`✓ ${file.name}${warning}`;
   sel.style.display='block';
   document.getElementById('rec-pdf-current').style.display='none';
 }
@@ -595,33 +602,67 @@ function removePdf(){
 }
 
 async function uploadPdf(file){
-  const fname=`recetarios/${Date.now()}.pdf`;
-  const r=await fetch(`${SUPA_URL}/storage/v1/object/recetarios-pdf/${fname}`,{
+  const fname=`recetarios/${Date.now()}-${file.name.replace(/[^a-z0-9.\-]/gi,'_')}`;
+  // Intentar primero con bucket recetarios-pdf (privado, URL firmada)
+  // Si falla, intentar con bucket site-images (público, más permisivo)
+  let r=await fetch(`${SUPA_URL}/storage/v1/object/recetarios-pdf/${fname}`,{
     method:'POST',
     headers:{'apikey':SUPA_KEY,'Authorization':'Bearer '+authToken,'Content-Type':'application/pdf','x-upsert':'true'},
     body:file
   });
-  if(!r.ok){console.error('PDF upload error',await r.text());return null;}
+  if(!r.ok){
+    const errTxt=await r.text();
+    console.error('PDF upload error en recetarios-pdf:',errTxt);
+    // Fallback: subir al bucket site-images como público
+    r=await fetch(`${SUPA_URL}/storage/v1/object/site-images/${fname}`,{
+      method:'POST',
+      headers:{'apikey':SUPA_KEY,'Authorization':'Bearer '+authToken,'Content-Type':'application/pdf','x-upsert':'true'},
+      body:file
+    });
+    if(!r.ok){
+      const errTxt2=await r.text();
+      console.error('PDF upload error en site-images:',errTxt2);
+      return null;
+    }
+    // URL pública directa
+    return`${SUPA_URL}/storage/v1/object/public/site-images/${fname}`;
+  }
   // URL firmada válida 10 años (315360000 segundos)
   const sign=await fetch(`${SUPA_URL}/storage/v1/object/sign/recetarios-pdf/${fname}`,{
     method:'POST',
     headers:{'Content-Type':'application/json','apikey':SUPA_KEY,'Authorization':'Bearer '+authToken},
     body:JSON.stringify({expiresIn:315360000})
   });
-  if(!sign.ok)return null;
+  if(!sign.ok){
+    // Si falla la firma, devolver URL pública como fallback
+    return`${SUPA_URL}/storage/v1/object/public/recetarios-pdf/${fname}`;
+  }
   const sd=await sign.json();
   return`${SUPA_URL}/storage/v1${sd.signedURL}`;
 }
 
 async function uploadFoto(file){
   const ext=file.name.split('.').pop().toLowerCase();
+  const allowedExts=['jpg','jpeg','png','webp','gif','avif'];
+  if(!allowedExts.includes(ext)){
+    alert(`Formato de imagen no soportado: .${ext}. Usá JPG, PNG o WEBP.`);
+    return null;
+  }
   const fname=`recetarios/${Date.now()}.${ext}`;
   const r=await fetch(`${SUPA_URL}/storage/v1/object/site-images/${fname}`,{
     method:'POST',
     headers:{'apikey':SUPA_KEY,'Authorization':'Bearer '+authToken,'Content-Type':file.type,'x-upsert':'true'},
     body:file
   });
-  if(!r.ok)return null;
+  if(!r.ok){
+    const errBody=await r.text();
+    console.error('Foto upload error:',r.status,errBody);
+    // Si el bucket no existe o hay error de permisos, mostrar mensaje claro
+    if(r.status===400||r.status===403||r.status===404){
+      alert(`Error al subir la foto (${r.status}): El bucket "site-images" puede no existir o no tener permisos de escritura.\n\nVerificá en Supabase: Storage → site-images → Policies (INSERT para authenticated users).`);
+    }
+    return null;
+  }
   return`${SUPA_URL}/storage/v1/object/public/site-images/${fname}`;
 }
 
@@ -635,14 +676,16 @@ async function saveRecetario(){
   const id=document.getElementById('rec-id').value;
   let foto_url=id?allRecetarios.find(r=>r.id==id)?.foto_url||null:null;
   if(currentRecFotoFile){
+    saveBtn.textContent='Subiendo foto...';
     foto_url=await uploadFoto(currentRecFotoFile);
-    if(!foto_url){errEl.textContent='Error al subir la foto. Intentá de nuevo.';errEl.style.display='block';saveBtn.textContent='Guardar';saveBtn.disabled=false;return;}
+    if(!foto_url){errEl.textContent='Error al subir la foto. Verificá que el bucket "site-images" existe y tiene permisos de INSERT en Supabase Storage.';errEl.style.display='block';saveBtn.textContent='Guardar';saveBtn.disabled=false;return;}
   }
   let pdf_url=currentRecPdfUrl; // null si se quitó, url si se mantuvo
   if(currentRecPdfFile){
-    saveBtn.textContent='Subiendo PDF...';
+    const sizeMB=(currentRecPdfFile.size/1024/1024).toFixed(1);
+    saveBtn.textContent=`Subiendo PDF (${sizeMB}MB)...`;
     pdf_url=await uploadPdf(currentRecPdfFile);
-    if(!pdf_url){errEl.textContent='Error al subir el PDF. Intentá de nuevo.';errEl.style.display='block';saveBtn.textContent='Guardar';saveBtn.disabled=false;return;}
+    if(!pdf_url){errEl.textContent='Error al subir el PDF. Verificá que el bucket "recetarios-pdf" existe en Supabase Storage y tiene permisos de INSERT para usuarios autenticados.';errEl.style.display='block';saveBtn.textContent='Guardar';saveBtn.disabled=false;return;}
   }
   const data={
     titulo,
