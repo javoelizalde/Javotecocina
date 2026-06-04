@@ -1,6 +1,7 @@
 {
   "rewrites": [
     { "source": "/admin", "destination": "/admin.html" },
+    { "source": "/recetarios", "destination": "/recetarios.html" },
     { "source": "/compra-exitosa", "destination": "/compra-exitosa.html" },
     { "source": "/compra-fallida", "destination": "/compra-fallida.html" },
     { "source": "/compra-pendiente", "destination": "/compra-pendiente.html" }

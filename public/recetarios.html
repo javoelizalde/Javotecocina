@@ -1,0 +1,613 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Recetarios digitales — Javotecocina</title>
+<meta name="description" content="Todos los recetarios digitales de Javotecocina. PDFs descargables para dominar el fuego. A Todo Disco, Sabores Salteños y más.">
+<link rel="icon" type="image/png" href="/img/favicon-jtc.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800;900&family=Barlow:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,700;0,800;1,700&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+:root{
+  --dark:#1a120b;--ash:#f5ede4;--cream:#faf6f2;--fire:#C84B11;--ember:#e05a1a;
+  --muted:rgba(26,18,11,.45);--gap:5rem;
+}
+html{scroll-behavior:smooth;}
+body{font-family:'Barlow',system-ui,sans-serif;background:var(--cream);color:var(--dark);-webkit-font-smoothing:antialiased;}
+a{text-decoration:none;color:inherit;}
+button{font-family:inherit;cursor:pointer;}
+img{display:block;max-width:100%;}
+
+/* ── HEADER ── */
+.rec-header{
+  position:sticky;top:0;z-index:100;
+  background:var(--cream);border-bottom:1px solid rgba(26,18,11,.1);
+  backdrop-filter:blur(8px);
+  padding:.875rem 1.5rem;
+  display:flex;align-items:center;gap:1rem;
+}
+.rec-back{
+  display:inline-flex;align-items:center;gap:.4rem;
+  font-family:'Barlow Condensed',sans-serif;font-size:.78rem;font-weight:700;
+  letter-spacing:.08em;text-transform:uppercase;color:var(--muted);
+  padding:.4rem .75rem;border:1px solid rgba(26,18,11,.15);border-radius:2px;
+  transition:color .2s,border-color .2s;flex-shrink:0;
+}
+.rec-back:hover{color:var(--dark);border-color:rgba(26,18,11,.3);}
+.rec-back svg{width:12px;height:12px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;}
+.rec-header-logo{
+  flex:1;display:flex;justify-content:center;
+  font-family:'Barlow Condensed',sans-serif;font-size:1.1rem;font-weight:900;
+  letter-spacing:.1em;text-transform:uppercase;color:var(--dark);
+}
+.rec-header-logo em{color:var(--fire);font-style:normal;}
+.rec-header-user{flex-shrink:0;width:64px;display:flex;justify-content:flex-end;}
+.nav-user-btn{
+  width:36px;height:36px;border-radius:50%;border:1.5px solid rgba(26,18,11,.2);
+  background:transparent;display:flex;align-items:center;justify-content:center;
+  font-size:.85rem;color:var(--dark);transition:border-color .2s;
+}
+.nav-user-btn.logged-in{background:var(--fire);border-color:var(--fire);color:#fff;}
+
+/* ── HERO DE PÁGINA ── */
+.rec-hero{
+  background:var(--dark);padding:2.5rem 1.5rem 2rem;text-align:center;
+}
+.rec-hero-label{
+  font-family:'Barlow Condensed',sans-serif;font-size:.65rem;font-weight:700;
+  letter-spacing:.18em;text-transform:uppercase;color:var(--fire);margin-bottom:.75rem;
+}
+.rec-hero-title{
+  font-family:'Playfair Display',serif;font-size:clamp(1.75rem,5vw,2.5rem);
+  font-weight:700;color:var(--ash);line-height:1.15;margin-bottom:.75rem;
+}
+.rec-hero-desc{
+  font-size:.9rem;font-weight:300;color:rgba(245,237,228,.55);
+  line-height:1.6;max-width:460px;margin:0 auto;
+}
+
+/* ── CONTENIDO ── */
+.rec-body{padding:2rem 1.25rem 4rem;max-width:1100px;margin:0 auto;}
+
+/* ── GRID ── */
+.rec-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:1.5rem;
+  margin-top:0;
+}
+
+/* ── CARD ── */
+.rec-card{
+  background:#fff;border-radius:4px;
+  border:1px solid rgba(26,18,11,.07);
+  overflow:hidden;
+  transition:box-shadow .3s,transform .3s,border-color .3s;
+  display:flex;flex-direction:column;
+  position:relative;
+}
+.rec-card::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:3px;
+  background:var(--fire);transform:scaleX(0);transition:transform .4s;
+}
+.rec-card:hover{transform:translateY(-3px);box-shadow:0 16px 40px rgba(26,18,11,.1);border-color:rgba(200,75,17,.2);}
+.rec-card:hover::before{transform:scaleX(1);}
+.rec-card.featured{border-color:rgba(200,75,17,.2);}
+.rec-card.featured::before{transform:scaleX(1);}
+
+.rc-img{width:100%;height:160px;object-fit:cover;filter:sepia(.1);}
+.rc-body{padding:1.25rem 1.25rem 1.5rem;display:flex;flex-direction:column;flex:1;}
+.rc-tag{
+  display:inline-block;font-family:'Barlow Condensed',sans-serif;font-size:.6rem;
+  font-weight:700;letter-spacing:.12em;text-transform:uppercase;
+  padding:.15rem .5rem;background:rgba(200,75,17,.1);color:var(--fire);
+  border-radius:2px;margin-bottom:.65rem;
+}
+.rc-title{
+  font-family:'Playfair Display',serif;font-size:1.2rem;font-weight:700;
+  color:var(--dark);margin-bottom:.4rem;line-height:1.2;
+}
+.rc-desc{
+  font-size:.85rem;font-weight:300;color:var(--muted);
+  line-height:1.65;margin-bottom:1rem;flex:1;
+}
+.rc-footer{
+  display:flex;align-items:center;justify-content:space-between;
+  padding-top:.875rem;border-top:1px solid rgba(26,18,11,.06);
+  margin-top:auto;
+}
+.rc-price{
+  font-family:'Barlow Condensed',sans-serif;font-size:1.35rem;
+  font-weight:800;color:var(--dark);
+}
+.rc-price small{font-size:.7rem;color:var(--muted);font-weight:400;margin-left:.2rem;}
+
+/* ── ACCIONES ── */
+.rc-actions{display:flex;gap:.5rem;margin-top:.875rem;}
+.rc-btn-ver{
+  display:inline-block;background:transparent;color:var(--fire);
+  padding:.5rem 1rem;font-family:'Barlow Condensed',sans-serif;
+  font-size:.78rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;
+  border-radius:2px;border:1px solid rgba(200,75,17,.4);transition:background .2s;
+}
+.rc-btn-ver:hover{background:rgba(200,75,17,.08);}
+.rc-btn-buy{
+  flex:1;display:inline-block;background:var(--fire);color:#fff;
+  padding:.5rem 1rem;font-family:'Barlow Condensed',sans-serif;
+  font-size:.78rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;
+  border-radius:2px;border:none;transition:background .2s;text-align:center;
+}
+.rc-btn-buy:hover,.rc-btn-buy:active{background:var(--ember);}
+
+/* ── ESTADO VACÍO / CARGANDO ── */
+.rec-empty{
+  grid-column:1/-1;text-align:center;padding:4rem 1.5rem;
+  color:var(--muted);font-size:.9rem;
+}
+
+/* ── MODALES ── */
+.modal-bg{display:none;position:fixed;inset:0;background:rgba(26,18,11,.75);z-index:500;
+  align-items:center;justify-content:center;padding:1rem;backdrop-filter:blur(4px);}
+.modal-bg.open{display:flex;}
+.modal-box{background:#fff;border-radius:4px;width:100%;max-width:560px;
+  max-height:92vh;overflow-y:auto;position:relative;}
+.modal-close{position:absolute;top:.75rem;right:.75rem;background:transparent;
+  border:none;font-size:1.1rem;color:var(--muted);width:32px;height:32px;
+  display:flex;align-items:center;justify-content:center;z-index:2;transition:color .2s;}
+.modal-close:hover{color:var(--dark);}
+.modal-header-img{width:100%;height:200px;object-fit:cover;filter:sepia(.1);}
+.modal-body{padding:1.75rem 1.75rem 2rem;}
+.modal-tag{font-family:'Barlow Condensed',sans-serif;font-size:.62rem;font-weight:700;
+  letter-spacing:.15em;text-transform:uppercase;color:var(--fire);margin-bottom:.6rem;}
+.modal-title{font-family:'Playfair Display',serif;font-size:1.5rem;font-weight:700;
+  color:var(--dark);margin-bottom:.75rem;line-height:1.2;}
+.modal-desc{font-size:.88rem;color:var(--muted);line-height:1.7;margin-bottom:1rem;}
+.modal-includes{list-style:none;margin-bottom:1.5rem;}
+.modal-includes li{font-size:.82rem;color:var(--dark);padding:.3rem 0;
+  border-bottom:1px solid rgba(26,18,11,.05);display:flex;gap:.5rem;}
+.modal-includes li::before{content:'✓';color:var(--fire);font-weight:700;flex-shrink:0;}
+.modal-footer{display:flex;align-items:center;justify-content:space-between;gap:1rem;
+  padding-top:1rem;border-top:1px solid rgba(26,18,11,.08);}
+.modal-price{font-family:'Barlow Condensed',sans-serif;font-size:1.5rem;
+  font-weight:800;color:var(--dark);}
+.btn-primary{display:inline-block;background:var(--fire);color:#fff;padding:.7rem 1.75rem;
+  border-radius:2px;font-family:'Barlow Condensed',sans-serif;font-size:.85rem;
+  font-weight:700;letter-spacing:.1em;text-transform:uppercase;border:none;
+  transition:background .2s;cursor:pointer;}
+.btn-primary:hover{background:var(--ember);}
+
+/* ── LOGIN MODAL ── */
+.login-modal-bg{display:none;position:fixed;inset:0;background:rgba(26,18,11,.8);
+  z-index:600;align-items:center;justify-content:center;padding:1rem;backdrop-filter:blur(4px);}
+.login-modal-bg.open{display:flex;}
+.login-modal-box{background:#fff;border-radius:4px;width:100%;max-width:360px;padding:2rem;}
+.login-modal-title{font-family:'Playfair Display',serif;font-size:1.3rem;font-weight:700;
+  color:var(--dark);margin-bottom:.25rem;}
+.login-modal-sub{font-size:.82rem;color:var(--muted);margin-bottom:1.25rem;line-height:1.5;}
+.login-field{margin-bottom:.875rem;}
+.login-field label{display:block;font-size:.75rem;font-weight:600;color:var(--dark);margin-bottom:.3rem;letter-spacing:.04em;}
+.login-field input{width:100%;padding:.65rem .875rem;border:1px solid rgba(26,18,11,.18);
+  border-radius:2px;font-size:.9rem;font-family:inherit;color:var(--dark);transition:border-color .2s;}
+.login-field input:focus{outline:none;border-color:var(--fire);}
+.login-submit{width:100%;padding:.85rem;background:var(--fire);color:#fff;border:none;
+  border-radius:2px;font-family:'Barlow Condensed',sans-serif;font-size:.9rem;
+  font-weight:700;letter-spacing:.1em;text-transform:uppercase;margin-top:.25rem;
+  transition:background .2s;}
+.login-submit:hover{background:var(--ember);}
+.login-google{width:100%;padding:.75rem;background:transparent;color:var(--dark);
+  border:1px solid rgba(26,18,11,.2);border-radius:2px;font-family:inherit;
+  font-size:.85rem;font-weight:500;margin-top:.625rem;transition:border-color .2s,background .2s;
+  display:flex;align-items:center;justify-content:center;gap:.5rem;}
+.login-google:hover{border-color:rgba(26,18,11,.4);background:rgba(26,18,11,.03);}
+.login-err{font-size:.78rem;margin-top:.5rem;display:none;padding:.4rem .6rem;border-radius:2px;}
+.login-toggle{font-size:.78rem;color:var(--muted);text-align:center;margin-top:.875rem;}
+.login-toggle a{color:var(--fire);font-weight:600;}
+.login-modal-close{float:right;background:transparent;border:none;font-size:1rem;
+  color:var(--muted);line-height:1;}
+
+/* ── DROPDOWN USUARIO ── */
+.user-dd{position:absolute;top:calc(100% + .5rem);right:0;background:#fff;
+  border:1px solid rgba(26,18,11,.1);border-radius:4px;min-width:200px;
+  box-shadow:0 8px 24px rgba(26,18,11,.1);z-index:200;display:none;
+  padding:.5rem 0;}
+.user-dd.open{display:block;}
+.user-dd-email{padding:.5rem 1rem;font-size:.75rem;color:var(--muted);
+  border-bottom:1px solid rgba(26,18,11,.08);margin-bottom:.25rem;}
+.user-dd-item{display:block;width:100%;text-align:left;padding:.55rem 1rem;
+  background:transparent;border:none;font-size:.82rem;color:var(--dark);
+  transition:background .2s;white-space:nowrap;}
+.user-dd-item:hover{background:rgba(26,18,11,.04);}
+.user-dd-item.danger{color:#c0392b;}
+.user-wrap{position:relative;}
+
+/* ── PURCHASE BANNER ── */
+@keyframes spin{to{transform:rotate(360deg)}}
+
+/* ── RESPONSIVE ── */
+@media(max-width:768px){
+  .rec-hero{padding:1.75rem 1.25rem 1.5rem;}
+  .rec-body{padding:1.25rem 1rem 3rem;}
+  .rec-grid{grid-template-columns:1fr 1fr;gap:.75rem;}
+  .rc-img{height:96px;}
+  .rc-body{padding:.875rem .875rem 1rem;}
+  .rc-tag{font-size:.55rem;padding:.12rem .4rem;margin-bottom:.5rem;}
+  .rc-title{font-size:.92rem;margin-bottom:.25rem;}
+  .rc-desc{font-size:.78rem;line-height:1.5;margin-bottom:.75rem;
+    display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;}
+  .rc-price{font-size:1.05rem;}
+  .rc-footer{padding-top:.65rem;flex-wrap:wrap;gap:.4rem;}
+  .rc-actions{gap:.35rem;margin-top:.65rem;}
+  .rc-btn-ver,.rc-btn-buy{font-size:.7rem;padding:.45rem .4rem;flex:1;text-align:center;}
+  .modal-header-img{height:150px;}
+  .modal-body{padding:1.25rem 1.25rem 1.5rem;}
+  .modal-title{font-size:1.2rem;}
+  .modal-footer{flex-direction:column;align-items:stretch;}
+  .btn-primary{text-align:center;}
+}
+@media(max-width:360px){
+  .rec-grid{grid-template-columns:1fr 1fr;gap:.6rem;}
+  .rc-img{height:80px;}
+  .rc-body{padding:.75rem .75rem .875rem;}
+  .rc-title{font-size:.85rem;}
+}
+</style>
+</head>
+<body>
+
+<!-- ── HEADER ── -->
+<header class="rec-header">
+  <a href="/" class="rec-back">
+    <svg viewBox="0 0 16 16"><polyline points="10,4 6,8 10,12"/></svg>
+    Inicio
+  </a>
+  <div class="rec-header-logo">Javo<em>te</em>cocina</div>
+  <div class="rec-header-user">
+    <div class="user-wrap">
+      <button class="nav-user-btn" id="navUserBtn" onclick="toggleUserMenu()" aria-label="Mi cuenta">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+      </button>
+      <div class="user-dd" id="userDropdown">
+        <div class="user-dd-email" id="userDdEmail"></div>
+        <button class="user-dd-item" onclick="verMisCompras()">📦 Mis compras</button>
+        <button class="user-dd-item danger" onclick="doUserLogout()">Cerrar sesión</button>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- ── HERO ── -->
+<div class="rec-hero">
+  <div class="rec-hero-label">Productos digitales</div>
+  <h1 class="rec-hero-title">Todos los recetarios</h1>
+  <p class="rec-hero-desc">PDFs descargables. Comprá y accedé al instante. Conocimiento del norte para dominar el fuego.</p>
+</div>
+
+<!-- ── GRID ── -->
+<main class="rec-body">
+  <div class="rec-grid" id="recGrid">
+    <div class="rec-empty">Cargando recetarios...</div>
+  </div>
+</main>
+
+<!-- MODALES DE PRODUCTO -->
+<div id="recModales"></div>
+
+<!-- LOGIN MODAL -->
+<div class="login-modal-bg" id="loginModal" onclick="closeLoginModalBg(event)">
+  <div class="login-modal-box">
+    <button class="login-modal-close" onclick="closeLoginModal()">✕</button>
+    <div class="login-modal-title">Mi cuenta</div>
+    <p class="login-modal-sub" id="loginContext" style="display:none;"></p>
+    <div class="login-field">
+      <label>Email</label>
+      <input type="email" id="userEmailInput" placeholder="tu@email.com" autocomplete="email">
+    </div>
+    <div class="login-field">
+      <label>Contraseña</label>
+      <input type="password" id="userPassInput" placeholder="••••••••" autocomplete="current-password">
+    </div>
+    <div class="login-err" id="userLoginErr"></div>
+    <button class="login-submit" id="loginSubmitBtn" onclick="doUserLogin()">Ingresar</button>
+    <button class="login-google" onclick="loginWithGoogle()">
+      <svg width="16" height="16" viewBox="0 0 48 48"><path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/><path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/><path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/><path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/></svg>
+      Continuar con Google
+    </button>
+    <p class="login-toggle"><span id="loginToggleText">¿No tenés cuenta?</span> <a onclick="toggleLoginMode()"><span id="loginToggleLink">Registrate</span></a></p>
+  </div>
+</div>
+
+<!-- MIS COMPRAS MODAL (se crea dinámicamente) -->
+
+<script>
+const SUPA_URL='https://nudthkwuzhxflwirzmqd.supabase.co';
+const SUPA_KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im51ZHRoa3d1emh4Zmx3aXJ6bXFkIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzk5MjkwNjAsImV4cCI6MjA5NTUwNTA2MH0.XW6BJ4NPam-KdwbSwR4giRAS03aH23G3it-8pwSWrZw';
+
+let userToken=null,userEmail=null,loginMode='login',pendingPurchaseUrl=null;
+
+// ── SESIÓN ──
+(function(){
+  // OAuth callback
+  const hash=window.location.hash;
+  if(hash&&hash.includes('access_token')){
+    const p=new URLSearchParams(hash.substring(1));
+    const t=p.get('access_token');
+    if(t){
+      fetch(`${SUPA_URL}/auth/v1/user`,{
+        headers:{'apikey':SUPA_KEY,'Authorization':'Bearer '+t}
+      }).then(r=>r.json()).then(u=>{
+        userToken=t;userEmail=u.email||'';
+        localStorage.setItem('jtc_user_token',t);
+        localStorage.setItem('jtc_user_email',userEmail);
+        updateUserUI();
+        history.replaceState(null,'',window.location.pathname);
+      });
+    }
+  }
+  // Sesión guardada
+  const t=localStorage.getItem('jtc_user_token');
+  const e=localStorage.getItem('jtc_user_email');
+  if(t&&e){userToken=t;userEmail=e;updateUserUI();}
+})();
+
+function updateUserUI(){
+  const btn=document.getElementById('navUserBtn');
+  if(!btn)return;
+  if(userToken&&userEmail){
+    btn.innerHTML=`<span style="font-family:'Barlow Condensed',sans-serif;font-size:.9rem;font-weight:800;">${userEmail.charAt(0).toUpperCase()}</span>`;
+    btn.classList.add('logged-in');
+    document.getElementById('userDdEmail').textContent=userEmail;
+  }
+}
+function toggleUserMenu(){
+  if(!userToken){openLoginModal();return;}
+  document.getElementById('userDropdown').classList.toggle('open');
+}
+document.addEventListener('click',e=>{
+  const dd=document.getElementById('userDropdown');
+  const btn=document.getElementById('navUserBtn');
+  if(dd&&dd.classList.contains('open')&&!dd.contains(e.target)&&e.target!==btn) dd.classList.remove('open');
+});
+function doUserLogout(){
+  userToken=null;userEmail=null;
+  localStorage.removeItem('jtc_user_token');localStorage.removeItem('jtc_user_email');
+  document.getElementById('navUserBtn').innerHTML='<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>';
+  document.getElementById('navUserBtn').classList.remove('logged-in');
+  document.getElementById('userDropdown').classList.remove('open');
+}
+
+// ── LOGIN ──
+function openLoginModal(url,titulo){
+  if(url)pendingPurchaseUrl=url;
+  const ctxEl=document.getElementById('loginContext');
+  if(titulo){ctxEl.style.display='block';ctxEl.textContent=`Iniciá sesión para comprar "${titulo}".`;}
+  else ctxEl.style.display='none';
+  document.getElementById('userLoginErr').style.display='none';
+  document.getElementById('loginModal').classList.add('open');
+  document.body.style.overflow='hidden';
+}
+function closeLoginModal(){
+  document.getElementById('loginModal').classList.remove('open');
+  document.body.style.overflow='';
+}
+function closeLoginModalBg(e){if(e.target===e.currentTarget)closeLoginModal();}
+function toggleLoginMode(){
+  loginMode=loginMode==='login'?'register':'login';
+  document.getElementById('loginSubmitBtn').textContent=loginMode==='login'?'Ingresar':'Crear cuenta';
+  document.getElementById('loginToggleText').textContent=loginMode==='login'?'¿No tenés cuenta?':'¿Ya tenés cuenta?';
+  document.getElementById('loginToggleLink').textContent=loginMode==='login'?'Registrate':'Iniciá sesión';
+}
+async function doUserLogin(){
+  const email=document.getElementById('userEmailInput').value.trim();
+  const pass=document.getElementById('userPassInput').value;
+  const errEl=document.getElementById('userLoginErr');
+  errEl.style.display='none';
+  if(!email||!pass){errEl.style.color='#E74C3C';errEl.textContent='Completá email y contraseña.';errEl.style.display='block';return;}
+  const url=loginMode==='login'
+    ?`${SUPA_URL}/auth/v1/token?grant_type=password`
+    :`${SUPA_URL}/auth/v1/signup`;
+  try{
+    const r=await fetch(url,{method:'POST',headers:{'Content-Type':'application/json','apikey':SUPA_KEY},body:JSON.stringify({email,password:pass})});
+    const d=await r.json();
+    if(loginMode==='register'&&r.ok&&d.user&&!d.access_token){
+      errEl.style.color='#2ecc71';errEl.textContent='✓ Cuenta creada. Revisá tu email para confirmar.';errEl.style.display='block';
+      loginMode='login';document.getElementById('loginSubmitBtn').textContent='Ingresar';return;
+    }
+    if(!r.ok||!d.access_token){
+      errEl.style.color='#E74C3C';
+      errEl.textContent=d.msg?.includes('rate limit')?'Demasiados intentos. Esperá unos minutos.':loginMode==='login'?'Email o contraseña incorrectos.':'No se pudo crear la cuenta.';
+      errEl.style.display='block';return;
+    }
+    userToken=d.access_token;userEmail=d.user?.email||email;
+    localStorage.setItem('jtc_user_token',userToken);localStorage.setItem('jtc_user_email',userEmail);
+    updateUserUI();closeLoginModal();
+    if(window._pendingBuy){
+      const{recId,titulo,precio}=window._pendingBuy;window._pendingBuy=null;
+      iniciarCompra(recId,titulo,precio,userEmail);
+    }
+  }catch(e){errEl.style.color='#E74C3C';errEl.textContent='Error de conexión.';errEl.style.display='block';}
+}
+function loginWithGoogle(){
+  const redirect=encodeURIComponent(window.location.origin+'/recetarios');
+  window.location.href=`${SUPA_URL}/auth/v1/authorize?provider=google&redirect_to=${redirect}`;
+}
+
+// ── COMPRA ──
+function comprarRecetario(recId,titulo,precio){
+  if(!userEmail){
+    openLoginModal(null,titulo);
+    window._pendingBuy={recId,titulo,precio};
+    return;
+  }
+  iniciarCompra(recId,titulo,precio,userEmail);
+}
+async function iniciarCompra(recId,titulo,precio,email){
+  const btn=document.querySelector(`[data-rec-id="${recId}"] .rc-btn-buy`);
+  if(btn){btn.textContent='Procesando...';btn.disabled=true;}
+  try{
+    const r=await fetch('/api/create_preference',{
+      method:'POST',headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({title:titulo,price:precio,quantity:1,buyer_email:email,recetario:String(recId)})
+    });
+    const d=await r.json();
+    if(!d.init_point){alert('Error al iniciar el pago. Intentá de nuevo.');if(btn){btn.textContent='Comprar →';btn.disabled=false;}return;}
+    window.location.href=d.init_point;
+  }catch(e){
+    alert('Error de conexión. Intentá de nuevo.');
+    if(btn){btn.textContent='Comprar →';btn.disabled=false;}
+  }
+}
+
+// ── MIS COMPRAS ──
+function verMisCompras(){
+  document.getElementById('userDropdown').classList.remove('open');
+  if(!userToken||!userEmail){openLoginModal();return;}
+  abrirMisCompras();
+}
+async function abrirMisCompras(){
+  const email=userEmail||localStorage.getItem('jtc_user_email');
+  const token=userToken||localStorage.getItem('jtc_user_token');
+  if(!email||!token){openLoginModal();return;}
+  mostrarModalMisCompras(null);
+  try{
+    const r=await fetch(`${SUPA_URL}/rest/v1/compras?email=eq.${encodeURIComponent(email.toLowerCase().trim())}&select=recetario,payment_id,fecha,estado,entrega&order=fecha.desc`,{
+      headers:{'apikey':SUPA_KEY,'Authorization':'Bearer '+token}
+    });
+    if(!r.ok){mostrarModalMisCompras([]);return;}
+    const compras=await r.json();
+    if(!compras.length){mostrarModalMisCompras([]);return;}
+    const comprasConPdf=await Promise.all(compras.map(async c=>{
+      try{
+        const vr=await fetch('/api/verify_purchase',{method:'POST',headers:{'Content-Type':'application/json','Authorization':'Bearer '+token},body:JSON.stringify({email:email.toLowerCase().trim(),recetario:c.recetario})});
+        const vd=await vr.json();
+        return{...c,pdf_url:vd.pdf_url||null,titulo:vd.titulo||null,foto_url:vd.foto_url||null,estado:vd.estado||c.estado||'approved'};
+      }catch(e){return{...c,pdf_url:null,titulo:null,foto_url:null};}
+    }));
+    mostrarModalMisCompras(comprasConPdf);
+  }catch(e){mostrarModalMisCompras([]);}
+}
+function mostrarModalMisCompras(compras){
+  const existing=document.getElementById('modal-mis-compras');if(existing)existing.remove();
+  const modal=document.createElement('div');
+  modal.id='modal-mis-compras';modal.className='modal-bg open';
+  modal.onclick=e=>{if(e.target===modal){modal.remove();document.body.style.overflow='';}};
+  if(compras===null){
+    modal.innerHTML=`<div class="modal-box" style="max-width:480px;padding:2rem;text-align:center;"><div style="width:28px;height:28px;border:3px solid rgba(200,75,17,.2);border-top-color:#C84B11;border-radius:50%;animation:spin .7s linear infinite;margin:0 auto 1rem;"></div><p style="color:var(--muted);">Cargando...</p></div>`;
+    document.body.appendChild(modal);document.body.style.overflow='hidden';return;
+  }
+  if(!compras.length){
+    modal.innerHTML=`<div class="modal-box" style="max-width:480px;"><button class="modal-close" onclick="document.getElementById('modal-mis-compras').remove();document.body.style.overflow=''">✕</button><div class="modal-body" style="text-align:center;padding:2.5rem 1.5rem;"><div style="font-size:2.5rem;margin-bottom:1rem;">📦</div><div class="modal-title">Mis Compras</div><p style="color:var(--muted);font-size:.9rem;margin-top:.5rem;">Todavía no tenés compras realizadas.</p></div></div>`;
+    document.body.appendChild(modal);document.body.style.overflow='hidden';return;
+  }
+  const esc=s=>String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+  const items=compras.map(c=>{
+    const nombre=c.titulo||c.recetario||'Recetario';
+    const fecha=c.fecha?new Date(c.fecha).toLocaleDateString('es-AR',{day:'numeric',month:'short',year:'numeric'}):'';
+    const aprobado=!c.estado||c.estado==='approved';
+    const estadoBadge=aprobado?`<span style="background:#e8f8f0;color:#1e8449;font-size:.68rem;font-weight:700;padding:2px 8px;border-radius:20px;text-transform:uppercase;">Aprobado</span>`:`<span style="background:#fff3e0;color:#E8730A;font-size:.68rem;font-weight:700;padding:2px 8px;border-radius:20px;text-transform:uppercase;">En proceso</span>`;
+    const accion=aprobado&&c.pdf_url?`<button onclick="descargarPdf('${esc(c.recetario)}',this)" class="btn-primary" style="padding:.45rem .875rem;font-size:.72rem;border:none;flex-shrink:0;">Descargar PDF</button>`:`<span style="font-size:.72rem;color:var(--muted);font-style:italic;">${aprobado?'PDF próximamente':'Esperando pago'}</span>`;
+    return`<div style="padding:.875rem 0;border-bottom:1px solid rgba(26,18,11,.08);display:flex;align-items:center;gap:.75rem;">
+      ${c.foto_url?`<img src="${esc(c.foto_url)}" style="width:48px;height:48px;object-fit:cover;border-radius:3px;flex-shrink:0;">`:`<div style="width:48px;height:48px;background:#f0e8df;border-radius:3px;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:1.2rem;">📖</div>`}
+      <div style="flex:1;min-width:0;">
+        <div style="font-weight:600;font-size:.85rem;color:var(--dark);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${esc(nombre)}</div>
+        <div style="font-size:.7rem;color:var(--muted);">${fecha?'Comprado el '+fecha:''}</div>
+        <div style="margin-top:.25rem;">${estadoBadge}</div>
+      </div>
+      <div style="flex-shrink:0;">${accion}</div>
+    </div>`;
+  }).join('');
+  modal.innerHTML=`<div class="modal-box" style="max-width:500px;"><button class="modal-close" onclick="document.getElementById('modal-mis-compras').remove();document.body.style.overflow=''">✕</button><div class="modal-body"><div class="modal-tag">Mi Cuenta</div><div class="modal-title" style="margin-bottom:.25rem;">Mis Compras</div><p style="font-size:.8rem;color:var(--muted);margin-bottom:1rem;">Accedé a tus recetarios</p>${items}</div></div>`;
+  document.body.appendChild(modal);document.body.style.overflow='hidden';
+}
+async function descargarPdf(recetario,btnEl){
+  const token=userToken||localStorage.getItem('jtc_user_token');
+  if(!token){openLoginModal();return;}
+  const orig=btnEl.textContent;btnEl.textContent='Cargando...';btnEl.disabled=true;
+  try{
+    const r=await fetch('/api/download_pdf',{method:'POST',headers:{'Content-Type':'application/json','Authorization':'Bearer '+token},body:JSON.stringify({recetario})});
+    const d=await r.json();
+    if(r.ok&&d.available&&d.pdf_url)window.open(d.pdf_url,'_blank','noopener');
+    else alert(d.message||d.error||'No pudimos acceder al archivo. Intentá de nuevo.');
+  }catch(e){alert('Error de conexión. Intentá de nuevo.');}
+  finally{btnEl.textContent=orig;btnEl.disabled=false;}
+}
+
+// ── MODALES DE PRODUCTO ──
+function openProductModal(id){
+  const m=document.getElementById('pmodal-'+id);
+  if(m){m.classList.add('open');document.body.style.overflow='hidden';}
+}
+function closeProductModal(id){
+  const m=document.getElementById('pmodal-'+id);
+  if(m){m.classList.remove('open');document.body.style.overflow='';}
+}
+document.addEventListener('keydown',e=>{
+  if(e.key==='Escape'){
+    document.querySelectorAll('.modal-bg.open').forEach(m=>{m.classList.remove('open');document.body.style.overflow='';});
+  }
+});
+
+// ── CARGAR RECETARIOS ──
+(async function loadRec(){
+  const grid=document.getElementById('recGrid');
+  const modales=document.getElementById('recModales');
+  const esc=s=>String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;');
+  try{
+    const r=await fetch(`${SUPA_URL}/rest/v1/recetarios?activo=eq.true&order=orden.asc.nullslast,created_at.asc`,{
+      headers:{'apikey':SUPA_KEY,'Authorization':'Bearer '+SUPA_KEY}
+    });
+    if(!r.ok)throw new Error();
+    const list=await r.json();
+    if(!list.length){
+      grid.innerHTML='<div class="rec-empty">No hay recetarios disponibles por el momento.</div>';
+      return;
+    }
+    grid.innerHTML=list.map(rec=>{
+      const precio=rec.precio?'$'+Number(rec.precio).toLocaleString('es-AR'):'';
+      const recId=rec.id;
+      return`<div class="rec-card ${rec.featured?'featured':''}" data-rec-id="${recId}">
+        <img class="rc-img" src="${esc(rec.foto_url||'')}" alt="${esc(rec.titulo||'')}" loading="lazy">
+        <div class="rc-body">
+          <div class="rc-tag">${esc(rec.tag||'')}</div>
+          <div class="rc-title">${esc(rec.titulo||'')}</div>
+          <p class="rc-desc">${esc(rec.descripcion_corta||'')}</p>
+          <div class="rc-footer">
+            <div class="rc-price">${precio}<small>ARS</small></div>
+          </div>
+          <div class="rc-actions">
+            <button class="rc-btn-ver" onclick="openProductModal(${recId})">Ver más</button>
+            <button class="rc-btn-buy" onclick="comprarRecetario(${recId},'${esc(rec.titulo||'')}',${rec.precio||0})">Comprar →</button>
+          </div>
+        </div>
+      </div>`;
+    }).join('');
+
+    modales.innerHTML=list.map(rec=>{
+      const precio=rec.precio?'$'+Number(rec.precio).toLocaleString('es-AR')+' ARS':'';
+      const includes=rec.includes?rec.includes.split('\n').filter(Boolean).map(i=>`<li>${esc(i.trim())}</li>`).join(''):'';
+      return`<div class="modal-bg" id="pmodal-${rec.id}" onclick="if(event.target===this){closeProductModal(${rec.id});}">
+        <div class="modal-box">
+          <button class="modal-close" onclick="closeProductModal(${rec.id})">✕</button>
+          <img class="modal-header-img" src="${esc(rec.foto_url||'')}" alt="${esc(rec.titulo||'')}">
+          <div class="modal-body">
+            <div class="modal-tag">📖 Recetario Digital · ${esc(rec.tag||'')}</div>
+            <div class="modal-title">${esc(rec.titulo||'')}</div>
+            <p class="modal-desc">${esc(rec.descripcion_larga||rec.descripcion_corta||'')}</p>
+            <ul class="modal-includes">${includes}</ul>
+            <div class="modal-footer">
+              <div class="modal-price">${precio}</div>
+              <button class="btn-primary" onclick="closeProductModal(${rec.id});comprarRecetario(${rec.id},'${esc(rec.titulo||'')}',${rec.precio||0})">Comprar ahora →</button>
+            </div>
+          </div>
+        </div>
+      </div>`;
+    }).join('');
+  }catch(e){
+    grid.innerHTML='<div class="rec-empty">No pudimos cargar los recetarios. Refrescá la página.</div>';
+  }
+})();
+</script>
+</body>
+</html>
