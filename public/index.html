@@ -33,36 +33,9 @@
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
 html{scroll-behavior:smooth;font-size:16px;overflow-x:hidden;}
 body{font-family:'Barlow',sans-serif;background:var(--cream);color:var(--dark);overflow-x:hidden;}
-*{cursor:none;}
 img{display:block;max-width:100%;}
-a{cursor:none;}
-button{cursor:none;}
-
-/* ── CURSOR ── */
-.cursor{
-  position:fixed;
-  pointer-events:none;
-  z-index:9999;
-  transform:translate(-50%,-50%);
-  transition:transform .15s ease;
-  width:28px;
-  height:36px;
-  /* Cuchillo SVG inline como background — visible en fondos claros y oscuros */
-}
-.cursor::before{
-  content:'';
-  display:block;
-  width:28px;
-  height:36px;
-  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 28 36' fill='none'%3E%3Cpath d='M8 2 C8 2 24 10 22 20 L14 32 L10 28 L18 18 C16 12 6 8 6 8 Z' fill='%23C84B11' stroke='%231A120B' stroke-width='1'/%3E%3Crect x='10' y='28' width='6' height='6' rx='1' fill='%236B4226' stroke='%231A120B' stroke-width='1'/%3E%3C/svg%3E");
-  background-repeat:no-repeat;
-  background-size:contain;
-  filter:drop-shadow(0 1px 3px rgba(0,0,0,.6));
-}
-.cursor.big{
-  transform:translate(-50%,-50%) scale(1.4);
-}
-@media(pointer:coarse){.cursor{display:none;}*,a,button{cursor:auto;}}
+a{cursor:pointer;}
+button{cursor:pointer;}
 
 /* ── SCROLL REVEAL ── */
 .reveal{opacity:0;transform:translateY(28px);transition:opacity .7s ease,transform .7s ease;}
@@ -97,17 +70,18 @@ section{padding:var(--gap) 0;}
 .mobile-menu .mob-cta{background:var(--fire);color:#fff;padding:.6rem 2rem;font-family:'Barlow Condensed',sans-serif;font-size:1.1rem;font-style:normal;border-radius:2px;margin-top:.5rem;}
 
 /* ── NAVBAR ── */
-nav{position:fixed;top:0;width:100%;z-index:200;padding:1.25rem 2.5rem;display:flex;align-items:center;justify-content:space-between;transition:background .4s,backdrop-filter .4s,padding .3s;}
+nav{position:fixed;top:0;width:100%;z-index:200;padding:1.25rem 2.5rem;display:flex;align-items:center;justify-content:space-between;gap:1.5rem;transition:background .4s,backdrop-filter .4s,padding .3s;}
 nav.scrolled{background:rgba(26,18,11,.92);backdrop-filter:blur(12px);padding:.9rem 2.5rem;}
-.nav-logo{display:flex;align-items:center;gap:.6rem;text-decoration:none;}
+.nav-logo{display:flex;align-items:center;gap:.6rem;text-decoration:none;flex-shrink:0;}
 .nav-logo img{height:36px;width:auto;}
 .nav-logo-txt{font-family:'Playfair Display',serif;font-size:1.35rem;font-weight:700;color:var(--ash);letter-spacing:.02em;}
-.nav-links{display:flex;gap:2rem;align-items:center;list-style:none;}
+.nav-center{display:flex;align-items:center;gap:1rem;margin-left:auto;}
+.nav-links{display:flex;gap:1.5rem;align-items:center;list-style:none;}
 .nav-links a{font-family:'Barlow Condensed',sans-serif;font-size:.82rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--ash);text-decoration:none;opacity:.8;transition:opacity .2s,color .2s;}
 .nav-links a:hover{opacity:1;color:var(--ember);}
 .nav-cta{background:var(--fire)!important;color:#fff!important;padding:.45rem 1.25rem!important;border-radius:2px!important;opacity:1!important;transition:background .2s!important;}
 .nav-cta:hover{background:var(--ember)!important;}
-.hamburger{display:none;flex-direction:column;gap:5px;background:var(--fire);border:none;padding:8px 13px 6px;border-radius:2px;}
+.hamburger{display:none;flex-direction:column;gap:5px;background:var(--fire);border:none;padding:8px 13px 6px;border-radius:2px;cursor:pointer;}
 .hamburger span{display:block;width:22px;height:2px;background:var(--ash);transition:all .3s;}
 .hamburger.open span:nth-child(1){transform:rotate(45deg) translate(5px,5px);}
 .hamburger.open span:nth-child(2){opacity:0;}
@@ -265,7 +239,7 @@ textarea{resize:vertical;min-height:90px;}
 .btn-buy:hover{background:var(--ember);}
 
 /* ── USER NAV ── */
-.nav-user{position:relative;margin-left:.5rem;}
+.nav-user{position:relative;margin-left:.75rem;flex-shrink:0;}
 .nav-user-btn{background:transparent;border:1px solid rgba(245,237,228,.2);border-radius:50%;width:34px;height:34px;display:flex;align-items:center;justify-content:center;cursor:pointer;color:var(--ash);font-size:.9rem;transition:border-color .2s,background .2s;flex-shrink:0;}
 .nav-user-btn:hover{border-color:var(--ember);background:rgba(200,75,17,.1);}
 .nav-user-btn.logged-in{background:var(--fire);border-color:var(--fire);font-family:'Barlow Condensed',sans-serif;font-size:.85rem;font-weight:800;letter-spacing:.03em;}
@@ -402,15 +376,31 @@ footer{background:var(--dark);border-top:1px solid rgba(245,237,228,.06);}
   .footer-inner{grid-template-columns:1fr 1fr;gap:2.5rem;}
   .digital-grid{grid-template-columns:1fr;}
 }
+/* Cursor pointer para elementos interactivos */
+a,button,[onclick],[role="button"],.filter-btn,.btn-buy,.btn-ver,.btn-primary,.btn-outline,.btn-outline-dark,.btn-wa,.brand-pill,.portfolio-item,.prod-wa,.testi-dot,.form-tab-btn,.user-dd-item,.nav-user-btn{cursor:pointer;}
+
 @media(max-width:900px){
   nav{background:rgba(26,18,11,.95);backdrop-filter:blur(12px);padding:1rem 1.5rem;}
   nav.scrolled{padding:.85rem 1.5rem;}
   .nav-logo img{height:30px;}
   .nav-logo-txt{font-size:1.15rem;}
   .nav-links{display:none;}
+  .nav-center{display:none;}
   .hamburger{display:flex;}
   .services-grid{grid-template-columns:1fr;}
   .products-grid{grid-template-columns:1fr 1fr;}
+}
+/* ── MOBILE HEADER: hamburguesa izquierda, logo centro, perfil derecha ── */
+@media(max-width:900px){
+  nav{
+    display:grid;
+    grid-template-columns:auto 1fr auto;
+    align-items:center;
+    gap:.75rem;
+  }
+  .hamburger{order:1;display:flex;}
+  .nav-logo{order:2;justify-content:center;}
+  .nav-user{order:3;margin-left:0;}
 }
 @media(max-width:768px){
   :root{--gap:3.5rem;}
@@ -455,9 +445,6 @@ footer{background:var(--dark);border-top:1px solid rgba(245,237,228,.06);}
 </head>
 <body>
 
-<!-- Cursor -->
-<div class="cursor" id="cursor"></div>
-
 <!-- Mobile menu -->
 <div class="mobile-menu" id="mobileMenu">
   <a href="#sobre" onclick="closeMobileMenu()">Quién Soy</a>
@@ -471,18 +458,23 @@ footer{background:var(--dark);border-top:1px solid rgba(245,237,228,.06);}
 
 <!-- NAVBAR -->
 <nav id="navbar">
+  <button class="hamburger" id="hamburger" aria-label="Menú" onclick="toggleMobileMenu()">
+    <span></span><span></span><span></span>
+  </button>
   <a href="#inicio" class="nav-logo">
     <img src="img/logo-jtc-header.png" alt="Javotecocina">
     <span class="nav-logo-txt">Javotecocina</span>
   </a>
-  <ul class="nav-links">
-    <li><a href="#sobre">Quién Soy</a></li>
-    <li><a href="#servicios">Servicios</a></li>
-    <li><a href="#productos">Productos</a></li>
-    <li><a href="#recetarios">Recetarios</a></li>
-    <li><a href="#portfolio">Portfolio</a></li>
-    <li><a href="#contratar" class="nav-cta">Cotizar</a></li>
-  </ul>
+  <div class="nav-center">
+    <ul class="nav-links">
+      <li><a href="#sobre">Quién Soy</a></li>
+      <li><a href="#servicios">Servicios</a></li>
+      <li><a href="#productos">Productos</a></li>
+      <li><a href="#recetarios">Recetarios</a></li>
+      <li><a href="#portfolio">Portfolio</a></li>
+      <li><a href="#contratar" class="nav-cta">Cotizar</a></li>
+    </ul>
+  </div>
   <div class="nav-user" id="navUser">
     <button class="nav-user-btn" id="navUserBtn" onclick="toggleUserMenu()" title="Mi cuenta">
       <svg id="navUserIcon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
@@ -493,9 +485,6 @@ footer{background:var(--dark);border-top:1px solid rgba(245,237,228,.06);}
       <button class="user-dd-item danger" onclick="doUserLogout()">Cerrar sesión</button>
     </div>
   </div>
-  <button class="hamburger" id="hamburger" aria-label="Menú" onclick="toggleMobileMenu()">
-    <span></span><span></span><span></span>
-  </button>
 </nav>
 
 <!-- ═══════════ HERO ═══════════ -->
@@ -1285,7 +1274,7 @@ function verMisCompras(){
 async function abrirMisCompras(){
   const email=userEmail||localStorage.getItem('jtc_user_email');
   if(!email) return;
-  // Cargar recetarios comprados por el usuario
+  // Cargar recetarios comprados por el usuario desde Supabase
   try{
     const r=await fetch(`${SUPA_URL}/rest/v1/compras?email=eq.${encodeURIComponent(email.toLowerCase().trim())}&select=recetario,payment_id,fecha`,{
       headers:{'apikey':SUPA_KEY,'Authorization':'Bearer '+SUPA_KEY}
@@ -1296,7 +1285,21 @@ async function abrirMisCompras(){
       alert('Aún no tenés compras registradas.');
       return;
     }
-    mostrarModalMisCompras(compras);
+    // Para cada compra, obtener pdf_url via verify_purchase (incluye JOIN con recetarios)
+    const comprasConPdf = await Promise.all(compras.map(async c=>{
+      try{
+        const vr=await fetch('/api/verify_purchase',{
+          method:'POST',
+          headers:{'Content-Type':'application/json'},
+          body:JSON.stringify({email:email.toLowerCase().trim(),recetario:c.recetario})
+        });
+        const vd=await vr.json();
+        return{...c, pdf_url: vd.pdf_url||null, titulo: vd.titulo||null};
+      }catch(e){
+        return{...c, pdf_url:null, titulo:null};
+      }
+    }));
+    mostrarModalMisCompras(comprasConPdf);
   }catch(e){console.error('Error cargando compras:',e);}
 }
 
@@ -1311,20 +1314,23 @@ function mostrarModalMisCompras(compras){
   <div class="modal-box" style="max-width:500px;">
     <button class="modal-close" onclick="document.getElementById('modal-mis-compras').remove();document.body.style.overflow=''">✕</button>
     <div class="modal-body">
-      <div class="modal-tag">👤 Mi Cuenta</div>
+      <div class="modal-tag">Mi Cuenta</div>
       <div class="modal-title">Mis Compras</div>
       <p style="font-size:.85rem;color:var(--muted);margin-bottom:1.25rem;">Accedé a tus recetarios descargados</p>
       ${compras.map(c=>{
-        const rec=window._recetariosData?window._recetariosData.find(r=>r.slug===c.recetario||String(r.id)===c.recetario):null;
-        const nombre=rec?rec.titulo:c.recetario;
-        const pdfUrl=rec?rec.pdf_url:null;
+        // Fallback al cache local si verify_purchase no devolvió titulo
+        const recLocal=window._recetariosData?window._recetariosData.find(r=>r.slug===c.recetario||String(r.id)===c.recetario):null;
+        const nombre=c.titulo||(recLocal?recLocal.titulo:null)||c.recetario||'Recetario';
+        const pdfUrl=c.pdf_url||(recLocal?recLocal.pdf_url:null);
         const fecha=c.fecha?new Date(c.fecha).toLocaleDateString('es-AR',{day:'numeric',month:'short',year:'numeric'}):'';
         return`<div style="padding:1rem 0;border-bottom:1px solid rgba(26,18,11,.08);display:flex;align-items:center;justify-content:space-between;gap:1rem;">
           <div>
-            <div style="font-weight:600;font-size:.9rem;color:var(--dark);">${nombre||'Recetario'}</div>
-            <div style="font-size:.75rem;color:var(--muted);margin-top:.2rem;">Comprado el ${fecha}</div>
+            <div style="font-weight:600;font-size:.9rem;color:var(--dark);">${nombre}</div>
+            <div style="font-size:.75rem;color:var(--muted);margin-top:.2rem;">${fecha?'Comprado el '+fecha:''}</div>
           </div>
-          ${pdfUrl?`<a href="${pdfUrl}" target="_blank" rel="noopener" class="btn-primary" style="padding:.5rem 1rem;font-size:.75rem;white-space:nowrap;text-decoration:none;">📄 Descargar</a>`:'<span style="font-size:.75rem;color:var(--muted);">PDF no disponible</span>'}
+          ${pdfUrl
+            ?`<a href="${pdfUrl}" target="_blank" rel="noopener" download class="btn-primary" style="padding:.5rem 1rem;font-size:.75rem;white-space:nowrap;text-decoration:none;cursor:pointer;">Descargar PDF</a>`
+            :'<span style="font-size:.75rem;color:var(--muted);font-style:italic;">PDF proximamente disponible</span>'}
         </div>`;
       }).join('')}
     </div>
@@ -1520,14 +1526,6 @@ async function loadReviews(){
     });
   }catch(e){}
 }
-
-/* ── CURSOR ── */
-const cur=document.getElementById('cursor');
-document.addEventListener('mousemove',e=>{cur.style.left=e.clientX+'px';cur.style.top=e.clientY+'px';});
-document.querySelectorAll('a,button').forEach(el=>{
-  el.addEventListener('mouseenter',()=>cur.classList.add('big'));
-  el.addEventListener('mouseleave',()=>cur.classList.remove('big'));
-});
 
 /* ── NAVBAR SCROLL ── */
 window.addEventListener('scroll',()=>{
