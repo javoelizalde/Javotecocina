@@ -73,16 +73,33 @@ module.exports = async function handler(req, res) {
     }
 
     // ── OBTENER PDF ───────────────────────────────────────────────────────────
-    const recRes = await fetch(
+    // Intentar por id primero; si no encuentra, intentar por slug.
+    // compras.recetario puede guardar slug ("a-todo-disco") o id numérico ("3").
+    let recRow = null;
+
+    const recByIdRes = await fetch(
       `${SUPA_URL}/rest/v1/recetarios?id=eq.${encodeURIComponent(recetario)}&select=pdf_url,titulo&limit=1`,
       { headers: { 'apikey': SUPA_KEY, 'Authorization': `Bearer ${SUPA_KEY}` } }
     );
-    if (!recRes.ok) return res.status(404).json({ error: 'Recetario no encontrado.' });
+    if (recByIdRes.ok) {
+      const d = await recByIdRes.json();
+      if (Array.isArray(d) && d.length > 0) recRow = d[0];
+    }
 
-    const recData = await recRes.json();
-    if (!Array.isArray(recData) || recData.length === 0) return res.status(404).json({ error: 'Recetario no encontrado.' });
+    if (!recRow) {
+      const recBySlugRes = await fetch(
+        `${SUPA_URL}/rest/v1/recetarios?slug=eq.${encodeURIComponent(recetario)}&select=pdf_url,titulo&limit=1`,
+        { headers: { 'apikey': SUPA_KEY, 'Authorization': `Bearer ${SUPA_KEY}` } }
+      );
+      if (recBySlugRes.ok) {
+        const d2 = await recBySlugRes.json();
+        if (Array.isArray(d2) && d2.length > 0) recRow = d2[0];
+      }
+    }
 
-    const pdfUrl = recData[0].pdf_url;
+    if (!recRow) return res.status(404).json({ error: 'Recetario no encontrado.' });
+
+    const pdfUrl = recRow.pdf_url;
     if (!pdfUrl) {
       return res.status(202).json({
         available: false,
@@ -90,7 +107,7 @@ module.exports = async function handler(req, res) {
       });
     }
 
-    return res.status(200).json({ available: true, pdf_url: pdfUrl, titulo: recData[0].titulo });
+    return res.status(200).json({ available: true, pdf_url: pdfUrl, titulo: recRow.titulo });
   } catch (error) {
     console.error('download_pdf error:', error.message);
     return res.status(500).json({ error: 'Error interno. Intentá de nuevo.' });

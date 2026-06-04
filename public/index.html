@@ -1261,11 +1261,13 @@ let userToken=null,userEmail=null,loginMode='login',pendingPurchaseUrl=null;
           const email=localStorage.getItem('jtc_user_email')||userEmail;
           // Intentar registrar de nuevo como seguro (idempotente)
           if(email && recetario){
+            const currentToken=userToken||localStorage.getItem('jtc_user_token');
+            const currentUserId=currentToken?_getUserIdFromToken(currentToken):null;
             try{
               await fetch('/api/record_purchase',{
                 method:'POST',
                 headers:{'Content-Type':'application/json'},
-                body:JSON.stringify({email, recetario, payment_id: pending.paymentId||null})
+                body:JSON.stringify({email, recetario, payment_id: pending.paymentId||null, user_id: currentUserId})
               });
             }catch(e){console.error('record_purchase error:',e);}
           }
@@ -1316,24 +1318,50 @@ function verMisCompras(){
 async function abrirMisCompras(){
   const email=userEmail||localStorage.getItem('jtc_user_email');
   const token=userToken||localStorage.getItem('jtc_user_token');
-  if(!email||!token){openLoginModal();return;}
+  if(!token){openLoginModal();return;}
   mostrarModalMisCompras(null); // muestra skeleton de carga
+
+  // Obtener userId del JWT para consulta más confiable
+  const userId=token?_getUserIdFromToken(token):null;
+
   try{
-    // Usar el token del usuario (no la anon key) para que RLS filtre solo sus compras
-    const r=await fetch(`${SUPA_URL}/rest/v1/compras?email=eq.${encodeURIComponent(email.toLowerCase().trim())}&select=recetario,payment_id,fecha,estado,entrega&order=fecha.desc`,{
-      headers:{'apikey':SUPA_KEY,'Authorization':'Bearer '+token}
-    });
-    if(!r.ok){
-      // Si falla con el token (sesión expirada), reintentar con anon key para no bloquear al usuario
-      const r2=await fetch(`${SUPA_URL}/rest/v1/compras?email=eq.${encodeURIComponent(email.toLowerCase().trim())}&select=recetario,payment_id,fecha,estado,entrega&order=fecha.desc`,{
+    let compras=[];
+
+    // 1. Buscar por user_id (identificador principal, no depende de email)
+    if(userId){
+      const r=await fetch(`${SUPA_URL}/rest/v1/compras?user_id=eq.${encodeURIComponent(userId)}&select=recetario,payment_id,fecha,estado,entrega&order=fecha.desc`,{
+        headers:{'apikey':SUPA_KEY,'Authorization':'Bearer '+token}
+      });
+      if(r.ok){
+        const rows=await r.json();
+        if(Array.isArray(rows))compras=rows;
+      }
+    }
+
+    // 2. Fallback por email si no encontró por user_id (compatibilidad con compras viejas)
+    if(!compras.length && email){
+      const emailNorm=email.toLowerCase().trim();
+      const r2=await fetch(`${SUPA_URL}/rest/v1/compras?email=eq.${encodeURIComponent(emailNorm)}&select=recetario,payment_id,fecha,estado,entrega&order=fecha.desc`,{
+        headers:{'apikey':SUPA_KEY,'Authorization':'Bearer '+token}
+      });
+      if(r2.ok){
+        const rows2=await r2.json();
+        if(Array.isArray(rows2))compras=rows2;
+      }
+    }
+
+    // 3. Si el token expiró y todavía no hay compras, reintentar con anon key (solo lectura pública)
+    if(!compras.length && email){
+      const emailNorm=email.toLowerCase().trim();
+      const r3=await fetch(`${SUPA_URL}/rest/v1/compras?email=eq.${encodeURIComponent(emailNorm)}&select=recetario,payment_id,fecha,estado,entrega&order=fecha.desc`,{
         headers:{'apikey':SUPA_KEY,'Authorization':'Bearer '+SUPA_KEY}
       });
-      if(!r2.ok){mostrarModalMisCompras([]);return;}
-      const compras2=await r2.json();
-      await _cargarPdfsYMostrar(compras2,email,token);
-      return;
+      if(r3.ok){
+        const rows3=await r3.json();
+        if(Array.isArray(rows3))compras=rows3;
+      }
     }
-    const compras=await r.json();
+
     await _cargarPdfsYMostrar(compras,email,token);
   }catch(e){console.error('Error cargando compras:',e);mostrarModalMisCompras([]);}
 }
