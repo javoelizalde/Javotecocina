@@ -27,7 +27,7 @@ module.exports = async function handler(req, res) {
         failure: `https://javotecocina.com?pago=fallido`,
         pending: `https://javotecocina.com?pago=pendiente&external_reference=${recRef}`
       },
-      auto_return: 'approved',
+      auto_return: 'all',
       notification_url: 'https://javotecocina.com/api/record_purchase',
       statement_descriptor: 'JAVOTECOCINA',
       external_reference: recetario || '',

@@ -9,11 +9,19 @@ module.exports = async function handler(req, res) {
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
   if (req.method === 'OPTIONS') return res.status(200).end();
 
-  // MP IPN: GET o POST con query params type=payment&id=X
+  // MP IPN: soporta dos formatos:
+  //   Formato viejo: GET ?id=PAYMENT_ID&topic=payment
+  //   Formato nuevo: POST { type: 'payment', data: { id: 'PAYMENT_ID' } }
+  //                  o GET ?type=payment&id=PAYMENT_ID
   const queryId = req.query?.id || req.query?.['data.id'];
   const queryType = req.query?.type;
+  const queryTopic = req.query?.topic;
 
-  // Detectar si es IPN de MP
+  // Detectar IPN formato viejo: ?topic=payment&id=X
+  if (queryTopic === 'payment' && queryId) {
+    return await procesarIPN(req, res, queryId);
+  }
+  // Detectar IPN formato nuevo: ?type=payment&id=X
   if (queryType === 'payment' && queryId) {
     return await procesarIPN(req, res, queryId);
   }

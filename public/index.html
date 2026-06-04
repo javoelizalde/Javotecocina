@@ -1207,24 +1207,23 @@ let userToken=null,userEmail=null,loginMode='login',pendingPurchaseUrl=null;
   if(t&&e){userToken=t;userEmail=e;updateUserUI();}
 })();
 
-// Procesar retorno desde Mercado Pago (?pago=exitoso&payment_id=X&external_reference=Y)
+// Procesar retorno desde Mercado Pago
+// MP agrega estos params: collection_id, collection_status, payment_id, status, external_reference
 (async function procesarRetornoMP(){
   const params=new URLSearchParams(window.location.search);
   const pago=params.get('pago');
   const paymentId=params.get('payment_id')||params.get('collection_id');
-  const recetario=params.get('external_reference')||params.get('preference_id');
+  const recetario=params.get('external_reference');
   const status=params.get('collection_status')||params.get('status');
 
-  if(pago==='exitoso'||(status&&status==='approved')){
-    // Limpiar URL para que no se reprocese al refrescar
+  const esExitoso = pago==='exitoso' || status==='approved';
+  const esFallido = pago==='fallido' || status==='rejected';
+  const esPendiente = pago==='pendiente' || status==='pending' || status==='in_process';
+
+  if(esExitoso){
     history.replaceState(null,'',window.location.pathname);
-
     const email=localStorage.getItem('jtc_user_email')||userEmail;
-
-    // Mostrar banner de éxito
     mostrarBannerCompra('exitoso', recetario);
-
-    // Registrar compra si tenemos datos suficientes
     if(email && recetario){
       try{
         await fetch('/api/record_purchase',{
@@ -1234,10 +1233,10 @@ let userToken=null,userEmail=null,loginMode='login',pendingPurchaseUrl=null;
         });
       }catch(e){console.error('Error registrando compra:',e);}
     }
-  } else if(pago==='fallido'||status==='rejected'){
+  } else if(esFallido){
     history.replaceState(null,'',window.location.pathname);
     mostrarBannerCompra('fallido', null);
-  } else if(pago==='pendiente'||status==='pending'){
+  } else if(esPendiente){
     history.replaceState(null,'',window.location.pathname);
     mostrarBannerCompra('pendiente', null);
   }
