@@ -8,55 +8,116 @@
 <style>
 *{margin:0;padding:0;box-sizing:border-box;}
 body{font-family:'Barlow',system-ui,sans-serif;background:#1a120b;color:#f5ede4;min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:2rem;text-align:center;}
-.icon{font-size:4rem;margin-bottom:1.5rem;}
+.icon{font-size:4rem;margin-bottom:1.5rem;animation:pop .4s ease;}
+@keyframes pop{from{transform:scale(0.5);opacity:0}to{transform:scale(1);opacity:1}}
 h1{font-size:2rem;font-weight:700;margin-bottom:.75rem;color:#2ecc71;}
-p{font-size:1rem;color:rgba(245,237,228,.7);line-height:1.6;max-width:420px;margin-bottom:2rem;}
-.btn{display:inline-block;background:#C84B11;color:#fff;padding:.85rem 2.5rem;border-radius:3px;text-decoration:none;font-weight:700;font-size:.95rem;letter-spacing:.08em;text-transform:uppercase;transition:background .2s;}
+h1.pending{color:#E8730A;}
+h1.error{color:#E74C3C;}
+p{font-size:1rem;color:rgba(245,237,228,.7);line-height:1.6;max-width:420px;margin-bottom:1.5rem;}
+.btn{display:inline-block;background:#C84B11;color:#fff;padding:.85rem 2.5rem;border-radius:3px;text-decoration:none;font-weight:700;font-size:.95rem;letter-spacing:.08em;text-transform:uppercase;transition:background .2s;border:none;cursor:pointer;}
 .btn:hover{background:#e05a1a;}
 .info{margin-top:1.5rem;font-size:.82rem;color:rgba(245,237,228,.35);}
+.loader{display:inline-block;width:28px;height:28px;border:3px solid rgba(245,237,228,.2);border-top-color:#C84B11;border-radius:50%;animation:spin .7s linear infinite;margin-bottom:1rem;}
+@keyframes spin{to{transform:rotate(360deg)}}
+#statusMsg{font-size:.82rem;color:rgba(245,237,228,.4);margin-top:1rem;}
 </style>
 </head>
 <body>
-<div class="icon">🎉</div>
-<h1>¡Pago aprobado!</h1>
-<p>Tu compra fue procesada correctamente. Ya podés acceder a tu recetario desde <strong>Mi cuenta → Mis compras</strong>.</p>
-<a href="/" class="btn">Ir a mis compras →</a>
-<p class="info">Procesando tu compra y guardando en tu cuenta...</p>
+<div id="content">
+  <div class="loader" id="loader"></div>
+  <h1 id="titulo">Procesando tu pago...</h1>
+  <p id="descripcion">Estamos confirmando tu compra. Esto puede tardar unos segundos.</p>
+  <div id="statusMsg"></div>
+</div>
 
 <script>
-// MP redirige acá con ?collection_id=X&collection_status=approved&payment_id=Y&external_reference=Z
 (async function(){
-  const params = new URLSearchParams(window.location.search);
+  const params   = new URLSearchParams(window.location.search);
   const paymentId = params.get('payment_id') || params.get('collection_id');
   const recetario = params.get('external_reference');
-  const status = params.get('collection_status') || params.get('status');
+  const status    = params.get('collection_status') || params.get('status');
 
-  // Guardar en localStorage para que el index lo procese
-  if(paymentId || recetario){
+  // Parsear external_reference (puede ser "slug" o "slug:::email")
+  let recSlug = recetario;
+  if (recetario && recetario.includes(':::')) {
+    recSlug = recetario.split(':::')[0];
+  }
+
+  const tituloEl      = document.getElementById('titulo');
+  const descEl        = document.getElementById('descripcion');
+  const loaderEl      = document.getElementById('loader');
+  const statusMsgEl   = document.getElementById('statusMsg');
+
+  function setUI(tipo) {
+    loaderEl.style.display = 'none';
+    if (tipo === 'ok') {
+      tituloEl.textContent = '¡Pago aprobado!';
+      tituloEl.className   = '';
+      descEl.textContent   = 'Tu compra fue procesada correctamente. Ya podés acceder a tu recetario desde Mis Compras.';
+      document.getElementById('content').innerHTML += `
+        <a href="/" class="btn" style="margin-top:1rem;">Ver mis compras →</a>
+        <p class="info">También vas a recibir un email de confirmación.</p>`;
+    } else if (tipo === 'pending') {
+      tituloEl.textContent = 'Pago en proceso';
+      tituloEl.className   = 'pending';
+      descEl.textContent   = 'Tu pago está siendo procesado por el banco. Cuando se acredite, el recetario quedará disponible en Mis Compras.';
+      document.getElementById('content').innerHTML += `<a href="/" class="btn" style="margin-top:1rem;">Ir al inicio →</a>`;
+    } else {
+      tituloEl.textContent = 'Hubo un problema';
+      tituloEl.className   = 'error';
+      descEl.textContent   = 'No pudimos confirmar tu pago. Si se realizó el cobro, aparecerá en Mis Compras en unos minutos.';
+      document.getElementById('content').innerHTML += `<a href="/" class="btn" style="margin-top:1rem;">Ir al inicio →</a>`;
+    }
+  }
+
+  // Guardar en localStorage para que index.html lo procese
+  if (paymentId || recSlug) {
     localStorage.setItem('jtc_pending_purchase', JSON.stringify({
       paymentId,
-      recetario,
+      recetario: recSlug,
       status,
       ts: Date.now()
     }));
   }
 
-  // Intentar registrar la compra directamente
+  // Intentar registrar la compra desde el frontend (backup al webhook).
+  // Usa el email registrado en Javotecocina, no el email de la cuenta de MP.
   const email = localStorage.getItem('jtc_user_email');
-  if(email && recetario){
-    try{
-      await fetch('/api/record_purchase', {
+
+  if (email && recSlug) {
+    try {
+      statusMsgEl.textContent = 'Registrando compra...';
+      const r = await fetch('/api/record_purchase', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email, recetario, payment_id: paymentId || null })
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({ email, recetario: recSlug, payment_id: paymentId || null })
       });
-    }catch(e){ console.error('record_purchase error:', e); }
+
+      if (r.ok) {
+        statusMsgEl.textContent = '';
+        setUI('ok');
+        // Redirigir al home después de 3 segundos
+        setTimeout(() => { window.location.href = '/?compra=ok'; }, 3000);
+        return;
+      }
+    } catch(e) {
+      console.error('record_purchase (frontend backup) error:', e);
+    }
   }
 
-  // Redirigir al home con flag de éxito
-  setTimeout(() => {
-    window.location.href = '/?compra=ok';
-  }, 1500);
+  // Si llegamos acá: no hay email en localStorage o falló el registro.
+  // Puede que el webhook ya lo haya guardado. Mostrar estado según lo que MP reportó.
+  if (status === 'approved') {
+    setUI('ok');
+    setTimeout(() => { window.location.href = '/?compra=ok'; }, 3000);
+  } else if (status === 'pending' || status === 'in_process') {
+    setUI('pending');
+    setTimeout(() => { window.location.href = '/?compra=pendiente'; }, 4000);
+  } else {
+    // Estado desconocido: asumir éxito si MP nos redirigió acá (auto_return solo ocurre en approved)
+    setUI('ok');
+    setTimeout(() => { window.location.href = '/?compra=ok'; }, 3000);
+  }
 })();
 </script>
 </body>
