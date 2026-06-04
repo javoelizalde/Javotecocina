@@ -1410,11 +1410,16 @@ function mostrarModalMisCompras(compras){
   function renderAccion(c){
     const aprobado=!c.estado||c.estado==='approved';
     if(!aprobado){
-      if(c.estado==='pending'||c.estado==='in_process')return`<span style="font-size:.75rem;color:var(--muted);font-style:italic;">Esperando acreditación</span>`;
-      return`<span style="font-size:.75rem;color:#c0392b;font-style:italic;">Pago no aprobado</span>`;
+      if(c.estado==='pending'||c.estado==='in_process')
+        return`<span style="font-size:.75rem;color:var(--muted);font-style:italic;text-align:right;max-width:130px;">Confirmando pago...</span>`;
+      if(c.estado==='rejected'||c.estado==='cancelled')
+        return`<span style="font-size:.75rem;color:#c0392b;font-style:italic;">Pago no aprobado</span>`;
+      return`<span style="font-size:.75rem;color:var(--muted);font-style:italic;">${c.estado}</span>`;
     }
-    if(c.pdf_url)return`<button onclick="descargarPdf('${esc(c.recetario)}',this)" class="btn-primary" style="padding:.5rem 1rem;font-size:.75rem;white-space:nowrap;border:none;cursor:pointer;">Descargar PDF</button>`;
-    return`<span style="font-size:.75rem;color:var(--muted);font-style:italic;max-width:130px;text-align:right;">PDF próximamente disponible</span>`;
+    // Compra aprobada: mostrar botón SIEMPRE.
+    // La disponibilidad del archivo la decide download_pdf, no pdf_url de verify_purchase.
+    // Si verify_purchase falló o tardó, el botón igual aparece y el usuario puede intentar.
+    return`<button onclick="descargarPdf('${esc(c.recetario)}',this)" class="btn-primary" style="padding:.5rem 1rem;font-size:.75rem;white-space:nowrap;border:none;cursor:pointer;flex-shrink:0;">Descargar</button>`;
   }
 
   const itemsHtml=compras.map(c=>{
@@ -1460,16 +1465,22 @@ async function descargarPdf(recetario,btnEl){
     });
     const d=await r.json();
     if(r.ok&&d.available&&d.pdf_url){
+      // PDF disponible — abrir en nueva pestaña
       window.open(d.pdf_url,'_blank','noopener');
-    }else if(r.status===202){
-      alert(d.message||'Tu compra fue aprobada, pero el archivo todavía no está disponible. Contactaremos para enviártelo.');
-    }else if(r.status===401||r.status===403){
-      alert(d.error||'No tenés acceso a este archivo.');
+    }else if(r.status===202||(!d.available&&r.ok)){
+      // Compra aprobada pero archivo no cargado todavía
+      alert('Tu compra fue aprobada, pero el archivo todavía no está disponible. Cuando esté listo te lo enviaremos por email.');
+    }else if(r.status===401){
+      // Sesión expirada
+      alert('Tu sesión expiró. Volvé a iniciar sesión para descargar.');
+    }else if(r.status===403){
+      // Sin acceso
+      alert('No tenés acceso a este archivo. Verificá que hayas completado la compra.');
     }else{
-      alert(d.error||'No pudimos acceder al archivo. Intentá nuevamente o contactanos.');
+      alert(d.error||'No pudimos acceder al archivo. Intentá nuevamente o contactanos por WhatsApp.');
     }
   }catch(e){
-    alert('Error de conexión. Intentá de nuevo.');
+    alert('Error de conexión. Verificá tu internet e intentá de nuevo.');
     console.error('descargarPdf error:',e);
   }finally{
     btnEl.textContent=orig;btnEl.disabled=false;

@@ -507,7 +507,12 @@ function mostrarModalMisCompras(compras){
     const fecha=c.fecha?new Date(c.fecha).toLocaleDateString('es-AR',{day:'numeric',month:'short',year:'numeric'}):'';
     const aprobado=!c.estado||c.estado==='approved';
     const estadoBadge=aprobado?`<span style="background:#e8f8f0;color:#1e8449;font-size:.68rem;font-weight:700;padding:2px 8px;border-radius:20px;text-transform:uppercase;">Aprobado</span>`:`<span style="background:#fff3e0;color:#E8730A;font-size:.68rem;font-weight:700;padding:2px 8px;border-radius:20px;text-transform:uppercase;">En proceso</span>`;
-    const accion=aprobado&&c.pdf_url?`<button onclick="descargarPdf('${esc(c.recetario)}',this)" class="btn-primary" style="padding:.45rem .875rem;font-size:.72rem;border:none;flex-shrink:0;">Descargar PDF</button>`:`<span style="font-size:.72rem;color:var(--muted);font-style:italic;">${aprobado?'PDF próximamente':'Esperando pago'}</span>`;
+    // Compra aprobada → botón siempre visible; download_pdf decide si hay archivo
+    const accion=aprobado
+      ?`<button onclick="descargarPdf('${esc(c.recetario)}',this)" class="btn-primary" style="padding:.45rem .875rem;font-size:.72rem;border:none;flex-shrink:0;">Descargar</button>`
+      :(c.estado==='pending'||c.estado==='in_process'
+          ?`<span style="font-size:.72rem;color:var(--muted);font-style:italic;">Confirmando pago...</span>`
+          :`<span style="font-size:.72rem;color:#c0392b;font-style:italic;">Pago no aprobado</span>`);
     return`<div style="padding:.875rem 0;border-bottom:1px solid rgba(26,18,11,.08);display:flex;align-items:center;gap:.75rem;">
       ${c.foto_url?`<img src="${esc(c.foto_url)}" style="width:48px;height:48px;object-fit:cover;border-radius:3px;flex-shrink:0;">`:`<div style="width:48px;height:48px;background:#f0e8df;border-radius:3px;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:1.2rem;">📖</div>`}
       <div style="flex:1;min-width:0;">
@@ -528,9 +533,18 @@ async function descargarPdf(recetario,btnEl){
   try{
     const r=await fetch('/api/download_pdf',{method:'POST',headers:{'Content-Type':'application/json','Authorization':'Bearer '+token},body:JSON.stringify({recetario})});
     const d=await r.json();
-    if(r.ok&&d.available&&d.pdf_url)window.open(d.pdf_url,'_blank','noopener');
-    else alert(d.message||d.error||'No pudimos acceder al archivo. Intentá de nuevo.');
-  }catch(e){alert('Error de conexión. Intentá de nuevo.');}
+    if(r.ok&&d.available&&d.pdf_url){
+      window.open(d.pdf_url,'_blank','noopener');
+    }else if(r.status===202||(!d.available&&r.ok)){
+      alert('Tu compra fue aprobada, pero el archivo todavía no está disponible. Cuando esté listo te lo enviaremos por email.');
+    }else if(r.status===401){
+      alert('Tu sesión expiró. Volvé a iniciar sesión para descargar.');
+    }else if(r.status===403){
+      alert('No tenés acceso a este archivo. Verificá que hayas completado la compra.');
+    }else{
+      alert(d.error||'No pudimos acceder al archivo. Intentá de nuevo o contactanos por WhatsApp.');
+    }
+  }catch(e){alert('Error de conexión. Verificá tu internet e intentá de nuevo.');}
   finally{btnEl.textContent=orig;btnEl.disabled=false;}
 }
 
