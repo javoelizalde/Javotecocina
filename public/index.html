@@ -187,6 +187,18 @@ nav.scrolled{background:rgba(26,18,11,.92);backdrop-filter:blur(12px);padding:.9
 .srv-desc{font-size:.875rem;font-weight:300;color:var(--muted);line-height:1.7;margin-bottom:1.5rem;}
 .srv-tag{font-family:'Barlow Condensed',sans-serif;font-size:.7rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--fire);}
 
+/* ── SERVICIOS COMPACTOS (versión fondo, dark) ── */
+.services-sec-compact{background:var(--dark);}
+.services-sec-compact .sec-label::before{background:var(--ember);}
+.srv-compact-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:rgba(245,237,228,.07);margin-top:2.5rem;}
+.srv-compact-cell{background:var(--smoke);padding:1.5rem 1.25rem;transition:background .2s;}
+.srv-compact-cell:hover{background:#2a1a0e;}
+.srv-compact-icon{font-size:1.25rem;margin-bottom:.5rem;line-height:1;}
+.srv-compact-title{font-family:'Barlow Condensed',sans-serif;font-size:.88rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--ash);margin-bottom:.2rem;}
+.srv-compact-tag{font-size:.72rem;color:var(--ember);font-weight:400;}
+@media(max-width:768px){.srv-compact-grid{grid-template-columns:1fr 1fr;}}
+@media(max-width:480px){.srv-compact-grid{grid-template-columns:1fr 1fr;}}
+
 /* ── CONTRATAR ── */
 .hire-sec{background:var(--dark);}
 .hire-sec .sec-title{color:var(--ash);}
@@ -425,6 +437,18 @@ a,button,[onclick],[role="button"],.filter-btn,.btn-buy,.btn-ver,.btn-primary,.b
   .rating-summary{padding:1.25rem 1rem;}
   nav{padding:1rem 1.25rem;}
 
+  /* ── PRODUCTOS FÍSICOS MOBILE: 2 columnas compactas ── */
+  .products-grid{gap:.75rem;margin-top:2rem;}
+  .prod-img{aspect-ratio:1/1;}
+  .prod-body{padding:.875rem .75rem;}
+  .prod-badge{font-size:.58rem;padding:.18rem .45rem;}
+  .prod-cat{font-size:.6rem;margin-bottom:.2rem;}
+  .prod-name{font-size:.88rem;line-height:1.25;margin-bottom:.3rem;}
+  .prod-desc{font-size:.75rem;line-height:1.5;margin-bottom:.75rem;
+    display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;}
+  .prod-wa{padding:.6rem .5rem;font-size:.7rem;letter-spacing:.04em;gap:.25rem;}
+  .prod-wa svg{width:13px;height:13px;flex-shrink:0;}
+
   /* ── RECETARIOS MOBILE: 2 columnas compactas ── */
   .digital-grid{grid-template-columns:1fr 1fr;gap:.875rem;margin-top:2rem;}
   .digital-card{padding:1rem .875rem;}
@@ -457,7 +481,7 @@ a,button,[onclick],[role="button"],.filter-btn,.btn-buy,.btn-ver,.btn-primary,.b
   .portfolio-grid{grid-template-columns:1fr;}
   .portfolio-item[data-size="featured"]{grid-column:span 1;}
   .brands-grid{grid-template-columns:repeat(2,1fr);}
-  .products-grid{grid-template-columns:1fr;}
+  .products-grid{grid-template-columns:1fr 1fr;}
   .footer-inner{grid-template-columns:1fr;}
   .modal-box{margin:.5rem;width:calc(100vw - 1rem);}
   .login-modal-box{margin:.5rem;width:calc(100vw - 1rem);padding:1.5rem;}
@@ -473,12 +497,11 @@ a,button,[onclick],[role="button"],.filter-btn,.btn-buy,.btn-ver,.btn-primary,.b
 
 <!-- Mobile menu -->
 <div class="mobile-menu" id="mobileMenu">
-  <a href="#sobre" onclick="closeMobileMenu()">Quién Soy</a>
-  <a href="#servicios" onclick="closeMobileMenu()">Servicios</a>
-  <a href="#productos" onclick="closeMobileMenu()">Productos</a>
   <a href="#recetarios" onclick="closeMobileMenu()">Recetarios</a>
+  <a href="#productos" onclick="closeMobileMenu()">Productos</a>
   <a href="#portfolio" onclick="closeMobileMenu()">Portfolio</a>
-  <a href="#contratar" onclick="closeMobileMenu()" class="mob-cta">Cotizar Evento</a>
+  <a href="#sobre" onclick="closeMobileMenu()">Quién Soy</a>
+  <a href="#contratar" onclick="closeMobileMenu()" class="mob-cta">Cotizar</a>
   <a href="#" onclick="closeMobileMenu();toggleUserMenu();" style="margin-top:.5rem;opacity:.7;">👤 Mi cuenta</a>
 </div>
 
@@ -493,11 +516,10 @@ a,button,[onclick],[role="button"],.filter-btn,.btn-buy,.btn-ver,.btn-primary,.b
   </a>
   <div class="nav-center">
     <ul class="nav-links">
-      <li><a href="#sobre">Quién Soy</a></li>
-      <li><a href="#servicios">Servicios</a></li>
-      <li><a href="#productos">Productos</a></li>
       <li><a href="#recetarios">Recetarios</a></li>
+      <li><a href="#productos">Productos</a></li>
       <li><a href="#portfolio">Portfolio</a></li>
+      <li><a href="#sobre">Quién Soy</a></li>
       <li><a href="#contratar" class="nav-cta">Cotizar</a></li>
     </ul>
   </div>
@@ -522,7 +544,7 @@ a,button,[onclick],[role="button"],.filter-btn,.btn-buy,.btn-ver,.btn-primary,.b
     <h1 class="hero-title">Tu mesa,<br>mi fuego,<br><em>nuestra</em><br>historia.</h1>
     <p class="hero-sub">Cocinero, creador de contenido y productor de experiencias gastronómicas. De Salta, al mundo.</p>
     <div class="hero-actions">
-      <a href="#productos" class="btn-primary">Ver Productos</a>
+      <a href="#recetarios" class="btn-primary">Ver Recetarios</a>
       <a href="#contratar" class="btn-outline">Cotizar Evento</a>
     </div>
   </div>
@@ -564,56 +586,30 @@ a,button,[onclick],[role="button"],.filter-btn,.btn-buy,.btn-ver,.btn-primary,.b
   </div>
 </section>
 
-<!-- ═══════════ SERVICIOS ═══════════ -- movido arriba, aparece aquí como espacio -->
-
-<!-- ═══════════ SERVICIOS ═══════════ -->
-<section class="services-sec" id="servicios">
+<!-- ═══════════ RECETARIOS ═══════════ -->
+<section class="digital-sec" id="recetarios">
   <div class="container">
     <div class="reveal">
-      <div class="sec-label">Lo que ofrezco</div>
-      <h2 class="sec-title" style="color:var(--dark);">Servicios que<br><em>dejan huella.</em></h2>
-      <p class="sec-desc" style="color:var(--muted);">Cada servicio está diseñado para crear una experiencia única, memorable y con identidad propia.</p>
+      <div class="sec-label">Productos digitales</div>
+      <h2 class="sec-title" style="color:var(--dark);">Recetarios<br><em>para llevar</em><br>el fuego a casa.</h2>
+      <p class="sec-desc" style="color:var(--muted);">PDFs descargables. Comprá y accedé al instante. Conocimiento del norte para dominar el fuego.</p>
     </div>
-    <div class="services-grid">
-      <div class="srv-card reveal">
-        <div class="srv-num">01</div>
-        <div class="srv-title">Eventos & Experiencias</div>
-        <p class="srv-desc">Diseño y ejecución de eventos gastronómicos privados y corporativos. Asados, cocina en vivo, team building y activaciones de marca con gastronomía auténtica.</p>
-        <div class="srv-tag">Eventos · Corporativos · Privados</div>
-      </div>
-      <div class="srv-card reveal">
-        <div class="srv-num">02</div>
-        <div class="srv-title">Contenido & Redes</div>
-        <p class="srv-desc">Creación de contenido gastronómico para marcas y proyectos. Reels, videos, fotografía y estrategia de comunicación para Instagram, TikTok y YouTube.</p>
-        <div class="srv-tag">Reels · Fotografía · Estrategia</div>
-      </div>
-      <div class="srv-card reveal">
-        <div class="srv-num">03</div>
-        <div class="srv-title">Clases & Workshops</div>
-        <p class="srv-desc">Clases magistrales de parrilla, ahumado, disco y cocina del NOA. Para grupos privados, empresas, y fanáticos de la cocina con fuego.</p>
-        <div class="srv-tag">Parrilla · Ahumado · Cocina NOA</div>
-      </div>
-      <div class="srv-card reveal">
-        <div class="srv-num">04</div>
-        <div class="srv-title">Activaciones de Marca</div>
-        <p class="srv-desc">Gastronomía al servicio de tu marca. Lanzamientos, presentaciones, stands y experiencias culinarias que conectan con el público de forma auténtica.</p>
-        <div class="srv-tag">Lanzamientos · Stands · Brand Experience</div>
-      </div>
-      <div class="srv-card reveal">
-        <div class="srv-num">05</div>
-        <div class="srv-title">Cocina a Domicilio</div>
-        <p class="srv-desc">Llevá el fuego del norte a tu mesa. Menús personalizados, asados, disco y cocina del NOA para celebraciones íntimas o grupos de hasta 50 personas.</p>
-        <div class="srv-tag">Domicilio · Menús a medida</div>
-      </div>
-      <div class="srv-card reveal">
-        <div class="srv-num">06</div>
-        <div class="srv-title">Embajadas & Canje</div>
-        <p class="srv-desc">Colaboraciones a largo plazo con marcas afines al universo gastronómico. Embajadas, acuerdos de canje y campañas orgánicas con impacto real.</p>
-        <div class="srv-tag">Embajada · Canje · Campañas</div>
-      </div>
+    <div class="digital-grid" id="recetariosGrid">
+      <div style="grid-column:1/-1;text-align:center;padding:3rem 0;color:var(--muted);font-size:.9rem;">Cargando recetarios...</div>
+    </div>
+    <!-- Solo visible en mobile cuando hay más de 2 productos -->
+    <div class="ver-todos-mob" id="verTodosMob" style="display:none;">
+      <p class="ver-todos-mob-msg" id="verTodosMsg"></p>
+      <a href="/recetarios" class="btn-ver-todos">
+        Ver todos los recetarios
+        <svg viewBox="0 0 16 16"><path d="M3 8h10M9 4l4 4-4 4"/><path d="M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg>
+      </a>
     </div>
   </div>
 </section>
+
+<!-- MODALES DE RECETARIOS (generados dinámicamente) -->
+<div id="recetariosModales"></div>
 
 <!-- ═══════════ PRODUCTOS FÍSICOS ═══════════ -->
 <section class="products-sec" id="productos">
@@ -703,31 +699,6 @@ a,button,[onclick],[role="button"],.filter-btn,.btn-buy,.btn-ver,.btn-primary,.b
     </div>
   </div>
 </section>
-
-<!-- ═══════════ RECETARIOS ═══════════ -->
-<section class="digital-sec" id="recetarios">
-  <div class="container">
-    <div class="reveal">
-      <div class="sec-label">Productos digitales</div>
-      <h2 class="sec-title" style="color:var(--dark);">Recetarios<br><em>para llevar</em><br>el fuego a casa.</h2>
-      <p class="sec-desc" style="color:var(--muted);">PDFs descargables. Comprá y accedé al instante. Conocimiento del norte para dominar el fuego.</p>
-    </div>
-    <div class="digital-grid" id="recetariosGrid">
-      <div style="grid-column:1/-1;text-align:center;padding:3rem 0;color:var(--muted);font-size:.9rem;">Cargando recetarios...</div>
-    </div>
-    <!-- Solo visible en mobile cuando hay más de 2 productos -->
-    <div class="ver-todos-mob" id="verTodosMob" style="display:none;">
-      <p class="ver-todos-mob-msg" id="verTodosMsg"></p>
-      <a href="/recetarios" class="btn-ver-todos">
-        Ver todos los recetarios
-        <svg viewBox="0 0 16 16"><path d="M3 8h10M9 4l4 4-4 4"/><path d="M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg>
-      </a>
-    </div>
-  </div>
-</section>
-
-<!-- MODALES DE RECETARIOS (generados dinámicamente) -->
-<div id="recetariosModales"></div>
 
 <!-- ═══════════ PORTFOLIO ═══════════ -->
 <section class="portfolio" id="portfolio">
@@ -1161,6 +1132,52 @@ a,button,[onclick],[role="button"],.filter-btn,.btn-buy,.btn-ver,.btn-primary,.b
   </div>
 </section>
 
+<!-- ═══════════ SERVICIOS ═══════════ -->
+<section class="services-sec-compact" id="servicios">
+  <div class="container">
+    <div class="reveal">
+      <div class="sec-label">Lo que ofrezco</div>
+      <h2 class="sec-title" style="color:var(--ash);">Más formas de<br><em>trabajar juntos.</em></h2>
+      <p class="sec-desc" style="color:rgba(245,237,228,.5);">Eventos, contenido, clases y activaciones de marca.</p>
+    </div>
+    <div class="srv-compact-grid reveal">
+      <div class="srv-compact-cell">
+        <div class="srv-compact-icon">🔥</div>
+        <div class="srv-compact-title">Eventos & Experiencias</div>
+        <div class="srv-compact-tag">Asados · Corporativos · Privados</div>
+      </div>
+      <div class="srv-compact-cell">
+        <div class="srv-compact-icon">📱</div>
+        <div class="srv-compact-title">Contenido & Redes</div>
+        <div class="srv-compact-tag">Reels · Fotografía · Estrategia</div>
+      </div>
+      <div class="srv-compact-cell">
+        <div class="srv-compact-icon">👨‍🍳</div>
+        <div class="srv-compact-title">Clases & Workshops</div>
+        <div class="srv-compact-tag">Parrilla · Ahumado · NOA</div>
+      </div>
+      <div class="srv-compact-cell">
+        <div class="srv-compact-icon">🏷️</div>
+        <div class="srv-compact-title">Activaciones de Marca</div>
+        <div class="srv-compact-tag">Lanzamientos · Stands · Brand</div>
+      </div>
+      <div class="srv-compact-cell">
+        <div class="srv-compact-icon">🏠</div>
+        <div class="srv-compact-title">Cocina a Domicilio</div>
+        <div class="srv-compact-tag">Menús · Grupos hasta 50 personas</div>
+      </div>
+      <div class="srv-compact-cell">
+        <div class="srv-compact-icon">🤝</div>
+        <div class="srv-compact-title">Embajadas & Canje</div>
+        <div class="srv-compact-tag">Embajada · Canje · Campañas</div>
+      </div>
+    </div>
+    <div style="text-align:center;margin-top:2.5rem;" class="reveal">
+      <a href="#contratar" class="btn-outline" style="color:rgba(245,237,228,.6);border-color:rgba(245,237,228,.2);">Consultá disponibilidad →</a>
+    </div>
+  </div>
+</section>
+
 <!-- ═══════════ FOOTER ═══════════ -->
 <footer>
   <div class="footer-inner">
@@ -1172,11 +1189,12 @@ a,button,[onclick],[role="button"],.filter-btn,.btn-buy,.btn-ver,.btn-primary,.b
     <div class="footer-col">
       <h4>Secciones</h4>
       <ul>
-        <li><a href="#sobre">Quién Soy</a></li>
-        <li><a href="#servicios">Servicios</a></li>
+        <li><a href="#recetarios">Recetarios</a></li>
         <li><a href="#productos">Productos</a></li>
         <li><a href="#portfolio">Portfolio</a></li>
+        <li><a href="#sobre">Quién Soy</a></li>
         <li><a href="#contratar">Cotizar</a></li>
+        <li><a href="#servicios">Servicios</a></li>
       </ul>
     </div>
     <div class="footer-col">
