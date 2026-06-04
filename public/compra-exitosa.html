@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>¡Compra exitosa! — Javotecocina</title>
+<link rel="icon" type="image/png" href="/img/favicon-jtc.png">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Barlow',system-ui,sans-serif;background:#1a120b;color:#f5ede4;min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:2rem;text-align:center;}
+.icon{font-size:4rem;margin-bottom:1.5rem;}
+h1{font-size:2rem;font-weight:700;margin-bottom:.75rem;color:#2ecc71;}
+p{font-size:1rem;color:rgba(245,237,228,.7);line-height:1.6;max-width:420px;margin-bottom:2rem;}
+.btn{display:inline-block;background:#C84B11;color:#fff;padding:.85rem 2.5rem;border-radius:3px;text-decoration:none;font-weight:700;font-size:.95rem;letter-spacing:.08em;text-transform:uppercase;transition:background .2s;}
+.btn:hover{background:#e05a1a;}
+.info{margin-top:1.5rem;font-size:.82rem;color:rgba(245,237,228,.35);}
+</style>
+</head>
+<body>
+<div class="icon">🎉</div>
+<h1>¡Pago aprobado!</h1>
+<p>Tu compra fue procesada correctamente. Ya podés acceder a tu recetario desde <strong>Mi cuenta → Mis compras</strong>.</p>
+<a href="/" class="btn">Ir a mis compras →</a>
+<p class="info">Procesando tu compra y guardando en tu cuenta...</p>
+
+<script>
+// MP redirige acá con ?collection_id=X&collection_status=approved&payment_id=Y&external_reference=Z
+(async function(){
+  const params = new URLSearchParams(window.location.search);
+  const paymentId = params.get('payment_id') || params.get('collection_id');
+  const recetario = params.get('external_reference');
+  const status = params.get('collection_status') || params.get('status');
+
+  // Guardar en localStorage para que el index lo procese
+  if(paymentId || recetario){
+    localStorage.setItem('jtc_pending_purchase', JSON.stringify({
+      paymentId,
+      recetario,
+      status,
+      ts: Date.now()
+    }));
+  }
+
+  // Intentar registrar la compra directamente
+  const email = localStorage.getItem('jtc_user_email');
+  if(email && recetario){
+    try{
+      await fetch('/api/record_purchase', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, recetario, payment_id: paymentId || null })
+      });
+    }catch(e){ console.error('record_purchase error:', e); }
+  }
+
+  // Redirigir al home con flag de éxito
+  setTimeout(() => {
+    window.location.href = '/?compra=ok';
+  }, 1500);
+})();
+</script>
+</body>
+</html>

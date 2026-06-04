@@ -23,11 +23,11 @@ module.exports = async function handler(req, res) {
       items: [{ title, unit_price: Number(price), quantity: Number(quantity), currency_id: 'ARS' }],
       payer: { email: buyer_email || '', name: buyer_name || '' },
       back_urls: {
-        success: `https://javotecocina.com?pago=exitoso&external_reference=${recRef}`,
-        failure: `https://javotecocina.com?pago=fallido`,
-        pending: `https://javotecocina.com?pago=pendiente&external_reference=${recRef}`
+        success: 'https://javotecocina.com/compra-exitosa',
+        failure: 'https://javotecocina.com/compra-fallida',
+        pending: 'https://javotecocina.com/compra-pendiente'
       },
-      auto_return: 'all',
+      auto_return: 'approved',
       notification_url: 'https://javotecocina.com/api/record_purchase',
       statement_descriptor: 'JAVOTECOCINA',
       external_reference: recetario || '',

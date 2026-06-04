@@ -1,6 +1,9 @@
 {
   "rewrites": [
-    { "source": "/admin", "destination": "/admin.html" }
+    { "source": "/admin", "destination": "/admin.html" },
+    { "source": "/compra-exitosa", "destination": "/compra-exitosa.html" },
+    { "source": "/compra-fallida", "destination": "/compra-fallida.html" },
+    { "source": "/compra-pendiente", "destination": "/compra-pendiente.html" }
   ],
   "functions": {
     "api/record_purchase.js": {

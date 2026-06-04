@@ -1208,35 +1208,44 @@ let userToken=null,userEmail=null,loginMode='login',pendingPurchaseUrl=null;
 })();
 
 // Procesar retorno desde Mercado Pago
-// MP agrega estos params: collection_id, collection_status, payment_id, status, external_reference
+// Flujo: MP → /compra-exitosa (registra compra + guarda en localStorage) → /?compra=ok (muestra banner)
 (async function procesarRetornoMP(){
   const params=new URLSearchParams(window.location.search);
-  const pago=params.get('pago');
-  const paymentId=params.get('payment_id')||params.get('collection_id');
-  const recetario=params.get('external_reference');
-  const status=params.get('collection_status')||params.get('status');
+  const compra=params.get('compra');
 
-  const esExitoso = pago==='exitoso' || status==='approved';
-  const esFallido = pago==='fallido' || status==='rejected';
-  const esPendiente = pago==='pendiente' || status==='pending' || status==='in_process';
-
-  if(esExitoso){
+  if(compra==='ok'){
     history.replaceState(null,'',window.location.pathname);
-    const email=localStorage.getItem('jtc_user_email')||userEmail;
-    mostrarBannerCompra('exitoso', recetario);
-    if(email && recetario){
+    // Leer datos de la compra guardados por compra-exitosa.html
+    const pendingStr=localStorage.getItem('jtc_pending_purchase');
+    let recetario=null;
+    if(pendingStr){
       try{
-        await fetch('/api/record_purchase',{
-          method:'POST',
-          headers:{'Content-Type':'application/json'},
-          body:JSON.stringify({email, recetario, payment_id: paymentId||null})
-        });
-      }catch(e){console.error('Error registrando compra:',e);}
+        const pending=JSON.parse(pendingStr);
+        // Solo procesar si tiene menos de 10 minutos
+        if(Date.now()-pending.ts < 10*60*1000){
+          recetario=pending.recetario;
+          const email=localStorage.getItem('jtc_user_email')||userEmail;
+          // Intentar registrar de nuevo como seguro (idempotente)
+          if(email && recetario){
+            try{
+              await fetch('/api/record_purchase',{
+                method:'POST',
+                headers:{'Content-Type':'application/json'},
+                body:JSON.stringify({email, recetario, payment_id: pending.paymentId||null})
+              });
+            }catch(e){console.error('record_purchase error:',e);}
+          }
+        }
+        localStorage.removeItem('jtc_pending_purchase');
+      }catch(e){console.error('Error leyendo pending_purchase:',e);}
     }
-  } else if(esFallido){
+    mostrarBannerCompra('exitoso', recetario);
+
+  } else if(compra==='fallida'){
     history.replaceState(null,'',window.location.pathname);
     mostrarBannerCompra('fallido', null);
-  } else if(esPendiente){
+
+  } else if(compra==='pendiente'){
     history.replaceState(null,'',window.location.pathname);
     mostrarBannerCompra('pendiente', null);
   }
