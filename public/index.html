@@ -1407,8 +1407,26 @@ async function doUserLogin(){
       body:JSON.stringify({email,password:pass})
     });
     const d=await r.json();
+
+    // Registro exitoso pero requiere confirmación de email (Supabase tiene confirmación activada)
+    if(loginMode==='register' && r.ok && d.user && !d.access_token){
+      errEl.style.color='#2ecc71';
+      errEl.textContent='✓ Cuenta creada. Revisá tu email para confirmar y después iniciá sesión.';
+      errEl.style.display='block';
+      // Cambiar a modo login para que pueda entrar luego
+      loginMode='login';
+      document.getElementById('loginSubmitBtn').textContent='Ingresar';
+      document.getElementById('loginToggleText').textContent='¿No tenés cuenta?';
+      document.getElementById('loginToggleLink').textContent='Registrate';
+      return;
+    }
+
     if(!r.ok||!d.access_token){
-      errEl.textContent=loginMode==='login'?'Email o contraseña incorrectos.':'No se pudo crear la cuenta.';
+      let msg = loginMode==='login' ? 'Email o contraseña incorrectos.' : 'No se pudo crear la cuenta. Intentá con otro email.';
+      if(d.msg) msg = d.msg;
+      if(d.error_description) msg = d.error_description;
+      errEl.style.color='#E74C3C';
+      errEl.textContent=msg;
       errEl.style.display='block';return;
     }
     userToken=d.access_token;userEmail=d.user?.email||email;
