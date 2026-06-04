@@ -1610,9 +1610,22 @@ async function comprarRecetario(recSlug, titulo, precio){
   await _iniciarCompraMercadoPago(recSlug, titulo, precio, userEmail);
 }
 
+// Extrae el userId (sub) del JWT de Supabase sin llamada a red
+function _getUserIdFromToken(token){
+  try{
+    const payload=JSON.parse(atob(token.split('.')[1].replace(/-/g,'+').replace(/_/g,'/')));
+    return payload.sub||null;
+  }catch(e){return null;}
+}
+
 async function _iniciarCompraMercadoPago(recSlug, titulo, precio, email){
   const btn = document.querySelector(`[data-rec-slug="${recSlug}"] .btn-buy`);
   if(btn){btn.textContent='Procesando...';btn.disabled=true;}
+
+  // Obtener el userId del token actual para que el webhook pueda identificar
+  // al comprador incluso si usa un email distinto en MercadoPago
+  const currentToken = userToken||localStorage.getItem('jtc_user_token');
+  const userId = currentToken ? _getUserIdFromToken(currentToken) : null;
 
   try{
     const r = await fetch('/api/create_preference', {
@@ -1624,7 +1637,8 @@ async function _iniciarCompraMercadoPago(recSlug, titulo, precio, email){
         quantity: 1,
         buyer_email: email,
         buyer_name: '',
-        recetario: recSlug
+        recetario: recSlug,
+        user_id: userId   // identificador principal del comprador
       })
     });
     const d = await r.json();

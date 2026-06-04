@@ -81,8 +81,14 @@ p{font-size:1rem;color:rgba(245,237,228,.7);line-height:1.6;max-width:420px;marg
   }
 
   // Intentar registrar la compra desde el frontend (backup al webhook).
-  // Usa el email registrado en Javotecocina, no el email de la cuenta de MP.
+  // Usa el email registrado en Javotecocina + userId para asociar correctamente
+  // aunque el email de MercadoPago sea distinto.
   const email = localStorage.getItem('jtc_user_email');
+  const token = localStorage.getItem('jtc_user_token');
+  let userId = null;
+  if (token) {
+    try { userId = JSON.parse(atob(token.split('.')[1].replace(/-/g,'+').replace(/_/g,'/'))).sub || null; } catch(e) {}
+  }
 
   if (email && recSlug) {
     try {
@@ -90,7 +96,7 @@ p{font-size:1rem;color:rgba(245,237,228,.7);line-height:1.6;max-width:420px;marg
       const r = await fetch('/api/record_purchase', {
         method: 'POST',
         headers: {'Content-Type': 'application/json'},
-        body: JSON.stringify({ email, recetario: recSlug, payment_id: paymentId || null })
+        body: JSON.stringify({ email, recetario: recSlug, payment_id: paymentId || null, user_id: userId })
       });
 
       if (r.ok) {
