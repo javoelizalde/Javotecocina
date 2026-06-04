@@ -198,6 +198,12 @@ body{font-family:'Barlow',sans-serif;background:var(--dark);color:var(--ash);min
         <div class="nav-item" data-sec="recetarios" onclick="showSection('recetarios',this)">
           <span class="nav-icon">📚</span> Recetarios
         </div>
+        <div class="nav-item" data-sec="productos" onclick="showSection('productos',this)">
+          <span class="nav-icon">🛒</span> Productos
+        </div>
+        <div class="nav-item" data-sec="experiencias" onclick="showSection('experiencias',this)">
+          <span class="nav-icon">📷</span> Experiencias
+        </div>
       </div>
       <div class="nav-section">
         <div class="nav-label">Comunidad</div>
@@ -246,6 +252,30 @@ body{font-family:'Barlow',sans-serif;background:var(--dark);color:var(--ash);min
           <button class="btn-sm btn-primary" onclick="openRecModal()">+ Nuevo recetario</button>
         </div>
         <div id="recetariosGrid" class="recetarios-grid"><div class="loader">Cargando...</div></div>
+      </div>
+
+      <!-- PRODUCTOS -->
+      <div class="section-view" id="sec-productos">
+        <div class="section-header-row">
+          <div class="section-header" style="margin:0;">
+            <h1>Productos</h1>
+            <p>Gestioná los productos físicos de la tienda</p>
+          </div>
+          <button class="btn-sm btn-primary" onclick="openProdModal()">+ Nuevo producto</button>
+        </div>
+        <div id="productosAdminGrid" class="recetarios-grid"><div class="loader">Cargando...</div></div>
+      </div>
+
+      <!-- EXPERIENCIAS -->
+      <div class="section-view" id="sec-experiencias">
+        <div class="section-header-row">
+          <div class="section-header" style="margin:0;">
+            <h1>Experiencias</h1>
+            <p>Gestioná el portfolio de experiencias y eventos</p>
+          </div>
+          <button class="btn-sm btn-primary" onclick="openExpModal()">+ Nueva experiencia</button>
+        </div>
+        <div id="experienciasAdminGrid" class="recetarios-grid"><div class="loader">Cargando...</div></div>
       </div>
 
       <!-- RESEÑAS -->
@@ -394,12 +424,121 @@ body{font-family:'Barlow',sans-serif;background:var(--dark);color:var(--ash);min
   </div>
 </div>
 
+<!-- ── MODAL PRODUCTO ── -->
+<div class="admin-modal-bg" id="prodModal" onclick="closeProdModalBg(event)">
+  <div class="admin-modal">
+    <h2 id="prodModalTitle" style="margin-bottom:1.25rem;font-family:'Barlow Condensed',sans-serif;font-size:1.2rem;font-weight:800;letter-spacing:.06em;text-transform:uppercase;">Nuevo producto</h2>
+    <input type="hidden" id="prod-id">
+    <div style="margin-bottom:.9rem;">
+      <label style="display:block;font-size:.7rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:rgba(245,237,228,.45);margin-bottom:.35rem;">Nombre *</label>
+      <input class="admin-input" id="prod-nombre" placeholder="Ej: Cuchillo de Campo Artesanal">
+    </div>
+    <div style="margin-bottom:.9rem;">
+      <label style="display:block;font-size:.7rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:rgba(245,237,228,.45);margin-bottom:.35rem;">Descripción</label>
+      <textarea class="admin-input" id="prod-desc" rows="3" placeholder="Descripción breve del producto" style="resize:vertical;min-height:70px;"></textarea>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:.75rem;margin-bottom:.9rem;">
+      <div>
+        <label style="display:block;font-size:.7rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:rgba(245,237,228,.45);margin-bottom:.35rem;">Categoría</label>
+        <input class="admin-input" id="prod-cat" placeholder="Ej: Equipamiento">
+      </div>
+      <div>
+        <label style="display:block;font-size:.7rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:rgba(245,237,228,.45);margin-bottom:.35rem;">Badge</label>
+        <input class="admin-input" id="prod-badge" placeholder="Ej: Destacado">
+      </div>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:.75rem;margin-bottom:.9rem;">
+      <div>
+        <label style="display:block;font-size:.7rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:rgba(245,237,228,.45);margin-bottom:.35rem;">Precio (texto)</label>
+        <input class="admin-input" id="prod-precio" placeholder="Ej: $25.000 · Consultar">
+      </div>
+      <div>
+        <label style="display:block;font-size:.7rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:rgba(245,237,228,.45);margin-bottom:.35rem;">Orden</label>
+        <input class="admin-input" id="prod-orden" type="number" placeholder="1">
+      </div>
+    </div>
+    <div style="margin-bottom:.9rem;">
+      <label style="display:block;font-size:.7rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:rgba(245,237,228,.45);margin-bottom:.35rem;">Foto</label>
+      <div id="prodFotoPreviewWrap" style="display:none;margin-bottom:.5rem;">
+        <img id="prodFotoPreview" src="" style="height:80px;object-fit:cover;border-radius:3px;display:block;">
+      </div>
+      <input type="file" id="prod-foto-file" accept="image/*" style="display:none;" onchange="onProdFotoChange(event)">
+      <button class="btn-sm btn-ghost" onclick="document.getElementById('prod-foto-file').click()">📷 Subir imagen</button>
+      <span id="prodFotoNombre" style="font-size:.72rem;color:rgba(245,237,228,.35);margin-left:.5rem;"></span>
+    </div>
+    <div style="margin-bottom:1.25rem;display:flex;align-items:center;gap:.75rem;">
+      <label style="display:flex;align-items:center;gap:.5rem;font-size:.83rem;color:rgba(245,237,228,.7);cursor:pointer;">
+        <input type="checkbox" id="prod-activo" checked style="width:16px;height:16px;"> Visible en la web
+      </label>
+    </div>
+    <div id="prodSaveErr" style="color:var(--danger);font-size:.8rem;margin-bottom:.75rem;display:none;"></div>
+    <div style="display:flex;gap:.75rem;">
+      <button class="btn-sm btn-ghost" onclick="closeProdModal()">Cancelar</button>
+      <button class="btn-sm btn-primary" id="prodSaveBtn" onclick="savProducto()">Guardar</button>
+    </div>
+  </div>
+</div>
+
+<!-- ── MODAL EXPERIENCIA ── -->
+<div class="admin-modal-bg" id="expModal" onclick="closeExpModalBg(event)">
+  <div class="admin-modal">
+    <h2 id="expModalTitle" style="margin-bottom:1.25rem;font-family:'Barlow Condensed',sans-serif;font-size:1.2rem;font-weight:800;letter-spacing:.06em;text-transform:uppercase;">Nueva experiencia</h2>
+    <input type="hidden" id="exp-id">
+    <div style="margin-bottom:.9rem;">
+      <label style="display:block;font-size:.7rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:rgba(245,237,228,.45);margin-bottom:.35rem;">Título *</label>
+      <input class="admin-input" id="exp-titulo" placeholder="Ej: Asado & Parrilla">
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:.75rem;margin-bottom:.9rem;">
+      <div>
+        <label style="display:block;font-size:.7rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:rgba(245,237,228,.45);margin-bottom:.35rem;">Categoría</label>
+        <select class="admin-input" id="exp-cat">
+          <option value="general">General</option>
+          <option value="eventos">Eventos</option>
+          <option value="marcas">Marcas</option>
+          <option value="parrilla">Parrilla</option>
+          <option value="contenido">Contenido</option>
+        </select>
+      </div>
+      <div>
+        <label style="display:block;font-size:.7rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:rgba(245,237,228,.45);margin-bottom:.35rem;">Orden</label>
+        <input class="admin-input" id="exp-orden" type="number" placeholder="1">
+      </div>
+    </div>
+    <div style="margin-bottom:.9rem;">
+      <label style="display:block;font-size:.7rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:rgba(245,237,228,.45);margin-bottom:.35rem;">Descripción (historia)</label>
+      <textarea class="admin-input" id="exp-desc" rows="3" placeholder="Historia o descripción de la experiencia" style="resize:vertical;min-height:70px;"></textarea>
+    </div>
+    <div style="margin-bottom:.9rem;">
+      <label style="display:block;font-size:.7rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:rgba(245,237,228,.45);margin-bottom:.35rem;">Imagen</label>
+      <div id="expFotoPreviewWrap" style="display:none;margin-bottom:.5rem;">
+        <img id="expFotoPreview" src="" style="height:80px;object-fit:cover;border-radius:3px;display:block;">
+      </div>
+      <input type="file" id="exp-foto-file" accept="image/*" style="display:none;" onchange="onExpFotoChange(event)">
+      <button class="btn-sm btn-ghost" onclick="document.getElementById('exp-foto-file').click()">📷 Subir imagen</button>
+      <span id="expFotoNombre" style="font-size:.72rem;color:rgba(245,237,228,.35);margin-left:.5rem;"></span>
+    </div>
+    <div style="margin-bottom:1.25rem;display:flex;align-items:center;gap:1.5rem;">
+      <label style="display:flex;align-items:center;gap:.5rem;font-size:.83rem;color:rgba(245,237,228,.7);cursor:pointer;">
+        <input type="checkbox" id="exp-activo" checked style="width:16px;height:16px;"> Visible
+      </label>
+      <label style="display:flex;align-items:center;gap:.5rem;font-size:.83rem;color:rgba(245,237,228,.7);cursor:pointer;">
+        <input type="checkbox" id="exp-destacada" style="width:16px;height:16px;"> Destacada (doble ancho)
+      </label>
+    </div>
+    <div id="expSaveErr" style="color:var(--danger);font-size:.8rem;margin-bottom:.75rem;display:none;"></div>
+    <div style="display:flex;gap:.75rem;">
+      <button class="btn-sm btn-ghost" onclick="closeExpModal()">Cancelar</button>
+      <button class="btn-sm btn-primary" id="expSaveBtn" onclick="saveExperiencia()">Guardar</button>
+    </div>
+  </div>
+</div>
+
 <script>
 const SUPA_URL='https://nudthkwuzhxflwirzmqd.supabase.co';
 const SUPA_KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im51ZHRoa3d1emh4Zmx3aXJ6bXFkIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzk5MjkwNjAsImV4cCI6MjA5NTUwNTA2MH0.XW6BJ4NPam-KdwbSwR4giRAS03aH23G3it-8pwSWrZw';
 
 let authToken=null;
-let allReviews=[],allEventLeads=[],allCollabLeads=[],allRecetarios=[];
+let allReviews=[],allEventLeads=[],allCollabLeads=[],allRecetarios=[],allProductos=[],allExperiencias=[];
 let currentRecFotoFile=null;
 let currentRecPdfFile=null;
 let currentRecPdfUrl=null; // pdf existente en DB
@@ -474,7 +613,7 @@ async function apiDelete(table,id){
 
 /* ── LOAD ALL ───────────────────────────── */
 async function loadAll(){
-  await Promise.all([loadDashboard(),loadRecetarios(),loadReviews(),loadLeads(),loadUsuarios()]);
+  await Promise.all([loadDashboard(),loadRecetarios(),loadProductos(),loadExperiencias(),loadReviews(),loadLeads(),loadUsuarios()]);
 }
 
 /* ── NAVIGATION ─────────────────────────── */
@@ -952,11 +1091,248 @@ function escH(s){
   return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
 }
 
+/* ══ PRODUCTOS CRUD ════════════════════════ */
+async function loadProductos(){
+  const data=await apiGet('productos?order=orden.asc.nullslast,created_at.asc');
+  if(!data)return;
+  allProductos=data;
+  renderProductos();
+}
+
+function renderProductos(){
+  const el=document.getElementById('productosAdminGrid');
+  if(!el)return;
+  if(!allProductos.length){el.innerHTML='<p style="color:var(--muted);font-size:.85rem;">No hay productos. Creá el primero con el botón de arriba.</p>';return;}
+  el.innerHTML=allProductos.map(p=>`
+    <div class="rec-card">
+      ${p.foto_url?`<img class="rec-card-img" src="${escH(p.foto_url)}" alt="${escH(p.nombre||'')}">`:
+        '<div style="width:100%;height:140px;background:rgba(245,237,228,.04);display:flex;align-items:center;justify-content:center;font-size:2rem;">🛒</div>'}
+      <div class="rec-card-body">
+        <span class="rec-badge ${p.activo?'rec-badge-on':'rec-badge-off'}">${p.activo?'Visible':'Oculto'}</span>
+        ${p.badge?`<span class="rec-badge" style="background:rgba(200,75,17,.15);color:var(--fire);margin-left:.35rem;">${escH(p.badge)}</span>`:''}
+        <div class="rec-card-title">${escH(p.nombre||'Sin nombre')}</div>
+        <div class="rec-card-price">${p.categoria?escH(p.categoria):''}</div>
+        <div class="rec-card-actions">
+          <button class="btn-sm btn-edit" onclick="editProducto(${p.id})">Editar</button>
+          <button class="btn-sm btn-ghost" onclick="toggleProdActivo(${p.id},${p.activo})">${p.activo?'Ocultar':'Activar'}</button>
+          <button class="btn-sm btn-reject" onclick="deleteProducto(${p.id})">Borrar</button>
+        </div>
+      </div>
+    </div>`).join('');
+}
+
+let currentProdFotoFile=null;
+function onProdFotoChange(e){
+  currentProdFotoFile=e.target.files[0]||null;
+  const span=document.getElementById('prodFotoNombre');
+  const wrap=document.getElementById('prodFotoPreviewWrap');
+  const img=document.getElementById('prodFotoPreview');
+  if(currentProdFotoFile){
+    span.textContent=currentProdFotoFile.name;
+    const url=URL.createObjectURL(currentProdFotoFile);
+    img.src=url;wrap.style.display='';
+  } else {span.textContent='';wrap.style.display='none';}
+}
+
+function openProdModal(){
+  currentProdFotoFile=null;
+  ['prod-id','prod-nombre','prod-desc','prod-cat','prod-badge','prod-precio','prod-orden'].forEach(id=>{
+    const el=document.getElementById(id);if(el)el.value='';
+  });
+  document.getElementById('prod-activo').checked=true;
+  document.getElementById('prodFotoPreviewWrap').style.display='none';
+  document.getElementById('prodFotoNombre').textContent='';
+  document.getElementById('prodSaveErr').style.display='none';
+  document.getElementById('prodModalTitle').textContent='Nuevo producto';
+  document.getElementById('prodModal').classList.add('open');
+}
+
+function editProducto(id){
+  const p=allProductos.find(x=>x.id===id);
+  if(!p)return;
+  currentProdFotoFile=null;
+  document.getElementById('prod-id').value=p.id;
+  document.getElementById('prod-nombre').value=p.nombre||'';
+  document.getElementById('prod-desc').value=p.descripcion||'';
+  document.getElementById('prod-cat').value=p.categoria||'';
+  document.getElementById('prod-badge').value=p.badge||'';
+  document.getElementById('prod-precio').value=p.precio||'';
+  document.getElementById('prod-orden').value=p.orden||'';
+  document.getElementById('prod-activo').checked=!!p.activo;
+  const wrap=document.getElementById('prodFotoPreviewWrap');
+  const img=document.getElementById('prodFotoPreview');
+  if(p.foto_url){img.src=p.foto_url;wrap.style.display='';}else{wrap.style.display='none';}
+  document.getElementById('prodFotoNombre').textContent='';
+  document.getElementById('prodSaveErr').style.display='none';
+  document.getElementById('prodModalTitle').textContent='Editar producto';
+  document.getElementById('prodModal').classList.add('open');
+}
+
+async function savProducto(){
+  const errEl=document.getElementById('prodSaveErr');errEl.style.display='none';
+  const nombre=document.getElementById('prod-nombre').value.trim();
+  if(!nombre){errEl.textContent='El nombre es obligatorio.';errEl.style.display='block';return;}
+  const btn=document.getElementById('prodSaveBtn');
+  btn.textContent='Guardando...';btn.disabled=true;
+  const id=document.getElementById('prod-id').value;
+  let foto_url=id?allProductos.find(p=>p.id==id)?.foto_url||null:null;
+  if(currentProdFotoFile){
+    btn.textContent='Subiendo imagen...';
+    foto_url=await uploadFoto(currentProdFotoFile);
+    if(!foto_url){errEl.textContent='Error al subir la imagen.';errEl.style.display='block';btn.textContent='Guardar';btn.disabled=false;return;}
+  }
+  const data={
+    nombre,
+    descripcion:document.getElementById('prod-desc').value.trim()||null,
+    categoria:document.getElementById('prod-cat').value.trim()||null,
+    badge:document.getElementById('prod-badge').value.trim()||null,
+    precio:document.getElementById('prod-precio').value.trim()||null,
+    orden:parseInt(document.getElementById('prod-orden').value)||null,
+    activo:document.getElementById('prod-activo').checked,
+    foto_url
+  };
+  const r=id?await apiPatch('productos',id,data):await apiPost('productos',data);
+  btn.textContent='Guardar';btn.disabled=false;
+  if(!r.ok){errEl.textContent='Error al guardar. Intentá de nuevo.';errEl.style.display='block';return;}
+  closeProdModal();loadProductos();
+}
+
+async function toggleProdActivo(id,current){
+  await apiPatch('productos',id,{activo:!current});
+  loadProductos();
+}
+
+async function deleteProducto(id){
+  if(!confirm('¿Eliminar este producto permanentemente?'))return;
+  await apiDelete('productos',id);
+  loadProductos();
+}
+
+function closeProdModal(){document.getElementById('prodModal').classList.remove('open');}
+function closeProdModalBg(e){if(e.target===e.currentTarget)closeProdModal();}
+
+/* ══ EXPERIENCIAS CRUD ═════════════════════ */
+async function loadExperiencias(){
+  const data=await apiGet('experiencias?order=orden.asc.nullslast,created_at.asc');
+  if(!data)return;
+  allExperiencias=data;
+  renderExperiencias();
+}
+
+function renderExperiencias(){
+  const el=document.getElementById('experienciasAdminGrid');
+  if(!el)return;
+  if(!allExperiencias.length){el.innerHTML='<p style="color:var(--muted);font-size:.85rem;">No hay experiencias. Creá la primera con el botón de arriba.</p>';return;}
+  el.innerHTML=allExperiencias.map(exp=>`
+    <div class="rec-card">
+      ${exp.imagen_url?`<img class="rec-card-img" src="${escH(exp.imagen_url)}" alt="${escH(exp.titulo||'')}">`:
+        '<div style="width:100%;height:140px;background:rgba(245,237,228,.04);display:flex;align-items:center;justify-content:center;font-size:2rem;">📷</div>'}
+      <div class="rec-card-body">
+        <span class="rec-badge ${exp.activo?'rec-badge-on':'rec-badge-off'}">${exp.activo?'Visible':'Oculto'}</span>
+        ${exp.destacada?'<span class="rec-badge" style="background:rgba(212,160,23,.15);color:#D4A017;margin-left:.35rem;">Destacada</span>':''}
+        <div class="rec-card-title">${escH(exp.titulo||'Sin título')}</div>
+        <div class="rec-card-price">${escH(exp.categoria||'')}</div>
+        <div class="rec-card-actions">
+          <button class="btn-sm btn-edit" onclick="editExperiencia(${exp.id})">Editar</button>
+          <button class="btn-sm btn-ghost" onclick="toggleExpActivo(${exp.id},${exp.activo})">${exp.activo?'Ocultar':'Activar'}</button>
+          <button class="btn-sm btn-reject" onclick="deleteExperiencia(${exp.id})">Borrar</button>
+        </div>
+      </div>
+    </div>`).join('');
+}
+
+let currentExpFotoFile=null;
+function onExpFotoChange(e){
+  currentExpFotoFile=e.target.files[0]||null;
+  const span=document.getElementById('expFotoNombre');
+  const wrap=document.getElementById('expFotoPreviewWrap');
+  const img=document.getElementById('expFotoPreview');
+  if(currentExpFotoFile){
+    span.textContent=currentExpFotoFile.name;
+    img.src=URL.createObjectURL(currentExpFotoFile);wrap.style.display='';
+  } else {span.textContent='';wrap.style.display='none';}
+}
+
+function openExpModal(){
+  currentExpFotoFile=null;
+  ['exp-id','exp-titulo','exp-desc','exp-orden'].forEach(id=>{const el=document.getElementById(id);if(el)el.value='';});
+  document.getElementById('exp-cat').value='general';
+  document.getElementById('exp-activo').checked=true;
+  document.getElementById('exp-destacada').checked=false;
+  document.getElementById('expFotoPreviewWrap').style.display='none';
+  document.getElementById('expFotoNombre').textContent='';
+  document.getElementById('expSaveErr').style.display='none';
+  document.getElementById('expModalTitle').textContent='Nueva experiencia';
+  document.getElementById('expModal').classList.add('open');
+}
+
+function editExperiencia(id){
+  const exp=allExperiencias.find(x=>x.id===id);
+  if(!exp)return;
+  currentExpFotoFile=null;
+  document.getElementById('exp-id').value=exp.id;
+  document.getElementById('exp-titulo').value=exp.titulo||'';
+  document.getElementById('exp-cat').value=exp.categoria||'general';
+  document.getElementById('exp-desc').value=exp.descripcion||'';
+  document.getElementById('exp-orden').value=exp.orden||'';
+  document.getElementById('exp-activo').checked=!!exp.activo;
+  document.getElementById('exp-destacada').checked=!!exp.destacada;
+  const wrap=document.getElementById('expFotoPreviewWrap');
+  const img=document.getElementById('expFotoPreview');
+  if(exp.imagen_url){img.src=exp.imagen_url;wrap.style.display='';}else{wrap.style.display='none';}
+  document.getElementById('expFotoNombre').textContent='';
+  document.getElementById('expSaveErr').style.display='none';
+  document.getElementById('expModalTitle').textContent='Editar experiencia';
+  document.getElementById('expModal').classList.add('open');
+}
+
+async function saveExperiencia(){
+  const errEl=document.getElementById('expSaveErr');errEl.style.display='none';
+  const titulo=document.getElementById('exp-titulo').value.trim();
+  if(!titulo){errEl.textContent='El título es obligatorio.';errEl.style.display='block';return;}
+  const btn=document.getElementById('expSaveBtn');
+  btn.textContent='Guardando...';btn.disabled=true;
+  const id=document.getElementById('exp-id').value;
+  let imagen_url=id?allExperiencias.find(e=>e.id==id)?.imagen_url||null:null;
+  if(currentExpFotoFile){
+    btn.textContent='Subiendo imagen...';
+    imagen_url=await uploadFoto(currentExpFotoFile);
+    if(!imagen_url){errEl.textContent='Error al subir la imagen.';errEl.style.display='block';btn.textContent='Guardar';btn.disabled=false;return;}
+  }
+  const data={
+    titulo,
+    categoria:document.getElementById('exp-cat').value||'general',
+    descripcion:document.getElementById('exp-desc').value.trim()||null,
+    orden:parseInt(document.getElementById('exp-orden').value)||null,
+    activo:document.getElementById('exp-activo').checked,
+    destacada:document.getElementById('exp-destacada').checked,
+    imagen_url
+  };
+  const r=id?await apiPatch('experiencias',id,data):await apiPost('experiencias',data);
+  btn.textContent='Guardar';btn.disabled=false;
+  if(!r.ok){errEl.textContent='Error al guardar. Intentá de nuevo.';errEl.style.display='block';return;}
+  closeExpModal();loadExperiencias();
+}
+
+async function toggleExpActivo(id,current){
+  await apiPatch('experiencias',id,{activo:!current});
+  loadExperiencias();
+}
+
+async function deleteExperiencia(id){
+  if(!confirm('¿Eliminar esta experiencia permanentemente?'))return;
+  await apiDelete('experiencias',id);
+  loadExperiencias();
+}
+
+function closeExpModal(){document.getElementById('expModal').classList.remove('open');}
+function closeExpModalBg(e){if(e.target===e.currentTarget)closeExpModal();}
+
 // Enter en login
 document.getElementById('loginPass').addEventListener('keydown',e=>{if(e.key==='Enter')doLogin();});
 document.getElementById('loginEmail').addEventListener('keydown',e=>{if(e.key==='Enter')document.getElementById('loginPass').focus();});
 // ESC cierra modal
-document.addEventListener('keydown',e=>{if(e.key==='Escape')closeRecModal();});
+document.addEventListener('keydown',e=>{if(e.key==='Escape'){closeRecModal();closeProdModal();closeExpModal();}});
 </script>
 </body>
 </html>
