@@ -1423,8 +1423,11 @@ async function doUserLogin(){
 
     if(!r.ok||!d.access_token){
       let msg = loginMode==='login' ? 'Email o contraseña incorrectos.' : 'No se pudo crear la cuenta. Intentá con otro email.';
-      if(d.msg) msg = d.msg;
-      if(d.error_description) msg = d.error_description;
+      const raw = d.msg || d.error_description || d.error || '';
+      if(raw.includes('rate limit')) msg = 'Demasiados intentos. Esperá unos minutos o usá "Continuar con Google".';
+      else if(raw.includes('already registered') || raw.includes('User already registered')) msg = 'Ese email ya tiene cuenta. Iniciá sesión.';
+      else if(raw.includes('invalid') || raw.includes('Invalid')) msg = 'Email o contraseña inválidos.';
+      else if(raw.includes('Password should')) msg = 'La contraseña debe tener al menos 6 caracteres.';
       errEl.style.color='#E74C3C';
       errEl.textContent=msg;
       errEl.style.display='block';return;
