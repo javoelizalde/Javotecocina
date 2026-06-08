@@ -123,6 +123,15 @@ nav.scrolled{background:rgba(26,18,11,.92);backdrop-filter:blur(12px);padding:.9
 .about-num-val span{color:var(--ember);}
 .about-num-label{font-family:'Barlow Condensed',sans-serif;font-size:.68rem;font-weight:600;letter-spacing:.15em;text-transform:uppercase;color:rgba(245,237,228,.4);margin-top:.5rem;}
 
+/* ── INSTAGRAM ── */
+.ig-sec{background:var(--cream);padding:var(--gap) 0;}
+.ig-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;margin-top:3rem;}
+.ig-item{display:flex;justify-content:center;min-width:0;}
+.ig-item .instagram-media{margin:0!important;min-width:0!important;width:100%!important;}
+.ig-empty{grid-column:1/-1;text-align:center;padding:3rem 0;color:var(--muted);font-size:.9rem;}
+@media(max-width:900px){.ig-grid{grid-template-columns:1fr 1fr;}}
+@media(max-width:600px){.ig-grid{grid-template-columns:1fr;}}
+
 /* ── PORTFOLIO ── */
 .portfolio{background:var(--dark);}
 .portfolio-header{display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:3rem;flex-wrap:wrap;gap:1.5rem;}
@@ -491,6 +500,7 @@ a,button,[onclick],[role="button"],.filter-btn,.btn-buy,.btn-ver,.btn-primary,.b
 <div class="mobile-menu" id="mobileMenu">
   <a href="#recetarios" onclick="closeMobileMenu()">Recetarios</a>
   <a href="#productos" onclick="closeMobileMenu()">Productos</a>
+  <a href="#contenido" onclick="closeMobileMenu()">Contenido</a>
   <a href="#portfolio" onclick="closeMobileMenu()">Portfolio</a>
   <a href="#sobre" onclick="closeMobileMenu()">Quién Soy</a>
   <a href="#contratar" onclick="closeMobileMenu()" class="mob-cta">Cotizar</a>
@@ -607,6 +617,22 @@ a,button,[onclick],[role="button"],.filter-btn,.btn-buy,.btn-ver,.btn-primary,.b
     <div id="prodVerTodosWrap" style="display:none;text-align:center;margin-top:2.5rem;" class="reveal">
       <p id="prodVerTodosMsg" style="font-size:.8rem;color:rgba(245,237,228,.4);margin-bottom:.75rem;"></p>
       <button onclick="toggleProductosTodos(this)" id="prodVerTodosBtn" class="btn-outline" style="color:var(--ash);border-color:rgba(245,237,228,.25);">Ver todos los productos →</button>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ INSTAGRAM ═══════════ -->
+<section class="ig-sec" id="contenido">
+  <div class="container">
+    <div class="reveal">
+      <div class="sec-label">En las redes</div>
+      <h2 class="sec-title" style="color:var(--dark);">Lo que pasa<br>en el <em>fuego.</em></h2>
+    </div>
+    <div class="ig-grid reveal" id="igGrid">
+      <div class="ig-empty">Cargando contenido...</div>
+    </div>
+    <div style="text-align:center;margin-top:2.5rem;" class="reveal">
+      <a href="https://instagram.com/javotecocina" target="_blank" rel="noopener" class="btn-outline-dark">Ver todo en Instagram →</a>
     </div>
   </div>
 </section>
@@ -1971,6 +1997,36 @@ function togglePortfolio(){
   renderPortfolioPublic(_expData,_portCurrentCat);
 }
 
+/* ── INSTAGRAM POSTS ── */
+async function loadInstagramPosts(){
+  try{
+    const r=await fetch(`${SUPA_URL}/rest/v1/instagram_posts?activo=eq.true&order=orden.asc.nullslast,created_at.asc`,{
+      headers:{'apikey':SUPA_KEY,'Authorization':'Bearer '+SUPA_KEY}
+    });
+    if(!r.ok)return;
+    const posts=await r.json();
+    const grid=document.getElementById('igGrid');
+    if(!grid)return;
+    if(!posts.length){grid.innerHTML='<div class="ig-empty">Próximamente.</div>';return;}
+    grid.innerHTML=posts.map(p=>`
+      <div class="ig-item">
+        <blockquote class="instagram-media"
+          data-instgrm-permalink="${p.url.split('?')[0]}?utm_source=ig_embed"
+          data-instgrm-version="14"
+          style="width:100%;max-width:400px;border:0;margin:0;">
+        </blockquote>
+      </div>`).join('');
+    if(window.instgrm){
+      window.instgrm.Embeds.process();
+    } else {
+      const s=document.createElement('script');
+      s.async=true;
+      s.src='https://www.instagram.com/embed.js';
+      document.body.appendChild(s);
+    }
+  }catch(e){}
+}
+
 /* ── SITE IMAGES DINÁMICAS ── */
 async function loadSiteImages(){
   try{
@@ -1995,6 +2051,7 @@ async function loadSiteImages(){
 // Init on load
 document.addEventListener('DOMContentLoaded',async()=>{
   loadSiteImages();
+  loadInstagramPosts();
   loadRecetariosPublic();
   loadProductosPublic();
   loadPortfolioPublic();
