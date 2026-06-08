@@ -117,8 +117,7 @@ nav.scrolled{background:rgba(26,18,11,.92);backdrop-filter:blur(12px);padding:.9
 .about-img-wrap img{width:100%;height:100%;object-fit:cover;object-position:top;}
 .about-accent{position:absolute;bottom:-1.5rem;right:-1.5rem;width:120px;height:120px;border:1px solid rgba(200,75,17,.3);border-radius:2px;z-index:-1;}
 .about-accent2{position:absolute;top:-1.5rem;left:-1.5rem;width:70px;height:70px;background:var(--fire);opacity:.12;border-radius:2px;}
-.about-tags{display:flex;flex-wrap:wrap;gap:.5rem;margin-top:1.5rem;}
-.about-tag{font-family:'Barlow Condensed',sans-serif;font-size:.75rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;padding:.3rem .75rem;border:1px solid rgba(200,75,17,.4);color:var(--ember);border-radius:2px;}
+.about-tags{margin-top:1.5rem;font-family:'Barlow Condensed',sans-serif;font-size:.75rem;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:rgba(245,237,228,.38);line-height:1.9;}
 .about-numbers{display:flex;flex-wrap:wrap;gap:1.5rem 3rem;margin-top:2.5rem;padding-top:2.5rem;border-top:1px solid rgba(245,237,228,.1);}
 .about-num-val{font-family:'Barlow Condensed',sans-serif;font-size:3.5rem;font-weight:800;color:var(--ash);line-height:.85;letter-spacing:-.02em;}
 .about-num-val span{color:var(--ember);}
@@ -559,13 +558,7 @@ a,button,[onclick],[role="button"],.filter-btn,.btn-buy,.btn-ver,.btn-primary,.b
         <h2 class="sec-title">El sabor del<br><em>norte</em> en<br>mis manos.</h2>
         <p class="sec-desc" style="margin-top:1.5rem;">Soy Javo Elizalde, fundador de Javotecocina, creador de contenido gastronómico y especialista en experiencias culinarias. Combino mi pasión por la cocina con la comunicación digital para desarrollar contenido auténtico, entretenido y de alto impacto.</p>
         <p class="sec-desc" style="margin-top:1rem;">Nací en Salta, me formé entre especias andinas y fuego de quebracho, y hoy llevo esos sabores a eventos, pantallas y mesas de todo el país — desde Buenos Aires al mundo.</p>
-        <div class="about-tags">
-          <span class="about-tag">Cocina del NOA</span>
-          <span class="about-tag">Parrilla & Asado</span>
-          <span class="about-tag">Creador de Contenido</span>
-          <span class="about-tag">Eventos & Experiencias</span>
-          <span class="about-tag">Brands & Marcas</span>
-        </div>
+        <p class="about-tags">Cocina del NOA · Parrilla &amp; Asado · Creador de Contenido · Eventos &amp; Experiencias · Marcas</p>
         <div class="about-numbers">
           <div><div class="about-num-val">30<span>+</span></div><div class="about-num-label">Eventos realizados</div></div>
           <div><div class="about-num-val">5K<span>+</span></div><div class="about-num-label">Personas atendidas</div></div>
@@ -591,10 +584,7 @@ a,button,[onclick],[role="button"],.filter-btn,.btn-buy,.btn-ver,.btn-primary,.b
     <!-- Solo visible en mobile cuando hay más de 2 productos -->
     <div class="ver-todos-mob" id="verTodosMob" style="display:none;">
       <p class="ver-todos-mob-msg" id="verTodosMsg"></p>
-      <a href="/recetarios" class="btn-ver-todos">
-        Ver todos los recetarios
-        <svg viewBox="0 0 16 16"><path d="M3 8h10M9 4l4 4-4 4"/><path d="M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg>
-      </a>
+      <a href="/recetarios" class="btn-ver-todos">Ver todos los recetarios →</a>
     </div>
   </div>
 </section>
@@ -607,7 +597,7 @@ a,button,[onclick],[role="button"],.filter-btn,.btn-buy,.btn-ver,.btn-primary,.b
   <div class="container">
     <div class="reveal">
       <div class="sec-label">Tienda</div>
-      <h2 class="sec-title">Herramientas<br>para el <em>fuego.</em></h2>
+      <h2 class="sec-title">Todo para<br>tu <em>fuego.</em></h2>
       <p class="sec-desc" style="color:rgba(245,237,228,.6);">Productos seleccionados por Javo. Consultá disponibilidad y te respondemos por WhatsApp.</p>
     </div>
     <div class="products-grid" id="productosGrid">
@@ -1981,8 +1971,30 @@ function togglePortfolio(){
   renderPortfolioPublic(_expData,_portCurrentCat);
 }
 
+/* ── SITE IMAGES DINÁMICAS ── */
+async function loadSiteImages(){
+  try{
+    const r=await fetch(`${SUPA_URL}/rest/v1/site_settings?select=key,value`,{
+      headers:{'apikey':SUPA_KEY,'Authorization':'Bearer '+SUPA_KEY}
+    });
+    if(!r.ok)return;
+    const settings=await r.json();
+    settings.forEach(s=>{
+      if(s.key==='hero_image'&&s.value){
+        const img=document.querySelector('.hero-photo img');
+        if(img)img.src=s.value;
+      }
+      if(s.key==='about_image'&&s.value){
+        const img=document.querySelector('.about-img-wrap img');
+        if(img)img.src=s.value;
+      }
+    });
+  }catch(e){}
+}
+
 // Init on load
 document.addEventListener('DOMContentLoaded',async()=>{
+  loadSiteImages();
   loadRecetariosPublic();
   loadProductosPublic();
   loadPortfolioPublic();

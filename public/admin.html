@@ -206,6 +206,12 @@ body{font-family:'Barlow',sans-serif;background:var(--dark);color:var(--ash);min
         </div>
       </div>
       <div class="nav-section">
+        <div class="nav-label">Sitio</div>
+        <div class="nav-item" data-sec="sitio" onclick="showSection('sitio',this)">
+          <span class="nav-icon">🖼️</span> Imágenes del sitio
+        </div>
+      </div>
+      <div class="nav-section">
         <div class="nav-label">Comunidad</div>
         <div class="nav-item" data-sec="usuarios" onclick="showSection('usuarios',this)">
           <span class="nav-icon">👥</span> Usuarios
@@ -276,6 +282,34 @@ body{font-family:'Barlow',sans-serif;background:var(--dark);color:var(--ash);min
           <button class="btn-sm btn-primary" onclick="openExpModal()">+ Nueva experiencia</button>
         </div>
         <div id="experienciasAdminGrid" class="recetarios-grid"><div class="loader">Cargando...</div></div>
+      </div>
+
+      <!-- IMÁGENES DEL SITIO -->
+      <div class="section-view" id="sec-sitio">
+        <div class="section-header">
+          <h1>Imágenes del Sitio</h1>
+          <p>Cambiá las fotos fijas del sitio sin hacer deploy. Los cambios se aplican al instante.</p>
+        </div>
+
+        <div id="sitioSetupWarning" style="display:none;background:rgba(232,115,10,.08);border:1px solid rgba(232,115,10,.25);border-radius:4px;padding:1rem 1.25rem;margin-bottom:1.5rem;font-size:.83rem;line-height:1.65;">
+          <strong style="color:var(--ember);">Configuración inicial requerida</strong><br>
+          Ejecutá este SQL en Supabase → SQL Editor, una sola vez:<br>
+          <code style="display:block;margin:.65rem 0;background:rgba(0,0,0,.3);padding:.65rem .875rem;border-radius:3px;font-size:.78rem;white-space:pre-wrap;color:var(--ash);">CREATE TABLE IF NOT EXISTS site_settings (
+  key TEXT PRIMARY KEY,
+  value TEXT NOT NULL,
+  updated_at TIMESTAMPTZ DEFAULT now()
+);
+ALTER TABLE site_settings DISABLE ROW LEVEL SECURITY;
+INSERT INTO site_settings (key, value) VALUES
+  ('hero_image', 'img/p03.jpg'),
+  ('about_image', 'img/p01.jpg')
+ON CONFLICT (key) DO NOTHING;</code>
+          <button class="btn-sm btn-ghost" onclick="loadSiteSettings()">Ya lo ejecuté — recargar</button>
+        </div>
+
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1.5rem;" id="sitioGrid">
+          <div class="loader">Cargando...</div>
+        </div>
       </div>
 
       <!-- RESEÑAS -->
@@ -613,7 +647,7 @@ async function apiDelete(table,id){
 
 /* ── LOAD ALL ───────────────────────────── */
 async function loadAll(){
-  await Promise.all([loadDashboard(),loadRecetarios(),loadProductos(),loadExperiencias(),loadReviews(),loadLeads(),loadUsuarios()]);
+  await Promise.all([loadDashboard(),loadRecetarios(),loadProductos(),loadExperiencias(),loadReviews(),loadLeads(),loadUsuarios(),loadSiteSettings()]);
 }
 
 /* ── NAVIGATION ─────────────────────────── */
@@ -1084,6 +1118,118 @@ async function loadUsuarios(){
       </div>
     </div>`;
   }).join('');
+}
+
+/* ── IMÁGENES DEL SITIO ─────────────────── */
+const SITE_KEYS=[
+  {key:'hero_image',     label:'Foto del Hero',   hint:'La foto de fondo de la sección principal'},
+  {key:'about_image',    label:'Foto "Sobre mí"', hint:'La foto de la sección Quién Soy'}
+];
+let _siteSettings={};
+
+async function loadSiteSettings(){
+  const grid=document.getElementById('sitioGrid');
+  const warn=document.getElementById('sitioSetupWarning');
+  if(grid)grid.innerHTML='<div class="loader">Cargando...</div>';
+  try{
+    const r=await fetch(`${SUPA_URL}/rest/v1/site_settings?select=key,value`,{headers:h()});
+    if(!r.ok){
+      if(warn)warn.style.display='block';
+      if(grid)grid.innerHTML='';
+      return;
+    }
+    const data=await r.json();
+    if(warn)warn.style.display='none';
+    data.forEach(s=>{_siteSettings[s.key]=s.value;});
+    renderSiteSettings();
+  }catch(e){
+    if(warn)warn.style.display='block';
+    if(grid)grid.innerHTML='';
+  }
+}
+
+function renderSiteSettings(){
+  const grid=document.getElementById('sitioGrid');
+  if(!grid)return;
+  grid.innerHTML=SITE_KEYS.map(({key,label,hint})=>{
+    const currentUrl=_siteSettings[key]||'';
+    return`<div style="background:var(--dark2);border:1px solid var(--border);border-radius:4px;padding:1.25rem;" id="sitio-card-${key}">
+      <div style="font-family:'Barlow Condensed',sans-serif;font-size:.85rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--ash);margin-bottom:.2rem;">${label}</div>
+      <div style="font-size:.72rem;color:var(--muted);margin-bottom:.875rem;">${hint}</div>
+      ${currentUrl?`<img src="${escH(currentUrl)}" style="width:100%;height:140px;object-fit:cover;border-radius:3px;margin-bottom:.875rem;display:block;" onerror="this.style.display='none'" id="sitio-preview-${key}">`
+        :`<div style="width:100%;height:140px;background:rgba(245,237,228,.04);border-radius:3px;margin-bottom:.875rem;display:flex;align-items:center;justify-content:center;font-size:2rem;" id="sitio-preview-${key}">🖼️</div>`}
+      <div style="font-size:.7rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-bottom:.35rem;">URL de la imagen</div>
+      <input class="admin-input" id="sitio-url-${key}" type="url" placeholder="https://..." value="${escH(currentUrl)}" style="margin-bottom:.65rem;">
+      <div style="display:flex;align-items:center;gap:.5rem;margin-bottom:.875rem;">
+        <span style="font-size:.68rem;color:var(--muted);">o</span>
+        <input type="file" id="sitio-file-${key}" accept="image/*" style="display:none;" onchange="onSitioFileChange('${key}',this)">
+        <button class="btn-sm btn-ghost" onclick="document.getElementById('sitio-file-${key}').click()">📷 Subir desde dispositivo</button>
+        <span id="sitio-fname-${key}" style="font-size:.68rem;color:var(--muted);"></span>
+      </div>
+      <div id="sitio-err-${key}" style="color:var(--danger);font-size:.78rem;margin-bottom:.5rem;display:none;"></div>
+      <button class="btn-sm btn-primary" onclick="saveSiteSetting('${key}')">Guardar cambio</button>
+    </div>`;
+  }).join('');
+}
+
+async function onSitioFileChange(key,input){
+  const file=input.files[0];
+  if(!file)return;
+  const fname=document.getElementById(`sitio-fname-${key}`);
+  const preview=document.getElementById(`sitio-preview-${key}`);
+  if(fname)fname.textContent=file.name;
+  // Preview local inmediato
+  const reader=new FileReader();
+  reader.onload=e=>{
+    if(preview){preview.src=e.target.result;preview.style.display='block';}
+  };
+  reader.readAsDataURL(file);
+  // Subir a Supabase Storage
+  const btn=document.querySelector(`#sitio-card-${key} .btn-primary`);
+  if(btn){btn.textContent='Subiendo...';btn.disabled=true;}
+  const ext=file.name.split('.').pop().toLowerCase();
+  const uploadName=`sitio/${key}-${Date.now()}.${ext}`;
+  const r=await fetch(`${SUPA_URL}/storage/v1/object/site-images/${uploadName}`,{
+    method:'POST',
+    headers:{'apikey':SUPA_KEY,'Authorization':'Bearer '+authToken,'Content-Type':file.type,'x-upsert':'true'},
+    body:file
+  });
+  if(btn){btn.textContent='Guardar cambio';btn.disabled=false;}
+  if(!r.ok){
+    const errEl=document.getElementById(`sitio-err-${key}`);
+    if(errEl){errEl.textContent='Error al subir la imagen. Verificá el bucket "site-images" en Supabase Storage.';errEl.style.display='block';}
+    return;
+  }
+  const publicUrl=`${SUPA_URL}/storage/v1/object/public/site-images/${uploadName}`;
+  const urlInput=document.getElementById(`sitio-url-${key}`);
+  if(urlInput)urlInput.value=publicUrl;
+}
+
+async function saveSiteSetting(key){
+  const urlInput=document.getElementById(`sitio-url-${key}`);
+  const errEl=document.getElementById(`sitio-err-${key}`);
+  const btn=document.querySelector(`#sitio-card-${key} .btn-primary`);
+  if(errEl)errEl.style.display='none';
+  const value=(urlInput?.value||'').trim();
+  if(!value){if(errEl){errEl.textContent='Ingresá una URL válida.';errEl.style.display='block';}return;}
+  if(btn){btn.textContent='Guardando...';btn.disabled=true;}
+  const r=await fetch(`${SUPA_URL}/rest/v1/site_settings`,{
+    method:'POST',
+    headers:{...h(),'Prefer':'resolution=merge-duplicates'},
+    body:JSON.stringify({key,value,updated_at:new Date().toISOString()})
+  });
+  if(btn){btn.textContent='Guardar cambio';btn.disabled=false;}
+  if(!r.ok){
+    const errBody=await r.text();
+    if(errEl){errEl.textContent='Error al guardar. ¿Ya creaste la tabla site_settings?';errEl.style.display='block';}
+    return;
+  }
+  _siteSettings[key]=value;
+  // Feedback visual
+  if(btn){btn.textContent='✓ Guardado';setTimeout(()=>{btn.textContent='Guardar cambio';},2000);}
+  // Preview actualizado
+  const preview=document.getElementById(`sitio-preview-${key}`);
+  if(preview){preview.src=value;preview.style.display='block';}
 }
 
 /* ── UTILS ──────────────────────────────── */
