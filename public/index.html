@@ -1597,7 +1597,7 @@ function renderProductosPublic(list){
       <div class="prod-body">
         <div class="prod-cat">${esc(p.categoria||'')}</div>
         <div class="prod-name">${esc(p.nombre||'')}</div>
-        <p class="prod-desc">${esc(p.descripcion||'')}</p>
+        <p class="prod-desc">${esc(p.descripcion||'').replace(/\n/g,'<br>')}</p>
         <button class="prod-wa" onclick="consultarProducto('${esc(p.nombre||'')}')">
           ${waIcon} Consultar
         </button>
