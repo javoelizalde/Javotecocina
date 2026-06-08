@@ -1496,7 +1496,13 @@ async function savProducto(){
   };
   const r=id?await apiPatch('productos',id,data):await apiPost('productos',data);
   btn.textContent='Guardar';btn.disabled=false;
-  if(!r.ok){errEl.textContent='Error al guardar. Intentá de nuevo.';errEl.style.display='block';return;}
+  if(!r.ok){
+    let msg='Error al guardar. Intentá de nuevo.';
+    try{const d=await r.json();msg=d.message||d.details||d.hint||JSON.stringify(d);}catch(e){}
+    errEl.textContent=msg;errEl.style.display='block';
+    console.error('savProducto error',r.status,msg);
+    return;
+  }
   closeProdModal();loadProductos();
 }
 
