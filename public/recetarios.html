@@ -8,12 +8,12 @@
 <link rel="icon" type="image/png" href="/img/favicon-jtc.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800;900&family=Barlow:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,700;0,800;1,700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800;900&family=Barlow:wght@300;400;500;600&family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&display=swap" rel="stylesheet">
 <style>
 *{margin:0;padding:0;box-sizing:border-box;}
 :root{
   --dark:#1a120b;--ash:#f5ede4;--cream:#faf6f2;--fire:#C84B11;--ember:#e05a1a;
-  --muted:rgba(26,18,11,.45);--gap:5rem;
+  --muted:#7A5440;--gap:5rem;
 }
 html{scroll-behavior:smooth;}
 body{font-family:'Barlow',system-ui,sans-serif;background:var(--cream);color:var(--dark);-webkit-font-smoothing:antialiased;}
@@ -46,7 +46,7 @@ img{display:block;max-width:100%;}
 .rec-header-logo em{color:var(--fire);font-style:normal;}
 .rec-header-user{flex-shrink:0;width:64px;display:flex;justify-content:flex-end;}
 .nav-user-btn{
-  width:36px;height:36px;border-radius:50%;border:1.5px solid rgba(26,18,11,.2);
+  width:44px;height:44px;border-radius:50%;border:1.5px solid rgba(26,18,11,.2);
   background:transparent;display:flex;align-items:center;justify-content:center;
   font-size:.85rem;color:var(--dark);transition:border-color .2s;
 }
@@ -61,8 +61,8 @@ img{display:block;max-width:100%;}
   letter-spacing:.18em;text-transform:uppercase;color:var(--fire);margin-bottom:.75rem;
 }
 .rec-hero-title{
-  font-family:'Playfair Display',serif;font-size:clamp(1.75rem,5vw,2.5rem);
-  font-weight:700;color:var(--ash);line-height:1.15;margin-bottom:.75rem;
+  font-family:'Cormorant Garamond',serif;font-size:clamp(2.5rem,6vw,4rem);
+  font-weight:600;color:var(--ash);line-height:1.05;margin-bottom:.75rem;letter-spacing:-.01em;
 }
 .rec-hero-desc{
   font-size:.9rem;font-weight:300;color:rgba(245,237,228,.55);
@@ -93,12 +93,12 @@ img{display:block;max-width:100%;}
   content:'';position:absolute;top:0;left:0;right:0;height:3px;
   background:var(--fire);transform:scaleX(0);transition:transform .4s;
 }
-.rec-card:hover{transform:translateY(-3px);box-shadow:0 16px 40px rgba(26,18,11,.1);border-color:rgba(200,75,17,.2);}
+.rec-card:hover{box-shadow:0 8px 28px rgba(26,18,11,.1);border-color:rgba(200,75,17,.35);}
 .rec-card:hover::before{transform:scaleX(1);}
 .rec-card.featured{border-color:rgba(200,75,17,.2);}
 .rec-card.featured::before{transform:scaleX(1);}
 
-.rc-img{width:100%;height:160px;object-fit:cover;filter:sepia(.1);}
+.rc-img{width:100%;height:160px;object-fit:cover;}
 .rc-body{padding:1.25rem 1.25rem 1.5rem;display:flex;flex-direction:column;flex:1;}
 .rc-tag{
   display:inline-block;font-family:'Barlow Condensed',sans-serif;font-size:.6rem;
@@ -107,8 +107,8 @@ img{display:block;max-width:100%;}
   border-radius:2px;margin-bottom:.65rem;
 }
 .rc-title{
-  font-family:'Playfair Display',serif;font-size:1.2rem;font-weight:700;
-  color:var(--dark);margin-bottom:.4rem;line-height:1.2;
+  font-family:'Cormorant Garamond',serif;font-size:1.35rem;font-weight:600;
+  color:var(--dark);margin-bottom:.4rem;line-height:1.15;
 }
 .rc-desc{
   font-size:.85rem;font-weight:300;color:var(--muted);
@@ -158,12 +158,12 @@ img{display:block;max-width:100%;}
   border:none;font-size:1.1rem;color:var(--muted);width:32px;height:32px;
   display:flex;align-items:center;justify-content:center;z-index:2;transition:color .2s;}
 .modal-close:hover{color:var(--dark);}
-.modal-header-img{width:100%;height:200px;object-fit:cover;filter:sepia(.1);}
+.modal-header-img{width:100%;height:200px;object-fit:cover;}
 .modal-body{padding:1.75rem 1.75rem 2rem;}
 .modal-tag{font-family:'Barlow Condensed',sans-serif;font-size:.62rem;font-weight:700;
   letter-spacing:.15em;text-transform:uppercase;color:var(--fire);margin-bottom:.6rem;}
-.modal-title{font-family:'Playfair Display',serif;font-size:1.5rem;font-weight:700;
-  color:var(--dark);margin-bottom:.75rem;line-height:1.2;}
+.modal-title{font-family:'Cormorant Garamond',serif;font-size:1.6rem;font-weight:600;
+  color:var(--dark);margin-bottom:.75rem;line-height:1.1;}
 .modal-desc{font-size:.88rem;color:var(--muted);line-height:1.7;margin-bottom:1rem;}
 .modal-includes{list-style:none;margin-bottom:1.5rem;}
 .modal-includes li{font-size:.82rem;color:var(--dark);padding:.3rem 0;
@@ -184,7 +184,7 @@ img{display:block;max-width:100%;}
   z-index:600;align-items:center;justify-content:center;padding:1rem;backdrop-filter:blur(4px);}
 .login-modal-bg.open{display:flex;}
 .login-modal-box{background:#fff;border-radius:4px;width:100%;max-width:360px;padding:2rem;}
-.login-modal-title{font-family:'Playfair Display',serif;font-size:1.3rem;font-weight:700;
+.login-modal-title{font-family:'Cormorant Garamond',serif;font-size:1.4rem;font-weight:600;
   color:var(--dark);margin-bottom:.25rem;}
 .login-modal-sub{font-size:.82rem;color:var(--muted);margin-bottom:1.25rem;line-height:1.5;}
 .login-field{margin-bottom:.875rem;}
@@ -302,11 +302,11 @@ img{display:block;max-width:100%;}
     <div class="login-modal-title">Mi cuenta</div>
     <p class="login-modal-sub" id="loginContext" style="display:none;"></p>
     <div class="login-field">
-      <label>Email</label>
+      <label for="userEmailInput">Email</label>
       <input type="email" id="userEmailInput" placeholder="tu@email.com" autocomplete="email">
     </div>
     <div class="login-field">
-      <label>Contraseña</label>
+      <label for="userPassInput">Contraseña</label>
       <input type="password" id="userPassInput" placeholder="••••••••" autocomplete="current-password">
     </div>
     <div class="login-err" id="userLoginErr"></div>
