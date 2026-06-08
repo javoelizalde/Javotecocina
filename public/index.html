@@ -315,12 +315,26 @@ textarea{resize:vertical;min-height:90px;}
 .prod-img img{width:100%;height:100%;object-fit:contain;transition:transform .4s,filter .4s;padding:.75rem;}
 .prod-card:hover .prod-img img{transform:scale(1.03);}
 .prod-badge{position:absolute;top:.75rem;left:.75rem;font-family:'Barlow Condensed',sans-serif;font-size:.65rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:.25rem .6rem;background:var(--fire);color:#fff;border-radius:2px;}
-.prod-body{padding:1.5rem;}
+.prod-body{padding:1.25rem;display:flex;flex-direction:column;}
 .prod-cat{font-family:'Barlow Condensed',sans-serif;font-size:.65rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--ember);margin-bottom:.35rem;}
-.prod-name{font-family:'Cormorant Garamond',serif;font-size:1rem;font-weight:700;color:var(--ash);margin-bottom:.5rem;line-height:1.3;}
-.prod-desc{font-size:.8rem;font-weight:300;color:rgba(245,237,228,.45);line-height:1.6;margin-bottom:1.25rem;}
-.prod-wa{width:100%;padding:.7rem;background:transparent;color:var(--ember);border:1px solid rgba(200,75,17,.35);border-radius:2px;font-family:'Barlow Condensed',sans-serif;font-size:.8rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;transition:background .2s,color .2s;display:flex;align-items:center;justify-content:center;gap:.5rem;}
-.prod-wa:hover{background:rgba(200,75,17,.1);border-color:var(--ember);}
+.prod-name{font-family:'Cormorant Garamond',serif;font-size:1.1rem;font-weight:600;color:var(--ash);margin-bottom:.4rem;line-height:1.25;}
+.prod-desc{font-size:.78rem;font-weight:300;color:rgba(245,237,228,.4);line-height:1.55;margin-bottom:1rem;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;}
+.prod-actions{display:flex;gap:.4rem;margin-top:auto;}
+.btn-prod-ver{flex:1;padding:.62rem .4rem;background:transparent;color:rgba(245,237,228,.55);border:1px solid rgba(245,237,228,.14);border-radius:2px;font-family:'Barlow Condensed',sans-serif;font-size:.73rem;font-weight:700;letter-spacing:.07em;text-transform:uppercase;transition:border-color .2s,color .2s;display:flex;align-items:center;justify-content:center;}
+.btn-prod-ver:hover{border-color:rgba(245,237,228,.3);color:var(--ash);}
+.prod-wa{flex:1;padding:.62rem .4rem;background:var(--fire);color:#fff;border:none;border-radius:2px;font-family:'Barlow Condensed',sans-serif;font-size:.73rem;font-weight:700;letter-spacing:.07em;text-transform:uppercase;transition:background .2s;display:flex;align-items:center;justify-content:center;gap:.35rem;}
+.prod-wa:hover{background:var(--ember);}
+
+/* ── PRODUCTO MODAL ── */
+.prod-modal-box{background:var(--dark);border-radius:4px;max-width:560px;width:100%;max-height:92vh;overflow-y:auto;position:relative;border:1px solid rgba(245,237,228,.08);}
+.prod-modal-img{width:100%;aspect-ratio:1/1;object-fit:contain;background:var(--smoke);padding:1.75rem;display:block;}
+.prod-modal-body{padding:1.75rem 2rem 2.5rem;}
+.prod-modal-cat{font-family:'Barlow Condensed',sans-serif;font-size:.7rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--ember);margin-bottom:.5rem;}
+.prod-modal-title{font-family:'Cormorant Garamond',serif;font-size:2rem;font-weight:600;color:var(--ash);line-height:1.1;margin-bottom:1.1rem;letter-spacing:-.01em;}
+.prod-modal-desc{font-size:.9rem;font-weight:300;color:rgba(245,237,228,.62);line-height:1.85;margin-bottom:1.75rem;white-space:pre-line;}
+.prod-modal-footer{display:flex;gap:.75rem;flex-wrap:wrap;}
+.prod-modal-close{position:absolute;top:1rem;right:1rem;background:rgba(26,18,11,.7);border:1px solid rgba(245,237,228,.1);border-radius:2px;font-size:1rem;color:rgba(245,237,228,.55);width:32px;height:32px;display:flex;align-items:center;justify-content:center;transition:color .2s,border-color .2s;cursor:pointer;}
+.prod-modal-close:hover{color:var(--ash);border-color:rgba(245,237,228,.3);}
 
 /* ── TESTIMONIOS ── */
 .testi-sec{background:var(--dark);}
@@ -441,14 +455,14 @@ a,button,[onclick],[role="button"],.filter-btn,.btn-buy,.btn-ver,.btn-primary,.b
   /* ── PRODUCTOS FÍSICOS MOBILE: 2 columnas compactas ── */
   .products-grid{gap:.75rem;margin-top:2rem;}
   .prod-img{aspect-ratio:1/1;}
-  .prod-body{padding:.875rem .75rem;}
+  .prod-body{padding:.75rem .65rem;}
   .prod-badge{font-size:.58rem;padding:.18rem .45rem;}
   .prod-cat{font-size:.6rem;margin-bottom:.2rem;}
-  .prod-name{font-size:.88rem;line-height:1.25;margin-bottom:.3rem;}
-  .prod-desc{font-size:.75rem;line-height:1.5;margin-bottom:.75rem;
-    display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;}
-  .prod-wa{padding:.6rem .5rem;font-size:.7rem;letter-spacing:.04em;gap:.25rem;}
-  .prod-wa svg{width:13px;height:13px;flex-shrink:0;}
+  .prod-name{font-size:.85rem;line-height:1.2;margin-bottom:.25rem;}
+  .prod-desc{font-size:.72rem;line-height:1.45;margin-bottom:.6rem;}
+  .btn-prod-ver{font-size:.65rem;padding:.5rem .3rem;}
+  .prod-wa{font-size:.65rem;padding:.5rem .3rem;gap:.2rem;}
+  .prod-wa svg{width:12px;height:12px;flex-shrink:0;}
 
   /* ── RECETARIOS MOBILE: 2 columnas compactas ── */
   .digital-grid{grid-template-columns:1fr 1fr;gap:.875rem;margin-top:2rem;}
@@ -620,6 +634,9 @@ a,button,[onclick],[role="button"],.filter-btn,.btn-buy,.btn-ver,.btn-primary,.b
     </div>
   </div>
 </section>
+
+<!-- MODALES PRODUCTOS PÚBLICOS (generados dinámicamente) -->
+<div id="prodModalesPublic"></div>
 
 <!-- ═══════════ INSTAGRAM ═══════════ -->
 <section class="ig-sec" id="contenido">
@@ -1585,8 +1602,11 @@ async function loadProductosPublic(){
 
 function renderProductosPublic(list){
   const grid=document.getElementById('productosGrid');
-  const waIcon=`<svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" style="flex-shrink:0;"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.09.543 4.057 1.49 5.771L.057 23.882a.5.5 0 00.587.625l6.266-1.642A11.95 11.95 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22a9.944 9.944 0 01-5.09-1.396l-.365-.218-3.785.993.992-3.668-.24-.38A9.96 9.96 0 012 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/></svg>`;
+  const modales=document.getElementById('prodModalesPublic');
+  const waIcon=`<svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor" style="flex-shrink:0;"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.09.543 4.057 1.49 5.771L.057 23.882a.5.5 0 00.587.625l6.266-1.642A11.95 11.95 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22a9.944 9.944 0 01-5.09-1.396l-.365-.218-3.785.993.992-3.668-.24-.38A9.96 9.96 0 012 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/></svg>`;
   const esc=s=>String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+  const mid=p=>`prodpub-${p.id||p.nombre.replace(/\s/g,'_')}`;
+
   grid.innerHTML=list.map((p,idx)=>{
     const hidden=idx>=PROD_HOME_MAX&&!_prodExpanded?'mob-oculta':'';
     return`<div class="prod-card reveal ${hidden}">
@@ -1597,13 +1617,36 @@ function renderProductosPublic(list){
       <div class="prod-body">
         <div class="prod-cat">${esc(p.categoria||'')}</div>
         <div class="prod-name">${esc(p.nombre||'')}</div>
-        <p class="prod-desc">${esc(p.descripcion||'').replace(/\n/g,'<br>')}</p>
-        <button class="prod-wa" onclick="consultarProducto('${esc(p.nombre||'')}')">
-          ${waIcon} Consultar
-        </button>
+        <p class="prod-desc">${esc(p.descripcion||'').split('\n')[0]}</p>
+        <div class="prod-actions">
+          <button class="btn-prod-ver" onclick="openProdModal('${mid(p)}')">Ver detalle</button>
+          <button class="prod-wa" onclick="consultarProducto('${esc(p.nombre||'')}')">
+            ${waIcon} Consultar
+          </button>
+        </div>
       </div>
     </div>`;
   }).join('');
+
+  if(modales){
+    modales.innerHTML=list.map(p=>`
+      <div class="modal-bg" id="${mid(p)}" onclick="if(event.target===this)closeProdModal('${mid(p)}')">
+        <div class="prod-modal-box">
+          <button class="prod-modal-close" onclick="closeProdModal('${mid(p)}')">✕</button>
+          ${p.foto_url?`<img class="prod-modal-img" src="${esc(p.foto_url)}" alt="${esc(p.nombre||'')}">`:''}
+          <div class="prod-modal-body">
+            ${p.categoria?`<div class="prod-modal-cat">${esc(p.categoria)}</div>`:''}
+            <div class="prod-modal-title">${esc(p.nombre||'')}</div>
+            <p class="prod-modal-desc">${esc(p.descripcion||'')}</p>
+            <div class="prod-modal-footer">
+              <button class="btn-wa" onclick="consultarProducto('${esc(p.nombre||'')}');closeProdModal('${mid(p)}')">
+                ${waIcon} Consultar precio y disponibilidad
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>`).join('');
+  }
   // Re-observar reveals
   grid.querySelectorAll('.reveal').forEach(el=>{
     if(window._revealObserver)window._revealObserver.observe(el);
@@ -1995,6 +2038,16 @@ function closePortModal2(id){
 function togglePortfolio(){
   _portExpState=!_portExpState;
   renderPortfolioPublic(_expData,_portCurrentCat);
+}
+
+/* ── MODALES PRODUCTOS PÚBLICOS ── */
+function openProdModal(id){
+  const el=document.getElementById(id);
+  if(el){el.classList.add('open');document.body.style.overflow='hidden';}
+}
+function closeProdModal(id){
+  const el=document.getElementById(id);
+  if(el){el.classList.remove('open');document.body.style.overflow='';}
 }
 
 /* ── INSTAGRAM POSTS ── */
