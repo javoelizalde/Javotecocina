@@ -125,12 +125,20 @@ nav.scrolled{background:rgba(26,18,11,.92);backdrop-filter:blur(12px);padding:.9
 
 /* ── INSTAGRAM ── */
 .ig-sec{background:var(--cream);padding:var(--gap) 0;}
-.ig-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;margin-top:3rem;}
-.ig-item{display:flex;justify-content:center;min-width:0;}
-.ig-item .instagram-media{margin:0!important;min-width:0!important;width:100%!important;}
+.ig-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:.75rem;margin-top:3rem;}
+.ig-item{position:relative;aspect-ratio:1;overflow:hidden;border-radius:4px;background:#1a120b;display:block;text-decoration:none;}
+.ig-item img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .4s ease,opacity .4s ease;}
+.ig-item:hover img{transform:scale(1.04);opacity:.85;}
+.ig-item-overlay{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;opacity:0;transition:opacity .3s ease;background:rgba(26,18,11,.45);}
+.ig-item:hover .ig-item-overlay{opacity:1;}
+.ig-play{width:44px;height:44px;border-radius:50%;background:rgba(255,255,255,.92);display:flex;align-items:center;justify-content:center;}
+.ig-play svg{margin-left:3px;}
+.ig-item-no-thumb{width:100%;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.75rem;background:linear-gradient(135deg,#405DE6 0%,#833AB4 40%,#E1306C 70%,#FD1D1D 100%);}
+.ig-item-no-thumb svg{opacity:.9;}
+.ig-item-no-thumb span{font-family:'Barlow Condensed',sans-serif;font-size:.7rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.7);}
 .ig-empty{grid-column:1/-1;text-align:center;padding:3rem 0;color:var(--muted);font-size:.9rem;}
-@media(max-width:900px){.ig-grid{grid-template-columns:1fr 1fr;}}
-@media(max-width:600px){.ig-grid{grid-template-columns:1fr;}}
+@media(max-width:900px){.ig-grid{grid-template-columns:repeat(2,1fr);gap:.6rem;}}
+@media(max-width:480px){.ig-grid{grid-template-columns:repeat(2,1fr);gap:.5rem;}}
 
 /* ── PORTFOLIO ── */
 .portfolio{background:var(--dark);}
@@ -436,7 +444,7 @@ a,button,[onclick],[role="button"],.filter-btn,.btn-buy,.btn-ver,.btn-primary,.b
   .hero-stats{display:none;}
   .scroll-ind{display:none;}
   .about-grid{grid-template-columns:1fr;gap:3rem;}
-  .about-img-wrap{max-height:420px;}
+  .about-img-wrap{aspect-ratio:unset;width:100%;height:420px;max-height:none;}
   .about-accent{display:none;}
   .about-accent2{display:none;}
   .portfolio-grid{grid-template-columns:1fr 1fr;}
@@ -581,7 +589,7 @@ a,button,[onclick],[role="button"],.filter-btn,.btn-buy,.btn-ver,.btn-primary,.b
         <div class="sec-label">Quién Soy</div>
         <h2 class="sec-title">El sabor del<br><em>norte</em> en<br>mis manos.</h2>
         <p class="sec-desc" style="margin-top:1.5rem;">Soy Javo Elizalde, fundador de Javotecocina, creador de contenido gastronómico y especialista en experiencias culinarias. Combino mi pasión por la cocina con la comunicación digital para desarrollar contenido auténtico, entretenido y de alto impacto.</p>
-        <p class="sec-desc" style="margin-top:1rem;">Nací en Salta, me formé entre especias andinas y fuego de quebracho, y hoy llevo esos sabores a eventos, pantallas y mesas de todo el país — desde Buenos Aires al mundo.</p>
+        <p class="sec-desc" style="margin-top:1rem;">Nací en Salta, me formé entre especias andinas y fuego de quebracho, y hoy llevo esos sabores a eventos, pantallas y mesas de todo el país. Desde Buenos Aires al mundo.</p>
         <p class="about-tags">Cocina del NOA · Parrilla &amp; Asado · Creador de Contenido · Eventos &amp; Experiencias · Marcas</p>
         <div class="about-numbers">
           <div><div class="about-num-val">30<span>+</span></div><div class="about-num-label">Eventos realizados</div></div>
@@ -2062,21 +2070,16 @@ async function loadInstagramPosts(){
     if(!grid)return;
     if(!posts.length){grid.innerHTML='<div class="ig-empty">Próximamente.</div>';return;}
     grid.innerHTML=posts.map(p=>`
-      <div class="ig-item">
-        <blockquote class="instagram-media"
-          data-instgrm-permalink="${p.url.split('?')[0]}?utm_source=ig_embed"
-          data-instgrm-version="14"
-          style="width:100%;max-width:400px;border:0;margin:0;">
-        </blockquote>
-      </div>`).join('');
-    if(window.instgrm){
-      window.instgrm.Embeds.process();
-    } else {
-      const s=document.createElement('script');
-      s.async=true;
-      s.src='https://www.instagram.com/embed.js';
-      document.body.appendChild(s);
-    }
+      <a class="ig-item" href="${p.url}" target="_blank" rel="noopener">
+        ${p.thumbnail_url
+          ? `<img src="${p.thumbnail_url}" alt="Post de Instagram" loading="lazy">
+             <div class="ig-item-overlay"><div class="ig-play"><svg width="14" height="16" viewBox="0 0 14 16" fill="#1a120b"><polygon points="0,0 14,8 0,16"/></svg></div></div>`
+          : `<div class="ig-item-no-thumb">
+               <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+               <span>Ver en Instagram</span>
+             </div>`
+        }
+      </a>`).join('');
   }catch(e){}
 }
 
