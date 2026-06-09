@@ -284,6 +284,16 @@ body{font-family:'Barlow',sans-serif;background:var(--dark);color:var(--ash);min
           </div>
           <button class="btn-sm btn-primary" onclick="openExpModal()">+ Nueva experiencia</button>
         </div>
+        <div id="expStorageWarning" style="display:none;background:rgba(232,115,10,.08);border:1px solid rgba(232,115,10,.25);border-radius:4px;padding:1rem 1.25rem;margin-bottom:1.5rem;font-size:.83rem;line-height:1.75;">
+          <strong style="color:var(--ember);">⚠ Bucket de imágenes no configurado</strong><br>
+          Para subir fotos necesitás crear el bucket <code style="color:var(--ember);">site-images</code> en Supabase Storage:<br>
+          <ol style="margin:.5rem 0 .5rem 1.25rem;padding:0;">
+            <li>Andá a <strong>Supabase Dashboard → Storage → New bucket</strong></li>
+            <li>Nombre: <code style="color:var(--ember);">site-images</code> · activá <strong>Public bucket</strong></li>
+            <li>Guardá y volvé a intentar subir la imagen</li>
+          </ol>
+          <button class="btn-sm btn-ghost" onclick="checkStorageBucket()">Ya lo creé — verificar</button>
+        </div>
         <div id="experienciasAdminGrid" class="recetarios-grid"><div class="loader">Cargando...</div></div>
       </div>
 
@@ -304,13 +314,15 @@ body{font-family:'Barlow',sans-serif;background:var(--dark);color:var(--ash);min
   id SERIAL PRIMARY KEY,
   url TEXT NOT NULL,
   thumbnail_url TEXT,
+  video_url TEXT,
   activo BOOLEAN DEFAULT true,
   orden INT DEFAULT 0,
   created_at TIMESTAMPTZ DEFAULT now()
 );
 ALTER TABLE instagram_posts DISABLE ROW LEVEL SECURITY;
--- Si la tabla ya existe, solo agregá la columna:
-ALTER TABLE instagram_posts ADD COLUMN IF NOT EXISTS thumbnail_url TEXT;</code>
+-- Si la tabla ya existe, agregá las columnas:
+ALTER TABLE instagram_posts ADD COLUMN IF NOT EXISTS thumbnail_url TEXT;
+ALTER TABLE instagram_posts ADD COLUMN IF NOT EXISTS video_url TEXT;</code>
           <button class="btn-sm btn-ghost" onclick="loadIgPosts()">Ya lo ejecuté — recargar</button>
         </div>
 
@@ -400,7 +412,11 @@ ON CONFLICT (key) DO NOTHING;</code>
       <input type="url" id="ig-url" placeholder="https://www.instagram.com/p/ABC123/">
     </div>
     <div class="form-row">
-      <label>URL de thumbnail (imagen de vista previa)</label>
+      <label>URL de video (mp4 directo — se reproduce en el sitio)</label>
+      <input type="url" id="ig-video" placeholder="https://... (URL directa al archivo .mp4)">
+    </div>
+    <div class="form-row">
+      <label>URL de thumbnail (imagen si no hay video)</label>
       <input type="url" id="ig-thumbnail" placeholder="https://... (URL de imagen cuadrada)">
     </div>
     <div class="form-row">
@@ -985,7 +1001,8 @@ async function uploadFoto(file){
     console.error('Foto upload error:',r.status,errBody);
     // Si el bucket no existe o hay error de permisos, mostrar mensaje claro
     if(r.status===400||r.status===403||r.status===404){
-      alert(`Error al subir la foto (${r.status}): El bucket "site-images" puede no existir o no tener permisos de escritura.\n\nVerificá en Supabase: Storage → site-images → Policies (INSERT para authenticated users).`);
+      const w=document.getElementById('expStorageWarning');
+      if(w)w.style.display='block';
     }
     return null;
   }
@@ -1233,6 +1250,7 @@ function renderIgPosts(){
 function openIgModal(){
   document.getElementById('ig-id').value='';
   document.getElementById('ig-url').value='';
+  document.getElementById('ig-video').value='';
   document.getElementById('ig-thumbnail').value='';
   document.getElementById('ig-orden').value='0';
   document.getElementById('ig-activo').checked=true;
@@ -1246,6 +1264,7 @@ function editIgPost(id){
   if(!p)return;
   document.getElementById('ig-id').value=p.id;
   document.getElementById('ig-url').value=p.url;
+  document.getElementById('ig-video').value=p.video_url||'';
   document.getElementById('ig-thumbnail').value=p.thumbnail_url||'';
   document.getElementById('ig-orden').value=p.orden||0;
   document.getElementById('ig-activo').checked=!!p.activo;
@@ -1261,9 +1280,11 @@ async function saveIgPost(){
   if(!url||!url.includes('instagram.com')){
     errEl.textContent='Pegá una URL válida de Instagram.';errEl.style.display='block';return;
   }
+  const video=document.getElementById('ig-video').value.trim();
   const thumbnail=document.getElementById('ig-thumbnail').value.trim();
   const data={
     url,
+    video_url:video||null,
     thumbnail_url:thumbnail||null,
     orden:parseInt(document.getElementById('ig-orden').value)||0,
     activo:document.getElementById('ig-activo').checked
@@ -1650,6 +1671,17 @@ async function deleteExperiencia(id){
 }
 
 function closeExpModal(){document.getElementById('expModal').classList.remove('open');}
+
+async function checkStorageBucket(){
+  const r=await fetch(`${SUPA_URL}/storage/v1/object/site-images/.keep`,{
+    method:'POST',
+    headers:{'apikey':SUPA_KEY,'Authorization':'Bearer '+authToken,'Content-Type':'text/plain','x-upsert':'true'},
+    body:''
+  });
+  const w=document.getElementById('expStorageWarning');
+  if(r.ok||r.status===200){if(w)w.style.display='none';alert('✅ Bucket configurado correctamente.');}
+  else{alert('El bucket aún no está disponible. Revisá que se llame exactamente "site-images" y sea público.');}
+}
 function closeExpModalBg(e){if(e.target===e.currentTarget)closeExpModal();}
 
 // Enter en login
