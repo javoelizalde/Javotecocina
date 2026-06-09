@@ -112,6 +112,17 @@ body{font-family:'Barlow',sans-serif;background:var(--dark);color:var(--ash);min
 .lead-val{color:var(--ash);}
 .lead-date{font-size:.7rem;color:var(--muted);margin-top:.65rem;padding-top:.65rem;border-top:1px solid var(--border);}
 
+/* Instagram post cards — admin */
+.ig-post-card{background:var(--dark2);border:1px solid var(--border);border-radius:4px;padding:1rem;margin-bottom:.75rem;display:flex;gap:.875rem;align-items:flex-start;}
+.ig-post-thumb{width:52px;height:52px;border-radius:4px;object-fit:cover;flex-shrink:0;background:rgba(245,237,228,.06);display:flex;align-items:center;justify-content:center;font-size:1.4rem;}
+.ig-post-thumb img,.ig-post-thumb video{width:100%;height:100%;object-fit:cover;border-radius:4px;display:block;}
+.ig-post-body{flex:1;min-width:0;}
+.ig-post-url{font-size:.8rem;color:var(--ash);word-break:break-all;line-height:1.45;margin-bottom:.4rem;}
+.ig-post-meta{display:flex;flex-wrap:wrap;align-items:center;gap:.4rem .75rem;margin-bottom:.6rem;}
+.ig-post-type{font-family:'Barlow Condensed',sans-serif;font-size:.62rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:rgba(245,237,228,.35);}
+.ig-post-actions{display:flex;flex-wrap:wrap;gap:.35rem;}
+.ig-post-actions .btn-sm{flex-shrink:0;}
+
 /* Modal / Drawer */
 .admin-modal-bg{position:fixed;inset:0;background:rgba(0,0,0,.78);z-index:200;display:none;align-items:flex-end;justify-content:center;}
 .admin-modal-bg.open{display:flex;}
@@ -355,9 +366,12 @@ ALTER TABLE instagram_posts ADD COLUMN IF NOT EXISTS video_url TEXT;</code>
           <button class="btn-sm btn-ghost" onclick="loadIgPosts()">Ya lo ejecuté — recargar</button>
         </div>
 
-        <div style="font-size:.78rem;color:var(--muted);margin-bottom:1.25rem;background:rgba(245,237,228,.04);padding:.75rem 1rem;border-radius:3px;border:1px solid var(--border);">
-          💡 Para obtener la URL de un post: andá al post en Instagram → clic en los tres puntos → <strong style="color:var(--ash);">Copiar enlace</strong>. Pegá el link acá.<br>
-          Formato: <code style="color:var(--ember);">https://www.instagram.com/p/ABC123/</code>
+        <div style="font-size:.78rem;color:var(--muted);margin-bottom:1.25rem;background:rgba(245,237,228,.04);padding:.75rem 1rem;border-radius:3px;border:1px solid var(--border);line-height:1.65;">
+          <strong style="color:var(--ash);">Cómo agregar un reel:</strong><br>
+          1. En Instagram, abrí el reel → tocá los tres puntos → <strong style="color:var(--ash);">Copiar enlace</strong><br>
+          2. Pegá esa URL en <em>URL del post/reel</em><br>
+          3. En <em>URL del video</em> pegá la misma URL — el sitio la detecta como reel y muestra una card de "Ver reel"<br>
+          4. Si tenés el archivo .mp4 subido a Cloudinary o Supabase Storage, pegá esa URL directa para reproducción nativa
         </div>
 
         <div id="igList"><div class="loader">Cargando...</div></div>
@@ -440,16 +454,17 @@ ON CONFLICT (key) DO NOTHING;</code>
     </div>
     <input type="hidden" id="ig-id">
     <div class="form-row">
-      <label>URL del post en Instagram *</label>
-      <input type="url" id="ig-url" placeholder="https://www.instagram.com/p/ABC123/" inputmode="url" autocomplete="off">
+      <label>URL del post / reel *</label>
+      <input type="url" id="ig-url" placeholder="https://www.instagram.com/reel/ABC123/" inputmode="url" autocomplete="off">
     </div>
     <div class="form-row">
-      <label>URL del video (.mp4)</label>
-      <input type="url" id="ig-video" placeholder="https://..." inputmode="url" autocomplete="off">
+      <label>URL del video</label>
+      <input type="url" id="ig-video" placeholder="https://instagram.com/reel/... o .mp4 directo" inputmode="url" autocomplete="off">
+      <div style="font-size:.7rem;color:rgba(245,237,228,.35);margin-top:.3rem;line-height:1.5;">Pegá la URL del reel de Instagram o un .mp4 directo desde Cloudinary / Supabase Storage.</div>
     </div>
     <div class="form-row">
-      <label>URL del thumbnail (imagen)</label>
-      <input type="url" id="ig-thumbnail" placeholder="https://..." inputmode="url" autocomplete="off">
+      <label>URL del thumbnail (opcional)</label>
+      <input type="url" id="ig-thumbnail" placeholder="https://... (imagen de preview)" inputmode="url" autocomplete="off">
     </div>
     <div class="form-cols-2">
       <div class="form-row" style="margin-bottom:0">
@@ -1269,29 +1284,54 @@ async function loadIgPosts(){
   renderIgPosts();
 }
 
+function igAdminMediaType(url){
+  if(!url)return null;
+  if(/\.(mp4|webm|mov|ogg)(\?|$)/i.test(url))return'video';
+  if(/instagram\.com\/(p|reel|tv)\//i.test(url))return'reel';
+  return'url';
+}
+
 function renderIgPosts(){
   const el=document.getElementById('igList');
   if(!el)return;
   if(!allIgPosts.length){
-    el.innerHTML='<div class="empty-state"><div class="icon">📸</div><p>No hay posts todavía.<br>Agregá el primero con el botón de arriba.</p></div>';
+    el.innerHTML='<div class="empty-state"><div class="icon">📸</div><p>Todavía no cargaste ningún contenido de Instagram.<br>Usá el botón de arriba para agregar el primero.</p></div>';
     return;
   }
-  el.innerHTML=allIgPosts.map(p=>`
-    <div class="lead-card" style="display:flex;align-items:center;gap:1rem;">
-      <div style="font-size:1.5rem;flex-shrink:0;">📸</div>
-      <div style="flex:1;min-width:0;">
-        <div style="font-size:.82rem;color:var(--ash);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${escH(p.url)}</div>
-        <div style="margin-top:.3rem;">
+  el.innerHTML=allIgPosts.map(p=>{
+    // Thumbnail preview
+    let thumbHtml='<div class="ig-post-thumb">📸</div>';
+    if(p.thumbnail_url){
+      thumbHtml=`<div class="ig-post-thumb"><img src="${escH(p.thumbnail_url)}" alt="" loading="lazy"></div>`;
+    } else if(p.video_url&&igAdminMediaType(p.video_url)==='video'){
+      thumbHtml=`<div class="ig-post-thumb"><video src="${escH(p.video_url)}" muted preload="none" style="pointer-events:none;"></video></div>`;
+    }
+    // Tipo de medio
+    const vtype=igAdminMediaType(p.video_url);
+    const typeLabel=!p.video_url&&!p.thumbnail_url?'Sin medio'
+      :vtype==='reel'?'Reel de Instagram'
+      :vtype==='video'?'Video directo'
+      :p.thumbnail_url?'Imagen':'URL';
+    // URL truncada (solo path)
+    let displayUrl=p.url||'';
+    try{displayUrl=new URL(p.url).pathname.replace(/\/+$/,'');}catch(e){}
+    return`<div class="ig-post-card">
+      ${thumbHtml}
+      <div class="ig-post-body">
+        <div class="ig-post-url">${escH(displayUrl||p.url)}</div>
+        <div class="ig-post-meta">
           <span class="rec-badge ${p.activo?'rec-badge-on':'rec-badge-off'}">${p.activo?'Visible':'Oculto'}</span>
-          <span style="font-size:.68rem;color:var(--muted);margin-left:.5rem;">Orden: ${p.orden||0}</span>
+          <span class="ig-post-type">${escH(typeLabel)}</span>
+          ${p.orden?`<span class="ig-post-type">Orden ${p.orden}</span>`:''}
+        </div>
+        <div class="ig-post-actions">
+          <button class="btn-sm btn-edit" onclick="editIgPost(${p.id})">Editar</button>
+          <button class="btn-sm btn-ghost" onclick="toggleIgActivo(${p.id},${p.activo})">${p.activo?'Ocultar':'Mostrar'}</button>
+          <button class="btn-sm btn-reject" onclick="deleteIgPost(${p.id})" aria-label="Eliminar">Eliminar</button>
         </div>
       </div>
-      <div style="display:flex;gap:.4rem;flex-shrink:0;">
-        <button class="btn-sm btn-edit" onclick="editIgPost(${p.id})">Editar</button>
-        <button class="btn-sm btn-ghost" onclick="toggleIgActivo(${p.id},${p.activo})">${p.activo?'Ocultar':'Mostrar'}</button>
-        <button class="btn-sm btn-reject" onclick="deleteIgPost(${p.id})">🗑</button>
-      </div>
-    </div>`).join('');
+    </div>`;
+  }).join('');
 }
 
 function openIgModal(){
@@ -1319,16 +1359,37 @@ function editIgPost(id){
   document.getElementById('igModal').classList.add('open');
 }
 
+function isValidIgUrl(url){
+  try{
+    const u=new URL(url);
+    return u.hostname.endsWith('instagram.com');
+  }catch(e){return false;}
+}
+
 async function saveIgPost(){
   const errEl=document.getElementById('igSaveErr');
   const btn=document.getElementById('igSaveBtn');
   errEl.style.display='none';
   const url=document.getElementById('ig-url').value.trim();
-  if(!url||!url.includes('instagram.com')){
-    errEl.textContent='Pegá una URL válida de Instagram.';errEl.style.display='block';return;
+  // Validación: URL de Instagram obligatoria
+  if(!url){
+    errEl.textContent='Ingresá una URL válida de Instagram.';errEl.style.display='block';return;
+  }
+  if(!isValidIgUrl(url)){
+    errEl.textContent='La URL debe ser de Instagram (instagram.com).';errEl.style.display='block';return;
   }
   const video=document.getElementById('ig-video').value.trim();
   const thumbnail=document.getElementById('ig-thumbnail').value.trim();
+  // Validación básica de video_url (acepta URL de IG o URL directa)
+  if(video){
+    const isIgVideo=/instagram\.com\/(p|reel|tv)\//i.test(video);
+    const isDirectVideo=/^https?:\/\/.+\.(mp4|webm|mov|ogg)(\?|$)/i.test(video);
+    if(!isIgVideo&&!isDirectVideo){
+      try{new URL(video);}catch(e){
+        errEl.textContent='La URL del video no parece válida.';errEl.style.display='block';return;
+      }
+    }
+  }
   const data={
     url,
     video_url:video||null,
@@ -1340,7 +1401,10 @@ async function saveIgPost(){
   const id=document.getElementById('ig-id').value;
   const r=id?await apiPatch('instagram_posts',id,data):await apiPost('instagram_posts',data);
   btn.textContent='Guardar';btn.disabled=false;
-  if(!r||!r.ok){errEl.textContent='Error al guardar.';errEl.style.display='block';return;}
+  if(!r||!r.ok){
+    errEl.textContent='No pudimos guardar el contenido. Intentá nuevamente.';
+    errEl.style.display='block';return;
+  }
   closeIgModal();
   loadIgPosts();
 }
