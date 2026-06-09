@@ -136,14 +136,15 @@ nav.scrolled{background:rgba(26,18,11,.92);backdrop-filter:blur(12px);padding:.9
 .ig-item-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(26,18,11,.85) 0%,rgba(26,18,11,.05) 50%,transparent 100%);display:flex;flex-direction:column;justify-content:flex-end;padding:.75rem;pointer-events:none;}
 .ig-play-btn{display:inline-flex;align-items:center;gap:.4rem;background:var(--fire);color:#fff;padding:.4rem .75rem;border-radius:3px;font-family:'Barlow Condensed',sans-serif;font-size:.68rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;width:fit-content;}
 
-/* Item con iframe embed de Instagram */
-.ig-item-embed{aspect-ratio:4/5;overflow:hidden;border-radius:6px;background:#1a120b;position:relative;display:block;text-decoration:none;cursor:pointer;}
+/* Item con iframe embed de Instagram — escalado proporcional */
+.ig-item-embed{overflow:hidden;border-radius:6px;background:#1a120b;position:relative;display:block;text-decoration:none;cursor:pointer;/* altura la pone JS */}
 .ig-item-embed iframe{
-  width:100%;height:130%;
+  width:326px; /* ancho natural mínimo de Instagram */
+  height:700px; /* alto natural para reels */
   border:none;display:block;
-  margin-top:-14%; /* recorta el header de Instagram */
+  transform-origin:top left;
   pointer-events:none; /* clicks van al <a> wrapper */
-  transform-origin:top center;
+  /* transform:scale() lo aplica scaleIgEmbeds() en JS */
 }
 /* Capa invisible encima del iframe que captura el click y redirige */
 .ig-item-embed .ig-embed-click{position:absolute;inset:0;z-index:2;display:flex;align-items:flex-end;padding:.75rem;background:linear-gradient(to top,rgba(26,18,11,.7) 0%,transparent 40%);}
@@ -2135,11 +2136,30 @@ async function loadInstagramPosts(){
         <div class="ig-item-overlay"><span class="ig-play-btn"><svg width="10" height="11" viewBox="0 0 10 11" fill="currentColor"><polygon points="0,0 10,5.5 0,11"/></svg>Ver post</span></div>
       </a>`;
     }).join('');
+    // Escalar iframes al ancho real del container manteniendo proporciones
+    scaleIgEmbeds();
   }catch(e){
     const sec2=document.getElementById('contenido');
     if(sec2)sec2.style.display='none';
   }
 }
+
+function scaleIgEmbeds(){
+  const IG_W=326,IG_H=700;
+  document.querySelectorAll('.ig-item-embed').forEach(el=>{
+    const w=el.offsetWidth||el.getBoundingClientRect().width;
+    if(!w)return;
+    const scale=w/IG_W;
+    const iframe=el.querySelector('iframe');
+    if(iframe)iframe.style.transform=`scale(${scale})`;
+    el.style.height=(IG_H*scale)+'px';
+  });
+}
+// Re-escalar si cambia el tamaño de pantalla
+window.addEventListener('resize',()=>{
+  clearTimeout(window._igScaleTimer);
+  window._igScaleTimer=setTimeout(scaleIgEmbeds,120);
+});
 
 /* ── SITE IMAGES DINÁMICAS ── */
 async function loadSiteImages(){
