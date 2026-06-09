@@ -2145,11 +2145,10 @@ async function loadInstagramPosts(){
 }
 
 function scaleIgEmbeds(){
-  // Dimensiones naturales del embed de Instagram (/p/CODE/embed/)
-  const IG_W=326;        // ancho mínimo del embed
-  const IG_HEADER=56;    // header: foto perfil + nombre (~56px)
-  const IG_FOOTER=54;    // footer: like/comment/share (~54px)
-  const IG_IFRAME_H=720; // alto total del iframe (header+video+footer)
+  const IG_W=326;
+  const IG_HEADER=56;              // header (foto perfil + nombre)
+  const IG_VIDEO_H=Math.round(IG_W*16/9); // 580px — área de video 9:16
+  const IG_IFRAME_H=900;           // iframe generoso: header+video+footer completo
 
   document.querySelectorAll('.ig-item-embed').forEach(el=>{
     const w=el.offsetWidth||el.getBoundingClientRect().width;
@@ -2158,21 +2157,16 @@ function scaleIgEmbeds(){
     const iframe=el.querySelector('iframe');
     if(!iframe)return;
 
-    // Tamaño natural del iframe
     iframe.style.width=IG_W+'px';
     iframe.style.height=IG_IFRAME_H+'px';
     iframe.style.transformOrigin='top left';
-
-    // marginTop negativo = empuja el header FUERA del container (arriba)
-    // El scale hace que los 56px naturales del header se vean como 56*scale px
-    const headerVisible=IG_HEADER*scale;
-    iframe.style.marginTop=`-${headerVisible}px`;
+    // Desplaza el header fuera del container hacia arriba
+    iframe.style.marginTop=`-${IG_HEADER*scale}px`;
     iframe.style.transform=`scale(${scale})`;
 
-    // Altura del container = solo el área del video (sin header ni footer)
-    // Video natural = IG_IFRAME_H - IG_HEADER - IG_FOOTER
-    const videoH=(IG_IFRAME_H-IG_HEADER-IG_FOOTER)*scale;
-    el.style.height=videoH+'px';
+    // Container = exactamente el área del video (9:16)
+    // El footer queda por debajo del corte, no importa cuánto mida
+    el.style.height=(IG_VIDEO_H*scale)+'px';
   });
 }
 // Re-escalar si cambia el tamaño de pantalla
