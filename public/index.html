@@ -126,21 +126,32 @@ nav.scrolled{background:rgba(26,18,11,.92);backdrop-filter:blur(12px);padding:.9
 /* ── INSTAGRAM ── */
 .ig-sec{background:var(--cream);padding:var(--gap) 0;}
 .ig-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:.75rem;margin-top:3rem;}
-/* Cards portrait 3:4 — formato reel */
-.ig-item{position:relative;aspect-ratio:3/4;overflow:hidden;border-radius:6px;background:#1a120b;display:block;text-decoration:none;}
+
+/* Card base — portrait 4:5, igual que el feed de IG */
+.ig-item{position:relative;aspect-ratio:4/5;overflow:hidden;border-radius:6px;background:#1a120b;display:block;text-decoration:none;}
 .ig-item video,.ig-item img{width:100%;height:100%;object-fit:cover;display:block;pointer-events:none;transition:transform .4s ease,opacity .4s ease;}
 .ig-item:hover video,.ig-item:hover img{transform:scale(1.03);opacity:.9;}
-/* Overlay permanente con gradiente + CTA en fondo */
-.ig-item-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(26,18,11,.85) 0%,rgba(26,18,11,.1) 55%,transparent 100%);display:flex;flex-direction:column;justify-content:flex-end;padding:.75rem;}
-.ig-play-btn{display:inline-flex;align-items:center;gap:.4rem;background:var(--fire);color:#fff;padding:.4rem .75rem;border-radius:3px;font-family:'Barlow Condensed',sans-serif;font-size:.68rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;width:fit-content;transition:background .2s;}
-.ig-item:hover .ig-play-btn{background:var(--ember);}
-/* Card para URLs de Instagram (sin mp4 directo) */
-.ig-item-reel{background:linear-gradient(160deg,#1a120b 0%,#2d1810 100%);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1rem;padding:1.5rem;}
-.ig-item-reel-icon{width:52px;height:52px;border-radius:50%;background:rgba(200,75,17,.15);border:1px solid rgba(200,75,17,.3);display:flex;align-items:center;justify-content:center;}
-.ig-item-reel-label{font-family:'Barlow Condensed',sans-serif;font-size:.72rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:rgba(245,237,228,.4);text-align:center;}
+
+/* Overlay CTA en la parte baja — aparece siempre para video/img */
+.ig-item-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(26,18,11,.85) 0%,rgba(26,18,11,.05) 50%,transparent 100%);display:flex;flex-direction:column;justify-content:flex-end;padding:.75rem;pointer-events:none;}
+.ig-play-btn{display:inline-flex;align-items:center;gap:.4rem;background:var(--fire);color:#fff;padding:.4rem .75rem;border-radius:3px;font-family:'Barlow Condensed',sans-serif;font-size:.68rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;width:fit-content;}
+
+/* Item con iframe embed de Instagram */
+.ig-item-embed{aspect-ratio:4/5;overflow:hidden;border-radius:6px;background:#1a120b;position:relative;display:block;text-decoration:none;cursor:pointer;}
+.ig-item-embed iframe{
+  width:100%;height:130%;
+  border:none;display:block;
+  margin-top:-14%; /* recorta el header de Instagram */
+  pointer-events:none; /* clicks van al <a> wrapper */
+  transform-origin:top center;
+}
+/* Capa invisible encima del iframe que captura el click y redirige */
+.ig-item-embed .ig-embed-click{position:absolute;inset:0;z-index:2;display:flex;align-items:flex-end;padding:.75rem;background:linear-gradient(to top,rgba(26,18,11,.7) 0%,transparent 40%);}
+.ig-play-btn-embed{display:inline-flex;align-items:center;gap:.4rem;background:var(--fire);color:#fff;padding:.4rem .75rem;border-radius:3px;font-family:'Barlow Condensed',sans-serif;font-size:.68rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;pointer-events:none;}
+
 .ig-empty{grid-column:1/-1;text-align:center;padding:3rem 0;color:var(--muted);font-size:.9rem;}
 @media(max-width:900px){.ig-grid{grid-template-columns:repeat(2,1fr);gap:.6rem;}}
-@media(max-width:480px){.ig-grid{grid-template-columns:repeat(2,1fr);gap:.5rem;}.ig-item-overlay{padding:.5rem;}.ig-play-btn{font-size:.62rem;padding:.35rem .6rem;}}
+@media(max-width:480px){.ig-grid{grid-template-columns:repeat(2,1fr);gap:.5rem;}.ig-item-overlay,.ig-embed-click{padding:.5rem;}.ig-play-btn,.ig-play-btn-embed{font-size:.62rem;padding:.35rem .6rem;}}
 
 /* ── PORTFOLIO ── */
 .portfolio{background:var(--dark);}
@@ -2066,12 +2077,13 @@ function closeProdModal(id){
 /* ── INSTAGRAM POSTS ── */
 function igMediaType(url){
   if(!url)return null;
-  // URL directa a archivo de video
   if(/\.(mp4|webm|mov|ogg)(\?|$)/i.test(url))return'direct';
-  // URL de Instagram (reel, post, tv)
   if(/instagram\.com\/(p|reel|tv)\//i.test(url))return'instagram';
-  // Otras URLs: intentar como video directo
   return'direct';
+}
+function getIgEmbedUrl(url){
+  const m=url.match(/instagram\.com\/(?:p|reel|tv)\/([A-Za-z0-9_-]+)/);
+  return m?`https://www.instagram.com/p/${m[1]}/embed/`:null;
 }
 function escAttr(s){return String(s).replace(/[&"<>]/g,c=>({'&':'&amp;','"':'&quot;','<':'&lt;','>':'&gt;'}[c]));}
 
@@ -2085,46 +2097,43 @@ async function loadInstagramPosts(){
     const posts=await r.json();
     const grid=document.getElementById('igGrid');
     if(!grid)return;
-    // Solo posts que tienen algún medio visual
     const mediaPosts=posts.filter(p=>p.video_url||p.thumbnail_url);
-    if(!mediaPosts.length){
-      if(sec)sec.style.display='none';
-      return;
-    }
+    if(!mediaPosts.length){if(sec)sec.style.display='none';return;}
     if(sec)sec.style.display='';
     grid.innerHTML=mediaPosts.map(p=>{
       const href=escAttr(p.url);
       const type=igMediaType(p.video_url);
-      // Contenido visual interior
-      let inner='';
-      if(type==='direct'&&p.video_url){
-        // Video nativo — se reproduce directo
-        inner=`<video src="${escAttr(p.video_url)}" autoplay muted loop playsinline preload="metadata"></video>`;
-      } else if(type==='instagram'&&p.video_url){
-        // URL de Instagram — no podemos reproducir sin embed; mostramos card
-        inner=`<div class="ig-item-reel">
-          <div class="ig-item-reel-icon">
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="rgba(200,75,17,.9)" stroke-width="1.5"><polygon points="5,3 19,12 5,21"/></svg>
-          </div>
-          <div class="ig-item-reel-label">Ver reel</div>
-        </div>`;
-        // Si tiene thumbnail, úsalo de fondo
-        if(p.thumbnail_url){
-          inner=`<img src="${escAttr(p.thumbnail_url)}" alt="Reel" loading="lazy">`+inner.replace('class="ig-item-reel"','class="ig-item-reel" style="position:absolute;inset:0;background:transparent;"');
+
+      // ── Embed de Instagram (reel/post) ──
+      if(type==='instagram'){
+        const embedUrl=getIgEmbedUrl(p.video_url);
+        if(embedUrl){
+          // iframe con capa encima que captura el click → abre en Instagram
+          return`<a class="ig-item-embed" href="${href}" target="_blank" rel="noopener noreferrer" aria-label="Ver en Instagram">
+            <iframe src="${escAttr(embedUrl)}" frameborder="0" scrolling="no" allowtransparency="true" loading="lazy" tabindex="-1" aria-hidden="true"></iframe>
+            <div class="ig-embed-click">
+              <span class="ig-play-btn-embed">
+                <svg width="10" height="11" viewBox="0 0 10 11" fill="currentColor"><polygon points="0,0 10,5.5 0,11"/></svg>
+                Ver en Instagram
+              </span>
+            </div>
+          </a>`;
         }
-      } else if(p.thumbnail_url){
-        // Solo thumbnail sin video
-        inner=`<img src="${escAttr(p.thumbnail_url)}" alt="Post de Instagram" loading="lazy">`;
       }
-      // Overlay con CTA siempre visible
-      const ctaLabel=type==='instagram'?'Ver en Instagram':'Ver post';
-      const overlay=`<div class="ig-item-overlay">
-        <span class="ig-play-btn">
-          <svg width="10" height="11" viewBox="0 0 10 11" fill="currentColor"><polygon points="0,0 10,5.5 0,11"/></svg>
-          ${ctaLabel}
-        </span>
-      </div>`;
-      return`<a class="ig-item" href="${href}" target="_blank" rel="noopener noreferrer" aria-label="Ver en Instagram">${inner}${overlay}</a>`;
+
+      // ── Video directo (.mp4 / cdn) ──
+      if(type==='direct'&&p.video_url){
+        return`<a class="ig-item" href="${href}" target="_blank" rel="noopener noreferrer" aria-label="Ver en Instagram">
+          <video src="${escAttr(p.video_url)}" autoplay muted loop playsinline preload="metadata"></video>
+          <div class="ig-item-overlay"><span class="ig-play-btn"><svg width="10" height="11" viewBox="0 0 10 11" fill="currentColor"><polygon points="0,0 10,5.5 0,11"/></svg>Ver post</span></div>
+        </a>`;
+      }
+
+      // ── Solo thumbnail ──
+      return`<a class="ig-item" href="${href}" target="_blank" rel="noopener noreferrer" aria-label="Ver en Instagram">
+        <img src="${escAttr(p.thumbnail_url)}" alt="Post de Instagram" loading="lazy">
+        <div class="ig-item-overlay"><span class="ig-play-btn"><svg width="10" height="11" viewBox="0 0 10 11" fill="currentColor"><polygon points="0,0 10,5.5 0,11"/></svg>Ver post</span></div>
+      </a>`;
     }).join('');
   }catch(e){
     const sec2=document.getElementById('contenido');
