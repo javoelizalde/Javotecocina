@@ -284,6 +284,23 @@ body{font-family:'Barlow',sans-serif;background:var(--dark);color:var(--ash);min
           </div>
           <button class="btn-sm btn-primary" onclick="openExpModal()">+ Nueva experiencia</button>
         </div>
+        <div id="expSetupWarning" style="background:rgba(232,115,10,.08);border:1px solid rgba(232,115,10,.25);border-radius:4px;padding:1rem 1.25rem;margin-bottom:1.5rem;font-size:.83rem;line-height:1.65;">
+          <strong style="color:var(--ember);">Configuración inicial requerida</strong><br>
+          Ejecutá este SQL en Supabase → SQL Editor:<br>
+          <code style="display:block;margin:.65rem 0;background:rgba(0,0,0,.3);padding:.65rem .875rem;border-radius:3px;font-size:.78rem;white-space:pre-wrap;color:var(--ash);">CREATE TABLE IF NOT EXISTS experiencias (
+  id SERIAL PRIMARY KEY,
+  titulo TEXT NOT NULL,
+  categoria TEXT DEFAULT 'general',
+  descripcion TEXT,
+  imagen_url TEXT,
+  orden INT,
+  activo BOOLEAN DEFAULT true,
+  destacada BOOLEAN DEFAULT false,
+  created_at TIMESTAMPTZ DEFAULT now()
+);
+ALTER TABLE experiencias DISABLE ROW LEVEL SECURITY;</code>
+          <button class="btn-sm btn-ghost" onclick="loadExperiencias();document.getElementById('expSetupWarning').style.display='none'">Ya lo ejecuté — recargar</button>
+        </div>
         <div id="expStorageWarning" style="display:none;background:rgba(232,115,10,.08);border:1px solid rgba(232,115,10,.25);border-radius:4px;padding:1rem 1.25rem;margin-bottom:1.5rem;font-size:.83rem;line-height:1.75;">
           <strong style="color:var(--ember);">⚠ Bucket de imágenes no configurado</strong><br>
           Para subir fotos necesitás crear el bucket <code style="color:var(--ember);">site-images</code> en Supabase Storage:<br>
@@ -1559,7 +1576,9 @@ function closeProdModalBg(e){if(e.target===e.currentTarget)closeProdModal();}
 /* ══ EXPERIENCIAS CRUD ═════════════════════ */
 async function loadExperiencias(){
   const data=await apiGet('experiencias?order=orden.asc.nullslast,created_at.asc');
-  if(!data)return;
+  const setupWarn=document.getElementById('expSetupWarning');
+  if(data===null){if(setupWarn)setupWarn.style.display='block';return;}
+  if(setupWarn)setupWarn.style.display='none';
   allExperiencias=data;
   renderExperiencias();
 }
