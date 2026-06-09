@@ -1360,6 +1360,8 @@ async function onSitioFileChange(key,input){
   const publicUrl=`${SUPA_URL}/storage/v1/object/public/site-images/${uploadName}`;
   const urlInput=document.getElementById(`sitio-url-${key}`);
   if(urlInput)urlInput.value=publicUrl;
+  // Guardar automáticamente después de subir
+  await saveSiteSetting(key);
 }
 
 async function saveSiteSetting(key){
@@ -1370,21 +1372,40 @@ async function saveSiteSetting(key){
   const value=(urlInput?.value||'').trim();
   if(!value){if(errEl){errEl.textContent='Ingresá una URL válida.';errEl.style.display='block';}return;}
   if(btn){btn.textContent='Guardando...';btn.disabled=true;}
-  const r=await fetch(`${SUPA_URL}/rest/v1/site_settings`,{
-    method:'POST',
-    headers:{...h(),'Prefer':'resolution=merge-duplicates'},
-    body:JSON.stringify({key,value,updated_at:new Date().toISOString()})
+
+  // Intentar PATCH primero (actualizar fila existente)
+  let ok=false;
+  const rPatch=await fetch(`${SUPA_URL}/rest/v1/site_settings?key=eq.${encodeURIComponent(key)}`,{
+    method:'PATCH',
+    headers:{...h(),'Prefer':'return=minimal'},
+    body:JSON.stringify({value,updated_at:new Date().toISOString()})
   });
-  if(btn){btn.textContent='Guardar cambio';btn.disabled=false;}
-  if(!r.ok){
-    const errBody=await r.text();
-    if(errEl){errEl.textContent='Error al guardar. ¿Ya creaste la tabla site_settings?';errEl.style.display='block';}
-    return;
+  if(rPatch.ok){
+    // Verificar si se actualizó alguna fila
+    const range=rPatch.headers.get('Content-Range');
+    const count=range?parseInt(range.split('/')[1])||0:1;
+    if(count>0){ok=true;}
   }
+  // Si no existía la fila, hacer INSERT
+  if(!ok){
+    const rPost=await fetch(`${SUPA_URL}/rest/v1/site_settings`,{
+      method:'POST',
+      headers:{...h(),'Prefer':'return=minimal'},
+      body:JSON.stringify({key,value,updated_at:new Date().toISOString()})
+    });
+    ok=rPost.ok;
+    if(!ok){
+      let msg='Error al guardar.';
+      try{const d=await rPost.json();msg=d.message||d.hint||d.details||msg;}catch(e){}
+      if(errEl){errEl.textContent=msg;errEl.style.display='block';}
+      if(btn){btn.textContent='Guardar cambio';btn.disabled=false;}
+      return;
+    }
+  }
+
+  if(btn){btn.textContent='Guardar cambio';btn.disabled=false;}
   _siteSettings[key]=value;
-  // Feedback visual
-  if(btn){btn.textContent='✓ Guardado';setTimeout(()=>{btn.textContent='Guardar cambio';},2000);}
-  // Preview actualizado
+  if(btn){btn.textContent='✓ Guardado';setTimeout(()=>{btn.textContent='Guardar cambio';},2500);}
   const preview=document.getElementById(`sitio-preview-${key}`);
   if(preview){preview.src=value;preview.style.display='block';}
 }
