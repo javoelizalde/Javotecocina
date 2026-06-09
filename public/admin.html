@@ -1373,37 +1373,20 @@ async function saveSiteSetting(key){
   if(!value){if(errEl){errEl.textContent='Ingresá una URL válida.';errEl.style.display='block';}return;}
   if(btn){btn.textContent='Guardando...';btn.disabled=true;}
 
-  // Intentar PATCH primero (actualizar fila existente)
-  let ok=false;
-  const rPatch=await fetch(`${SUPA_URL}/rest/v1/site_settings?key=eq.${encodeURIComponent(key)}`,{
-    method:'PATCH',
-    headers:{...h(),'Prefer':'return=minimal'},
-    body:JSON.stringify({value,updated_at:new Date().toISOString()})
+  // Upsert: POST con on_conflict=key (insert o update según exista la fila)
+  const r=await fetch(`${SUPA_URL}/rest/v1/site_settings?on_conflict=key`,{
+    method:'POST',
+    headers:{...h(),'Prefer':'resolution=merge-duplicates,return=minimal'},
+    body:JSON.stringify({key,value,updated_at:new Date().toISOString()})
   });
-  if(rPatch.ok){
-    // Verificar si se actualizó alguna fila
-    const range=rPatch.headers.get('Content-Range');
-    const count=range?parseInt(range.split('/')[1])||0:1;
-    if(count>0){ok=true;}
-  }
-  // Si no existía la fila, hacer INSERT
-  if(!ok){
-    const rPost=await fetch(`${SUPA_URL}/rest/v1/site_settings`,{
-      method:'POST',
-      headers:{...h(),'Prefer':'return=minimal'},
-      body:JSON.stringify({key,value,updated_at:new Date().toISOString()})
-    });
-    ok=rPost.ok;
-    if(!ok){
-      let msg='Error al guardar.';
-      try{const d=await rPost.json();msg=d.message||d.hint||d.details||msg;}catch(e){}
-      if(errEl){errEl.textContent=msg;errEl.style.display='block';}
-      if(btn){btn.textContent='Guardar cambio';btn.disabled=false;}
-      return;
-    }
-  }
 
   if(btn){btn.textContent='Guardar cambio';btn.disabled=false;}
+  if(!r.ok){
+    let msg='Error al guardar.';
+    try{const d=await r.json();msg=d.message||d.hint||d.details||msg;}catch(e){}
+    if(errEl){errEl.textContent=msg;errEl.style.display='block';}
+    return;
+  }
   _siteSettings[key]=value;
   if(btn){btn.textContent='✓ Guardado';setTimeout(()=>{btn.textContent='Guardar cambio';},2500);}
   const preview=document.getElementById(`sitio-preview-${key}`);
