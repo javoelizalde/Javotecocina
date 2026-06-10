@@ -1,5 +1,6 @@
 {
   "rewrites": [
+    { "source": "/cotizar", "destination": "/cotizar.html" },
     { "source": "/admin", "destination": "/admin.html" },
     { "source": "/recetarios", "destination": "/recetarios.html" },
     { "source": "/compra-exitosa", "destination": "/compra-exitosa.html" },

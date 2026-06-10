@@ -1,0 +1,1025 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cotizar · Javotecocina</title>
+<meta name="description" content="Cotizá tu evento, campaña o consultá por productos. Completá el formulario y Javo te responde por WhatsApp.">
+<link rel="icon" type="image/png" href="img/favicon-jtc.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Barlow:wght@300;400;500;600&family=Barlow+Condensed:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --fire:#C84B11;--ember:#E8730A;--gold:#D4A017;
+  --dark:#1A120B;--smoke:#2A1A0E;--ash:#F5EDE4;
+  --cream:#FDF6EE;--earth:#6B4226;--muted:#7A5440;
+  --danger:#C0392B;--success:#27AE60;
+  --border:rgba(107,66,38,.18);
+  --field-border:rgba(107,66,38,.22);
+  --shadow-card:0 2px 12px rgba(26,18,11,.08);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{font-size:16px;overflow-x:hidden;-webkit-text-size-adjust:100%;}
+body{font-family:'Barlow',sans-serif;background:var(--cream);color:var(--dark);overflow-x:hidden;min-height:100vh;}
+img{display:block;max-width:100%;}
+a{cursor:pointer;color:var(--fire);}
+button{cursor:pointer;font-family:'Barlow',sans-serif;}
+
+/* ── NAV ── */
+nav{position:fixed;top:0;width:100%;z-index:200;padding:1rem 1.5rem;display:flex;align-items:center;justify-content:space-between;background:rgba(253,246,238,.95);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);}
+.nav-logo{display:flex;align-items:center;gap:.5rem;text-decoration:none;}
+.nav-logo img{height:32px;width:auto;}
+.nav-logo-txt{font-family:'Cormorant Garamond',serif;font-size:1.25rem;font-weight:700;color:var(--dark);}
+.nav-back{font-family:'Barlow Condensed',sans-serif;font-size:.75rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);text-decoration:none;display:flex;align-items:center;gap:.4rem;transition:color .2s;}
+.nav-back:hover{color:var(--fire);}
+
+/* ── LAYOUT ── */
+.cotizar-wrap{min-height:100vh;padding:90px 0 5rem;display:flex;flex-direction:column;align-items:center;}
+.wizard{width:100%;max-width:600px;padding:0 1.25rem;}
+
+/* ── PROGRESS ── */
+.progress-bar-wrap{margin-bottom:2.5rem;display:none;}
+.progress-bar-wrap.visible{display:block;}
+.progress-label{display:flex;justify-content:space-between;align-items:center;margin-bottom:.7rem;}
+.progress-tipo{font-family:'Barlow Condensed',sans-serif;font-size:.72rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--ember);}
+.progress-count{font-family:'Barlow Condensed',sans-serif;font-size:.72rem;font-weight:600;color:var(--muted);}
+.progress-track{height:4px;background:var(--border);border-radius:2px;overflow:hidden;}
+.progress-fill{height:100%;background:linear-gradient(90deg,var(--fire),var(--ember));border-radius:2px;transition:width .5s cubic-bezier(.4,0,.2,1);}
+
+/* ── STEP HEADER ── */
+.step-header{margin-bottom:2.25rem;}
+.step-header h1{font-family:'Cormorant Garamond',serif;font-size:clamp(2.2rem,6vw,3.2rem);font-weight:700;line-height:1.1;color:var(--dark);margin-bottom:.45rem;text-wrap:balance;}
+.step-header h1 em{font-style:italic;color:var(--fire);}
+.step-header p{font-size:.93rem;color:var(--muted);font-weight:300;line-height:1.65;}
+
+/* ── TIPO SELECTION ── */
+.tipo-intro{margin-bottom:2.25rem;}
+.tipo-intro h1{font-family:'Cormorant Garamond',serif;font-size:clamp(2.4rem,7vw,3.8rem);font-weight:700;line-height:1.05;color:var(--dark);margin-bottom:.5rem;text-wrap:balance;}
+.tipo-intro h1 em{font-style:italic;color:var(--fire);}
+.tipo-intro p{font-size:.93rem;color:var(--muted);font-weight:300;line-height:1.65;}
+.tipo-grid{display:flex;flex-direction:column;gap:.55rem;}
+.tipo-card{
+  display:flex;align-items:center;gap:1.1rem;
+  padding:1.1rem 1.35rem;
+  background:var(--dark);
+  border:1.5px solid rgba(245,237,228,.07);
+  border-radius:8px;cursor:pointer;text-align:left;width:100%;
+  transition:border-color .22s,background .22s,transform .18s,box-shadow .22s;
+}
+.tipo-card:hover{
+  border-color:var(--fire);background:var(--smoke);
+  box-shadow:0 6px 28px rgba(200,75,17,.2);transform:translateY(-2px);
+}
+.tipo-card:active{transform:translateY(0);box-shadow:none;}
+.tipo-card:focus-visible{outline:2px solid var(--fire);outline-offset:3px;}
+.tipo-icon{font-size:1.5rem;flex-shrink:0;width:36px;text-align:center;}
+.tipo-info{flex:1;min-width:0;}
+.tipo-label{
+  font-family:'Cormorant Garamond',serif;font-size:1.2rem;font-weight:600;
+  color:var(--ash);margin-bottom:.1rem;line-height:1.2;
+}
+.tipo-desc{font-size:.78rem;color:rgba(245,237,228,.48);font-weight:300;}
+.tipo-caret{
+  font-size:.9rem;color:rgba(245,237,228,.25);flex-shrink:0;
+  transition:color .2s,transform .2s;
+}
+.tipo-card:hover .tipo-caret{color:var(--ember);transform:translateX(4px);}
+
+/* ── FORM FIELDS ── */
+.fields-stack{display:flex;flex-direction:column;gap:1.35rem;}
+.field-group{display:flex;flex-direction:column;gap:.4rem;}
+.field-label{
+  font-family:'Barlow Condensed',sans-serif;font-size:.72rem;font-weight:700;
+  letter-spacing:.12em;text-transform:uppercase;color:var(--earth);
+}
+.field-label .req{color:var(--fire);margin-left:.2rem;}
+.field-input,.field-select,.field-textarea{
+  width:100%;padding:.875rem 1rem;
+  background:#fff;border:1.5px solid var(--field-border);
+  border-radius:6px;font-family:'Barlow',sans-serif;font-size:.95rem;
+  color:var(--dark);outline:none;min-height:52px;
+  transition:border-color .2s,box-shadow .2s;
+  -webkit-appearance:none;appearance:none;
+}
+.field-input:focus,.field-select:focus,.field-textarea:focus{
+  border-color:var(--fire);box-shadow:0 0 0 3px rgba(200,75,17,.1);
+}
+.field-textarea{resize:vertical;min-height:110px;line-height:1.55;padding-top:.875rem;}
+.field-select{
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%237A5440' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+  background-repeat:no-repeat;background-position:right .875rem center;padding-right:2.5rem;
+}
+.field-error{font-size:.78rem;color:var(--danger);font-weight:500;display:none;margin-top:.1rem;}
+.field-group.has-error .field-error{display:block;}
+.field-group.has-error .field-input,
+.field-group.has-error .field-select,
+.field-group.has-error .field-textarea{
+  border-color:var(--danger);box-shadow:0 0 0 3px rgba(192,57,43,.08);
+}
+
+/* ── TOGGLE BUTTONS ── */
+.toggle-group{display:flex;flex-wrap:wrap;gap:.5rem;}
+.toggle-btn{
+  padding:.6rem 1.1rem;background:#fff;
+  border:1.5px solid var(--border);border-radius:20px;
+  font-family:'Barlow',sans-serif;font-size:.87rem;font-weight:500;
+  color:var(--earth);cursor:pointer;min-height:44px;
+  display:inline-flex;align-items:center;
+  transition:border-color .15s,color .15s,background .15s;
+}
+.toggle-btn:hover{border-color:var(--ember);color:var(--ember);background:rgba(232,115,10,.04);}
+.toggle-btn.selected{background:var(--fire);border-color:var(--fire);color:#fff;}
+.toggle-btn:focus-visible{outline:2px solid var(--fire);outline-offset:2px;}
+
+/* ── SUMMARY ── */
+.summary-card{
+  background:var(--dark);border:1.5px solid rgba(245,237,228,.08);
+  border-radius:10px;padding:1.5rem;margin-bottom:1.5rem;
+}
+.summary-tipo{
+  display:inline-block;
+  background:rgba(200,75,17,.18);border:1px solid rgba(200,75,17,.3);
+  border-radius:3px;padding:.22rem .7rem;
+  font-family:'Barlow Condensed',sans-serif;font-size:.7rem;
+  font-weight:700;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--ember);margin-bottom:1.25rem;
+}
+.summary-rows{display:flex;flex-direction:column;gap:.7rem;}
+.summary-row{display:flex;gap:1rem;font-size:.87rem;line-height:1.5;}
+.summary-key{
+  color:rgba(245,237,228,.4);font-size:.68rem;font-weight:700;
+  text-transform:uppercase;letter-spacing:.07em;
+  min-width:100px;flex-shrink:0;padding-top:.15rem;
+}
+.summary-val{color:var(--ash);flex:1;word-break:break-word;}
+
+/* ── CONSENT ── */
+.consent-block{
+  background:rgba(200,75,17,.04);border:1.5px solid rgba(200,75,17,.12);
+  border-radius:8px;padding:1.1rem;margin-bottom:1.5rem;
+}
+.consent-label{
+  display:flex;align-items:flex-start;gap:.75rem;cursor:pointer;
+  font-size:.87rem;color:var(--dark);line-height:1.55;
+}
+.consent-checkbox{
+  width:20px;height:20px;border:1.5px solid var(--field-border);
+  border-radius:4px;flex-shrink:0;margin-top:.1rem;
+  accent-color:var(--fire);cursor:pointer;
+}
+.consent-text a{color:var(--fire);}
+.consent-error{font-size:.78rem;color:var(--danger);margin-top:.4rem;display:none;}
+.consent-block.has-error .consent-error{display:block;}
+
+/* ── NAV BUTTONS ── */
+.wizard-nav{display:flex;gap:.75rem;margin-top:2rem;}
+.btn-back{
+  flex:0 0 auto;padding:.9rem 1.5rem;background:transparent;
+  border:1.5px solid var(--border);border-radius:6px;
+  font-family:'Barlow Condensed',sans-serif;font-size:.85rem;
+  font-weight:700;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--muted);transition:border-color .2s,color .2s;
+}
+.btn-back:hover{border-color:var(--earth);color:var(--dark);}
+.btn-next{
+  flex:1;padding:.95rem 1.5rem;background:var(--fire);border:none;
+  border-radius:6px;font-family:'Barlow Condensed',sans-serif;
+  font-size:.92rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;
+  color:#fff;transition:background .2s,transform .15s,box-shadow .2s;
+}
+.btn-next:hover{background:var(--ember);transform:translateY(-1px);box-shadow:0 4px 18px rgba(200,75,17,.28);}
+.btn-next:active{transform:translateY(0);box-shadow:none;}
+.btn-next:disabled{background:var(--muted);transform:none;box-shadow:none;cursor:not-allowed;}
+.btn-next:focus-visible{outline:2px solid var(--fire);outline-offset:3px;}
+
+/* ── SUCCESS ── */
+.success-wrap{padding:1.5rem 0;}
+.success-header{
+  background:var(--dark);border-radius:10px;
+  padding:2.5rem 1.75rem;text-align:center;margin-bottom:1.5rem;
+}
+.success-flame{font-size:2.75rem;margin-bottom:1.1rem;line-height:1;}
+.success-header h2{
+  font-family:'Cormorant Garamond',serif;
+  font-size:clamp(2rem,6vw,2.8rem);font-weight:700;
+  color:var(--ash);line-height:1.1;margin-bottom:.6rem;text-wrap:balance;
+}
+.success-header h2 em{color:var(--ember);font-style:italic;}
+.success-header p{
+  font-size:.93rem;color:rgba(245,237,228,.6);
+  font-weight:300;line-height:1.65;max-width:360px;margin:0 auto;
+}
+.success-actions{
+  display:flex;flex-direction:column;align-items:stretch;
+  gap:.75rem;margin-bottom:1.25rem;
+}
+.btn-wa{
+  display:flex;align-items:center;justify-content:center;gap:.65rem;
+  background:#25D366;color:#fff;padding:1rem 1.75rem;
+  font-family:'Barlow Condensed',sans-serif;font-size:.92rem;
+  font-weight:700;letter-spacing:.08em;text-transform:uppercase;
+  text-decoration:none;border-radius:6px;
+  transition:background .2s,transform .15s;
+}
+.btn-wa:hover{background:#1db954;transform:translateY(-1px);}
+.success-sub{font-size:.82rem;color:var(--muted);text-align:center;}
+.success-resumen{
+  background:rgba(200,75,17,.05);border:1px solid rgba(200,75,17,.12);
+  border-radius:8px;padding:1rem 1.25rem;
+  font-size:.87rem;color:var(--dark);line-height:1.65;
+}
+.success-resumen strong{color:var(--fire);}
+
+/* ── LOADING ── */
+.btn-next.loading{pointer-events:none;}
+.btn-next.loading::after{
+  content:'';display:inline-block;width:15px;height:15px;
+  border:2px solid rgba(255,255,255,.35);border-top-color:#fff;
+  border-radius:50%;animation:spin .65s linear infinite;
+  margin-left:.6rem;vertical-align:middle;
+}
+@keyframes spin{to{transform:rotate(360deg);}}
+
+/* ── TRANSITIONS ── */
+.wizard-step{display:none;}
+.wizard-step.active{display:block;animation:stepIn .28s cubic-bezier(.4,0,.2,1);}
+@keyframes stepIn{from{opacity:0;transform:translateY(10px);}to{opacity:1;transform:translateY(0);}}
+
+/* ── DIVIDER ── */
+.field-divider{height:1px;background:var(--border);margin:.25rem 0;}
+
+/* ── RESPONSIVE ── */
+@media(max-width:480px){
+  nav{padding:.875rem 1rem;}
+  .wizard{padding:0 1rem;}
+  .tipo-card{padding:1rem 1.1rem;}
+  .summary-key{min-width:80px;}
+  .wizard-nav{flex-direction:column-reverse;}
+  .btn-back{width:100%;}
+  .success-header{padding:2rem 1.25rem;}
+}
+@media(max-width:360px){
+  .tipo-icon{display:none;}
+  .toggle-btn{font-size:.82rem;padding:.55rem .85rem;}
+}
+@media(prefers-reduced-motion:reduce){
+  .wizard-step.active{animation:none;}
+  .progress-fill{transition:none;}
+  .tipo-card,.btn-next,.btn-wa{transition:none;}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a class="nav-logo" href="/">
+    <img src="img/favicon-jtc.png" alt="Javotecocina" onerror="this.style.display='none'">
+    <span class="nav-logo-txt">Javo Te Cocina</span>
+  </a>
+  <a class="nav-back" href="/">← Volver al inicio</a>
+</nav>
+
+<div class="cotizar-wrap">
+  <div class="wizard">
+
+    <!-- PROGRESS BAR -->
+    <div class="progress-bar-wrap" id="progressWrap">
+      <div class="progress-label">
+        <span class="progress-tipo" id="progressTipo"></span>
+        <span class="progress-count" id="progressCount"></span>
+      </div>
+      <div class="progress-track">
+        <div class="progress-fill" id="progressFill" style="width:0%"></div>
+      </div>
+    </div>
+
+    <!-- STEP 0: Tipo de consulta -->
+    <div class="wizard-step active" id="step-tipo">
+      <div class="tipo-intro">
+        <h1>¿En qué puedo<br><em>ayudarte?</em></h1>
+        <p>Elegí el tipo de consulta. El formulario se adapta a lo que necesitás.</p>
+      </div>
+      <div class="tipo-grid">
+        <button class="tipo-card" onclick="selectTipo('evento')">
+          <span class="tipo-icon">🍖</span>
+          <div class="tipo-info">
+            <div class="tipo-label">Cotizar un evento</div>
+            <div class="tipo-desc">Asados, cenas, catering y experiencias gastronómicas</div>
+          </div>
+          <span class="tipo-caret">→</span>
+        </button>
+        <button class="tipo-card" onclick="selectTipo('campana')">
+          <span class="tipo-icon">📱</span>
+          <div class="tipo-info">
+            <div class="tipo-label">Campaña de redes</div>
+            <div class="tipo-desc">Colaboraciones con marcas, contenido e integración</div>
+          </div>
+          <span class="tipo-caret">→</span>
+        </button>
+        <button class="tipo-card" onclick="selectTipo('producto')">
+          <span class="tipo-icon">📦</span>
+          <div class="tipo-info">
+            <div class="tipo-label">Producto físico</div>
+            <div class="tipo-desc">Hornos, utensilios, equipamiento y otros productos</div>
+          </div>
+          <span class="tipo-caret">→</span>
+        </button>
+        <button class="tipo-card" onclick="selectTipo('recetario')">
+          <span class="tipo-icon">📖</span>
+          <div class="tipo-info">
+            <div class="tipo-label">Recetario digital</div>
+            <div class="tipo-desc">Consultas sobre mis recetarios, acceso o descarga</div>
+          </div>
+          <span class="tipo-caret">→</span>
+        </button>
+        <button class="tipo-card" onclick="selectTipo('otra')">
+          <span class="tipo-icon">💬</span>
+          <div class="tipo-info">
+            <div class="tipo-label">Otra consulta</div>
+            <div class="tipo-desc">Cualquier otro mensaje o propuesta</div>
+          </div>
+          <span class="tipo-caret">→</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- STEPS CONTENT (rendered by JS) -->
+    <div class="wizard-step" id="step-form">
+      <div class="step-header">
+        <h1 id="stepTitle"></h1>
+        <p id="stepSubtitle"></p>
+      </div>
+      <div class="fields-stack" id="fieldsContainer"></div>
+      <div class="wizard-nav">
+        <button class="btn-back" id="btnBack" onclick="goBack()">← Atrás</button>
+        <button class="btn-next" id="btnNext" onclick="goNext()">Continuar →</button>
+      </div>
+    </div>
+
+    <!-- STEP SUMMARY -->
+    <div class="wizard-step" id="step-summary">
+      <div class="step-header">
+        <h1>Revisá tu<br><em>consulta</em></h1>
+        <p>Confirmá los datos antes de enviar. Podés volver si necesitás corregir algo.</p>
+      </div>
+      <div class="summary-card" id="summaryCard"></div>
+      <div class="consent-block" id="consentBlock">
+        <label class="consent-label">
+          <input type="checkbox" class="consent-checkbox" id="consentCheck">
+          <span class="consent-text">Acepto que Javo Te Cocina utilice mis datos para responder esta consulta y prepararme una cotización. No se usarán para otros fines. <a href="#" onclick="return false">Ver política de privacidad</a>.</span>
+        </label>
+        <div class="consent-error">Necesitás aceptar para enviar la consulta.</div>
+      </div>
+      <div class="wizard-nav">
+        <button class="btn-back" onclick="goBackToForm()">← Atrás</button>
+        <button class="btn-next" id="btnSubmit" onclick="submitLead()">Enviar consulta 🔥</button>
+      </div>
+    </div>
+
+    <!-- SUCCESS -->
+    <div class="wizard-step" id="step-success">
+      <div class="success-wrap">
+        <div class="success-header">
+          <div class="success-flame">🔥</div>
+          <h2>¡<em>Consulta</em> recibida!</h2>
+          <p>Ya tengo tus datos. Te respondo en menos de 24 horas por el canal que elegiste.</p>
+        </div>
+        <div class="success-resumen" id="successResumen" style="display:none;margin-bottom:1.25rem;"></div>
+        <div class="success-actions">
+          <a class="btn-wa" id="btnWA" href="#" target="_blank">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+            Seguir por WhatsApp
+          </a>
+        </div>
+        <div class="success-sub">O esperá mi respuesta en el canal que indicaste.</div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+/* ── DATOS GEOGRÁFICOS ── */
+const PROVINCIAS = [
+  'Buenos Aires','Ciudad Autónoma de Buenos Aires','Catamarca','Chaco','Chubut',
+  'Córdoba','Corrientes','Entre Ríos','Formosa','Jujuy','La Pampa','La Rioja',
+  'Mendoza','Misiones','Neuquén','Río Negro','Salta','San Juan','San Luis',
+  'Santa Cruz','Santa Fe','Santiago del Estero','Tierra del Fuego','Tucumán'
+];
+
+const BARRIOS_CABA = [
+  'Agronomía','Almagro','Balvanera','Barracas','Belgrano','Boedo','Caballito',
+  'Chacarita','Coghlan','Colegiales','Constitución','Flores','Floresta','La Boca',
+  'La Paternal','Liniers','Mataderos','Monte Castro','Montserrat','Nueva Pompeya',
+  'Núñez','Palermo','Parque Avellaneda','Parque Chacabuco','Parque Chas',
+  'Parque Patricios','Puerto Madero','Recoleta','Retiro','Saavedra','San Cristóbal',
+  'San Nicolás','San Telmo','Vélez Sársfield','Versalles','Villa Crespo',
+  'Villa del Parque','Villa Devoto','Villa General Mitre','Villa Lugano','Villa Luro',
+  'Villa Ortúzar','Villa Pueyrredón','Villa Real','Villa Riachuelo','Villa Santa Rita',
+  'Villa Soldati','Villa Urquiza'
+];
+
+const PARTIDOS_BA = [
+  'Adolfo Alsina','Adolfo Gonzales Chaves','Alberti','Almirante Brown','Arrecifes',
+  'Avellaneda','Ayacucho','Azul','Bahía Blanca','Balcarce','Baradero','Benito Juárez',
+  'Berazategui','Berisso','Bolívar','Bragado','Brandsen','Campana','Cañuelas',
+  'Capitán Sarmiento','Carlos Casares','Carlos Tejedor','Carmen de Areco','Castelli',
+  'Chascomús','Chivilcoy','Colón','Coronel Dorrego','Coronel Pringles','Coronel Rosales',
+  'Coronel Suárez','Daireaux','Dolores','Ensenada','Escobar','Esteban Echeverría',
+  'Exaltación de la Cruz','Ezeiza','Florencio Varela','Florentino Ameghino',
+  'General Alvarado','General Alvear','General Arenales','General Belgrano',
+  'General Guido','General Juan Madariaga','General La Madrid','General Las Heras',
+  'General Lavalle','General Paz','General Pinto','General Pueyrredón',
+  'General Rodríguez','General San Martín','General Viamonte','General Villegas',
+  'Guaminí','Hipólito Yrigoyen','Hurlingham','Ituzaingó','José C. Paz','Junín',
+  'La Costa','La Matanza','La Plata','Lanús','Laprida','Las Flores','Leandro N. Alem',
+  'Lincoln','Lobería','Lobos','Lomas de Zamora','Luján','Magdalena','Maipú',
+  'Malvinas Argentinas','Mar Chiquita','Marcos Paz','Mercedes','Merlo','Monte',
+  'Monte Hermoso','Moreno','Morón','Navarro','Necochea','Nueve de Julio','Olavarría',
+  'Patagones','Pehuajó','Pellegrini','Pergamino','Pila','Pilar','Pinamar',
+  'Presidente Perón','Puán','Punta Indio','Quilmes','Ramallo','Rauch','Rivadavia',
+  'Rojas','Roque Pérez','Saavedra (partido)','Saladillo','Salliqueló','Salto',
+  'San Andrés de Giles','San Antonio de Areco','San Cayetano','San Fernando',
+  'San Isidro','San Miguel','San Nicolás de los Arroyos','San Pedro','San Vicente',
+  'Suipacha','Tandil','Tapalqué','Tigre','Tordillo','Tornquist','Trenque Lauquen',
+  'Tres Arroyos','Tres de Febrero','Tres Lomas','Vicente López','Villa Gesell',
+  'Villarino','Zárate'
+];
+
+/* ── CONFIG ── */
+const WA_NUMBER = '543874105902';
+const API_URL   = '/api/save_lead';
+
+/* ── STEPS DEFINITIONS ── */
+const TIPOS_LABELS = {
+  evento:    '🍖 Cotizar evento',
+  campana:   '📱 Campaña de redes',
+  producto:  '📦 Producto físico',
+  recetario: '📖 Recetario digital',
+  otra:      '💬 Otra consulta',
+};
+
+const STEPS = {
+  evento: [
+    {
+      title: 'Tus datos de <em>contacto</em>',
+      subtitle: 'Así puedo responderte directamente.',
+      fields: [
+        { id:'nombre',   label:'Nombre y apellido', type:'text',  required:true,  placeholder:'Tu nombre completo' },
+        { id:'email',    label:'Email',              type:'email', required:true,  placeholder:'tu@email.com' },
+        { id:'whatsapp', label:'WhatsApp',           type:'tel',   required:true,  placeholder:'+54 9 387 000 0000' },
+      ]
+    },
+    {
+      title: 'El <em>evento</em>',
+      subtitle: 'Contame los detalles principales.',
+      fields: [
+        { id:'fecha',       label:'Fecha tentativa',               type:'date',   required:false },
+        { id:'tipo_evento', label:'Tipo de evento',                type:'select', required:true,  options:['Seleccioná','Cumpleaños','Casamiento','Corporativo','Reunión familiar','Evento privado','Otro'] },
+        { id:'personas',    label:'Cantidad estimada de personas', type:'select', required:true,  options:['Seleccioná','Hasta 20','20 a 50','50 a 100','100 a 200','Más de 200'] },
+        { id:'provincia',   label:'Provincia',                    type:'provincia_select', required:true },
+        { id:'ciudad',      label:'Ciudad / Localidad',           type:'localidad_smart',  required:true,  placeholder:'Ciudad o localidad' },
+        { id:'lugar_definido', label:'¿Ya tenés lugar definido?', type:'radio',  required:false, options:['Sí','No','Estoy buscando'] },
+      ]
+    },
+    {
+      title: 'Formato y <em>experiencia</em>',
+      subtitle: '¿Qué tipo de cocina buscás?',
+      fields: [
+        { id:'tipo_servicio',   label:'Tipo de servicio',    type:'radio',      required:true,  options:['Solo comida','Experiencia completa'] },
+        { id:'formato_cocina',  label:'Formato de cocina (podés elegir más de uno)', type:'checkboxes', required:false, options:['Cocina en vivo','Fuegos','Disco','Parrilla / Asado','Catering','Menú servido','Otro'] },
+        { id:'restricciones',   label:'Restricciones alimentarias', type:'text', required:false, placeholder:'Celíacos, veganos, alergias...' },
+        { id:'horario',         label:'Horario del evento',  type:'text',        required:false, placeholder:'Ej: 13hs a 18hs' },
+      ]
+    },
+    {
+      title: 'Últimos <em>detalles</em>',
+      subtitle: 'Ya casi terminamos.',
+      fields: [
+        { id:'duracion',           label:'Duración aproximada',          type:'select', required:false, options:['1-2 horas','2-4 horas','4-6 horas','Todo el día'] },
+        { id:'contacto_preferido', label:'¿Cómo preferís que te contacte?', type:'radio', required:false, options:['WhatsApp','Email','Llamada'] },
+        { id:'comentarios',        label:'Comentarios adicionales',      type:'textarea', required:false, placeholder:'Menú que tenés en mente, ambiente, algún detalle especial...' },
+      ]
+    },
+  ],
+
+  campana: [
+    {
+      title: 'Tus <em>datos</em>',
+      subtitle: 'Para coordinar la colaboración.',
+      fields: [
+        { id:'nombre',   label:'Nombre',         type:'text',  required:true,  placeholder:'Tu nombre' },
+        { id:'marca',    label:'Marca / Empresa', type:'text',  required:true,  placeholder:'Nombre de la marca' },
+        { id:'email',    label:'Email de contacto', type:'email', required:true, placeholder:'contacto@marca.com' },
+        { id:'whatsapp', label:'WhatsApp',        type:'tel',   required:false, placeholder:'+54 9 387 000 0000' },
+      ]
+    },
+    {
+      title: 'La <em>campaña</em>',
+      subtitle: '¿Qué querés lograr?',
+      fields: [
+        { id:'producto_campana', label:'Producto o servicio a promocionar', type:'text',      required:true, placeholder:'Ej: Salsa de tomate artesanal' },
+        { id:'objetivo',         label:'Objetivo de la campaña',            type:'select',    required:true, options:['Seleccioná','Awareness / conocimiento de marca','Ventas directas','Crecimiento de comunidad','Lanzamiento de producto','Otro'] },
+        { id:'plataformas',      label:'Plataformas',                       type:'checkboxes',required:true, options:['Instagram','TikTok','Ambas'] },
+        { id:'tipo_contenido',   label:'Tipo de contenido (podés elegir varios)', type:'checkboxes', required:false, options:['Receta integrada','Review del producto','Integración natural','Evento o activación','Storytelling','Otro'] },
+      ]
+    },
+    {
+      title: 'Detalles de la <em>propuesta</em>',
+      subtitle: 'Para armar una cotización a medida.',
+      fields: [
+        { id:'cantidad_piezas', label:'Cantidad estimada de piezas', type:'select', required:false, options:['1 pieza','2-3 piezas','4-6 piezas','Más de 6','A definir'] },
+        { id:'fecha_campana',   label:'Fecha o período objetivo',    type:'text',   required:false, placeholder:'Ej: Septiembre 2025' },
+        { id:'derechos_uso',    label:'¿Necesitás derechos de uso para pauta?', type:'radio', required:false, options:['Sí','No','No sé aún'] },
+        { id:'exclusividad',    label:'¿Necesitás exclusividad de categoría?',  type:'radio', required:false, options:['Sí','No','A conversar'] },
+        { id:'comentarios',     label:'Brief o comentarios',          type:'textarea', required:false, placeholder:'Concepto, tono, referencias visuales, restricciones...' },
+      ]
+    },
+  ],
+
+  producto: [
+    {
+      title: 'Tus <em>datos</em>',
+      subtitle: 'Para enviarte información del producto.',
+      fields: [
+        { id:'nombre',   label:'Nombre',   type:'text',  required:true,  placeholder:'Tu nombre' },
+        { id:'email',    label:'Email',    type:'email', required:true,  placeholder:'tu@email.com' },
+        { id:'whatsapp', label:'WhatsApp', type:'tel',   required:true,  placeholder:'+54 9 387 000 0000' },
+      ]
+    },
+    {
+      title: 'El <em>producto</em>',
+      subtitle: '¿Qué te interesa?',
+      fields: [
+        { id:'producto_interes', label:'Producto de interés', type:'text',   required:true,  placeholder:'Ej: Horno de barro, kamado, cuchillo...' },
+        { id:'cantidad',         label:'Cantidad',            type:'select', required:false, options:['1','2','3-5','Más de 5'] },
+        { id:'provincia',        label:'Provincia',           type:'provincia_select',  required:true },
+        { id:'ubicacion',        label:'Ciudad / Localidad',  type:'localidad_smart',   required:true, placeholder:'Ciudad o localidad' },
+        { id:'necesita_envio',   label:'¿Necesitás envío?',   type:'radio',  required:false, options:['Sí, necesito envío','No, retiro en mano','No sé aún'] },
+        { id:'fecha_compra',     label:'Fecha estimada de compra', type:'select', required:false, options:['Esta semana','Este mes','En los próximos 3 meses','Solo estoy averiguando'] },
+        { id:'comentarios',      label:'Comentarios',         type:'textarea', required:false, placeholder:'Cualquier detalle adicional...' },
+      ]
+    },
+  ],
+
+  recetario: [
+    {
+      title: 'Tus <em>datos</em>',
+      subtitle: 'Para responderte personalmente.',
+      fields: [
+        { id:'nombre',   label:'Nombre',   type:'text',  required:true,  placeholder:'Tu nombre' },
+        { id:'email',    label:'Email',    type:'email', required:true,  placeholder:'tu@email.com' },
+        { id:'whatsapp', label:'WhatsApp', type:'tel',   required:false, placeholder:'+54 9 387 000 0000' },
+      ]
+    },
+    {
+      title: 'Tu <em>consulta</em>',
+      subtitle: '¿En qué puedo ayudarte?',
+      fields: [
+        { id:'recetario_interes', label:'Recetario de interés', type:'select', required:false, options:['No sé cuál','Donde Hay Humo','A Todo Disco','A Todo Keveri','Sabores Salteños','Lo Fresco del Norte','Todo Sobre Fierros','Otro'] },
+        { id:'ya_compro',         label:'¿Ya lo compraste?',   type:'radio',  required:false, options:['Sí, ya lo tengo','No, quiero comprarlo'] },
+        { id:'problema',          label:'¿Cuál es tu consulta?', type:'textarea', required:true, placeholder:'Contame tu duda o inconveniente...' },
+        { id:'comentarios',       label:'Algo más que quieras agregar', type:'textarea', required:false, placeholder:'(opcional)' },
+      ]
+    },
+  ],
+
+  otra: [
+    {
+      title: 'Tu <em>consulta</em>',
+      subtitle: 'Contame en qué puedo ayudarte.',
+      fields: [
+        { id:'nombre',   label:'Nombre',        type:'text',     required:true,  placeholder:'Tu nombre' },
+        { id:'email',    label:'Email',         type:'email',    required:true,  placeholder:'tu@email.com' },
+        { id:'whatsapp', label:'WhatsApp',      type:'tel',      required:false, placeholder:'+54 9 387 000 0000' },
+        { id:'mensaje',  label:'Tu mensaje',    type:'textarea', required:true,  placeholder:'Escribí tu consulta acá...' },
+      ]
+    },
+  ],
+};
+
+/* ── STATE ── */
+let state = { tipo: '', stepIdx: 0, data: {} };
+
+/* ── UTILS ── */
+function esc(s){ return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+
+function getUtm(){
+  const p=new URLSearchParams(location.search);
+  return {
+    utm_source:   p.get('utm_source')  ||'',
+    utm_medium:   p.get('utm_medium')  ||'',
+    utm_campaign: p.get('utm_campaign')||'',
+    pagina_origen: document.referrer||'',
+  };
+}
+
+/* ── SELECT TIPO ── */
+function selectTipo(tipo){
+  state.tipo    = tipo;
+  state.stepIdx = 0;
+  state.data    = {};
+  showFormStep();
+}
+
+/* ── SHOW/HIDE STEPS ── */
+function showStep(id){
+  document.querySelectorAll('.wizard-step').forEach(s=>s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+function showFormStep(){
+  const steps = STEPS[state.tipo];
+  const step  = steps[state.stepIdx];
+  if(!step){ showSummary(); return; }
+
+  document.getElementById('stepTitle').innerHTML    = step.title;
+  document.getElementById('stepSubtitle').textContent = step.subtitle;
+
+  // Render fields
+  const container = document.getElementById('fieldsContainer');
+  container.innerHTML = step.fields.map(f=>renderField(f)).join('');
+
+  // Restore saved values
+  step.fields.forEach(f=>{
+    const val = state.data[f.id];
+    if(val===undefined||val===null) return;
+    if(f.type==='radio'||f.type==='checkboxes'){
+      const vals = Array.isArray(val)?val:[val];
+      container.querySelectorAll(`[data-field="${f.id}"]`).forEach(btn=>{
+        if(vals.includes(btn.dataset.value)) btn.classList.add('selected');
+      });
+    } else if(f.type!=='localidad_smart'){
+      // localidad_smart se restaura después, via setupProvinciaListeners
+      const el = document.getElementById('f_'+f.id);
+      if(el) el.value = val;
+    }
+  });
+
+  // Si hay campo provincia en el step, sincroniza el campo de localidad
+  setupProvinciaListeners(step);
+
+  // Update navigation
+  document.getElementById('btnBack').style.display = state.stepIdx===0?'none':'';
+  const isLast = state.stepIdx===steps.length-1;
+  document.getElementById('btnNext').textContent = isLast ? 'Revisar consulta →' : 'Continuar →';
+
+  updateProgress();
+  showStep('step-form');
+}
+
+/* ── PROVINCIA / LOCALIDAD DINÁMICOS ── */
+function renderField(f){
+  // Selector de provincia
+  if(f.type==='provincia_select'){
+    const opts = PROVINCIAS.map(p=>`<option value="${esc(p)}">${esc(p)}</option>`).join('');
+    return `<div class="field-group" id="fg_${f.id}">
+      <label class="field-label" for="f_${f.id}">PROVINCIA${f.required?'<span class="req">*</span>':''}</label>
+      <select class="field-select" id="f_${f.id}" onchange="onProvinciaChange(this)">
+        <option value="">Seleccioná una provincia</option>
+        ${opts}
+      </select>
+      <div class="field-error">Este campo es requerido.</div>
+    </div>`;
+  }
+  // Ciudad / localidad dinámica (depende de provincia)
+  if(f.type==='localidad_smart'){
+    const targetId = f.id; // 'ciudad' o 'ubicacion'
+    return `<div class="field-group" id="fg_${targetId}">
+      <label class="field-label" for="f_${targetId}">${esc(f.label)}${f.required?'<span class="req">*</span>':''}</label>
+      <div id="wrap_${targetId}">
+        <input class="field-input" type="text" id="f_${targetId}" placeholder="${esc(f.placeholder||'Ciudad o localidad')}" autocomplete="address-level2">
+      </div>
+      <div class="field-error">Este campo es requerido.</div>
+    </div>`;
+  }
+
+/* ── RENDER A SINGLE FIELD ── */
+  if(f.type==='radio'||f.type==='checkboxes'){
+    const btns = f.options.map(o=>
+      `<button type="button" class="toggle-btn" data-field="${esc(f.id)}" data-value="${esc(o)}" onclick="toggleOption(this,'${f.type==='radio'?'radio':'checkbox'}')">${esc(o)}</button>`
+    ).join('');
+    return `<div class="field-group" id="fg_${f.id}">
+      <label class="field-label">${esc(f.label)}${f.required?'<span class="req">*</span>':''}</label>
+      <div class="toggle-group">${btns}</div>
+      <div class="field-error">Seleccioná una opción.</div>
+    </div>`;
+  }
+  if(f.type==='select'){
+    const opts = f.options.map((o,i)=>`<option value="${i===0?'':esc(o)}">${esc(o)}</option>`).join('');
+    return `<div class="field-group" id="fg_${f.id}">
+      <label class="field-label" for="f_${f.id}">${esc(f.label)}${f.required?'<span class="req">*</span>':''}</label>
+      <select class="field-select" id="f_${f.id}">${opts}</select>
+      <div class="field-error">Este campo es requerido.</div>
+    </div>`;
+  }
+  if(f.type==='textarea'){
+    return `<div class="field-group" id="fg_${f.id}">
+      <label class="field-label" for="f_${f.id}">${esc(f.label)}${f.required?'<span class="req">*</span>':''}</label>
+      <textarea class="field-textarea" id="f_${f.id}" placeholder="${esc(f.placeholder||'')}"></textarea>
+      <div class="field-error">Este campo es requerido.</div>
+    </div>`;
+  }
+  // text, email, tel, date, number
+  return `<div class="field-group" id="fg_${f.id}">
+    <label class="field-label" for="f_${f.id}">${esc(f.label)}${f.required?'<span class="req">*</span>':''}</label>
+    <input class="field-input" type="${f.type}" id="f_${f.id}" placeholder="${esc(f.placeholder||'')}" autocomplete="${getAutocomplete(f.id)}">
+    <div class="field-error">${f.type==='email'?'Ingresá un email válido.':'Este campo es requerido.'}</div>
+  </div>`;
+}
+
+function getAutocomplete(id){
+  if(id==='nombre')   return 'name';
+  if(id==='email')    return 'email';
+  if(id==='whatsapp') return 'tel';
+  return 'off';
+}
+
+/* ── TOGGLE RADIO/CHECKBOX ── */
+function toggleOption(btn, mode){
+  const field = btn.dataset.field;
+  const group = document.querySelectorAll(`[data-field="${field}"]`);
+  if(mode==='radio'){
+    group.forEach(b=>b.classList.remove('selected'));
+    btn.classList.add('selected');
+  } else {
+    btn.classList.toggle('selected');
+  }
+  // clear error
+  const fg = document.getElementById('fg_'+field);
+  if(fg) fg.classList.remove('has-error');
+}
+
+/* ── COLLECT STEP DATA ── */
+function collectStepData(){
+  const step  = STEPS[state.tipo][state.stepIdx];
+  const valid = { ok:true };
+
+  step.fields.forEach(f=>{
+    let val = null;
+    if(f.type==='radio'){
+      const sel = document.querySelector(`[data-field="${f.id}"].selected`);
+      val = sel ? sel.dataset.value : '';
+    } else if(f.type==='checkboxes'){
+      const sels = document.querySelectorAll(`[data-field="${f.id}"].selected`);
+      val = Array.from(sels).map(b=>b.dataset.value);
+    } else {
+      const el = document.getElementById('f_'+f.id);
+      val = el ? el.value.trim() : '';
+    }
+
+    if(f.required){
+      const empty = Array.isArray(val)?val.length===0:!val;
+      if(empty){
+        valid.ok = false;
+        const fg = document.getElementById('fg_'+f.id);
+        if(fg) fg.classList.add('has-error');
+        return;
+      }
+    }
+    if(f.type==='email' && val && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(val)){
+      valid.ok = false;
+      const fg = document.getElementById('fg_'+f.id);
+      if(fg) fg.classList.add('has-error');
+      const errEl = fg?.querySelector('.field-error');
+      if(errEl) errEl.textContent = 'Ingresá un email válido.';
+      return;
+    }
+    // clear error
+    const fg = document.getElementById('fg_'+f.id);
+    if(fg) fg.classList.remove('has-error');
+
+    if(val!==null && val!=='') state.data[f.id] = val;
+    else if(Array.isArray(val) && val.length===0) state.data[f.id] = [];
+  });
+
+  return valid.ok;
+}
+
+/* ── PROVINCIA → LOCALIDAD ── */
+// Llamada desde el onchange del select de provincia
+function onProvinciaChange(sel){
+  // Buscar el campo localidad_smart hermano en el mismo step
+  const step = STEPS[state.tipo][state.stepIdx];
+  const smartField = step.fields.find(f=>f.type==='localidad_smart');
+  if(!smartField) return;
+  updateLocalidadField(smartField.id, sel.value, '');
+}
+
+// Al renderizar (o restaurar) un step, sincroniza la localidad según la provincia guardada
+function setupProvinciaListeners(step){
+  if(!step) return;
+  const provField   = step.fields.find(f=>f.type==='provincia_select');
+  const smartField  = step.fields.find(f=>f.type==='localidad_smart');
+  if(!provField || !smartField) return;
+
+  const provEl = document.getElementById('f_'+provField.id);
+  if(!provEl) return;
+
+  // Si hay un valor guardado en state.data, restaurar provincia primero
+  if(state.data[provField.id]) provEl.value = state.data[provField.id];
+
+  // Actualizar localidad según provincia actual y valor guardado
+  const savedLocalidad = state.data[smartField.id] || '';
+  updateLocalidadField(smartField.id, provEl.value, savedLocalidad);
+}
+
+function updateLocalidadField(targetId, provincia, savedVal){
+  const wrap = document.getElementById('wrap_'+targetId);
+  if(!wrap) return;
+
+  let html = '';
+  if(provincia === 'Ciudad Autónoma de Buenos Aires'){
+    const opts = BARRIOS_CABA.map(b=>`<option value="${esc(b)}"${savedVal===b?' selected':''}>${esc(b)}</option>`).join('');
+    html = `<select class="field-select" id="f_${targetId}">
+      <option value="">Seleccioná un barrio</option>${opts}
+    </select>`;
+  } else if(provincia === 'Buenos Aires'){
+    const opts = PARTIDOS_BA.map(p=>`<option value="${esc(p)}"${savedVal===p?' selected':''}>${esc(p)}</option>`).join('');
+    html = `<select class="field-select" id="f_${targetId}">
+      <option value="">Seleccioná un partido / localidad</option>${opts}
+    </select>`;
+  } else {
+    html = `<input class="field-input" type="text" id="f_${targetId}" placeholder="Ciudad o localidad" autocomplete="address-level2" value="${esc(savedVal)}">`;
+  }
+  wrap.innerHTML = html;
+
+  // Limpiar error si existía
+  const fg = document.getElementById('fg_'+targetId);
+  if(fg) fg.classList.remove('has-error');
+}
+
+/* ── NAV ── */
+function goNext(){
+  if(!collectStepData()) return;
+  const steps = STEPS[state.tipo];
+  if(state.stepIdx < steps.length-1){
+    state.stepIdx++;
+    showFormStep();
+  } else {
+    showSummary();
+  }
+}
+
+function goBack(){
+  if(state.stepIdx > 0){
+    state.stepIdx--;
+    showFormStep();
+  } else {
+    showStep('step-tipo');
+    document.getElementById('progressWrap').classList.remove('visible');
+  }
+}
+
+function goBackToForm(){
+  showFormStep();
+}
+
+/* ── PROGRESS ── */
+function updateProgress(){
+  const steps   = STEPS[state.tipo];
+  const total   = steps.length;
+  const current = state.stepIdx + 1;
+  const pct     = Math.round((current/total)*100);
+
+  document.getElementById('progressWrap').classList.add('visible');
+  document.getElementById('progressTipo').textContent  = TIPOS_LABELS[state.tipo];
+  document.getElementById('progressCount').textContent = `Paso ${current} de ${total}`;
+  document.getElementById('progressFill').style.width  = pct+'%';
+}
+
+/* ── SUMMARY ── */
+function showSummary(){
+  const card = document.getElementById('summaryCard');
+  const tipo = state.tipo;
+  const d    = state.data;
+
+  const rows = Object.entries(d)
+    .filter(([,v])=> Array.isArray(v) ? v.length>0 : v)
+    .map(([k,v])=>{
+      const label = fieldLabel(k);
+      const val   = Array.isArray(v) ? v.join(', ') : v;
+      return `<div class="summary-row"><span class="summary-key">${esc(label)}</span><span class="summary-val">${esc(val)}</span></div>`;
+    }).join('');
+
+  card.innerHTML = `
+    <div class="summary-tipo">${esc(TIPOS_LABELS[tipo])}</div>
+    <div class="summary-rows">${rows||'<span style="color:var(--muted);font-size:.85rem">Sin datos adicionales.</span>'}</div>
+  `;
+
+  document.getElementById('progressFill').style.width = '100%';
+  document.getElementById('progressCount').textContent = 'Último paso';
+  showStep('step-summary');
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+function fieldLabel(id){
+  const map={
+    nombre:'Nombre',email:'Email',whatsapp:'WhatsApp',marca:'Marca',
+    fecha:'Fecha',tipo_evento:'Tipo evento',personas:'Personas',provincia:'Provincia',ciudad:'Ciudad',
+    lugar_definido:'Lugar definido',tipo_servicio:'Servicio',formato_cocina:'Formato',
+    restricciones:'Restricciones',horario:'Horario',presupuesto:'Presupuesto',
+    duracion:'Duración',contacto_preferido:'Contacto pref.',comentarios:'Comentarios',
+    producto_campana:'Producto',objetivo:'Objetivo',plataformas:'Plataformas',
+    tipo_contenido:'Tipo contenido',cantidad_piezas:'Piezas',fecha_campana:'Fecha campaña',
+    derechos_uso:'Derechos de uso',exclusividad:'Exclusividad',
+    producto_interes:'Producto',cantidad:'Cantidad',ubicacion:'Ubicación',
+    necesita_envio:'Envío',fecha_compra:'Fecha compra',
+    recetario_interes:'Recetario',ya_compro:'Ya compró',problema:'Consulta',
+    mensaje:'Mensaje',
+  };
+  return map[id]||id;
+}
+
+/* ── SUBMIT ── */
+async function submitLead(){
+  const consent = document.getElementById('consentCheck');
+  const block   = document.getElementById('consentBlock');
+
+  if(!consent.checked){
+    block.classList.add('has-error');
+    return;
+  }
+  block.classList.remove('has-error');
+
+  const btn = document.getElementById('btnSubmit');
+  btn.classList.add('loading');
+  btn.disabled = true;
+  btn.textContent = 'Enviando...';
+
+  const utm = getUtm();
+  const nombre   = state.data.nombre   || '';
+  const email    = state.data.email    || '';
+  const whatsapp = state.data.whatsapp || '';
+
+  // Top-level fields extracted from datos
+  const datos = {...state.data};
+  delete datos.nombre;
+  delete datos.email;
+  delete datos.whatsapp;
+
+  try {
+    const r = await fetch(API_URL, {
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body: JSON.stringify({
+        tipo_consulta: state.tipo,
+        nombre, email, whatsapp,
+        datos,
+        consentimiento: true,
+        ...utm,
+      }),
+    });
+    const json = await r.json();
+    if(json.resumen) showSuccess(json.resumen);
+    else showSuccess('');
+  } catch(e){
+    // Si la API falla, igual mostramos éxito (guardamos en localStorage como fallback)
+    const fallback = {tipo:state.tipo, nombre, email, whatsapp, datos, timestamp:Date.now()};
+    try { localStorage.setItem('jtc_lead_fallback', JSON.stringify(fallback)); } catch{}
+    showSuccess('');
+  }
+}
+
+/* ── SUCCESS + WHATSAPP ── */
+function showSuccess(resumen){
+  const tipo = state.tipo;
+  const d    = state.data;
+
+  // Resumen para la pantalla
+  document.getElementById('successResumen').innerHTML =
+    resumen ? `<strong>Tu resumen:</strong><br>${esc(resumen)}` : '';
+
+  // Mensaje pre-armado para WhatsApp
+  const msg = buildWAMessage(tipo, d);
+  document.getElementById('btnWA').href =
+    `https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(msg)}`;
+
+  document.getElementById('progressWrap').classList.remove('visible');
+  showStep('step-success');
+}
+
+function buildWAMessage(tipo, d){
+  const nombre = d.nombre || 'Sin nombre';
+  if(tipo==='evento'){
+    const ubicEvento = [d.ciudad, d.provincia].filter(Boolean).join(', ');
+    return `Hola Javo! 🍖 Completé el formulario para cotizar un evento.\n\n*Nombre:* ${nombre}\n*Tipo:* ${d.tipo_evento||'—'}\n*Fecha:* ${d.fecha||'—'}\n*Personas:* ${d.personas||'—'}\n*Ubicación:* ${ubicEvento||'—'}\n*Formato:* ${Array.isArray(d.formato_cocina)?d.formato_cocina.join(', '):d.formato_cocina||'—'}\n*Comentarios:* ${d.comentarios||'—'}\n\n¡Quedo a la espera de tu respuesta! 🔥`;
+  }
+  if(tipo==='campana'){
+    return `Hola Javo! 📱 Completé el formulario para una campaña de redes.\n\n*Nombre:* ${nombre}\n*Marca:* ${d.marca||'—'}\n*Producto:* ${d.producto_campana||'—'}\n*Objetivo:* ${d.objetivo||'—'}\n*Plataformas:* ${Array.isArray(d.plataformas)?d.plataformas.join(', '):d.plataformas||'—'}\n*Comentarios:* ${d.comentarios||'—'}\n\n¡Quedo a la espera de tu propuesta! 🙌`;
+  }
+  if(tipo==='producto'){
+    const ubicProd = [d.ubicacion, d.provincia].filter(Boolean).join(', ');
+    return `Hola Javo! 📦 Me interesa un producto.\n\n*Nombre:* ${nombre}\n*Producto:* ${d.producto_interes||'—'}\n*Cantidad:* ${d.cantidad||'—'}\n*Ubicación:* ${ubicProd||'—'}\n*Envío:* ${d.necesita_envio||'—'}\n*Comentarios:* ${d.comentarios||'—'}\n\n¡Gracias! 🙌`;
+  }
+  if(tipo==='recetario'){
+    return `Hola Javo! 📖 Tengo una consulta sobre un recetario.\n\n*Nombre:* ${nombre}\n*Recetario:* ${d.recetario_interes||'—'}\n*Ya compró:* ${d.ya_compro||'—'}\n*Consulta:* ${d.problema||'—'}\n\n¡Gracias!`;
+  }
+  return `Hola Javo! 💬 Completé el formulario de contacto.\n\n*Nombre:* ${nombre}\n*Mensaje:* ${d.mensaje||'—'}\n\n¡Gracias!`;
+}
+</script>
+</body>
+</html>

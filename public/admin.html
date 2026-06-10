@@ -104,6 +104,53 @@ body{font-family:'Barlow',sans-serif;background:var(--dark);color:var(--ash);min
 .badge-pending{background:rgba(232,115,10,.15);color:var(--ember);}
 .badge-approved{background:rgba(46,204,113,.15);color:var(--success);}
 
+/* ── LEADS NEW ── */
+.leads-toolbar{display:flex;gap:.75rem;flex-wrap:wrap;align-items:center;margin-bottom:1.25rem;}
+.leads-search{flex:1;min-width:200px;padding:.6rem .9rem;background:rgba(245,237,228,.06);border:1px solid var(--border);border-radius:3px;color:var(--ash);font-family:'Barlow',sans-serif;font-size:.88rem;outline:none;}
+.leads-search:focus{border-color:rgba(200,75,17,.5);}
+.leads-search::placeholder{color:var(--muted);}
+.leads-filter-row{display:flex;gap:.5rem;flex-wrap:wrap;margin-bottom:1rem;}
+.lf-btn{padding:.4rem .9rem;background:transparent;border:1px solid var(--border);border-radius:20px;color:var(--muted);font-family:'Barlow Condensed',sans-serif;font-size:.72rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;cursor:pointer;transition:all .15s;}
+.lf-btn:hover{border-color:var(--ember);color:var(--ember);}
+.lf-btn.active{background:var(--fire);border-color:var(--fire);color:#fff;}
+.leads-export{padding:.5rem 1rem;background:transparent;border:1px solid var(--border);border-radius:3px;color:var(--muted);font-family:'Barlow Condensed',sans-serif;font-size:.72rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;cursor:pointer;white-space:nowrap;transition:all .15s;}
+.leads-export:hover{border-color:var(--success);color:var(--success);}
+.lead-card-new{background:var(--dark2);border:1px solid var(--border);border-radius:4px;padding:1.25rem;margin-bottom:.65rem;cursor:pointer;transition:border-color .15s;}
+.lead-card-new:hover{border-color:rgba(200,75,17,.4);}
+.lead-card-new-head{display:flex;align-items:flex-start;justify-content:space-between;gap:.75rem;margin-bottom:.75rem;}
+.lead-card-new-name{font-weight:600;font-size:.9rem;color:var(--ash);}
+.lead-card-new-meta{font-size:.75rem;color:var(--muted);margin-top:.15rem;}
+.estado-badge{display:inline-block;padding:.2rem .6rem;border-radius:20px;font-family:'Barlow Condensed',sans-serif;font-size:.65rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;white-space:nowrap;}
+.estado-nuevo{background:rgba(200,75,17,.15);color:#E8730A;}
+.estado-contactado{background:rgba(52,152,219,.15);color:#5DADE2;}
+.estado-cotizado{background:rgba(212,160,23,.15);color:#D4A017;}
+.estado-en_negociacion{background:rgba(155,89,182,.15);color:#BB8FCE;}
+.estado-ganado{background:rgba(39,174,96,.15);color:#52BE80;}
+.estado-perdido{background:rgba(192,57,43,.15);color:#E57373;}
+.estado-descartado{background:rgba(120,120,120,.15);color:#999;}
+.lead-tipo-tag{display:inline-flex;align-items:center;gap:.3rem;padding:.15rem .55rem;background:rgba(245,237,228,.06);border:1px solid var(--border);border-radius:3px;font-family:'Barlow Condensed',sans-serif;font-size:.65rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);}
+.lead-card-new-cols{display:flex;flex-wrap:wrap;gap:.4rem .75rem;font-size:.8rem;color:var(--muted);}
+.lead-card-new-cols span{white-space:nowrap;}
+.lead-card-new-cols span strong{color:var(--ash);}
+/* Lead detail modal */
+.ld-modal-bg{position:fixed;inset:0;background:rgba(0,0,0,.78);z-index:300;display:none;align-items:flex-end;justify-content:center;}
+.ld-modal-bg.open{display:flex;}
+@media(min-width:600px){.ld-modal-bg{align-items:center;}}
+.ld-modal{background:var(--dark2);border:1px solid var(--border);border-radius:12px 12px 0 0;width:100%;max-width:600px;max-height:90vh;overflow-y:auto;-webkit-overflow-scrolling:touch;padding:1.5rem 1.25rem;padding-bottom:max(1.5rem,env(safe-area-inset-bottom));}
+@media(min-width:600px){.ld-modal{border-radius:6px;padding:1.75rem;}}
+.ld-modal h2{font-family:'Barlow Condensed',sans-serif;font-size:1.1rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;margin-bottom:1.25rem;}
+.ld-close{float:right;background:none;border:none;color:var(--muted);font-size:1.3rem;cursor:pointer;line-height:1;padding:.25rem;}
+.ld-section{margin-bottom:1.25rem;}
+.ld-section-title{font-family:'Barlow Condensed',sans-serif;font-size:.7rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--ember);margin-bottom:.65rem;}
+.ld-row{display:flex;gap:.75rem;margin-bottom:.4rem;font-size:.84rem;}
+.ld-key{color:var(--muted);font-size:.72rem;font-weight:700;text-transform:uppercase;min-width:120px;flex-shrink:0;}
+.ld-val{color:var(--ash);flex:1;word-break:break-word;}
+.ld-estado-select{width:100%;padding:.6rem .8rem;background:rgba(245,237,228,.06);border:1px solid var(--border);border-radius:3px;color:var(--ash);font-family:'Barlow',sans-serif;font-size:.88rem;margin-bottom:.75rem;outline:none;}
+.ld-notes-area{width:100%;padding:.65rem .8rem;background:rgba(245,237,228,.06);border:1px solid var(--border);border-radius:3px;color:var(--ash);font-family:'Barlow',sans-serif;font-size:.85rem;min-height:80px;resize:vertical;margin-bottom:.5rem;outline:none;}
+.ld-save-btn{padding:.55rem 1.2rem;background:var(--fire);border:none;border-radius:3px;color:#fff;font-family:'Barlow Condensed',sans-serif;font-size:.78rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;cursor:pointer;}
+.ld-resumen{background:rgba(200,75,17,.06);border:1px solid rgba(200,75,17,.15);border-radius:4px;padding:.75rem;font-size:.84rem;color:var(--ash);line-height:1.55;}
+.ld-wa-btn{display:inline-flex;align-items:center;gap:.5rem;background:#25D366;color:#fff;padding:.5rem 1rem;border-radius:3px;font-family:'Barlow Condensed',sans-serif;font-size:.75rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;text-decoration:none;margin-top:.75rem;}
+
 /* Lead cards */
 .lead-card{background:var(--dark2);border:1px solid var(--border);border-radius:4px;padding:1.25rem;margin-bottom:.75rem;}
 .lead-card-title{font-family:'Barlow Condensed',sans-serif;font-size:.85rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--fire);margin-bottom:.85rem;}
@@ -238,6 +285,13 @@ body{font-family:'Barlow',sans-serif;background:var(--dark);color:var(--ash);min
         </div>
       </div>
       <div class="nav-section">
+        <div class="nav-label">Comercial</div>
+        <div class="nav-item" data-sec="leads-new" onclick="showSection('leads-new',this)">
+          <span class="nav-icon">🎯</span> Leads
+          <span class="nav-badge" id="badgeLeadsNew" style="display:none">0</span>
+        </div>
+      </div>
+      <div class="nav-section">
         <div class="nav-label">Comunidad</div>
         <div class="nav-item" data-sec="usuarios" onclick="showSection('usuarios',this)">
           <span class="nav-icon">👥</span> Usuarios
@@ -353,6 +407,7 @@ ALTER TABLE experiencias DISABLE ROW LEVEL SECURITY;</code>
           <code style="display:block;margin:.65rem 0;background:rgba(0,0,0,.3);padding:.65rem .875rem;border-radius:3px;font-size:.78rem;white-space:pre-wrap;color:var(--ash);">CREATE TABLE IF NOT EXISTS instagram_posts (
   id SERIAL PRIMARY KEY,
   url TEXT NOT NULL,
+  titulo TEXT,
   thumbnail_url TEXT,
   video_url TEXT,
   activo BOOLEAN DEFAULT true,
@@ -362,7 +417,8 @@ ALTER TABLE experiencias DISABLE ROW LEVEL SECURITY;</code>
 ALTER TABLE instagram_posts DISABLE ROW LEVEL SECURITY;
 -- Si la tabla ya existe, agregá las columnas:
 ALTER TABLE instagram_posts ADD COLUMN IF NOT EXISTS thumbnail_url TEXT;
-ALTER TABLE instagram_posts ADD COLUMN IF NOT EXISTS video_url TEXT;</code>
+ALTER TABLE instagram_posts ADD COLUMN IF NOT EXISTS video_url TEXT;
+ALTER TABLE instagram_posts ADD COLUMN IF NOT EXISTS titulo TEXT;</code>
           <button class="btn-sm btn-ghost" onclick="loadIgPosts()">Ya lo ejecuté — recargar</button>
         </div>
 
@@ -428,7 +484,7 @@ ON CONFLICT (key) DO NOTHING;</code>
         <div id="usuariosList"><div class="loader">Cargando...</div></div>
       </div>
 
-      <!-- CONSULTAS -->
+      <!-- CONSULTAS (legacy) -->
       <div class="section-view" id="sec-leads">
         <div class="section-header">
           <h1>Consultas</h1>
@@ -439,6 +495,42 @@ ON CONFLICT (key) DO NOTHING;</code>
           <button class="admin-tab" onclick="filterLeads('collabs',this)">Colaboraciones</button>
         </div>
         <div id="leadsList"><div class="loader">Cargando...</div></div>
+      </div>
+
+      <!-- LEADS (nuevo sistema unificado desde /cotizar) -->
+      <div class="section-view" id="sec-leads-new">
+        <div class="section-header-row">
+          <div>
+            <h1>Leads</h1>
+            <p>Consultas recibidas desde el wizard de cotización</p>
+          </div>
+          <button class="btn-sm leads-export" onclick="exportLeadsCSV()">↓ Exportar CSV</button>
+        </div>
+
+        <div class="leads-toolbar">
+          <input class="leads-search" id="leadsSearch" type="search" placeholder="Buscar por nombre, email o WhatsApp..." oninput="searchLeadsNew(this.value)">
+          <select class="ld-estado-select" style="width:auto;margin:0;padding:.6rem .8rem;" onchange="filterLeadsEstado(this.value)">
+            <option value="">Todos los estados</option>
+            <option value="nuevo">Nuevo</option>
+            <option value="contactado">Contactado</option>
+            <option value="cotizado">Cotizado</option>
+            <option value="en_negociacion">En negociación</option>
+            <option value="ganado">Ganado</option>
+            <option value="perdido">Perdido</option>
+            <option value="descartado">Descartado</option>
+          </select>
+        </div>
+
+        <div class="leads-filter-row">
+          <button class="lf-btn active" onclick="filterLeadsTipo('',this)">Todos</button>
+          <button class="lf-btn" onclick="filterLeadsTipo('evento',this)">🍖 Eventos</button>
+          <button class="lf-btn" onclick="filterLeadsTipo('campana',this)">📱 Campañas</button>
+          <button class="lf-btn" onclick="filterLeadsTipo('producto',this)">📦 Productos</button>
+          <button class="lf-btn" onclick="filterLeadsTipo('recetario',this)">📖 Recetarios</button>
+          <button class="lf-btn" onclick="filterLeadsTipo('otra',this)">💬 Otras</button>
+        </div>
+
+        <div id="leadsNewList"><div class="loader">Cargando...</div></div>
       </div>
 
     </main>
@@ -456,6 +548,10 @@ ON CONFLICT (key) DO NOTHING;</code>
     <div class="form-row">
       <label>URL del post / reel *</label>
       <input type="url" id="ig-url" placeholder="https://www.instagram.com/reel/ABC123/" inputmode="url" autocomplete="off">
+    </div>
+    <div class="form-row">
+      <label>Título (aparece sobre la card)</label>
+      <input type="text" id="ig-titulo" placeholder="Ej: Bondiola a la Crema de Mostaza" autocomplete="off">
     </div>
     <div class="form-row">
       <label>URL del video</label>
@@ -792,7 +888,7 @@ async function apiDelete(table,id){
 
 /* ── LOAD ALL ───────────────────────────── */
 async function loadAll(){
-  await Promise.all([loadDashboard(),loadRecetarios(),loadProductos(),loadExperiencias(),loadReviews(),loadLeads(),loadUsuarios(),loadSiteSettings(),loadIgPosts()]);
+  await Promise.all([loadDashboard(),loadRecetarios(),loadProductos(),loadExperiencias(),loadReviews(),loadLeads(),loadLeadsNew(),loadUsuarios(),loadSiteSettings(),loadIgPosts()]);
 }
 
 /* ── NAVIGATION ─────────────────────────── */
@@ -1337,6 +1433,7 @@ function renderIgPosts(){
 function openIgModal(){
   document.getElementById('ig-id').value='';
   document.getElementById('ig-url').value='';
+  document.getElementById('ig-titulo').value='';
   document.getElementById('ig-video').value='';
   document.getElementById('ig-thumbnail').value='';
   document.getElementById('ig-orden').value='0';
@@ -1351,6 +1448,7 @@ function editIgPost(id){
   if(!p)return;
   document.getElementById('ig-id').value=p.id;
   document.getElementById('ig-url').value=p.url;
+  document.getElementById('ig-titulo').value=p.titulo||'';
   document.getElementById('ig-video').value=p.video_url||'';
   document.getElementById('ig-thumbnail').value=p.thumbnail_url||'';
   document.getElementById('ig-orden').value=p.orden||0;
@@ -1392,6 +1490,7 @@ async function saveIgPost(){
   }
   const data={
     url,
+    titulo:document.getElementById('ig-titulo').value.trim()||null,
     video_url:video||null,
     thumbnail_url:thumbnail||null,
     orden:parseInt(document.getElementById('ig-orden').value)||0,
@@ -1801,7 +1900,202 @@ function closeExpModalBg(e){if(e.target===e.currentTarget)closeExpModal();}
 document.getElementById('loginPass').addEventListener('keydown',e=>{if(e.key==='Enter')doLogin();});
 document.getElementById('loginEmail').addEventListener('keydown',e=>{if(e.key==='Enter')document.getElementById('loginPass').focus();});
 // ESC cierra modal
-document.addEventListener('keydown',e=>{if(e.key==='Escape'){closeRecModal();closeProdModal();closeExpModal();}});
+document.addEventListener('keydown',e=>{if(e.key==='Escape'){closeRecModal();closeProdModal();closeExpModal();closeLdModal();}});
+</script>
+
+<!-- ── MODAL LEAD DETAIL ── -->
+<div class="ld-modal-bg" id="ldModal" onclick="if(event.target===this)closeLdModal()">
+  <div class="ld-modal">
+    <button class="ld-close" onclick="closeLdModal()">✕</button>
+    <h2 id="ldModalTitle">Detalle del lead</h2>
+    <div id="ldModalBody"></div>
+  </div>
+</div>
+
+<script>
+/* ═══════════════════════════════════════
+   LEADS NEW — sistema unificado /cotizar
+   ═══════════════════════════════════════ */
+let allLeadsNew = [];
+let leadsFilterTipo   = '';
+let leadsFilterEstado = '';
+let leadsSearchQ      = '';
+
+const TIPO_LABEL = {
+  evento:'🍖 Evento', campana:'📱 Campaña', producto:'📦 Producto',
+  recetario:'📖 Recetario', otra:'💬 Otra'
+};
+const ESTADO_CLASS = {
+  nuevo:'estado-nuevo', contactado:'estado-contactado', cotizado:'estado-cotizado',
+  en_negociacion:'estado-en_negociacion', ganado:'estado-ganado',
+  perdido:'estado-perdido', descartado:'estado-descartado'
+};
+const ESTADO_LABEL = {
+  nuevo:'Nuevo', contactado:'Contactado', cotizado:'Cotizado',
+  en_negociacion:'En negociación', ganado:'Ganado',
+  perdido:'Perdido', descartado:'Descartado'
+};
+
+async function loadLeadsNew(){
+  const data = await apiGet('leads?order=created_at.desc');
+  if(!data) return;
+  allLeadsNew = data;
+  const badge = document.getElementById('badgeLeadsNew');
+  const nuevos = data.filter(l=>l.estado==='nuevo').length;
+  if(nuevos>0){badge.textContent=nuevos;badge.style.display='inline-block';}else{badge.style.display='none';}
+  renderLeadsNew();
+}
+
+function renderLeadsNew(){
+  const el = document.getElementById('leadsNewList');
+  if(!el) return;
+  let list = allLeadsNew;
+
+  if(leadsFilterTipo)   list = list.filter(l=>l.tipo_consulta===leadsFilterTipo);
+  if(leadsFilterEstado) list = list.filter(l=>l.estado===leadsFilterEstado);
+  if(leadsSearchQ){
+    const q = leadsSearchQ.toLowerCase();
+    list = list.filter(l=>
+      (l.nombre||'').toLowerCase().includes(q) ||
+      (l.email||'').toLowerCase().includes(q) ||
+      (l.whatsapp||'').toLowerCase().includes(q)
+    );
+  }
+
+  if(!list.length){
+    el.innerHTML='<div class="empty-state"><div class="icon">🎯</div><p>No hay leads con estos filtros.</p></div>';
+    return;
+  }
+
+  el.innerHTML = list.map(l=>{
+    const fecha    = l.created_at ? new Date(l.created_at).toLocaleDateString('es-AR',{day:'numeric',month:'short',year:'numeric'}) : '';
+    const eClass   = ESTADO_CLASS[l.estado] || 'estado-nuevo';
+    const eLabel   = ESTADO_LABEL[l.estado] || l.estado;
+    const tipoLbl  = TIPO_LABEL[l.tipo_consulta] || l.tipo_consulta;
+    const email    = l.email    ? `<span><strong>Email</strong> ${escH(l.email)}</span>` : '';
+    const whats    = l.whatsapp ? `<span><strong>WA</strong> ${escH(l.whatsapp)}</span>` : '';
+    const resumen  = l.resumen  ? `<div style="margin-top:.5rem;font-size:.78rem;color:var(--muted);line-height:1.45;">${escH(l.resumen.slice(0,120))}${l.resumen.length>120?'…':''}</div>` : '';
+    return `<div class="lead-card-new" onclick="openLdModal(${l.id})">
+      <div class="lead-card-new-head">
+        <div>
+          <div class="lead-card-new-name">${escH(l.nombre||'Sin nombre')}</div>
+          <div class="lead-card-new-meta">
+            <span class="lead-tipo-tag">${tipoLbl}</span>
+            <span style="margin-left:.4rem;font-size:.7rem;">${fecha}</span>
+          </div>
+        </div>
+        <span class="estado-badge ${eClass}">${eLabel}</span>
+      </div>
+      <div class="lead-card-new-cols">${email}${whats}</div>
+      ${resumen}
+    </div>`;
+  }).join('');
+}
+
+function filterLeadsTipo(tipo, btn){
+  leadsFilterTipo = tipo;
+  document.querySelectorAll('.lf-btn').forEach(b=>b.classList.remove('active'));
+  if(btn) btn.classList.add('active');
+  renderLeadsNew();
+}
+function filterLeadsEstado(val){ leadsFilterEstado=val; renderLeadsNew(); }
+function searchLeadsNew(q){ leadsSearchQ=q; renderLeadsNew(); }
+
+/* ── LEAD DETAIL MODAL ── */
+function openLdModal(id){
+  const l = allLeadsNew.find(x=>x.id===id);
+  if(!l) return;
+  document.getElementById('ldModalTitle').textContent = (l.nombre||'Sin nombre') + ' · ' + (TIPO_LABEL[l.tipo_consulta]||'Lead');
+  const datos = l.datos || {};
+  const datoRows = Object.entries(datos).map(([k,v])=>{
+    const val = Array.isArray(v)?v.join(', '):v;
+    return `<div class="ld-row"><span class="ld-key">${escH(k)}</span><span class="ld-val">${escH(val)}</span></div>`;
+  }).join('');
+
+  const waNum = (l.whatsapp||'').replace(/\D/g,'');
+  const waLink = waNum ? `<a class="ld-wa-btn" href="https://wa.me/${waNum}" target="_blank">📱 Abrir WhatsApp</a>` : '';
+
+  document.getElementById('ldModalBody').innerHTML = `
+    <div class="ld-section">
+      <div class="ld-section-title">Contacto</div>
+      <div class="ld-row"><span class="ld-key">Nombre</span><span class="ld-val">${escH(l.nombre||'—')}</span></div>
+      <div class="ld-row"><span class="ld-key">Email</span><span class="ld-val">${escH(l.email||'—')}</span></div>
+      <div class="ld-row"><span class="ld-key">WhatsApp</span><span class="ld-val">${escH(l.whatsapp||'—')}</span></div>
+      ${waLink}
+    </div>
+    ${datoRows?`<div class="ld-section"><div class="ld-section-title">Datos del formulario</div>${datoRows}</div>`:''}
+    ${l.resumen?`<div class="ld-section"><div class="ld-section-title">Resumen automático</div><div class="ld-resumen">${escH(l.resumen)}</div></div>`:''}
+    <div class="ld-section">
+      <div class="ld-section-title">Estado comercial</div>
+      <select class="ld-estado-select" id="ldEstadoSel" onchange="updateLdEstado(${l.id},this.value)">
+        ${Object.entries(ESTADO_LABEL).map(([v,t])=>`<option value="${v}"${l.estado===v?' selected':''}>${t}</option>`).join('')}
+      </select>
+    </div>
+    <div class="ld-section">
+      <div class="ld-section-title">Notas internas</div>
+      <textarea class="ld-notes-area" id="ldNotasArea">${escH(l.notas||'')}</textarea>
+      <button class="ld-save-btn" onclick="saveLdNotas(${l.id})">Guardar notas</button>
+    </div>
+    <div class="ld-section">
+      <div class="ld-section-title">Origen</div>
+      <div class="ld-row"><span class="ld-key">Origen</span><span class="ld-val">${escH(l.origen||'web')}</span></div>
+      <div class="ld-row"><span class="ld-key">UTM Source</span><span class="ld-val">${escH(l.utm_source||'—')}</span></div>
+      <div class="ld-row"><span class="ld-key">Consentimiento</span><span class="ld-val">${l.consentimiento?'✅ Sí':'❌ No'}</span></div>
+      <div class="ld-row"><span class="ld-key">Creado</span><span class="ld-val">${l.created_at?new Date(l.created_at).toLocaleString('es-AR'):''}</span></div>
+    </div>
+  `;
+  document.getElementById('ldModal').classList.add('open');
+}
+
+function closeLdModal(){ document.getElementById('ldModal').classList.remove('open'); }
+
+async function updateLdEstado(id, estado){
+  const r = await fetch(`${SUPA_URL}/rest/v1/leads?id=eq.${id}`,{
+    method:'PATCH',
+    headers:{...h(),'Prefer':'return=representation'},
+    body:JSON.stringify({estado})
+  });
+  if(r.ok){
+    const idx = allLeadsNew.findIndex(l=>l.id===id);
+    if(idx>-1) allLeadsNew[idx].estado = estado;
+    renderLeadsNew();
+  }
+}
+
+async function saveLdNotas(id){
+  const notas = document.getElementById('ldNotasArea').value;
+  const r = await fetch(`${SUPA_URL}/rest/v1/leads?id=eq.${id}`,{
+    method:'PATCH',
+    headers:{...h(),'Prefer':'return=representation'},
+    body:JSON.stringify({notas})
+  });
+  if(r.ok){
+    const idx = allLeadsNew.findIndex(l=>l.id===id);
+    if(idx>-1) allLeadsNew[idx].notas = notas;
+    const btn = document.querySelector('.ld-save-btn');
+    if(btn){ const orig=btn.textContent; btn.textContent='✓ Guardado'; setTimeout(()=>btn.textContent=orig,1500); }
+  }
+}
+
+function exportLeadsCSV(){
+  let list = allLeadsNew;
+  if(leadsFilterTipo)   list = list.filter(l=>l.tipo_consulta===leadsFilterTipo);
+  if(leadsFilterEstado) list = list.filter(l=>l.estado===leadsFilterEstado);
+
+  const cols = ['id','created_at','tipo_consulta','estado','nombre','email','whatsapp','origen','resumen','notas'];
+  const header = cols.join(',');
+  const rows = list.map(l=>cols.map(c=>{
+    let v = l[c]||'';
+    if(typeof v==='object') v = JSON.stringify(v);
+    return '"'+String(v).replace(/"/g,'""')+'"';
+  }).join(','));
+  const csv = [header,...rows].join('\n');
+  const blob = new Blob(['﻿'+csv],{type:'text/csv;charset=utf-8;'});
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = `leads-javotecocina-${new Date().toISOString().slice(0,10)}.csv`;
+  a.click();
+}
 </script>
 </body>
 </html>
