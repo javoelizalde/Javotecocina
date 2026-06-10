@@ -135,24 +135,12 @@ nav.scrolled{background:rgba(26,18,11,.92);backdrop-filter:blur(12px);padding:.9
 /* Overlay CTA en la parte baja — aparece siempre para video/img */
 .ig-item-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(26,18,11,.85) 0%,rgba(26,18,11,.05) 50%,transparent 100%);display:flex;flex-direction:column;justify-content:flex-end;padding:.75rem;pointer-events:none;}
 .ig-play-btn{display:inline-flex;align-items:center;gap:.4rem;background:var(--fire);color:#fff;padding:.4rem .75rem;border-radius:3px;font-family:'Barlow Condensed',sans-serif;font-size:.68rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;width:fit-content;}
-
-/* Item con iframe embed de Instagram — escalado proporcional */
-.ig-item-embed{overflow:hidden;border-radius:6px;background:#1a120b;position:relative;display:block;text-decoration:none;cursor:pointer;/* altura la pone JS */}
-.ig-item-embed iframe{
-  width:326px; /* ancho natural mínimo de Instagram */
-  height:700px; /* alto natural para reels */
-  border:none;display:block;
-  transform-origin:top left;
-  pointer-events:none; /* clicks van al <a> wrapper */
-  /* transform:scale() lo aplica scaleIgEmbeds() en JS */
-}
-/* Capa invisible encima del iframe que captura el click y redirige */
-.ig-item-embed .ig-embed-click{position:absolute;inset:0;z-index:2;display:flex;align-items:flex-end;padding:.75rem;background:linear-gradient(to top,rgba(26,18,11,.7) 0%,transparent 40%);}
-.ig-play-btn-embed{display:inline-flex;align-items:center;gap:.4rem;background:var(--fire);color:#fff;padding:.4rem .75rem;border-radius:3px;font-family:'Barlow Condensed',sans-serif;font-size:.68rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;pointer-events:none;}
+.ig-card-title{font-family:'Barlow Condensed',sans-serif;font-size:clamp(.78rem,2.2vw,.95rem);font-weight:600;color:#fff;line-height:1.25;margin:0 0 .5rem;text-shadow:0 1px 4px rgba(0,0,0,.7);max-width:100%;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;}
+.ig-no-thumb{width:100%;height:100%;background:linear-gradient(135deg,#2a1a0e 0%,#1a120b 100%);}
 
 .ig-empty{grid-column:1/-1;text-align:center;padding:3rem 0;color:var(--muted);font-size:.9rem;}
 @media(max-width:900px){.ig-grid{grid-template-columns:repeat(2,1fr);gap:.6rem;}}
-@media(max-width:480px){.ig-grid{grid-template-columns:repeat(2,1fr);gap:.5rem;}.ig-item-overlay,.ig-embed-click{padding:.5rem;}.ig-play-btn,.ig-play-btn-embed{font-size:.62rem;padding:.35rem .6rem;}}
+@media(max-width:480px){.ig-grid{grid-template-columns:repeat(2,1fr);gap:.5rem;}.ig-item-overlay{padding:.5rem;}.ig-play-btn{font-size:.62rem;padding:.35rem .6rem;}}
 
 /* ── PORTFOLIO ── */
 .portfolio{background:var(--dark);}
@@ -542,7 +530,7 @@ a,button,[onclick],[role="button"],.filter-btn,.btn-buy,.btn-ver,.btn-primary,.b
   <a href="#contenido" onclick="closeMobileMenu()">Contenido</a>
   <a href="#portfolio" onclick="closeMobileMenu()">Portfolio</a>
   <a href="#sobre" onclick="closeMobileMenu()">Quién Soy</a>
-  <a href="#contratar" onclick="closeMobileMenu()" class="mob-cta">Cotizar</a>
+  <a href="/cotizar" onclick="closeMobileMenu()" class="mob-cta">Cotizar</a>
   <a href="#" onclick="closeMobileMenu();toggleUserMenu();" style="margin-top:.5rem;opacity:.7;">👤 Mi cuenta</a>
 </div>
 
@@ -561,7 +549,7 @@ a,button,[onclick],[role="button"],.filter-btn,.btn-buy,.btn-ver,.btn-primary,.b
       <li><a href="#productos">Productos</a></li>
       <li><a href="#portfolio">Portfolio</a></li>
       <li><a href="#sobre">Quién Soy</a></li>
-      <li><a href="#contratar" class="nav-cta">Cotizar</a></li>
+      <li><a href="/cotizar" class="nav-cta">Cotizar</a></li>
     </ul>
   </div>
   <div class="nav-user" id="navUser">
@@ -586,7 +574,7 @@ a,button,[onclick],[role="button"],.filter-btn,.btn-buy,.btn-ver,.btn-primary,.b
     <p class="hero-sub">Cocinero, creador de contenido y productor de experiencias gastronómicas. De Salta, al mundo.</p>
     <div class="hero-actions">
       <a href="#recetarios" class="btn-primary">Ver Recetarios</a>
-      <a href="#contratar" class="btn-outline">Cotizar Evento</a>
+      <a href="/cotizar" class="btn-outline">Cotizar Evento</a>
     </div>
   </div>
   <div class="scroll-ind">
@@ -1016,7 +1004,7 @@ a,button,[onclick],[role="button"],.filter-btn,.btn-buy,.btn-ver,.btn-primary,.b
         <li><a href="#productos">Productos</a></li>
         <li><a href="#portfolio">Portfolio</a></li>
         <li><a href="#sobre">Quién Soy</a></li>
-        <li><a href="#contratar">Cotizar</a></li>
+        <li><a href="/cotizar">Cotizar</a></li>
         <li><a href="#servicios">Servicios</a></li>
       </ul>
     </div>
@@ -2076,15 +2064,8 @@ function closeProdModal(id){
 }
 
 /* ── INSTAGRAM POSTS ── */
-function igMediaType(url){
-  if(!url)return null;
-  if(/\.(mp4|webm|mov|ogg)(\?|$)/i.test(url))return'direct';
-  if(/instagram\.com\/(p|reel|tv)\//i.test(url))return'instagram';
-  return'direct';
-}
-function getIgEmbedUrl(url){
-  const m=url.match(/instagram\.com\/(?:p|reel|tv)\/([A-Za-z0-9_-]+)/);
-  return m?`https://www.instagram.com/p/${m[1]}/embed/`:null;
+function igIsDirectVideo(url){
+  return url&&/\.(mp4|webm|mov|ogg)(\?|$)/i.test(url);
 }
 function escAttr(s){return String(s).replace(/[&"<>]/g,c=>({'&':'&amp;','"':'&quot;','<':'&lt;','>':'&gt;'}[c]));}
 
@@ -2101,79 +2082,35 @@ async function loadInstagramPosts(){
     const mediaPosts=posts.filter(p=>p.video_url||p.thumbnail_url);
     if(!mediaPosts.length){if(sec)sec.style.display='none';return;}
     if(sec)sec.style.display='';
+    const playSvg=`<svg width="11" height="13" viewBox="0 0 11 13" fill="currentColor" aria-hidden="true"><polygon points="0,0 11,6.5 0,13"/></svg>`;
     grid.innerHTML=mediaPosts.map(p=>{
       const href=escAttr(p.url);
-      const type=igMediaType(p.video_url);
+      const titulo=p.titulo?`<p class="ig-card-title">${escAttr(p.titulo)}</p>`:'';
 
-      // ── Embed de Instagram (reel/post) ──
-      if(type==='instagram'){
-        const embedUrl=getIgEmbedUrl(p.video_url);
-        if(embedUrl){
-          // iframe con capa encima que captura el click → abre en Instagram
-          return`<a class="ig-item-embed" href="${href}" target="_blank" rel="noopener noreferrer" aria-label="Ver en Instagram">
-            <iframe src="${escAttr(embedUrl)}" frameborder="0" scrolling="no" allowtransparency="true" loading="lazy" tabindex="-1" aria-hidden="true"></iframe>
-            <div class="ig-embed-click">
-              <span class="ig-play-btn-embed">
-                <svg width="10" height="11" viewBox="0 0 10 11" fill="currentColor"><polygon points="0,0 10,5.5 0,11"/></svg>
-                Ver en Instagram
-              </span>
-            </div>
-          </a>`;
-        }
-      }
-
-      // ── Video directo (.mp4 / cdn) ──
-      if(type==='direct'&&p.video_url){
+      // ── Video directo MP4/WebM ──
+      if(igIsDirectVideo(p.video_url)){
         return`<a class="ig-item" href="${href}" target="_blank" rel="noopener noreferrer" aria-label="Ver en Instagram">
-          <video src="${escAttr(p.video_url)}" autoplay muted loop playsinline preload="metadata"></video>
-          <div class="ig-item-overlay"><span class="ig-play-btn"><svg width="10" height="11" viewBox="0 0 10 11" fill="currentColor"><polygon points="0,0 10,5.5 0,11"/></svg>Ver post</span></div>
+          <video src="${escAttr(p.video_url)}" autoplay muted loop playsinline preload="metadata"${p.thumbnail_url?` poster="${escAttr(p.thumbnail_url)}"`:''}></video>
+          <div class="ig-item-overlay">${titulo}<span class="ig-play-btn">${playSvg}Ver reel</span></div>
         </a>`;
       }
 
-      // ── Solo thumbnail ──
+      // ── Thumbnail / Instagram URL → card limpia sin embed ──
+      const imgHtml=p.thumbnail_url
+        ?`<img src="${escAttr(p.thumbnail_url)}" alt="${p.titulo?escAttr(p.titulo):'Contenido de Instagram'}" loading="lazy">`
+        :`<div class="ig-no-thumb" aria-hidden="true"></div>`;
       return`<a class="ig-item" href="${href}" target="_blank" rel="noopener noreferrer" aria-label="Ver en Instagram">
-        <img src="${escAttr(p.thumbnail_url)}" alt="Post de Instagram" loading="lazy">
-        <div class="ig-item-overlay"><span class="ig-play-btn"><svg width="10" height="11" viewBox="0 0 10 11" fill="currentColor"><polygon points="0,0 10,5.5 0,11"/></svg>Ver post</span></div>
+        ${imgHtml}
+        <div class="ig-item-overlay">${titulo}<span class="ig-play-btn">${playSvg}Ver en Instagram</span></div>
       </a>`;
     }).join('');
-    // Escalar iframes al ancho real del container manteniendo proporciones
-    scaleIgEmbeds();
   }catch(e){
     const sec2=document.getElementById('contenido');
     if(sec2)sec2.style.display='none';
   }
 }
 
-function scaleIgEmbeds(){
-  const IG_W=326;
-  const IG_HEADER=56;              // header (foto perfil + nombre)
-  const IG_VIDEO_H=Math.round(IG_W*16/9); // 580px — área de video 9:16
-  const IG_IFRAME_H=900;           // iframe generoso: header+video+footer completo
 
-  document.querySelectorAll('.ig-item-embed').forEach(el=>{
-    const w=el.offsetWidth||el.getBoundingClientRect().width;
-    if(!w)return;
-    const scale=w/IG_W;
-    const iframe=el.querySelector('iframe');
-    if(!iframe)return;
-
-    iframe.style.width=IG_W+'px';
-    iframe.style.height=IG_IFRAME_H+'px';
-    iframe.style.transformOrigin='top left';
-    // Desplaza el header fuera del container hacia arriba
-    iframe.style.marginTop=`-${IG_HEADER*scale}px`;
-    iframe.style.transform=`scale(${scale})`;
-
-    // Container = exactamente el área del video (9:16)
-    // El footer queda por debajo del corte, no importa cuánto mida
-    el.style.height=(IG_VIDEO_H*scale)+'px';
-  });
-}
-// Re-escalar si cambia el tamaño de pantalla
-window.addEventListener('resize',()=>{
-  clearTimeout(window._igScaleTimer);
-  window._igScaleTimer=setTimeout(scaleIgEmbeds,120);
-});
 
 /* ── SITE IMAGES DINÁMICAS ── */
 async function loadSiteImages(){
