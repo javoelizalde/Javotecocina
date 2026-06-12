@@ -14,16 +14,6 @@ export class AvailabilityService {
   static async check({ fecha, horaInicio, duracionHs = BUSINESS.duracionDefaultHs }) {
     if (!fecha) return { available: false, razon: 'Fecha no especificada.' };
 
-    if (!esDiaLaboral(fecha)) {
-      const d    = new Date(fecha + 'T12:00:00');
-      const dia  = NOMBRES_DIAS[d.getDay()];
-      return {
-        available:    false,
-        razon:        `Los ${dia}s no hay servicio.`,
-        alternativas: await this._sugerirAlternativas(fecha),
-      };
-    }
-
     const conflicto = await this._conflictoBD(fecha, horaInicio, duracionHs);
     if (conflicto) {
       return {
@@ -73,7 +63,6 @@ export class AvailabilityService {
       d.setDate(d.getDate() + 1);
       intentos++;
       const fechaStr = d.toISOString().split('T')[0];
-      if (!esDiaLaboral(fechaStr)) continue;
       const conflicto = await this._conflictoBD(fechaStr, null, BUSINESS.duracionDefaultHs);
       if (!conflicto) alternativas.push(formatFecha(fechaStr));
     }
