@@ -934,6 +934,26 @@ function fieldLabel(id){
   return map[id]||id;
 }
 
+/* ── HELPERS ── */
+function parsarPersonas(val){
+  if(!val) return 0;
+  const map={'Hasta 20':15,'20 a 50':35,'50 a 100':75,'100 a 200':150,'Más de 200':200};
+  return map[val] || parseInt(val) || 0;
+}
+function parsarHorario(val){
+  if(!val) return null;
+  const m = val.match(/(\d{1,2})[:\s]?[hH]?(\d{0,2})/);
+  if(!m) return null;
+  const hh = m[1].padStart(2,'0');
+  const mm = (m[2]||'00').padStart(2,'0');
+  return `${hh}:${mm}`;
+}
+function parsarDuracion(val){
+  if(!val) return 5;
+  const map={'1-2 horas':1.5,'2-4 horas':3,'4-6 horas':5,'Todo el día':8};
+  return map[val] || 5;
+}
+
 /* ── SUBMIT ── */
 async function submitLead(){
   const consent = document.getElementById('consentCheck');
@@ -950,51 +970,102 @@ async function submitLead(){
   btn.disabled = true;
   btn.textContent = 'Enviando...';
 
-  const utm = getUtm();
-  const nombre   = state.data.nombre   || '';
-  const email    = state.data.email    || '';
-  const whatsapp = state.data.whatsapp || '';
+  const utm    = getUtm();
+  const nombre = state.data.nombre   || '';
+  const email  = state.data.email    || '';
+  const tel    = state.data.whatsapp || '';
 
-  // Top-level fields extracted from datos
   const datos = {...state.data};
   delete datos.nombre;
   delete datos.email;
   delete datos.whatsapp;
 
+  let leadId = null;
+  let bookingResult = null;
+
   try {
     const r = await fetch(API_URL, {
       method:'POST',
       headers:{'Content-Type':'application/json'},
-      body: JSON.stringify({
-        tipo_consulta: state.tipo,
-        nombre, email, whatsapp,
-        datos,
-        consentimiento: true,
-        ...utm,
-      }),
+      body: JSON.stringify({ tipo_consulta:state.tipo, nombre, email, whatsapp:tel, datos, consentimiento:true, ...utm }),
     });
     const json = await r.json();
-    if(json.resumen) showSuccess(json.resumen);
-    else showSuccess('');
+    leadId = json.lead_id || null;
   } catch(e){
-    // Si la API falla, igual mostramos éxito (guardamos en localStorage como fallback)
-    const fallback = {tipo:state.tipo, nombre, email, whatsapp, datos, timestamp:Date.now()};
+    const fallback = {tipo:state.tipo, nombre, email, whatsapp:tel, datos, timestamp:Date.now()};
     try { localStorage.setItem('jtc_lead_fallback', JSON.stringify(fallback)); } catch{}
-    showSuccess('');
   }
+
+  // Para eventos: también crear la reserva
+  if(state.tipo === 'evento' && datos.fecha){
+    try {
+      const ubicacion = [datos.ciudad, datos.provincia].filter(Boolean).join(', ') || datos.provincia || '';
+      const payload = {
+        nombre,
+        telefono: tel,
+        email,
+        tipo_evento:   datos.tipo_evento   || '',
+        tipo_servicio: datos.tipo_servicio  || '',
+        fecha:         datos.fecha,
+        hora_inicio:   parsarHorario(datos.horario),
+        duracion_hs:   parsarDuracion(datos.duracion),
+        ubicacion,
+        provincia:     datos.provincia || '',
+        personas:      parsarPersonas(datos.personas),
+        comentarios:   datos.comentarios || '',
+        origen:        'web',
+      };
+      if(leadId) payload.lead_id = leadId;
+
+      const rb = await fetch('/api/bookings/create', {
+        method:'POST',
+        headers:{'Content-Type':'application/json'},
+        body: JSON.stringify(payload),
+      });
+      bookingResult = await rb.json();
+    } catch(e){
+      console.warn('[cotizar] bookings/create falló:', e.message);
+    }
+  }
+
+  showSuccess(bookingResult);
 }
 
 /* ── SUCCESS + WHATSAPP ── */
-function showSuccess(resumen){
+function showSuccess(bookingResult){
   const tipo = state.tipo;
   const d    = state.data;
 
-  // Resumen para la pantalla
-  document.getElementById('successResumen').innerHTML =
-    resumen ? `<strong>Tu resumen:</strong><br>${esc(resumen)}` : '';
+  // Bloque de cotización para eventos
+  const resumenEl = document.getElementById('successResumen');
+  if(tipo === 'evento' && bookingResult?.cotizacion){
+    const c = bookingResult.cotizacion;
+    const p = bookingResult.pago || {};
+    const avail = bookingResult.available !== false;
+    resumenEl.innerHTML = `
+      <div style="margin-bottom:.75rem;">
+        ${avail
+          ? `<span style="color:var(--success);font-weight:600;">✓ Fecha disponible</span>`
+          : `<span style="color:var(--danger);font-weight:600;">⚠ Fecha no disponible — te vamos a proponer alternativas</span>`
+        }
+      </div>
+      <div style="display:grid;gap:.35rem;font-size:.92rem;">
+        <div>💰 <strong>Cotización estimada:</strong> ${c.precioTotalFmt || '—'}</div>
+        <div>🤝 <strong>Seña (50%):</strong> ${c.seniaFmt || '—'}</div>
+        <div>📋 <strong>Saldo restante:</strong> ${c.saldoFmt || '—'}</div>
+      </div>
+      ${p.alias ? `<div style="margin-top:.75rem;padding:.6rem .9rem;background:rgba(200,75,17,.08);border-radius:.5rem;font-size:.85rem;">
+        <strong>Datos de pago de la seña:</strong><br>
+        Alias: <code>${p.alias}</code>
+      </div>` : ''}
+      <p style="margin-top:.75rem;font-size:.8rem;color:var(--muted);">${c.nota || 'Precio estimado. El valor final se acuerda según los detalles del evento.'}</p>
+    `;
+  } else {
+    resumenEl.innerHTML = '';
+  }
 
   // Mensaje pre-armado para WhatsApp
-  const msg = buildWAMessage(tipo, d);
+  const msg = buildWAMessage(tipo, d, bookingResult);
   document.getElementById('btnWA').href =
     `https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(msg)}`;
 
@@ -1002,11 +1073,13 @@ function showSuccess(resumen){
   showStep('step-success');
 }
 
-function buildWAMessage(tipo, d){
+function buildWAMessage(tipo, d, bookingResult){
   const nombre = d.nombre || 'Sin nombre';
   if(tipo==='evento'){
     const ubicEvento = [d.ciudad, d.provincia].filter(Boolean).join(', ');
-    return `Hola Javo! 🍖 Completé el formulario para cotizar un evento.\n\n*Nombre:* ${nombre}\n*Tipo:* ${d.tipo_evento||'—'}\n*Fecha:* ${d.fecha||'—'}\n*Personas:* ${d.personas||'—'}\n*Ubicación:* ${ubicEvento||'—'}\n*Formato:* ${Array.isArray(d.formato_cocina)?d.formato_cocina.join(', '):d.formato_cocina||'—'}\n*Comentarios:* ${d.comentarios||'—'}\n\n¡Quedo a la espera de tu respuesta! 🔥`;
+    const c = bookingResult?.cotizacion;
+    const cotizTxt = c ? `\n*Cotización estimada:* ${c.precioTotalFmt||'—'}\n*Seña requerida:* ${c.seniaFmt||'—'}` : '';
+    return `Hola Javo! 🍖 Completé el formulario para cotizar un evento.\n\n*Nombre:* ${nombre}\n*Tipo:* ${d.tipo_evento||'—'}\n*Fecha:* ${d.fecha||'—'}\n*Personas:* ${d.personas||'—'}\n*Ubicación:* ${ubicEvento||'—'}\n*Servicio:* ${d.tipo_servicio||'—'}\n*Comentarios:* ${d.comentarios||'—'}${cotizTxt}\n\n¡Quedo a la espera de tu respuesta! 🔥`;
   }
   if(tipo==='campana'){
     return `Hola Javo! 📱 Completé el formulario para una campaña de redes.\n\n*Nombre:* ${nombre}\n*Marca:* ${d.marca||'—'}\n*Producto:* ${d.producto_campana||'—'}\n*Objetivo:* ${d.objetivo||'—'}\n*Plataformas:* ${Array.isArray(d.plataformas)?d.plataformas.join(', '):d.plataformas||'—'}\n*Comentarios:* ${d.comentarios||'—'}\n\n¡Quedo a la espera de tu propuesta! 🙌`;
