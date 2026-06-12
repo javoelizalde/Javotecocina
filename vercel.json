@@ -8,14 +8,13 @@
     { "source": "/compra-pendiente", "destination": "/compra-pendiente.html" }
   ],
   "functions": {
-    "api/record_purchase.js": {
-      "memory": 512,
-      "maxDuration": 30
-    },
-    "api/create_preference.js": {
-      "memory": 256,
-      "maxDuration": 15
-    }
+    "api/record_purchase.js":    { "memory": 512, "maxDuration": 30 },
+    "api/create_preference.js":  { "memory": 256, "maxDuration": 15 },
+    "api/bookings/create.js":    { "memory": 256, "maxDuration": 20 },
+    "api/bookings/confirm.js":   { "memory": 256, "maxDuration": 20 },
+    "api/bookings/reject.js":    { "memory": 256, "maxDuration": 15 },
+    "api/whatsapp/webhook.js":   { "memory": 512, "maxDuration": 30 },
+    "api/whatsapp/send.js":      { "memory": 256, "maxDuration": 15 }
   },
   "headers": [
     {
