@@ -536,19 +536,10 @@ const STEPS = {
       title: 'Formato y <em>experiencia</em>',
       subtitle: '¿Qué tipo de cocina buscás?',
       fields: [
-        { id:'tipo_servicio',   label:'Tipo de servicio',    type:'radio',      required:true,  options:['Asado / Parrilla','Disco','Catering completo','Bandejeo','Autoservicio / Buffet','Cocina en vivo','Menú emplatado','Experiencia gastronómica'] },
-        { id:'formato_cocina',  label:'Formato de cocina (podés elegir más de uno)', type:'checkboxes', required:false, options:['Cocina en vivo','Fuegos','Disco','Parrilla / Asado','Catering','Menú servido','Otro'] },
-        { id:'restricciones',   label:'Restricciones alimentarias', type:'text', required:false, placeholder:'Celíacos, veganos, alergias...' },
-        { id:'horario',         label:'Horario del evento',  type:'text',        required:false, placeholder:'Ej: 13hs a 18hs' },
-      ]
-    },
-    {
-      title: 'Últimos <em>detalles</em>',
-      subtitle: 'Ya casi terminamos.',
-      fields: [
-        { id:'duracion',           label:'Duración aproximada',          type:'select', required:false, options:['1-2 horas','2-4 horas','4-6 horas','Todo el día'] },
-        { id:'contacto_preferido', label:'¿Cómo preferís que te contacte?', type:'radio', required:false, options:['WhatsApp','Email','Llamada'] },
-        { id:'comentarios',        label:'Comentarios adicionales',      type:'textarea', required:false, placeholder:'Menú que tenés en mente, ambiente, algún detalle especial...' },
+        { id:'tipo_servicio',  label:'Tipo de servicio',    type:'radio',      required:true,  options:['Asado / Parrilla','Disco','Catering completo','Bandejeo','Autoservicio / Buffet','Cocina en vivo','Menú emplatado','Experiencia gastronómica'] },
+        { id:'restricciones',  label:'Restricciones alimentarias', type:'text', required:false, placeholder:'Celíacos, veganos, alergias...' },
+        { id:'horario',        label:'Horario del evento',  type:'text',        required:false, placeholder:'Ej: 13hs a 18hs' },
+        { id:'comentarios',    label:'Comentarios adicionales', type:'textarea', required:false, placeholder:'Menú en mente, aclaraciones específicas, preferencias, detalles del salón, cualquier cosa que quieras sumar.' },
       ]
     },
   ],
