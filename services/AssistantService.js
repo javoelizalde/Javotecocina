@@ -1,12 +1,12 @@
 // services/AssistantService.js
-// Asistente conversacional con IA (Claude API).
-// Variable de entorno: ANTHROPIC_API_KEY
+// Asistente conversacional con IA (Groq API — Llama 3.3 70B).
+// Variable de entorno: GROQ_API_KEY
 
 import { BUSINESS } from '../config/business.js';
 import { PRICING }  from '../config/pricing.js';
 
-const ANTHROPIC_KEY = process.env.ANTHROPIC_API_KEY;
-const MODEL         = 'claude-haiku-4-5-20251001';
+const GROQ_KEY = process.env.GROQ_API_KEY;
+const MODEL    = 'llama-3.3-70b-versatile';
 
 const SYSTEM_PROMPT = `
 Sos el asistente virtual de Javo Te Cocina, un cocinero profesional de Salta, Argentina.
@@ -79,8 +79,8 @@ export class AssistantService {
    * @returns {{ reply: string, action: string, data: object }}
    */
   static async respond({ messages, extraContext }) {
-    if (!ANTHROPIC_KEY) {
-      console.warn('[AssistantService] ANTHROPIC_API_KEY no configurada.');
+    if (!GROQ_KEY) {
+      console.warn('[AssistantService] GROQ_API_KEY no configurada.');
       return {
         reply:  'En este momento no puedo procesar tu consulta. Escribinos directamente al +543874105902.',
         action: 'HUMAN_HANDOFF',
@@ -93,29 +93,30 @@ export class AssistantService {
       : SYSTEM_PROMPT;
 
     try {
-      const r = await fetch('https://api.anthropic.com/v1/messages', {
+      const r = await fetch('https://api.groq.com/openai/v1/chat/completions', {
         method:  'POST',
         headers: {
-          'x-api-key':         ANTHROPIC_KEY,
-          'anthropic-version': '2023-06-01',
-          'content-type':      'application/json',
+          'Authorization': `Bearer ${GROQ_KEY}`,
+          'Content-Type':  'application/json',
         },
         body: JSON.stringify({
           model:      MODEL,
           max_tokens: 1024,
-          system:     systemFinal,
-          messages:   messages.slice(-20), // últimos 20 mensajes para limitar tokens
+          messages:   [
+            { role: 'system', content: systemFinal },
+            ...messages.slice(-20),
+          ],
         }),
       });
 
       if (!r.ok) {
         const err = await r.text();
-        console.error('[AssistantService] Anthropic error:', err);
+        console.error('[AssistantService] Groq error:', err);
         return { reply: FALLBACK_REPLY, action: 'HUMAN_HANDOFF', data: {} };
       }
 
       const resp   = await r.json();
-      const full   = resp.content?.[0]?.text || '';
+      const full   = resp.choices?.[0]?.message?.content || '';
       const parsed = parseAction(full);
 
       return parsed;

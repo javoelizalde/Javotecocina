@@ -6,7 +6,7 @@
 |---|---|---|
 | `RESEND_API_KEY` | Recomendada | Notificaciones por email al admin y al cliente |
 | `ADMIN_EMAIL` | Opcional | Email donde llegan las notificaciones (default: javoelizalde2001@gmail.com) |
-| `ANTHROPIC_API_KEY` | Para IA | Asistente conversacional (claude-haiku) |
+| `GROQ_API_KEY` | Para IA | Asistente conversacional (Llama 3.3 70B via Groq) |
 | `WHATSAPP_VERIFY_TOKEN` | Para WA | String que vos elegís, se configura en Meta Developers |
 | `WHATSAPP_ACCESS_TOKEN` | Para WA | Token de acceso de Meta Cloud API |
 | `WHATSAPP_PHONE_ID` | Para WA | Phone Number ID del panel de Meta |
