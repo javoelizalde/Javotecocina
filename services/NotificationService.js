@@ -7,9 +7,7 @@ import { formatFecha }  from '../config/business.js';
 
 const RESEND_KEY  = process.env.RESEND_API_KEY;
 const ADMIN_EMAIL = process.env.ADMIN_EMAIL || 'javoelizalde2001@gmail.com';
-// Sin dominio verificado en Resend: usar onboarding@resend.dev (solo envía al dueño de la cuenta)
-// Cuando javotecocina.com esté verificado, cambiar a: 'Javotecocina <reservas@javotecocina.com>'
-const FROM_EMAIL  = 'Javotecocina <onboarding@resend.dev>';
+const FROM_EMAIL  = 'Javotecocina <reservas@javotecocina.com>';
 
 export class NotificationService {
   /** Notifica al admin cuando entra una nueva reserva. */
