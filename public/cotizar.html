@@ -118,6 +118,25 @@ nav{position:fixed;top:0;width:100%;z-index:200;padding:1rem 1.5rem;display:flex
   border-color:var(--danger);box-shadow:0 0 0 3px rgba(192,57,43,.08);
 }
 
+/* ── COMBOBOX (ciudad buscable) ── */
+.combo-wrap{position:relative;}
+.combo-input{width:100%;padding:.875rem 2.5rem .875rem 1rem;background:#fff;
+  border:1.5px solid var(--field-border);border-radius:6px;
+  font-family:'Barlow',sans-serif;font-size:.95rem;color:var(--dark);
+  outline:none;min-height:52px;transition:border-color .2s,box-shadow .2s;}
+.combo-input:focus{border-color:var(--fire);box-shadow:0 0 0 3px rgba(200,75,17,.1);}
+.combo-input::placeholder{color:#a08060;}
+.combo-icon{position:absolute;right:.875rem;top:50%;transform:translateY(-50%);pointer-events:none;color:var(--muted);}
+.combo-list{position:absolute;left:0;right:0;top:calc(100% + 4px);
+  background:#fff;border:1.5px solid var(--fire);border-radius:6px;
+  max-height:220px;overflow-y:auto;z-index:50;
+  box-shadow:0 4px 16px rgba(26,18,11,.12);display:none;}
+.combo-list.open{display:block;}
+.combo-item{padding:.7rem 1rem;font-size:.9rem;color:var(--dark);cursor:pointer;transition:background .12s;}
+.combo-item:hover,.combo-item.focused{background:rgba(200,75,17,.07);color:var(--fire);}
+.combo-empty{padding:.7rem 1rem;font-size:.88rem;color:var(--muted);font-style:italic;}
+.field-group.has-error .combo-input{border-color:var(--danger);box-shadow:0 0 0 3px rgba(192,57,43,.08);}
+
 /* ── TOGGLE BUTTONS ── */
 .toggle-group{display:flex;flex-wrap:wrap;gap:.5rem;}
 .toggle-btn{
@@ -831,26 +850,134 @@ function updateLocalidadField(targetId, provincia, savedVal){
   const wrap = document.getElementById('wrap_'+targetId);
   if(!wrap) return;
 
-  let html = '';
-  if(provincia === 'Ciudad Autónoma de Buenos Aires'){
-    const opts = BARRIOS_CABA.map(b=>`<option value="${esc(b)}"${savedVal===b?' selected':''}>${esc(b)}</option>`).join('');
-    html = `<select class="field-select" id="f_${targetId}">
-      <option value="">Seleccioná un barrio</option>${opts}
-    </select>`;
-  } else if(provincia === 'Buenos Aires'){
-    const opts = PARTIDOS_BA.map(p=>`<option value="${esc(p)}"${savedVal===p?' selected':''}>${esc(p)}</option>`).join('');
-    html = `<select class="field-select" id="f_${targetId}">
-      <option value="">Seleccioná un partido / localidad</option>${opts}
-    </select>`;
-  } else {
-    html = `<input class="field-input" type="text" id="f_${targetId}" placeholder="Ciudad o localidad" autocomplete="address-level2" value="${esc(savedVal)}">`;
-  }
-  wrap.innerHTML = html;
+  let options = null;
+  let placeholder = 'Ciudad o localidad';
 
-  // Limpiar error si existía
+  if(provincia === 'Ciudad Autónoma de Buenos Aires'){
+    options = BARRIOS_CABA;
+    placeholder = 'Buscá tu barrio...';
+  } else if(provincia === 'Buenos Aires'){
+    options = PARTIDOS_BA;
+    placeholder = 'Buscá tu partido o localidad...';
+  }
+
+  if(options){
+    wrap.innerHTML = `
+      <div class="combo-wrap" id="combo_${targetId}">
+        <input class="combo-input" type="text" id="f_${targetId}"
+          placeholder="${esc(placeholder)}"
+          value="${esc(savedVal)}"
+          autocomplete="off"
+          oninput="comboFilter('${targetId}')"
+          onfocus="comboOpen('${targetId}')"
+          onkeydown="comboKey(event,'${targetId}')">
+        <svg class="combo-icon" width="12" height="8" viewBox="0 0 12 8" fill="none">
+          <path d="M1 1l5 5 5-5" stroke="#7A5440" stroke-width="1.5" stroke-linecap="round"/>
+        </svg>
+        <ul class="combo-list" id="combo_list_${targetId}" role="listbox"></ul>
+      </div>`;
+    comboSetOptions(targetId, options);
+    if(savedVal) comboSetValue(targetId, savedVal, options);
+  } else {
+    wrap.innerHTML = `<input class="field-input" type="text" id="f_${targetId}" placeholder="Ciudad o localidad" autocomplete="address-level2" value="${esc(savedVal)}">`;
+  }
+
   const fg = document.getElementById('fg_'+targetId);
   if(fg) fg.classList.remove('has-error');
 }
+
+/* ── COMBOBOX HELPERS ── */
+const _comboState = {};
+
+function comboSetOptions(id, opts){
+  _comboState[id] = { all: opts, selected: '' };
+}
+
+function comboSetValue(id, val, opts){
+  const inp = document.getElementById('f_'+id);
+  if(inp) inp.value = val;
+  if(_comboState[id]) _comboState[id].selected = val;
+}
+
+function comboFilter(id){
+  const inp  = document.getElementById('f_'+id);
+  const list = document.getElementById('combo_list_'+id);
+  if(!inp || !list || !_comboState[id]) return;
+
+  _comboState[id].selected = '';         // reset selection while typing
+  const q     = inp.value.toLowerCase().trim();
+  const items = _comboState[id].all;
+  const hits  = q ? items.filter(i => i.toLowerCase().includes(q)) : items;
+
+  renderComboList(id, hits);
+  list.classList.add('open');
+}
+
+function comboOpen(id){
+  const list  = document.getElementById('combo_list_'+id);
+  const inp   = document.getElementById('f_'+id);
+  if(!list || !_comboState[id]) return;
+  const q    = (inp?.value || '').toLowerCase().trim();
+  const hits = q ? _comboState[id].all.filter(i => i.toLowerCase().includes(q)) : _comboState[id].all;
+  renderComboList(id, hits);
+  list.classList.add('open');
+}
+
+function renderComboList(id, hits){
+  const list = document.getElementById('combo_list_'+id);
+  if(!list) return;
+  if(!hits.length){
+    list.innerHTML = `<li class="combo-empty">Sin resultados</li>`;
+    return;
+  }
+  list.innerHTML = hits.slice(0,80).map((item, i) =>
+    `<li class="combo-item" role="option" data-idx="${i}" onmousedown="comboSelect('${id}','${esc(item)}')">${esc(item)}</li>`
+  ).join('');
+}
+
+function comboSelect(id, val){
+  const inp  = document.getElementById('f_'+id);
+  const list = document.getElementById('combo_list_'+id);
+  if(inp)  inp.value = val;
+  if(list) list.classList.remove('open');
+  if(_comboState[id]) _comboState[id].selected = val;
+  const fg = document.getElementById('fg_'+id);
+  if(fg) fg.classList.remove('has-error');
+}
+
+function comboKey(e, id){
+  const list  = document.getElementById('combo_list_'+id);
+  if(!list) return;
+  const items = list.querySelectorAll('.combo-item');
+  const focused = list.querySelector('.combo-item.focused');
+  let idx = focused ? parseInt(focused.dataset.idx) : -1;
+
+  if(e.key === 'ArrowDown'){
+    e.preventDefault();
+    idx = Math.min(idx+1, items.length-1);
+    items.forEach(el => el.classList.remove('focused'));
+    if(items[idx]){ items[idx].classList.add('focused'); items[idx].scrollIntoView({block:'nearest'}); }
+    list.classList.add('open');
+  } else if(e.key === 'ArrowUp'){
+    e.preventDefault();
+    idx = Math.max(idx-1, 0);
+    items.forEach(el => el.classList.remove('focused'));
+    if(items[idx]){ items[idx].classList.add('focused'); items[idx].scrollIntoView({block:'nearest'}); }
+  } else if(e.key === 'Enter' && focused){
+    e.preventDefault();
+    comboSelect(id, focused.textContent);
+  } else if(e.key === 'Escape'){
+    list.classList.remove('open');
+  }
+}
+
+// Cerrar combobox al hacer click fuera
+document.addEventListener('click', e => {
+  document.querySelectorAll('.combo-list.open').forEach(list => {
+    const wrap = list.closest('.combo-wrap');
+    if(wrap && !wrap.contains(e.target)) list.classList.remove('open');
+  });
+});
 
 /* ── NAV ── */
 function goNext(){
