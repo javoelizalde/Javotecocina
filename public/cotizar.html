@@ -3,8 +3,17 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Cotizar · Javotecocina</title>
-<meta name="description" content="Cotizá tu evento, campaña o consultá por productos. Completá el formulario y Javo te responde por WhatsApp.">
+<title>Cotizá tu evento o campaña · Javotecocina</title>
+<meta name="description" content="Contame qué necesitás y te paso un presupuesto por WhatsApp: asados y catering para eventos, campañas con marcas, productos o recetarios. Respuesta en menos de 24 hs.">
+<meta name="theme-color" content="#FDF6EE">
+<link rel="canonical" href="https://javotecocina.com/cotizar">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Javotecocina">
+<meta property="og:locale" content="es_AR">
+<meta property="og:title" content="Cotizá tu evento o campaña · Javotecocina">
+<meta property="og:description" content="Contame qué necesitás y te paso un presupuesto por WhatsApp. Respuesta en menos de 24 hs.">
+<meta property="og:url" content="https://javotecocina.com/cotizar">
+<meta property="og:image" content="https://javotecocina.com/img/p03.jpg">
 <link rel="icon" type="image/png" href="img/favicon-jtc.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -49,8 +58,8 @@ nav{position:fixed;top:0;width:100%;z-index:200;padding:1rem 1.5rem;display:flex
 
 /* ── STEP HEADER ── */
 .step-header{margin-bottom:2.25rem;}
-.step-header h1{font-family:'Cormorant Garamond',serif;font-size:clamp(2.2rem,6vw,3.2rem);font-weight:700;line-height:1.1;color:var(--dark);margin-bottom:.45rem;text-wrap:balance;}
-.step-header h1 em{font-style:italic;color:var(--fire);}
+.step-header h2{font-family:'Cormorant Garamond',serif;font-size:clamp(2.2rem,6vw,3.2rem);font-weight:700;line-height:1.1;color:var(--dark);margin-bottom:.45rem;text-wrap:balance;}
+.step-header h2 em{font-style:italic;color:var(--fire);}
 .step-header p{font-size:.93rem;color:var(--muted);font-weight:300;line-height:1.65;}
 
 /* ── TIPO SELECTION ── */
@@ -316,7 +325,7 @@ nav{position:fixed;top:0;width:100%;z-index:200;padding:1rem 1.5rem;display:flex
 <nav>
   <a class="nav-logo" href="/">
     <img src="img/favicon-jtc.png" alt="Javotecocina" onerror="this.style.display='none'">
-    <span class="nav-logo-txt">Javo Te Cocina</span>
+    <span class="nav-logo-txt">Javotecocina</span>
   </a>
   <a class="nav-back" href="/">← Volver al inicio</a>
 </nav>
@@ -388,7 +397,7 @@ nav{position:fixed;top:0;width:100%;z-index:200;padding:1rem 1.5rem;display:flex
     <!-- STEPS CONTENT (rendered by JS) -->
     <div class="wizard-step" id="step-form">
       <div class="step-header">
-        <h1 id="stepTitle"></h1>
+        <h2 id="stepTitle"></h2>
         <p id="stepSubtitle"></p>
       </div>
       <div class="fields-stack" id="fieldsContainer"></div>
@@ -401,7 +410,7 @@ nav{position:fixed;top:0;width:100%;z-index:200;padding:1rem 1.5rem;display:flex
     <!-- STEP SUMMARY -->
     <div class="wizard-step" id="step-summary">
       <div class="step-header">
-        <h1>Revisá tu<br><em>consulta</em></h1>
+        <h2>Revisá tu<br><em>consulta</em></h2>
         <p>Confirmá los datos. Podés volver si necesitás corregir algo.</p>
       </div>
       <div class="summary-card" id="summaryCard"></div>
@@ -611,7 +620,7 @@ const STEPS = {
       title: 'Tu <em>consulta</em>',
       subtitle: '¿En qué puedo ayudarte?',
       fields: [
-        { id:'recetario_interes', label:'Recetario de interés', type:'select', required:false, options:['No sé cuál','Donde Hay Humo','A Todo Disco','A Todo Keveri','Sabores Salteños','Lo Fresco del Norte','Todo Sobre Fierros','Otro'] },
+        { id:'recetario_interes', label:'Recetario de interés', type:'select', required:false, options:['No sé cuál','Todo Sobre Fierros','A Todo Disco','A Todo Keveri','Sabores Salteños','Lo Fresco del Norte','Otro'] },
         { id:'ya_compro',         label:'¿Ya lo compraste?',   type:'radio',  required:false, options:['Sí, ya lo tengo','No, quiero comprarlo'] },
         { id:'problema',          label:'¿Cuál es tu consulta?', type:'textarea', required:true, placeholder:'Contame tu duda o inconveniente...' },
         { id:'comentarios',       label:'Algo más que quieras agregar', type:'textarea', required:false, placeholder:'(opcional)' },
@@ -1058,6 +1067,7 @@ function showSummary(){
   if(tipo === 'evento' && d.personas){
     const personas = parsarPersonas(d.personas);
     if(personas > 0){
+      // Estos valores reflejan config/pricing.js (backend). Si cambian allá, actualizalos acá.
       const MIN_POR_PERSONA = 35000;
       const total  = personas * MIN_POR_PERSONA;
       const senia  = Math.max(total * 0.5, 50000);
@@ -1065,11 +1075,11 @@ function showSummary(){
       const fmt    = n => new Intl.NumberFormat('es-AR',{style:'currency',currency:'ARS',maximumFractionDigits:0}).format(n);
       resumenEl.innerHTML = `
         <div style="display:grid;gap:.3rem;font-size:.88rem;">
-          <div>💰 <strong>Cotización estimada:</strong> ${fmt(total)}</div>
+          <div>💰 <strong>Estimado:</strong> ${fmt(total)}</div>
           <div>🤝 <strong>Seña (50%):</strong> ${fmt(senia)}</div>
-          <div>📋 <strong>Saldo:</strong> ${fmt(saldo)}</div>
+          <div>📋 <strong>Saldo el día del evento:</strong> ${fmt(saldo)}</div>
         </div>
-        <p style="margin-top:.5rem;font-size:.76rem;color:var(--muted);">Precio estimado · $${(35000).toLocaleString('es-AR')}/persona mínimo. El valor final se acuerda con Javo.</p>`;
+        <p style="margin-top:.5rem;font-size:.76rem;color:var(--muted);">Cálculo orientativo desde $${(35000).toLocaleString('es-AR')} por persona. El valor final lo confirma Javo según el menú y los detalles; la fecha se reserva al acreditarse la seña.</p>`;
       resumenEl.style.display = 'block';
     } else {
       resumenEl.style.display = 'none';
@@ -1098,9 +1108,8 @@ function fieldLabel(id){
   const map={
     nombre:'Nombre',email:'Email',whatsapp:'WhatsApp',marca:'Marca',
     fecha:'Fecha',tipo_evento:'Tipo evento',personas:'Personas',provincia:'Provincia',ciudad:'Ciudad',
-    lugar_definido:'Lugar definido',tipo_servicio:'Servicio',formato_cocina:'Formato',
-    restricciones:'Restricciones',horario:'Horario',presupuesto:'Presupuesto',
-    duracion:'Duración',contacto_preferido:'Contacto pref.',comentarios:'Comentarios',
+    lugar_definido:'Lugar definido',tipo_servicio:'Servicio',
+    restricciones:'Restricciones',horario:'Horario',comentarios:'Comentarios',
     producto_campana:'Producto',objetivo:'Objetivo',plataformas:'Plataformas',
     tipo_contenido:'Tipo contenido',cantidad_piezas:'Piezas',fecha_campana:'Fecha campaña',
     derechos_uso:'Derechos de uso',exclusividad:'Exclusividad',
@@ -1126,13 +1135,7 @@ function parsarHorario(val){
   const mm = (m[2]||'00').padStart(2,'0');
   return `${hh}:${mm}`;
 }
-function parsarDuracion(val){
-  if(!val) return 5;
-  const map={'1-2 horas':1.5,'2-4 horas':3,'4-6 horas':5,'Todo el día':8};
-  return map[val] || 5;
-}
-
-/* ── WA CLICK HANDLER (reemplaza submitLead) ── */
+/* ── WA CLICK HANDLER ── */
 let _waSubmitting = false;
 
 function onClickWA(event){
@@ -1242,7 +1245,6 @@ function buildWAMessage(tipo, d, bookingResult){
       `*Servicio:* ${d.tipo_servicio||'—'}\n` +
       `*Fecha:* ${d.fecha||'—'}\n` +
       `*Horario:* ${d.horario||'—'}\n` +
-      `*Duración:* ${d.duracion||'—'}\n` +
       `*Personas:* ${d.personas||'—'}\n` +
       `*Ubicación:* ${ubicacion}\n` +
       `*Lugar definido:* ${d.lugar_definido||'—'}\n` +

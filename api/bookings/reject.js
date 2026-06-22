@@ -5,9 +5,7 @@
 
 import { BookingService }  from '../../services/BookingService.js';
 import { CalendarService } from '../../services/CalendarService.js';
-
-const SUPA_URL = process.env.SUPABASE_URL || 'https://nudthkwuzhxflwirzmqd.supabase.co';
-const SUPA_KEY = process.env.SUPABASE_ANON_KEY || 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im51ZHRoa3d1emh4Zmx3aXJ6bXFkIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzk5MjkwNjAsImV4cCI6MjA5NTUwNTA2MH0.XW6BJ4NPam-KdwbSwR4giRAS03aH23G3it-8pwSWrZw';
+import { verifyAdmin }     from '../../services/AdminAuth.js';
 
 const CORS = {
   'Access-Control-Allow-Origin':  'https://javotecocina.com',
@@ -20,14 +18,9 @@ export default async function handler(req, res) {
   Object.entries(CORS).forEach(([k, v]) => res.setHeader(k, v));
   if (req.method !== 'POST') return res.status(405).json({ error: 'Method not allowed' });
 
-  const authHeader = req.headers['authorization'] || '';
-  const token      = authHeader.replace('Bearer ', '');
-  if (!token) return res.status(401).json({ error: 'No autorizado' });
-
-  const userRes = await fetch(`${SUPA_URL}/auth/v1/user`, {
-    headers: { apikey: SUPA_KEY, Authorization: `Bearer ${token}` },
-  });
-  if (!userRes.ok) return res.status(401).json({ error: 'Token inválido' });
+  // Autenticación + autorización: debe ser un admin de la allowlist
+  const admin = await verifyAdmin(req);
+  if (!admin) return res.status(401).json({ error: 'No autorizado. Iniciá sesión con la cuenta de administrador.' });
 
   let body;
   try { body = typeof req.body === 'string' ? JSON.parse(req.body) : req.body; }

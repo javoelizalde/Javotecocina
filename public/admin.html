@@ -6,13 +6,13 @@
 <title>Admin · Javotecocina</title>
 <link rel="icon" type="image/png" href="img/favicon-jtc.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Barlow:wght@300;400;500;600&family=Barlow+Condensed:wght@600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Barlow:wght@300;400;500;600&family=Barlow+Condensed:wght@600;700;800&family=Cormorant+Garamond:wght@600;700&display=swap" rel="stylesheet">
 <style>
 *{margin:0;padding:0;box-sizing:border-box;}
 :root{
   --fire:#C84B11;--ember:#E8730A;--dark:#1A120B;--dark2:#241810;
   --ash:#F5EDE4;--muted:rgba(245,237,228,.45);--border:rgba(245,237,228,.08);
-  --success:#2ECC71;--danger:#E74C3C;
+  --success:#2ECC71;--danger:#C0392B;
 }
 body{font-family:'Barlow',sans-serif;background:var(--dark);color:var(--ash);min-height:100vh;}
 
@@ -210,7 +210,7 @@ body{font-family:'Barlow',sans-serif;background:var(--dark);color:var(--ash);min
 .empty-state p{font-size:.85rem;line-height:1.6;}
 
 /* Mobile */
-.mob-menu-btn{display:none;position:fixed;top:1rem;left:1rem;z-index:150;background:var(--dark2);border:1px solid var(--border);border-radius:3px;padding:.5rem .65rem;font-size:1.2rem;cursor:pointer;color:var(--ash);min-width:44px;min-height:44px;display:none;align-items:center;justify-content:center;}
+.mob-menu-btn{display:none;position:fixed;top:1rem;left:1rem;z-index:150;background:var(--dark2);border:1px solid var(--border);border-radius:3px;padding:.5rem .65rem;font-size:1.2rem;cursor:pointer;color:var(--ash);min-width:44px;min-height:44px;align-items:center;justify-content:center;}
 .sidebar-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:99;}
 @media(max-width:768px){
   .sidebar{transform:translateX(-100%);transition:transform .25s;}
@@ -223,11 +223,13 @@ body{font-family:'Barlow',sans-serif;background:var(--dark);color:var(--ash);min
   .section-header-row{flex-direction:column;align-items:flex-start;}
   .admin-tabs{overflow-x:auto;max-width:100%;-webkit-overflow-scrolling:touch;}
   .form-cols-2{grid-template-columns:1fr;}
-  .btn-sm{min-height:40px;padding:.5rem .9rem;}
+  .btn-sm{min-height:44px;padding:.5rem .9rem;}
   .form-actions{flex-direction:row;gap:.5rem;}
   .form-actions .btn-sm{flex:1;text-align:center;}
   .admin-modal h2,.modal-header h2{font-size:1.1rem;}
   .lead-key{min-width:70px;}
+  /* Tap-targets ≥44px en mobile (PRODUCT.md: uso desde el celular) */
+  .admin-tab,.lf-btn,.bk-filter-btn{min-height:44px;display:inline-flex;align-items:center;}
 }
 </style>
 </head>
@@ -238,15 +240,15 @@ body{font-family:'Barlow',sans-serif;background:var(--dark);color:var(--ash);min
   <div class="login-box">
     <div class="login-logo">Javotecocina</div>
     <div class="login-sub">Panel de administración</div>
-    <input class="admin-input" id="loginEmail" type="email" placeholder="Email" autocomplete="email">
-    <input class="admin-input" id="loginPass" type="password" placeholder="Contraseña" autocomplete="current-password">
+    <input class="admin-input" id="loginEmail" type="email" placeholder="Email" autocomplete="email" aria-label="Email">
+    <input class="admin-input" id="loginPass" type="password" placeholder="Contraseña" autocomplete="current-password" aria-label="Contraseña">
     <button class="btn-login" onclick="doLogin()">Ingresar</button>
     <div class="login-error" id="loginErr">Email o contraseña incorrectos.</div>
   </div>
 </div>
 
 <!-- ── ADMIN ── -->
-<button class="mob-menu-btn" onclick="toggleSidebar()">☰</button>
+<button class="mob-menu-btn" onclick="toggleSidebar()" aria-label="Abrir menú">☰</button>
 <div class="sidebar-overlay" id="sidebarOverlay" onclick="toggleSidebar()"></div>
 
 <div id="adminPanel">
@@ -512,8 +514,8 @@ ON CONFLICT (key) DO NOTHING;</code>
         </div>
 
         <div class="leads-toolbar">
-          <input class="leads-search" id="leadsSearch" type="search" placeholder="Buscar por nombre, email o WhatsApp..." oninput="searchLeadsNew(this.value)">
-          <select class="ld-estado-select" style="width:auto;margin:0;padding:.6rem .8rem;" onchange="filterLeadsEstado(this.value)">
+          <input class="leads-search" id="leadsSearch" type="search" placeholder="Buscar por nombre, email o WhatsApp..." aria-label="Buscar leads" oninput="searchLeadsNew(this.value)">
+          <select class="ld-estado-select" style="width:auto;margin:0;padding:.6rem .8rem;" aria-label="Filtrar leads por estado" onchange="filterLeadsEstado(this.value)">
             <option value="">Todos los estados</option>
             <option value="nuevo">Nuevo</option>
             <option value="contactado">Contactado</option>
@@ -1243,7 +1245,7 @@ function renderReviews(filter){
   else if(filter==='approved')list=allReviews.filter(r=>r.aprobado);
   const el=document.getElementById('reviewsList');
   if(!list.length){
-    el.innerHTML='<div class="empty-state"><div class="icon">⭐</div><p>No hay reseñas en esta categoría todavía.</p></div>';
+    el.innerHTML='<div class="empty-state"><div class="icon">⭐</div><p>No hay reseñas en esta categoría todavía.<br>Cambiá de pestaña arriba para ver las demás.</p></div>';
     return;
   }
   el.innerHTML=list.map(r=>{
@@ -1264,7 +1266,7 @@ function renderReviews(filter){
         <div class="review-actions">
           ${!r.aprobado?`<button class="btn-sm btn-approve" onclick="setReviewStatus(${r.id},true)">✓ Aprobar</button>`:''}
           ${r.aprobado?`<button class="btn-sm btn-reject" onclick="setReviewStatus(${r.id},false)">Quitar</button>`:''}
-          <button class="btn-sm btn-reject" onclick="deleteReview(${r.id})" style="opacity:.7;">🗑</button>
+          <button class="btn-sm btn-reject" onclick="deleteReview(${r.id})" style="opacity:.7;" aria-label="Eliminar reseña">🗑</button>
         </div>
       </div>
     </div>`;
@@ -1306,7 +1308,7 @@ function renderLeads(type){
   const list=type==='eventos'?allEventLeads:allCollabLeads;
   const el=document.getElementById('leadsList');
   if(!list.length){
-    el.innerHTML='<div class="empty-state"><div class="icon">📬</div><p>No hay consultas todavía.</p></div>';
+    el.innerHTML='<div class="empty-state"><div class="icon">📬</div><p>Todavía no llegaron consultas por este canal.<br>Cuando alguien complete el formulario del sitio, va a aparecer acá.</p></div>';
     return;
   }
   if(type==='eventos'){
@@ -1951,7 +1953,7 @@ function filterBookings(estado){
 function renderBookings(){
   const list  = document.getElementById('bookingsList');
   const items = bookingsEstFilter ? allBookings.filter(b => b.estado === bookingsEstFilter) : allBookings;
-  if(!items.length){ list.innerHTML = '<p style="color:var(--muted);padding:2rem 0;text-align:center">No hay reservas en este estado.</p>'; return; }
+  if(!items.length){ list.innerHTML = '<p style="color:var(--muted);padding:2rem 0;text-align:center">No hay reservas en este estado. Probá cambiando el filtro de arriba.</p>'; return; }
 
   list.innerHTML = items.map(b => {
     const fecha  = b.fecha  ? formatFechaAdmin(b.fecha) : '—';
@@ -2067,7 +2069,7 @@ function closeBkModal(){
 
 async function confirmarReserva(id){
   if(!confirm('¿Confirmás la reserva? Se creará el evento en Google Calendar y se notificará al cliente por email.')) return;
-  const token = supabase?.auth?.session()?.access_token || localStorage.getItem('jtc_user_token') || '';
+  const token = authToken || localStorage.getItem('jtc_token') || '';
   try {
     const r = await fetch('/api/bookings/confirm', {
       method: 'POST',
@@ -2075,18 +2077,18 @@ async function confirmarReserva(id){
       body: JSON.stringify({ booking_id: id }),
     });
     const data = await r.json();
-    if(!r.ok) { alert('Error: ' + (data.error || r.status)); return; }
+    if(!r.ok) { alert('No se pudo confirmar la reserva: ' + (data.error || r.status) + '.\nEsperá un momento y volvé a intentar.'); return; }
     alert('✅ Reserva confirmada. Se enviará email al cliente.');
     closeBkModal();
     await loadBookings();
   } catch(e) {
-    alert('Error al confirmar: ' + e.message);
+    alert('Error al confirmar: ' + e.message + '.\nRevisá tu conexión y volvé a intentar.');
   }
 }
 
 async function rechazarReserva(id){
   const motivo = prompt('Motivo del rechazo / cancelación (opcional):') ?? '';
-  const token  = supabase?.auth?.session()?.access_token || localStorage.getItem('jtc_user_token') || '';
+  const token  = authToken || localStorage.getItem('jtc_token') || '';
   try {
     const r = await fetch('/api/bookings/reject', {
       method: 'POST',
@@ -2094,12 +2096,12 @@ async function rechazarReserva(id){
       body: JSON.stringify({ booking_id: id, motivo }),
     });
     const data = await r.json();
-    if(!r.ok) { alert('Error: ' + (data.error || r.status)); return; }
+    if(!r.ok) { alert('No se pudo cancelar la reserva: ' + (data.error || r.status) + '.\nEsperá un momento y volvé a intentar.'); return; }
     alert('Reserva cancelada.');
     closeBkModal();
     await loadBookings();
   } catch(e) {
-    alert('Error al cancelar: ' + e.message);
+    alert('Error al cancelar: ' + e.message + '.\nRevisá tu conexión y volvé a intentar.');
   }
 }
 
@@ -2126,7 +2128,6 @@ function esc(s){ return String(s||'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&
 .booking-card:hover{border-color:var(--fire);}
 .booking-card-top{display:flex;justify-content:space-between;align-items:flex-start;gap:.75rem;margin-bottom:.5rem;}
 .booking-card-name{font-family:'Cormorant Garamond',serif;font-size:1.1rem;font-weight:700;color:var(--ash);}
-.booking-card-date{font-family:'Barlow Condensed',sans-serif;font-size:.78rem;font-weight:700;letter-spacing:.08em;color:var(--ember);}
 .booking-card-meta{font-size:.82rem;color:var(--muted);display:flex;flex-wrap:wrap;gap:.4rem 1rem;}
 .bk-estado{display:inline-block;font-family:'Barlow Condensed',sans-serif;font-size:.68rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:.25rem .65rem;border-radius:3px;}
 .bk-estado.pending_payment{background:rgba(212,160,23,.15);color:#D4A017;}
@@ -2157,9 +2158,9 @@ function esc(s){ return String(s||'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&
 
 <div class="section-view" id="sec-reservas">
   <div class="section-header-row">
-    <div>
-      <div class="section-title">Reservas</div>
-      <div class="section-sub">Gestión de reservas de eventos y cotizaciones</div>
+    <div class="section-header" style="margin:0;">
+      <h1>Reservas</h1>
+      <p>Gestión de reservas de eventos y cotizaciones</p>
     </div>
   </div>
   <div class="booking-filters">
@@ -2177,7 +2178,7 @@ function esc(s){ return String(s||'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&
   <div class="bk-modal">
     <div class="bk-modal-header">
       <div class="bk-modal-title" id="bkModalTitle">Reserva</div>
-      <button class="bk-close" onclick="closeBkModal()">✕</button>
+      <button class="bk-close" onclick="closeBkModal()" aria-label="Cerrar">✕</button>
     </div>
     <div id="bkModalBody"></div>
   </div>
@@ -2186,7 +2187,7 @@ function esc(s){ return String(s||'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&
 <!-- ── MODAL LEAD DETAIL ── -->
 <div class="ld-modal-bg" id="ldModal" onclick="if(event.target===this)closeLdModal()">
   <div class="ld-modal">
-    <button class="ld-close" onclick="closeLdModal()">✕</button>
+    <button class="ld-close" onclick="closeLdModal()" aria-label="Cerrar">✕</button>
     <h2 id="ldModalTitle">Detalle del lead</h2>
     <div id="ldModalBody"></div>
   </div>
@@ -2243,7 +2244,7 @@ function renderLeadsNew(){
   }
 
   if(!list.length){
-    el.innerHTML='<div class="empty-state"><div class="icon">🎯</div><p>No hay leads con estos filtros.</p></div>';
+    el.innerHTML='<div class="empty-state"><div class="icon">🎯</div><p>Ningún lead coincide con estos filtros.<br>Limpiá la búsqueda o volvé a "Todos" para ver el resto.</p></div>';
     return;
   }
 

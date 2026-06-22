@@ -1,6 +1,8 @@
 // api/bookings/list.js
 // GET /api/bookings/list — lista reservas (requiere JWT de admin)
 
+import { verifyAdmin } from '../../services/AdminAuth.js';
+
 const SUPA_URL = process.env.SUPABASE_URL  || 'https://nudthkwuzhxflwirzmqd.supabase.co';
 const SUPA_KEY = process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.SUPABASE_ANON_KEY;
 
@@ -15,9 +17,10 @@ export default async function handler(req, res) {
   Object.entries(CORS).forEach(([k, v]) => res.setHeader(k, v));
   if (req.method !== 'GET') return res.status(405).json({ error: 'Method not allowed' });
 
-  // Verificar JWT del admin
+  // Autenticación + autorización: debe ser un admin de la allowlist
+  const admin = await verifyAdmin(req);
+  if (!admin) return res.status(401).json({ error: 'No autorizado. Iniciá sesión con la cuenta de administrador.' });
   const auth = req.headers.authorization;
-  if (!auth?.startsWith('Bearer ')) return res.status(401).json({ error: 'No autorizado' });
 
   const estado = req.query.estado || null;
   const limit  = Math.min(parseInt(req.query.limit  || '100'), 200);

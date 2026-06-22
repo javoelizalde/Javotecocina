@@ -3,13 +3,21 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Javotecocina | Chef & Creador de Contenido · Salta, Argentina</title>
-<meta name="description" content="Javo Elizalde — Cocinero, creador de contenido y productor de experiencias gastronómicas. De Salta, al mundo.">
-<meta name="keywords" content="cocinero salta, asado argentino, eventos gastronómicos, cocina del norte, javo te cocina, parrilla, javotecocina">
-<meta property="og:title" content="Javotecocina | Chef & Creador de Contenido">
-<meta property="og:description" content="Cocina real. Contenido auténtico. Experiencias inolvidables.">
+<title>Javotecocina — Asados, eventos y recetarios del norte | Javo Elizalde</title>
+<meta name="description" content="Javo Elizalde cocina con fuego: asados, discos y catering para eventos en Buenos Aires y todo el país, recetarios del norte para descargar y contenido para marcas. Cotizá por WhatsApp.">
+<meta name="author" content="Javo Elizalde">
+<meta name="theme-color" content="#1A120B">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Javotecocina">
+<meta property="og:locale" content="es_AR">
+<meta property="og:title" content="Javotecocina — Asados, eventos y recetarios del norte">
+<meta property="og:description" content="Asados y experiencias con fuego para tu evento, recetarios del norte para cocinar en casa y contenido para marcas. Cotizá por WhatsApp.">
 <meta property="og:url" content="https://javotecocina.com">
 <meta property="og:image" content="https://javotecocina.com/img/p03.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Javotecocina — Asados, eventos y recetarios del norte">
+<meta name="twitter:description" content="Asados y experiencias con fuego para tu evento, recetarios del norte y contenido para marcas. Desde Buenos Aires a todo el país.">
+<meta name="twitter:image" content="https://javotecocina.com/img/p03.jpg">
 <link rel="canonical" href="https://javotecocina.com">
 <link rel="icon" type="image/png" href="img/favicon-jtc.png">
 <link rel="apple-touch-icon" href="img/favicon-jtc.png">
@@ -29,7 +37,8 @@
   --earth:#6B4226;
   --muted:#7A5440;
   --danger:#C0392B;
-  --gap:5rem;
+  /* Escala de espaciado vertical de secciones (compacta, consistente) */
+  --gap:4rem;
 }
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
 html{scroll-behavior:smooth;font-size:16px;overflow-x:hidden;}
@@ -88,32 +97,34 @@ nav.scrolled{background:rgba(26,18,11,.92);backdrop-filter:blur(12px);padding:.9
 .hamburger.open span:nth-child(3){transform:rotate(-45deg) translate(5px,-5px);}
 
 /* ── HERO ── */
-.hero{position:relative;min-height:100vh;display:flex;align-items:center;overflow:hidden;background:var(--dark);}
+.hero{position:relative;min-height:auto;display:flex;align-items:center;overflow:hidden;background:var(--dark);padding:7rem 0 4.5rem;}
 .hero-bg{position:absolute;inset:0;background:radial-gradient(ellipse 60% 80% at 70% 50%,rgba(200,75,17,.35) 0%,transparent 70%),radial-gradient(ellipse 40% 60% at 30% 80%,rgba(212,160,23,.15) 0%,transparent 60%),linear-gradient(to bottom,rgba(26,18,11,.3) 0%,rgba(26,18,11,.7) 100%);z-index:1;}
 .hero-photo{position:absolute;inset:0;z-index:0;}
 .hero-photo img{width:100%;height:100%;object-fit:cover;object-position:center 62%;opacity:.4;}
-.hero-content{position:relative;z-index:3;padding:0 2.5rem;max-width:820px;padding-top:80px;}
-.hero-eyebrow{font-family:'Barlow Condensed',sans-serif;font-size:.78rem;font-weight:700;letter-spacing:.28em;text-transform:uppercase;color:var(--ember);margin-bottom:1.25rem;}
-.hero-title{font-family:'Cormorant Garamond',serif;font-size:clamp(4rem,10vw,9rem);font-weight:700;line-height:.92;color:var(--ash);margin-bottom:.25em;letter-spacing:-.01em;}
+.hero-content{position:relative;z-index:3;padding:0 2.5rem;max-width:760px;}
+.hero-eyebrow{font-family:'Barlow Condensed',sans-serif;font-size:.78rem;font-weight:700;letter-spacing:.28em;text-transform:uppercase;color:var(--ember);margin-bottom:1rem;}
+.hero-title{font-family:'Cormorant Garamond',serif;font-size:clamp(2.6rem,6vw,4.75rem);font-weight:700;line-height:1.02;color:var(--ash);margin-bottom:.15em;letter-spacing:-.01em;text-wrap:balance;}
 .hero-title em{font-style:italic;color:var(--ember);}
-.hero-sub{font-size:1.1rem;font-weight:300;color:rgba(245,237,228,.75);max-width:480px;line-height:1.6;margin-top:1.5rem;margin-bottom:2.5rem;}
-.hero-actions{display:flex;gap:1rem;flex-wrap:wrap;}
-.hero-stats{position:absolute;bottom:3rem;right:2.5rem;z-index:3;display:flex;gap:2.5rem;}
-.hero-stat{text-align:right;}
-.hero-stat-num{font-family:'Barlow Condensed',sans-serif;font-size:1.75rem;font-weight:800;color:var(--ash);line-height:1;}
-.hero-stat-num span{color:var(--ember);}
-.hero-stat-label{font-size:.7rem;font-weight:400;color:rgba(245,237,228,.5);letter-spacing:.1em;text-transform:uppercase;margin-top:.2rem;}
-.scroll-ind{position:absolute;bottom:2rem;left:2.5rem;z-index:3;display:flex;align-items:center;gap:.75rem;color:rgba(245,237,228,.4);font-size:.7rem;letter-spacing:.15em;text-transform:uppercase;font-family:'Barlow Condensed',sans-serif;}
-.scroll-line{width:1px;height:40px;background:linear-gradient(to bottom,transparent,rgba(245,237,228,.4));animation:pulse 2s infinite;}
-@keyframes pulse{0%,100%{opacity:.3;}50%{opacity:.8;}}
+.hero-sub{font-size:1.05rem;font-weight:300;color:rgba(245,237,228,.78);max-width:520px;line-height:1.6;margin-top:1.25rem;margin-bottom:2rem;}
+.hero-actions{display:flex;gap:.85rem;flex-wrap:wrap;}
 @keyframes spin{to{transform:rotate(360deg)}}
+
+/* ── PILARES (qué ofrece + accesos rápidos) ── */
+.pillars{background:var(--cream);padding:2.75rem 0;}
+.pillars-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;}
+.pillar{display:flex;flex-direction:column;gap:.35rem;padding:1.5rem;background:#fff;border:1px solid rgba(26,18,11,.07);border-radius:8px;text-decoration:none;transition:border-color .2s,box-shadow .2s,transform .2s;}
+.pillar:hover{border-color:rgba(200,75,17,.4);box-shadow:0 8px 26px rgba(26,18,11,.09);transform:translateY(-2px);}
+.pillar-k{font-family:'Cormorant Garamond',serif;font-size:1.45rem;font-weight:700;color:var(--dark);line-height:1.15;}
+.pillar-d{font-size:.85rem;color:var(--muted);line-height:1.5;}
+.pillar-go{margin-top:.4rem;font-family:'Barlow Condensed',sans-serif;font-size:.76rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--fire);}
+@media(max-width:768px){.pillars{padding:2rem 0;}.pillars-grid{grid-template-columns:1fr;gap:.75rem;}.pillar{padding:1.1rem 1.25rem;}}
 
 /* ── ABOUT ── */
 .about{background:var(--dark);color:var(--ash);}
 .about .sec-title{color:var(--ash);}
 .about .sec-desc{color:rgba(245,237,228,.65);}
-.about-grid{display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:center;}
-.about-img-wrap{position:relative;aspect-ratio:3/4;max-height:580px;overflow:hidden;border-radius:4px;}
+.about-grid{display:grid;grid-template-columns:1fr 1fr;gap:3.5rem;align-items:center;}
+.about-img-wrap{position:relative;aspect-ratio:3/4;max-height:460px;overflow:hidden;border-radius:4px;}
 .about-img-wrap img{width:100%;height:100%;object-fit:cover;object-position:top;}
 .about-accent{position:absolute;bottom:-1.5rem;right:-1.5rem;width:120px;height:120px;border:1px solid rgba(200,75,17,.3);border-radius:2px;z-index:-1;}
 .about-accent2{position:absolute;top:-1.5rem;left:-1.5rem;width:70px;height:70px;background:var(--fire);opacity:.12;border-radius:2px;}
@@ -182,35 +193,12 @@ nav.scrolled{background:rgba(26,18,11,.92);backdrop-filter:blur(12px);padding:.9
 
 /* ── BRANDS ── */
 .brands-sec{background:var(--cream);padding:2.5rem 0;}
+.brands-caption{text-align:center;font-family:'Barlow Condensed',sans-serif;font-size:.72rem;font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:var(--muted);opacity:.7;}
 .brands-strip{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:1.75rem 2.75rem;margin-top:1.5rem;}
 .brand-logo-link{opacity:.35;filter:grayscale(100%);transition:opacity .25s,filter .25s;display:flex;align-items:center;text-decoration:none;}
 .brand-logo-link:hover{opacity:.72;filter:grayscale(0);}
 .brand-logo-link img{height:24px;width:auto;object-fit:contain;display:block;max-width:80px;}
 @media(max-width:480px){.brand-logo-link img{height:20px;}.brands-strip{gap:1.25rem 2rem;}}
-
-/* ── SERVICIOS ── */
-.services-sec{background:var(--cream);}
-.services-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;margin-top:3.5rem;}
-.srv-card{padding:2.5rem 2rem;background:#fff;border-radius:4px;position:relative;overflow:hidden;transition:box-shadow .3s,transform .3s;box-shadow:0 2px 20px rgba(26,18,11,.06);}
-.srv-card:hover{box-shadow:0 8px 32px rgba(26,18,11,.14);}
-.srv-card::after{content:'';position:absolute;bottom:0;left:0;width:0;height:3px;background:var(--fire);transition:width .4s;}
-.srv-card:hover::after{width:100%;}
-.srv-num{font-family:'Barlow Condensed',sans-serif;font-size:3rem;font-weight:800;color:rgba(200,75,17,.1);line-height:1;margin-bottom:1.5rem;}
-.srv-title{font-family:'Cormorant Garamond',serif;font-size:1.25rem;font-weight:700;color:var(--dark);margin-bottom:.75rem;}
-.srv-desc{font-size:.875rem;font-weight:300;color:var(--muted);line-height:1.7;margin-bottom:1.5rem;}
-.srv-tag{font-family:'Barlow Condensed',sans-serif;font-size:.7rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--fire);}
-
-/* ── SERVICIOS COMPACTOS (versión fondo, dark) ── */
-.services-sec-compact{background:var(--dark);}
-.srv-compact-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:0;border-top:1px solid rgba(245,237,228,.08);margin-top:3rem;}
-.srv-compact-cell{padding:1.75rem 0 1.75rem 1.5rem;border-bottom:1px solid rgba(245,237,228,.06);border-right:1px solid rgba(245,237,228,.06);transition:background .2s;}
-.srv-compact-cell:nth-child(3n){border-right:none;}
-.srv-compact-cell:hover{background:rgba(245,237,228,.02);}
-.srv-compact-icon{display:none;}
-.srv-compact-title{font-family:'Cormorant Garamond',serif;font-size:1.25rem;font-weight:600;color:var(--ash);margin-bottom:.3rem;line-height:1.2;}
-.srv-compact-tag{font-family:'Barlow Condensed',sans-serif;font-size:.68rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:rgba(245,237,228,.3);}
-@media(max-width:768px){.srv-compact-grid{grid-template-columns:1fr 1fr;}.srv-compact-cell:nth-child(3n){border-right:1px solid rgba(245,237,228,.06);}.srv-compact-cell:nth-child(2n){border-right:none;}}
-@media(max-width:480px){.srv-compact-grid{grid-template-columns:1fr 1fr;}}
 
 /* ── CONTRATAR ── */
 .hire-sec{background:var(--dark);}
@@ -222,7 +210,6 @@ nav.scrolled{background:rgba(26,18,11,.92);backdrop-filter:blur(12px);padding:.9
 .hire-perk-icon{width:2px;height:auto;background:var(--fire);flex-shrink:0;align-self:stretch;border-radius:1px;}
 .hire-perk-title{font-weight:600;font-size:.9rem;color:var(--ash);}
 .hire-perk-desc{font-size:.8rem;color:rgba(245,237,228,.5);margin-top:.2rem;line-height:1.55;}
-.hire-form-wrap{background:#fff;padding:2.5rem;border-radius:4px;box-shadow:0 4px 40px rgba(26,18,11,.15);}
 .hire-cta-card{border:1px solid rgba(245,237,228,.1);border-radius:8px;padding:2.75rem 2.5rem;display:flex;flex-direction:column;align-items:flex-start;gap:1.25rem;background:rgba(245,237,228,.03);}
 .hire-cta-types{display:flex;flex-wrap:wrap;gap:.5rem;}
 .hire-cta-types span{font-family:'Barlow Condensed',sans-serif;font-size:.72rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:rgba(245,237,228,.45);background:rgba(245,237,228,.06);border:1px solid rgba(245,237,228,.1);padding:.35rem .75rem;border-radius:3px;}
@@ -231,35 +218,23 @@ nav.scrolled{background:rgba(26,18,11,.92);backdrop-filter:blur(12px);padding:.9
 .hire-cta-btn{display:inline-block;background:var(--fire);color:#fff;padding:.9rem 2rem;font-family:'Barlow Condensed',sans-serif;font-size:.88rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;text-decoration:none;border-radius:3px;transition:background .2s,transform .15s;margin-top:.25rem;}
 .hire-cta-btn:hover{background:var(--ember);transform:translateY(-1px);}
 .hire-cta-note{font-size:.78rem;color:rgba(245,237,228,.3);}
-.form-title{font-family:'Cormorant Garamond',serif;font-size:1.5rem;font-weight:700;color:var(--dark);margin-bottom:.25rem;}
-.form-sub{font-size:.85rem;color:var(--muted);margin-bottom:2rem;}
 .form-group{margin-bottom:1.25rem;}
-.form-row{display:grid;grid-template-columns:1fr 1fr;gap:1rem;}
 label{display:block;font-family:'Barlow Condensed',sans-serif;font-size:.73rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--earth);margin-bottom:.4rem;}
 input[type="text"],input[type="email"],input[type="tel"],input[type="date"],select,textarea{width:100%;padding:.75rem 1rem;border:1px solid rgba(26,18,11,.15);border-radius:2px;font-family:'Barlow',sans-serif;font-size:.875rem;color:var(--dark);background:var(--cream);transition:border-color .2s;outline:none;appearance:none;}
 input[type="date"]::-webkit-calendar-picker-indicator{opacity:.45;cursor:pointer;}
 
-/* ── FORM TABS ── */
-.form-tabs{display:flex;gap:0;margin-bottom:1.75rem;border:1px solid rgba(26,18,11,.12);border-radius:3px;overflow:hidden;}
-.form-tab-btn{flex:1;padding:.65rem 1rem;font-family:'Barlow Condensed',sans-serif;font-size:.78rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;background:transparent;border:none;color:var(--muted);transition:background .2s,color .2s;}
-.form-tab-btn.active{background:var(--fire);color:#fff;}
-.form-panel{display:none;}
-.form-panel.active{display:block;}
 input:focus,select:focus,textarea:focus{border-color:var(--fire);}
 textarea{resize:vertical;min-height:90px;}
-.form-submit{width:100%;padding:1rem;background:var(--fire);color:#fff;border:none;border-radius:2px;font-family:'Barlow Condensed',sans-serif;font-size:.95rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;transition:background .2s;margin-top:.5rem;display:flex;align-items:center;justify-content:center;gap:.75rem;}
-.form-submit:hover{background:var(--ember);}
-.form-submit svg{width:20px;height:20px;fill:currentColor;}
 
 /* ── RECETARIOS ── */
 .digital-sec{background:var(--cream);}
-.digital-grid{display:grid;grid-template-columns:1fr 1fr;gap:2rem;margin-top:3.5rem;}
-.digital-card{padding:2.5rem;background:#fff;border-radius:4px;border:1px solid rgba(26,18,11,.07);position:relative;overflow:hidden;transition:box-shadow .3s,transform .3s,border-color .3s;}
+.digital-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1.25rem;margin-top:2.25rem;}
+.digital-card{display:flex;flex-direction:column;padding:1.25rem;background:#fff;border-radius:6px;border:1px solid rgba(26,18,11,.07);position:relative;overflow:hidden;transition:box-shadow .3s,transform .3s,border-color .3s;}
 .digital-card:hover{box-shadow:0 8px 28px rgba(26,18,11,.1);border-color:rgba(200,75,17,.35);}
 .digital-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:var(--fire);transform:scaleX(0);transition:transform .4s;}
 .digital-card:hover::before,.digital-card.featured::before{transform:scaleX(1);}
 .digital-card.featured{border-color:rgba(200,75,17,.2);}
-.dc-img{width:100%;height:160px;object-fit:cover;border-radius:3px;margin-bottom:1.25rem;will-change:transform;}
+.dc-img{width:100%;height:150px;object-fit:cover;border-radius:4px;margin-bottom:1rem;will-change:transform;}
 .dc-tag{display:inline-block;font-family:'Barlow Condensed',sans-serif;font-size:.65rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;padding:.2rem .6rem;background:rgba(200,75,17,.1);color:var(--fire);border-radius:2px;margin-bottom:.85rem;}
 .dc-title{font-family:'Cormorant Garamond',serif;font-size:1.35rem;font-weight:700;color:var(--dark);margin-bottom:.5rem;}
 .dc-desc{font-size:.875rem;font-weight:300;color:var(--muted);line-height:1.7;margin-bottom:1.5rem;}
@@ -326,7 +301,7 @@ textarea{resize:vertical;min-height:90px;}
 .products-sec{background:var(--dark);}
 .products-sec .sec-title{color:var(--ash);}
 .products-sec .sec-desc{color:rgba(245,237,228,.6);}
-.products-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;margin-top:3.5rem;}
+.products-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1rem;margin-top:2.25rem;}
 .prod-card{background:rgba(245,237,228,.03);border:1px solid rgba(245,237,228,.06);border-radius:4px;overflow:hidden;transition:border-color .3s,transform .3s;}
 .prod-card:hover{border-color:rgba(200,75,17,.45);}
 .prod-img{aspect-ratio:4/5;overflow:hidden;position:relative;background:var(--smoke);}
@@ -423,7 +398,7 @@ footer{background:var(--dark);border-top:1px solid rgba(245,237,228,.06);}
   .footer-inner{grid-template-columns:1fr 1fr;gap:2.5rem;}
 }
 /* Cursor pointer para elementos interactivos */
-a,button,[onclick],[role="button"],.filter-btn,.btn-buy,.btn-ver,.btn-primary,.btn-outline,.btn-outline-dark,.btn-wa,.brand-logo-link,.portfolio-item,.prod-wa,.testi-dot,.form-tab-btn,.user-dd-item,.nav-user-btn{cursor:pointer;}
+a,button,[onclick],[role="button"],.filter-btn,.btn-buy,.btn-ver,.btn-primary,.btn-outline,.btn-outline-dark,.btn-wa,.portfolio-item,.prod-wa,.testi-dot,.user-dd-item,.nav-user-btn{cursor:pointer;}
 
 @media(max-width:900px){
   nav{background:rgba(26,18,11,.95);backdrop-filter:blur(12px);padding:1rem 1.5rem;}
@@ -433,8 +408,7 @@ a,button,[onclick],[role="button"],.filter-btn,.btn-buy,.btn-ver,.btn-primary,.b
   .nav-links{display:none;}
   .nav-center{display:none;}
   .hamburger{display:flex;}
-  .services-grid{grid-template-columns:1fr;}
-  .products-grid{grid-template-columns:1fr 1fr;}
+  .digital-grid,.products-grid{grid-template-columns:repeat(3,1fr);}
 }
 /* ── MOBILE HEADER: hamburguesa izquierda, logo centro, perfil derecha ── */
 @media(max-width:900px){
@@ -449,10 +423,9 @@ a,button,[onclick],[role="button"],.filter-btn,.btn-buy,.btn-ver,.btn-primary,.b
   .nav-user{order:3;margin-left:0;}
 }
 @media(max-width:768px){
-  :root{--gap:3.5rem;}
-  .hero-content{padding:0 1.25rem;padding-top:90px;max-width:100%;}
-  .hero-stats{display:none;}
-  .scroll-ind{display:none;}
+  :root{--gap:2.75rem;}
+  .hero{padding:6rem 0 3.25rem;}
+  .hero-content{padding:0 1.25rem;max-width:100%;}
   .about-grid{grid-template-columns:1fr;gap:0;}
   .about-img-wrap{aspect-ratio:unset;width:100%;height:380px;max-height:none;position:relative;margin-bottom:-100px;}
   .about-img-wrap::after{content:'';position:absolute;inset:0;background:linear-gradient(to bottom,rgba(26,18,11,0) 20%,rgba(26,18,11,.65) 60%,rgba(26,18,11,1) 100%);pointer-events:none;}
@@ -462,9 +435,6 @@ a,button,[onclick],[role="button"],.filter-btn,.btn-buy,.btn-ver,.btn-primary,.b
   .portfolio-grid{grid-template-columns:1fr 1fr;}
   .portfolio-item[data-size="featured"]{grid-column:span 2;aspect-ratio:4/3;}
   .hire-grid{grid-template-columns:1fr;gap:3rem;}
-  .hire-form-wrap{padding:1.5rem;}
-  .form-row{grid-template-columns:1fr;}
-  .testi-grid{grid-template-columns:1fr;}
   .testi-form-inner{grid-template-columns:1fr;}
   .footer-inner{grid-template-columns:1fr 1fr;gap:2rem;padding:3rem 1.5rem 2rem;}
   .footer-bottom{flex-direction:column;align-items:flex-start;padding:1.25rem 1.5rem 1.5rem;}
@@ -473,7 +443,7 @@ a,button,[onclick],[role="button"],.filter-btn,.btn-buy,.btn-ver,.btn-primary,.b
   nav{padding:1rem 1.25rem;}
 
   /* ── PRODUCTOS FÍSICOS MOBILE: 2 columnas compactas ── */
-  .products-grid{gap:.75rem;margin-top:2rem;}
+  .products-grid{grid-template-columns:1fr 1fr;gap:.75rem;margin-top:2rem;}
   .prod-img{aspect-ratio:1/1;}
   .prod-body{padding:.75rem .65rem;}
   .prod-badge{font-size:.58rem;padding:.18rem .45rem;}
@@ -513,7 +483,7 @@ a,button,[onclick],[role="button"],.filter-btn,.btn-buy,.btn-ver,.btn-primary,.b
   .ver-todos-mob .ver-todos-mob-msg{display:none;}
 }
 @media(max-width:480px){
-  .hero-title{font-size:clamp(2.8rem,12vw,4rem);}
+  .hero-title{font-size:clamp(2rem,8.5vw,3rem);}
   .hero-actions{flex-direction:column;align-items:flex-start;}
   .portfolio-grid{grid-template-columns:1fr;}
   .portfolio-item[data-size="featured"]{grid-column:span 1;}
@@ -525,9 +495,26 @@ a,button,[onclick],[role="button"],.filter-btn,.btn-buy,.btn-ver,.btn-primary,.b
   .port-modal-box{max-height:100vh;border-radius:0;}
   .hero-actions .btn-primary,.hero-actions .btn-outline{width:100%;text-align:center;}
   .testi-card{padding:1.5rem;}
-  .services-grid{grid-template-columns:1fr;}
 }
 </style>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Person",
+  "name": "Javo Elizalde",
+  "alternateName": "Javotecocina",
+  "url": "https://javotecocina.com",
+  "image": "https://javotecocina.com/img/p03.jpg",
+  "jobTitle": "Cocinero y creador de contenido gastronómico",
+  "homeLocation": { "@type": "Place", "name": "Salta, Argentina" },
+  "workLocation": { "@type": "Place", "name": "Buenos Aires, Argentina" },
+  "email": "javoelizalde2001@gmail.com",
+  "sameAs": [
+    "https://instagram.com/javotecocina",
+    "https://tiktok.com/@javotecocina"
+  ]
+}
+</script>
 </head>
 <body>
 
@@ -575,19 +562,38 @@ a,button,[onclick],[role="button"],.filter-btn,.btn-buy,.btn-ver,.btn-primary,.b
 <!-- ═══════════ HERO ═══════════ -->
 <section class="hero" id="inicio">
   <div class="hero-bg"></div>
-  <div class="hero-photo"><img src="img/p03.jpg" alt="Javo Elizalde" fetchpriority="high"></div>
+  <div class="hero-photo"><img src="img/p03.jpg" alt="Javo Elizalde cocinando a fuego" fetchpriority="high"></div>
   <div class="hero-content">
     <div class="hero-eyebrow">Salta · Buenos Aires · Argentina</div>
-    <h1 class="hero-title">Tu mesa,<br>mi fuego,<br><em>nuestra</em><br>historia.</h1>
-    <p class="hero-sub">Cocinero, creador de contenido y productor de experiencias gastronómicas. De Salta, al mundo.</p>
+    <h1 class="hero-title">Tu mesa, mi fuego,<br><em>nuestra historia.</em></h1>
+    <p class="hero-sub">Cocinero del norte argentino. Hago asados y experiencias para tu evento, contenido para marcas y recetarios para que cocines en casa.</p>
     <div class="hero-actions">
-      <a href="#recetarios" class="btn-primary">Ver Recetarios</a>
-      <a href="/cotizar" class="btn-outline">Cotizar Evento</a>
+      <a href="#recetarios" class="btn-primary">Ver recetarios</a>
+      <a href="/cotizar" class="btn-outline">Cotizar un evento</a>
     </div>
   </div>
-  <div class="scroll-ind">
-    <div class="scroll-line"></div>
-    Scroll
+</section>
+
+<!-- ═══════════ PILARES / ACCESOS ═══════════ -->
+<section class="pillars" aria-label="Qué ofrece Javotecocina">
+  <div class="container">
+    <div class="pillars-grid">
+      <a href="#recetarios" class="pillar">
+        <span class="pillar-k">Recetarios</span>
+        <span class="pillar-d">PDFs descargables para dominar el fuego en casa.</span>
+        <span class="pillar-go">Ver recetarios</span>
+      </a>
+      <a href="/cotizar" class="pillar">
+        <span class="pillar-k">Eventos</span>
+        <span class="pillar-d">Asados, catering y experiencias para tu evento.</span>
+        <span class="pillar-go">Pedir presupuesto</span>
+      </a>
+      <a href="#productos" class="pillar">
+        <span class="pillar-k">Productos</span>
+        <span class="pillar-d">Equipamiento y productos que uso y recomiendo.</span>
+        <span class="pillar-go">Ver productos</span>
+      </a>
+    </div>
   </div>
 </section>
 
@@ -601,7 +607,7 @@ a,button,[onclick],[role="button"],.filter-btn,.btn-buy,.btn-ver,.btn-primary,.b
       <div class="reveal">
         <div class="sec-label">Quién Soy</div>
         <h2 class="sec-title">El sabor del<br><em>norte</em> en<br>mis manos.</h2>
-        <p class="sec-desc" style="margin-top:1.5rem;">Soy Javo Elizalde, fundador de Javotecocina, creador de contenido gastronómico y especialista en experiencias culinarias. Combino mi pasión por la cocina con la comunicación digital para desarrollar contenido auténtico, entretenido y de alto impacto.</p>
+        <p class="sec-desc" style="margin-top:1.5rem;">Soy Javo Elizalde. Cocino con fuego: parrilla, disco y las recetas con las que crecí en el norte. Lo que arrancó grabando mientras cocinaba para amigos hoy son eventos, campañas con marcas y una comunidad que cocina conmigo del otro lado de la pantalla.</p>
         <p class="sec-desc" style="margin-top:1rem;">Nací en Salta, me formé entre especias andinas y fuego de quebracho, y hoy llevo esos sabores a eventos, pantallas y mesas de todo el país. Desde Buenos Aires al mundo.</p>
         <p class="about-tags">Cocina del NOA · Parrilla &amp; Asado · Creador de Contenido · Eventos &amp; Experiencias · Marcas</p>
         <div class="about-numbers">
@@ -705,17 +711,18 @@ a,button,[onclick],[role="button"],.filter-btn,.btn-buy,.btn-ver,.btn-primary,.b
 <!-- ═══════════ MARCAS ═══════════ -->
 <section class="brands-sec" id="marcas">
   <div class="container">
-    <div class="brands-strip reveal">
-      <a href="#" class="brand-logo-link"><img src="img/logo-stella.svg" alt="Stella Artois"></a>
-      <a href="#" class="brand-logo-link"><img src="img/logo-hellmanns.svg" alt="Hellmann's"></a>
-      <a href="#" class="brand-logo-link"><img src="img/logo-lays.svg" alt="Lay's"></a>
-      <a href="#" class="brand-logo-link"><img src="img/logo-pepsi.svg" alt="Pepsi"></a>
-      <a href="#" class="brand-logo-link"><img src="img/logo-rappi.svg" alt="Rappi"></a>
-      <a href="#" class="brand-logo-link"><img src="img/logo-keveri.avif" alt="Keveri"></a>
-      <a href="#" class="brand-logo-link"><img src="img/logo-legion-extranjera.png" alt="Legión Extranjera"></a>
-      <a href="#" class="brand-logo-link"><img src="img/logo-la-francisca.svg" alt="La Francisca"></a>
-      <a href="#" class="brand-logo-link"><img src="img/logo-salvita.png" alt="Salvita"></a>
-      <a href="#" class="brand-logo-link"><img src="img/logo-quento-snacks.svg" alt="Quento Snacks"></a>
+    <p class="brands-caption">Marcas con las que trabajé</p>
+    <div class="brands-strip reveal" role="list" aria-label="Marcas con las que trabajó Javo">
+      <span class="brand-logo-link" role="listitem"><img src="img/logo-stella.svg" alt="Stella Artois"></span>
+      <span class="brand-logo-link" role="listitem"><img src="img/logo-hellmanns.svg" alt="Hellmann's"></span>
+      <span class="brand-logo-link" role="listitem"><img src="img/logo-lays.svg" alt="Lay's"></span>
+      <span class="brand-logo-link" role="listitem"><img src="img/logo-pepsi.svg" alt="Pepsi"></span>
+      <span class="brand-logo-link" role="listitem"><img src="img/logo-rappi.svg" alt="Rappi"></span>
+      <span class="brand-logo-link" role="listitem"><img src="img/logo-keveri.avif" alt="Keveri"></span>
+      <span class="brand-logo-link" role="listitem"><img src="img/logo-legion-extranjera.png" alt="Legión Extranjera"></span>
+      <span class="brand-logo-link" role="listitem"><img src="img/logo-la-francisca.svg" alt="La Francisca"></span>
+      <span class="brand-logo-link" role="listitem"><img src="img/logo-salvita.png" alt="Salvita"></span>
+      <span class="brand-logo-link" role="listitem"><img src="img/logo-quento-snacks.svg" alt="Quento Snacks"></span>
     </div>
   </div>
 </section>
@@ -743,17 +750,18 @@ a,button,[onclick],[role="button"],.filter-btn,.btn-buy,.btn-ver,.btn-primary,.b
           </div>
           <div class="hire-perk">
             <div class="hire-perk-icon"></div>
-            <div><div class="hire-perk-title">Buenos Aires y todo el país</div><div class="hire-perk-desc">Viajo donde sea necesario para que tu evento sea perfecto.</div></div>
+            <div><div class="hire-perk-title">Buenos Aires y todo el país</div><div class="hire-perk-desc">Trabajo desde Buenos Aires y viajo al interior según el evento.</div></div>
           </div>
         </div>
       </div>
       <div class="hire-cta-card reveal">
         <div class="hire-cta-types">
-          <span>🍖 Eventos</span>
-          <span>📱 Campañas</span>
-          <span>📦 Productos</span>
-          <span>📖 Recetarios</span>
-          <span>💬 Consultas</span>
+          <span>Asados &amp; eventos</span>
+          <span>Catering</span>
+          <span>Cocina en vivo</span>
+          <span>Clases &amp; workshops</span>
+          <span>Activaciones de marca</span>
+          <span>Contenido</span>
         </div>
         <h3 class="hire-cta-heading">El formulario se adapta<br>a lo que necesitás</h3>
         <p class="hire-cta-sub">Completás en 2 minutos. Te respondo con presupuesto personalizado en menos de 24 horas.</p>
@@ -771,8 +779,8 @@ a,button,[onclick],[role="button"],.filter-btn,.btn-buy,.btn-ver,.btn-primary,.b
       <div class="sec-label">Lo que dicen</div>
       <h2 class="sec-title">Palabras de quienes<br><em>vivieron</em> la experiencia.</h2>
     </div>
-    <!-- RATING SUMMARY -->
-    <div class="rating-summary reveal" id="ratingSummary">
+    <!-- RATING SUMMARY — visible solo cuando hay reseñas reales -->
+    <div class="rating-summary reveal" id="ratingSummary" style="display:none;">
       <div class="rating-big">
         <span class="rating-num" id="ratingNum">5.0</span>
         <div class="rating-stars-row" id="ratingStars">★★★★★</div>
@@ -787,28 +795,9 @@ a,button,[onclick],[role="button"],.filter-btn,.btn-buy,.btn-ver,.btn-primary,.b
       </div>
     </div>
 
-    <!-- CAROUSEL -->
-    <div class="testi-carousel reveal">
-      <div class="testi-track" id="testiTrack">
-        <div class="testi-card" data-stars="5">
-          <div class="testi-stars">★★★★★</div>
-          <p class="testi-text">"Contratar a Javo para nuestro evento corporativo fue una de las mejores decisiones. No solo cocinó de manera espectacular — creó una experiencia que todavía comentan nuestros clientes."</p>
-          <div class="testi-author">Empresa · Buenos Aires</div>
-          <div class="testi-role">Evento Corporativo · 80 personas</div>
-        </div>
-        <div class="testi-card" data-stars="5">
-          <div class="testi-stars">★★★★★</div>
-          <p class="testi-text">"El recetario de Sabores Salteños es una joya. Cada receta con su contexto cultural, los ingredientes bien explicados. Se nota el amor y el conocimiento que hay detrás."</p>
-          <div class="testi-author">Gabriela M.</div>
-          <div class="testi-role">Recetario Sabores Salteños</div>
-        </div>
-        <div class="testi-card" data-stars="5">
-          <div class="testi-stars">★★★★★</div>
-          <p class="testi-text">"El asado que preparó Javo para mi cumpleaños fue inolvidable. Llegó con toda su energía, explicó cada corte, y la gente no paró de hablar de la comida durante semanas."</p>
-          <div class="testi-author">Martín R.</div>
-          <div class="testi-role">Asado privado · 35 personas</div>
-        </div>
-      </div>
+    <!-- CAROUSEL — se completa con reseñas reales desde la base (loadReviews) -->
+    <div class="testi-carousel reveal" id="testiCarousel" style="display:none;">
+      <div class="testi-track" id="testiTrack"></div>
       <div class="testi-nav" id="testiNav">
         <div class="testi-dots" id="testiDots"></div>
       </div>
@@ -850,57 +839,12 @@ a,button,[onclick],[role="button"],.filter-btn,.btn-buy,.btn-ver,.btn-primary,.b
   </div>
 </section>
 
-<!-- ═══════════ SERVICIOS ═══════════ -->
-<section class="services-sec-compact" id="servicios">
-  <div class="container">
-    <div class="reveal">
-      <h2 class="sec-title" style="color:var(--ash);">Más formas de<br><em>trabajar juntos.</em></h2>
-      <p class="sec-desc" style="color:rgba(245,237,228,.5);">Eventos, contenido, clases y activaciones de marca.</p>
-    </div>
-    <div class="srv-compact-grid reveal">
-      <div class="srv-compact-cell">
-        <div class="srv-compact-icon">🔥</div>
-        <div class="srv-compact-title">Eventos & Experiencias</div>
-        <div class="srv-compact-tag">Asados · Corporativos · Privados</div>
-      </div>
-      <div class="srv-compact-cell">
-        <div class="srv-compact-icon">📱</div>
-        <div class="srv-compact-title">Contenido & Redes</div>
-        <div class="srv-compact-tag">Reels · Fotografía · Estrategia</div>
-      </div>
-      <div class="srv-compact-cell">
-        <div class="srv-compact-icon">👨‍🍳</div>
-        <div class="srv-compact-title">Clases & Workshops</div>
-        <div class="srv-compact-tag">Parrilla · Ahumado · NOA</div>
-      </div>
-      <div class="srv-compact-cell">
-        <div class="srv-compact-icon">🏷️</div>
-        <div class="srv-compact-title">Activaciones de Marca</div>
-        <div class="srv-compact-tag">Lanzamientos · Stands · Brand</div>
-      </div>
-      <div class="srv-compact-cell">
-        <div class="srv-compact-icon">🏠</div>
-        <div class="srv-compact-title">Cocina a Domicilio</div>
-        <div class="srv-compact-tag">Menús · Grupos hasta 50 personas</div>
-      </div>
-      <div class="srv-compact-cell">
-        <div class="srv-compact-icon">🤝</div>
-        <div class="srv-compact-title">Embajadas & Canje</div>
-        <div class="srv-compact-tag">Embajada · Canje · Campañas</div>
-      </div>
-    </div>
-    <div style="text-align:center;margin-top:2.5rem;" class="reveal">
-      <a href="#contratar" class="btn-outline" style="color:rgba(245,237,228,.6);border-color:rgba(245,237,228,.2);">Consultá disponibilidad →</a>
-    </div>
-  </div>
-</section>
-
 <!-- ═══════════ FOOTER ═══════════ -->
 <footer>
   <div class="footer-inner">
     <div>
       <div class="footer-logo"><img src="img/logo-jtc-white.png" alt="Javotecocina"></div>
-      <p class="footer-tagline">Cocina real. Contenido auténtico.<br>Experiencias inolvidables.</p>
+      <p class="footer-tagline">Cocino con fuego en eventos, en redes<br>y en los recetarios que te llevás a casa.</p>
       <p class="footer-location">Salta · Buenos Aires · Argentina</p>
     </div>
     <div class="footer-col">
@@ -910,8 +854,8 @@ a,button,[onclick],[role="button"],.filter-btn,.btn-buy,.btn-ver,.btn-primary,.b
         <li><a href="#productos">Productos</a></li>
         <li><a href="#portfolio">Portfolio</a></li>
         <li><a href="#sobre">Quién Soy</a></li>
+        <li><a href="#contratar">Eventos</a></li>
         <li><a href="/cotizar">Cotizar</a></li>
-        <li><a href="#servicios">Servicios</a></li>
       </ul>
     </div>
     <div class="footer-col">
@@ -934,7 +878,7 @@ a,button,[onclick],[role="button"],.filter-btn,.btn-buy,.btn-ver,.btn-primary,.b
     </div>
   </div>
   <div class="footer-bottom">
-    <span class="footer-copy">© 2025 Javotecocina · javotecocina.com</span>
+    <span class="footer-copy" id="footerCopy">© Javotecocina · javotecocina.com</span>
     <div class="footer-socials">
       <a class="soc-link" href="https://instagram.com/javotecocina" target="_blank">IG</a>
       <a class="soc-link" href="https://tiktok.com/@javotecocina" target="_blank">TK</a>
@@ -954,7 +898,6 @@ let userToken=null,userEmail=null,loginMode='login',pendingPurchaseUrl=null;
     const p=new URLSearchParams(hash.substring(1));
     const t=p.get('access_token');
     if(t){
-      fetch(`${location.origin}`,{method:'HEAD'}); // dummy to keep context
       fetch('https://nudthkwuzhxflwirzmqd.supabase.co/auth/v1/user',{
         headers:{'apikey':'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im51ZHRoa3d1emh4Zmx3aXJ6bXFkIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzk5MjkwNjAsImV4cCI6MjA5NTUwNTA2MH0.XW6BJ4NPam-KdwbSwR4giRAS03aH23G3it-8pwSWrZw','Authorization':'Bearer '+t}
       }).then(r=>r.json()).then(u=>{
@@ -1418,7 +1361,7 @@ async function _iniciarCompraMercadoPago(recSlug, titulo, precio, email){
     const d = await r.json();
     if(!d.init_point){
       alert('Error al iniciar el pago. Intentá de nuevo.');
-      if(btn){btn.textContent='Comprar →';btn.disabled=false;}
+      if(btn){btn.textContent='Comprar';btn.disabled=false;}
       return;
     }
     // Redirigir a Mercado Pago en la misma pestaña para que la success_url funcione
@@ -1426,7 +1369,7 @@ async function _iniciarCompraMercadoPago(recSlug, titulo, precio, email){
   } catch(e){
     console.error('Error creando preferencia MP:', e);
     alert('Error de conexión. Intentá de nuevo.');
-    if(btn){btn.textContent='Comprar →';btn.disabled=false;}
+    if(btn){btn.textContent='Comprar';btn.disabled=false;}
   }
 }
 
@@ -1501,7 +1444,7 @@ function closeMobileMenu(){
 /* ── PRODUCTOS DINÁMICOS ── */
 let _productosData=[];
 let _prodExpanded=false;
-const PROD_HOME_MAX=4;
+const PROD_HOME_MAX=8;
 
 async function loadProductosPublic(){
   try{
@@ -1590,7 +1533,7 @@ function toggleProductosTodos(btn){
 /* ── PORTFOLIO DINÁMICO ── */
 let _expData=[];
 let _portExpState=false;
-const PORT_HOME_MAX=6;
+const PORT_HOME_MAX=4;
 
 async function loadPortfolioPublic(){
   try{
@@ -1676,71 +1619,6 @@ function filterPortfolio(btn,cat){
   renderPortfolioPublic(_expData,cat);
 }
 
-/* ── FORM TABS ── */
-function switchTab(tab){
-  document.querySelectorAll('.form-tab-btn').forEach(b=>b.classList.remove('active'));
-  document.querySelectorAll('.form-panel').forEach(p=>p.classList.remove('active'));
-  document.getElementById('tab-'+tab).classList.add('active');
-  document.getElementById('panel-'+tab).classList.add('active');
-}
-
-/* ── WHATSAPP — EVENTO ── */
-async function sendEventoWA(){
-  const tipo=document.getElementById('h-tipo').value;
-  const nombre=document.getElementById('h-nombre').value.trim();
-  const email=document.getElementById('h-email').value.trim();
-  const fechaRaw=document.getElementById('h-fecha').value;
-  const personas=document.getElementById('h-personas').value.trim();
-  const ciudad=document.getElementById('h-ciudad').value.trim();
-  const detalle=document.getElementById('h-detalle').value.trim();
-  if(!tipo){alert('Por favor seleccioná el tipo de servicio.');return;}
-  if(!nombre){alert('Por favor ingresá tu nombre.');return;}
-  if(!ciudad){alert('Por favor ingresá la ciudad del evento.');return;}
-  const fecha=fechaRaw?new Date(fechaRaw+'T12:00:00').toLocaleDateString('es-AR',{day:'numeric',month:'long',year:'numeric'}):'A confirmar';
-  supaInsert('event_leads',{tipo_evento:tipo,nombre,email:email||'',fecha,personas:personas||'',lugar:ciudad,detalle:detalle||''});
-  const msg=
-`Hola Javo! 👋 Te escribo desde tu web para cotizar un evento.
-
-📋 *Tipo de servicio:* ${tipo}
-👤 *Nombre:* ${nombre}${email?'\n📧 *Email:* '+email:''}
-📅 *Fecha:* ${fecha}
-👥 *Personas:* ${personas||'A confirmar'}
-📍 *Ciudad:* ${ciudad}
-💬 *Detalles:* ${detalle||'—'}
-
-¡Quedo a la espera de tu respuesta! 🔥`;
-  window.open('https://wa.me/543874105902?text='+encodeURIComponent(msg),'_blank');
-}
-
-/* ── WHATSAPP — COLABORACIÓN ── */
-async function sendColaboWA(){
-  const tipo=document.getElementById('c-tipo').value;
-  const nombre=document.getElementById('c-nombre').value.trim();
-  const email=document.getElementById('c-email').value.trim();
-  const plataforma=document.getElementById('c-plataforma').value;
-  const fechaRaw=document.getElementById('c-fecha').value;
-  const presupuesto=document.getElementById('c-presupuesto').value.trim();
-  const detalle=document.getElementById('c-detalle').value.trim();
-  if(!tipo){alert('Por favor seleccioná el tipo de colaboración.');return;}
-  if(!nombre){alert('Por favor ingresá tu nombre o empresa.');return;}
-  if(!email){alert('Por favor ingresá tu email.');return;}
-  const fecha=fechaRaw?new Date(fechaRaw+'T12:00:00').toLocaleDateString('es-AR',{day:'numeric',month:'long',year:'numeric'}):'A confirmar';
-  supaInsert('collab_leads',{tipo,nombre,email,plataforma:plataforma||'',fecha,presupuesto:presupuesto||'',detalle:detalle||''});
-  const msg=
-`Hola Javo! 👋 Te escribo desde tu web para proponer una colaboración en redes.
-
-📱 *Tipo de colaboración:* ${tipo}
-🏢 *Nombre / Empresa:* ${nombre}
-📧 *Email:* ${email}
-🎯 *Plataforma:* ${plataforma||'A definir'}
-📅 *Fecha estimada:* ${fecha}
-💰 *Presupuesto:* ${presupuesto||'A definir'}
-💬 *Brief / Concepto:* ${detalle||'—'}
-
-¡Quedo a la espera de tu respuesta! 🙌`;
-  window.open('https://wa.me/543874105902?text='+encodeURIComponent(msg),'_blank');
-}
-
 /* ── WHATSAPP — PRODUCTO ── */
 function consultarProducto(nombre){
   const msg=`Hola Javo! 👋 Me interesa el producto: *${nombre}*.\n\n¿Podés darme más información sobre disponibilidad, precio y envío?\n\n¡Gracias! 🙌`;
@@ -1776,7 +1654,7 @@ async function loadRecetariosPublic(){
         <div class="dc-footer"><div class="dc-price">${precioDisplay}<small>ARS</small></div></div>
         <div class="dc-actions">
           <button class="btn-ver" onclick="openModal('${slug}')">Ver más</button>
-          <button class="btn-buy" data-rec-slug="${esc(recSlug)}" onclick="comprarRecetario('${esc(recSlug)}','${esc(rec.titulo||'')}',${rec.precio||0})">Comprar →</button>
+          <button class="btn-buy" data-rec-slug="${esc(recSlug)}" onclick="comprarRecetario('${esc(recSlug)}','${esc(rec.titulo||'')}',${rec.precio||0})">Comprar</button>
         </div>
       </div>`;
     }).join('');
@@ -1804,7 +1682,7 @@ async function loadRecetariosPublic(){
             <ul class="modal-includes">${includes}</ul>
             <div class="modal-footer">
               <div class="modal-price">${precioDisplay}</div>
-              <button class="btn-primary" onclick="comprarRecetario('${esc(recSlug)}','${esc(rec.titulo||'')}',${rec.precio||0})">Comprar ahora →</button>
+              <button class="btn-primary" onclick="comprarRecetario('${esc(recSlug)}','${esc(rec.titulo||'')}',${rec.precio||0})">Comprar ahora</button>
             </div>
           </div>
         </div>
@@ -1856,6 +1734,7 @@ function testiInit(){
   testiTotal=cards.length;
   const carousel=document.querySelector('.testi-carousel');
   if(testiTotal===0){if(carousel)carousel.style.display='none';return;}
+  if(carousel)carousel.style.display='';
   if(testiTotal===1){
     document.getElementById('testiNav').style.display='none';
     return;
@@ -1904,6 +1783,8 @@ function buildRatingSummary(){
     sum+=s;total++;
   });
   if(!total)return;
+  const summary=document.getElementById('ratingSummary');
+  if(summary)summary.style.display='';
   const avg=(sum/total).toFixed(1);
   document.getElementById('ratingNum').textContent=avg;
   const fullStars=Math.round(sum/total);
@@ -1939,21 +1820,6 @@ async function enviarTestimonio(){
   document.getElementById('t-estrellas').querySelectorAll('span').forEach(s=>s.classList.remove('on'));
 }
 
-/* ── PORTFOLIO MODALS ── */
-function openPortModal(id){
-  document.getElementById(id).classList.add('open');
-  document.body.style.overflow='hidden';
-}
-function closePortModal(e,id){
-  if(e.target===e.currentTarget){
-    document.getElementById(id).classList.remove('open');
-    document.body.style.overflow='';
-  }
-}
-function closePortModal2(id){
-  document.getElementById(id).classList.remove('open');
-  document.body.style.overflow='';
-}
 function togglePortfolio(){
   _portExpState=!_portExpState;
   renderPortfolioPublic(_expData,_portCurrentCat);
@@ -2041,6 +1907,8 @@ async function loadSiteImages(){
 
 // Init on load
 document.addEventListener('DOMContentLoaded',async()=>{
+  const fc=document.getElementById('footerCopy');
+  if(fc)fc.textContent='© '+new Date().getFullYear()+' Javotecocina · javotecocina.com';
   loadSiteImages();
   loadInstagramPosts();
   loadRecetariosPublic();
