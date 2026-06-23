@@ -125,14 +125,18 @@ nav.scrolled{background:rgba(26,18,11,.92);backdrop-filter:blur(12px);padding:.9
 .about .sec-desc{color:rgba(245,237,228,.72);}
 .about-img-wrap{position:absolute;inset:0;z-index:0;}
 .about-img-wrap img{width:100%;height:100%;object-fit:cover;object-position:center 28%;opacity:.42;}
-.about-overlay{position:absolute;inset:0;z-index:1;background:radial-gradient(ellipse 70% 90% at 15% 40%,rgba(200,75,17,.18) 0%,transparent 60%),linear-gradient(105deg,rgba(26,18,11,.93) 0%,rgba(26,18,11,.8) 44%,rgba(26,18,11,.5) 100%);}
+.about-overlay{position:absolute;inset:0;z-index:1;background:radial-gradient(ellipse 70% 90% at 12% 40%,rgba(200,75,17,.16) 0%,transparent 60%),linear-gradient(100deg,rgba(26,18,11,.94) 0%,rgba(26,18,11,.84) 52%,rgba(26,18,11,.66) 100%);}
 .about .container{position:relative;z-index:2;}
-.about-content{max-width:640px;}
-.about-tags{margin-top:1.5rem;font-family:'Barlow Condensed',sans-serif;font-size:.75rem;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:rgba(245,237,228,.45);line-height:1.9;}
-.about-numbers{display:flex;flex-wrap:wrap;gap:1.5rem 3rem;margin-top:2.5rem;padding-top:2.5rem;border-top:1px solid rgba(245,237,228,.1);}
-.about-num-val{font-family:'Barlow Condensed',sans-serif;font-size:3.5rem;font-weight:800;color:var(--ash);line-height:.85;letter-spacing:-.02em;}
+.about-grid{display:grid;grid-template-columns:1.25fr .9fr;gap:2.5rem 3.5rem;align-items:center;}
+.about-text{min-width:0;}
+.about-tags{margin-top:1.5rem;font-family:'Barlow Condensed',sans-serif;font-size:.75rem;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:rgba(245,237,228,.5);line-height:1.9;}
+.about-numbers{display:grid;grid-template-columns:1fr 1fr;gap:1.75rem 2rem;}
+.about-num-val{font-family:'Barlow Condensed',sans-serif;font-size:3rem;font-weight:800;color:var(--ash);line-height:.85;letter-spacing:-.02em;}
 .about-num-val span{color:var(--ember);}
-.about-num-label{font-family:'Barlow Condensed',sans-serif;font-size:.68rem;font-weight:600;letter-spacing:.15em;text-transform:uppercase;color:rgba(245,237,228,.4);margin-top:.5rem;}
+.about-num-label{font-family:'Barlow Condensed',sans-serif;font-size:.68rem;font-weight:600;letter-spacing:.15em;text-transform:uppercase;color:rgba(245,237,228,.5);margin-top:.5rem;}
+/* Marcas integradas dentro de "Quién soy" */
+.about-brands{margin-top:2.5rem;padding-top:1.75rem;border-top:1px solid rgba(245,237,228,.12);display:flex;align-items:center;gap:1.25rem 1.75rem;flex-wrap:wrap;}
+.about-brands-label{font-family:'Barlow Condensed',sans-serif;font-size:.7rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:rgba(245,237,228,.4);flex-shrink:0;}
 
 /* ── INSTAGRAM ── */
 .ig-sec{background:var(--cream);padding:var(--gap) 0;}
@@ -193,13 +197,11 @@ nav.scrolled{background:rgba(26,18,11,.92);backdrop-filter:blur(12px);padding:.9
 .port-modal-close:hover{color:var(--ash);border-color:rgba(245,237,228,.3);}
 
 /* ── BRANDS ── */
-.brands-sec{background:var(--cream);padding:2.5rem 0;}
-.brands-caption{text-align:center;font-family:'Barlow Condensed',sans-serif;font-size:.72rem;font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:var(--muted);opacity:.7;}
-.brands-strip{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:1.75rem 2.75rem;margin-top:1.5rem;}
-.brand-logo-link{opacity:.35;filter:grayscale(100%);transition:opacity .25s,filter .25s;display:flex;align-items:center;text-decoration:none;}
-.brand-logo-link:hover{opacity:.72;filter:grayscale(0);}
-.brand-logo-link img{height:24px;width:auto;object-fit:contain;display:block;max-width:80px;}
-@media(max-width:480px){.brand-logo-link img{height:20px;}.brands-strip{gap:1.25rem 2rem;}}
+.brands-strip{display:flex;flex-wrap:wrap;align-items:center;gap:1.25rem 2rem;}
+.brand-logo-link{opacity:.5;filter:brightness(0) invert(1);transition:opacity .25s;display:flex;align-items:center;text-decoration:none;}
+.brand-logo-link:hover{opacity:.85;}
+.brand-logo-link img{height:22px;width:auto;object-fit:contain;display:block;max-width:74px;}
+@media(max-width:480px){.brand-logo-link img{height:18px;}.brands-strip{gap:1rem 1.5rem;}}
 
 /* ── CONTRATAR ── */
 .hire-sec{background:var(--dark);}
@@ -429,6 +431,9 @@ a,button,[onclick],[role="button"],.filter-btn,.btn-buy,.btn-ver,.btn-primary,.b
   .hero-content{padding:0 1.25rem;max-width:100%;}
   .about-overlay{background:linear-gradient(rgba(26,18,11,.8) 0%,rgba(26,18,11,.92) 100%);}
   .about-img-wrap img{object-position:center 25%;opacity:.5;}
+  .about-grid{grid-template-columns:1fr;gap:2rem;}
+  .about-numbers{gap:1.25rem 1.5rem;}
+  .about-num-val{font-size:2.5rem;}
   .portfolio-grid{grid-template-columns:1fr 1fr;}
   .portfolio-item[data-size="featured"]{grid-column:span 2;aspect-ratio:4/3;}
   .hire-grid{grid-template-columns:1fr;gap:3rem;}
@@ -599,17 +604,36 @@ a,button,[onclick],[role="button"],.filter-btn,.btn-buy,.btn-ver,.btn-primary,.b
   <div class="about-img-wrap"><img src="img/p01.jpg" alt="Javo Elizalde cocinando a fuego" loading="lazy" onerror="this.onerror=null;this.src='img/p01.jpg'"></div>
   <div class="about-overlay"></div>
   <div class="container">
-    <div class="about-content reveal">
-      <div class="sec-label">Quién Soy</div>
-      <h2 class="sec-title">El sabor del <em>norte</em>,<br>en mis manos.</h2>
-      <p class="sec-desc" style="margin-top:1.5rem;">Soy Javo Elizalde. Cocino con fuego: parrilla, disco y las recetas con las que crecí en el norte. Lo que arrancó grabando mientras cocinaba para amigos hoy son eventos, campañas con marcas y una comunidad que cocina conmigo del otro lado de la pantalla.</p>
-      <p class="sec-desc" style="margin-top:1rem;">Nací en Salta, me formé entre especias andinas y fuego de quebracho, y hoy llevo esos sabores a eventos, pantallas y mesas de todo el país. Desde Buenos Aires al mundo.</p>
-      <p class="about-tags">Cocina del NOA · Parrilla &amp; Asado · Creador de Contenido · Eventos &amp; Experiencias · Marcas</p>
-      <div class="about-numbers">
-        <div><div class="about-num-val">30<span>+</span></div><div class="about-num-label">Eventos realizados</div></div>
-        <div><div class="about-num-val">5K<span>+</span></div><div class="about-num-label">Personas atendidas</div></div>
-        <div><div class="about-num-val">83K<span>+</span></div><div class="about-num-label">Seguidores totales</div></div>
-        <div><div class="about-num-val">15<span>+</span></div><div class="about-num-label">Marcas aliadas</div></div>
+    <div class="about-grid">
+      <div class="about-text reveal">
+        <div class="sec-label">Quién Soy</div>
+        <h2 class="sec-title">De Salta a Buenos Aires,<br>cocina para <em>cada ocasión</em>.</h2>
+        <p class="sec-desc" style="margin-top:1.25rem;">Soy Javo Elizalde. Nací y me formé en Salta, entre fuego de quebracho y la cocina con la que crecí en el norte. Hoy tengo base en Buenos Aires, desde donde cocino para eventos, marcas y proyectos de todo tipo.</p>
+        <p class="sec-desc" style="margin-top:1rem;">El norte es mi identidad, no mi límite: armo desde un asado o un disco hasta menús de autor, catering y experiencias a medida. Cada encuentro pide algo distinto, y para eso cocino.</p>
+        <p class="about-tags">Eventos &amp; Experiencias · Parrilla &amp; Fuego · Cocina de Autor · Catering · Contenido &amp; Marcas</p>
+      </div>
+      <div class="about-metrics reveal">
+        <div class="about-numbers" id="aboutNumbers">
+          <div class="about-metric"><div class="about-num-val">30<span>+</span></div><div class="about-num-label">Eventos realizados</div></div>
+          <div class="about-metric"><div class="about-num-val">5K<span>+</span></div><div class="about-num-label">Personas atendidas</div></div>
+          <div class="about-metric"><div class="about-num-val">83K<span>+</span></div><div class="about-num-label">Seguidores totales</div></div>
+          <div class="about-metric"><div class="about-num-val">15<span>+</span></div><div class="about-num-label">Marcas aliadas</div></div>
+        </div>
+      </div>
+    </div>
+    <div class="about-brands reveal" id="marcas">
+      <span class="about-brands-label">Trabajé con</span>
+      <div class="brands-strip" id="aboutBrands" role="list" aria-label="Marcas con las que trabajó Javo">
+        <span class="brand-logo-link" role="listitem"><img src="img/logo-stella.svg" alt="Stella Artois"></span>
+        <span class="brand-logo-link" role="listitem"><img src="img/logo-hellmanns.svg" alt="Hellmann's"></span>
+        <span class="brand-logo-link" role="listitem"><img src="img/logo-lays.svg" alt="Lay's"></span>
+        <span class="brand-logo-link" role="listitem"><img src="img/logo-pepsi.svg" alt="Pepsi"></span>
+        <span class="brand-logo-link" role="listitem"><img src="img/logo-rappi.svg" alt="Rappi"></span>
+        <span class="brand-logo-link" role="listitem"><img src="img/logo-keveri.avif" alt="Keveri"></span>
+        <span class="brand-logo-link" role="listitem"><img src="img/logo-legion-extranjera.png" alt="Legión Extranjera"></span>
+        <span class="brand-logo-link" role="listitem"><img src="img/logo-la-francisca.svg" alt="La Francisca"></span>
+        <span class="brand-logo-link" role="listitem"><img src="img/logo-salvita.png" alt="Salvita"></span>
+        <span class="brand-logo-link" role="listitem"><img src="img/logo-quento-snacks.svg" alt="Quento Snacks"></span>
       </div>
     </div>
   </div>
@@ -621,15 +645,15 @@ a,button,[onclick],[role="button"],.filter-btn,.btn-buy,.btn-ver,.btn-primary,.b
     <div class="reveal">
       <div class="sec-label">Productos digitales</div>
       <h2 class="sec-title" style="color:var(--dark);"><em>Recetarios</em> para llevar<br>el fuego a tu casa.</h2>
-      <p class="sec-desc" style="color:var(--muted);">PDFs descargables. Comprá y accedé al instante. Conocimiento del norte para dominar el fuego.</p>
+      <p class="sec-desc" style="color:var(--muted);">PDFs descargables. Comprá y accedé al instante a todo lo que sé del fuego.</p>
     </div>
     <div class="digital-grid" id="recetariosGrid">
       <div style="grid-column:1/-1;text-align:center;padding:3rem 0;color:var(--muted);font-size:.9rem;">Cargando recetarios...</div>
     </div>
-    <!-- Solo visible en mobile cuando hay más de 2 productos -->
+    <!-- "Ver todos" solo aparece si hay más de 4 recetarios con PDF (expande en línea) -->
     <div class="ver-todos-mob" id="verTodosMob" style="display:none;">
       <p class="ver-todos-mob-msg" id="verTodosMsg"></p>
-      <a href="/recetarios" class="btn-ver-todos">Ver todos los recetarios →</a>
+      <button class="btn-ver-todos" id="verTodosBtn" onclick="toggleRecetariosTodos(this)">Ver todos los recetarios</button>
     </div>
   </div>
 </section>
@@ -703,25 +727,6 @@ a,button,[onclick],[role="button"],.filter-btn,.btn-buy,.btn-ver,.btn-primary,.b
 
 <!-- MODALES PORTFOLIO (generados dinámicamente) -->
 <div id="portModalesContainer"></div>
-<!-- ═══════════ MARCAS ═══════════ -->
-<section class="brands-sec" id="marcas">
-  <div class="container">
-    <p class="brands-caption">Marcas con las que trabajé</p>
-    <div class="brands-strip reveal" role="list" aria-label="Marcas con las que trabajó Javo">
-      <span class="brand-logo-link" role="listitem"><img src="img/logo-stella.svg" alt="Stella Artois"></span>
-      <span class="brand-logo-link" role="listitem"><img src="img/logo-hellmanns.svg" alt="Hellmann's"></span>
-      <span class="brand-logo-link" role="listitem"><img src="img/logo-lays.svg" alt="Lay's"></span>
-      <span class="brand-logo-link" role="listitem"><img src="img/logo-pepsi.svg" alt="Pepsi"></span>
-      <span class="brand-logo-link" role="listitem"><img src="img/logo-rappi.svg" alt="Rappi"></span>
-      <span class="brand-logo-link" role="listitem"><img src="img/logo-keveri.avif" alt="Keveri"></span>
-      <span class="brand-logo-link" role="listitem"><img src="img/logo-legion-extranjera.png" alt="Legión Extranjera"></span>
-      <span class="brand-logo-link" role="listitem"><img src="img/logo-la-francisca.svg" alt="La Francisca"></span>
-      <span class="brand-logo-link" role="listitem"><img src="img/logo-salvita.png" alt="Salvita"></span>
-      <span class="brand-logo-link" role="listitem"><img src="img/logo-quento-snacks.svg" alt="Quento Snacks"></span>
-    </div>
-  </div>
-</section>
-
 <!-- ═══════════ CONTRATAR ═══════════ -->
 <section class="hire-sec" id="contratar">
   <div class="container">
@@ -1621,27 +1626,51 @@ function consultarProducto(nombre){
 }
 
 /* ── RECETARIOS DINÁMICOS ── */
+let _recetariosConPdf=[];
+let _recExpanded=false;
+const REC_HOME_MAX=4;
+
+// Un recetario es público solo si tiene un PDF válido cargado desde el admin.
+function _recetarioTienePdf(rec){
+  const u=rec&&rec.pdf_url;
+  if(!u||typeof u!=='string')return false;
+  const s=u.trim();
+  if(!s)return false;
+  if(!/^https?:\/\//i.test(s))return false;                 // URL absoluta
+  if(/(placeholder|ejemplo|example|tu-pdf|null|undefined)/i.test(s))return false; // descarta placeholders
+  return true;
+}
+
 async function loadRecetariosPublic(){
+  const sec=document.getElementById('recetarios');
   try{
     const r=await fetch(`${SUPA_URL}/rest/v1/recetarios?activo=eq.true&order=orden.asc.nullslast,created_at.asc`,{
       headers:{'apikey':SUPA_KEY,'Authorization':'Bearer '+SUPA_KEY}
     });
     if(!r.ok)return;
     const list=await r.json();
-    if(!list.length)return;
-    window._recetariosData=list; // Cache para "Mis compras"
-    const grid=document.getElementById('recetariosGrid');
-    const modalesContainer=document.getElementById('recetariosModales');
-    const esc=s=>String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;');
-    // En home mobile se muestran solo los primeros 2 productos.
-    // Los siguientes reciben la clase mob-oculta (CSS la oculta en mobile).
-    const HOME_MAX = 4;
-    grid.innerHTML=list.map((rec, idx)=>{
-      const precioDisplay=rec.precio?'$'+Number(rec.precio).toLocaleString('es-AR'):'';
-      const slug='rec'+rec.id;
-      const recSlug=rec.slug||String(rec.id);
-      const mobClass=idx>=HOME_MAX?'mob-oculta':'';
-      return`<div class="digital-card ${rec.featured?'featured':''} ${mobClass} reveal" data-rec-slug="${esc(recSlug)}">
+    window._recetariosData=Array.isArray(list)?list:[]; // cache completo para "Mis compras"
+    // Solo recetarios con PDF válido se muestran como producto público
+    _recetariosConPdf=window._recetariosData.filter(_recetarioTienePdf);
+    if(!_recetariosConPdf.length){ if(sec)sec.style.display='none'; return; }
+    if(sec)sec.style.display='';
+    _recExpanded=false;
+    renderRecetariosPublic();
+  }catch(e){}
+}
+
+function renderRecetariosPublic(){
+  const grid=document.getElementById('recetariosGrid');
+  const modalesContainer=document.getElementById('recetariosModales');
+  if(!grid)return;
+  const esc=s=>String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;');
+  const visibles=_recExpanded?_recetariosConPdf:_recetariosConPdf.slice(0,REC_HOME_MAX);
+
+  grid.innerHTML=visibles.map(rec=>{
+    const precioDisplay=rec.precio?'$'+Number(rec.precio).toLocaleString('es-AR'):'';
+    const slug='rec'+rec.id;
+    const recSlug=rec.slug||String(rec.id);
+    return`<div class="digital-card ${rec.featured?'featured':''} reveal" data-rec-slug="${esc(recSlug)}">
         <img class="dc-img" src="${esc(rec.foto_url||'')}" alt="${esc(rec.titulo||'')}" loading="lazy">
         <div class="dc-tag">${esc(rec.tag||'')}</div>
         <div class="dc-title">${esc(rec.titulo||'')}</div>
@@ -1652,16 +1681,10 @@ async function loadRecetariosPublic(){
           <button class="btn-buy" data-rec-slug="${esc(recSlug)}" onclick="comprarRecetario('${esc(recSlug)}','${esc(rec.titulo||'')}',${rec.precio||0})">Comprar</button>
         </div>
       </div>`;
-    }).join('');
-    // Mostrar botón "Ver todos" en mobile si hay más de MOBILE_MAX productos
-    const extra=list.length-HOME_MAX;
-    if(extra>0){
-      const wrap=document.getElementById('verTodosMob');
-      const msg=document.getElementById('verTodosMsg');
-      if(wrap)wrap.style.display='';
-      if(msg)msg.textContent=`Hay ${extra} recetario${extra!==1?'s':''} más disponible${extra!==1?'s':''}.`;
-    }
-    modalesContainer.innerHTML=list.map(rec=>{
+  }).join('');
+
+  if(modalesContainer){
+    modalesContainer.innerHTML=visibles.map(rec=>{
       const slug='rec'+rec.id;
       const recSlug=rec.slug||String(rec.id);
       const precioDisplay=rec.precio?'$'+Number(rec.precio).toLocaleString('es-AR')+' ARS':'';
@@ -1671,7 +1694,7 @@ async function loadRecetariosPublic(){
           <button class="modal-close" onclick="closeModal('modal-${slug}')">✕</button>
           <img class="modal-header-img" src="${esc(rec.foto_url||'')}" alt="${esc(rec.titulo||'')}">
           <div class="modal-body">
-            <div class="modal-tag">📖 Recetario Digital · ${esc(rec.tag||'')}</div>
+            <div class="modal-tag">Recetario digital · ${esc(rec.tag||'')}</div>
             <div class="modal-title">${esc(rec.titulo||'')}</div>
             <p class="modal-desc">${esc(rec.descripcion_larga||rec.descripcion_corta||'')}</p>
             <ul class="modal-includes">${includes}</ul>
@@ -1683,12 +1706,31 @@ async function loadRecetariosPublic(){
         </div>
       </div>`;
     }).join('');
-    // Re-observar elementos reveal recién creados
-    document.querySelectorAll('#recetariosGrid .reveal').forEach(el=>{
-      if(window._revealObserver)window._revealObserver.observe(el);
-      else el.classList.add('visible');
-    });
-  }catch(e){}
+  }
+
+  // "Ver todos" solo si hay más de 4 recetarios con PDF
+  const wrap=document.getElementById('verTodosMob');
+  if(wrap){
+    if(_recetariosConPdf.length>REC_HOME_MAX){
+      wrap.style.display='';
+      const btn=document.getElementById('verTodosBtn');
+      const msg=document.getElementById('verTodosMsg');
+      if(btn)btn.textContent=_recExpanded?'Ver menos':'Ver todos los recetarios';
+      if(msg)msg.textContent=_recExpanded?'':`Hay ${_recetariosConPdf.length-REC_HOME_MAX} recetario${_recetariosConPdf.length-REC_HOME_MAX!==1?'s':''} más.`;
+    }else{
+      wrap.style.display='none';
+    }
+  }
+
+  document.querySelectorAll('#recetariosGrid .reveal').forEach(el=>{
+    if(window._revealObserver)window._revealObserver.observe(el);
+    else el.classList.add('visible');
+  });
+}
+
+function toggleRecetariosTodos(){
+  _recExpanded=!_recExpanded;
+  renderRecetariosPublic();
 }
 
 /* ── MODALES RECETARIOS ── */
@@ -1903,11 +1945,45 @@ async function loadSiteImages(){
   }catch(e){}
 }
 
+/* ── DATOS VIVOS DESDE GOOGLE SHEETS (métricas + marcas) ── */
+// Lee /api/site_data (server-side lee el Sheet). Si no hay datos, deja el
+// fallback embebido en el HTML. Nunca rompe el render.
+async function loadSiteData(){
+  try{
+    const r=await fetch('/api/site_data');
+    if(!r.ok)return;
+    const d=await r.json();
+    if(!d||!d.ok)return;
+    if(Array.isArray(d.metricas)&&d.metricas.length)renderAboutMetrics(d.metricas);
+    if(Array.isArray(d.marcas)&&d.marcas.length)renderAboutBrands(d.marcas);
+  }catch(e){}
+}
+function _escH(s){return String(s||'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));}
+function renderAboutMetrics(metricas){
+  const cont=document.getElementById('aboutNumbers');
+  if(!cont)return;
+  cont.innerHTML=metricas.slice(0,4).map(m=>
+    `<div class="about-metric"><div class="about-num-val">${_escH(m.value)}${m.suffix?`<span>${_escH(m.suffix)}</span>`:''}</div><div class="about-num-label">${_escH(m.label)}</div></div>`
+  ).join('');
+}
+function renderAboutBrands(marcas){
+  const cont=document.getElementById('aboutBrands');
+  if(!cont)return;
+  cont.innerHTML=marcas.map(m=>{
+    if(!m.logo_url)return'';
+    const img=`<img src="${_escH(m.logo_url)}" alt="${_escH(m.name)}" loading="lazy" onerror="this.parentElement.style.display='none'">`;
+    return m.website_url
+      ?`<a class="brand-logo-link" role="listitem" href="${_escH(m.website_url)}" target="_blank" rel="noopener">${img}</a>`
+      :`<span class="brand-logo-link" role="listitem">${img}</span>`;
+  }).join('');
+}
+
 // Init on load
 document.addEventListener('DOMContentLoaded',async()=>{
   const fc=document.getElementById('footerCopy');
   if(fc)fc.textContent='© '+new Date().getFullYear()+' Javotecocina · javotecocina.com';
   loadSiteImages();
+  loadSiteData();
   loadInstagramPosts();
   loadRecetariosPublic();
   loadProductosPublic();

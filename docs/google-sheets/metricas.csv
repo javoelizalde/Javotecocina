@@ -1,0 +1,5 @@
+key,label,value,suffix,description,visible,order
+eventos,Eventos realizados,30,+,Cantidad de eventos producidos,si,1
+personas,Personas atendidas,5K,+,Comensales alcanzados en eventos,si,2
+seguidores,Seguidores totales,83K,+,Suma de seguidores en redes,si,3
+marcas,Marcas aliadas,15,+,Marcas con las que se trabajó,si,4
