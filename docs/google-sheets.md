@@ -39,12 +39,14 @@ configurado o no responde, la web usa los valores embebidos en el HTML como fall
 ### Pestaña `marcas`
 | columna | qué es |
 |---|---|
-| `name` | nombre de la marca (alt de la imagen) |
-| `logo_url` | URL del logo (PNG/SVG/AVIF). Puede ser de javotecocina.com o externa |
-| `website_url` | opcional — si la cargás, el logo linkea ahí |
+| `name` | nombre de la marca. **Obligatorio.** Si no hay logo, se muestra como chip de texto |
+| `logo_url` | **Opcional.** Logo (PNG/SVG/AVIF). Acepta una ruta del sitio (`/img/logo-x.svg`) o **cualquier URL pública** (ej. un logo subido a Drive público, Imgur, el sitio de la marca, etc.). Si lo dejás vacío, se muestra el `name` como chip |
+| `website_url` | opcional — si la cargás, el logo/chip linkea ahí |
 | `visible` | `si`/`no` |
 | `featured` | opcional, para destacar (reservado para uso futuro) |
 | `order` | orden de aparición |
+
+> **Sumar/sacar marcas sin depender de nadie:** la pestaña `marcas` es la **fuente real** una vez configurada — reemplaza por completo a los logos de ejemplo del código. Para **agregar** una marca: nueva fila con el `name` (y un `logo_url` si tenés el logo a mano; si no, queda como chip de texto). Para **sacar** una: borrá la fila o poné `visible = no`. Nunca hace falta tocar código.
 
 ---
 
