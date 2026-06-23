@@ -119,16 +119,16 @@ nav.scrolled{background:rgba(26,18,11,.92);backdrop-filter:blur(12px);padding:.9
 .pillar-go{margin-top:.4rem;font-family:'Barlow Condensed',sans-serif;font-size:.76rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--fire);}
 @media(max-width:768px){.pillars{padding:2rem 0;}.pillars-grid{grid-template-columns:1fr;gap:.75rem;}.pillar{padding:1.1rem 1.25rem;}}
 
-/* ── ABOUT ── */
-.about{background:var(--dark);color:var(--ash);}
+/* ── ABOUT (imagen full-bleed con overlay, tratamiento tipo Hero) ── */
+.about{position:relative;background:var(--dark);color:var(--ash);overflow:hidden;}
 .about .sec-title{color:var(--ash);}
-.about .sec-desc{color:rgba(245,237,228,.65);}
-.about-grid{display:grid;grid-template-columns:1fr 1fr;gap:3.5rem;align-items:center;}
-.about-img-wrap{position:relative;aspect-ratio:3/4;max-height:460px;overflow:hidden;border-radius:4px;}
-.about-img-wrap img{width:100%;height:100%;object-fit:cover;object-position:top;}
-.about-accent{position:absolute;bottom:-1.5rem;right:-1.5rem;width:120px;height:120px;border:1px solid rgba(200,75,17,.3);border-radius:2px;z-index:-1;}
-.about-accent2{position:absolute;top:-1.5rem;left:-1.5rem;width:70px;height:70px;background:var(--fire);opacity:.12;border-radius:2px;}
-.about-tags{margin-top:1.5rem;font-family:'Barlow Condensed',sans-serif;font-size:.75rem;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:rgba(245,237,228,.38);line-height:1.9;}
+.about .sec-desc{color:rgba(245,237,228,.72);}
+.about-img-wrap{position:absolute;inset:0;z-index:0;}
+.about-img-wrap img{width:100%;height:100%;object-fit:cover;object-position:center 28%;opacity:.42;}
+.about-overlay{position:absolute;inset:0;z-index:1;background:radial-gradient(ellipse 70% 90% at 15% 40%,rgba(200,75,17,.18) 0%,transparent 60%),linear-gradient(105deg,rgba(26,18,11,.93) 0%,rgba(26,18,11,.8) 44%,rgba(26,18,11,.5) 100%);}
+.about .container{position:relative;z-index:2;}
+.about-content{max-width:640px;}
+.about-tags{margin-top:1.5rem;font-family:'Barlow Condensed',sans-serif;font-size:.75rem;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:rgba(245,237,228,.45);line-height:1.9;}
 .about-numbers{display:flex;flex-wrap:wrap;gap:1.5rem 3rem;margin-top:2.5rem;padding-top:2.5rem;border-top:1px solid rgba(245,237,228,.1);}
 .about-num-val{font-family:'Barlow Condensed',sans-serif;font-size:3.5rem;font-weight:800;color:var(--ash);line-height:.85;letter-spacing:-.02em;}
 .about-num-val span{color:var(--ember);}
@@ -136,7 +136,7 @@ nav.scrolled{background:rgba(26,18,11,.92);backdrop-filter:blur(12px);padding:.9
 
 /* ── INSTAGRAM ── */
 .ig-sec{background:var(--cream);padding:var(--gap) 0;}
-.ig-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:.75rem;margin-top:3rem;}
+.ig-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:.75rem;margin-top:2.25rem;}
 
 /* Card base — portrait 4:5, igual que el feed de IG */
 .ig-item{position:relative;aspect-ratio:4/5;overflow:hidden;border-radius:6px;background:#1a120b;display:block;text-decoration:none;}
@@ -147,7 +147,8 @@ nav.scrolled{background:rgba(26,18,11,.92);backdrop-filter:blur(12px);padding:.9
 .ig-item-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(26,18,11,.85) 0%,rgba(26,18,11,.05) 50%,transparent 100%);display:flex;flex-direction:column;justify-content:flex-end;padding:.75rem;pointer-events:none;}
 .ig-play-btn{display:inline-flex;align-items:center;gap:.4rem;background:var(--fire);color:#fff;padding:.4rem .75rem;border-radius:3px;font-family:'Barlow Condensed',sans-serif;font-size:.68rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;width:fit-content;}
 .ig-card-title{font-family:'Barlow Condensed',sans-serif;font-size:clamp(.78rem,2.2vw,.95rem);font-weight:600;color:#fff;line-height:1.25;margin:0 0 .5rem;text-shadow:0 1px 4px rgba(0,0,0,.7);max-width:100%;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;}
-.ig-no-thumb{width:100%;height:100%;background:linear-gradient(135deg,#2a1a0e 0%,#1a120b 100%);}
+.ig-no-thumb{width:100%;height:100%;background:linear-gradient(135deg,#2a1a0e 0%,#1a120b 100%);display:flex;align-items:center;justify-content:center;}
+.ig-big-play{width:56px;height:56px;border-radius:50%;background:rgba(200,75,17,.92);display:flex;align-items:center;justify-content:center;color:#fff;padding-left:5px;box-shadow:0 4px 16px rgba(0,0,0,.3);}
 
 .ig-empty{grid-column:1/-1;text-align:center;padding:3rem 0;color:var(--muted);font-size:.9rem;}
 @media(max-width:900px){.ig-grid{grid-template-columns:repeat(2,1fr);gap:.6rem;}}
@@ -329,51 +330,51 @@ textarea{resize:vertical;min-height:90px;}
 .prod-modal-close{position:absolute;top:1rem;right:1rem;background:rgba(26,18,11,.7);border:1px solid rgba(245,237,228,.1);border-radius:2px;font-size:1rem;color:rgba(245,237,228,.55);width:32px;height:32px;display:flex;align-items:center;justify-content:center;transition:color .2s,border-color .2s;cursor:pointer;}
 .prod-modal-close:hover{color:var(--ash);border-color:rgba(245,237,228,.3);}
 
-/* ── TESTIMONIOS ── */
-.testi-sec{background:var(--dark);}
-.testi-sec .sec-title{color:var(--ash);}
+/* ── TESTIMONIOS (fondo claro: alterna con Contratar/dark) ── */
+.testi-sec{background:var(--cream);}
+.testi-sec .sec-title{color:var(--dark);}
 
 /* Rating summary */
-.rating-summary{display:flex;align-items:center;gap:3rem;margin-top:3rem;margin-bottom:2.5rem;padding:2rem 2.5rem;background:rgba(245,237,228,.04);border:1px solid rgba(245,237,228,.07);border-radius:4px;flex-wrap:wrap;}
+.rating-summary{display:flex;align-items:center;gap:3rem;margin-top:2.25rem;margin-bottom:2.5rem;padding:2rem 2.5rem;background:#fff;border:1px solid rgba(26,18,11,.08);border-radius:6px;flex-wrap:wrap;}
 .rating-big{text-align:center;flex-shrink:0;}
-.rating-num{font-family:'Barlow Condensed',sans-serif;font-size:4rem;font-weight:800;color:var(--ash);line-height:1;display:block;}
+.rating-num{font-family:'Barlow Condensed',sans-serif;font-size:4rem;font-weight:800;color:var(--dark);line-height:1;display:block;}
 .rating-stars-row{color:var(--ember);font-size:1.2rem;letter-spacing:.1em;margin:.25rem 0;}
-.rating-total{font-family:'Barlow Condensed',sans-serif;font-size:.7rem;letter-spacing:.12em;text-transform:uppercase;color:rgba(245,237,228,.35);}
+.rating-total{font-family:'Barlow Condensed',sans-serif;font-size:.7rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);}
 .rating-bars{flex:1;min-width:180px;display:flex;flex-direction:column;gap:.5rem;}
 .rating-bar-row{display:flex;align-items:center;gap:.65rem;}
-.rating-bar-label{font-family:'Barlow Condensed',sans-serif;font-size:.7rem;font-weight:600;color:rgba(245,237,228,.4);width:20px;text-align:right;flex-shrink:0;}
-.rating-bar-track{flex:1;height:6px;background:rgba(245,237,228,.08);border-radius:3px;overflow:hidden;}
+.rating-bar-label{font-family:'Barlow Condensed',sans-serif;font-size:.7rem;font-weight:600;color:var(--muted);width:20px;text-align:right;flex-shrink:0;}
+.rating-bar-track{flex:1;height:6px;background:rgba(26,18,11,.1);border-radius:3px;overflow:hidden;}
 .rating-bar-fill{height:100%;background:var(--ember);border-radius:3px;transition:width .6s ease;}
-.rating-bar-count{font-family:'Barlow Condensed',sans-serif;font-size:.7rem;color:rgba(245,237,228,.3);width:16px;flex-shrink:0;}
+.rating-bar-count{font-family:'Barlow Condensed',sans-serif;font-size:.7rem;color:var(--muted);width:16px;flex-shrink:0;}
 
 /* Carousel */
 .testi-carousel{position:relative;}
 .testi-track{display:flex;transition:transform .45s cubic-bezier(.4,0,.2,1);}
-.testi-card{min-width:100%;padding:2.5rem;background:rgba(245,237,228,.04);border:1px solid rgba(245,237,228,.07);border-radius:4px;box-sizing:border-box;}
+.testi-card{min-width:100%;padding:2.5rem;background:#fff;border:1px solid rgba(26,18,11,.08);border-radius:6px;box-sizing:border-box;}
 .testi-stars{color:var(--ember);font-size:1.1rem;margin-bottom:1rem;letter-spacing:.12em;}
-.testi-text{font-family:'Cormorant Garamond',serif;font-size:1.05rem;font-style:italic;color:rgba(245,237,228,.78);line-height:1.75;margin-bottom:1.75rem;}
-.testi-author{font-family:'Barlow Condensed',sans-serif;font-size:.75rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--ember);}
-.testi-role{font-size:.78rem;color:rgba(245,237,228,.35);margin-top:.2rem;}
+.testi-text{font-family:'Cormorant Garamond',serif;font-size:1.15rem;font-style:italic;color:var(--earth);line-height:1.75;margin-bottom:1.75rem;}
+.testi-author{font-family:'Barlow Condensed',sans-serif;font-size:.75rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--fire);}
+.testi-role{font-size:.78rem;color:var(--muted);margin-top:.2rem;}
 .testi-nav{display:flex;justify-content:center;gap:.6rem;margin-top:1.5rem;}
-.testi-dot{width:28px;height:4px;border-radius:2px;background:rgba(245,237,228,.18);border:none;transition:background .25s,width .25s;padding:10px 0;box-sizing:content-box;cursor:pointer;}
+.testi-dot{width:28px;height:4px;border-radius:2px;background:rgba(26,18,11,.18);border:none;transition:background .25s,width .25s;padding:10px 0;box-sizing:content-box;cursor:pointer;}
 .testi-dot.active{background:var(--ember);width:44px;}
 
 /* Form */
-.testi-form-wrap{margin-top:4rem;padding-top:3rem;border-top:1px solid rgba(245,237,228,.08);}
-.testi-form-title{font-family:'Cormorant Garamond',serif;font-size:1.6rem;font-weight:700;color:var(--ash);margin-bottom:.5rem;}
-.testi-form-sub{font-size:.875rem;color:rgba(245,237,228,.45);margin-bottom:2rem;}
+.testi-form-wrap{margin-top:3rem;padding-top:2.5rem;border-top:1px solid rgba(26,18,11,.1);}
+.testi-form-title{font-family:'Cormorant Garamond',serif;font-size:1.6rem;font-weight:700;color:var(--dark);margin-bottom:.5rem;}
+.testi-form-sub{font-size:.875rem;color:var(--muted);margin-bottom:2rem;}
 .testi-form-inner{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;max-width:780px;}
 .testi-form-inner .full{grid-column:1/-1;}
-.testi-input{width:100%;padding:.75rem 1rem;border:1px solid rgba(245,237,228,.1);border-radius:2px;font-family:'Barlow',sans-serif;font-size:.875rem;color:var(--ash);background:rgba(245,237,228,.04);transition:border-color .2s;outline:none;}
+.testi-input{width:100%;padding:.75rem 1rem;border:1px solid rgba(26,18,11,.15);border-radius:4px;font-family:'Barlow',sans-serif;font-size:.875rem;color:var(--dark);background:#fff;transition:border-color .2s;outline:none;}
 .testi-input:focus{border-color:var(--fire);}
-.testi-input::placeholder{color:rgba(245,237,228,.25);}
-.testi-submit{padding:.85rem 2rem;background:var(--fire);color:#fff;border:none;border-radius:2px;font-family:'Barlow Condensed',sans-serif;font-size:.9rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;transition:background .2s;}
+.testi-input::placeholder{color:#a08060;}
+.testi-submit{padding:.85rem 2rem;background:var(--fire);color:#fff;border:none;border-radius:4px;font-family:'Barlow Condensed',sans-serif;font-size:.9rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;transition:background .2s;}
 .testi-submit:hover{background:var(--ember);}
 
 /* Star picker */
-.star-label{font-family:'Barlow Condensed',sans-serif;font-size:.73rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:rgba(245,237,228,.5);display:block;margin-bottom:.5rem;}
+.star-label{font-family:'Barlow Condensed',sans-serif;font-size:.73rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--earth);display:block;margin-bottom:.5rem;}
 .star-picker{display:flex;gap:.2rem;margin:.1rem 0 .5rem;}
-.star-picker span{font-size:2.2rem;color:rgba(245,237,228,.3);line-height:1;transition:color .1s,transform .1s;user-select:none;-webkit-user-select:none;}
+.star-picker span{font-size:2.2rem;color:rgba(26,18,11,.2);line-height:1;transition:color .1s,transform .1s;user-select:none;-webkit-user-select:none;}
 .star-picker span.on{color:var(--ember);}
 .star-picker span:hover{transform:scale(1.12);}
 
@@ -426,12 +427,8 @@ a,button,[onclick],[role="button"],.filter-btn,.btn-buy,.btn-ver,.btn-primary,.b
   :root{--gap:2.75rem;}
   .hero{padding:6rem 0 3.25rem;}
   .hero-content{padding:0 1.25rem;max-width:100%;}
-  .about-grid{grid-template-columns:1fr;gap:0;}
-  .about-img-wrap{aspect-ratio:unset;width:100%;height:380px;max-height:none;position:relative;margin-bottom:-100px;}
-  .about-img-wrap::after{content:'';position:absolute;inset:0;background:linear-gradient(to bottom,rgba(26,18,11,0) 20%,rgba(26,18,11,.65) 60%,rgba(26,18,11,1) 100%);pointer-events:none;}
-  .about-grid>div:last-child{position:relative;z-index:1;}
-  .about-accent{display:none;}
-  .about-accent2{display:none;}
+  .about-overlay{background:linear-gradient(rgba(26,18,11,.8) 0%,rgba(26,18,11,.92) 100%);}
+  .about-img-wrap img{object-position:center 25%;opacity:.5;}
   .portfolio-grid{grid-template-columns:1fr 1fr;}
   .portfolio-item[data-size="featured"]{grid-column:span 2;aspect-ratio:4/3;}
   .hire-grid{grid-template-columns:1fr;gap:3rem;}
@@ -526,7 +523,7 @@ a,button,[onclick],[role="button"],.filter-btn,.btn-buy,.btn-ver,.btn-primary,.b
   <a href="#portfolio" onclick="closeMobileMenu()">Portfolio</a>
   <a href="#sobre" onclick="closeMobileMenu()">Quién Soy</a>
   <a href="/cotizar" onclick="closeMobileMenu()" class="mob-cta">Cotizar</a>
-  <a href="#" onclick="closeMobileMenu();toggleUserMenu();" style="margin-top:.5rem;opacity:.7;">👤 Mi cuenta</a>
+  <a href="#" onclick="closeMobileMenu();toggleUserMenu();" style="margin-top:.5rem;opacity:.7;">Mi cuenta</a>
 </div>
 
 <!-- NAVBAR -->
@@ -562,7 +559,7 @@ a,button,[onclick],[role="button"],.filter-btn,.btn-buy,.btn-ver,.btn-primary,.b
 <!-- ═══════════ HERO ═══════════ -->
 <section class="hero" id="inicio">
   <div class="hero-bg"></div>
-  <div class="hero-photo"><img src="img/p03.jpg" alt="Javo Elizalde cocinando a fuego" fetchpriority="high"></div>
+  <div class="hero-photo"><img src="img/p03.jpg" alt="Javo Elizalde cocinando a fuego" fetchpriority="high" onerror="this.onerror=null;this.src='img/p03.jpg'"></div>
   <div class="hero-content">
     <div class="hero-eyebrow">Salta · Buenos Aires · Argentina</div>
     <h1 class="hero-title">Tu mesa, mi fuego,<br><em>nuestra historia.</em></h1>
@@ -599,23 +596,20 @@ a,button,[onclick],[role="button"],.filter-btn,.btn-buy,.btn-ver,.btn-primary,.b
 
 <!-- ═══════════ SOBRE MÍ ═══════════ -->
 <section class="about" id="sobre">
+  <div class="about-img-wrap"><img src="img/p01.jpg" alt="Javo Elizalde cocinando a fuego" loading="lazy" onerror="this.onerror=null;this.src='img/p01.jpg'"></div>
+  <div class="about-overlay"></div>
   <div class="container">
-    <div class="about-grid">
-      <div class="about-img-wrap reveal">
-        <img src="img/p01.jpg" alt="Javo Elizalde" loading="lazy">
-      </div>
-      <div class="reveal">
-        <div class="sec-label">Quién Soy</div>
-        <h2 class="sec-title">El sabor del<br><em>norte</em> en<br>mis manos.</h2>
-        <p class="sec-desc" style="margin-top:1.5rem;">Soy Javo Elizalde. Cocino con fuego: parrilla, disco y las recetas con las que crecí en el norte. Lo que arrancó grabando mientras cocinaba para amigos hoy son eventos, campañas con marcas y una comunidad que cocina conmigo del otro lado de la pantalla.</p>
-        <p class="sec-desc" style="margin-top:1rem;">Nací en Salta, me formé entre especias andinas y fuego de quebracho, y hoy llevo esos sabores a eventos, pantallas y mesas de todo el país. Desde Buenos Aires al mundo.</p>
-        <p class="about-tags">Cocina del NOA · Parrilla &amp; Asado · Creador de Contenido · Eventos &amp; Experiencias · Marcas</p>
-        <div class="about-numbers">
-          <div><div class="about-num-val">30<span>+</span></div><div class="about-num-label">Eventos realizados</div></div>
-          <div><div class="about-num-val">5K<span>+</span></div><div class="about-num-label">Personas atendidas</div></div>
-          <div><div class="about-num-val">83K<span>+</span></div><div class="about-num-label">Seguidores totales</div></div>
-          <div><div class="about-num-val">15<span>+</span></div><div class="about-num-label">Marcas aliadas</div></div>
-        </div>
+    <div class="about-content reveal">
+      <div class="sec-label">Quién Soy</div>
+      <h2 class="sec-title">El sabor del <em>norte</em>,<br>en mis manos.</h2>
+      <p class="sec-desc" style="margin-top:1.5rem;">Soy Javo Elizalde. Cocino con fuego: parrilla, disco y las recetas con las que crecí en el norte. Lo que arrancó grabando mientras cocinaba para amigos hoy son eventos, campañas con marcas y una comunidad que cocina conmigo del otro lado de la pantalla.</p>
+      <p class="sec-desc" style="margin-top:1rem;">Nací en Salta, me formé entre especias andinas y fuego de quebracho, y hoy llevo esos sabores a eventos, pantallas y mesas de todo el país. Desde Buenos Aires al mundo.</p>
+      <p class="about-tags">Cocina del NOA · Parrilla &amp; Asado · Creador de Contenido · Eventos &amp; Experiencias · Marcas</p>
+      <div class="about-numbers">
+        <div><div class="about-num-val">30<span>+</span></div><div class="about-num-label">Eventos realizados</div></div>
+        <div><div class="about-num-val">5K<span>+</span></div><div class="about-num-label">Personas atendidas</div></div>
+        <div><div class="about-num-val">83K<span>+</span></div><div class="about-num-label">Seguidores totales</div></div>
+        <div><div class="about-num-val">15<span>+</span></div><div class="about-num-label">Marcas aliadas</div></div>
       </div>
     </div>
   </div>
@@ -626,7 +620,7 @@ a,button,[onclick],[role="button"],.filter-btn,.btn-buy,.btn-ver,.btn-primary,.b
   <div class="container">
     <div class="reveal">
       <div class="sec-label">Productos digitales</div>
-      <h2 class="sec-title" style="color:var(--dark);">Recetarios<br><em>para llevar</em><br>el fuego a casa.</h2>
+      <h2 class="sec-title" style="color:var(--dark);"><em>Recetarios</em> para llevar<br>el fuego a tu casa.</h2>
       <p class="sec-desc" style="color:var(--muted);">PDFs descargables. Comprá y accedé al instante. Conocimiento del norte para dominar el fuego.</p>
     </div>
     <div class="digital-grid" id="recetariosGrid">
@@ -670,7 +664,8 @@ a,button,[onclick],[role="button"],.filter-btn,.btn-buy,.btn-ver,.btn-primary,.b
   <div class="container">
     <div class="reveal">
       <div class="sec-label">En las redes</div>
-      <h2 class="sec-title" style="color:var(--dark);">Lo que pasa<br>en el <em>fuego.</em></h2>
+      <h2 class="sec-title" style="color:var(--dark);"><em>Videos</em> y momentos<br>reales</h2>
+      <p class="sec-desc" style="color:var(--muted);">Reels de eventos, cocina al fuego y detrás de escena. Mirá lo que comparto en Instagram.</p>
     </div>
     <div class="ig-grid reveal" id="igGrid">
       <div class="ig-empty">Cargando contenido...</div>
@@ -687,7 +682,7 @@ a,button,[onclick],[role="button"],.filter-btn,.btn-buy,.btn-ver,.btn-primary,.b
     <div class="portfolio-header reveal">
       <div>
         <div class="sec-label">Eventos & Contenido</div>
-        <h2 class="sec-title" style="color:var(--ash);">Portfolio de<br><em>Experiencias</em></h2>
+        <h2 class="sec-title" style="color:var(--ash);"><em>Portfolio</em> de<br>experiencias</h2>
       </div>
       <div class="portfolio-filters">
         <button class="filter-btn active" onclick="filterPortfolio(this,'todo')">Todo</button>
@@ -733,7 +728,7 @@ a,button,[onclick],[role="button"],.filter-btn,.btn-buy,.btn-ver,.btn-primary,.b
     <div class="hire-grid">
       <div class="reveal">
         <div class="sec-label">Trabajemos juntos</div>
-        <h2 class="sec-title">Cotizá tu<br><em>evento</em><br>ahora.</h2>
+        <h2 class="sec-title">Cotizá tu <em>evento</em><br>ahora.</h2>
         <p class="sec-desc">Completá el formulario y te respondo por WhatsApp con todos los detalles y presupuesto a medida.</p>
         <div class="hire-perks">
           <div class="hire-perk">
@@ -776,8 +771,8 @@ a,button,[onclick],[role="button"],.filter-btn,.btn-buy,.btn-ver,.btn-primary,.b
 <section class="testi-sec" id="testimonios">
   <div class="container">
     <div class="reveal">
-      <div class="sec-label">Lo que dicen</div>
-      <h2 class="sec-title">Palabras de quienes<br><em>vivieron</em> la experiencia.</h2>
+      <div class="sec-label">Reseñas</div>
+      <h2 class="sec-title">Lo que dicen<br>mis <em>clientes</em>.</h2>
     </div>
     <!-- RATING SUMMARY — visible solo cuando hay reseñas reales -->
     <div class="rating-summary reveal" id="ratingSummary" style="display:none;">
@@ -809,11 +804,11 @@ a,button,[onclick],[role="button"],.filter-btn,.btn-buy,.btn-ver,.btn-primary,.b
       <p class="testi-form-sub">Dejá tu reseña completa. Aparecerá en el carrusel en la próxima actualización de la página.</p>
       <div class="testi-form-inner">
         <div class="form-group">
-          <label for="t-nombre" style="color:rgba(245,237,228,.4);">Nombre</label>
+          <label for="t-nombre">Nombre</label>
           <input class="testi-input" type="text" id="t-nombre" placeholder="Tu nombre">
         </div>
         <div class="form-group">
-          <label for="t-ref" style="color:rgba(245,237,228,.4);">Evento / Producto</label>
+          <label for="t-ref">Evento / Producto</label>
           <input class="testi-input" type="text" id="t-ref" placeholder="ej. Asado de cumpleaños, Recetario NOA…">
         </div>
         <div class="form-group full">
@@ -827,7 +822,7 @@ a,button,[onclick],[role="button"],.filter-btn,.btn-buy,.btn-ver,.btn-primary,.b
           </div>
         </div>
         <div class="form-group full">
-          <label for="t-texto" style="color:rgba(245,237,228,.4);">Tu comentario</label>
+          <label for="t-texto">Tu comentario</label>
           <textarea class="testi-input" id="t-texto" rows="4" placeholder="Contanos tu experiencia…"></textarea>
         </div>
         <div>
@@ -1855,6 +1850,9 @@ async function loadInstagramPosts(){
     if(!mediaPosts.length){if(sec)sec.style.display='none';return;}
     if(sec)sec.style.display='';
     const playSvg=`<svg width="11" height="13" viewBox="0 0 11 13" fill="currentColor" aria-hidden="true"><polygon points="0,0 11,6.5 0,13"/></svg>`;
+    const bigPlaySvg=`<svg width="22" height="26" viewBox="0 0 11 13" fill="currentColor" aria-hidden="true"><polygon points="0,0 11,6.5 0,13"/></svg>`;
+    // Fallback visible cuando falta el thumbnail o la imagen falla: card de video clara
+    window.__igNoThumb=`<div class="ig-no-thumb" aria-hidden="true"><span class="ig-big-play">${bigPlaySvg}</span></div>`;
     grid.innerHTML=mediaPosts.map(p=>{
       const href=escAttr(p.url);
       const titulo=p.titulo?`<p class="ig-card-title">${escAttr(p.titulo)}</p>`:'';
@@ -1867,10 +1865,10 @@ async function loadInstagramPosts(){
         </a>`;
       }
 
-      // ── Thumbnail / Instagram URL → card limpia sin embed ──
+      // ── Thumbnail / Instagram URL → card visual (fallback si falta o falla la imagen) ──
       const imgHtml=p.thumbnail_url
-        ?`<img src="${escAttr(p.thumbnail_url)}" alt="${p.titulo?escAttr(p.titulo):'Contenido de Instagram'}" loading="lazy">`
-        :`<div class="ig-no-thumb" aria-hidden="true"></div>`;
+        ?`<img src="${escAttr(p.thumbnail_url)}" alt="${p.titulo?escAttr(p.titulo):'Contenido de Instagram'}" loading="lazy" onerror="this.outerHTML=window.__igNoThumb">`
+        :window.__igNoThumb;
       return`<a class="ig-item" href="${href}" target="_blank" rel="noopener noreferrer" aria-label="Ver en Instagram">
         ${imgHtml}
         <div class="ig-item-overlay">${titulo}<span class="ig-play-btn">${playSvg}Ver en Instagram</span></div>

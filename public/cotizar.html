@@ -82,7 +82,6 @@ nav{position:fixed;top:0;width:100%;z-index:200;padding:1rem 1.5rem;display:flex
 }
 .tipo-card:active{transform:translateY(0);box-shadow:none;}
 .tipo-card:focus-visible{outline:2px solid var(--fire);outline-offset:3px;}
-.tipo-icon{font-size:1.5rem;flex-shrink:0;width:36px;text-align:center;}
 .tipo-info{flex:1;min-width:0;}
 .tipo-label{
   font-family:'Cormorant Garamond',serif;font-size:1.2rem;font-weight:600;
@@ -309,7 +308,6 @@ nav{position:fixed;top:0;width:100%;z-index:200;padding:1rem 1.5rem;display:flex
   .success-header{padding:2rem 1.25rem;}
 }
 @media(max-width:360px){
-  .tipo-icon{display:none;}
   .toggle-btn{font-size:.82rem;padding:.55rem .85rem;}
 }
 @media(prefers-reduced-motion:reduce){
@@ -352,7 +350,6 @@ nav{position:fixed;top:0;width:100%;z-index:200;padding:1rem 1.5rem;display:flex
       </div>
       <div class="tipo-grid">
         <button class="tipo-card" onclick="selectTipo('evento')">
-          <span class="tipo-icon">🍖</span>
           <div class="tipo-info">
             <div class="tipo-label">Cotizar un evento</div>
             <div class="tipo-desc">Asados, cenas, catering y experiencias gastronómicas</div>
@@ -360,7 +357,6 @@ nav{position:fixed;top:0;width:100%;z-index:200;padding:1rem 1.5rem;display:flex
           <span class="tipo-caret">→</span>
         </button>
         <button class="tipo-card" onclick="selectTipo('campana')">
-          <span class="tipo-icon">📱</span>
           <div class="tipo-info">
             <div class="tipo-label">Campaña de redes</div>
             <div class="tipo-desc">Colaboraciones con marcas, contenido e integración</div>
@@ -368,7 +364,6 @@ nav{position:fixed;top:0;width:100%;z-index:200;padding:1rem 1.5rem;display:flex
           <span class="tipo-caret">→</span>
         </button>
         <button class="tipo-card" onclick="selectTipo('producto')">
-          <span class="tipo-icon">📦</span>
           <div class="tipo-info">
             <div class="tipo-label">Producto físico</div>
             <div class="tipo-desc">Hornos, utensilios, equipamiento y otros productos</div>
@@ -376,7 +371,6 @@ nav{position:fixed;top:0;width:100%;z-index:200;padding:1rem 1.5rem;display:flex
           <span class="tipo-caret">→</span>
         </button>
         <button class="tipo-card" onclick="selectTipo('recetario')">
-          <span class="tipo-icon">📖</span>
           <div class="tipo-info">
             <div class="tipo-label">Recetario digital</div>
             <div class="tipo-desc">Consultas sobre mis recetarios, acceso o descarga</div>
@@ -384,7 +378,6 @@ nav{position:fixed;top:0;width:100%;z-index:200;padding:1rem 1.5rem;display:flex
           <span class="tipo-caret">→</span>
         </button>
         <button class="tipo-card" onclick="selectTipo('otra')">
-          <span class="tipo-icon">💬</span>
           <div class="tipo-info">
             <div class="tipo-label">Otra consulta</div>
             <div class="tipo-desc">Cualquier otro mensaje o propuesta</div>
@@ -437,14 +430,14 @@ nav{position:fixed;top:0;width:100%;z-index:200;padding:1rem 1.5rem;display:flex
     <!-- SUCCESS (estado post-apertura de WA) -->
     <div class="wizard-step" id="step-success">
       <div class="success-wrap" style="text-align:center;padding:3rem 0;">
-        <div style="font-size:3rem;margin-bottom:1rem;">✅</div>
+        <div style="margin-bottom:1.25rem;"><svg width="56" height="56" viewBox="0 0 24 24" fill="none" stroke="#27AE60" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M7.5 12.5l3 3 6-7"/></svg></div>
         <h2 style="font-family:'Cormorant Garamond',serif;font-size:clamp(1.8rem,5vw,2.4rem);color:var(--dark);margin-bottom:.75rem;">
           Solicitud <em style="color:var(--ember);">enviada</em>
         </h2>
         <p style="color:var(--muted);font-size:.93rem;line-height:1.65;max-width:340px;margin:0 auto 1.5rem;">
           WhatsApp se abrió con tu solicitud. Javo te responde para confirmar disponibilidad y coordinar la seña.
         </p>
-        <div class="success-status">⏳ Pendiente de confirmación por Javo</div>
+        <div class="success-status">Pendiente de confirmación por Javo</div>
       </div>
     </div>
 
@@ -505,11 +498,11 @@ const API_URL   = '/api/save_lead';
 
 /* ── STEPS DEFINITIONS ── */
 const TIPOS_LABELS = {
-  evento:    '🍖 Cotizar evento',
-  campana:   '📱 Campaña de redes',
-  producto:  '📦 Producto físico',
-  recetario: '📖 Recetario digital',
-  otra:      '💬 Otra consulta',
+  evento:    'Cotizar evento',
+  campana:   'Campaña de redes',
+  producto:  'Producto físico',
+  recetario: 'Recetario digital',
+  otra:      'Otra consulta',
 };
 
 const STEPS = {
