@@ -135,8 +135,8 @@ nav.scrolled{background:rgba(26,18,11,.92);backdrop-filter:blur(12px);padding:.9
 .about-num-val span{color:var(--ember);}
 .about-num-label{font-family:'Barlow Condensed',sans-serif;font-size:.68rem;font-weight:600;letter-spacing:.15em;text-transform:uppercase;color:rgba(245,237,228,.5);margin-top:.5rem;}
 /* Marcas integradas dentro de "Quién soy" */
-.about-brands{margin-top:2.5rem;padding-top:1.75rem;border-top:1px solid rgba(245,237,228,.12);display:flex;align-items:center;gap:1.25rem 1.75rem;flex-wrap:wrap;}
-.about-brands-label{font-family:'Barlow Condensed',sans-serif;font-size:.7rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:rgba(245,237,228,.4);flex-shrink:0;}
+.about-brands{margin-top:2.5rem;padding-top:1.75rem;border-top:1px solid rgba(245,237,228,.12);}
+.about-brands-label{display:block;margin-bottom:1rem;font-family:'Barlow Condensed',sans-serif;font-size:.7rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:rgba(245,237,228,.45);}
 
 /* ── INSTAGRAM ── */
 .ig-sec{background:var(--cream);padding:var(--gap) 0;}
@@ -197,14 +197,15 @@ nav.scrolled{background:rgba(26,18,11,.92);backdrop-filter:blur(12px);padding:.9
 .port-modal-close:hover{color:var(--ash);border-color:rgba(245,237,228,.3);}
 
 /* ── BRANDS ── */
-.brands-strip{display:flex;flex-wrap:wrap;align-items:center;gap:1.25rem 2rem;}
-.brand-logo-link{opacity:.5;filter:brightness(0) invert(1);transition:opacity .25s;display:flex;align-items:center;text-decoration:none;}
-.brand-logo-link:hover{opacity:.85;}
-.brand-logo-link img{height:22px;width:auto;object-fit:contain;display:block;max-width:74px;}
-/* Marca sin logo: chip de texto (permite sumar marcas desde el Sheet sin subir imagen) */
-.brand-chip{filter:none;opacity:.8;font-family:'Barlow Condensed',sans-serif;font-size:.8rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:rgba(245,237,228,.78);border:1px solid rgba(245,237,228,.2);border-radius:20px;padding:.3rem .8rem;}
-.brand-chip:hover{opacity:1;border-color:rgba(245,237,228,.4);}
-@media(max-width:480px){.brand-logo-link img{height:18px;}.brands-strip{gap:1rem 1.5rem;}}
+/* Marcas a color sobre una franja clara (sin recuadro por logo; todos al mismo alto = parejo).
+   Flex centrado: las filas completas ocupan todo el ancho y la última fila incompleta queda centrada. */
+.brands-strip{background:var(--cream);border-radius:12px;padding:1.5rem 1.75rem;display:flex;flex-wrap:wrap;justify-content:center;align-items:center;gap:1.5rem 1.25rem;}
+.brand-logo-link{flex:0 0 calc((100% - 5rem) / 5);display:flex;align-items:center;justify-content:center;text-decoration:none;}
+.brand-logo-link img{height:40px;width:auto;max-width:100%;object-fit:contain;display:block;}
+/* Marca sin logo (o logo que falla): nombre como texto sobre la franja */
+.brand-chip{font-family:'Barlow Condensed',sans-serif;font-size:.95rem;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:var(--dark);text-align:center;line-height:1.1;}
+@media(max-width:900px){.brands-strip{gap:1.25rem 1rem;padding:1.25rem;}.brand-logo-link{flex-basis:calc((100% - 3rem) / 4);}.brand-logo-link img{height:32px;}}
+@media(max-width:560px){.brands-strip{gap:1.1rem .75rem;}.brand-logo-link{flex-basis:calc((100% - 1.5rem) / 3);}.brand-logo-link img{height:26px;}}
 
 /* ── CONTRATAR ── */
 .hire-sec{background:var(--dark);}
