@@ -1,0 +1,55 @@
+FOTOS PARA: Lo Fresco del Norte
+========================================
+Dejá en esta carpeta los archivos con estos nombres EXACTOS.
+Cuando estén, las fotos reemplazan solas a los placeholders del recetario.
+Pauta: comida real, luz natural, tabla/fuente/Keveri real. Nada de IA ni banco de imágenes.
+
+1. portada.jpg
+   Ceviche de trucha rosada en bowl de cerámica blanca, cebolla morada y cilantro, gotas de limón y hielo, mesa de madera clara con luz natural de mediodía
+
+2. tecnica.jpg
+   Tabla de madera con filet de trucha rosada, limones partidos, locotos rojos y un cuchillo afilado, todo en penumbra fría con gotas de agua sobre la tabla
+
+3. ceviche-trucha.jpg
+   Ceviche de trucha en bowl blanco, cubos rosados, cebolla morada en pluma, cilantro fresco, rodajas de limón y locoto en primer plano, choclo y camote al costado
+
+4. tartar-trucha.jpg
+   Tartar de trucha en molde cilíndrico, rosado intenso con puntos rojos de locoto y verde de cebollín, tostadas finas al costado, fondo oscuro
+
+5. tiradito-salteno.jpg
+   Tiradito en plato hondo blanco, láminas finas rosadas de trucha, leche de tigre naranja brillante bañándolas, hojas de cilantro y rodajas de locoto encima
+
+6. carpaccio-portobello.jpg
+   Láminas finas de portobello marinado en plato plano blanco, aceite de oliva brillante, virutas de parmesano, rúcula verde y un gajo de limón
+
+7. ensalada-quinoa.jpg
+   Bowl amplio con quinoa blanca y negra, tomates cherry, pepino en medias lunas, menta fresca y vinagreta brillante, sobre tabla de madera clara
+
+8. naranja-cabra.jpg
+   Gajos de naranja sobre rúcula verde oscura, queso de cabra blanco desmenuzado, nueces tostadas y vinagreta de miel brillando encima
+
+9. choclo-salteado.jpg
+   Sartén de hierro con granos de choclo dorados, manteca derretida brillante, cebollín verde picado encima y medio limón al costado
+
+10. remolacha-yogur.jpg
+   Remolachas asadas de varios colores —roja, amarilla, rayada Chioggia— sobre una base de yogur griego blanco, con nueces y tomillo fresco encima
+
+11. chimichurri-norte.jpg
+   Frasco de chimichurri verde intenso con trozos de hierbas visibles, aceite de oliva dorado encima, una cuchara saliendo del frasco con la salsa brillando
+
+12. escabeche.jpg
+   Frasco de vidrio con escabeche colorido, pimientos rojos, zanahorias naranjas y coliflor blanca, en líquido dorado de vinagre y aceite con laurel
+
+13. gazpacho-norte.jpg
+   Gazpacho rojo intenso en bowl blanco profundo, hilo de aceite de oliva encima, croutons de pan flotando, dados de pepino y tomate cherry de decoración
+
+14. agua-hierbas.jpg
+   Jarra de vidrio con agua fresca verdosa, hojas de menta y flores de manzanilla visibles, hielo transparente y rodajas de limón flotando, luz de tarde
+
+15. vinagreta-locoto.jpg
+   Frasco de vinagreta naranja brillante con puntos rojos de locoto visibles, una cuchara sacando vinagreta sobre una ensalada de hojas verdes
+
+16. mesa.jpg
+   Mesa larga al aire libre con varias recetas frías del libro servidas para compartir: ceviche, ensaladas, frascos de encurtidos y una jarra de agua fresca, luz natural de mediodía, estilo familiar y real
+
+TOTAL: 16 fotos.

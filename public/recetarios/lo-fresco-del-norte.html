@@ -1,1196 +1,835 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Lo Fresco del Norte — Javo Te Cocina</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400;1,600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
-  <style>
-    :root {
-      --tierra: #2C1A0E;
-      --puna: #C4853A;
-      --fuego: #D4521A;
-      --sal: #F5EDD8;
-      --ceniza: #6B5744;
-      --verde-norte: #3A6B3A;
-      --blanco: #FFFFF0;
-      --verde-claro: #4a8a4a;
-      --verde-oscuro: #2a4f2a;
-      --agua: #7ab8c4;
-      --cielo: #e8f4f0;
-    }
-
-    *, *::before, *::after {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-
-    html {
-      scroll-behavior: smooth;
-    }
-
-    body {
-      background-color: var(--tierra);
-      color: var(--sal);
-      font-family: 'Libre Baskerville', Georgia, serif;
-      font-size: 16px;
-      line-height: 1.7;
-    }
-
-    /* NAV */
-    .nav-volver {
-      background-color: #1a2a1a;
-      border-bottom: 1px solid #2d4a2d;
-      padding: 12px 32px;
-      display: flex;
-      align-items: center;
-    }
-
-    .nav-volver a {
-      color: var(--verde-claro);
-      text-decoration: none;
-      font-family: 'Space Mono', monospace;
-      font-size: 13px;
-      letter-spacing: 0.05em;
-      transition: color 0.2s;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-
-    .nav-volver a:hover {
-      color: #8fd48f;
-    }
-
-    .nav-volver a::before {
-      content: '←';
-      font-size: 16px;
-    }
-
-    /* HEADER */
-    .header {
-      background: linear-gradient(160deg, #0d1f0d 0%, #152815 25%, #1e3a1e 50%, #243020 75%, #2C1A0E 100%);
-      border-bottom: 3px solid var(--verde-norte);
-      padding: 80px 32px 60px;
-      text-align: center;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .header::before {
-      content: '';
-      position: absolute;
-      top: 0; left: 0; right: 0; bottom: 0;
-      background:
-        radial-gradient(ellipse at 15% 40%, rgba(58, 107, 58, 0.22) 0%, transparent 55%),
-        radial-gradient(ellipse at 85% 60%, rgba(122, 184, 196, 0.1) 0%, transparent 50%),
-        radial-gradient(ellipse at 50% 10%, rgba(196, 133, 58, 0.08) 0%, transparent 45%);
-      pointer-events: none;
-    }
-
-    .header::after {
-      content: '';
-      position: absolute;
-      bottom: 0; left: 0; right: 0;
-      height: 3px;
-      background: linear-gradient(90deg, transparent, var(--verde-norte), var(--agua), var(--verde-norte), transparent);
-    }
-
-    .header-eyebrow {
-      font-family: 'Space Mono', monospace;
-      font-size: 11px;
-      letter-spacing: 0.25em;
-      text-transform: uppercase;
-      color: var(--verde-claro);
-      margin-bottom: 20px;
-      opacity: 0.85;
-      position: relative;
-    }
-
-    .header h1 {
-      font-family: 'Cormorant Garamond', Georgia, serif;
-      font-size: clamp(3rem, 8vw, 6rem);
-      font-weight: 700;
-      color: var(--blanco);
-      line-height: 1.05;
-      letter-spacing: -0.01em;
-      margin-bottom: 16px;
-      text-shadow: 0 2px 32px rgba(58, 107, 58, 0.5);
-      position: relative;
-    }
-
-    .header .subtitulo {
-      font-family: 'Cormorant Garamond', Georgia, serif;
-      font-size: clamp(1.2rem, 3vw, 1.7rem);
-      font-weight: 300;
-      font-style: italic;
-      color: #8fd4b0;
-      letter-spacing: 0.03em;
-      margin-bottom: 32px;
-      position: relative;
-    }
-
-    .header-meta {
-      font-family: 'Space Mono', monospace;
-      font-size: 12px;
-      color: var(--ceniza);
-      letter-spacing: 0.08em;
-      position: relative;
-    }
-
-    .header-meta span {
-      color: var(--verde-claro);
-    }
-
-    /* CONTENEDOR */
-    .container {
-      max-width: 860px;
-      margin: 0 auto;
-      padding: 0 24px;
-    }
-
-    /* INTRO */
-    .intro-section {
-      padding: 56px 0 40px;
-    }
-
-    .intro-section p {
-      font-size: 1.1rem;
-      line-height: 1.85;
-      color: var(--sal);
-      margin-bottom: 20px;
-    }
-
-    .intro-section p:first-child::first-letter {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 4.5rem;
-      font-weight: 700;
-      color: var(--verde-norte);
-      float: left;
-      line-height: 0.75;
-      margin: 8px 12px 0 0;
-    }
-
-    /* DESPENSA DEL NOA */
-    .despensa-noa {
-      background: linear-gradient(135deg, #0d1f12 0%, #142218 100%);
-      border: 1px solid #2d4a35;
-      border-left: 5px solid var(--verde-norte);
-      border-radius: 4px;
-      padding: 32px 36px;
-      margin: 40px 0 48px;
-      position: relative;
-    }
-
-    .despensa-noa::before {
-      content: '🌿';
-      position: absolute;
-      top: -16px;
-      left: 24px;
-      font-size: 28px;
-    }
-
-    .despensa-noa h3 {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 1.6rem;
-      font-weight: 600;
-      color: #8fd4b0;
-      margin-bottom: 8px;
-      letter-spacing: 0.02em;
-    }
-
-    .despensa-noa .despensa-subtitle {
-      font-family: 'Space Mono', monospace;
-      font-size: 11px;
-      color: #4a7a55;
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-      margin-bottom: 24px;
-    }
-
-    .despensa-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-      gap: 16px;
-      margin-top: 20px;
-    }
-
-    .despensa-item {
-      padding: 14px 16px;
-      background: rgba(58, 107, 58, 0.1);
-      border-radius: 3px;
-      border-top: 2px solid rgba(58, 107, 58, 0.35);
-    }
-
-    .despensa-item .di-nombre {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 1.1rem;
-      font-weight: 600;
-      color: var(--blanco);
-      margin-bottom: 4px;
-    }
-
-    .despensa-item .di-desc {
-      font-family: 'Libre Baskerville', serif;
-      font-size: 0.82rem;
-      color: #a0c0a8;
-      line-height: 1.4;
-    }
-
-    /* SECCIÓN DE RECETAS */
-    .recetas-section {
-      padding: 16px 0 64px;
-    }
-
-    .section-title {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: clamp(1.8rem, 4vw, 2.6rem);
-      font-weight: 600;
-      color: var(--blanco);
-      margin-bottom: 8px;
-      letter-spacing: 0.01em;
-    }
-
-    .section-divider {
-      width: 60px;
-      height: 3px;
-      background: linear-gradient(90deg, var(--verde-norte), transparent);
-      margin-bottom: 48px;
-    }
-
-    /* TARJETA RECETA */
-    .receta-card {
-      background-color: #3D2510;
-      border-left: 4px solid var(--fuego);
-      border-radius: 0 4px 4px 0;
-      padding: 36px 40px;
-      margin-bottom: 40px;
-      position: relative;
-    }
-
-    /* Para este recetario fresco, variamos el borde de algunas tarjetas */
-    .receta-card.card-fresca {
-      border-left-color: var(--verde-norte);
-    }
-
-    .receta-numero {
-      font-family: 'Space Mono', monospace;
-      font-size: 11px;
-      color: var(--verde-claro);
-      letter-spacing: 0.2em;
-      margin-bottom: 8px;
-      opacity: 0.7;
-    }
-
-    .receta-card h3 {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: clamp(1.6rem, 3.5vw, 2.2rem);
-      font-weight: 700;
-      color: var(--blanco);
-      margin-bottom: 16px;
-      line-height: 1.15;
-    }
-
-    .badges {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-      margin-bottom: 24px;
-    }
-
-    .badge {
-      font-family: 'Space Mono', monospace;
-      font-size: 11px;
-      padding: 5px 12px;
-      border-radius: 2px;
-      letter-spacing: 0.04em;
-      display: inline-flex;
-      align-items: center;
-      gap: 5px;
-    }
-
-    .badge-porciones {
-      background: rgba(196, 133, 58, 0.15);
-      border: 1px solid rgba(196, 133, 58, 0.4);
-      color: var(--puna);
-    }
-
-    .badge-prep {
-      background: rgba(107, 87, 68, 0.25);
-      border: 1px solid rgba(107, 87, 68, 0.5);
-      color: #b09a88;
-    }
-
-    .badge-coccion {
-      background: rgba(58, 107, 58, 0.15);
-      border: 1px solid rgba(58, 107, 58, 0.4);
-      color: var(--verde-claro);
-    }
-
-    .badge-macerado {
-      background: rgba(122, 184, 196, 0.12);
-      border: 1px solid rgba(122, 184, 196, 0.3);
-      color: var(--agua);
-    }
-
-    .receta-intro {
-      font-style: italic;
-      color: #d4c4b0;
-      margin-bottom: 28px;
-      font-size: 1rem;
-      border-left: 2px solid rgba(58, 107, 58, 0.4);
-      padding-left: 16px;
-      line-height: 1.75;
-    }
-
-    .receta-subtitulo {
-      font-family: 'Space Mono', monospace;
-      font-size: 10px;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      color: var(--verde-claro);
-      margin-bottom: 12px;
-      margin-top: 24px;
-    }
-
-    .ingredientes-lista {
-      list-style: none;
-      padding: 0;
-      margin-bottom: 8px;
-    }
-
-    .ingredientes-lista li {
-      padding: 6px 0;
-      border-bottom: 1px solid rgba(107, 87, 68, 0.2);
-      font-size: 0.95rem;
-      color: var(--sal);
-      display: flex;
-      align-items: baseline;
-      gap: 8px;
-    }
-
-    .ingredientes-lista li::before {
-      content: '—';
-      color: var(--verde-claro);
-      flex-shrink: 0;
-      font-family: 'Space Mono', monospace;
-      font-size: 12px;
-    }
-
-    .ingredientes-lista li:last-child {
-      border-bottom: none;
-    }
-
-    .cantidad {
-      font-family: 'Space Mono', monospace;
-      font-size: 12px;
-      color: var(--puna);
-      min-width: 80px;
-      flex-shrink: 0;
-    }
-
-    .pasos-lista {
-      list-style: none;
-      padding: 0;
-      counter-reset: paso-counter;
-    }
-
-    .pasos-lista li {
-      counter-increment: paso-counter;
-      padding: 12px 0 12px 52px;
-      border-bottom: 1px solid rgba(107, 87, 68, 0.15);
-      font-size: 0.95rem;
-      color: var(--sal);
-      line-height: 1.7;
-      position: relative;
-    }
-
-    .pasos-lista li::before {
-      content: counter(paso-counter);
-      position: absolute;
-      left: 0;
-      top: 10px;
-      font-family: 'Space Mono', monospace;
-      font-size: 13px;
-      font-weight: 700;
-      color: var(--verde-claro);
-      background: rgba(58, 107, 58, 0.12);
-      border: 1px solid rgba(58, 107, 58, 0.3);
-      width: 34px;
-      height: 34px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      border-radius: 2px;
-      flex-shrink: 0;
-    }
-
-    .pasos-lista li:last-child {
-      border-bottom: none;
-    }
-
-    .tip-javo {
-      background: linear-gradient(135deg, rgba(58, 107, 58, 0.1), rgba(122, 184, 196, 0.06));
-      border: 1px solid rgba(58, 107, 58, 0.3);
-      border-left: 3px solid var(--verde-claro);
-      border-radius: 0 3px 3px 0;
-      padding: 18px 20px;
-      margin-top: 28px;
-    }
-
-    .tip-javo .tip-label {
-      font-family: 'Space Mono', monospace;
-      font-size: 10px;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      color: var(--verde-claro);
-      margin-bottom: 8px;
-      display: block;
-    }
-
-    .tip-javo p {
-      font-size: 0.92rem;
-      color: #d4c4b0;
-      font-style: italic;
-      margin: 0;
-      line-height: 1.65;
-    }
-
-    /* FOOTER */
-    footer {
-      background: #0d1a0d;
-      border-top: 1px solid #1a3520;
-      padding: 48px 32px;
-      text-align: center;
-    }
-
-    .footer-marca {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 2rem;
-      font-weight: 700;
-      color: var(--puna);
-      letter-spacing: 0.03em;
-      margin-bottom: 8px;
-    }
-
-    .footer-sub {
-      font-family: 'Space Mono', monospace;
-      font-size: 11px;
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-      color: var(--ceniza);
-      margin-bottom: 24px;
-    }
-
-    .footer-links {
-      display: flex;
-      justify-content: center;
-      gap: 32px;
-      flex-wrap: wrap;
-      margin-bottom: 32px;
-    }
-
-    .footer-links a {
-      color: var(--ceniza);
-      text-decoration: none;
-      font-family: 'Space Mono', monospace;
-      font-size: 11px;
-      letter-spacing: 0.1em;
-      transition: color 0.2s;
-    }
-
-    .footer-links a:hover {
-      color: var(--verde-claro);
-    }
-
-    .footer-copy {
-      font-family: 'Space Mono', monospace;
-      font-size: 10px;
-      color: #2a3d2a;
-      letter-spacing: 0.1em;
-    }
-
-    /* RESPONSIVE */
-    @media (max-width: 640px) {
-      .header {
-        padding: 56px 20px 44px;
-      }
-
-      .receta-card {
-        padding: 28px 24px;
-      }
-
-      .despensa-noa {
-        padding: 28px 24px;
-      }
-
-      .despensa-grid {
-        grid-template-columns: 1fr 1fr;
-      }
-
-      .nav-volver {
-        padding: 12px 20px;
-      }
-    }
-
-    /* ── ÍNDICE */
-    .recetario-indice{background:rgba(196,133,58,0.06);border:1px solid rgba(196,133,58,0.18);padding:2rem 2.5rem;margin:0 auto 3rem;max-width:820px;border-radius:2px;}
-    .indice-titulo{font-family:'Space Mono',monospace;font-size:0.62rem;letter-spacing:0.22em;text-transform:uppercase;color:#C4853A;margin-bottom:1.25rem;}
-    .indice-lista{list-style:none;columns:2;gap:2rem;padding:0;margin:0;}
-    .indice-lista li{margin-bottom:0.55rem;break-inside:avoid;}
-    .indice-lista a{color:rgba(245,237,216,0.6);text-decoration:none;font-size:0.82rem;font-family:'Libre Baskerville',serif;transition:color 0.2s;display:flex;align-items:baseline;gap:0.4rem;}
-    .indice-lista a:hover{color:#C4853A;}
-    .indice-num{font-family:'Space Mono',monospace;font-size:0.6rem;color:#C4853A;opacity:0.65;flex-shrink:0;}
-    @media(max-width:600px){.indice-lista{columns:1;}}
-    /* ── FOTOS */
-    .receta-foto{width:100%;max-height:300px;object-fit:cover;display:block;margin-bottom:1.5rem;filter:brightness(0.82) sepia(0.12);}
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Lo Fresco del Norte — Javotecocina</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Barlow:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Barlow+Condensed:ital,wght@0,600;0,700;0,800;0,900;1,800;1,900&family=Lora:ital,wght@0,400;0,500;0,600;1,400;1,500;1,600&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+:root{
+  --fire:#BF460F;--ember:#E0760F;--gold:#C9A14A;
+  --dark:#170F09;--dark2:#211610;
+  --paper:#FBF6EE;--paper2:#F3E9DA;--warm:#EFE3D2;
+  --ink:#241509;--muted:#7C6450;--soft:#9A8771;--line:#E0D4C4;--line2:#CDBCA6;
+}
+body{font-family:'Barlow',sans-serif;background:#B8A795;color:var(--ink);font-size:11pt;line-height:1.6;}
+
+.page{width:210mm;min-height:297mm;background:var(--paper);margin:0 auto 8mm;position:relative;overflow:hidden;print-color-adjust:exact;-webkit-print-color-adjust:exact;}
+@media print{body{background:#fff;}.page{margin:0;page-break-after:always;}.no-print{display:none!important;}}
+@page{size:A4;margin:0;}
+
+.no-print{position:fixed;bottom:1.5rem;right:1.5rem;z-index:999;background:var(--fire);color:#fff;border:none;padding:.8rem 1.6rem;font-family:'Barlow Condensed',sans-serif;font-size:.85rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;border-radius:3px;cursor:pointer;box-shadow:0 4px 18px rgba(191,70,15,.45);}
+.no-print:hover{background:var(--ember);}
+
+/* placeholders de foto */
+.ph{display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#241610 0%,#3a2415 55%,#241610 100%);position:relative;}
+.ph span{font-family:'Barlow Condensed',sans-serif;font-size:8pt;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:rgba(245,237,228,.5);text-align:center;padding:0 6mm;}
+.ph::before{content:'📷';position:absolute;top:6mm;left:50%;transform:translateX(-50%);font-size:13pt;opacity:.25;}
+
+/* RUNNING HEADER */
+.rh{position:absolute;top:0;left:0;right:0;display:flex;justify-content:space-between;align-items:center;padding:6mm 14mm 0;z-index:5;}
+.rh-brand{font-family:'Barlow Condensed',sans-serif;font-size:6.5pt;font-weight:800;letter-spacing:.24em;text-transform:uppercase;color:var(--fire);}
+.rh-pg{font-family:'Lora',serif;font-size:7.5pt;font-style:italic;color:var(--soft);}
+.rh-rule{position:absolute;top:11mm;left:14mm;right:14mm;height:.5pt;background:var(--line2);}
+
+/* PORTADA */
+.cover{background:var(--dark);display:flex;flex-direction:column;justify-content:flex-end;}
+.cover-photo{position:absolute;inset:0;}
+.cover-photo.ph::before{top:14mm;font-size:18pt;}
+.cover-photo::after{content:'';position:absolute;inset:0;background:linear-gradient(to bottom,rgba(23,15,9,.12) 0%,rgba(23,15,9,.5) 42%,rgba(23,15,9,.98) 100%);}
+.cover-c{position:relative;z-index:2;padding:16mm 15mm 15mm;}
+.cover-eyebrow{font-family:'Barlow Condensed',sans-serif;font-size:7.5pt;font-weight:700;letter-spacing:.3em;text-transform:uppercase;color:var(--ember);margin-bottom:4mm;}
+.cover-series{font-family:'Lora',serif;font-size:8.5pt;font-style:italic;letter-spacing:.04em;color:rgba(251,246,238,.55);margin-bottom:6mm;}
+.cover-title{font-family:'Barlow Condensed',sans-serif;font-size:62pt;font-weight:900;line-height:.86;text-transform:uppercase;color:#FBF6EE;margin-bottom:6mm;}
+.cover-title em{font-style:italic;color:var(--ember);}
+.cover-tag{font-family:'Lora',serif;font-size:11pt;font-weight:400;color:rgba(251,246,238,.72);line-height:1.65;max-width:124mm;margin-bottom:11mm;}
+.cover-pills{display:flex;gap:3mm;flex-wrap:wrap;padding-top:8mm;border-top:.5pt solid rgba(251,246,238,.18);}
+.cover-pill{font-family:'Barlow Condensed',sans-serif;font-size:6.5pt;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:rgba(251,246,238,.42);padding:1.5mm 3mm;border:.5pt solid rgba(251,246,238,.18);border-radius:1px;}
+
+/* DEDICATORIA */
+.ded{background:var(--dark2);display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:28mm 24mm;}
+.ded-orn{font-size:10pt;letter-spacing:.4em;color:var(--ember);opacity:.5;margin-bottom:16mm;}
+.ded-text{font-family:'Lora',serif;font-size:16pt;font-weight:400;font-style:italic;color:rgba(251,246,238,.85);line-height:1.85;max-width:142mm;}
+.ded-firma{margin-top:16mm;font-family:'Barlow Condensed',sans-serif;font-size:7pt;font-weight:700;letter-spacing:.3em;text-transform:uppercase;color:var(--ember);}
+
+/* PRÓLOGO */
+.intro{padding:18mm 15mm 14mm;}
+.sec-label{font-family:'Barlow Condensed',sans-serif;font-size:7pt;font-weight:700;letter-spacing:.3em;text-transform:uppercase;color:var(--fire);margin-bottom:3mm;}
+.intro-title{font-family:'Barlow Condensed',sans-serif;font-size:38pt;font-weight:900;font-style:italic;line-height:.94;color:var(--dark);margin:3mm 0 11mm;}
+.intro-body{columns:2;column-gap:9mm;font-family:'Lora',serif;font-size:10pt;line-height:1.8;color:var(--ink);}
+.intro-body p{margin-bottom:4mm;text-align:justify;}
+.intro-body .lead{font-size:12.5pt;font-weight:500;font-style:italic;color:var(--fire);line-height:1.6;column-span:all;margin-bottom:8mm;padding-bottom:8mm;border-bottom:.5pt solid var(--line);}
+.intro-body .drop::first-letter{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:30pt;float:left;line-height:.8;margin:1mm 2mm 0 0;color:var(--fire);}
+
+/* ÍNDICE */
+.idx{padding:14mm 15mm 10mm;}
+.idx-title{font-family:'Barlow Condensed',sans-serif;font-size:36pt;font-weight:900;text-transform:uppercase;color:var(--dark);margin-bottom:2.5mm;}
+.idx-sub{font-family:'Lora',serif;font-style:italic;font-size:9.5pt;color:var(--muted);margin-bottom:5mm;}
+.idx-cat{font-family:'Barlow Condensed',sans-serif;font-size:7pt;font-weight:700;letter-spacing:.24em;text-transform:uppercase;color:var(--fire);margin:2.6mm 0 1mm;padding-bottom:1mm;border-bottom:1pt solid var(--fire);}
+.idx-row{display:flex;align-items:baseline;gap:2mm;padding:1.1mm 0;font-size:10pt;border-bottom:.5pt solid var(--line);}
+.idx-n{font-family:'Barlow Condensed',sans-serif;font-size:8pt;font-weight:700;color:var(--ember);min-width:8mm;}
+.idx-name{flex:1;font-weight:500;color:var(--ink);}
+.idx-p{font-family:'Lora',serif;font-style:italic;font-size:9pt;color:var(--soft);}
+
+/* RECETA */
+.recipe{padding:15mm 14mm 11mm;display:flex;flex-direction:column;height:297mm;}
+.r-head{display:flex;justify-content:space-between;align-items:flex-end;gap:6mm;margin-bottom:3.5mm;}
+.r-head-l{flex:1;}
+.r-cat{font-family:'Barlow Condensed',sans-serif;font-size:7pt;font-weight:700;letter-spacing:.24em;text-transform:uppercase;color:var(--fire);margin-bottom:1.5mm;}
+.r-title{font-family:'Barlow Condensed',sans-serif;font-size:29pt;font-weight:900;line-height:.92;text-transform:uppercase;color:var(--dark);}
+.r-num{font-family:'Barlow Condensed',sans-serif;font-size:30pt;font-weight:900;color:var(--line2);line-height:.8;}
+.r-meta{display:flex;flex-wrap:wrap;margin-bottom:5mm;border-top:.5pt solid var(--line);border-bottom:.5pt solid var(--line);}
+.r-meta-it{flex:1;padding:1.8mm 0;text-align:center;border-right:.5pt solid var(--line);}
+.r-meta-it:last-child{border-right:none;}
+.r-meta-k{font-family:'Barlow Condensed',sans-serif;font-size:6pt;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--soft);margin-bottom:.8mm;}
+.r-meta-v{font-family:'Barlow Condensed',sans-serif;font-size:9pt;font-weight:800;color:var(--dark);text-transform:uppercase;}
+.r-note{font-family:'Lora',serif;font-size:9pt;font-style:italic;line-height:1.5;color:var(--muted);margin-bottom:4mm;padding-left:5mm;border-left:2px solid var(--ember);}
+.r-img{width:100%;height:58mm;border-radius:3px;overflow:hidden;margin-bottom:5mm;background:var(--warm);box-shadow:0 2px 10px rgba(23,15,9,.12);flex-shrink:0;}
+.r-img img{width:100%;height:100%;object-fit:cover;display:block;}
+.r-cols{display:grid;grid-template-columns:58mm 1fr;grid-template-rows:auto 1fr;column-gap:8mm;row-gap:5mm;flex:1;}
+.col-ing{grid-column:1;grid-row:1;}
+.col-pasos{grid-column:2;grid-row:1 / span 2;display:flex;flex-direction:column;}
+.r-cols > .tip{grid-column:1;grid-row:2;align-self:start;margin-top:4mm;}
+.ing-head,.paso-head{font-family:'Barlow Condensed',sans-serif;font-size:7.5pt;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:var(--fire);margin-bottom:3.5mm;padding-bottom:1.5mm;border-bottom:1pt solid var(--fire);}
+.ing-group{margin-bottom:3.5mm;}
+.ing-glabel{font-family:'Barlow Condensed',sans-serif;font-size:6.5pt;font-weight:700;text-transform:uppercase;letter-spacing:.12em;color:var(--ember);margin:2.5mm 0 1.5mm;}
+.ing-row{display:flex;gap:2mm;padding:1mm 0;font-size:7.7pt;line-height:1.35;border-bottom:.5pt solid var(--line);}
+.ing-qty{font-weight:700;min-width:14mm;color:var(--dark);font-size:7.5pt;}
+.ing-name{color:var(--ink);flex:1;}
+.paso{display:flex;gap:3mm;margin-bottom:2.4mm;align-items:flex-start;}
+.paso-n{font-family:'Barlow Condensed',sans-serif;font-size:11.5pt;font-weight:900;color:var(--fire);line-height:1;min-width:5.5mm;opacity:.55;margin-top:.4mm;}
+.paso-txt{font-size:7.9pt;line-height:1.45;color:var(--ink);text-align:justify;}
+.paso-txt b{color:var(--dark);font-weight:700;}
+.tip{margin-top:0;background:var(--paper2);border-left:3px solid var(--fire);padding:3mm 4mm;border-radius:0 2px 2px 0;}
+.tip-label{font-family:'Barlow Condensed',sans-serif;font-size:6.5pt;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--fire);margin-bottom:1.5mm;}
+.tip-txt{font-family:'Lora',serif;font-size:7.8pt;line-height:1.45;color:var(--ink);font-style:italic;}
+
+/* SECCIÓN / GUÍA */
+.guia-cover{background:var(--dark2);display:flex;flex-direction:column;justify-content:flex-end;position:relative;overflow:hidden;}
+.guia-photo{position:absolute;inset:0;}
+.guia-photo::after{content:'';position:absolute;inset:0;background:linear-gradient(to bottom,rgba(23,15,9,.25) 0%,rgba(23,15,9,.72) 55%,rgba(23,15,9,1) 100%);}
+.guia-c{position:relative;z-index:2;padding:16mm 15mm 15mm;}
+.guia-eyebrow{font-family:'Barlow Condensed',sans-serif;font-size:7pt;font-weight:700;letter-spacing:.28em;text-transform:uppercase;color:var(--ember);margin-bottom:4mm;}
+.guia-title{font-family:'Barlow Condensed',sans-serif;font-size:50pt;font-weight:900;line-height:.9;text-transform:uppercase;color:#FBF6EE;margin-bottom:6mm;}
+.guia-desc{font-family:'Lora',serif;font-size:11pt;font-style:italic;color:rgba(251,246,238,.6);line-height:1.65;max-width:128mm;}
+.gp{padding:16mm 14mm 12mm;}
+.g-title{font-family:'Barlow Condensed',sans-serif;font-size:19pt;font-weight:800;text-transform:uppercase;color:var(--dark);margin-bottom:4mm;padding-bottom:2.5mm;border-bottom:1.5pt solid var(--fire);}
+.g-text{font-family:'Lora',serif;font-size:9.5pt;line-height:1.7;color:var(--ink);margin-bottom:4mm;text-align:justify;}
+.g-grid{display:grid;grid-template-columns:1fr 1fr;gap:4mm;margin-bottom:7mm;}
+.g-card{background:var(--paper2);border:.5pt solid var(--line);border-radius:2px;padding:4mm;}
+.g-card-title{font-family:'Barlow Condensed',sans-serif;font-size:9pt;font-weight:800;text-transform:uppercase;color:var(--fire);margin-bottom:2mm;}
+.g-card p,.g-card li{font-size:7.8pt;line-height:1.6;color:var(--ink);}
+.g-card ul{padding-left:3.5mm;margin-top:1.5mm;}
+.g-card li{margin-bottom:1mm;}
+
+/* CONTRACUBIERTA */
+.back{background:var(--dark);display:flex;flex-direction:column;justify-content:space-between;padding:18mm 16mm;position:relative;overflow:hidden;}
+.back::before{content:'';position:absolute;bottom:-22mm;right:-22mm;width:130mm;height:130mm;border-radius:50%;border:20mm solid rgba(191,70,15,.06);}
+.back-quote{position:relative;z-index:2;}
+.back-quote::before{content:'"';display:block;font-family:'Lora',serif;font-size:54pt;color:var(--fire);opacity:.4;line-height:.6;margin-bottom:4mm;}
+.back-quote p{font-family:'Lora',serif;font-size:16pt;font-weight:400;font-style:italic;color:rgba(251,246,238,.75);line-height:1.7;max-width:135mm;}
+.back-bottom{position:relative;z-index:2;}
+.back-brand{font-family:'Barlow Condensed',sans-serif;font-size:22pt;font-weight:900;letter-spacing:.1em;text-transform:uppercase;color:var(--fire);margin-bottom:2mm;}
+.back-web{font-family:'Lora',serif;font-style:italic;font-size:8.5pt;color:rgba(251,246,238,.3);}
+
+/* PAYWALL (overlay de acceso — quitar este bloque y el script final para dejarlo libre) */
+#javo-paywall{position:fixed;inset:0;background:rgba(23,15,9,0.97);z-index:9999;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:20mm;}
+.pw-logo{font-family:'Barlow Condensed',sans-serif;font-size:13pt;font-weight:800;letter-spacing:.3em;color:var(--paper);text-transform:uppercase;margin-bottom:3mm;}
+.pw-title{font-family:'Barlow Condensed',sans-serif;font-size:30pt;font-weight:900;color:var(--ember);text-transform:uppercase;margin-bottom:4mm;line-height:.95;}
+.pw-desc{font-family:'Lora',serif;font-style:italic;font-size:11pt;color:var(--soft);margin-bottom:9mm;max-width:110mm;line-height:1.6;}
+.pw-price{font-family:'Barlow Condensed',sans-serif;font-size:22pt;font-weight:700;color:var(--paper);margin-bottom:7mm;}
+.pw-btn{background:var(--fire);color:#fff;border:none;padding:4mm 11mm;font-family:'Barlow Condensed',sans-serif;font-size:12pt;font-weight:700;letter-spacing:.08em;text-transform:uppercase;cursor:pointer;border-radius:3px;}
+.pw-btn:hover{background:var(--ember);}
+</style>
 </head>
 <body>
+<button class="no-print" onclick="window.print()">⬇ Guardar como PDF</button>
 
 <!-- PAYWALL -->
-<div id="javo-paywall" style="position:fixed;inset:0;z-index:99999;background:#1A0A05;display:flex;align-items:center;justify-content:center;padding:1.5rem;">
-  <div style="max-width:440px;width:100%;background:#2C1A0E;border:1px solid rgba(196,133,58,0.25);padding:2.5rem 2rem;text-align:center;font-family:'Libre Baskerville',Georgia,serif;">
-    <div style="font-size:2rem;margin-bottom:1rem;">🔒</div>
-    <div style="font-family:'Cormorant Garamond',Georgia,serif;font-size:1.6rem;font-weight:700;color:#F5EDD8;margin-bottom:0.5rem;">Lo Fresco del Norte</div>
-    <p style="font-size:0.82rem;color:rgba(245,237,216,0.6);line-height:1.7;margin-bottom:1.5rem;font-style:italic;">Este recetario es exclusivo para compradores. Completá el pago para acceder.</p>
-    <div style="font-family:'Space Mono',monospace;font-size:1.3rem;color:#C4853A;font-weight:700;margin-bottom:1.5rem;">ARS $31.800</div>
-    <a href="https://javotecocina.com/?comprar=lo-fresco-del-norte" style="display:block;background:#D4521A;color:#FFFFF0;text-decoration:none;font-family:'Space Mono',monospace;font-size:0.7rem;letter-spacing:0.12em;text-transform:uppercase;padding:0.85rem 1.5rem;margin-bottom:1.5rem;">Comprar ahora →</a>
-    <div style="height:1px;background:rgba(196,133,58,0.2);margin-bottom:1.5rem;position:relative;"><span style="position:absolute;top:-0.6rem;left:50%;transform:translateX(-50%);background:#2C1A0E;padding:0 0.75rem;font-size:0.7rem;color:rgba(245,237,216,0.4);">o si ya compraste</span></div>
-    <p style="font-size:0.78rem;color:rgba(245,237,216,0.55);margin-bottom:0.75rem;">Ingresá el email con el que pagaste:</p>
-    <input id="pw-email" type="email" placeholder="tu@email.com" style="width:100%;box-sizing:border-box;background:rgba(44,26,14,0.8);border:1px solid rgba(196,133,58,0.3);color:#F5EDD8;font-family:'Libre Baskerville',serif;font-size:0.85rem;padding:0.75rem 1rem;margin-bottom:0.75rem;outline:none;">
-    <button onclick="javoVerificar()" style="width:100%;background:rgba(196,133,58,0.15);border:1px solid #C4853A;color:#C4853A;font-family:'Space Mono',monospace;font-size:0.7rem;letter-spacing:0.1em;text-transform:uppercase;padding:0.75rem;cursor:pointer;">Verificar acceso →</button>
-    <div id="pw-msg" style="font-size:0.78rem;min-height:1.2em;margin-top:0.75rem;color:#D4521A;font-style:italic;"></div>
+<div id="javo-paywall">
+  <div class="pw-logo">Javotecocina</div>
+  <div class="pw-title">Lo Fresco del Norte</div>
+  <div class="pw-desc">Trece recetas crudas, marinadas y frías del norte argentino: el otro lado del fuego, donde el ácido y el frío hacen la cocción.</div>
+  <div class="pw-price">ARS $34.700</div>
+  <button class="pw-btn" onclick="window.location.href='/#recetarios'">Comprar acceso</button>
+</div>
+
+<!-- PORTADA -->
+<div class="page cover">
+  <div class="cover-photo"><img src="img/fresco/portada.jpg" alt="Ceviche de trucha rosada en bowl de cerámica blanca, cebolla morada y cilantro, gotas de limón y hielo, mesa de madera c" style="width:100%;height:100%;object-fit:cover;display:block;"></div>
+  <div class="cover-c">
+    <div class="cover-eyebrow">Javotecocina</div>
+    <div class="cover-series">Recetarios digitales · Volumen V</div>
+    <div class="cover-title">Lo Fresco<br><em>del Norte</em></div>
+    <div class="cover-tag">No todo el norte es fuego y brasa. También es la trucha del río frío, el limón del valle y las hierbas que crecen entre los cerros. Trece recetas donde el ácido cocina, el frío redondea y la frescura es el punto de llegada.</div>
+    <div class="cover-pills">
+      <div class="cover-pill">13 Recetas</div>
+      <div class="cover-pill">Crudos &amp; Marinados</div>
+      <div class="cover-pill">Frío &amp; Ácido</div>
+      <div class="cover-pill">Javo Elizalde · Salta</div>
+    </div>
   </div>
 </div>
+
+<!-- DEDICATORIA -->
+<div class="page ded">
+  <div class="ded-orn">— ✦ —</div>
+  <div class="ded-text">A los que en pleno calor del norte<br>apagan el fuego y prenden el limón,<br>y descubren que la huerta y el río<br>también saben cocinar solos.</div>
+  <div class="ded-firma">Javotecocina</div>
+</div>
+
+<!-- PRÓLOGO -->
+<div class="page intro">
+  <div class="rh"><div class="rh-brand">Javotecocina</div><div class="rh-pg">Lo Fresco del Norte</div><div class="rh-rule"></div></div>
+  <div style="margin-top:13mm;">
+    <div class="sec-label">Prólogo</div>
+    <div class="intro-title">El norte que<br>no quema,<br>igual cocina.</div>
+    <div class="intro-body">
+      <p class="lead">Cuando digo Javotecocina la gente piensa en fuego: en asado, en humo, en brasa. Y sí, ese es el corazón de lo que hago. Pero hay otro norte que me interesa igual, y este libro es ese otro lado.</p>
+      <p class="drop">El calor salteño aprieta de octubre a marzo, y hay días en que prender el fuego es una locura. Ahí aparece el otro recetario: el de la trucha que se cura en limón, el del tomate que se vuelve sopa fría, el de las hierbas de altura que perfuman sin necesitar una sola llama. Cocinar sin fuego no es cocinar menos: es cambiar la herramienta.</p>
+      <p>El ácido del limón cocina el pescado tan en serio como una brasa, solo que sin calor. El aceite y la sal hacen lo que en otro plato haría el carbón, y el frío de la heladera asienta sabores que el fuego apuraría. Todo eso es técnica, aunque no salga humo.</p>
+      <p>Para mí la trucha de los ríos salteños es la que manda acá: aparece en ceviche, en tartar y en tiradito, siempre fresquísima. Pero alrededor está toda la huerta del norte: la quinoa de la Puna, la remolacha de campo, el choclo salteño, la naranja de los valles y el locoto, que pica con gracia.</p>
+      <p>Estas recetas son para cuando hace calor, para cuando querés sorprender sin encender nada, para demostrar que la cocina del norte argentino también sabe de liviandad. Hacelas tuyas: ajustá el ácido, animate al locoto, cambiá las hierbas por las que tengas. Como siempre, el mejor final es que dejen de ser mías.</p>
+    </div>
+  </div>
+</div>
+
+<!-- ÍNDICE -->
+<div class="page idx">
+  <div class="rh"><div class="rh-brand">Javotecocina</div><div class="rh-pg">Lo Fresco del Norte</div><div class="rh-rule"></div></div>
+  <div style="margin-top:3mm;">
+    <div class="idx-title">Índice</div>
+    <div class="idx-sub">Trece recetas frescas, la técnica del ácido y el frío, y una mesa fría para armar y compartir.</div>
+    <div class="idx-cat">Técnica base</div>
+    <div class="idx-row"><span class="idx-n">—</span><span class="idx-name">El ácido: leche de tigre y marinadas</span><span class="idx-p">pág. 6</span></div>
+    <div class="idx-row"><span class="idx-n">—</span><span class="idx-name">Cortes y cadena de frío</span><span class="idx-p">pág. 7</span></div>
+    <div class="idx-cat">Crudos del Río</div>
+    <div class="idx-row"><span class="idx-n">01</span><span class="idx-name">Ceviche de trucha andina</span><span class="idx-p">pág. 8</span></div>
+    <div class="idx-row"><span class="idx-n">02</span><span class="idx-name">Tartar de trucha con locoto</span><span class="idx-p">pág. 9</span></div>
+    <div class="idx-row"><span class="idx-n">03</span><span class="idx-name">Tiradito salteño</span><span class="idx-p">pág. 10</span></div>
+    <div class="idx-cat">Vegetales Frescos</div>
+    <div class="idx-row"><span class="idx-n">04</span><span class="idx-name">Carpaccio de portobello</span><span class="idx-p">pág. 11</span></div>
+    <div class="idx-row"><span class="idx-n">05</span><span class="idx-name">Ensalada de quinoa andina</span><span class="idx-p">pág. 12</span></div>
+    <div class="idx-row"><span class="idx-n">06</span><span class="idx-name">Naranja, nueces y queso de cabra</span><span class="idx-p">pág. 13</span></div>
+    <div class="idx-row"><span class="idx-n">07</span><span class="idx-name">Choclo salteado con hierbas</span><span class="idx-p">pág. 14</span></div>
+    <div class="idx-row"><span class="idx-n">08</span><span class="idx-name">Remolacha asada con yogur</span><span class="idx-p">pág. 15</span></div>
+    <div class="idx-cat">Encurtidos, Frío y Salsas</div>
+    <div class="idx-row"><span class="idx-n">09</span><span class="idx-name">Chimichurri del norte</span><span class="idx-p">pág. 16</span></div>
+    <div class="idx-row"><span class="idx-n">10</span><span class="idx-name">Escabeche de vegetales</span><span class="idx-p">pág. 17</span></div>
+    <div class="idx-row"><span class="idx-n">11</span><span class="idx-name">Gazpacho del norte</span><span class="idx-p">pág. 18</span></div>
+    <div class="idx-row"><span class="idx-n">12</span><span class="idx-name">Agua fresca de hierbas andinas</span><span class="idx-p">pág. 19</span></div>
+    <div class="idx-row"><span class="idx-n">13</span><span class="idx-name">Vinagreta de locoto y naranja</span><span class="idx-p">pág. 20</span></div>
+    <div class="idx-cat">Para cerrar</div>
+    <div class="idx-row"><span class="idx-n">—</span><span class="idx-name">La mesa fresca · aguas, vinagretas y picantes</span><span class="idx-p">pág. 21</span></div>
+  </div>
+</div>
+
+<!-- TÉCNICA: PORTADA -->
+<div class="page guia-cover">
+  <div class="guia-photo"><img src="img/fresco/tecnica.jpg" alt="Tabla de madera con filet de trucha rosada, limones partidos, locotos rojos y un cuchillo afilado, todo en penumbra fría" style="width:100%;height:100%;object-fit:cover;display:block;"></div>
+  <div class="guia-c">
+    <div class="guia-eyebrow">Técnica base · Lo Fresco del Norte</div>
+    <div class="guia-title">El Ácido<br>&amp; el Frío</div>
+    <div class="guia-desc">Antes de la primera receta, lo que de verdad importa: cómo el cítrico "cocina" sin fuego, cuántos minutos exactos pide cada crudo, y cómo el cuchillo y la cadena de frío sostienen todo lo demás.</div>
+  </div>
+</div>
+
+<!-- TÉCNICA: EL ÁCIDO -->
+<div class="page gp">
+  <div class="rh"><div class="rh-brand">Javotecocina</div><div class="rh-pg">Técnica base</div><div class="rh-rule"></div></div>
+  <div style="margin-top:13mm;">
+    <div class="g-title">El ácido: leche de tigre y marinadas</div>
+    <div class="g-text">Acá el fuego lo reemplaza el limón. El ácido le hace al pescado lo mismo que el calor: lo vuelve opaco, firme, cocido. La diferencia es que el ácido no se apaga solo: sigue trabajando mientras esté en contacto. Por eso todo el truco está en meterlo en el momento justo y sacarlo a tiempo. El día que te entra eso en la cabeza, tenés la mitad del libro resuelta.</div>
+    <div class="g-grid">
+      <div class="g-card"><div class="g-card-title">① Cómo cocina el ácido</div><p>Limón fresco, nunca embotellado: el jugo cuaja el pescado de afuera hacia adentro, sin una llama. Por eso el corte manda. Cubos grandes te quedan crudos en el centro; láminas finas se cocinan enteras en segundos. Pensalo así: el ácido es el fuego y el tamaño del corte es la temperatura.</p></div>
+      <div class="g-card"><div class="g-card-title">② Tiempos exactos</div><p>Un ceviche de trucha son ocho minutos, ni uno más. A los ocho el exterior está opaco y adentro sigue rosado y jugoso: ahí parás. Pasados los diez ya es otra cosa, gomosa. Poné temporizador, en serio: acá el reloj manda como el termómetro en el asado.</p></div>
+      <div class="g-card"><div class="g-card-title">③ La leche de tigre</div><p>Es el jugo del ceviche hecho a propósito: limón, un poco de caldo o agua, locoto, apio y jengibre, todo al mixer y colado hasta que quede líquido, ácido y picante. Bien fría, va sobre el tiradito justo antes de llevarlo a la mesa. Es salsa y cocción a la vez; acá la gente se la toma hasta sola, en vaso.</p></div>
+      <div class="g-card"><div class="g-card-title">④ Trucha de altura</div><p>La trucha de nuestros ríos tiene una carne firme y rosada que aguanta el crudo como pocas. Pero el crudo no perdona: compralá el mismo día, que no pase más de dos jornadas en la heladera y tenela siempre fría. Si no está impecable, no hay ceviche. Es la regla número uno y no la negocio.</p></div>
+    </div>
+  </div>
+</div>
+
+<!-- TÉCNICA: CORTES Y FRÍO -->
+<div class="page gp">
+  <div class="rh"><div class="rh-brand">Javotecocina</div><div class="rh-pg">Técnica base</div><div class="rh-rule"></div></div>
+  <div style="margin-top:13mm;">
+    <div class="g-title">Cortes y cadena de frío</div>
+    <div class="g-text">Sin fuego que tape nada, todo queda a la vista: el corte, la temperatura, la frescura. En la cocina fría no hay dónde esconderse, y por eso me parece más exigente que prender la parrilla. Dos cosas sostienen el resto: un cuchillo que corte de verdad y un frío que no se rompa nunca, de la pescadería al plato.</div>
+    <div class="g-grid">
+      <div class="g-card"><div class="g-card-title">① Cuchillo afilado y cortes</div><p>El crudo entra primero por los ojos. Un cuchillo afilado da láminas limpias y parejas; uno romo desgarra la fibra y te arruina la textura. Para el tartar, cubitos de 5&nbsp;mm a cuchillo, nunca a máquina. Para el carpaccio y el tiradito, láminas casi transparentes, en diagonal, con la pieza bien fría: el frío firma el corte.</p></div>
+      <div class="g-card"><div class="g-card-title">② Mantener el frío</div><p>Para mí la cadena de frío es sagrada de punta a punta. Pescado y vegetales salen de la heladera justo para trabajarlos y vuelven enseguida. Bowls fríos, platos fríos, leche de tigre con hielo. Un tartar tibio no es un tartar: es pescado yendo a mal puerto. Si dudás, enfriá.</p></div>
+      <div class="g-card"><div class="g-card-title">③ Hierbas andinas</div><p>Acá en el norte aromatizamos distinto. La quirquiña le gana al perejil en casi todo y es más compleja; la muña perfuma las aguas; el cedrón y la manzanilla refrescan. Casi todas van crudas y al final, porque el ácido las ennegrece y el calor las amarga: entran con el plato ya servido.</p></div>
+      <div class="g-card"><div class="g-card-title">④ Ácido, graso y picante</div><p>La cocina fría se para en tres patas: el ácido del cítrico, el graso del aceite o el queso y el picante del locoto. Demasiado ácido raspa, demasiada grasa empacha, demasiado picante tapa todo. Yo pruebo y ajusto siempre al final: un chorro de aceite, medio limón más, una pizca de locoto. Está cuando ninguno le gana al otro.</p></div>
+    </div>
+    <div class="g-text" style="margin-top:1mm;"><b>Una nota sobre el locoto:</b> es el alma picante del norte, pero no está para arrasar. Sacale semillas y venas para domar el fuego, picalo finísimo para que se reparta en cada bocado y dejá que aparezca de a poco. Bien usado no quema: despierta.</div>
+  </div>
+</div>
+
+<!-- R01 CEVICHE DE TRUCHA ANDINA -->
+<div class="page recipe">
+  <div class="rh"><div class="rh-brand">Javotecocina</div><div class="rh-pg">Crudos del Río</div><div class="rh-rule"></div></div>
+  <div class="r-head" style="margin-top:11mm;">
+    <div class="r-head-l"><div class="r-cat">Receta 01 · Crudos del Río</div><div class="r-title">Ceviche de<br>Trucha Andina</div></div>
+    <div class="r-num">01</div>
+  </div>
+  <div class="r-meta">
+    <div class="r-meta-it"><div class="r-meta-k">Tiempo</div><div class="r-meta-v">20 min</div></div>
+    <div class="r-meta-it"><div class="r-meta-k">Porciones</div><div class="r-meta-v">4</div></div>
+    <div class="r-meta-it"><div class="r-meta-k">Marinada</div><div class="r-meta-v">8 min</div></div>
+    <div class="r-meta-it"><div class="r-meta-k">Dificultad</div><div class="r-meta-v">Media</div></div>
+  </div>
+  <div class="r-note">Para mí este es el plato que abre todo el libro. La trucha de nuestros ríos tiene una carne firme y rosada que se banca el ceviche; el limón la cocina en ocho minutos justos. Ni uno más, o se pone gomosa y la perdés.</div>
+  <div class="r-img"><img src="img/fresco/ceviche-trucha.jpg" alt="Ceviche de trucha en bowl blanco, cubos rosados, cebolla morada en pluma, cilantro fresco, rodajas de limón y locoto en "></div>
+  <div class="r-cols">
+    <div class="col-ing">
+      <div class="ing-head">Ingredientes</div>
+      <div class="ing-row"><span class="ing-qty">500 g</span><span class="ing-name">Filet de trucha fresca</span></div>
+      <div class="ing-row"><span class="ing-qty">150 ml</span><span class="ing-name">Jugo de limón fresco (8–10)</span></div>
+      <div class="ing-row"><span class="ing-qty">1</span><span class="ing-name">Cebolla morada grande</span></div>
+      <div class="ing-row"><span class="ing-qty">1–2</span><span class="ing-name">Locotos rojos</span></div>
+      <div class="ing-row"><span class="ing-qty">1 puñado</span><span class="ing-name">Cilantro fresco</span></div>
+      <div class="ing-row"><span class="ing-qty">10 g</span><span class="ing-name">Sal</span></div>
+      <div class="ing-row"><span class="ing-qty">5 g</span><span class="ing-name">Pimienta blanca</span></div>
+      <div class="ing-glabel">Para servir</div>
+      <div class="ing-row"><span class="ing-qty">c/n</span><span class="ing-name">Choclo cocido</span></div>
+      <div class="ing-row"><span class="ing-qty">c/n</span><span class="ing-name">Camote cocido</span></div>
+    </div>
+    <div class="col-pasos">
+      <div class="paso-head">Preparación</div>
+      <div class="paso"><div class="paso-n">1</div><div class="paso-txt"><b>El corte.</b> Trucha sin piel ni espinas, en cubos de 2 cm. Ni chicos, que se cocinan en un suspiro, ni grandes, que quedan crudos en el centro. Un corte parejo ya es medio ceviche hecho.</div></div>
+      <div class="paso"><div class="paso-n">2</div><div class="paso-txt">La cebolla en pluma bien fina. Salala, masajeala y enjuagala con agua fría: así le sacás el amargo y el picante bruto. Este paso parece al pedo, pero una cebolla cruda y agresiva te arruina todo.</div></div>
+      <div class="paso"><div class="paso-n">3</div><div class="paso-txt">Limón recién exprimido, nunca de botella; el fresco es más limpio y brillante. Salá el jugo antes de juntarlo con el pescado, no después.</div></div>
+      <div class="paso"><div class="paso-n">4</div><div class="paso-txt"><b>Ocho minutos y temporizador.</b> Mezclá la trucha con el jugo, la cebolla, el locoto en rodajas y la pimienta. A los ocho minutos el exterior está opaco y adentro sigue rosado: ahí está, no lo pases.</div></div>
+      <div class="paso"><div class="paso-n">5</div><div class="paso-txt">El cilantro recién picado va último, sobre el plato: si lo metés antes, el ácido le roba el aroma. A la mesa enseguida, con choclo y camote al lado.</div></div>
+    </div>
+    <div class="tip"><div class="tip-label">🔥 El consejo de Javo</div><div class="tip-txt">Acá la frescura es todo. Pedí la trucha el mismo día y no uses pescado que ya pasó dos días en la heladera. El ceviche no te perdona un ingrediente flojo: lo crudo no tiene dónde esconderse.</div></div>
+  </div>
+</div>
+
+<!-- R02 TARTAR DE TRUCHA CON LOCOTO -->
+<div class="page recipe">
+  <div class="rh"><div class="rh-brand">Javotecocina</div><div class="rh-pg">Crudos del Río</div><div class="rh-rule"></div></div>
+  <div class="r-head" style="margin-top:11mm;">
+    <div class="r-head-l"><div class="r-cat">Receta 02 · Crudos del Río</div><div class="r-title">Tartar de Trucha<br>con Locoto</div></div>
+    <div class="r-num">02</div>
+  </div>
+  <div class="r-meta">
+    <div class="r-meta-it"><div class="r-meta-k">Tiempo</div><div class="r-meta-v">15 min</div></div>
+    <div class="r-meta-it"><div class="r-meta-k">Porciones</div><div class="r-meta-v">4</div></div>
+    <div class="r-meta-it"><div class="r-meta-k">Cocción</div><div class="r-meta-v">Sin fuego</div></div>
+    <div class="r-meta-it"><div class="r-meta-k">Dificultad</div><div class="r-meta-v">Media</div></div>
+  </div>
+  <div class="r-note">Yo al tartar lo pienso como un ceviche sin ácido: la carne cruda con sus propios aceites y un condimento que la levanta sin taparla. El locoto le pone el calor que en un tartar francés pondría la mostaza.</div>
+  <div class="r-img"><img src="img/fresco/tartar-trucha.jpg" alt="Tartar de trucha en molde cilíndrico, rosado intenso con puntos rojos de locoto y verde de cebollín, tostadas finas al c"></div>
+  <div class="r-cols">
+    <div class="col-ing">
+      <div class="ing-head">Ingredientes</div>
+      <div class="ing-row"><span class="ing-qty">400 g</span><span class="ing-name">Filet de trucha fresca</span></div>
+      <div class="ing-row"><span class="ing-qty">1</span><span class="ing-name">Locoto rojo sin semillas</span></div>
+      <div class="ing-row"><span class="ing-qty">2</span><span class="ing-name">Cebollitas de verdeo</span></div>
+      <div class="ing-row"><span class="ing-qty">15 ml</span><span class="ing-name">Aceite de oliva</span></div>
+      <div class="ing-row"><span class="ing-qty">10 ml</span><span class="ing-name">Salsa de soja</span></div>
+      <div class="ing-row"><span class="ing-qty">5 ml</span><span class="ing-name">Aceite de sésamo</span></div>
+      <div class="ing-row"><span class="ing-qty">10 ml</span><span class="ing-name">Jugo de limón</span></div>
+      <div class="ing-row"><span class="ing-qty">5 g</span><span class="ing-name">Sal</span></div>
+      <div class="ing-glabel">Para servir</div>
+      <div class="ing-row"><span class="ing-qty">c/n</span><span class="ing-name">Tostadas o blinis</span></div>
+    </div>
+    <div class="col-pasos">
+      <div class="paso-head">Preparación</div>
+      <div class="paso"><div class="paso-n">1</div><div class="paso-txt"><b>Corte a cuchillo.</b> Trucha en cubitos de 5 mm, ni más grandes ni más chicos. Acá no hay atajo de máquina: el corte parejo hace que todos los bocados tengan la misma textura y el mismo condimento.</div></div>
+      <div class="paso"><div class="paso-n">2</div><div class="paso-txt">Locoto sin semillas, en brunoise bien chica, para que se reparta en cada bocado sin pisar a nadie. El picante acá acompaña, no arrasa.</div></div>
+      <div class="paso"><div class="paso-n">3</div><div class="paso-txt"><b>Todo en frío.</b> En un bowl frío juntá la trucha con el locoto, el verdeo picado fino, el aceite de oliva, la soja, el sésamo y el limón. Mezclá despacio, sin aplastar la carne.</div></div>
+      <div class="paso"><div class="paso-n">4</div><div class="paso-txt">Probá y corregí a tu gusto: más soja si lo querés más salado, más limón si lo querés más ácido, más locoto si lo querés más bravo. Lo bueno del tartar es que lo armás a medida.</div></div>
+      <div class="paso"><div class="paso-n">5</div><div class="paso-txt">A la mesa ya, en molde o directo en el bowl, con tostadas o blinis. No lo guardes para después: el tartar es para el momento, a los minutos ya es otra cosa.</div></div>
+    </div>
+    <div class="tip"><div class="tip-label">🔥 El consejo de Javo</div><div class="tip-txt">El aceite de sésamo es el ingrediente que cruza la receta de lo andino hacia Asia. Si te parece demasiado oriental, reducilo a la mitad, pero no lo elimines: da una profundidad que el aceite de oliva solo no tiene.</div></div>
+  </div>
+</div>
+
+<!-- R03 TIRADITO SALTEÑO -->
+<div class="page recipe">
+  <div class="rh"><div class="rh-brand">Javotecocina</div><div class="rh-pg">Crudos del Río</div><div class="rh-rule"></div></div>
+  <div class="r-head" style="margin-top:11mm;">
+    <div class="r-head-l"><div class="r-cat">Receta 03 · Crudos del Río</div><div class="r-title">Tiradito<br>Salteño</div></div>
+    <div class="r-num">03</div>
+  </div>
+  <div class="r-meta">
+    <div class="r-meta-it"><div class="r-meta-k">Tiempo</div><div class="r-meta-v">15 min</div></div>
+    <div class="r-meta-it"><div class="r-meta-k">Porciones</div><div class="r-meta-v">4</div></div>
+    <div class="r-meta-it"><div class="r-meta-k">Cocción</div><div class="r-meta-v">Sin fuego</div></div>
+    <div class="r-meta-it"><div class="r-meta-k">Dificultad</div><div class="r-meta-v">Fácil</div></div>
+  </div>
+  <div class="r-note">El tiradito es el ceviche sin cebolla: la trucha en láminas finas bañada en su leche de tigre. Acá la vista pesa tanto como el sabor, así que tomate el laburo de cortar fino y dejar la salsa brillando arriba.</div>
+  <div class="r-img"><img src="img/fresco/tiradito-salteno.jpg" alt="Tiradito en plato hondo blanco, láminas finas rosadas de trucha, leche de tigre naranja brillante bañándolas, hojas de c"></div>
+  <div class="r-cols">
+    <div class="col-ing">
+      <div class="ing-head">Ingredientes</div>
+      <div class="ing-row"><span class="ing-qty">400 g</span><span class="ing-name">Filet de trucha fresca</span></div>
+      <div class="ing-glabel">Leche de tigre</div>
+      <div class="ing-row"><span class="ing-qty">100 ml</span><span class="ing-name">Jugo de limón fresco</span></div>
+      <div class="ing-row"><span class="ing-qty">50 ml</span><span class="ing-name">Caldo de pescado o agua</span></div>
+      <div class="ing-row"><span class="ing-qty">1/2</span><span class="ing-name">Locoto rojo</span></div>
+      <div class="ing-row"><span class="ing-qty">2 cm</span><span class="ing-name">Apio</span></div>
+      <div class="ing-row"><span class="ing-qty">1 cm</span><span class="ing-name">Jengibre fresco</span></div>
+      <div class="ing-row"><span class="ing-qty">5 g</span><span class="ing-name">Sal</span></div>
+      <div class="ing-glabel">Decoración</div>
+      <div class="ing-row"><span class="ing-qty">c/n</span><span class="ing-name">Cilantro fresco</span></div>
+      <div class="ing-row"><span class="ing-qty">c/n</span><span class="ing-name">Locoto en rodajas finas</span></div>
+    </div>
+    <div class="col-pasos">
+      <div class="paso-head">Preparación</div>
+      <div class="paso"><div class="paso-n">1</div><div class="paso-txt"><b>Láminas finas.</b> Trucha bien fría —casi congelada corta mejor— en láminas de 3 a 4 mm. Cortá en diagonal, cuchillo muy afilado, presionando suave. Acomodalas en el plato hondo sin amontonar.</div></div>
+      <div class="paso"><div class="paso-n">2</div><div class="paso-txt">La leche de tigre: limón, caldo, locoto, apio, jengibre y sal al mixer hasta que quede homogéneo. Colá para sacar los sólidos. Tiene que quedar líquida, ácida y picante.</div></div>
+      <div class="paso"><div class="paso-n">3</div><div class="paso-txt">A la heladera diez minutos, o con un poco de hielo. El contraste de temperatura con el pescado es parte del plato: leche tibia no va.</div></div>
+      <div class="paso"><div class="paso-n">4</div><div class="paso-txt"><b>Verter en el momento.</b> Recién al servir, volcá la leche sobre las láminas. Que las cubra y moje el fondo del plato, no que apenas las humedezca.</div></div>
+      <div class="paso"><div class="paso-n">5</div><div class="paso-txt">Rodajas de locoto y hojas de cilantro arriba, y derecho a la mesa: el ácido cocina las láminas rápido y en diez minutos la textura ya cambió.</div></div>
+    </div>
+    <div class="tip"><div class="tip-label">🔥 El consejo de Javo</div><div class="tip-txt">La diferencia entre ceviche y tiradito es el corte y la cebolla. Sin cebolla, el protagonista es el pescado puro. Y las láminas finas dejan que la leche de tigre penetre mejor y más rápido que en los cubos del ceviche.</div></div>
+  </div>
+</div>
+
+<!-- R04 CARPACCIO DE PORTOBELLO -->
+<div class="page recipe">
+  <div class="rh"><div class="rh-brand">Javotecocina</div><div class="rh-pg">Vegetales Frescos</div><div class="rh-rule"></div></div>
+  <div class="r-head" style="margin-top:11mm;">
+    <div class="r-head-l"><div class="r-cat">Receta 04 · Vegetales Frescos</div><div class="r-title">Carpaccio de<br>Portobello</div></div>
+    <div class="r-num">04</div>
+  </div>
+  <div class="r-meta">
+    <div class="r-meta-it"><div class="r-meta-k">Tiempo</div><div class="r-meta-v">10 min</div></div>
+    <div class="r-meta-it"><div class="r-meta-k">Porciones</div><div class="r-meta-v">4</div></div>
+    <div class="r-meta-it"><div class="r-meta-k">Marinada</div><div class="r-meta-v">30 min</div></div>
+    <div class="r-meta-it"><div class="r-meta-k">Dificultad</div><div class="r-meta-v">Fácil</div></div>
+  </div>
+  <div class="r-note">El portobello marinado en oliva y limón queda carnoso y con un umami que sorprende. Cortado fino engaña al ojo: parece carne. Es mi carpaccio para los que no comen pescado, y nadie lo extraña.</div>
+  <div class="r-img"><img src="img/fresco/carpaccio-portobello.jpg" alt="Láminas finas de portobello marinado en plato plano blanco, aceite de oliva brillante, virutas de parmesano, rúcula verd"></div>
+  <div class="r-cols">
+    <div class="col-ing">
+      <div class="ing-head">Ingredientes</div>
+      <div class="ing-row"><span class="ing-qty">4</span><span class="ing-name">Hongos portobello grandes</span></div>
+      <div class="ing-glabel">Marinada</div>
+      <div class="ing-row"><span class="ing-qty">60 ml</span><span class="ing-name">Aceite de oliva extra virgen</span></div>
+      <div class="ing-row"><span class="ing-qty">30 ml</span><span class="ing-name">Jugo de limón</span></div>
+      <div class="ing-row"><span class="ing-qty">10 ml</span><span class="ing-name">Salsa de soja</span></div>
+      <div class="ing-row"><span class="ing-qty">1</span><span class="ing-name">Diente de ajo picado fino</span></div>
+      <div class="ing-row"><span class="ing-qty">5 g</span><span class="ing-name">Sal en escamas</span></div>
+      <div class="ing-glabel">Para servir</div>
+      <div class="ing-row"><span class="ing-qty">c/n</span><span class="ing-name">Rúcula</span></div>
+      <div class="ing-row"><span class="ing-qty">c/n</span><span class="ing-name">Parmesano en virutas</span></div>
+    </div>
+    <div class="col-pasos">
+      <div class="paso-head">Preparación</div>
+      <div class="paso"><div class="paso-n">1</div><div class="paso-txt">Limpiá el portobello con papel apenas húmedo, nunca bajo la canilla: chupa agua como esponja y pierde textura. Sacale el tallo y guardalo para otra cosa.</div></div>
+      <div class="paso"><div class="paso-n">2</div><div class="paso-txt"><b>Láminas de 2 mm.</b> Con mandolina o cuchillo muy afilado. Cuanto más parejas salgan, mejor se ve el plato al final: acá entra primero por los ojos.</div></div>
+      <div class="paso"><div class="paso-n">3</div><div class="paso-txt">Mezclá aceite, limón, soja y ajo y volcá sobre las láminas acomodadas en un plato hondo. Que queden bien tapadas por la marinada, no a medias.</div></div>
+      <div class="paso"><div class="paso-n">4</div><div class="paso-txt"><b>Media hora de marinada.</b> El limón y la soja ablandan el hongo mientras chupa el aceite. Dalas vuelta a los quince minutos así se marinan parejas de los dos lados.</div></div>
+      <div class="paso"><div class="paso-n">5</div><div class="paso-txt">Láminas superpuestas en plato plano, rúcula encima, virutas de parmesano, sal en escamas y un último chorro de oliva crudo arriba de todo.</div></div>
+    </div>
+    <div class="tip"><div class="tip-label">🔥 El consejo de Javo</div><div class="tip-txt">El portobello crudo marinado tiene un sabor que el cocinado no tiene: más mineral, más intenso. Es de esas preparaciones que no parecen mucho hasta que las probás, y entonces no se olvidan.</div></div>
+  </div>
+</div>
+
+<!-- R05 ENSALADA DE QUINOA ANDINA -->
+<div class="page recipe">
+  <div class="rh"><div class="rh-brand">Javotecocina</div><div class="rh-pg">Vegetales Frescos</div><div class="rh-rule"></div></div>
+  <div class="r-head" style="margin-top:11mm;">
+    <div class="r-head-l"><div class="r-cat">Receta 05 · Vegetales Frescos</div><div class="r-title">Ensalada de<br>Quinoa Andina</div></div>
+    <div class="r-num">05</div>
+  </div>
+  <div class="r-meta">
+    <div class="r-meta-it"><div class="r-meta-k">Tiempo</div><div class="r-meta-v">30 min</div></div>
+    <div class="r-meta-it"><div class="r-meta-k">Porciones</div><div class="r-meta-v">4</div></div>
+    <div class="r-meta-it"><div class="r-meta-k">Cocción</div><div class="r-meta-v">Solo la quinoa</div></div>
+    <div class="r-meta-it"><div class="r-meta-k">Dificultad</div><div class="r-meta-v">Fácil</div></div>
+  </div>
+  <div class="r-note">La quinoa baja de la Puna desde hace miles de años. En ensalada tibia, con vegetales frescos y una buena vinagreta, es lo que la quinoa puede ser cuando la tratás con respeto y no la hervís de más.</div>
+  <div class="r-img"><img src="img/fresco/ensalada-quinoa.jpg" alt="Bowl amplio con quinoa blanca y negra, tomates cherry, pepino en medias lunas, menta fresca y vinagreta brillante, sobre"></div>
+  <div class="r-cols">
+    <div class="col-ing">
+      <div class="ing-head">Ingredientes</div>
+      <div class="ing-row"><span class="ing-qty">300 g</span><span class="ing-name">Quinoa (blanca y negra)</span></div>
+      <div class="ing-row"><span class="ing-qty">200 g</span><span class="ing-name">Tomates cherry</span></div>
+      <div class="ing-row"><span class="ing-qty">1</span><span class="ing-name">Pepino mediano</span></div>
+      <div class="ing-row"><span class="ing-qty">1</span><span class="ing-name">Pimiento rojo</span></div>
+      <div class="ing-row"><span class="ing-qty">1 puñado</span><span class="ing-name">Menta fresca</span></div>
+      <div class="ing-row"><span class="ing-qty">1 puñado</span><span class="ing-name">Perejil fresco</span></div>
+      <div class="ing-glabel">Vinagreta</div>
+      <div class="ing-row"><span class="ing-qty">60 ml</span><span class="ing-name">Aceite de oliva</span></div>
+      <div class="ing-row"><span class="ing-qty">30 ml</span><span class="ing-name">Jugo de limón</span></div>
+      <div class="ing-row"><span class="ing-qty">10 g</span><span class="ing-name">Sal y pimienta</span></div>
+    </div>
+    <div class="col-pasos">
+      <div class="paso-head">Preparación</div>
+      <div class="paso"><div class="paso-n">1</div><div class="paso-txt"><b>La quinoa.</b> Enjuagala bien en colador fino para sacar la saponina, que amarga. Cocinala en agua con sal, proporción 1 a 1,5, unos quince minutos. Escurrí y extendé para que se enfríe.</div></div>
+      <div class="paso"><div class="paso-n">2</div><div class="paso-txt">Las verduras: tomates cherry al medio, pepino en medias lunas, pimiento en cubos. Todo frío y crocante, con el corte parejo para que la ensalada quede prolija.</div></div>
+      <div class="paso"><div class="paso-n">3</div><div class="paso-txt"><b>La vinagreta.</b> Batí aceite, limón, sal y pimienta. Probá y ajustá hasta que el ácido y la grasa queden a la par, sin que gane ninguno de los dos.</div></div>
+      <div class="paso"><div class="paso-n">4</div><div class="paso-txt"><b>Mezclá tibia, no caliente.</b> La quinoa tibia chupa la vinagreta mucho mejor que la fría. Juntala primero con el aliño y recién ahí sumá las verduras.</div></div>
+      <div class="paso"><div class="paso-n">5</div><div class="paso-txt">Menta y perejil al final, picados gruesos. Si los metés antes, el ácido del limón los ennegrece y pierden la frescura, que es de lo que se trata todo esto.</div></div>
+    </div>
+    <div class="tip"><div class="tip-label">🔥 El consejo de Javo</div><div class="tip-txt">La mezcla de quinoa blanca y negra no es solo estética: la negra tiene textura más firme y tarda dos o tres minutos más en cocinarse. Si podés, cocinalas por separado y mezclalas después.</div></div>
+  </div>
+</div>
+
+<!-- R06 NARANJA, NUECES Y QUESO DE CABRA -->
+<div class="page recipe">
+  <div class="rh"><div class="rh-brand">Javotecocina</div><div class="rh-pg">Vegetales Frescos</div><div class="rh-rule"></div></div>
+  <div class="r-head" style="margin-top:11mm;">
+    <div class="r-head-l"><div class="r-cat">Receta 06 · Vegetales Frescos</div><div class="r-title">Naranja, Nueces<br>y Queso de Cabra</div></div>
+    <div class="r-num">06</div>
+  </div>
+  <div class="r-meta">
+    <div class="r-meta-it"><div class="r-meta-k">Tiempo</div><div class="r-meta-v">15 min</div></div>
+    <div class="r-meta-it"><div class="r-meta-k">Porciones</div><div class="r-meta-v">4</div></div>
+    <div class="r-meta-it"><div class="r-meta-k">Cocción</div><div class="r-meta-v">Sin fuego</div></div>
+    <div class="r-meta-it"><div class="r-meta-k">Dificultad</div><div class="r-meta-v">Fácil</div></div>
+  </div>
+  <div class="r-note">La naranja de los valles salteños es intensa y dulce. Con nueces tostadas y queso de cabra de acá arma una de esas combinaciones que parecen una pavada y sin embargo no fallan: tres ingredientes que se entienden solos.</div>
+  <div class="r-img"><img src="img/fresco/naranja-cabra.jpg" alt="Gajos de naranja sobre rúcula verde oscura, queso de cabra blanco desmenuzado, nueces tostadas y vinagreta de miel brill"></div>
+  <div class="r-cols">
+    <div class="col-ing">
+      <div class="ing-head">Ingredientes</div>
+      <div class="ing-row"><span class="ing-qty">4</span><span class="ing-name">Naranjas grandes</span></div>
+      <div class="ing-row"><span class="ing-qty">150 g</span><span class="ing-name">Queso de cabra salteño</span></div>
+      <div class="ing-row"><span class="ing-qty">80 g</span><span class="ing-name">Nueces</span></div>
+      <div class="ing-row"><span class="ing-qty">100 g</span><span class="ing-name">Rúcula fresca</span></div>
+      <div class="ing-glabel">Vinagreta de miel</div>
+      <div class="ing-row"><span class="ing-qty">40 ml</span><span class="ing-name">Aceite de oliva</span></div>
+      <div class="ing-row"><span class="ing-qty">20 ml</span><span class="ing-name">Vinagre de manzana</span></div>
+      <div class="ing-row"><span class="ing-qty">15 ml</span><span class="ing-name">Miel</span></div>
+      <div class="ing-row"><span class="ing-qty">5 g</span><span class="ing-name">Sal y pimienta</span></div>
+    </div>
+    <div class="col-pasos">
+      <div class="paso-head">Preparación</div>
+      <div class="paso"><div class="paso-n">1</div><div class="paso-txt"><b>Gajos a vivo.</b> Pelá la naranja entera, también la parte blanca. Con cuchillo de filete sacá los gajos de entre las membranas, limpios de todo lo blanco. Es más trabajo, pero cambia el plato entero.</div></div>
+      <div class="paso"><div class="paso-n">2</div><div class="paso-txt">Tostá las nueces cinco minutos en sartén seca a fuego medio, revolviendo, hasta que tomen color sin pasarse. Dejalas enfriar antes de usar para que queden crocantes.</div></div>
+      <div class="paso"><div class="paso-n">3</div><div class="paso-txt">La vinagreta: aceite, vinagre, miel, sal y pimienta. La miel le baja el filo al vinagre y empuja el dulce que ya trae la naranja.</div></div>
+      <div class="paso"><div class="paso-n">4</div><div class="paso-txt"><b>Armado.</b> Rúcula en el fondo, gajos de naranja encima bien repartidos, y el queso de cabra desmenuzado a mano en trozos irregulares. Rallado no: queda chiquito y desaparece.</div></div>
+      <div class="paso"><div class="paso-n">5</div><div class="paso-txt">Las nueces y la vinagreta recién al final, justo antes de llevarlo. Si la mojás antes, la rúcula se te viene abajo y pierde toda la gracia.</div></div>
+    </div>
+    <div class="tip"><div class="tip-label">🔥 El consejo de Javo</div><div class="tip-txt">La grasa del queso de cabra, el ácido de la naranja y el amargo de la nuez son tres sabores que se buscan y se equilibran. No reemplaces el queso de cabra por mozzarella: no es lo mismo, ni de cerca.</div></div>
+  </div>
+</div>
+
+<!-- R07 CHOCLO SALTEADO CON HIERBAS -->
+<div class="page recipe">
+  <div class="rh"><div class="rh-brand">Javotecocina</div><div class="rh-pg">Vegetales Frescos</div><div class="rh-rule"></div></div>
+  <div class="r-head" style="margin-top:11mm;">
+    <div class="r-head-l"><div class="r-cat">Receta 07 · Vegetales Frescos</div><div class="r-title">Choclo Salteado<br>con Hierbas</div></div>
+    <div class="r-num">07</div>
+  </div>
+  <div class="r-meta">
+    <div class="r-meta-it"><div class="r-meta-k">Tiempo</div><div class="r-meta-v">20 min</div></div>
+    <div class="r-meta-it"><div class="r-meta-k">Porciones</div><div class="r-meta-v">4</div></div>
+    <div class="r-meta-it"><div class="r-meta-k">Cocción</div><div class="r-meta-v">Sartén alta</div></div>
+    <div class="r-meta-it"><div class="r-meta-k">Dificultad</div><div class="r-meta-v">Fácil</div></div>
+  </div>
+  <div class="r-note">El choclo salteño es más chico, más duro y más dulce que el del litoral. Salteado a fuego fuerte con manteca y hierbas frescas es el acompañamiento más versátil que conozco para las carnes y los pescados del norte.</div>
+  <div class="r-img"><img src="img/fresco/choclo-salteado.jpg" alt="Sartén de hierro con granos de choclo dorados, manteca derretida brillante, cebollín verde picado encima y medio limón a"></div>
+  <div class="r-cols">
+    <div class="col-ing">
+      <div class="ing-head">Ingredientes</div>
+      <div class="ing-row"><span class="ing-qty">4</span><span class="ing-name">Choclos frescos (granos)</span></div>
+      <div class="ing-row"><span class="ing-qty">60 g</span><span class="ing-name">Manteca</span></div>
+      <div class="ing-row"><span class="ing-qty">4 dientes</span><span class="ing-name">Ajo laminado</span></div>
+      <div class="ing-row"><span class="ing-qty">10 g</span><span class="ing-name">Sal</span></div>
+      <div class="ing-row"><span class="ing-qty">5 g</span><span class="ing-name">Pimienta blanca</span></div>
+      <div class="ing-row"><span class="ing-qty">1 puñado</span><span class="ing-name">Cebollín fresco</span></div>
+      <div class="ing-row"><span class="ing-qty">1</span><span class="ing-name">Limón (jugo)</span></div>
+      <div class="ing-glabel">Opcional</div>
+      <div class="ing-row"><span class="ing-qty">c/n</span><span class="ing-name">Cilantro o quirquiña</span></div>
+    </div>
+    <div class="col-pasos">
+      <div class="paso-head">Preparación</div>
+      <div class="paso"><div class="paso-n">1</div><div class="paso-txt">Apoyá el choclo en la tabla y bajá el cuchillo de arriba hacia abajo para desgranar. Buscá que los granos salgan lo más enteros posible, así se doran parejo.</div></div>
+      <div class="paso"><div class="paso-n">2</div><div class="paso-txt"><b>Sartén bien caliente.</b> De hierro o acero. Manteca a fuego fuerte hasta que espume y empiece a oscurecer apenas: esa manteca tostada es la que pone el sabor.</div></div>
+      <div class="paso"><div class="paso-n">3</div><div class="paso-txt"><b>Ajo primero.</b> Treinta segundos el ajo laminado, hasta dorado pálido. Ojo acá: si se te quema, amarga todo el plato y de ahí no se vuelve.</div></div>
+      <div class="paso"><div class="paso-n">4</div><div class="paso-txt">El choclo de una vez, en capa pareja. No lo toques por dos minutos para que se dore abajo; después sí revolvé y dale otros dos. La paciencia es la que carameliza.</div></div>
+      <div class="paso"><div class="paso-n">5</div><div class="paso-txt"><b>Fuera del fuego.</b> Sal, pimienta, jugo de limón y cebollín. El limón va con el fuego ya apagado, si no se amarga. Mezclá y a la mesa enseguida, bien caliente.</div></div>
+    </div>
+    <div class="tip"><div class="tip-label">🔥 El consejo de Javo</div><div class="tip-txt">El choclo salteado a fuego fuerte carameliza sus azúcares y gana un sabor que el hervido jamás tiene. El truco es la sartén muy caliente y la paciencia de no moverlo demasiado. Dejalo que se dore.</div></div>
+  </div>
+</div>
+
+<!-- R08 REMOLACHA ASADA CON YOGUR -->
+<div class="page recipe">
+  <div class="rh"><div class="rh-brand">Javotecocina</div><div class="rh-pg">Vegetales Frescos</div><div class="rh-rule"></div></div>
+  <div class="r-head" style="margin-top:11mm;">
+    <div class="r-head-l"><div class="r-cat">Receta 08 · Vegetales Frescos</div><div class="r-title">Remolacha Asada<br>con Yogur</div></div>
+    <div class="r-num">08</div>
+  </div>
+  <div class="r-meta">
+    <div class="r-meta-it"><div class="r-meta-k">Tiempo</div><div class="r-meta-v">1 h</div></div>
+    <div class="r-meta-it"><div class="r-meta-k">Porciones</div><div class="r-meta-v">4</div></div>
+    <div class="r-meta-it"><div class="r-meta-k">Horno</div><div class="r-meta-v">200°C</div></div>
+    <div class="r-meta-it"><div class="r-meta-k">Dificultad</div><div class="r-meta-v">Fácil</div></div>
+  </div>
+  <div class="r-note">La remolacha asada concentra su azúcar y no tiene nada que ver con la hervida de siempre. Con yogur griego y nueces tostadas armás una entrada que parece de restorán con muy poco laburo. Es de esas que quedan bien sin esforzarte.</div>
+  <div class="r-img"><img src="img/fresco/remolacha-yogur.jpg" alt="Remolachas asadas de varios colores —roja, amarilla, rayada Chioggia— sobre una base de yogur griego blanco, con nueces "></div>
+  <div class="r-cols">
+    <div class="col-ing">
+      <div class="ing-head">Ingredientes</div>
+      <div class="ing-row"><span class="ing-qty">6</span><span class="ing-name">Remolachas medianas variadas</span></div>
+      <div class="ing-row"><span class="ing-qty">30 ml</span><span class="ing-name">Aceite de oliva</span></div>
+      <div class="ing-row"><span class="ing-qty">5 g</span><span class="ing-name">Sal gruesa</span></div>
+      <div class="ing-glabel">Para servir</div>
+      <div class="ing-row"><span class="ing-qty">200 g</span><span class="ing-name">Yogur griego natural</span></div>
+      <div class="ing-row"><span class="ing-qty">60 g</span><span class="ing-name">Nueces tostadas</span></div>
+      <div class="ing-row"><span class="ing-qty">15 ml</span><span class="ing-name">Aceite de oliva extra</span></div>
+      <div class="ing-row"><span class="ing-qty">c/n</span><span class="ing-name">Tomillo fresco o eneldo</span></div>
+      <div class="ing-row"><span class="ing-qty">5 g</span><span class="ing-name">Sal en escamas</span></div>
+    </div>
+    <div class="col-pasos">
+      <div class="paso-head">Preparación</div>
+      <div class="paso"><div class="paso-n">1</div><div class="paso-txt"><b>Envolver en aluminio.</b> Cada remolacha entera con un chorrito de aceite y sal, bien cerrada: se cocina con su propio vapor adentro. Si son de colores, una por una para que no se tiñan entre ellas.</div></div>
+      <div class="paso"><div class="paso-n">2</div><div class="paso-txt">Horno a 200°C, entre 45 y 60 minutos según el tamaño. La prueba es el palillo: tiene que entrar y ceder sin la menor resistencia.</div></div>
+      <div class="paso"><div class="paso-n">3</div><div class="paso-txt"><b>Pelarlas tibias.</b> Con guantes —si no te quedan las manos teñidas— o con papel. De la asada la piel sale sola; por eso jamás la pelo cruda, es un suplicio.</div></div>
+      <div class="paso"><div class="paso-n">4</div><div class="paso-txt">Cortalas en cuartos o en rodajas, como más te guste. Adentro tienen que verse brillantes y jugosas, nunca secas ni apagadas.</div></div>
+      <div class="paso"><div class="paso-n">5</div><div class="paso-txt"><b>Armado.</b> Yogur griego de base, las remolachas encima, nueces tostadas, un hilo de oliva y tomillo. La sal en escamas al final, para que cruja.</div></div>
+    </div>
+    <div class="tip"><div class="tip-label">🔥 El consejo de Javo</div><div class="tip-txt">Si conseguís remolacha amarilla o rayada Chioggia, mezclalas con la roja. Los tres colores sobre el yogur blanco son de las presentaciones más lindas que podés lograr en una entrada tan simple.</div></div>
+  </div>
+</div>
+
+<!-- R09 CHIMICHURRI DEL NORTE -->
+<div class="page recipe">
+  <div class="rh"><div class="rh-brand">Javotecocina</div><div class="rh-pg">Encurtidos y Salsas</div><div class="rh-rule"></div></div>
+  <div class="r-head" style="margin-top:11mm;">
+    <div class="r-head-l"><div class="r-cat">Receta 09 · Encurtidos y Salsas</div><div class="r-title">Chimichurri<br>del Norte</div></div>
+    <div class="r-num">09</div>
+  </div>
+  <div class="r-meta">
+    <div class="r-meta-it"><div class="r-meta-k">Tiempo</div><div class="r-meta-v">15 min</div></div>
+    <div class="r-meta-it"><div class="r-meta-k">Rinde</div><div class="r-meta-v">1 frasco</div></div>
+    <div class="r-meta-it"><div class="r-meta-k">Reposo</div><div class="r-meta-v">24 hs</div></div>
+    <div class="r-meta-it"><div class="r-meta-k">Dificultad</div><div class="r-meta-v">Fácil</div></div>
+  </div>
+  <div class="r-note">Mi chimichurri lleva quirquiña, la hierba andina que acá reemplaza al perejil en casi todo. Sale más aromático y más complejo que el clásico de la parrilla. Te aviso: el que lo prueba una vez ya no quiere el otro.</div>
+  <div class="r-img"><img src="img/fresco/chimichurri-norte.jpg" alt="Frasco de chimichurri verde intenso con trozos de hierbas visibles, aceite de oliva dorado encima, una cuchara saliendo "></div>
+  <div class="r-cols">
+    <div class="col-ing">
+      <div class="ing-head">Ingredientes</div>
+      <div class="ing-row"><span class="ing-qty">1 manojo</span><span class="ing-name">Quirquiña (o cilantro)</span></div>
+      <div class="ing-row"><span class="ing-qty">1 manojo</span><span class="ing-name">Perejil liso</span></div>
+      <div class="ing-row"><span class="ing-qty">8 dientes</span><span class="ing-name">Ajo</span></div>
+      <div class="ing-row"><span class="ing-qty">1</span><span class="ing-name">Locoto rojo sin semillas</span></div>
+      <div class="ing-row"><span class="ing-qty">15 g</span><span class="ing-name">Orégano seco</span></div>
+      <div class="ing-row"><span class="ing-qty">150 ml</span><span class="ing-name">Aceite de oliva</span></div>
+      <div class="ing-row"><span class="ing-qty">60 ml</span><span class="ing-name">Vinagre de vino tinto</span></div>
+      <div class="ing-row"><span class="ing-qty">15 g</span><span class="ing-name">Sal</span></div>
+      <div class="ing-row"><span class="ing-qty">5 g</span><span class="ing-name">Pimienta negra</span></div>
+    </div>
+    <div class="col-pasos">
+      <div class="paso-head">Preparación</div>
+      <div class="paso"><div class="paso-n">1</div><div class="paso-txt"><b>A cuchillo, nunca a mixer.</b> El chimichurri de verdad se pica a mano: el mixer hace puré y le mata la textura. Picá la quirquiña y el perejil juntos, bien fino.</div></div>
+      <div class="paso"><div class="paso-n">2</div><div class="paso-txt">Ajo en brunoise bien chica y el locoto sin semillas, también finito. Cuanto más chico el corte, más se entreveran sin que ninguno se imponga.</div></div>
+      <div class="paso"><div class="paso-n">3</div><div class="paso-txt">Al frasco: hierbas, ajo, locoto, orégano, sal y pimienta. Cubrí con el aceite, sumá el vinagre, cerrá y agitá hasta que se integre todo.</div></div>
+      <div class="paso"><div class="paso-n">4</div><div class="paso-txt"><b>Esperá 24 horas.</b> El chimichurri del día siguiente es otro: los sabores se asientan y el ácido cocina apenas las hierbas. Sé que da fiaca, pero la espera paga.</div></div>
+      <div class="paso"><div class="paso-n">5</div><div class="paso-txt">Servilo siempre a temperatura ambiente. Con el frío de la heladera el aceite se solidifica y se duerme el aroma: sacalo media hora antes.</div></div>
+    </div>
+    <div class="tip"><div class="tip-label">🔥 El consejo de Javo</div><div class="tip-txt">El chimichurri se conserva dos semanas en la heladera, siempre con el aceite cubriendo las hierbas; si quedan expuestas al aire, se ennegrecen. Antes de servir, agregale un chorrito de aceite fresco encima.</div></div>
+  </div>
+</div>
+
+<!-- R10 ESCABECHE DE VEGETALES -->
+<div class="page recipe">
+  <div class="rh"><div class="rh-brand">Javotecocina</div><div class="rh-pg">Encurtidos y Salsas</div><div class="rh-rule"></div></div>
+  <div class="r-head" style="margin-top:11mm;">
+    <div class="r-head-l"><div class="r-cat">Receta 10 · Encurtidos y Salsas</div><div class="r-title">Escabeche de<br>Vegetales</div></div>
+    <div class="r-num">10</div>
+  </div>
+  <div class="r-meta">
+    <div class="r-meta-it"><div class="r-meta-k">Tiempo</div><div class="r-meta-v">45 min</div></div>
+    <div class="r-meta-it"><div class="r-meta-k">Rinde</div><div class="r-meta-v">2 frascos</div></div>
+    <div class="r-meta-it"><div class="r-meta-k">Reposo</div><div class="r-meta-v">48 hs</div></div>
+    <div class="r-meta-it"><div class="r-meta-k">Dificultad</div><div class="r-meta-v">Fácil</div></div>
+  </div>
+  <div class="r-note">El escabeche es la conserva de vegetales del norte: lo que sobra de la huerta —pimientos, zanahorias, coliflor— rescatado con el vinagre de la bodega local. Una de esas cosas que conviene tener siempre a mano.</div>
+  <div class="r-img"><img src="img/fresco/escabeche.jpg" alt="Frasco de vidrio con escabeche colorido, pimientos rojos, zanahorias naranjas y coliflor blanca, en líquido dorado de vi"></div>
+  <div class="r-cols">
+    <div class="col-ing">
+      <div class="ing-head">Ingredientes</div>
+      <div class="ing-row"><span class="ing-qty">2</span><span class="ing-name">Pimientos rojos</span></div>
+      <div class="ing-row"><span class="ing-qty">2</span><span class="ing-name">Zanahorias</span></div>
+      <div class="ing-row"><span class="ing-qty">1/2</span><span class="ing-name">Coliflor pequeña</span></div>
+      <div class="ing-row"><span class="ing-qty">1</span><span class="ing-name">Cebolla grande</span></div>
+      <div class="ing-row"><span class="ing-qty">c/n</span><span class="ing-name">Locoto o jalapeño</span></div>
+      <div class="ing-glabel">Líquido de escabeche</div>
+      <div class="ing-row"><span class="ing-qty">300 ml</span><span class="ing-name">Vinagre blanco de vino</span></div>
+      <div class="ing-row"><span class="ing-qty">200 ml</span><span class="ing-name">Aceite de oliva</span></div>
+      <div class="ing-row"><span class="ing-qty">200 ml</span><span class="ing-name">Agua</span></div>
+      <div class="ing-row"><span class="ing-qty">15 g</span><span class="ing-name">Sal</span></div>
+      <div class="ing-row"><span class="ing-qty">10 g</span><span class="ing-name">Azúcar</span></div>
+      <div class="ing-row"><span class="ing-qty">5</span><span class="ing-name">Granos de pimienta + laurel</span></div>
+    </div>
+    <div class="col-pasos">
+      <div class="paso-head">Preparación</div>
+      <div class="paso"><div class="paso-n">1</div><div class="paso-txt"><b>El corte.</b> Pimientos en tiras, zanahorias en bastones, coliflor en ramilletes chicos, cebolla en pluma, locoto en rodajas. Todo de tamaño parecido para que se encurtan parejos.</div></div>
+      <div class="paso"><div class="paso-n">2</div><div class="paso-txt"><b>Escaldado rápido.</b> Dos o tres minutos en agua hirviendo con sal, que queden al dente. Sacalos y mandalos a agua con hielo para cortar la cocción de golpe: si no, te siguen blandeando.</div></div>
+      <div class="paso"><div class="paso-n">3</div><div class="paso-txt">El líquido: herví agua, vinagre, sal, azúcar, pimienta y laurel cinco minutos. Apagá y recién ahí sumá el aceite. Dejalo entibiar un poco antes de envasar.</div></div>
+      <div class="paso"><div class="paso-n">4</div><div class="paso-txt">Vegetales escurridos en frascos esterilizados y cubrí con el líquido todavía caliente. Cerrá enseguida para que se haga el vacío.</div></div>
+      <div class="paso"><div class="paso-n">5</div><div class="paso-txt"><b>Dos días de reposo, mínimo.</b> El vinagre necesita ese tiempo para meterse adentro y cocinar los vegetales. Aguanta hasta dos meses en la heladera, así que hacé de más.</div></div>
+    </div>
+    <div class="tip"><div class="tip-label">🔥 El consejo de Javo</div><div class="tip-txt">El escabeche va con todo: en la picada, con el asado, con empanadas. Y no tires el líquido: con un poco más de aceite de oliva tenés una vinagreta exprés que te saca de cualquier apuro.</div></div>
+  </div>
+</div>
+
+<!-- R11 GAZPACHO DEL NORTE -->
+<div class="page recipe">
+  <div class="rh"><div class="rh-brand">Javotecocina</div><div class="rh-pg">Encurtidos y Salsas</div><div class="rh-rule"></div></div>
+  <div class="r-head" style="margin-top:11mm;">
+    <div class="r-head-l"><div class="r-cat">Receta 11 · Encurtidos y Salsas</div><div class="r-title">Gazpacho<br>del Norte</div></div>
+    <div class="r-num">11</div>
+  </div>
+  <div class="r-meta">
+    <div class="r-meta-it"><div class="r-meta-k">Tiempo</div><div class="r-meta-v">20 min</div></div>
+    <div class="r-meta-it"><div class="r-meta-k">Porciones</div><div class="r-meta-v">4</div></div>
+    <div class="r-meta-it"><div class="r-meta-k">Frío</div><div class="r-meta-v">2 hs</div></div>
+    <div class="r-meta-it"><div class="r-meta-k">Dificultad</div><div class="r-meta-v">Fácil</div></div>
+  </div>
+  <div class="r-note">Mi gazpacho cambia el pimiento picante español por locoto, y va con tomate salteño, que es más intenso. Es la sopa fría que hago cuando el verano aprieta: liviana, ácida y la que pide el cuerpo en esos días de cuarenta grados.</div>
+  <div class="r-img"><img src="img/fresco/gazpacho-norte.jpg" alt="Gazpacho rojo intenso en bowl blanco profundo, hilo de aceite de oliva encima, croutons de pan flotando, dados de pepino"></div>
+  <div class="r-cols">
+    <div class="col-ing">
+      <div class="ing-head">Ingredientes</div>
+      <div class="ing-row"><span class="ing-qty">1 kg</span><span class="ing-name">Tomates muy maduros</span></div>
+      <div class="ing-row"><span class="ing-qty">1</span><span class="ing-name">Pepino mediano</span></div>
+      <div class="ing-row"><span class="ing-qty">1</span><span class="ing-name">Pimiento rojo</span></div>
+      <div class="ing-row"><span class="ing-qty">1/2</span><span class="ing-name">Locoto rojo sin semillas</span></div>
+      <div class="ing-row"><span class="ing-qty">2 dientes</span><span class="ing-name">Ajo</span></div>
+      <div class="ing-row"><span class="ing-qty">80 ml</span><span class="ing-name">Aceite de oliva extra virgen</span></div>
+      <div class="ing-row"><span class="ing-qty">30 ml</span><span class="ing-name">Vinagre de jerez o manzana</span></div>
+      <div class="ing-row"><span class="ing-qty">15 g</span><span class="ing-name">Sal</span></div>
+      <div class="ing-glabel">Guarnición</div>
+      <div class="ing-row"><span class="ing-qty">c/n</span><span class="ing-name">Pan duro en cubos (croutons)</span></div>
+    </div>
+    <div class="col-pasos">
+      <div class="paso-head">Preparación</div>
+      <div class="paso"><div class="paso-n">1</div><div class="paso-txt"><b>Buenos vegetales.</b> Esto no se cocina, así que el sabor del crudo es el sabor del plato. Los tomates bien maduros y a temperatura ambiente, no salidos de la heladera.</div></div>
+      <div class="paso"><div class="paso-n">2</div><div class="paso-txt">Todo en trozos grandes al mixer, con el ajo, el aceite, el vinagre y la sal. Procesá hasta que quede completamente liso, sin un solo grumo.</div></div>
+      <div class="paso"><div class="paso-n">3</div><div class="paso-txt"><b>Colar, no saltearlo.</b> Por colador fino o chino. Ese paso es la diferencia entre un gazpacho sedoso y uno rústico: se siente apenas lo probás.</div></div>
+      <div class="paso"><div class="paso-n">4</div><div class="paso-txt">Probá sal, vinagre y aceite, y a la heladera mínimo dos horas. Tibio no lo sirvas nunca: el gazpacho es, antes que nada, una cosa de frío.</div></div>
+      <div class="paso"><div class="paso-n">5</div><div class="paso-txt">En bowl frío, con un hilo de oliva, croutons y un trocito de pepino o cherry. Ese contraste de texturas es lo que termina de armar el plato.</div></div>
+    </div>
+    <div class="tip"><div class="tip-label">🔥 El consejo de Javo</div><div class="tip-txt">El gazpacho de un día para el otro intensifica el sabor: el ácido se asienta y los vegetales terminan de integrarse. Si podés, hacé el doble y guardá la mitad para el día siguiente.</div></div>
+  </div>
+</div>
+
+<!-- R12 AGUA FRESCA DE HIERBAS ANDINAS -->
+<div class="page recipe">
+  <div class="rh"><div class="rh-brand">Javotecocina</div><div class="rh-pg">Encurtidos y Salsas</div><div class="rh-rule"></div></div>
+  <div class="r-head" style="margin-top:11mm;">
+    <div class="r-head-l"><div class="r-cat">Receta 12 · Encurtidos y Salsas</div><div class="r-title">Agua Fresca de<br>Hierbas Andinas</div></div>
+    <div class="r-num">12</div>
+  </div>
+  <div class="r-meta">
+    <div class="r-meta-it"><div class="r-meta-k">Tiempo</div><div class="r-meta-v">10 min</div></div>
+    <div class="r-meta-it"><div class="r-meta-k">Porciones</div><div class="r-meta-v">6–8</div></div>
+    <div class="r-meta-it"><div class="r-meta-k">Infusión</div><div class="r-meta-v">2 hs frío</div></div>
+    <div class="r-meta-it"><div class="r-meta-k">Dificultad</div><div class="r-meta-v">Fácil</div></div>
+  </div>
+  <div class="r-note">El agua fresca de hierbas andinas es la bebida de la Puna: menta, muña, manzanilla y limón. Limpia, aromática y sin azúcar. La que pide el cuerpo en esos días de calor seco del norte que rajan la tierra.</div>
+  <div class="r-img"><img src="img/fresco/agua-hierbas.jpg" alt="Jarra de vidrio con agua fresca verdosa, hojas de menta y flores de manzanilla visibles, hielo transparente y rodajas de"></div>
+  <div class="r-cols">
+    <div class="col-ing">
+      <div class="ing-head">Ingredientes</div>
+      <div class="ing-row"><span class="ing-qty">1 manojo</span><span class="ing-name">Menta fresca</span></div>
+      <div class="ing-row"><span class="ing-qty">1 manojo</span><span class="ing-name">Muña (o más menta)</span></div>
+      <div class="ing-row"><span class="ing-qty">10 g</span><span class="ing-name">Manzanilla seca (flores)</span></div>
+      <div class="ing-row"><span class="ing-qty">2</span><span class="ing-name">Limones</span></div>
+      <div class="ing-row"><span class="ing-qty">1,5 L</span><span class="ing-name">Agua fría</span></div>
+      <div class="ing-row"><span class="ing-qty">c/n</span><span class="ing-name">Hielo</span></div>
+      <div class="ing-glabel">Opcional</div>
+      <div class="ing-row"><span class="ing-qty">c/n</span><span class="ing-name">Miel al gusto</span></div>
+    </div>
+    <div class="col-pasos">
+      <div class="paso-head">Preparación</div>
+      <div class="paso"><div class="paso-n">1</div><div class="paso-txt">Enjuagá bien la menta y la muña. Que estén frescas y sin partes negras: una sola hoja pasada le mete un gusto raro a toda la jarra.</div></div>
+      <div class="paso"><div class="paso-n">2</div><div class="paso-txt"><b>Machacá apenas.</b> Con la mano o un mortero, presioná las hojas para soltar los aceites, pero sin hacerlas pomada. Es despertarlas, no destruirlas.</div></div>
+      <div class="paso"><div class="paso-n">3</div><div class="paso-txt">Todas las hierbas, manzanilla incluida, en la jarra con el agua fría. Sumá el jugo de los limones y un par de rodajas para que perfumen.</div></div>
+      <div class="paso"><div class="paso-n">4</div><div class="paso-txt"><b>Dos horas en frío.</b> La infusión fría saca los aromas sin amargar. En caliente las hierbas largan taninos y se ponen amargas, por eso esta va sí o sí a la heladera.</div></div>
+      <div class="paso"><div class="paso-n">5</div><div class="paso-txt">Colá las hierbas antes de servir, o dejá que cada uno se sirva de la jarra. Con mucho hielo. La miel, a gusto de cada uno: no endulces para todos.</div></div>
+    </div>
+    <div class="tip"><div class="tip-label">🔥 El consejo de Javo</div><div class="tip-txt">La muña es una hierba andina con un sabor entre menta y orégano. La conseguís en ferias de productos naturales o en dietéticas del norte. Si no la encontrás, duplicá la cantidad de menta y listo.</div></div>
+  </div>
+</div>
+
+<!-- R13 VINAGRETA DE LOCOTO Y NARANJA -->
+<div class="page recipe">
+  <div class="rh"><div class="rh-brand">Javotecocina</div><div class="rh-pg">Encurtidos y Salsas</div><div class="rh-rule"></div></div>
+  <div class="r-head" style="margin-top:11mm;">
+    <div class="r-head-l"><div class="r-cat">Receta 13 · Encurtidos y Salsas</div><div class="r-title">Vinagreta de<br>Locoto y Naranja</div></div>
+    <div class="r-num">13</div>
+  </div>
+  <div class="r-meta">
+    <div class="r-meta-it"><div class="r-meta-k">Tiempo</div><div class="r-meta-v">10 min</div></div>
+    <div class="r-meta-it"><div class="r-meta-k">Rinde</div><div class="r-meta-v">1 frasco</div></div>
+    <div class="r-meta-it"><div class="r-meta-k">Cocción</div><div class="r-meta-v">Sin fuego</div></div>
+    <div class="r-meta-it"><div class="r-meta-k">Dificultad</div><div class="r-meta-v">Fácil</div></div>
+  </div>
+  <div class="r-note">Esta es la vinagreta comodín del libro: la tiro sobre ensaladas, pescados, verduras asadas y carnes blancas. El picante del locoto y el dulce de la naranja se sostienen con el ácido del vinagre, y ninguno se pasa de la raya.</div>
+  <div class="r-img"><img src="img/fresco/vinagreta-locoto.jpg" alt="Frasco de vinagreta naranja brillante con puntos rojos de locoto visibles, una cuchara sacando vinagreta sobre una ensal"></div>
+  <div class="r-cols">
+    <div class="col-ing">
+      <div class="ing-head">Ingredientes</div>
+      <div class="ing-row"><span class="ing-qty">80 ml</span><span class="ing-name">Jugo de naranja fresco</span></div>
+      <div class="ing-row"><span class="ing-qty">30 ml</span><span class="ing-name">Vinagre de manzana</span></div>
+      <div class="ing-row"><span class="ing-qty">120 ml</span><span class="ing-name">Aceite de oliva extra virgen</span></div>
+      <div class="ing-row"><span class="ing-qty">1</span><span class="ing-name">Locoto rojo sin semillas</span></div>
+      <div class="ing-row"><span class="ing-qty">1</span><span class="ing-name">Diente de ajo pequeño</span></div>
+      <div class="ing-row"><span class="ing-qty">10 ml</span><span class="ing-name">Miel</span></div>
+      <div class="ing-row"><span class="ing-qty">5 g</span><span class="ing-name">Sal</span></div>
+      <div class="ing-row"><span class="ing-qty">3 g</span><span class="ing-name">Pimienta blanca</span></div>
+      <div class="ing-row"><span class="ing-qty">1 tira</span><span class="ing-name">Piel de naranja (sin blanco)</span></div>
+    </div>
+    <div class="col-pasos">
+      <div class="paso-head">Preparación</div>
+      <div class="paso"><div class="paso-n">1</div><div class="paso-txt"><b>Dos caminos.</b> Al mixer te queda emulsionada y cremosa; en frasco te queda separada y la agitás antes de usar. Las dos van bien, es cuestión de para qué la querés.</div></div>
+      <div class="paso"><div class="paso-n">2</div><div class="paso-txt">Versión mixer: naranja, vinagre, locoto, ajo, miel, sal y pimienta al vaso. Con el aparato en marcha, agregá el aceite en hilo fino para que emulsione y tome cuerpo.</div></div>
+      <div class="paso"><div class="paso-n">3</div><div class="paso-txt">Versión frasco: todo junto, locoto muy picado y ajo rallado. Cerrá y agitá treinta segundos. Antes de cada uso volvés a agitar para reintegrar el aceite, nada más.</div></div>
+      <div class="paso"><div class="paso-n">4</div><div class="paso-txt">Tirá al frasco una tira de piel de naranja, solo la parte naranja: perfuma mientras reposa. Sacala a los dos días, si no empieza a amargar.</div></div>
+      <div class="paso"><div class="paso-n">5</div><div class="paso-txt"><b>Aguanta diez días.</b> En la heladera el aceite se solidifica: sacala veinte minutos antes y agitá. Del segundo día en adelante está mejor que recién hecha.</div></div>
+    </div>
+    <div class="tip"><div class="tip-label">🔥 El consejo de Javo</div><div class="tip-txt">Esta vinagreta sobre el ceviche o el tiradito de las primeras recetas es una combinación tremenda: el dulce de la naranja redondea el ácido del limón y el locoto une todo. Probala también sobre la remolacha asada.</div></div>
+  </div>
+</div>
+
+<!-- CIERRE: LA MESA FRESCA -->
+<div class="page gp">
+  <div class="rh"><div class="rh-brand">Javotecocina</div><div class="rh-pg">Para cerrar</div><div class="rh-rule"></div></div>
+  <div style="margin-top:13mm;">
+    <div class="g-title">La mesa fresca</div>
+    <div class="r-img" style="margin-bottom:6mm;height:90mm;"><img src="img/fresco/mesa.jpg" alt="Mesa larga al aire libre con varias recetas frías del libro servidas para compartir: ceviche, ensaladas, frascos de encu"></div>
+    <div class="g-text">Ninguno de estos platos se come solo. La cocina fresca del norte es para compartir en una tarde de calor, y la mesa se arma con lo que la rodea: una vinagreta que despierte las hojas, un agua que refresque entre bocado y bocado, una tabla fría para picar y un picante a mano para el que se anime. Te dejo lo que más uso yo para redondear todo lo de este libro.</div>
+    <div class="g-grid">
+      <div class="g-card"><div class="g-card-title">🌿 Vinagretas que tengo siempre</div><p>La de locoto y naranja de este libro es mi comodín, pero conviene tener dos o tres a mano: una de limón y oliva bien básica, otra con mostaza y miel, y la del líquido del escabeche con aceite. En frascos en la heladera, listas para sacar veinte minutos antes y agitar.</p></div>
+      <div class="g-card"><div class="g-card-title">🍋 Aguas frescas y saborizadas</div><p>El agua de hierbas andinas abre la lista, pero la idea se estira: pepino y menta, naranja y romero, sandía con un toque de limón. Siempre infusión en frío, sin azúcar o con muy poca miel. Una jarra fría en la mesa cambia el clima de toda una tarde de calor.</p></div>
+      <div class="g-card"><div class="g-card-title">🧀 Tabla fría para armar</div><p>Para esperar el plato principal: queso de cabra salteño, el escabeche de este libro, aceitunas, nueces tostadas, gajos de naranja y buen pan. Frío, ácido y graso conviviendo en una tabla. Se arma en cinco minutos y aguanta toda la sobremesa sin marchitarse.</p></div>
+      <div class="g-card"><div class="g-card-title">🌶️ Llajua y picantes del norte</div><p>La llajua es la salsa picante boliviano-salteña por excelencia: tomate, locoto y quirquiña molidos en batán, sin cocción. Fresca y brava, le va a casi todo lo de este libro. Tené siempre un frasco: un toque de llajua despierta una ensalada tibia o un pescado crudo como nada.</p></div>
+    </div>
+    <div class="g-text" style="font-style:italic;color:var(--muted);margin-top:1mm;">Y por encima de todo, lo más importante de la mesa fresca no se cocina: es la siesta que se estira porque hace calor y nadie tiene apuro, la jarra que se vuelve a llenar, el limón que alguien exprime de más sobre su plato. Se prepara con frío y se come sin prisa, a la sombra. Esa, al final, es toda la receta.</div>
+  </div>
+</div>
+
+<!-- CONTRACUBIERTA -->
+<div class="page back">
+  <div class="back-quote"><p>El ácido también es fuego y el limón también cocina. El norte que no quema sabe de frescura, de paciencia y de la huerta. Apagá el fuego, exprimí el limón y dejá que el frío haga lo suyo.</p></div>
+  <div class="back-bottom">
+    <div class="back-brand">Javotecocina</div>
+    <div class="back-web">javotecocina.com · Salta, Argentina</div>
+  </div>
+</div>
+
 <script>
 (function(){
   var slug='lo-fresco-del-norte';
-  if(localStorage.getItem('javo_admin_v1')==='1'){document.getElementById('javo-paywall').remove();return;}
+  if(localStorage.getItem('javo_admin_v1')==='1'){var p=document.getElementById('javo-paywall');if(p)p.remove();return;}
   var token=localStorage.getItem('javo_access_lo-fresco-del-norte');
-  if(token){try{var d=JSON.parse(atob(token));if(d.slug===slug&&d.exp>Date.now()){document.getElementById('javo-paywall').remove();return;}}catch(e){}}
+  if(token){try{var d=JSON.parse(atob(token));if(d.slug===slug&&d.exp>Date.now()){var p=document.getElementById('javo-paywall');if(p)p.remove();return;}}catch(e){}}
   document.body.style.overflow='hidden';
 })();
-async function javoVerificar(){
-  var email=document.getElementById('pw-email').value.trim();
-  var msg=document.getElementById('pw-msg');
-  if(!email||!email.includes('@')){msg.textContent='Ingresá un email válido.';return;}
-  msg.style.color='#C4853A';msg.textContent='Verificando...';
-  try{
-    var r=await fetch('/api/verify_purchase',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({email:email,recetario:'lo-fresco-del-norte'})});
-    var data=await r.json();
-    if(data.access){
-      var token=btoa(JSON.stringify({slug:'lo-fresco-del-norte',email:email,exp:Date.now()+365*24*60*60*1000}));
-      localStorage.setItem('javo_access_lo-fresco-del-norte',token);
-      document.getElementById('javo-paywall').remove();
-      document.body.style.overflow='';
-    }else{
-      msg.style.color='#D4521A';
-      msg.textContent='No encontramos una compra con ese email para este recetario.';
-    }
-  }catch(e){msg.style.color='#D4521A';msg.textContent='Error de conexión. Intentá de nuevo.';}
-}
 </script>
-<!-- FIN PAYWALL -->
-
-  <!-- NAV -->
-  <nav class="nav-volver">
-    <a href="/">Volver a javotecocina.com</a>
-  </nav>
-
-  <!-- HEADER -->
-  <header class="header">
-    <p class="header-eyebrow">Javo Te Cocina · Recetario</p>
-    <h1>Lo Fresco del Norte</h1>
-    <p class="subtitulo">Crudos, ceviches y ensaladas con alma NOA</p>
-    <p class="header-meta"><span>11 recetas</span> &nbsp;·&nbsp; Técnica en frío &nbsp;·&nbsp; Javier "Javo" — Salta</p>
-  </header>
-
-  <!-- CONTENIDO PRINCIPAL -->
-  <main>
-    <div class="container">
-
-      <!-- INTRO -->
-      <section class="intro-section">
-        <p>El norte argentino no es solo fuego y guisos. La despensa del NOA tiene ingredientes frescos únicos que pocas cocinas del país conocen en profundidad: truchas de río criadas en agua de deshielo, quinoa cosechada en los valles de altura, locotos que dan un picor limpio y aromático, hierbas del monte con sabores que no existen en ningún supermercado, quesos de cabra curados en salares, y vinos de altura con una acidez natural que hace brillar cualquier ceviche.</p>
-        <p>Este recetario es mi otra cara — el chef de técnica fina y sabores limpios. Cada preparación en este libro depende de la calidad del producto fresco. No hay fuego que corrija un tomate mediocre ni un limón viejo. Acá el producto manda.</p>
-
-        <!-- DESPENSA DEL NOA -->
-        <div class="despensa-noa" id="despensa-noa">
-          <h3>Despensa del NOA</h3>
-          <img class="receta-foto" src="https://images.unsplash.com/photo-1540420773420-3366772f4999?w=900&auto=format&fit=crop" alt="Despensa del NOA" />
-          <p class="despensa-subtitle">Ingredientes clave del norte argentino</p>
-          <div class="despensa-grid">
-            <div class="despensa-item">
-              <p class="di-nombre">Trucha de río</p>
-              <p class="di-desc">Criada en agua de deshielo de la Puna. Carne firme, color rosado, sabor más suave que el salmón.</p>
-            </div>
-            <div class="despensa-item">
-              <p class="di-nombre">Quinoa</p>
-              <p class="di-desc">Cosechada en valles de 3.000+ m. Blanca y roja, más sabrosa que la importada. Tostar antes de cocinar.</p>
-            </div>
-            <div class="despensa-item">
-              <p class="di-nombre">Locoto</p>
-              <p class="di-desc">Ají nativo del NOA. Picor más limpio y aromático que el jalapeño. Fresco o en llajua.</p>
-            </div>
-            <div class="despensa-item">
-              <p class="di-nombre">Quirquiña</p>
-              <p class="di-desc">Hierba del monte norteño. Perfume entre cilantro y menta. Fundamental para el ceviche norteño.</p>
-            </div>
-            <div class="despensa-item">
-              <p class="di-nombre">Queso de cabra salteño</p>
-              <p class="di-desc">Curado en salares de altura. Más intenso que el francés, levemente ácido y con pasta firme.</p>
-            </div>
-            <div class="despensa-item">
-              <p class="di-nombre">Vinos Calchaquíes</p>
-              <p class="di-desc">Torrontés, Tannat y Malbec de altura. Acidez natural alta. El torrontés funciona como el vino blanco perfecto para cocinar.</p>
-            </div>
-            <div class="despensa-item">
-              <p class="di-nombre">Limón norteño</p>
-              <p class="di-desc">El limón de Salta tiene más dulzor y menos amargor que el limón de Buenos Aires. Clave en el ceviche.</p>
-            </div>
-            <div class="despensa-item">
-              <p class="di-nombre">Hierbas del monte</p>
-              <p class="di-desc">Muña, peperina, tomillo silvestre. Cada una diferente, todas únicas de la región. Se consiguen en los mercados locales.</p>
-            </div>
-          </div>
-        </div>
-
-        <p>Todas las recetas de este libro usan ingredientes que podés encontrar en los mercados del NOA o en verdulerías de buen nivel en cualquier ciudad. Donde sea posible, indico sustitutos — pero si podés conseguir el original, vale el viaje.</p>
-      </section>
-
-      <!-- RECETAS -->
-      <section class="recetas-section">
-        <h2 class="section-title">Las 11 Recetas</h2>
-        <div class="section-divider"></div>
-
-        <nav class="recetario-indice">
-          <div class="indice-titulo">Índice de recetas</div>
-          <ul class="indice-lista">
-            <li><a href="#despensa-noa"><span class="indice-num">01</span>Despensa del NOA</a></li>
-            <li><a href="#ceviche-trucha"><span class="indice-num">02</span>Ceviche de Trucha con Llajua</a></li>
-            <li><a href="#quinoa-nortena"><span class="indice-num">03</span>Ensalada de Quinoa Norteña</a></li>
-            <li><a href="#carpaccio-hongos"><span class="indice-num">04</span>Carpaccio de Hongos Portobello</a></li>
-            <li><a href="#ensalada-calchaqui"><span class="indice-num">05</span>Ensalada Calchaquí</a></li>
-            <li><a href="#tartar-trucha"><span class="indice-num">06</span>Tartar de Trucha NOA</a></li>
-            <li><a href="#gazpacho-norteno"><span class="indice-num">07</span>Gazpacho Norteño</a></li>
-            <li><a href="#tiradito-trucha"><span class="indice-num">08</span>Tiradito de Trucha con Salsa Amarilla</a></li>
-            <li><a href="#ensalada-choclo"><span class="indice-num">09</span>Ensalada de Choclo Fresco con Feta</a></li>
-            <li><a href="#ceviche-camarones"><span class="indice-num">10</span>Ceviche de Camarones de Río</a></li>
-            <li><a href="#chimichurri-verde"><span class="indice-num">11</span>Chimichurri Verde Fresco</a></li>
-            <li><a href="#escabeche-verduras"><span class="indice-num">12</span>Escabeche de Verduras Norteño</a></li>
-          </ul>
-        </nav>
-
-        <!-- RECETA 1 -->
-        <div class="receta-card card-fresca" id="ceviche-trucha">
-          <p class="receta-numero">// 01</p>
-          <h3>Ceviche de Trucha con Llajua</h3>
-          <div class="badges">
-            <span class="badge badge-porciones">4 porciones</span>
-            <span class="badge badge-prep">Prep: 20 min</span>
-            <span class="badge badge-macerado">Maceración: 20 min</span>
-          </div>
-          <img class="receta-foto" src="https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2?w=900&auto=format&fit=crop" alt="Ceviche de Trucha con Llajua" />
-          <p class="receta-intro">El ceviche es peruano de origen pero el NOA lo hizo suyo con ingredientes locales. La trucha de río salteña tiene una carne más firme y con menos grasa que el salmón, lo que la hace perfecta para el ceviche — el ácido la "cocina" rápido y pareja. Y la llajua reemplaza al ají amarillo peruano con un picor diferente: más intenso y más aromático.</p>
-
-          <p class="receta-subtitulo">Ingredientes</p>
-          <ul class="ingredientes-lista">
-            <li><span class="cantidad">600 g</span>Trucha de río, filetes sin piel</li>
-            <li><span class="cantidad">Jugo de 6</span>Limones de Salta (o limón tahití)</li>
-            <li><span class="cantidad">1</span>Locoto fresco, sin semillas, picado fino</li>
-            <li><span class="cantidad">1</span>Cebolla morada mediana, en julianas finas</li>
-            <li><span class="cantidad">2 cdas</span>Quirquiña picada (o cilantro como sustituto)</li>
-            <li><span class="cantidad">2</span>Tomates medianos, sin semillas, en cubos</li>
-            <li><span class="cantidad">1 cdita</span>Sal fina</li>
-            <li><span class="cantidad">Choclo</span>Cocido, desgranado, para acompañar</li>
-            <li><span class="cantidad">Camote</span>Cocido en cubos, para acompañar</li>
-          </ul>
-
-          <p class="receta-subtitulo">Para la llajua base</p>
-          <ul class="ingredientes-lista">
-            <li><span class="cantidad">2</span>Tomates maduros</li>
-            <li><span class="cantidad">2</span>Locotos frescos</li>
-            <li><span class="cantidad">1 cda</span>Quirquiña picada</li>
-            <li><span class="cantidad">Sal</span>al gusto</li>
-          </ul>
-
-          <p class="receta-subtitulo">Preparación</p>
-          <ol class="pasos-lista">
-            <li>Preparar la llajua: pisar juntos los tomates y los locotos en mortero (o procesar brevemente — no debe quedar completamente liso). Agregar la quirquiña y sal. Reservar.</li>
-            <li>Cortar la trucha en cubos parejos de 1.5 cm — el tamaño uniforme es fundamental para que la cocción ácida sea pareja en todos los trozos.</li>
-            <li>Colocar los cubos de trucha en un bol. Agregar el jugo de limón recién exprimido y la sal. Remover suavemente y cubrir con film.</li>
-            <li>Maceración: dejar en heladera 20 minutos. La trucha cambiará de color rosado translúcido a rosado opaco — ese es el punto justo. No más de 25 minutos o quedará sobre-cocida en ácido.</li>
-            <li>Mientras macera, poner la cebolla morada en julianas en agua con hielo 10 minutos — esto suaviza el amargor y potencia el color morado.</li>
-            <li>Escurrir bien la trucha del jugo de limón. Mezclar con la cebolla escurrida, el locoto fresco, el tomate y la quirquiña. Agregar 2–3 cucharadas de llajua y mezclar.</li>
-            <li>Servir en bowl frío con choclo desgranado y cubos de camote cocido como guarnición.</li>
-          </ol>
-
-          <div class="tip-javo">
-            <span class="tip-label">Mi tip</span>
-            <p>El corte de 1.5 cm es la medida exacta: más pequeño y el ácido sobre-cocina el exterior antes de llegar al centro; más grande y el interior queda crudo cuando el exterior ya está firme. Con trucha fresca, 20 minutos de maceración es el tiempo justo — la carne queda firme pero con el interior levemente nacarado todavía, que es la textura ideal del ceviche bien hecho.</p>
-          </div>
-        </div>
-
-        <!-- RECETA 2 -->
-        <div class="receta-card card-fresca" id="quinoa-nortena">
-          <p class="receta-numero">// 02</p>
-          <h3>Ensalada de Quinoa Norteña</h3>
-          <div class="badges">
-            <span class="badge badge-porciones">4 porciones</span>
-            <span class="badge badge-prep">Prep: 20 min</span>
-            <span class="badge badge-coccion">Cocción: 15 min</span>
-          </div>
-          <img class="receta-foto" src="https://images.unsplash.com/photo-1505253716362-afaea1d3d1af?w=900&auto=format&fit=crop" alt="Ensalada de Quinoa Norteña" />
-          <p class="receta-intro">La quinoa del NOA tiene un sabor más pronunciado que la importada. Es más terrosa, más densa, y cuando la tostás en seco antes de cocinarla, se transforma en algo completamente diferente. Esta ensalada la hice por primera vez para un evento al aire libre en los valles Calchaquíes, con quinoa recién cosechada, y el plato fue el que más se repitió.</p>
-
-          <p class="receta-subtitulo">Ingredientes</p>
-          <ul class="ingredientes-lista">
-            <li><span class="cantidad">150 g</span>Quinoa blanca</li>
-            <li><span class="cantidad">150 g</span>Quinoa roja</li>
-            <li><span class="cantidad">80 g</span>Espinaca baby</li>
-            <li><span class="cantidad">200 g</span>Tomates cherry cortados al medio</li>
-            <li><span class="cantidad">1</span>Pepino en cubos</li>
-            <li><span class="cantidad">1</span>Palta madura en cubos</li>
-            <li><span class="cantidad">80 g</span>Queso de cabra salteño desmenuzado</li>
-            <li><span class="cantidad">Jugo de 2</span>Limones</li>
-            <li><span class="cantidad">3 cdas</span>Aceite de oliva extra virgen</li>
-            <li><span class="cantidad">1 cda</span>Miel</li>
-            <li><span class="cantidad">Sal y pimienta</span>al gusto</li>
-          </ul>
-
-          <p class="receta-subtitulo">Preparación</p>
-          <ol class="pasos-lista">
-            <li>Enjuagar la quinoa en un colador fino bajo agua fría durante 1 minuto — esto elimina la saponina que le da amargor.</li>
-            <li>Calentar una sartén seca a fuego medio-alto. Agregar la quinoa sin aceite y tostar 3 minutos, moviendo constantemente, hasta que esté dorada y perfumada. Este paso intensifica el sabor a nuez de la quinoa.</li>
-            <li>Cocinar la quinoa tostada: llevar a ebullición 600 ml de agua con sal. Agregar la quinoa, bajar el fuego y cocinar tapado 12 minutos. Apagar el fuego y dejar reposar tapado 3 minutos.</li>
-            <li>Extender la quinoa cocida sobre una placa y dejar enfriar completamente a temperatura ambiente.</li>
-            <li>Preparar la vinagreta: mezclar jugo de limón, aceite de oliva, miel, sal y pimienta. Emulsionar con un tenedor.</li>
-            <li>En un bol grande, combinar la quinoa fría con la espinaca baby, tomates cherry, pepino y la vinagreta. Mezclar suavemente.</li>
-            <li>Incorporar la palta y el queso de cabra en el último momento para que no se aplasten. Servir inmediatamente.</li>
-          </ol>
-
-          <div class="tip-javo">
-            <span class="tip-label">Mi tip</span>
-            <p>Tostar la quinoa en seco antes de cocinarla parece un paso menor pero cambia todo el plato. La quinoa cruda cocida tiene un sabor neutral y casi terroso; la tostada tiene un aroma a nuez que se sostiene incluso frío y mezclado con el resto de los ingredientes. Tres minutos en sartén bien caliente, moviendo siempre para que no se queme. Ese perfume de quinoa tostada es inconfundible.</p>
-          </div>
-        </div>
-
-        <!-- RECETA 3 -->
-        <div class="receta-card" id="carpaccio-hongos">
-          <p class="receta-numero">// 03</p>
-          <h3>Carpaccio de Hongos Portobello con Limón y Parmesano</h3>
-          <div class="badges">
-            <span class="badge badge-porciones">4 porciones</span>
-            <span class="badge badge-prep">Prep: 15 min + 30 min marinado</span>
-          </div>
-          <img class="receta-foto" src="https://images.unsplash.com/photo-1504545102780-26774c1bb073?w=900&auto=format&fit=crop" alt="Carpaccio de Hongos Portobello" />
-          <p class="receta-intro">El portobello tiene una carne densa, oscura y carnosa que soporta el laminado fino como ningún otro hongo. Con una marinada de limón, aceite de oliva y las hierbas del norte, se transforma en un carpaccio que no le pide nada al de carne — en algunos casos se lo gana, porque el hongo absorbe los aromas de la marinada de una manera que la carne cruda no puede. Este es mi plato vegetal para el inicio de una tarde larga en los Valles Calchaquíes.</p>
-
-          <p class="receta-subtitulo">Ingredientes</p>
-          <ul class="ingredientes-lista">
-            <li><span class="cantidad">4 grandes</span>Hongos portobello (o 6-8 medianos), sin tallos</li>
-            <li><span class="cantidad">5 cdas</span>Aceite de oliva extra virgen</li>
-            <li><span class="cantidad">Jugo de 2</span>Limones</li>
-            <li><span class="cantidad">1 diente</span>Ajo rallado fino en microplane</li>
-            <li><span class="cantidad">60 g</span>Parmesano reggiano en láminas (con pelador)</li>
-            <li><span class="cantidad">Hojas</span>Albahaca fresca</li>
-            <li><span class="cantidad">1 atado</span>Ciboulette o perejil picado fino</li>
-            <li><span class="cantidad">Sal en escamas</span>y pimienta negra recién molida</li>
-          </ul>
-
-          <p class="receta-subtitulo">Preparación</p>
-          <ol class="pasos-lista">
-            <li>Limpiar los portobellos con papel de cocina húmedo — nunca lavarlos bajo el chorro: absorben el agua como esponjas y el carpaccio queda aguado. Eliminar los tallos.</li>
-            <li>Con un cuchillo de hoja ancha bien afilado, laminar los portobellos en rebanadas de 2-3 mm de espesor. Empezar por los bordes del hongo, que tienen más firmeza para el primer corte.</li>
-            <li>Preparar la marinada mezclando el aceite de oliva, el jugo de limón, el ajo rallado, sal y pimienta.</li>
-            <li>Disponer las láminas de portobello en una fuente plana, levemente superpuestas. Volcar la marinada sobre todas las láminas de manera uniforme, asegurándose de que todas queden cubiertas.</li>
-            <li>Marinar en la heladera 25-30 minutos. Durante este tiempo, el limón "cocina" levemente la superficie del hongo — igual al proceso del ceviche — suavizando la textura y concentrando el sabor.</li>
-            <li>Al servir, distribuir las láminas de parmesano por encima, las hojas de albahaca y el ciboulette picado. Terminar con un hilo de aceite de oliva fresco y sal en escamas.</li>
-          </ol>
-
-          <div class="tip-javo">
-            <span class="tip-label">Mi tip</span>
-            <p>Los 30 minutos de marinado no son opcionales — el hongo crudo sin ácido tiene una textura gomosa que no es agradable. El limón lo transforma: lo cocina suavemente y el aceite lo suaviza. Si querés una textura más tierna todavía, podés llevarlo a los 45-60 minutos de marinado. Y el parmesano tiene que ser en láminas hechas al momento con pelador — el parmesano rallado en polvo no funciona acá: necesitás las láminas para que se apoyen sobre las rodajas del hongo y no se deshagan en la marinada.</p>
-          </div>
-        </div>
-
-        <!-- RECETA 4 -->
-        <div class="receta-card card-fresca" id="ensalada-calchaqui">
-          <p class="receta-numero">// 04</p>
-          <h3>Ensalada Calchaquí</h3>
-          <div class="badges">
-            <span class="badge badge-porciones">4 porciones</span>
-            <span class="badge badge-prep">Prep: 15 min + 30 min encurtido</span>
-          </div>
-          <img class="receta-foto" src="https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=900&auto=format&fit=crop" alt="Ensalada Calchaquí" />
-          <p class="receta-intro">Los valles Calchaquíes tienen luz y altura particular que da a las naranjas un dulzor diferente. Esta ensalada la compuse en un almuerzo largo en una bodega de Cafayate — los ingredientes salieron de lo que había al alcance: naranjas del árbol, nueces del monte, queso de cabra local y el torrontés de la bodega para la vinagreta. Quedó para siempre en el menú.</p>
-
-          <p class="receta-subtitulo">Ingredientes</p>
-          <ul class="ingredientes-lista">
-            <li><span class="cantidad">200 g</span>Mix de hojas verdes (rúcula, lechuga mantecosa, radicheta)</li>
-            <li><span class="cantidad">2</span>Naranjas peladas a vivo, en gajos limpios</li>
-            <li><span class="cantidad">80 g</span>Nuez pecán tostada en sartén seca</li>
-            <li><span class="cantidad">100 g</span>Queso de cabra salteño desmenuzado</li>
-            <li><span class="cantidad">1</span>Cebolla morada grande</li>
-          </ul>
-
-          <p class="receta-subtitulo">Vinagreta de torrontés</p>
-          <ul class="ingredientes-lista">
-            <li><span class="cantidad">60 ml</span>Vino blanco torrontés de los valles</li>
-            <li><span class="cantidad">30 ml</span>Vinagre de vino blanco</li>
-            <li><span class="cantidad">80 ml</span>Aceite de oliva extra virgen</li>
-            <li><span class="cantidad">1 cdita</span>Miel de caña</li>
-            <li><span class="cantidad">Sal y pimienta</span>al gusto</li>
-          </ul>
-
-          <p class="receta-subtitulo">Preparación</p>
-          <ol class="pasos-lista">
-            <li>Encurtir la cebolla: cortar la cebolla morada en julianas muy finas. Colocar en un frasco con 3 cdas de vinagre de manzana, 1 cdita de sal y 1 cdita de azúcar. Cubrir y dejar reposar 30 minutos a temperatura ambiente. La cebolla se volverá brillante y de color fucsia intenso.</li>
-            <li>Preparar la vinagreta: en un frasco con tapa, combinar el torrontés, vinagre, aceite de oliva, miel, sal y pimienta. Agitar vigorosamente hasta emulsionar. Probar y corregir acidez.</li>
-            <li>Tostar las nueces pecán en sartén seca 3–4 minutos a fuego medio, moviendo constantemente. Retirar y dejar enfriar. Picar groseramente.</li>
-            <li>Pelar las naranjas a vivo: cortar los extremos y la cáscara siguiendo la curva de la fruta, eliminando toda la piel blanca. Cortar en gajos entre las membranas.</li>
-            <li>En un bol grande, combinar las hojas verdes con la mitad de la vinagreta. Mezclar suavemente sin aplastar.</li>
-            <li>Distribuir en platos o fuente. Agregar los gajos de naranja, la cebolla encurtida escurrida, las nueces y el queso de cabra. Rociar con el resto de la vinagreta al momento de servir.</li>
-          </ol>
-
-          <div class="tip-javo">
-            <span class="tip-label">Mi tip</span>
-            <p>La cebolla encurtida 30 minutos en vinagre de manzana con sal y azúcar no es solo estética — pierde el amargor agresivo de la cebolla cruda y desarrolla un sabor ácido-dulce que equilibra perfectamente el dulzor de la naranja y la grasa del queso de cabra. Nunca uso cebolla cruda directa en ensaladas cuando puedo encurtirla. Son 30 minutos que cambian el plato entero.</p>
-          </div>
-        </div>
-
-        <!-- RECETA 5 -->
-        <div class="receta-card" id="tartar-trucha">
-          <p class="receta-numero">// 05</p>
-          <h3>Tartar de Trucha NOA</h3>
-          <div class="badges">
-            <span class="badge badge-porciones">4 porciones</span>
-            <span class="badge badge-prep">Prep: 20 min</span>
-          </div>
-          <img class="receta-foto" src="https://images.unsplash.com/photo-fV3zTanbO80?w=900&auto=format&fit=crop" alt="Tartar de Trucha NOA" />
-          <p class="receta-intro">El tartar es la preparación donde no hay dónde esconderse: el producto es el producto, sin fuego que ayude, sin ácido que cocine. La trucha de río del norte argentino tiene una ventaja única — llega al restaurante en horas desde el criadero. Ese nivel de frescura es el único que justifica un tartar. Lo servimos sobre pan de campo casero, que es parte de la receta, no un accesorio.</p>
-
-          <p class="receta-subtitulo">Ingredientes</p>
-          <ul class="ingredientes-lista">
-            <li><span class="cantidad">500 g</span>Trucha de río ultra-fresca, filete sin piel</li>
-            <li><span class="cantidad">½</span>Pepino sin semillas, en brunoise (cubos de 3 mm)</li>
-            <li><span class="cantidad">2 cdas</span>Alcaparras picadas gruesas</li>
-            <li><span class="cantidad">1 cdita</span>Mostaza Dijon</li>
-            <li><span class="cantidad">2 cdas</span>Ciboulette picado fino</li>
-            <li><span class="cantidad">2</span>Yemas de huevo</li>
-            <li><span class="cantidad">2 cdas</span>Aceite de oliva extra virgen</li>
-            <li><span class="cantidad">Jugo de ½</span>Limón</li>
-            <li><span class="cantidad">Sal en escamas</span>y pimienta blanca molida</li>
-            <li><span class="cantidad">Pan de campo</span>tostado, para servir (ver receta base)</li>
-          </ul>
-
-          <p class="receta-subtitulo">Preparación</p>
-          <ol class="pasos-lista">
-            <li>Inspección de frescura: la trucha para tartar debe tener carne firme que vuelve a su forma al presionarla, olor a agua limpia (nunca a pescado), y color rosado brillante. Si hay duda, no hacerlo.</li>
-            <li>Retirar cualquier espina con pinza de pescado, pasando el dedo a contrapelo por toda la superficie del filete.</li>
-            <li>Picar la trucha a cuchillo en cubos de 5–7 mm. No procesar ni picar demasiado fino — el tartar debe tener textura, no ser una pasta. Colocar en bol sobre otro bol con hielo para mantener la temperatura baja mientras se trabaja.</li>
-            <li>En un bol pequeño, mezclar las yemas con la mostaza Dijon, el aceite de oliva y el jugo de limón. Batir hasta integrar.</li>
-            <li>Combinar la trucha picada con el pepino, las alcaparras, el ciboulette y la mezcla de yema y mostaza. Incorporar suavemente.</li>
-            <li>Condimentar con sal en escamas y pimienta blanca. Probar y corregir.</li>
-            <li>Servir inmediatamente con un aro de metal sobre tostadas de pan de campo, o en un cuenco frío.</li>
-          </ol>
-
-          <div class="tip-javo">
-            <span class="tip-label">Mi tip</span>
-            <p>El tartar no admite errores de frescura — es la única preparación de este recetario donde una materia prima mediocre no tiene solución. La trucha debe ser del día. Un indicador simple: presioná la carne con el dedo — si vuelve a su posición en un segundo, está fresca. Si queda la marca del dedo hundida, es de ayer. Para ayer, ceviche. Para hoy, tartar.</p>
-          </div>
-        </div>
-
-        <!-- RECETA 6 -->
-        <div class="receta-card card-fresca" id="gazpacho-norteno">
-          <p class="receta-numero">// 06</p>
-          <h3>Gazpacho Norteño</h3>
-          <div class="badges">
-            <span class="badge badge-porciones">6 porciones</span>
-            <span class="badge badge-prep">Prep: 20 min</span>
-            <span class="badge badge-macerado">Heladera: 2 horas</span>
-          </div>
-          <img class="receta-foto" src="https://images.unsplash.com/photo-1583577612013-4dfe6e4e5474?w=900&auto=format&fit=crop" alt="Gazpacho Norteño" />
-          <p class="receta-intro">El gazpacho español lleva pan para dar cuerpo. El gazpacho del norte argentino no lo necesita — los tomates del NOA son tan carnosos y maduros que el resultado ya tiene la textura cremosa que el pan busca aportar. Agregamos locoto en lugar del pimiento picante y la quirquiña reemplaza al perejil. El resultado es un gazpacho más intenso, más vivo.</p>
-
-          <p class="receta-subtitulo">Ingredientes</p>
-          <ul class="ingredientes-lista">
-            <li><span class="cantidad">1 kg</span>Tomates maduros (los más rojos que encuentres)</li>
-            <li><span class="cantidad">1</span>Pepino mediano pelado</li>
-            <li><span class="cantidad">1</span>Pimiento verde grande</li>
-            <li><span class="cantidad">1</span>Cebolla pequeña</li>
-            <li><span class="cantidad">2 dientes</span>Ajo</li>
-            <li><span class="cantidad">½</span>Locoto fresco sin semillas (ajustar al gusto)</li>
-            <li><span class="cantidad">80 ml</span>Aceite de oliva extra virgen</li>
-            <li><span class="cantidad">2 cdas</span>Vinagre de vino tinto</li>
-            <li><span class="cantidad">1 cdita</span>Sal fina</li>
-            <li><span class="cantidad">Hielo</span>para enfriar rápido si es necesario</li>
-          </ul>
-
-          <p class="receta-subtitulo">Guarnición para servir</p>
-          <ul class="ingredientes-lista">
-            <li><span class="cantidad">Cubitos</span>de pepino, pimiento y tomate</li>
-            <li><span class="cantidad">Aceite de oliva</span>para terminar</li>
-            <li><span class="cantidad">Sal en escamas</span>y pimienta</li>
-          </ul>
-
-          <p class="receta-subtitulo">Preparación</p>
-          <ol class="pasos-lista">
-            <li>Pelar los tomates: hacer un corte en X en la base de cada tomate. Escaldar en agua hirviendo 30 segundos. Enfriar en agua con hielo. La piel se desprende sola. Pelar todos los tomates.</li>
-            <li>Cortar todos los vegetales (tomates, pepino, pimiento, cebolla, ajo, locoto) en trozos grandes y colocar en la licuadora.</li>
-            <li>Licuar a máxima velocidad 2 minutos hasta que esté completamente liso.</li>
-            <li>Con la licuadora en marcha a velocidad baja, incorporar el aceite de oliva en hilo fino para emulsionar. Agregar el vinagre y la sal.</li>
-            <li>Pasar por un colador fino presionando con una cuchara para eliminar pieles y semillas residuales. El resultado debe ser una sopa suave y sedosa.</li>
-            <li>Probar y corregir sal, vinagre y picante. Refrigerar al menos 2 horas — el frío activa y unifica todos los sabores. Si querés acelerarlo, agregar cubos de hielo y licuar 1 minuto más.</li>
-            <li>Servir en bowls fríos con los cubitos de vegetales encima, un hilo de aceite de oliva y sal en escamas.</li>
-          </ol>
-
-          <div class="tip-javo">
-            <span class="tip-label">Mi tip</span>
-            <p>Pelar los tomates antes de licuar no es un paso opcional para perfeccionistas — la piel del tomate contiene taninos que le dan un sabor amargo al gazpacho licuado. Pelados, el resultado es dulce, fresco y limpio. Las 2 horas en heladera tampoco son negociables: el frío funde los sabores individuales en una sola cosa. Un gazpacho recién hecho sabe a tomate con pepino y pimiento separados. Después de 2 horas en frío, sabe a verano del norte.</p>
-          </div>
-        </div>
-
-        <!-- RECETA 7 -->
-        <div class="receta-card card-fresca" id="tiradito-trucha">
-          <p class="receta-numero">// 07</p>
-          <h3>Tiradito de Trucha con Salsa Amarilla</h3>
-          <div class="badges">
-            <span class="badge badge-porciones">4 porciones</span>
-            <span class="badge badge-prep">Prep: 20 min</span>
-          </div>
-          <img class="receta-foto" src="https://images.unsplash.com/photo-tAY4RVDefDM?w=900&auto=format&fit=crop" alt="Tiradito de Trucha con Salsa Amarilla" />
-          <p class="receta-intro">El tiradito es el ceviche sin cebolla y con la trucha en láminas — más elegante, más delicado. La salsa amarilla es el corazón del plato: ají amarillo peruano mezclado con limón, jengibre y ajo. No es picante en sí mismo — es aromático, cítrico, levemente tropical. La trucha del norte cruda en láminas sobre esa salsa fría es uno de los platos de los que más orgulloso me siento.</p>
-
-          <p class="receta-subtitulo">Ingredientes — Trucha</p>
-          <ul class="ingredientes-lista">
-            <li><span class="cantidad">600 g</span>Trucha de río fresca, filetes sin piel</li>
-            <li><span class="cantidad">Aceite de sésamo</span>tostado, unas gotas</li>
-            <li><span class="cantidad">Microgreens</span>o brotes frescos para decorar</li>
-            <li><span class="cantidad">Sal en escamas</span></li>
-          </ul>
-
-          <p class="receta-subtitulo">Ingredientes — Salsa Amarilla</p>
-          <ul class="ingredientes-lista">
-            <li><span class="cantidad">3</span>Ajíes amarillos frescos (o 3 cdas de pasta de ají amarillo)</li>
-            <li><span class="cantidad">Jugo de 4</span>Limones</li>
-            <li><span class="cantidad">1 cm</span>Jengibre fresco rallado</li>
-            <li><span class="cantidad">1 diente</span>Ajo</li>
-            <li><span class="cantidad">1 cda</span>Aceite de oliva</li>
-            <li><span class="cantidad">Sal</span>al gusto</li>
-          </ul>
-
-          <p class="receta-subtitulo">Preparación</p>
-          <ol class="pasos-lista">
-            <li>Preparar la salsa amarilla: si usás ajíes frescos, asar sobre la llama o en sartén muy caliente hasta que estén blandos. Dejar enfriar, pelar y retirar semillas.</li>
-            <li>Licuar los ajíes (o la pasta) con el jugo de limón, jengibre rallado, ajo, aceite de oliva y sal hasta obtener una salsa lisa y sedosa. Debe quedar fría — si se calentó al licuar, refrigerar 15 minutos.</li>
-            <li>Semi-congelar la trucha 20 minutos en el freezer para facilitar el corte fino — el frío da firmeza al músculo y permite láminas más prolijas.</li>
-            <li>Con cuchillo bien afilado, laminar la trucha en filetes finos de 3–4 mm en diagonal al músculo.</li>
-            <li>Cubrir el fondo de los platos fríos con la salsa amarilla fría. Distribuir las láminas de trucha sobre la salsa sin superponerse demasiado.</li>
-            <li>Agregar unas gotas de aceite de sésamo tostado (con cuidado — es muy intenso). Distribuir los microgreens o brotes y finalizar con sal en escamas.</li>
-            <li>Servir inmediatamente — la trucha cruda sobre salsa fría no espera.</li>
-          </ol>
-
-          <div class="tip-javo">
-            <span class="tip-label">Mi tip</span>
-            <p>La salsa debe estar fría cuando se vierte sobre la trucha cruda. Si la salsa está tibia o a temperatura ambiente, empieza a cocinar la superficie de la trucha por contacto y cambia la textura del plato. Todo el sistema del tiradito depende del contraste entre la trucha fresca-fría y la salsa aromática-fría. Es un plato para servir al instante, no para preparar con anticipación y dejar reposar.</p>
-          </div>
-        </div>
-
-        <!-- RECETA 8 -->
-        <div class="receta-card card-fresca" id="ensalada-choclo">
-          <p class="receta-numero">// 08</p>
-          <h3>Ensalada de Choclo Fresco con Feta</h3>
-          <div class="badges">
-            <span class="badge badge-porciones">4 porciones</span>
-            <span class="badge badge-prep">Prep: 15 min</span>
-            <span class="badge badge-coccion">Cocción: 10 min</span>
-          </div>
-          <img class="receta-foto" src="https://images.unsplash.com/photo-1587334274328-64186a80aeee?w=900&auto=format&fit=crop" alt="Ensalada de Choclo Fresco con Feta" />
-          <p class="receta-intro">El choclo del norte argentino tiene una dulzura diferente — más almidón, más cuerpo que el choclo de Buenos Aires. Salteado en manteca con un poco de sal, se transforma en algo completamente diferente al hervido: los granos se tuestan levemente por fuera y quedan cremosos adentro. Con el queso feta y los tomates cherry, es una ensalada de verano perfecta.</p>
-
-          <p class="receta-subtitulo">Ingredientes</p>
-          <ul class="ingredientes-lista">
-            <li><span class="cantidad">4</span>Choclos frescos desgranados (o 600 g de granos)</li>
-            <li><span class="cantidad">30 g</span>Manteca</li>
-            <li><span class="cantidad">150 g</span>Queso feta desmenuzado</li>
-            <li><span class="cantidad">200 g</span>Tomates cherry cortados al medio</li>
-            <li><span class="cantidad">1 atado</span>Albahaca fresca, hojas enteras</li>
-            <li><span class="cantidad">Jugo de 1</span>Limón</li>
-            <li><span class="cantidad">2 cdas</span>Aceite de oliva extra virgen</li>
-            <li><span class="cantidad">1 cdita</span>Miel</li>
-            <li><span class="cantidad">Sal y pimienta</span>al gusto</li>
-          </ul>
-
-          <p class="receta-subtitulo">Preparación</p>
-          <ol class="pasos-lista">
-            <li>Desgranar los choclos: apoyar el choclo en vertical sobre una tabla y cortar los granos de arriba hacia abajo con un cuchillo grande, rotando el choclo.</li>
-            <li>Fundir la manteca en una sartén grande a fuego alto hasta que empiece a burbujear. Agregar los granos de choclo en una sola capa (usar dos sartenes si no entra todo). No revolver durante 3 minutos para que los granos se tuesten.</li>
-            <li>Mezclar y cocinar 3–4 minutos más, hasta que los granos estén dorados en algunos puntos y cocidos completamente. Salar y retirar del fuego.</li>
-            <li>Extender el choclo sobre una placa y dejar enfriar a temperatura ambiente. No enfriar en heladera — la manteca se solidifica y cambia la textura.</li>
-            <li>Preparar la vinagreta: mezclar jugo de limón, aceite de oliva, miel, sal y pimienta.</li>
-            <li>En un bol, combinar el choclo templado con los tomates cherry, el queso feta y la vinagreta. Mezclar suavemente.</li>
-            <li>Terminar con hojas de albahaca fresca enteras. Servir a temperatura ambiente.</li>
-          </ol>
-
-          <div class="tip-javo">
-            <span class="tip-label">Mi tip</span>
-            <p>El choclo salteado en manteca tiene un sabor completamente diferente al hervido: la manteca en sartén caliente carameliza los azúcares naturales del grano y crea una costra levemente dorada que contrasta con el interior cremoso. El choclo hervido, en cambio, pierde esos azúcares en el agua y queda con un sabor plano. La diferencia en el plato final es enorme — y son los mismos ingredientes.</p>
-          </div>
-        </div>
-
-        <!-- RECETA 9 -->
-        <div class="receta-card" id="ceviche-camarones">
-          <p class="receta-numero">// 09</p>
-          <h3>Ceviche de Camarones de Río</h3>
-          <div class="badges">
-            <span class="badge badge-porciones">4 porciones</span>
-            <span class="badge badge-prep">Prep: 15 min</span>
-            <span class="badge badge-coccion">Blanqueado: 3 min</span>
-          </div>
-          <img class="receta-foto" src="https://images.unsplash.com/photo-1565680018434-b513d5e5fd47?w=900&auto=format&fit=crop" alt="Ceviche de Camarones de Río" />
-          <p class="receta-intro">Los camarones de río del norte argentino son más pequeños que los langostinos del mar pero tienen un sabor más dulce y delicado. El ceviche de camarones tiene una diferencia técnica importante respecto al de trucha: los camarones se blanquean brevemente antes del marinado. Es un seguro de calidad — y además la textura final es mejor que el camarón crudo macerado.</p>
-
-          <p class="receta-subtitulo">Ingredientes</p>
-          <ul class="ingredientes-lista">
-            <li><span class="cantidad">600 g</span>Camarones de río limpios, sin cabeza y pelados</li>
-            <li><span class="cantidad">Jugo de 5</span>Limones de Salta</li>
-            <li><span class="cantidad">1</span>Cebolla morada en julianas finas</li>
-            <li><span class="cantidad">1</span>Locoto fresco sin semillas, en rodajas finas</li>
-            <li><span class="cantidad">2 cdas</span>Cilantro fresco picado (o quirquiña)</li>
-            <li><span class="cantidad">2</span>Tomates medianos sin semillas, en cubos</li>
-            <li><span class="cantidad">100 g</span>Choclo cocido desgranado</li>
-            <li><span class="cantidad">Sal</span>al gusto</li>
-            <li><span class="cantidad">Agua con sal</span>para el blanqueado</li>
-          </ul>
-
-          <p class="receta-subtitulo">Preparación</p>
-          <ol class="pasos-lista">
-            <li>Poner a hervir abundante agua con 1 cucharada de sal.</li>
-            <li>Blanquear los camarones: cuando el agua hierve a borbotones, agregar los camarones y contar exactamente 2 minutos. No más. Retirar con espumadera y volcar inmediatamente en un bol con agua helada para cortar la cocción.</li>
-            <li>Escurrir bien los camarones y secar con papel de cocina.</li>
-            <li>Colocar los camarones en un bol. Agregar el jugo de limón y la sal. Remover y dejar marinar en heladera 10 minutos.</li>
-            <li>Poner la cebolla morada en julianas en agua fría 5 minutos para suavizar el sabor.</li>
-            <li>Escurrir los camarones del jugo de limón. Mezclar con la cebolla escurrida, el locoto, el tomate, el choclo y el cilantro.</li>
-            <li>Probar y corregir sal y limón. Servir en bowls fríos inmediatamente.</li>
-          </ol>
-
-          <div class="tip-javo">
-            <span class="tip-label">Mi tip</span>
-            <p>El blanqueado de 2 a 3 minutos es el punto justo: los camarones quedan cocidos pero con textura suave y jugosa. A los 4 minutos ya se endurecen y quedan chiclosos — punto sin retorno. El agua helada al retirarlos no es opcional: sin ese shock térmico, la cocción continúa por el calor residual y terminás cocinando de más sin darte cuenta. Blanqueado correcto más marinado ácido posterior: el ceviche de camarones perfecto.</p>
-          </div>
-        </div>
-
-        <!-- RECETA 10 -->
-        <div class="receta-card card-fresca" id="chimichurri-verde">
-          <p class="receta-numero">// 10</p>
-          <h3>Chimichurri Verde Fresco (Receta Madre)</h3>
-          <div class="badges">
-            <span class="badge badge-porciones">1 frasco (300 ml)</span>
-            <span class="badge badge-prep">Prep: 15 min</span>
-            <span class="badge badge-macerado">Reposo: 24 horas</span>
-          </div>
-          <img class="receta-foto" src="https://images.unsplash.com/photo-H7G7Lkn9HSo?w=900&auto=format&fit=crop" alt="Chimichurri Verde Fresco" />
-          <p class="receta-intro">El chimichurri es la salsa madre del asado argentino, pero en el norte tiene su versión propia. Más fresco, más verde, con menos vinagre y más hierbas, sin los tonos dulzones del chimichurri del litoral. Esta es la receta que enseño cuando empiezo con un cocinero nuevo — es la base de mucho más y requiere atención a los detalles. Un buen chimichurri no se licua: se pica a cuchillo.</p>
-
-          <p class="receta-subtitulo">Ingredientes</p>
-          <ul class="ingredientes-lista">
-            <li><span class="cantidad">1 atado grande</span>Perejil fresco, hojas y tallos tiernos</li>
-            <li><span class="cantidad">½ atado</span>Orégano fresco (o 2 cdas de orégano seco si no hay fresco)</li>
-            <li><span class="cantidad">4 dientes</span>Ajo pelados</li>
-            <li><span class="cantidad">80 ml</span>Vinagre de vino blanco</li>
-            <li><span class="cantidad">120 ml</span>Aceite de oliva extra virgen</li>
-            <li><span class="cantidad">1 cdita</span>Sal fina</li>
-            <li><span class="cantidad">1 cdita</span>Pimentón dulce</li>
-            <li><span class="cantidad">1 cdita</span>Ají molido</li>
-            <li><span class="cantidad">Pimienta negra</span>molida al gusto</li>
-          </ul>
-
-          <p class="receta-subtitulo">Preparación</p>
-          <ol class="pasos-lista">
-            <li>Lavar el perejil y el orégano fresco y secar muy bien con papel de cocina o centrífuga de ensalada. Las hojas mojadas aguantan el chimichurri y lo diluyen.</li>
-            <li>Picar el ajo muy fino a cuchillo — no prensor de ajo. El prensor machuca las células del ajo y libera compuestos amargos; el picado a cuchillo es más suave.</li>
-            <li>Picar el perejil a cuchillo en tabla, bien fino pero sin llegar a pasta. El chimichurri debe tener textura — picar en 2–3 pasadas con el cuchillo, no en 10.</li>
-            <li>Picar el orégano fresco de la misma manera o desmenuzar el seco entre las palmas.</li>
-            <li>En un frasco de vidrio, combinar el perejil, orégano, ajo picado, pimentón, ají molido, pimienta y sal.</li>
-            <li>Agregar el vinagre y el aceite de oliva. Mezclar con cuchara hasta integrar. El chimichurri no debe quedar emulsionado — el aceite y el vinagre se separan, eso es correcto.</li>
-            <li>Cerrar el frasco y dejar reposar a temperatura ambiente 24 horas antes de usar. Guardar en heladera después de las 24 horas iniciales.</li>
-          </ol>
-
-          <div class="tip-javo">
-            <span class="tip-label">Mi tip</span>
-            <p>El chimichurri crudo nunca va al fuego — jamás. El calor destruye los aromas volátiles del perejil fresco en segundos. Tampoco se licua: el perejil licuado oxida rápido, se pone oscuro y desarrolla un sabor amargo. Se hace el día anterior por una razón muy concreta: en las primeras horas el ajo es demasiado agresivo y el vinagre demasiado filoso. Después de 24 horas, los sabores se integran y redondean. Es química, no magia.</p>
-          </div>
-        </div>
-
-        <!-- RECETA 11 -->
-        <div class="receta-card card-fresca" id="escabeche-verduras">
-          <p class="receta-numero">// 11</p>
-          <h3>Escabeche de Verduras Norteño</h3>
-          <div class="badges">
-            <span class="badge badge-porciones">1 frasco grande</span>
-            <span class="badge badge-prep">Prep: 30 min</span>
-            <span class="badge badge-coccion">Cocción: 20 min + 48 h reposo</span>
-          </div>
-          <img class="receta-foto" src="https://images.unsplash.com/photo-S3g2H4Acw4g?w=900&auto=format&fit=crop" alt="Escabeche de Verduras Norteño" />
-          <p class="receta-intro">El escabeche es una técnica de conservación con siglos de historia — la acidez del vinagre preserva los vegetales y al mismo tiempo los transforma. La versión del norte incorpora especias locales que cambian completamente el perfil del escabeche clásico: el pimentón salteño, el laurel del monte, los ajíes locales. Es el condimento que siempre tengo en heladera y que va con absolutamente todo.</p>
-
-          <p class="receta-subtitulo">Ingredientes</p>
-          <ul class="ingredientes-lista">
-            <li><span class="cantidad">3</span>Zanahorias cortadas en bastones</li>
-            <li><span class="cantidad">200 g</span>Repollitos de Bruselas cortados al medio</li>
-            <li><span class="cantidad">½ cabeza</span>Coliflor en floretes medianos</li>
-            <li><span class="cantidad">2</span>Morrones rojos en tiras</li>
-            <li><span class="cantidad">3</span>Ajíes verdes en rodajas</li>
-            <li><span class="cantidad">1</span>Cebolla en gajos</li>
-            <li><span class="cantidad">400 ml</span>Vinagre de manzana</li>
-            <li><span class="cantidad">200 ml</span>Aceite de girasol o maíz</li>
-            <li><span class="cantidad">200 ml</span>Agua</li>
-            <li><span class="cantidad">4 dientes</span>Ajo enteros, pelados</li>
-            <li><span class="cantidad">3 hojas</span>Laurel</li>
-            <li><span class="cantidad">1 cda</span>Pimentón ahumado salteño</li>
-            <li><span class="cantidad">1 cdita</span>Pimienta en grano</li>
-            <li><span class="cantidad">1 cda</span>Sal fina</li>
-            <li><span class="cantidad">1 cdita</span>Azúcar</li>
-          </ul>
-
-          <p class="receta-subtitulo">Preparación</p>
-          <ol class="pasos-lista">
-            <li>En una olla grande, combinar el vinagre, aceite, agua, ajo, laurel, pimentón, pimienta en grano, sal y azúcar. Llevar a ebullición a fuego medio.</li>
-            <li>Cuando hierve, agregar las zanahorias y los repollitos primero — son los más duros y necesitan más tiempo. Cocinar 5 minutos.</li>
-            <li>Agregar la coliflor y cocinar 5 minutos más.</li>
-            <li>Incorporar los morrones, los ajíes y la cebolla. Cocinar 5–8 minutos más, hasta que todos los vegetales estén tiernos pero todavía con algo de mordida — no blandos. El escabeche pierde textura si se sobre-cocina.</li>
-            <li>Retirar del fuego y dejar enfriar en la misma olla 10 minutos.</li>
-            <li>Distribuir los vegetales en frascos de vidrio esterilizados. Verter el líquido de escabeche caliente sobre los vegetales, asegurando que queden cubiertos.</li>
-            <li>Cerrar los frascos y dejar enfriar a temperatura ambiente. Refrigerar al menos 48 horas antes de consumir — el escabeche necesita ese tiempo para que los sabores se integren completamente.</li>
-          </ol>
-
-          <div class="tip-javo">
-            <span class="tip-label">Mi tip</span>
-            <p>Preparar de más es el consejo más práctico de este libro: el escabeche dura 2 semanas en heladera sin perder calidad y mejora con el tiempo. Tenerlo listo es tener siempre un condimento, una guarnición, un relleno de sándwich o un acompañamiento para el queso. Las 48 horas de reposo mínimo no son negociables — el vinagre necesita ese tiempo para suavizarse y mezclarse con el aceite y las especias. Antes de las 48 horas todavía sabe a vinagre crudo.</p>
-          </div>
-        </div>
-
-      </section>
-    </div>
-  </main>
-
-  <!-- FOOTER -->
-  <footer>
-    <p class="footer-marca">Javo Te Cocina</p>
-    <p class="footer-sub">Salta, Argentina · Cocina del Norte</p>
-    <nav class="footer-links">
-      <a href="/">Inicio</a>
-      <a href="/recetarios">Recetarios</a>
-      <a href="/sobre-javo">Sobre Javo</a>
-      <a href="/contacto">Contacto</a>
-    </nav>
-    <p class="footer-copy">© 2024 Javo Te Cocina · Todos los derechos reservados</p>
-  </footer>
-
 </body>
 </html>
