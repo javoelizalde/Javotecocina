@@ -1,1342 +1,1177 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>A Todo Keveri — Javo Te Cocina</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400;1,600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
-  <style>
-    :root {
-      --tierra: #2C1A0E;
-      --puna: #C4853A;
-      --fuego: #D4521A;
-      --sal: #F5EDD8;
-      --ceniza: #6B5744;
-      --verde-norte: #3A6B3A;
-      --blanco: #FFFFF0;
-      --carbon: #0F0A05;
-      --brasa: #FF6B2B;
-    }
-
-    *, *::before, *::after {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-
-    html {
-      scroll-behavior: smooth;
-    }
-
-    body {
-      background-color: var(--tierra);
-      color: var(--sal);
-      font-family: 'Libre Baskerville', Georgia, serif;
-      font-size: 16px;
-      line-height: 1.7;
-    }
-
-    /* NAV */
-    .nav-volver {
-      background-color: var(--carbon);
-      border-bottom: 1px solid #3a1f0a;
-      padding: 12px 32px;
-      display: flex;
-      align-items: center;
-    }
-
-    .nav-volver a {
-      color: var(--puna);
-      text-decoration: none;
-      font-family: 'Space Mono', monospace;
-      font-size: 13px;
-      letter-spacing: 0.05em;
-      transition: color 0.2s;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-
-    .nav-volver a:hover {
-      color: var(--brasa);
-    }
-
-    .nav-volver a::before {
-      content: '←';
-      font-size: 16px;
-    }
-
-    /* HEADER */
-    .header {
-      background: linear-gradient(160deg, #0A0604 0%, #1A0E05 30%, #2a1205 60%, #1f0d04 100%);
-      border-bottom: 3px solid var(--fuego);
-      padding: 80px 32px 60px;
-      text-align: center;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .header::before {
-      content: '';
-      position: absolute;
-      top: 0; left: 0; right: 0; bottom: 0;
-      background:
-        radial-gradient(ellipse at 20% 50%, rgba(212, 82, 26, 0.18) 0%, transparent 60%),
-        radial-gradient(ellipse at 80% 30%, rgba(255, 107, 43, 0.12) 0%, transparent 55%),
-        radial-gradient(ellipse at 50% 90%, rgba(196, 133, 58, 0.1) 0%, transparent 50%);
-      pointer-events: none;
-    }
-
-    .header-eyebrow {
-      font-family: 'Space Mono', monospace;
-      font-size: 11px;
-      letter-spacing: 0.25em;
-      text-transform: uppercase;
-      color: var(--fuego);
-      margin-bottom: 20px;
-      opacity: 0.85;
-    }
-
-    .header h1 {
-      font-family: 'Cormorant Garamond', Georgia, serif;
-      font-size: clamp(3rem, 8vw, 6rem);
-      font-weight: 700;
-      color: var(--blanco);
-      line-height: 1.05;
-      letter-spacing: -0.01em;
-      margin-bottom: 16px;
-      text-shadow: 0 2px 24px rgba(212, 82, 26, 0.4);
-    }
-
-    .header .subtitulo {
-      font-family: 'Cormorant Garamond', Georgia, serif;
-      font-size: clamp(1.2rem, 3vw, 1.7rem);
-      font-weight: 300;
-      font-style: italic;
-      color: var(--puna);
-      letter-spacing: 0.03em;
-      margin-bottom: 32px;
-    }
-
-    .header-meta {
-      font-family: 'Space Mono', monospace;
-      font-size: 12px;
-      color: var(--ceniza);
-      letter-spacing: 0.08em;
-    }
-
-    .header-meta span {
-      color: var(--fuego);
-    }
-
-    /* CONTENEDOR PRINCIPAL */
-    .container {
-      max-width: 860px;
-      margin: 0 auto;
-      padding: 0 24px;
-    }
-
-    /* INTRO GENERAL */
-    .intro-section {
-      padding: 56px 0 40px;
-    }
-
-    .intro-section p {
-      font-size: 1.1rem;
-      line-height: 1.85;
-      color: var(--sal);
-      margin-bottom: 20px;
-    }
-
-    .intro-section p:first-child::first-letter {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 4.5rem;
-      font-weight: 700;
-      color: var(--fuego);
-      float: left;
-      line-height: 0.75;
-      margin: 8px 12px 0 0;
-    }
-
-    /* FICHA TÉCNICA KEVERI */
-    .ficha-keveri {
-      background: linear-gradient(135deg, #0D0705 0%, #1a0e06 100%);
-      border: 1px solid #3a1f0a;
-      border-left: 5px solid var(--fuego);
-      border-radius: 4px;
-      padding: 32px 36px;
-      margin: 40px 0 48px;
-      position: relative;
-    }
-
-    .ficha-keveri::before {
-      content: '🔥';
-      position: absolute;
-      top: -16px;
-      left: 24px;
-      font-size: 28px;
-      filter: grayscale(0.2);
-    }
-
-    .ficha-keveri h3 {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 1.6rem;
-      font-weight: 600;
-      color: var(--brasa);
-      margin-bottom: 8px;
-      letter-spacing: 0.02em;
-    }
-
-    .ficha-keveri .ficha-subtitle {
-      font-family: 'Space Mono', monospace;
-      font-size: 11px;
-      color: var(--ceniza);
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-      margin-bottom: 24px;
-    }
-
-    .ficha-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-      gap: 20px;
-      margin-top: 20px;
-    }
-
-    .ficha-item {
-      padding: 16px;
-      background: rgba(212, 82, 26, 0.07);
-      border-radius: 3px;
-      border-top: 2px solid rgba(212, 82, 26, 0.3);
-    }
-
-    .ficha-item .fi-label {
-      font-family: 'Space Mono', monospace;
-      font-size: 9px;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      color: var(--fuego);
-      margin-bottom: 6px;
-      display: block;
-    }
-
-    .ficha-item .fi-valor {
-      font-family: 'Libre Baskerville', serif;
-      font-size: 0.9rem;
-      color: var(--sal);
-      line-height: 1.4;
-    }
-
-    .ficha-item .fi-valor strong {
-      color: var(--blanco);
-      font-weight: 700;
-    }
-
-    .ficha-modos {
-      margin-top: 20px;
-      padding: 16px;
-      background: rgba(212, 82, 26, 0.05);
-      border-radius: 3px;
-    }
-
-    .ficha-modos .fi-label {
-      font-family: 'Space Mono', monospace;
-      font-size: 9px;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      color: var(--fuego);
-      margin-bottom: 10px;
-      display: block;
-    }
-
-    .modos-list {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-    }
-
-    .modo-badge {
-      font-family: 'Space Mono', monospace;
-      font-size: 10px;
-      padding: 4px 10px;
-      background: rgba(212, 82, 26, 0.15);
-      border: 1px solid rgba(212, 82, 26, 0.35);
-      border-radius: 2px;
-      color: var(--puna);
-      letter-spacing: 0.05em;
-      text-transform: uppercase;
-    }
-
-    /* SECCIÓN DE RECETAS */
-    .recetas-section {
-      padding: 16px 0 64px;
-    }
-
-    .section-title {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: clamp(1.8rem, 4vw, 2.6rem);
-      font-weight: 600;
-      color: var(--blanco);
-      margin-bottom: 8px;
-      letter-spacing: 0.01em;
-    }
-
-    .section-divider {
-      width: 60px;
-      height: 3px;
-      background: linear-gradient(90deg, var(--fuego), transparent);
-      margin-bottom: 48px;
-    }
-
-    /* TARJETA DE RECETA */
-    .receta-card {
-      background-color: #3D2510;
-      border-left: 4px solid var(--fuego);
-      border-radius: 0 4px 4px 0;
-      padding: 36px 40px;
-      margin-bottom: 40px;
-      position: relative;
-    }
-
-    .receta-numero {
-      font-family: 'Space Mono', monospace;
-      font-size: 11px;
-      color: var(--fuego);
-      letter-spacing: 0.2em;
-      margin-bottom: 8px;
-      opacity: 0.7;
-    }
-
-    .receta-card h3 {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: clamp(1.6rem, 3.5vw, 2.2rem);
-      font-weight: 700;
-      color: var(--blanco);
-      margin-bottom: 16px;
-      line-height: 1.15;
-    }
-
-    .badges {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-      margin-bottom: 24px;
-    }
-
-    .badge {
-      font-family: 'Space Mono', monospace;
-      font-size: 11px;
-      padding: 5px 12px;
-      border-radius: 2px;
-      letter-spacing: 0.04em;
-      display: inline-flex;
-      align-items: center;
-      gap: 5px;
-    }
-
-    .badge-porciones {
-      background: rgba(196, 133, 58, 0.15);
-      border: 1px solid rgba(196, 133, 58, 0.4);
-      color: var(--puna);
-    }
-
-    .badge-prep {
-      background: rgba(107, 87, 68, 0.25);
-      border: 1px solid rgba(107, 87, 68, 0.5);
-      color: #b09a88;
-    }
-
-    .badge-coccion {
-      background: rgba(212, 82, 26, 0.12);
-      border: 1px solid rgba(212, 82, 26, 0.35);
-      color: var(--fuego);
-    }
-
-    .receta-intro {
-      font-style: italic;
-      color: #d4c4b0;
-      margin-bottom: 28px;
-      font-size: 1rem;
-      border-left: 2px solid rgba(196, 133, 58, 0.3);
-      padding-left: 16px;
-      line-height: 1.75;
-    }
-
-    .receta-subtitulo {
-      font-family: 'Space Mono', monospace;
-      font-size: 10px;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      color: var(--fuego);
-      margin-bottom: 12px;
-      margin-top: 24px;
-    }
-
-    .ingredientes-lista {
-      list-style: none;
-      padding: 0;
-      margin-bottom: 8px;
-    }
-
-    .ingredientes-lista li {
-      padding: 6px 0;
-      border-bottom: 1px solid rgba(107, 87, 68, 0.2);
-      font-size: 0.95rem;
-      color: var(--sal);
-      display: flex;
-      align-items: baseline;
-      gap: 8px;
-    }
-
-    .ingredientes-lista li::before {
-      content: '—';
-      color: var(--fuego);
-      flex-shrink: 0;
-      font-family: 'Space Mono', monospace;
-      font-size: 12px;
-    }
-
-    .ingredientes-lista li:last-child {
-      border-bottom: none;
-    }
-
-    .cantidad {
-      font-family: 'Space Mono', monospace;
-      font-size: 12px;
-      color: var(--puna);
-      min-width: 80px;
-      flex-shrink: 0;
-    }
-
-    .pasos-lista {
-      list-style: none;
-      padding: 0;
-      counter-reset: paso-counter;
-    }
-
-    .pasos-lista li {
-      counter-increment: paso-counter;
-      padding: 12px 0 12px 52px;
-      border-bottom: 1px solid rgba(107, 87, 68, 0.15);
-      font-size: 0.95rem;
-      color: var(--sal);
-      line-height: 1.7;
-      position: relative;
-    }
-
-    .pasos-lista li::before {
-      content: counter(paso-counter);
-      position: absolute;
-      left: 0;
-      top: 10px;
-      font-family: 'Space Mono', monospace;
-      font-size: 13px;
-      font-weight: 700;
-      color: var(--fuego);
-      background: rgba(212, 82, 26, 0.12);
-      border: 1px solid rgba(212, 82, 26, 0.3);
-      width: 34px;
-      height: 34px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      border-radius: 2px;
-      flex-shrink: 0;
-    }
-
-    .pasos-lista li:last-child {
-      border-bottom: none;
-    }
-
-    .tip-javo {
-      background: linear-gradient(135deg, rgba(212, 82, 26, 0.1), rgba(196, 133, 58, 0.07));
-      border: 1px solid rgba(212, 82, 26, 0.3);
-      border-left: 3px solid var(--puna);
-      border-radius: 0 3px 3px 0;
-      padding: 18px 20px;
-      margin-top: 28px;
-    }
-
-    .tip-javo .tip-label {
-      font-family: 'Space Mono', monospace;
-      font-size: 10px;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      color: var(--puna);
-      margin-bottom: 8px;
-      display: block;
-    }
-
-    .tip-javo p {
-      font-size: 0.92rem;
-      color: #d4c4b0;
-      font-style: italic;
-      margin: 0;
-      line-height: 1.65;
-    }
-
-    /* SEPARADOR ENTRE RECETAS */
-    .receta-sep {
-      border: none;
-      border-top: 1px solid rgba(107, 87, 68, 0.25);
-      margin: 0;
-    }
-
-    /* FOOTER */
-    footer {
-      background: var(--carbon);
-      border-top: 1px solid #2a1205;
-      padding: 48px 32px;
-      text-align: center;
-    }
-
-    .footer-marca {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 2rem;
-      font-weight: 700;
-      color: var(--puna);
-      letter-spacing: 0.03em;
-      margin-bottom: 8px;
-    }
-
-    .footer-sub {
-      font-family: 'Space Mono', monospace;
-      font-size: 11px;
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-      color: var(--ceniza);
-      margin-bottom: 24px;
-    }
-
-    .footer-links {
-      display: flex;
-      justify-content: center;
-      gap: 32px;
-      flex-wrap: wrap;
-      margin-bottom: 32px;
-    }
-
-    .footer-links a {
-      color: var(--ceniza);
-      text-decoration: none;
-      font-family: 'Space Mono', monospace;
-      font-size: 11px;
-      letter-spacing: 0.1em;
-      transition: color 0.2s;
-    }
-
-    .footer-links a:hover {
-      color: var(--puna);
-    }
-
-    .footer-copy {
-      font-family: 'Space Mono', monospace;
-      font-size: 10px;
-      color: #3d2a1e;
-      letter-spacing: 0.1em;
-    }
-
-    /* RESPONSIVE */
-    @media (max-width: 640px) {
-      .header {
-        padding: 56px 20px 44px;
-      }
-
-      .receta-card {
-        padding: 28px 24px;
-      }
-
-      .ficha-keveri {
-        padding: 28px 24px;
-      }
-
-      .ficha-grid {
-        grid-template-columns: 1fr 1fr;
-      }
-
-      .nav-volver {
-        padding: 12px 20px;
-      }
-    }
-
-    /* ── ÍNDICE */
-    .recetario-indice{background:rgba(196,133,58,0.06);border:1px solid rgba(196,133,58,0.18);padding:2rem 2.5rem;margin:0 auto 3rem;max-width:820px;border-radius:2px;}
-    .indice-titulo{font-family:'Space Mono',monospace;font-size:0.62rem;letter-spacing:0.22em;text-transform:uppercase;color:#C4853A;margin-bottom:1.25rem;}
-    .indice-lista{list-style:none;columns:2;gap:2rem;padding:0;margin:0;}
-    .indice-lista li{margin-bottom:0.55rem;break-inside:avoid;}
-    .indice-lista a{color:rgba(245,237,216,0.6);text-decoration:none;font-size:0.82rem;font-family:'Libre Baskerville',serif;transition:color 0.2s;display:flex;align-items:baseline;gap:0.4rem;}
-    .indice-lista a:hover{color:#C4853A;}
-    .indice-num{font-family:'Space Mono',monospace;font-size:0.6rem;color:#C4853A;opacity:0.65;flex-shrink:0;}
-    @media(max-width:600px){.indice-lista{columns:1;}}
-    /* ── FOTOS */
-    .receta-foto{width:100%;max-height:300px;object-fit:cover;display:block;margin-bottom:1.5rem;filter:brightness(0.82) sepia(0.12);}
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>A Todo Keveri — Javotecocina</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Barlow:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Barlow+Condensed:ital,wght@0,600;0,700;0,800;0,900;1,800;1,900&family=Lora:ital,wght@0,400;0,500;0,600;1,400;1,500;1,600&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+:root{
+  --fire:#BF460F;--ember:#E0760F;--gold:#C9A14A;
+  --dark:#170F09;--dark2:#211610;
+  --paper:#FBF6EE;--paper2:#F3E9DA;--warm:#EFE3D2;
+  --ink:#241509;--muted:#7C6450;--soft:#9A8771;--line:#E0D4C4;--line2:#CDBCA6;
+}
+body{font-family:'Barlow',sans-serif;background:#B8A795;color:var(--ink);font-size:11pt;line-height:1.6;}
+
+.page{width:210mm;min-height:297mm;background:var(--paper);margin:0 auto 8mm;position:relative;overflow:hidden;print-color-adjust:exact;-webkit-print-color-adjust:exact;}
+@media print{body{background:#fff;}.page{margin:0;page-break-after:always;}.no-print{display:none!important;}}
+@page{size:A4;margin:0;}
+
+.no-print{position:fixed;bottom:1.5rem;right:1.5rem;z-index:999;background:var(--fire);color:#fff;border:none;padding:.8rem 1.6rem;font-family:'Barlow Condensed',sans-serif;font-size:.85rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;border-radius:3px;cursor:pointer;box-shadow:0 4px 18px rgba(191,70,15,.45);}
+.no-print:hover{background:var(--ember);}
+
+/* placeholders de foto */
+.ph{display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#241610 0%,#3a2415 55%,#241610 100%);position:relative;}
+.ph span{font-family:'Barlow Condensed',sans-serif;font-size:8pt;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:rgba(245,237,228,.5);text-align:center;padding:0 6mm;}
+.ph::before{content:'📷';position:absolute;top:6mm;left:50%;transform:translateX(-50%);font-size:13pt;opacity:.25;}
+
+/* RUNNING HEADER */
+.rh{position:absolute;top:0;left:0;right:0;display:flex;justify-content:space-between;align-items:center;padding:6mm 14mm 0;z-index:5;}
+.rh-brand{font-family:'Barlow Condensed',sans-serif;font-size:6.5pt;font-weight:800;letter-spacing:.24em;text-transform:uppercase;color:var(--fire);}
+.rh-pg{font-family:'Lora',serif;font-size:7.5pt;font-style:italic;color:var(--soft);}
+.rh-rule{position:absolute;top:11mm;left:14mm;right:14mm;height:.5pt;background:var(--line2);}
+
+/* PORTADA */
+.cover{background:var(--dark);display:flex;flex-direction:column;justify-content:flex-end;}
+.cover-photo{position:absolute;inset:0;}
+.cover-photo.ph::before{top:14mm;font-size:18pt;}
+.cover-photo::after{content:'';position:absolute;inset:0;background:linear-gradient(to bottom,rgba(23,15,9,.12) 0%,rgba(23,15,9,.5) 42%,rgba(23,15,9,.98) 100%);}
+.cover-c{position:relative;z-index:2;padding:16mm 15mm 15mm;}
+.cover-eyebrow{font-family:'Barlow Condensed',sans-serif;font-size:7.5pt;font-weight:700;letter-spacing:.3em;text-transform:uppercase;color:var(--ember);margin-bottom:4mm;}
+.cover-series{font-family:'Lora',serif;font-size:8.5pt;font-style:italic;letter-spacing:.04em;color:rgba(251,246,238,.55);margin-bottom:6mm;}
+.cover-title{font-family:'Barlow Condensed',sans-serif;font-size:62pt;font-weight:900;line-height:.86;text-transform:uppercase;color:#FBF6EE;margin-bottom:6mm;}
+.cover-title em{font-style:italic;color:var(--ember);}
+.cover-tag{font-family:'Lora',serif;font-size:11pt;font-weight:400;color:rgba(251,246,238,.72);line-height:1.65;max-width:124mm;margin-bottom:11mm;}
+.cover-pills{display:flex;gap:3mm;flex-wrap:wrap;padding-top:8mm;border-top:.5pt solid rgba(251,246,238,.18);}
+.cover-pill{font-family:'Barlow Condensed',sans-serif;font-size:6.5pt;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:rgba(251,246,238,.42);padding:1.5mm 3mm;border:.5pt solid rgba(251,246,238,.18);border-radius:1px;}
+
+/* DEDICATORIA */
+.ded{background:var(--dark2);display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:28mm 24mm;}
+.ded-orn{font-size:10pt;letter-spacing:.4em;color:var(--ember);opacity:.5;margin-bottom:16mm;}
+.ded-text{font-family:'Lora',serif;font-size:16pt;font-weight:400;font-style:italic;color:rgba(251,246,238,.85);line-height:1.85;max-width:142mm;}
+.ded-firma{margin-top:16mm;font-family:'Barlow Condensed',sans-serif;font-size:7pt;font-weight:700;letter-spacing:.3em;text-transform:uppercase;color:var(--ember);}
+
+/* PRÓLOGO */
+.intro{padding:18mm 15mm 14mm;}
+.sec-label{font-family:'Barlow Condensed',sans-serif;font-size:7pt;font-weight:700;letter-spacing:.3em;text-transform:uppercase;color:var(--fire);margin-bottom:3mm;}
+.intro-title{font-family:'Barlow Condensed',sans-serif;font-size:38pt;font-weight:900;font-style:italic;line-height:.94;color:var(--dark);margin:3mm 0 11mm;}
+.intro-body{columns:2;column-gap:9mm;font-family:'Lora',serif;font-size:10pt;line-height:1.8;color:var(--ink);}
+.intro-body p{margin-bottom:4mm;text-align:justify;}
+.intro-body .lead{font-size:12.5pt;font-weight:500;font-style:italic;color:var(--fire);line-height:1.6;column-span:all;margin-bottom:8mm;padding-bottom:8mm;border-bottom:.5pt solid var(--line);}
+.intro-body .drop::first-letter{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:30pt;float:left;line-height:.8;margin:1mm 2mm 0 0;color:var(--fire);}
+
+/* ÍNDICE */
+.idx{padding:14mm 15mm 10mm;}
+.idx-title{font-family:'Barlow Condensed',sans-serif;font-size:36pt;font-weight:900;text-transform:uppercase;color:var(--dark);margin-bottom:2.5mm;}
+.idx-sub{font-family:'Lora',serif;font-style:italic;font-size:9.5pt;color:var(--muted);margin-bottom:5mm;}
+.idx-cat{font-family:'Barlow Condensed',sans-serif;font-size:7pt;font-weight:700;letter-spacing:.24em;text-transform:uppercase;color:var(--fire);margin:2mm 0 .7mm;padding-bottom:.8mm;border-bottom:1pt solid var(--fire);}
+.idx-row{display:flex;align-items:baseline;gap:2mm;padding:.7mm 0;font-size:9.5pt;line-height:1.15;border-bottom:.5pt solid var(--line);}
+.idx-n{font-family:'Barlow Condensed',sans-serif;font-size:8pt;font-weight:700;color:var(--ember);min-width:8mm;}
+.idx-name{flex:1;font-weight:500;color:var(--ink);}
+.idx-p{font-family:'Lora',serif;font-style:italic;font-size:9pt;color:var(--soft);}
+
+/* RECETA */
+.recipe{padding:15mm 14mm 11mm;display:flex;flex-direction:column;height:297mm;}
+.r-head{display:flex;justify-content:space-between;align-items:flex-end;gap:6mm;margin-bottom:3.5mm;}
+.r-head-l{flex:1;}
+.r-cat{font-family:'Barlow Condensed',sans-serif;font-size:7pt;font-weight:700;letter-spacing:.24em;text-transform:uppercase;color:var(--fire);margin-bottom:1.5mm;}
+.r-title{font-family:'Barlow Condensed',sans-serif;font-size:29pt;font-weight:900;line-height:.92;text-transform:uppercase;color:var(--dark);}
+.r-num{font-family:'Barlow Condensed',sans-serif;font-size:30pt;font-weight:900;color:var(--line2);line-height:.8;}
+.r-meta{display:flex;flex-wrap:wrap;margin-bottom:5mm;border-top:.5pt solid var(--line);border-bottom:.5pt solid var(--line);}
+.r-meta-it{flex:1;padding:1.8mm 0;text-align:center;border-right:.5pt solid var(--line);}
+.r-meta-it:last-child{border-right:none;}
+.r-meta-k{font-family:'Barlow Condensed',sans-serif;font-size:6pt;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--soft);margin-bottom:.8mm;}
+.r-meta-v{font-family:'Barlow Condensed',sans-serif;font-size:9pt;font-weight:800;color:var(--dark);text-transform:uppercase;}
+.r-note{font-family:'Lora',serif;font-size:9pt;font-style:italic;line-height:1.5;color:var(--muted);margin-bottom:4mm;padding-left:5mm;border-left:2px solid var(--ember);}
+.r-img{width:100%;height:58mm;border-radius:3px;overflow:hidden;margin-bottom:5mm;background:var(--warm);box-shadow:0 2px 10px rgba(23,15,9,.12);flex-shrink:0;}
+.r-img img{width:100%;height:100%;object-fit:cover;display:block;}
+.r-cols{display:grid;grid-template-columns:58mm 1fr;grid-template-rows:auto 1fr;column-gap:8mm;row-gap:5mm;flex:1;}
+.col-ing{grid-column:1;grid-row:1;}
+.col-pasos{grid-column:2;grid-row:1 / span 2;display:flex;flex-direction:column;}
+.r-cols > .tip{grid-column:1;grid-row:2;align-self:start;margin-top:4mm;}
+.ing-head,.paso-head{font-family:'Barlow Condensed',sans-serif;font-size:7.5pt;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:var(--fire);margin-bottom:3.5mm;padding-bottom:1.5mm;border-bottom:1pt solid var(--fire);}
+.ing-group{margin-bottom:3.5mm;}
+.ing-glabel{font-family:'Barlow Condensed',sans-serif;font-size:6.5pt;font-weight:700;text-transform:uppercase;letter-spacing:.12em;color:var(--ember);margin:2.5mm 0 1.5mm;}
+.ing-row{display:flex;gap:2mm;padding:1mm 0;font-size:7.7pt;line-height:1.35;border-bottom:.5pt solid var(--line);}
+.ing-qty{font-weight:700;min-width:14mm;color:var(--dark);font-size:7.5pt;}
+.ing-name{color:var(--ink);flex:1;}
+.paso{display:flex;gap:3mm;margin-bottom:2.4mm;align-items:flex-start;}
+.paso-n{font-family:'Barlow Condensed',sans-serif;font-size:11.5pt;font-weight:900;color:var(--fire);line-height:1;min-width:5.5mm;opacity:.55;margin-top:.4mm;}
+.paso-txt{font-size:7.9pt;line-height:1.45;color:var(--ink);text-align:justify;}
+.paso-txt b{color:var(--dark);font-weight:700;}
+.tip{margin-top:0;background:var(--paper2);border-left:3px solid var(--fire);padding:3mm 4mm;border-radius:0 2px 2px 0;}
+.tip-label{font-family:'Barlow Condensed',sans-serif;font-size:6.5pt;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--fire);margin-bottom:1.5mm;}
+.tip-txt{font-family:'Lora',serif;font-size:7.8pt;line-height:1.45;color:var(--ink);font-style:italic;}
+
+/* SECCIÓN / GUÍA */
+.guia-cover{background:var(--dark2);display:flex;flex-direction:column;justify-content:flex-end;position:relative;overflow:hidden;}
+.guia-photo{position:absolute;inset:0;}
+.guia-photo::after{content:'';position:absolute;inset:0;background:linear-gradient(to bottom,rgba(23,15,9,.25) 0%,rgba(23,15,9,.72) 55%,rgba(23,15,9,1) 100%);}
+.guia-c{position:relative;z-index:2;padding:16mm 15mm 15mm;}
+.guia-eyebrow{font-family:'Barlow Condensed',sans-serif;font-size:7pt;font-weight:700;letter-spacing:.28em;text-transform:uppercase;color:var(--ember);margin-bottom:4mm;}
+.guia-title{font-family:'Barlow Condensed',sans-serif;font-size:50pt;font-weight:900;line-height:.9;text-transform:uppercase;color:#FBF6EE;margin-bottom:6mm;}
+.guia-desc{font-family:'Lora',serif;font-size:11pt;font-style:italic;color:rgba(251,246,238,.6);line-height:1.65;max-width:128mm;}
+.gp{padding:16mm 14mm 12mm;}
+.g-title{font-family:'Barlow Condensed',sans-serif;font-size:19pt;font-weight:800;text-transform:uppercase;color:var(--dark);margin-bottom:4mm;padding-bottom:2.5mm;border-bottom:1.5pt solid var(--fire);}
+.g-text{font-family:'Lora',serif;font-size:9.5pt;line-height:1.7;color:var(--ink);margin-bottom:4mm;text-align:justify;}
+.g-grid{display:grid;grid-template-columns:1fr 1fr;gap:4mm;margin-bottom:7mm;}
+.g-card{background:var(--paper2);border:.5pt solid var(--line);border-radius:2px;padding:4mm;}
+.g-card-title{font-family:'Barlow Condensed',sans-serif;font-size:9pt;font-weight:800;text-transform:uppercase;color:var(--fire);margin-bottom:2mm;}
+.g-card p,.g-card li{font-size:7.8pt;line-height:1.6;color:var(--ink);}
+.g-card ul{padding-left:3.5mm;margin-top:1.5mm;}
+.g-card li{margin-bottom:1mm;}
+
+/* CONTRACUBIERTA */
+.back{background:var(--dark);display:flex;flex-direction:column;justify-content:space-between;padding:18mm 16mm;position:relative;overflow:hidden;}
+.back::before{content:'';position:absolute;bottom:-22mm;right:-22mm;width:130mm;height:130mm;border-radius:50%;border:20mm solid rgba(191,70,15,.06);}
+.back-quote{position:relative;z-index:2;}
+.back-quote::before{content:'"';display:block;font-family:'Lora',serif;font-size:54pt;color:var(--fire);opacity:.4;line-height:.6;margin-bottom:4mm;}
+.back-quote p{font-family:'Lora',serif;font-size:16pt;font-weight:400;font-style:italic;color:rgba(251,246,238,.75);line-height:1.7;max-width:135mm;}
+.back-bottom{position:relative;z-index:2;}
+.back-brand{font-family:'Barlow Condensed',sans-serif;font-size:22pt;font-weight:900;letter-spacing:.1em;text-transform:uppercase;color:var(--fire);margin-bottom:2mm;}
+.back-web{font-family:'Lora',serif;font-style:italic;font-size:8.5pt;color:rgba(251,246,238,.3);}
+
+/* PAYWALL (overlay de acceso — quitar este bloque y el script final para dejarlo libre) */
+#javo-paywall{position:fixed;inset:0;background:rgba(23,15,9,0.97);z-index:9999;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:20mm;}
+.pw-logo{font-family:'Barlow Condensed',sans-serif;font-size:13pt;font-weight:800;letter-spacing:.3em;color:var(--paper);text-transform:uppercase;margin-bottom:3mm;}
+.pw-title{font-family:'Barlow Condensed',sans-serif;font-size:30pt;font-weight:900;color:var(--ember);text-transform:uppercase;margin-bottom:4mm;line-height:.95;}
+.pw-desc{font-family:'Lora',serif;font-style:italic;font-size:11pt;color:var(--soft);margin-bottom:9mm;max-width:110mm;line-height:1.6;}
+.pw-price{font-family:'Barlow Condensed',sans-serif;font-size:22pt;font-weight:700;color:var(--paper);margin-bottom:7mm;}
+.pw-btn{background:var(--fire);color:#fff;border:none;padding:4mm 11mm;font-family:'Barlow Condensed',sans-serif;font-size:12pt;font-weight:700;letter-spacing:.08em;text-transform:uppercase;cursor:pointer;border-radius:3px;}
+.pw-btn:hover{background:var(--ember);}
+</style>
 </head>
 <body>
+<button class="no-print" onclick="window.print()">⬇ Guardar como PDF</button>
 
 <!-- PAYWALL -->
-<div id="javo-paywall" style="position:fixed;inset:0;z-index:99999;background:#1A0A05;display:flex;align-items:center;justify-content:center;padding:1.5rem;">
-  <div style="max-width:440px;width:100%;background:#2C1A0E;border:1px solid rgba(196,133,58,0.25);padding:2.5rem 2rem;text-align:center;font-family:'Libre Baskerville',Georgia,serif;">
-    <div style="font-size:2rem;margin-bottom:1rem;">🔒</div>
-    <div style="font-family:'Cormorant Garamond',Georgia,serif;font-size:1.6rem;font-weight:700;color:#F5EDD8;margin-bottom:0.5rem;">A Todo Keveri</div>
-    <p style="font-size:0.82rem;color:rgba(245,237,216,0.6);line-height:1.7;margin-bottom:1.5rem;font-style:italic;">Este recetario es exclusivo para compradores. Completá el pago para acceder.</p>
-    <div style="font-family:'Space Mono',monospace;font-size:1.3rem;color:#C4853A;font-weight:700;margin-bottom:1.5rem;">ARS $34.700</div>
-    <a href="https://javotecocina.com/?comprar=a-todo-keveri" style="display:block;background:#D4521A;color:#FFFFF0;text-decoration:none;font-family:'Space Mono',monospace;font-size:0.7rem;letter-spacing:0.12em;text-transform:uppercase;padding:0.85rem 1.5rem;margin-bottom:1.5rem;">Comprar ahora →</a>
-    <div style="height:1px;background:rgba(196,133,58,0.2);margin-bottom:1.5rem;position:relative;"><span style="position:absolute;top:-0.6rem;left:50%;transform:translateX(-50%);background:#2C1A0E;padding:0 0.75rem;font-size:0.7rem;color:rgba(245,237,216,0.4);">o si ya compraste</span></div>
-    <p style="font-size:0.78rem;color:rgba(245,237,216,0.55);margin-bottom:0.75rem;">Ingresá el email con el que pagaste:</p>
-    <input id="pw-email" type="email" placeholder="tu@email.com" style="width:100%;box-sizing:border-box;background:rgba(44,26,14,0.8);border:1px solid rgba(196,133,58,0.3);color:#F5EDD8;font-family:'Libre Baskerville',serif;font-size:0.85rem;padding:0.75rem 1rem;margin-bottom:0.75rem;outline:none;">
-    <button onclick="javoVerificar()" style="width:100%;background:rgba(196,133,58,0.15);border:1px solid #C4853A;color:#C4853A;font-family:'Space Mono',monospace;font-size:0.7rem;letter-spacing:0.1em;text-transform:uppercase;padding:0.75rem;cursor:pointer;">Verificar acceso →</button>
-    <div id="pw-msg" style="font-size:0.78rem;min-height:1.2em;margin-top:0.75rem;color:#D4521A;font-style:italic;"></div>
+<div id="javo-paywall">
+  <div class="pw-logo">Javotecocina</div>
+  <div class="pw-title">A Todo Keveri</div>
+  <div class="pw-desc">Veintiuna recetas para domar el Keveri a carbón: brasa, tiro, humo y paciencia, con un anexo de ahumado en frío.</div>
+  <div class="pw-price">ARS $34.700</div>
+  <button class="pw-btn" onclick="window.location.href='/#recetarios'">Comprar acceso</button>
+</div>
+
+<!-- PORTADA -->
+<div class="page cover">
+  <div class="cover-photo"><img src="img/keveri/portada.jpg" alt="Keveri a carbón encendido al atardecer, tapa entreabierta dejando salir humo, brasas anaranjadas visibles adentro, fondo" style="width:100%;height:100%;object-fit:cover;display:block;"></div>
+  <div class="cover-c">
+    <div class="cover-eyebrow">Javotecocina</div>
+    <div class="cover-series">Recetarios digitales · Volumen III</div>
+    <div class="cover-title">A Todo<br><em>Keveri</em></div>
+    <div class="cover-tag">Veintiuna recetas para domarlo a fuerza de brasa, tiro y paciencia: del brisket de doce horas que se corta solo a la napolitana de fuego fuerte. Un horno a carbón, el humo como ingrediente y un anexo para animarse al ahumado en frío.</div>
+    <div class="cover-pills">
+      <div class="cover-pill">21 Recetas</div>
+      <div class="cover-pill">Horno a Carbón</div>
+      <div class="cover-pill">Fuego &amp; Humo</div>
+      <div class="cover-pill">Javo Elizalde · Salta</div>
+    </div>
   </div>
 </div>
+
+<!-- DEDICATORIA -->
+<div class="page ded">
+  <div class="ded-orn">— ✦ —</div>
+  <div class="ded-text">A los que prenden el carbón un sábado al mediodía<br>sin apuro, sabiendo que la brasa, el humo y la paciencia<br>se van a terminar poniendo de acuerdo.</div>
+  <div class="ded-firma">Javotecocina</div>
+</div>
+
+<!-- PRÓLOGO -->
+<div class="page intro">
+  <div class="rh"><div class="rh-brand">Javotecocina</div><div class="rh-pg">A Todo Keveri</div><div class="rh-rule"></div></div>
+  <div style="margin-top:13mm;">
+    <div class="sec-label">Prólogo</div>
+    <div class="intro-title">Brasa, humo<br>y paciencia.</div>
+    <div class="intro-body">
+      <p class="lead">La primera vez que cociné en un Keveri me quedé mirando la brasa más tiempo del que quiero admitir. No tiene perilla ni número: tiene carbón, aire y tu paciencia. Y el día que le encontrás la vuelta, no hay horno que lo iguale.</p>
+      <p class="drop">El Keveri es un horno a carbón con tapa. Esa es toda la idea y, al mismo tiempo, es todo. Acá no hay una llama que regulás con la mano: hay una cama de brasas que da el calor y un tiro —las entradas y la salida de aire— con el que subís o bajás la temperatura. Más aire, más fuego; menos aire, menos fuego. Aprender eso es aprender a cocinar acá.</p>
+      <p>Lo otro grande es la inercia. El carbón tarda en agarrar temperatura y tarda en soltarla, y eso que al principio te desespera después es tu mejor aliado: una vez que el horno se asienta en 110 o 120 grados, se queda ahí horas casi sin que lo toques. Por eso brilla en las cocciones largas, donde el que hace el laburo es el tiempo.</p>
+      <p>Y donde hay brasa, hay humo. Por eso el humo dejó de ser un libro aparte y vive acá adentro: es parte de cocinar a carbón. Vas a aprender a tirar un par de leños de quebracho para perfumar un brisket y, al final, en el anexo, a meterte con el ahumado en frío, que es otra cosa y pide sus cuidados.</p>
+      <p>Vas a ver mañas mías: la sal gruesa que entra horas antes, el termómetro de pincho como mejor amigo, el humo azul y fino en lugar del blanco espeso, y eso de no abrir la tapa aunque me muera de ganas. Cada vez que la levantás, perdés calor y humo y arrancás de cero.</p>
+      <p>Por encima de la técnica, el Keveri es una excusa para juntar gente. Nadie prende carbón para cocinarse solo: se enciende para una mesa larga, para los que caen sin avisar, para esa tarde que arranca con un café y termina con la última costilla. Hacé estas recetas tuyas, cambiá maderas, fallá las primeras, y dejá que dejen de ser mías para empezar a oler a tu propio patio.</p>
+    </div>
+  </div>
+</div>
+
+<!-- ÍNDICE -->
+<div class="page idx">
+  <div class="rh"><div class="rh-brand">Javotecocina</div><div class="rh-pg">A Todo Keveri</div><div class="rh-rule"></div></div>
+  <div style="margin-top:3mm;">
+    <div class="idx-title">Índice</div>
+    <div class="idx-sub">Veintiuna recetas, la técnica del carbón y el humo, y un anexo para animarse al ahumado en frío.</div>
+    <div class="idx-cat">Técnica base</div>
+    <div class="idx-row"><span class="idx-n">—</span><span class="idx-name">El Keveri a carbón · brasa, tapa y zonas</span><span class="idx-p">pág. 6</span></div>
+    <div class="idx-row"><span class="idx-n">—</span><span class="idx-name">Fuego, tiro y temperatura</span><span class="idx-p">pág. 7</span></div>
+    <div class="idx-row"><span class="idx-n">—</span><span class="idx-name">Humo y maderas</span><span class="idx-p">pág. 8</span></div>
+    <div class="idx-cat">Brasa Lenta</div>
+    <div class="idx-row"><span class="idx-n">01</span><span class="idx-name">Bondiola ahumada 8 horas</span><span class="idx-p">pág. 9</span></div>
+    <div class="idx-row"><span class="idx-n">02</span><span class="idx-name">Costillar 3-2-1</span><span class="idx-p">pág. 10</span></div>
+    <div class="idx-row"><span class="idx-n">03</span><span class="idx-name">Pulled pork del norte</span><span class="idx-p">pág. 11</span></div>
+    <div class="idx-row"><span class="idx-n">04</span><span class="idx-name">Cordero ahumado lento</span><span class="idx-p">pág. 12</span></div>
+    <div class="idx-cat">Clásico Fuerte</div>
+    <div class="idx-row"><span class="idx-n">05</span><span class="idx-name">Pollo sentado a la cerveza</span><span class="idx-p">pág. 13</span></div>
+    <div class="idx-row"><span class="idx-n">06</span><span class="idx-name">Picaña entera</span><span class="idx-p">pág. 14</span></div>
+    <div class="idx-row"><span class="idx-n">07</span><span class="idx-name">Porchetta criolla</span><span class="idx-p">pág. 15</span></div>
+    <div class="idx-row"><span class="idx-n">08</span><span class="idx-name">Pierna de cordero con hierbas</span><span class="idx-p">pág. 16</span></div>
+    <div class="idx-cat">Panadero</div>
+    <div class="idx-row"><span class="idx-n">09</span><span class="idx-name">Pan de masa madre</span><span class="idx-p">pág. 17</span></div>
+    <div class="idx-row"><span class="idx-n">10</span><span class="idx-name">Focaccia con romero y aceitunas</span><span class="idx-p">pág. 18</span></div>
+    <div class="idx-row"><span class="idx-n">11</span><span class="idx-name">Apple crumble rústico</span><span class="idx-p">pág. 19</span></div>
+    <div class="idx-cat">Fuego Rápido</div>
+    <div class="idx-row"><span class="idx-n">12</span><span class="idx-name">Tomahawk a la inversa</span><span class="idx-p">pág. 20</span></div>
+    <div class="idx-row"><span class="idx-n">13</span><span class="idx-name">Entraña al máximo</span><span class="idx-p">pág. 21</span></div>
+    <div class="idx-row"><span class="idx-n">14</span><span class="idx-name">Langostinos con manteca y ajo</span><span class="idx-p">pág. 22</span></div>
+    <div class="idx-row"><span class="idx-n">15</span><span class="idx-name">Vegetales asados para pasta</span><span class="idx-p">pág. 23</span></div>
+    <div class="idx-cat">Pizza</div>
+    <div class="idx-row"><span class="idx-n">16</span><span class="idx-name">Pizza napolitana clásica</span><span class="idx-p">pág. 24</span></div>
+    <div class="idx-row"><span class="idx-n">17</span><span class="idx-name">Fugazzeta rellena</span><span class="idx-p">pág. 25</span></div>
+    <div class="idx-row"><span class="idx-n">18</span><span class="idx-name">Calzone salteño</span><span class="idx-p">pág. 26</span></div>
+    <div class="idx-cat">Ahumados</div>
+    <div class="idx-row"><span class="idx-n">19</span><span class="idx-name">Brisket de 12 horas</span><span class="idx-p">pág. 27</span></div>
+    <div class="idx-row"><span class="idx-n">20</span><span class="idx-name">Ribs BBQ estilo salteño</span><span class="idx-p">pág. 28</span></div>
+    <div class="idx-row"><span class="idx-n">21</span><span class="idx-name">Panceta ahumada casera</span><span class="idx-p">pág. 29</span></div>
+    <div class="idx-cat">Anexo &amp; cierre</div>
+    <div class="idx-row"><span class="idx-n">—</span><span class="idx-name">Anexo · ahumado en frío</span><span class="idx-p">pág. 30</span></div>
+    <div class="idx-row"><span class="idx-n">—</span><span class="idx-name">La mesa del Keveri · salsas y guarniciones</span><span class="idx-p">pág. 31</span></div>
+  </div>
+</div>
+
+<!-- TÉCNICA: PORTADA -->
+<div class="page guia-cover">
+  <div class="guia-photo"><img src="img/keveri/tecnica.jpg" alt="Keveri abierto mostrando la cama de brasas y unos leños de quebracho, una nube de humo azul fino elevándose, en penumbra" style="width:100%;height:100%;object-fit:cover;display:block;"></div>
+  <div class="guia-c">
+    <div class="guia-eyebrow">Técnica base · A Todo Keveri</div>
+    <div class="guia-title">Fuego<br>&amp; Humo</div>
+    <div class="guia-desc">Antes de la primera receta, lo que de verdad importa en un horno a carbón: cómo encender y armar la brasa, cómo subir y bajar la temperatura con el tiro, y cómo usar el humo a favor sin que termine tapando todo.</div>
+  </div>
+</div>
+
+<!-- TÉCNICA: CONOCÉ TU KEVERI -->
+<div class="page gp">
+  <div class="rh"><div class="rh-brand">Javotecocina</div><div class="rh-pg">Técnica base</div><div class="rh-rule"></div></div>
+  <div style="margin-top:13mm;">
+    <div class="g-title">El Keveri a carbón</div>
+    <div class="g-text">El Keveri es un horno a carbón con tapa: una cama de brasas abajo, rejillas a distintas alturas y una tapa que encierra el calor y lo hace girar alrededor de la comida. No tiene perilla ni número; lo que manejás es el carbón y el aire. El día que entendés cómo se mueve ese calor adentro, ya sabés cocinar casi cualquier cosa.</div>
+    <div class="g-grid">
+      <div class="g-card"><div class="g-card-title">① Encender la brasa</div><p>Yo uso la chimenea de encendido: papel o pastilla abajo, carbón arriba, y en 20 minutos lo tenés con esa ceniza gris pareja, listo para volcar. Si no tenés, armá una pirámide y prendé del centro. Lo que nunca: tirarle líquido de encender encima de la comida o con la tapa cerca, porque te deja gusto a nafta en todo.</p></div>
+      <div class="g-card"><div class="g-card-title">② Directo, indirecto y envolvente</div><p>Brasa justo abajo de la comida es calor directo: sella, marca, dora. Brasa corrida a un costado, con la pieza del otro lado, es indirecto: cocina el aire caliente, suave y parejo. Y con la tapa cerrada ese calor se vuelve envolvente y rodea todo como un horno. La mitad del libro vive del indirecto con la tapa baja.</p></div>
+      <div class="g-card"><div class="g-card-title">③ Inercia térmica</div><p>El carbón tarda en subir y tarda en bajar. Al principio te desespera, pero es lo mejor que tiene: una vez asentado, se queda en su temperatura casi solo. No persigas el número moviendo todo cada dos minutos. Corregí de a poco y dale tiempo a que reaccione, que reacciona.</p></div>
+      <div class="g-card"><div class="g-card-title">④ La tapa hace el trabajo</div><p>Cerrada cocina por arriba, por abajo y por los costados, y te guarda el humo adentro. Abierta, perdés calor, perdés humo y volvés a empezar. Abrila lo justo: para mí, mirar de menos es ganar. Y después de cada uso, rejillas con cepillo en caliente y bandeja de cenizas vaciada.</p></div>
+    </div>
+  </div>
+</div>
+
+<!-- TÉCNICA: FUEGO, TIRO Y TEMPERATURA -->
+<div class="page gp">
+  <div class="rh"><div class="rh-brand">Javotecocina</div><div class="rh-pg">Técnica base</div><div class="rh-rule"></div></div>
+  <div style="margin-top:13mm;">
+    <div class="g-title">Fuego, tiro y temperatura</div>
+    <div class="g-text">Si la brasa es el motor, el tiro es el acelerador. En un horno a carbón la temperatura no se sube apretando un botón: se regula con el aire que entra y sale. Tener claro esto es tener resuelta cualquier cocción de este libro.</div>
+    <div class="g-grid">
+      <div class="g-card"><div class="g-card-title">① El tiro manda</div><p>Entrada de aire abajo, salida arriba. Cuanto más abrís, más oxígeno entra, más fuerte tira el fuego y más sube la temperatura; para bajar, cerrá de a poco. Yo regulo casi todo con el tiro y toco el carbón lo menos posible: es más fino y mucho más estable que andar moviendo brasas.</p></div>
+      <div class="g-card"><div class="g-card-title">② Cuánto carbón</div><p>Fuego fuerte y corto, como una entraña o una pizza: cama llena y abundante. Cocción larga y baja: menos carbón y vas recargando de a poco a un costado. La regla que no falla es que sumar brasa es fácil y sacarla no, así que arrancá medido y agregá.</p></div>
+      <div class="g-card"><div class="g-card-title">③ El termómetro, no el reloj</div><p>Uno de tapa para saber a cuánto está el horno y uno de pincho para la parte más gruesa de la carne. El tiempo de una receta es orientativo; el termómetro es el que no miente. Y con carbón, ningún fuego es igual al de ayer: por eso me fío del número, no del cronómetro.</p></div>
+      <div class="g-card"><div class="g-card-title">④ Estabilizá y usá las zonas</div><p>Dale sus 20 minutos antes de meter nada, hasta que la aguja se quede quieta. Y aprovechá que el calor no es parejo: zona caliente sobre la brasa para sellar, zona tibia al costado para mantener sin pasarte. Ese costado tranquilo es tu reserva.</p></div>
+    </div>
+  </div>
+</div>
+
+<!-- TÉCNICA: HUMO Y MADERAS -->
+<div class="page gp">
+  <div class="rh"><div class="rh-brand">Javotecocina</div><div class="rh-pg">Técnica base</div><div class="rh-rule"></div></div>
+  <div style="margin-top:13mm;">
+    <div class="g-title">Humo y maderas</div>
+    <div class="g-text">Donde hay carbón, hay humo, y el humo es un ingrediente más: bien usado, perfuma; mal usado, arruina. Ahumar en el Keveri no pide ningún fierro extra: alcanza con tirar unos leños o un puñado de chips sobre la brasa y cerrar la tapa. Lo que define el resultado es qué madera elegís y cómo manejás el fuego.</div>
+    <div class="g-grid">
+      <div class="g-card"><div class="g-card-title">① Humo limpio, no humareda</div><p>El humo bueno es azul y fino, casi transparente. El blanco espeso —ese que parece que se te prende fuego la casa— amarga la comida. Para que salga limpio, la brasa tiene que estar viva y con aire: si la ahogás con leña verde o tapás todo, sale humo sucio. Un par de leños secos sobre brasa pareja y listo.</p></div>
+      <div class="g-card"><div class="g-card-title">② Las maderas</div><p>Quebracho y espinillo dan humo intenso y terroso: van con vaca y cerdos largos (brisket, bondiola, ribs). Manzano y cerezo dan humo suave y frutado: mejores para aves, pescados, vegetales y quesos. Nunca pino ni resinosas, que largan resinas que amargan y encima no son sanas. Una sola madera por cocción, no las mezcles.</p></div>
+      <div class="g-card"><div class="g-card-title">③ Ahumado caliente</div><p>Es el de este libro: entre 90 y 130°C, la pieza se cocina y se ahuma a la vez. El humo penetra sobre todo al principio, con la superficie todavía húmeda; después la corteza se cierra y ya casi no suma. Por eso los leños van temprano, en las primeras horas, y no al final.</p></div>
+      <div class="g-card"><div class="g-card-title">④ Menos es más (errores)</div><p>El humo acompaña, no tapa: si te pasás, no se siente otra cosa. Los errores que más veo son ahogar la brasa, abrir la tapa a cada rato, usar madera húmeda y querer apurar la temperatura. Con poca madera, brasa viva y paciencia, ya tenés casi todo ganado.</p></div>
+    </div>
+    <div class="g-text" style="margin-top:1mm;"><b>¿Y el ahumado en frío?</b> Ese es otro mundo: no cocina, solo perfuma y conserva, y pide cuidados de seguridad que no son chiste. Lo dejé ordenado en el anexo del final, para que te animes cuando ya tengas el ahumado caliente caminando.</div>
+  </div>
+</div>
+
+<!-- 01 BONDIOLA AHUMADA 8 HS -->
+<div class="page recipe">
+  <div class="rh"><div class="rh-brand">Javotecocina</div><div class="rh-pg">Low &amp; Slow</div><div class="rh-rule"></div></div>
+  <div class="r-head" style="margin-top:11mm;">
+    <div class="r-head-l"><div class="r-cat">Receta 01 · Low &amp; Slow</div><div class="r-title">Bondiola<br>Ahumada 8 Hs</div></div>
+    <div class="r-num">01</div>
+  </div>
+  <div class="r-meta">
+    <div class="r-meta-it"><div class="r-meta-k">Tiempo</div><div class="r-meta-v">8–9 hs</div></div>
+    <div class="r-meta-it"><div class="r-meta-k">Porciones</div><div class="r-meta-v">8–10</div></div>
+    <div class="r-meta-it"><div class="r-meta-k">Temp.</div><div class="r-meta-v">110–120°C</div></div>
+    <div class="r-meta-it"><div class="r-meta-k">Interna</div><div class="r-meta-v">90°C</div></div>
+  </div>
+  <div class="r-note">La bondiola es la reina del slow cooking. A 110°C el colágeno se va volviendo gelatina y la grasa infiltrada hace todo el trabajo sola. Acá no hay atajos: hay paciencia, y se nota en cada bocado.</div>
+  <div class="r-img"><img src="img/keveri/bondiola-8hs.jpg" alt="Bondiola entera sobre la rejilla del Keveri con corteza oscura tipo bark, recién cortada mostrando el interior jugoso y "></div>
+  <div class="r-cols">
+    <div class="col-ing">
+      <div class="ing-head">Ingredientes</div>
+      <div class="ing-row"><span class="ing-qty">2,5 kg</span><span class="ing-name">Bondiola entera</span></div>
+      <div class="ing-row"><span class="ing-qty">30 g</span><span class="ing-name">Sal gruesa</span></div>
+      <div class="ing-row"><span class="ing-qty">15 g</span><span class="ing-name">Azúcar negra</span></div>
+      <div class="ing-row"><span class="ing-qty">10 g</span><span class="ing-name">Pimentón ahumado</span></div>
+      <div class="ing-row"><span class="ing-qty">8 g</span><span class="ing-name">Ajo en polvo</span></div>
+      <div class="ing-row"><span class="ing-qty">5 g</span><span class="ing-name">Pimienta negra</span></div>
+      <div class="ing-row"><span class="ing-qty">5 g</span><span class="ing-name">Orégano seco</span></div>
+      <div class="ing-glabel">Mop (para pintar)</div>
+      <div class="ing-row"><span class="ing-qty">100 ml</span><span class="ing-name">Vinagre de manzana</span></div>
+      <div class="ing-row"><span class="ing-qty">100 ml</span><span class="ing-name">Agua</span></div>
+      <div class="ing-row"><span class="ing-qty">30 ml</span><span class="ing-name">Miel</span></div>
+    </div>
+    <div class="col-pasos">
+      <div class="paso-head">Preparación</div>
+      <div class="paso"><div class="paso-n">1</div><div class="paso-txt"><b>Rub seco, la noche anterior.</b> Mezclá sal, azúcar, pimentón, ajo, pimienta y orégano. Cubrí toda la bondiola, envolvé en film y dejá en la heladera 12 horas como mínimo. Ese tiempo es el que hace la diferencia.</div></div>
+      <div class="paso"><div class="paso-n">2</div><div class="paso-txt"><b>Armá la brasa indirecta.</b> Prendé el carbón en la chimenea y, cuando esté con ceniza gris pareja, volcalo todo a un costado del Keveri. Tirá un par de leños de quebracho para el humo, cerrá casi todo el tiro y estabilizá entre 110 y 120°C. Puede tardar sus 20 minutos: dale tiempo, no lo apures.</div></div>
+      <div class="paso"><div class="paso-n">3</div><div class="paso-txt"><b>Posición y quietud.</b> Bondiola en la rejilla del lado sin brasa, calor indirecto puro. Cerrá la tapa y no la toques por tres horas. En serio: no la toques.</div></div>
+      <div class="paso"><div class="paso-n">4</div><div class="paso-txt"><b>Mop cada hora.</b> A partir de la tercera hora, abrí rápido y pintá con la mezcla de vinagre, agua y miel. Cerrá enseguida. Eso mantiene la superficie húmeda y arma la corteza.</div></div>
+      <div class="paso"><div class="paso-n">5</div><div class="paso-txt"><b>Bancá la stall.</b> Si la temperatura interna se frena en 70–75°C y no sube, aguantá: es el colágeno trabajando. Va a arrancar de nuevo solo. La meta son 90°C internos.</div></div>
+      <div class="paso"><div class="paso-n">6</div><div class="paso-txt"><b>Reposo obligatorio.</b> Envolvé en papel de carnicero y dejá descansar 45 minutos antes de desmenuzar o cortar. Si la abrís caliente, perdés todos los jugos.</div></div>
+    </div>
+    <div class="tip"><div class="tip-label">🔥 El consejo de Javo</div><div class="tip-txt">Para ahumarla no necesitás nada más que la propia brasa: tirale un par de leños de quebracho cuando metés la carne y cerrá la tapa. El humo de las primeras horas es el que perfuma de verdad. Es lo que más me gusta del Keveri a carbón.</div></div>
+  </div>
+</div>
+
+<!-- 02 COSTILLAR 3-2-1 -->
+<div class="page recipe">
+  <div class="rh"><div class="rh-brand">Javotecocina</div><div class="rh-pg">Low &amp; Slow</div><div class="rh-rule"></div></div>
+  <div class="r-head" style="margin-top:11mm;">
+    <div class="r-head-l"><div class="r-cat">Receta 02 · Low &amp; Slow</div><div class="r-title">Costillar<br>3-2-1</div></div>
+    <div class="r-num">02</div>
+  </div>
+  <div class="r-meta">
+    <div class="r-meta-it"><div class="r-meta-k">Tiempo</div><div class="r-meta-v">6 hs</div></div>
+    <div class="r-meta-it"><div class="r-meta-k">Porciones</div><div class="r-meta-v">4–6</div></div>
+    <div class="r-meta-it"><div class="r-meta-k">Temp.</div><div class="r-meta-v">110 / 130°C</div></div>
+    <div class="r-meta-it"><div class="r-meta-k">Modo</div><div class="r-meta-v">Low &amp; Slow</div></div>
+  </div>
+  <div class="r-note">El método 3-2-1 viene del BBQ americano y funciona perfecto en el Keveri: tres horas abierto, dos envuelto y una glaseado. El resultado es un costillar que se cae del hueso solo. Parece magia, es paciencia.</div>
+  <div class="r-img"><img src="img/keveri/costillar-321.jpg" alt="Costillar de cerdo cortado en porciones, glaseado oscuro y brillante, sobre tabla de madera, el Keveri abierto de fondo"></div>
+  <div class="r-cols">
+    <div class="col-ing">
+      <div class="ing-head">Ingredientes</div>
+      <div class="ing-row"><span class="ing-qty">1,8 kg</span><span class="ing-name">Costillar de cerdo (tira)</span></div>
+      <div class="ing-row"><span class="ing-qty">20 g</span><span class="ing-name">Sal</span></div>
+      <div class="ing-row"><span class="ing-qty">10 g</span><span class="ing-name">Azúcar negra</span></div>
+      <div class="ing-row"><span class="ing-qty">8 g</span><span class="ing-name">Pimentón dulce</span></div>
+      <div class="ing-row"><span class="ing-qty">5 g</span><span class="ing-name">Pimentón ahumado</span></div>
+      <div class="ing-row"><span class="ing-qty">5 g</span><span class="ing-name">Ajo en polvo</span></div>
+      <div class="ing-glabel">Glaseado final</div>
+      <div class="ing-row"><span class="ing-qty">80 ml</span><span class="ing-name">Salsa BBQ</span></div>
+      <div class="ing-row"><span class="ing-qty">30 ml</span><span class="ing-name">Miel</span></div>
+      <div class="ing-row"><span class="ing-qty">15 ml</span><span class="ing-name">Vinagre de manzana</span></div>
+    </div>
+    <div class="col-pasos">
+      <div class="paso-head">Preparación</div>
+      <div class="paso"><div class="paso-n">1</div><div class="paso-txt"><b>Sacá la membrana.</b> Del lado del hueso hay una telita plateada: agarrala con un papel de cocina y tirá fuerte para sacarla entera. Si la dejás, la carne no se ablanda parejo. Aplicá el rub por los dos lados.</div></div>
+      <div class="paso"><div class="paso-n">2</div><div class="paso-txt"><b>3 horas a 110°C.</b> Brasa corrida a un costado, el costillar del lado sin fuego con el hueso hacia abajo, calor indirecto. Tiro casi cerrado para mantenerlo bajo. No abras la tapa en todo ese tiempo.</div></div>
+      <div class="paso"><div class="paso-n">3</div><div class="paso-txt"><b>2 horas envuelto.</b> Envolvé bien en papel de aluminio con un chorrito de vinagre adentro y subí a 130°C. El vapor que se arma adentro del paquete termina de deshacer el colágeno.</div></div>
+      <div class="paso"><div class="paso-n">4</div><div class="paso-txt"><b>1 hora glaseado.</b> Desenvolvé y pintá con la mezcla de BBQ, miel y vinagre. Esta última hora va sin envolver, para que el glaseado se pegue y caramelice bien.</div></div>
+      <div class="paso"><div class="paso-n">5</div><div class="paso-txt"><b>Reposo y corte.</b> Quince minutos de descanso. Cortá entre hueso y hueso: el cuchillo casi no tendría que hacer fuerza.</div></div>
+    </div>
+    <div class="tip"><div class="tip-label">🔥 El consejo de Javo</div><div class="tip-txt">La prueba del palillo nunca falla: clavá uno entre las costillas. Si entra y sale sin resistencia, está. Si tira un poco, le falta. No te fíes solo del tiempo: fijate en el colágeno, que es el que manda.</div></div>
+  </div>
+</div>
+
+<!-- 03 PULLED PORK -->
+<div class="page recipe">
+  <div class="rh"><div class="rh-brand">Javotecocina</div><div class="rh-pg">Low &amp; Slow</div><div class="rh-rule"></div></div>
+  <div class="r-head" style="margin-top:11mm;">
+    <div class="r-head-l"><div class="r-cat">Receta 03 · Low &amp; Slow</div><div class="r-title">Pulled Pork<br>del Norte</div></div>
+    <div class="r-num">03</div>
+  </div>
+  <div class="r-meta">
+    <div class="r-meta-it"><div class="r-meta-k">Tiempo</div><div class="r-meta-v">10–12 hs</div></div>
+    <div class="r-meta-it"><div class="r-meta-k">Porciones</div><div class="r-meta-v">10–12</div></div>
+    <div class="r-meta-it"><div class="r-meta-k">Temp.</div><div class="r-meta-v">110°C</div></div>
+    <div class="r-meta-it"><div class="r-meta-k">Interna</div><div class="r-meta-v">95°C</div></div>
+  </div>
+  <div class="r-note">Paleta de cerdo cocida hasta que se desarma sola. Esta es mi versión criolla, con hierbas del norte que le dan un perfil distinto al pulled pork americano de manual. Rinde para una mesa entera y sobra.</div>
+  <div class="r-img"><img src="img/keveri/pulled-pork.jpg" alt="Pulled pork desmenuzado sobre tabla de madera, dos tenedores cruzados, jugo acumulado abajo, pan tipo brioche al costado"></div>
+  <div class="r-cols">
+    <div class="col-ing">
+      <div class="ing-head">Ingredientes</div>
+      <div class="ing-row"><span class="ing-qty">3 kg</span><span class="ing-name">Paleta de cerdo con hueso</span></div>
+      <div class="ing-row"><span class="ing-qty">30 g</span><span class="ing-name">Sal gruesa</span></div>
+      <div class="ing-row"><span class="ing-qty">20 g</span><span class="ing-name">Azúcar negra</span></div>
+      <div class="ing-row"><span class="ing-qty">10 g</span><span class="ing-name">Pimentón ahumado</span></div>
+      <div class="ing-row"><span class="ing-qty">8 g</span><span class="ing-name">Ajo en polvo</span></div>
+      <div class="ing-row"><span class="ing-qty">5 g</span><span class="ing-name">Orégano</span></div>
+      <div class="ing-row"><span class="ing-qty">3 g</span><span class="ing-name">Tomillo seco</span></div>
+      <div class="ing-glabel">Para servir</div>
+      <div class="ing-row"><span class="ing-qty">c/n</span><span class="ing-name">Llajua fresca</span></div>
+      <div class="ing-row"><span class="ing-qty">c/n</span><span class="ing-name">Pan tipo brioche</span></div>
+    </div>
+    <div class="col-pasos">
+      <div class="paso-head">Preparación</div>
+      <div class="paso"><div class="paso-n">1</div><div class="paso-txt"><b>Rub 24 horas antes.</b> Mezclá todos los secos y cubrí la paleta entera. Envolvé y dejá un día completo en la heladera. Sacala dos horas antes de cocinar para que pierda el frío.</div></div>
+      <div class="paso"><div class="paso-n">2</div><div class="paso-txt"><b>Temperatura clavada.</b> El Keveri a 110°C exactos, calor indirecto. No subas para apurar: arruinás la textura final y no ganás nada.</div></div>
+      <div class="paso"><div class="paso-n">3</div><div class="paso-txt"><b>Grasa hacia arriba.</b> Poné la pieza con la capa de grasa para arriba: a medida que se derrite, va bañando la carne sola. Del lado sin brasa, calor indirecto, recargando un poco de carbón al costado si hace falta.</div></div>
+      <div class="paso"><div class="paso-n">4</div><div class="paso-txt"><b>La stall, otra vez.</b> Alrededor de 70–75°C internos la cosa se frena una o dos horas. Es normal, es el colágeno. No hagas nada, esperá.</div></div>
+      <div class="paso"><div class="paso-n">5</div><div class="paso-txt"><b>95°C y descanso largo.</b> Al llegar a meta, envolvé en papel de carnicero, tapá con una frazada vieja y dejá reposar una hora como mínimo. Sigue cocinándose con su propio calor.</div></div>
+      <div class="paso"><div class="paso-n">6</div><div class="paso-txt"><b>Desmenuzá.</b> Con dos tenedores; va a salir sola. Mezclá la carne con los jugos que quedaron en el papel: ahí está la mitad del sabor.</div></div>
+    </div>
+    <div class="tip"><div class="tip-label">🔥 El consejo de Javo</div><div class="tip-txt">Servilo con llajua fresca: el picante y la acidez del locoto cortan la grasa del cerdo mejor que cualquier salsa BBQ embotellada. Probalo una vez así y no volvés atrás.</div></div>
+  </div>
+</div>
+
+<!-- 04 CORDERO AHUMADO LENTO -->
+<div class="page recipe">
+  <div class="rh"><div class="rh-brand">Javotecocina</div><div class="rh-pg">Low &amp; Slow</div><div class="rh-rule"></div></div>
+  <div class="r-head" style="margin-top:11mm;">
+    <div class="r-head-l"><div class="r-cat">Receta 04 · Low &amp; Slow</div><div class="r-title">Cordero<br>Ahumado Lento</div></div>
+    <div class="r-num">04</div>
+  </div>
+  <div class="r-meta">
+    <div class="r-meta-it"><div class="r-meta-k">Tiempo</div><div class="r-meta-v">5–6 hs</div></div>
+    <div class="r-meta-it"><div class="r-meta-k">Porciones</div><div class="r-meta-v">6–8</div></div>
+    <div class="r-meta-it"><div class="r-meta-k">Temp.</div><div class="r-meta-v">120°C</div></div>
+    <div class="r-meta-it"><div class="r-meta-k">Interna</div><div class="r-meta-v">70–75°C</div></div>
+  </div>
+  <div class="r-note">El cordero salteño tiene su ritual propio. En el Keveri la pierna baja lento, queda con una corteza perfumada por fuera y jugosa y apenas rosada por dentro. Sin apuro, como tiene que ser el cordero.</div>
+  <div class="r-img"><img src="img/keveri/cordero-lento.jpg" alt="Pierna de cordero entera sobre la rejilla, corteza dorada con ramitas de romero pegadas, al corte el interior ligerament"></div>
+  <div class="r-cols">
+    <div class="col-ing">
+      <div class="ing-head">Ingredientes</div>
+      <div class="ing-row"><span class="ing-qty">2,2 kg</span><span class="ing-name">Pierna de cordero con hueso</span></div>
+      <div class="ing-row"><span class="ing-qty">8 dientes</span><span class="ing-name">Ajo</span></div>
+      <div class="ing-row"><span class="ing-qty">25 g</span><span class="ing-name">Sal gruesa</span></div>
+      <div class="ing-row"><span class="ing-qty">15 g</span><span class="ing-name">Romero fresco</span></div>
+      <div class="ing-row"><span class="ing-qty">10 g</span><span class="ing-name">Tomillo fresco</span></div>
+      <div class="ing-row"><span class="ing-qty">60 ml</span><span class="ing-name">Aceite de oliva</span></div>
+      <div class="ing-row"><span class="ing-qty">30 ml</span><span class="ing-name">Jugo de limón</span></div>
+      <div class="ing-row"><span class="ing-qty">10 g</span><span class="ing-name">Pimentón dulce</span></div>
+    </div>
+    <div class="col-pasos">
+      <div class="paso-head">Preparación</div>
+      <div class="paso"><div class="paso-n">1</div><div class="paso-txt"><b>Mechá la pierna.</b> Con un cuchillo fino hacé incisiones por toda la carne e insertá rodajas de ajo junto con ramitas de romero y tomillo. Así perfuma desde adentro, no solo por arriba.</div></div>
+      <div class="paso"><div class="paso-n">2</div><div class="paso-txt"><b>Marinada exterior.</b> Mezclá aceite, limón, sal y pimentón y cubrí toda la superficie. Dejá marinar cuatro horas, o mejor de un día para el otro.</div></div>
+      <div class="paso"><div class="paso-n">3</div><div class="paso-txt"><b>Keveri a 120°C.</b> Brasa a un costado y la pierna del otro lado, calor indirecto, regulando con el tiro. Cerrá y no abras en las primeras dos horas.</div></div>
+      <div class="paso"><div class="paso-n">4</div><div class="paso-txt"><b>Mojá cada 90 minutos.</b> Con aceite, ajo y limón, pintá la pierna. El cuero va tomando un color miel oscuro precioso.</div></div>
+      <div class="paso"><div class="paso-n">5</div><div class="paso-txt"><b>Punto y reposo.</b> 75°C internos para bien hecho salteño; 70°C si lo querés más rosado. Reposo de 20 minutos antes de cortar, sí o sí.</div></div>
+    </div>
+    <div class="tip"><div class="tip-label">🔥 El consejo de Javo</div><div class="tip-txt">El cordero salteño tiene una grasa más aromática y fuerte que el patagónico. No la disimules: abrazala. La sal gruesa y el romero son todo lo que necesita. Cuanto menos le metas, más cordero sabe.</div></div>
+  </div>
+</div>
+
+<!-- 05 POLLO SENTADO -->
+<div class="page recipe">
+  <div class="rh"><div class="rh-brand">Javotecocina</div><div class="rh-pg">Clásico Fuerte</div><div class="rh-rule"></div></div>
+  <div class="r-head" style="margin-top:11mm;">
+    <div class="r-head-l"><div class="r-cat">Receta 05 · Clásico Fuerte</div><div class="r-title">Pollo Sentado<br>a la Cerveza</div></div>
+    <div class="r-num">05</div>
+  </div>
+  <div class="r-meta">
+    <div class="r-meta-it"><div class="r-meta-k">Tiempo</div><div class="r-meta-v">1 h 45 min</div></div>
+    <div class="r-meta-it"><div class="r-meta-k">Porciones</div><div class="r-meta-v">4</div></div>
+    <div class="r-meta-it"><div class="r-meta-k">Temp.</div><div class="r-meta-v">180°C</div></div>
+    <div class="r-meta-it"><div class="r-meta-k">Interna</div><div class="r-meta-v">75°C</div></div>
+  </div>
+  <div class="r-note">El pollo sentado en una lata de cerveza parece una gracia, pero funciona de verdad. El vapor que sube de la lata mantiene la pechuga jugosa mientras la piel se dora crocante por fuera. Un truco viejo que nunca falla.</div>
+  <div class="r-img"><img src="img/keveri/pollo-cerveza.jpg" alt="Pollo entero sentado sobre una lata, piel dorada y crocante, parado sobre la rejilla del Keveri, vapor saliendo de la ca"></div>
+  <div class="r-cols">
+    <div class="col-ing">
+      <div class="ing-head">Ingredientes</div>
+      <div class="ing-row"><span class="ing-qty">1,8 kg</span><span class="ing-name">Pollo entero</span></div>
+      <div class="ing-row"><span class="ing-qty">1 lata</span><span class="ing-name">Cerveza rubia</span></div>
+      <div class="ing-row"><span class="ing-qty">20 g</span><span class="ing-name">Sal gruesa</span></div>
+      <div class="ing-row"><span class="ing-qty">10 g</span><span class="ing-name">Pimentón dulce</span></div>
+      <div class="ing-row"><span class="ing-qty">8 g</span><span class="ing-name">Ajo en polvo</span></div>
+      <div class="ing-row"><span class="ing-qty">5 g</span><span class="ing-name">Orégano seco</span></div>
+      <div class="ing-row"><span class="ing-qty">5 g</span><span class="ing-name">Pimienta negra</span></div>
+      <div class="ing-row"><span class="ing-qty">40 ml</span><span class="ing-name">Aceite</span></div>
+      <div class="ing-row"><span class="ing-qty">4 dientes</span><span class="ing-name">Ajo (para la lata)</span></div>
+    </div>
+    <div class="col-pasos">
+      <div class="paso-head">Preparación</div>
+      <div class="paso"><div class="paso-n">1</div><div class="paso-txt"><b>Rub y reposo.</b> Mezclá sal, pimentón, ajo en polvo, orégano, pimienta y aceite. Cubrí todo el pollo, incluso por debajo de la piel de la pechuga. Dejalo dos horas, o toda la noche si podés.</div></div>
+      <div class="paso"><div class="paso-n">2</div><div class="paso-txt"><b>La lata.</b> Abrí la lata y tomate unos tragos (en serio: para que no se vuelque). Tirá los dientes de ajo dentro de la cerveza que queda.</div></div>
+      <div class="paso"><div class="paso-n">3</div><div class="paso-txt"><b>Montá el pollo.</b> Sentalo sobre la lata, metiéndola en la cavidad. Las patas hacia adelante hacen de trípode y lo dejan parado firme.</div></div>
+      <div class="paso"><div class="paso-n">4</div><div class="paso-txt"><b>Keveri a 180°C.</b> Una buena cama de brasas y el tiro a media apertura, la rejilla con lugar para que cierre la tapa. Una hora y media, más o menos.</div></div>
+      <div class="paso"><div class="paso-n">5</div><div class="paso-txt"><b>Punto.</b> Pinchá el muslo: el jugo tiene que salir transparente, o el termómetro marcar 75°C. Retiralo con cuidado, que la lata quema un montón.</div></div>
+    </div>
+    <div class="tip"><div class="tip-label">🔥 El consejo de Javo</div><div class="tip-txt">La cerveza no le da sabor al pollo: lo mantiene húmedo con el vapor. Si no tenés lata, usá una de tomate vacía con agua y ajo adentro. El truco es el vapor, no la cerveza.</div></div>
+  </div>
+</div>
+
+<!-- 06 PICAÑA ENTERA -->
+<div class="page recipe">
+  <div class="rh"><div class="rh-brand">Javotecocina</div><div class="rh-pg">Clásico Fuerte</div><div class="rh-rule"></div></div>
+  <div class="r-head" style="margin-top:11mm;">
+    <div class="r-head-l"><div class="r-cat">Receta 06 · Clásico Fuerte</div><div class="r-title">Picaña<br>Entera</div></div>
+    <div class="r-num">06</div>
+  </div>
+  <div class="r-meta">
+    <div class="r-meta-it"><div class="r-meta-k">Tiempo</div><div class="r-meta-v">2–2 h 30</div></div>
+    <div class="r-meta-it"><div class="r-meta-k">Porciones</div><div class="r-meta-v">6</div></div>
+    <div class="r-meta-it"><div class="r-meta-k">Temp.</div><div class="r-meta-v">160°C</div></div>
+    <div class="r-meta-it"><div class="r-meta-k">Interna</div><div class="r-meta-v">55–58°C</div></div>
+  </div>
+  <div class="r-note">La picaña entera en el Keveri es la versión indoor del asado de picaña al disco. Con la tapa de grasa hacia arriba se basta a sí misma: se baña sola mientras se cocina. Sale perfecta, sin que la toques.</div>
+  <div class="r-img"><img src="img/keveri/picaña.jpg" alt="Picaña entera recién cortada en lonchas gruesas, punto medio rojo, tapa de grasa dorada arriba, tabla de madera oscura c"></div>
+  <div class="r-cols">
+    <div class="col-ing">
+      <div class="ing-head">Ingredientes</div>
+      <div class="ing-row"><span class="ing-qty">1,5 kg</span><span class="ing-name">Picaña entera con tapa de grasa</span></div>
+      <div class="ing-row"><span class="ing-qty">20 g</span><span class="ing-name">Sal parrillera gruesa</span></div>
+      <div class="ing-row"><span class="ing-qty">5 g</span><span class="ing-name">Pimienta negra molida</span></div>
+    </div>
+    <div class="col-pasos">
+      <div class="paso-head">Preparación</div>
+      <div class="paso"><div class="paso-n">1</div><div class="paso-txt"><b>Cuadriculá la grasa.</b> Con un cuchillo afilado marcá la tapa de grasa en cuadritos sin llegar a la carne. Así se derrite pareja y queda crocante en vez de gomosa.</div></div>
+      <div class="paso"><div class="paso-n">2</div><div class="paso-txt"><b>Solo sal y pimienta.</b> Salá generoso por todos lados. Una picaña buena no necesita más. Dejala reposar 30 minutos afuera de la heladera antes de cocinar.</div></div>
+      <div class="paso"><div class="paso-n">3</div><div class="paso-txt"><b>Grasa para arriba.</b> Ponela con la tapa de grasa hacia arriba: el calor la derrite y cae bañando la carne. Rejilla media, calor indirecto, 160°C.</div></div>
+      <div class="paso"><div class="paso-n">4</div><div class="paso-txt"><b>Sin apuro.</b> Unas dos horas para punto medio. A los 90 minutos empezá a controlar con termómetro: 55°C es jugoso y rosado, mi punto favorito.</div></div>
+      <div class="paso"><div class="paso-n">5</div><div class="paso-txt"><b>Reposo y corte.</b> Quince minutos de reposo. Cortá en contra de la fibra en lonchas de 1,5 cm: más finas y la picaña se reseca.</div></div>
+    </div>
+    <div class="tip"><div class="tip-label">🔥 El consejo de Javo</div><div class="tip-txt">Guardá el jugo que suelta la picaña durante el reposo. Con eso y un poco de chimichurri armás la mejor salsa de servicio que existe. No lo tires nunca, es oro.</div></div>
+  </div>
+</div>
+
+<!-- 07 PORCHETTA CRIOLLA -->
+<div class="page recipe">
+  <div class="rh"><div class="rh-brand">Javotecocina</div><div class="rh-pg">Clásico Fuerte</div><div class="rh-rule"></div></div>
+  <div class="r-head" style="margin-top:11mm;">
+    <div class="r-head-l"><div class="r-cat">Receta 07 · Clásico Fuerte</div><div class="r-title">Porchetta<br>Criolla</div></div>
+    <div class="r-num">07</div>
+  </div>
+  <div class="r-meta">
+    <div class="r-meta-it"><div class="r-meta-k">Tiempo</div><div class="r-meta-v">3–3 h 30</div></div>
+    <div class="r-meta-it"><div class="r-meta-k">Porciones</div><div class="r-meta-v">8–10</div></div>
+    <div class="r-meta-it"><div class="r-meta-k">Temp.</div><div class="r-meta-v">200 → 160°C</div></div>
+    <div class="r-meta-it"><div class="r-meta-k">Modo</div><div class="r-meta-v">Clásico</div></div>
+  </div>
+  <div class="r-note">Panceta arrollada con hierbas, la versión italiana con identidad salteña. Toda la gracia está en el cuerito crocante, y para eso hay que arrancar fuerte y después bajar el calor. Cuando se logra, no hay con qué darle.</div>
+  <div class="r-img"><img src="img/keveri/porchetta.jpg" alt="Porchetta en corte transversal mostrando la espiral de relleno de hierbas verdes, cuerito crocante y dorado por fuera, t"></div>
+  <div class="r-cols">
+    <div class="col-ing">
+      <div class="ing-head">Ingredientes</div>
+      <div class="ing-row"><span class="ing-qty">2 kg</span><span class="ing-name">Panceta con cuero (abierta)</span></div>
+      <div class="ing-row"><span class="ing-qty">25 g</span><span class="ing-name">Sal gruesa</span></div>
+      <div class="ing-glabel">Relleno</div>
+      <div class="ing-row"><span class="ing-qty">6 dientes</span><span class="ing-name">Ajo picado</span></div>
+      <div class="ing-row"><span class="ing-qty">15 g</span><span class="ing-name">Romero fresco picado</span></div>
+      <div class="ing-row"><span class="ing-qty">10 g</span><span class="ing-name">Tomillo fresco</span></div>
+      <div class="ing-row"><span class="ing-qty">8 g</span><span class="ing-name">Pimentón dulce</span></div>
+      <div class="ing-row"><span class="ing-qty">5 g</span><span class="ing-name">Pimienta negra</span></div>
+      <div class="ing-row"><span class="ing-qty">40 ml</span><span class="ing-name">Aceite de oliva</span></div>
+    </div>
+    <div class="col-pasos">
+      <div class="paso-head">Preparación</div>
+      <div class="paso"><div class="paso-n">1</div><div class="paso-txt"><b>Cuerito seco, la noche antes.</b> Salá el lado del cuero y dejá la panceta sin tapar en la heladera. El frío y la sal le sacan humedad al cuerito y lo hacen crujir mucho mejor después.</div></div>
+      <div class="paso"><div class="paso-n">2</div><div class="paso-txt"><b>El relleno.</b> Mezclá ajo, romero, tomillo, pimentón, pimienta y aceite. Extendé esa pasta sobre el lado de la carne (no sobre el cuero) en una capa pareja.</div></div>
+      <div class="paso"><div class="paso-n">3</div><div class="paso-txt"><b>Arrollá y atá.</b> Enrollá bien apretado empezando por el lado más angosto. Atá con hilo de cocina cada 3 cm: el rollo tiene que quedar firme y parejo.</div></div>
+      <div class="paso"><div class="paso-n">4</div><div class="paso-txt"><b>200°C los primeros 30 minutos.</b> Ese golpe de calor inicial es el que sopla y revienta el cuerito. Después bajá a 160°C y seguí entre dos horas y media y tres más.</div></div>
+      <div class="paso"><div class="paso-n">5</div><div class="paso-txt"><b>Reposo y corte.</b> Veinte minutos de descanso. Cortá con cuchillo de sierra: el cuerito crocante necesita ese tipo de hoja para no aplastarse.</div></div>
+    </div>
+    <div class="tip"><div class="tip-label">🔥 El consejo de Javo</div><div class="tip-txt">Si el cuerito no quedó crocante, en los últimos 15 minutos subí el Keveri al máximo y vigilalo de cerca: pasa de dorado a quemado en tres minutos. No te vayas a ningún lado en esa etapa.</div></div>
+  </div>
+</div>
+
+<!-- 08 PIERNA DE CORDERO CON HIERBAS -->
+<div class="page recipe">
+  <div class="rh"><div class="rh-brand">Javotecocina</div><div class="rh-pg">Clásico Fuerte</div><div class="rh-rule"></div></div>
+  <div class="r-head" style="margin-top:11mm;">
+    <div class="r-head-l"><div class="r-cat">Receta 08 · Clásico Fuerte</div><div class="r-title">Pierna de Cordero<br>con Hierbas</div></div>
+    <div class="r-num">08</div>
+  </div>
+  <div class="r-meta">
+    <div class="r-meta-it"><div class="r-meta-k">Tiempo</div><div class="r-meta-v">2 h 30–3 h</div></div>
+    <div class="r-meta-it"><div class="r-meta-k">Porciones</div><div class="r-meta-v">6</div></div>
+    <div class="r-meta-it"><div class="r-meta-k">Temp.</div><div class="r-meta-v">170°C</div></div>
+    <div class="r-meta-it"><div class="r-meta-k">Interna</div><div class="r-meta-v">65–70°C</div></div>
+  </div>
+  <div class="r-note">Pierna de cordero deshuesada con una costra de hierbas frescas. El Keveri a temperatura media la cocina pareja sin resecarla: bien hecha por fuera, rosada y jugosa adentro. Una receta para quedar bien sin trabajar de más.</div>
+  <div class="r-img"><img src="img/keveri/pierna-hierbas.jpg" alt="Pierna de cordero con costra verde de hierbas, primer corte mostrando el interior rosado, hierbas frescas decorando la t"></div>
+  <div class="r-cols">
+    <div class="col-ing">
+      <div class="ing-head">Ingredientes</div>
+      <div class="ing-row"><span class="ing-qty">2 kg</span><span class="ing-name">Pierna de cordero deshuesada</span></div>
+      <div class="ing-row"><span class="ing-qty">20 g</span><span class="ing-name">Sal</span></div>
+      <div class="ing-glabel">Costra de hierbas</div>
+      <div class="ing-row"><span class="ing-qty">30 g</span><span class="ing-name">Pan rallado</span></div>
+      <div class="ing-row"><span class="ing-qty">15 g</span><span class="ing-name">Romero fresco picado</span></div>
+      <div class="ing-row"><span class="ing-qty">10 g</span><span class="ing-name">Tomillo fresco</span></div>
+      <div class="ing-row"><span class="ing-qty">6 dientes</span><span class="ing-name">Ajo picado fino</span></div>
+      <div class="ing-row"><span class="ing-qty">30 ml</span><span class="ing-name">Aceite de oliva</span></div>
+      <div class="ing-row"><span class="ing-qty">15 ml</span><span class="ing-name">Mostaza Dijon</span></div>
+    </div>
+    <div class="col-pasos">
+      <div class="paso-head">Preparación</div>
+      <div class="paso"><div class="paso-n">1</div><div class="paso-txt"><b>Salado previo.</b> 24 horas antes salá la pierna y dejala destapada en la heladera. La sal penetra y la superficie se seca, que es lo que después te da una buena costra.</div></div>
+      <div class="paso"><div class="paso-n">2</div><div class="paso-txt"><b>La costra.</b> Mezclá pan rallado, romero, tomillo, ajo y aceite hasta una pasta. Pintá la pierna con la mostaza y pegale la costra de hierbas por encima.</div></div>
+      <div class="paso"><div class="paso-n">3</div><div class="paso-txt"><b>Keveri a 170°C.</b> Pierna en rejilla media, calor indirecto. La costra tiene que dorarse en los primeros 30 minutos; si se oscurece de más, bajá a 150°C.</div></div>
+      <div class="paso"><div class="paso-n">4</div><div class="paso-txt"><b>Controlá el punto.</b> A los 90 minutos medí internos: 65°C para rosado, 70°C si te gusta más cocido. El termómetro decide, no el reloj.</div></div>
+      <div class="paso"><div class="paso-n">5</div><div class="paso-txt"><b>Descanso y servicio.</b> Quince minutos cubierta. Cortá en medallones. Los jugos del reposo son la base de cualquier salsa que quieras armar.</div></div>
+    </div>
+    <div class="tip"><div class="tip-label">🔥 El consejo de Javo</div><div class="tip-txt">La mostaza hace de pegamento para la costra y aporta una acidez que equilibra la grasa del cordero. No saltees ese paso aunque no seas fanático de la mostaza: no se siente el sabor, te lo prometo.</div></div>
+  </div>
+</div>
+
+<!-- 09 PAN DE MASA MADRE -->
+<div class="page recipe">
+  <div class="rh"><div class="rh-brand">Javotecocina</div><div class="rh-pg">Panadero</div><div class="rh-rule"></div></div>
+  <div class="r-head" style="margin-top:11mm;">
+    <div class="r-head-l"><div class="r-cat">Receta 09 · Panadero</div><div class="r-title">Pan de<br>Masa Madre</div></div>
+    <div class="r-num">09</div>
+  </div>
+  <div class="r-meta">
+    <div class="r-meta-it"><div class="r-meta-k">Fermentación</div><div class="r-meta-v">12–16 hs</div></div>
+    <div class="r-meta-it"><div class="r-meta-k">Horneado</div><div class="r-meta-v">45 min</div></div>
+    <div class="r-meta-it"><div class="r-meta-k">Temp.</div><div class="r-meta-v">230°C</div></div>
+    <div class="r-meta-it"><div class="r-meta-k">Olla</div><div class="r-meta-v">Precal. 30 min</div></div>
+  </div>
+  <div class="r-note">El Keveri cerrado funciona casi como un horno de leña. Con una olla de hierro tapada adentro conseguís el vapor que hace que la corteza cante. Este pan sale serio, de los que se lucen sin pedir permiso.</div>
+  <div class="r-img"><img src="img/keveri/pan-masa-madre.jpg" alt="Pan de masa madre recién cortado sobre tabla, miga alveolada y abierta, corteza oscura y crocante, un poco de vapor sali"></div>
+  <div class="r-cols">
+    <div class="col-ing">
+      <div class="ing-head">Ingredientes</div>
+      <div class="ing-row"><span class="ing-qty">500 g</span><span class="ing-name">Harina 000</span></div>
+      <div class="ing-row"><span class="ing-qty">375 ml</span><span class="ing-name">Agua (75% hidratación)</span></div>
+      <div class="ing-row"><span class="ing-qty">100 g</span><span class="ing-name">Masa madre activa</span></div>
+      <div class="ing-row"><span class="ing-qty">10 g</span><span class="ing-name">Sal</span></div>
+    </div>
+    <div class="col-pasos">
+      <div class="paso-head">Preparación</div>
+      <div class="paso"><div class="paso-n">1</div><div class="paso-txt"><b>Autólisis.</b> Mezclá solo harina y agua, sin sal ni masa madre, y dejá reposar 30 a 60 minutos tapado. La harina se hidrata sola y después amasás mucho menos.</div></div>
+      <div class="paso"><div class="paso-n">2</div><div class="paso-txt"><b>Sumá masa madre y sal.</b> Integrá y amasá unos 5 minutos. Va a quedar pegajosa: es normal con 75% de hidratación, no le agregues harina de más.</div></div>
+      <div class="paso"><div class="paso-n">3</div><div class="paso-txt"><b>Pliegues cada 30 minutos.</b> Durante unas tres horas hacé cuatro tandas de stretch &amp; fold. Después fermenta en bloque entre 8 y 12 horas en la heladera.</div></div>
+      <div class="paso"><div class="paso-n">4</div><div class="paso-txt"><b>Formado y bannetón.</b> Sacá de la heladera, formá el bollo con tensión y ponelo en el bannetón enharinado. Una hora a temperatura ambiente.</div></div>
+      <div class="paso"><div class="paso-n">5</div><div class="paso-txt"><b>Keveri a 230°C.</b> Precalentá 30 minutos con la olla de hierro adentro. Volcá el pan, hacé el corte (greñá) y tapá. 20 minutos tapado y 25 destapado, hasta corteza bien oscura.</div></div>
+    </div>
+    <div class="tip"><div class="tip-label">🔥 El consejo de Javo</div><div class="tip-txt">Si no tenés olla de hierro, poné el pan en un molde y los primeros 20 minutos cubrilo con un bol de acero invertido. El vapor de la propia masa arma el ambiente húmedo que necesitás para la corteza.</div></div>
+  </div>
+</div>
+
+<!-- 10 FOCACCIA -->
+<div class="page recipe">
+  <div class="rh"><div class="rh-brand">Javotecocina</div><div class="rh-pg">Panadero</div><div class="rh-rule"></div></div>
+  <div class="r-head" style="margin-top:11mm;">
+    <div class="r-head-l"><div class="r-cat">Receta 10 · Panadero</div><div class="r-title">Focaccia con<br>Romero y Aceitunas</div></div>
+    <div class="r-num">10</div>
+  </div>
+  <div class="r-meta">
+    <div class="r-meta-it"><div class="r-meta-k">Tiempo</div><div class="r-meta-v">3–4 hs</div></div>
+    <div class="r-meta-it"><div class="r-meta-k">Porciones</div><div class="r-meta-v">8–10</div></div>
+    <div class="r-meta-it"><div class="r-meta-k">Temp.</div><div class="r-meta-v">210°C</div></div>
+    <div class="r-meta-it"><div class="r-meta-k">Horneado</div><div class="r-meta-v">22–25 min</div></div>
+  </div>
+  <div class="r-note">Focaccia alta y esponjosa, con la base bien crocante por el aceite de la asadera. Las aceitunas se ablandan con el calor y largan su aceite dentro de la miga. Simple, perfecta, y desaparece de la mesa en minutos.</div>
+  <div class="r-img"><img src="img/keveri/focaccia.jpg" alt="Focaccia dorada y alta en asadera de hierro, con aceitunas negras incrustadas y romero fresco arriba, el aceite brilland"></div>
+  <div class="r-cols">
+    <div class="col-ing">
+      <div class="ing-head">Ingredientes</div>
+      <div class="ing-row"><span class="ing-qty">500 g</span><span class="ing-name">Harina 0000</span></div>
+      <div class="ing-row"><span class="ing-qty">350 ml</span><span class="ing-name">Agua tibia</span></div>
+      <div class="ing-row"><span class="ing-qty">7 g</span><span class="ing-name">Levadura seca</span></div>
+      <div class="ing-row"><span class="ing-qty">10 g</span><span class="ing-name">Sal</span></div>
+      <div class="ing-row"><span class="ing-qty">60 ml</span><span class="ing-name">Aceite de oliva</span></div>
+      <div class="ing-glabel">Toppings</div>
+      <div class="ing-row"><span class="ing-qty">100 g</span><span class="ing-name">Aceitunas negras</span></div>
+      <div class="ing-row"><span class="ing-qty">15 g</span><span class="ing-name">Romero fresco</span></div>
+      <div class="ing-row"><span class="ing-qty">5 g</span><span class="ing-name">Sal en escamas</span></div>
+      <div class="ing-row"><span class="ing-qty">30 ml</span><span class="ing-name">Aceite de oliva extra</span></div>
+    </div>
+    <div class="col-pasos">
+      <div class="paso-head">Preparación</div>
+      <div class="paso"><div class="paso-n">1</div><div class="paso-txt"><b>La masa.</b> Disolvé la levadura en el agua tibia 5 minutos. Mezclá con la harina y la sal y amasá 8 minutos. Sumá 30 ml de aceite y amasá 3 más.</div></div>
+      <div class="paso"><div class="paso-n">2</div><div class="paso-txt"><b>Primera fermentación.</b> Dejá leudar 1 hora y media a dos horas, hasta que doble. Volcá el resto del aceite en la asadera y untala bien por todos lados.</div></div>
+      <div class="paso"><div class="paso-n">3</div><div class="paso-txt"><b>Estirá en la asadera.</b> Con los dedos extendé la masa hasta los bordes. Tapá y dejá leudar 45 minutos más.</div></div>
+      <div class="paso"><div class="paso-n">4</div><div class="paso-txt"><b>Hoyuelos y toppings.</b> Hundí los dedos por toda la masa para hacer los clásicos hoyuelos. Incrustá las aceitunas, repartí el romero, rociá aceite y la sal en escamas.</div></div>
+      <div class="paso"><div class="paso-n">5</div><div class="paso-txt"><b>Keveri a 210°C, 22–25 minutos.</b> La base tiene que quedar dorada y crocante, la parte de arriba apenas dorada. No la sobrehorneés o pierde la humedad.</div></div>
+    </div>
+    <div class="tip"><div class="tip-label">🔥 El consejo de Javo</div><div class="tip-txt">La abundancia de aceite en la asadera no es un error, es el secreto: la base de la focaccia se fríe apenas en ese aceite y sale con una textura que ningún pan al horno común te da. No le tengas miedo al aceite acá.</div></div>
+  </div>
+</div>
+
+<!-- 11 APPLE CRUMBLE -->
+<div class="page recipe">
+  <div class="rh"><div class="rh-brand">Javotecocina</div><div class="rh-pg">Panadero</div><div class="rh-rule"></div></div>
+  <div class="r-head" style="margin-top:11mm;">
+    <div class="r-head-l"><div class="r-cat">Receta 11 · Panadero</div><div class="r-title">Apple Crumble<br>Rústico</div></div>
+    <div class="r-num">11</div>
+  </div>
+  <div class="r-meta">
+    <div class="r-meta-it"><div class="r-meta-k">Tiempo</div><div class="r-meta-v">50 min</div></div>
+    <div class="r-meta-it"><div class="r-meta-k">Porciones</div><div class="r-meta-v">6</div></div>
+    <div class="r-meta-it"><div class="r-meta-k">Temp.</div><div class="r-meta-v">180°C</div></div>
+    <div class="r-meta-it"><div class="r-meta-k">Modo</div><div class="r-meta-v">Panadero</div></div>
+  </div>
+  <div class="r-note">Lo más fácil que podés hacer en el Keveri cuando ya tenés el horno caliente después de un asado largo. La manzana se carameliza, el crumble queda tostado y la bola de helado encima lo termina de redondear. Postre sin vueltas.</div>
+  <div class="r-img"><img src="img/keveri/apple-crumble.jpg" alt="Apple crumble en fuente de hierro fundido, crumble dorado oscuro, manzana burbujeando debajo, una bola de helado de crem"></div>
+  <div class="r-cols">
+    <div class="col-ing">
+      <div class="ing-head">Ingredientes</div>
+      <div class="ing-glabel">Relleno</div>
+      <div class="ing-row"><span class="ing-qty">6</span><span class="ing-name">Manzanas verdes</span></div>
+      <div class="ing-row"><span class="ing-qty">60 g</span><span class="ing-name">Azúcar</span></div>
+      <div class="ing-row"><span class="ing-qty">15 ml</span><span class="ing-name">Jugo de limón</span></div>
+      <div class="ing-row"><span class="ing-qty">opcional</span><span class="ing-name">Canela, para quien guste</span></div>
+      <div class="ing-glabel">Crumble</div>
+      <div class="ing-row"><span class="ing-qty">150 g</span><span class="ing-name">Harina</span></div>
+      <div class="ing-row"><span class="ing-qty">100 g</span><span class="ing-name">Manteca fría en cubos</span></div>
+      <div class="ing-row"><span class="ing-qty">80 g</span><span class="ing-name">Azúcar negra</span></div>
+      <div class="ing-row"><span class="ing-qty">50 g</span><span class="ing-name">Avena arrollada</span></div>
+      <div class="ing-row"><span class="ing-qty">1 pizca</span><span class="ing-name">Sal</span></div>
+    </div>
+    <div class="col-pasos">
+      <div class="paso-head">Preparación</div>
+      <div class="paso"><div class="paso-n">1</div><div class="paso-txt"><b>Las manzanas.</b> Pelá, descorazoná y cortá en cubos de 2 cm. Mezclá con el azúcar y el limón y volcá en una fuente de hierro untada con manteca.</div></div>
+      <div class="paso"><div class="paso-n">2</div><div class="paso-txt"><b>El crumble.</b> Mezclá harina, azúcar negra, avena y sal. Sumá la manteca bien fría y trabajala con los dedos hasta tener una textura de arena gruesa. No amases: que quede en grumos.</div></div>
+      <div class="paso"><div class="paso-n">3</div><div class="paso-txt"><b>Armá.</b> Cubrí las manzanas con el crumble en capa pareja. No lo presiones: dejalo suelto para que se hornee crocante y no apelmazado.</div></div>
+      <div class="paso"><div class="paso-n">4</div><div class="paso-txt"><b>Keveri a 180°C, 40–45 minutos.</b> El crumble tiene que quedar dorado oscuro y la manzana burbujear por los costados de la fuente. Ahí está.</div></div>
+      <div class="paso"><div class="paso-n">5</div><div class="paso-txt"><b>Serví caliente.</b> Directo de la fuente, con una bola de helado de crema arriba que se derrita con el calor. Es el contraste de temperaturas lo que lo hace.</div></div>
+    </div>
+    <div class="tip"><div class="tip-label">🔥 El consejo de Javo</div><div class="tip-txt">La manzana verde es clave: aguanta la cocción sin deshacerse y tiene la acidez justa para equilibrar el dulzor del crumble. Con manzana roja sale empalagoso y se te hace puré.</div></div>
+  </div>
+</div>
+
+<!-- 12 TOMAHAWK A LA INVERSA -->
+<div class="page recipe">
+  <div class="rh"><div class="rh-brand">Javotecocina</div><div class="rh-pg">Fuego Rápido</div><div class="rh-rule"></div></div>
+  <div class="r-head" style="margin-top:11mm;">
+    <div class="r-head-l"><div class="r-cat">Receta 12 · Fuego Rápido</div><div class="r-title">Tomahawk<br>a la Inversa</div></div>
+    <div class="r-num">12</div>
+  </div>
+  <div class="r-meta">
+    <div class="r-meta-it"><div class="r-meta-k">Tiempo</div><div class="r-meta-v">1 h 20 min</div></div>
+    <div class="r-meta-it"><div class="r-meta-k">Porciones</div><div class="r-meta-v">2–3</div></div>
+    <div class="r-meta-it"><div class="r-meta-k">Temp.</div><div class="r-meta-v">120°C → máx.</div></div>
+    <div class="r-meta-it"><div class="r-meta-k">Interna</div><div class="r-meta-v">52°C</div></div>
+  </div>
+  <div class="r-note">Primero al Keveri bajo y lento hasta casi el punto, y recién después un sellado agresivo en plancha de hierro. El reverse sear te da una cocción perfecta de borde a borde, sin ese anillo gris que arruina los cortes gruesos.</div>
+  <div class="r-img"><img src="img/keveri/tomahawk.jpg" alt="Tomahawk cortado en diagonal, costra oscura de sellado, interior rosado uniforme de borde a borde, el hueso largo bien v"></div>
+  <div class="r-cols">
+    <div class="col-ing">
+      <div class="ing-head">Ingredientes</div>
+      <div class="ing-row"><span class="ing-qty">1,2 kg</span><span class="ing-name">Tomahawk de 5 cm de grosor</span></div>
+      <div class="ing-row"><span class="ing-qty">15 g</span><span class="ing-name">Sal gruesa</span></div>
+      <div class="ing-row"><span class="ing-qty">5 g</span><span class="ing-name">Pimienta negra gruesa</span></div>
+      <div class="ing-row"><span class="ing-qty">30 g</span><span class="ing-name">Manteca</span></div>
+      <div class="ing-row"><span class="ing-qty">3 dientes</span><span class="ing-name">Ajo aplastados</span></div>
+      <div class="ing-row"><span class="ing-qty">4 ramas</span><span class="ing-name">Tomillo fresco</span></div>
+    </div>
+    <div class="col-pasos">
+      <div class="paso-head">Preparación</div>
+      <div class="paso"><div class="paso-n">1</div><div class="paso-txt"><b>Salado previo.</b> 24 horas antes salá generoso por los dos lados y dejá sin tapar en la heladera. Sacalo una hora antes de cocinar para que pierda el frío de adentro.</div></div>
+      <div class="paso"><div class="paso-n">2</div><div class="paso-txt"><b>Keveri a 120°C.</b> Calor bajo e indirecto, sin apuro. Si tenés termómetro fijo, mejor todavía para controlar sin abrir.</div></div>
+      <div class="paso"><div class="paso-n">3</div><div class="paso-txt"><b>Sacá a 52°C.</b> Para un punto jugoso, retiralo cuando el interno marque 52°C (entre 45 y 60 minutos según el grosor). Dejalo reposar 10 minutos.</div></div>
+      <div class="paso"><div class="paso-n">4</div><div class="paso-txt"><b>Sellado feroz.</b> Calentá una plancha de hierro al máximo. Sellá 90 segundos por lado. En el último minuto sumá manteca, ajo y tomillo y bañá la carne sin parar con esa manteca espumosa.</div></div>
+      <div class="paso"><div class="paso-n">5</div><div class="paso-txt"><b>Reposo final.</b> Cinco minutos más. Cortá en contra de la fibra, perpendicular al hueso, en lonchas de 1,5 a 2 cm.</div></div>
+    </div>
+    <div class="tip"><div class="tip-label">🔥 El consejo de Javo</div><div class="tip-txt">El reverse sear garantiza cocción pareja en cortes gruesos. Con el método tradicional (fuego directo primero) el exterior queda bien pero el centro sale irregular. Acá es perfecto de punta a punta. Para tomahawk, no hay otra.</div></div>
+  </div>
+</div>
+
+<!-- 13 ENTRAÑA -->
+<div class="page recipe">
+  <div class="rh"><div class="rh-brand">Javotecocina</div><div class="rh-pg">Fuego Rápido</div><div class="rh-rule"></div></div>
+  <div class="r-head" style="margin-top:11mm;">
+    <div class="r-head-l"><div class="r-cat">Receta 13 · Fuego Rápido</div><div class="r-title">Entraña<br>al Máximo</div></div>
+    <div class="r-num">13</div>
+  </div>
+  <div class="r-meta">
+    <div class="r-meta-it"><div class="r-meta-k">Tiempo</div><div class="r-meta-v">25 min</div></div>
+    <div class="r-meta-it"><div class="r-meta-k">Porciones</div><div class="r-meta-v">3–4</div></div>
+    <div class="r-meta-it"><div class="r-meta-k">Temp.</div><div class="r-meta-v">Máximo</div></div>
+    <div class="r-meta-it"><div class="r-meta-k">Modo</div><div class="r-meta-v">Fuego Rápido</div></div>
+  </div>
+  <div class="r-note">La entraña tiene ese sabor que no necesita nada más. En el Keveri a tope con la tapa cerrada conseguís una costra bárbara y el interior jugoso. La clave es calor extremo y no pasarse ni un minuto de punto.</div>
+  <div class="r-img"><img src="img/keveri/entraña.jpg" alt="Entraña cortada en tiras diagonales, marcas de grill y bordes apenas carbonizados por fuera, interior rojo rosado y jugo"></div>
+  <div class="r-cols">
+    <div class="col-ing">
+      <div class="ing-head">Ingredientes</div>
+      <div class="ing-row"><span class="ing-qty">1,2 kg</span><span class="ing-name">Entraña fina sin membrana</span></div>
+      <div class="ing-row"><span class="ing-qty">15 g</span><span class="ing-name">Sal gruesa</span></div>
+      <div class="ing-row"><span class="ing-qty">c/n</span><span class="ing-name">Chimichurri para servir</span></div>
+    </div>
+    <div class="col-pasos">
+      <div class="paso-head">Preparación</div>
+      <div class="paso"><div class="paso-n">1</div><div class="paso-txt"><b>La membrana.</b> Si tiene una telita plateada en el lado de abajo, sacala entera con cuchillo. Cocinarla con membrana es el error más común y lo que la deja dura.</div></div>
+      <div class="paso"><div class="paso-n">2</div><div class="paso-txt"><b>Solo sal.</b> Salá generoso 15 minutos antes. Nada más: la entraña tiene sabor propio de sobra, no hay que taparlo con condimentos.</div></div>
+      <div class="paso"><div class="paso-n">3</div><div class="paso-txt"><b>Brasa a full.</b> Armá una cama de brasas pareja y abundante, tiro bien abierto, y dejá que la rejilla se ponga ardiente. La entraña pide calor directo y fuerte para marcarla bien.</div></div>
+      <div class="paso"><div class="paso-n">4</div><div class="paso-txt"><b>4 minutos por lado.</b> Con la tapa cerrada. No la muevas: querés las marcas y la costra. A los cuatro minutos girá una sola vez y cerrá de nuevo.</div></div>
+      <div class="paso"><div class="paso-n">5</div><div class="paso-txt"><b>Reposo y corte.</b> Cinco minutos de reposo. Cortá en diagonal, en contra de la fibra, en tiras de 1 cm. Serví con chimichurri a temperatura ambiente.</div></div>
+    </div>
+    <div class="tip"><div class="tip-label">🔥 El consejo de Javo</div><div class="tip-txt">La entraña aguanta cualquier castigo mientras esté jugosa, pero si se pasa se pone chiclosa y no hay vuelta. Nunca bien cocida: jugosa o nada. Esa es la única regla de la entraña.</div></div>
+  </div>
+</div>
+
+<!-- 14 LANGOSTINOS -->
+<div class="page recipe">
+  <div class="rh"><div class="rh-brand">Javotecocina</div><div class="rh-pg">Fuego Rápido</div><div class="rh-rule"></div></div>
+  <div class="r-head" style="margin-top:11mm;">
+    <div class="r-head-l"><div class="r-cat">Receta 14 · Fuego Rápido</div><div class="r-title">Langostinos<br>Manteca y Ajo</div></div>
+    <div class="r-num">14</div>
+  </div>
+  <div class="r-meta">
+    <div class="r-meta-it"><div class="r-meta-k">Tiempo</div><div class="r-meta-v">15 min</div></div>
+    <div class="r-meta-it"><div class="r-meta-k">Porciones</div><div class="r-meta-v">4</div></div>
+    <div class="r-meta-it"><div class="r-meta-k">Temp.</div><div class="r-meta-v">Máximo</div></div>
+    <div class="r-meta-it"><div class="r-meta-k">Modo</div><div class="r-meta-v">Fuego Rápido</div></div>
+  </div>
+  <div class="r-note">Lo más rápido y efectista que podés hacer en el Keveri. El calor directo carameliza los langostinos por fuera y los deja jugosos adentro, y la manteca aromatizada hace el resto. Entrada de lujo en quince minutos.</div>
+  <div class="r-img"><img src="img/keveri/langostinos.jpg" alt="Langostinos enteros con marcas de grill, color naranja intenso, manteca con ajo dorado por encima, medio limón al costad"></div>
+  <div class="r-cols">
+    <div class="col-ing">
+      <div class="ing-head">Ingredientes</div>
+      <div class="ing-row"><span class="ing-qty">800 g</span><span class="ing-name">Langostinos enteros crudos</span></div>
+      <div class="ing-row"><span class="ing-qty">80 g</span><span class="ing-name">Manteca</span></div>
+      <div class="ing-row"><span class="ing-qty">6 dientes</span><span class="ing-name">Ajo laminado</span></div>
+      <div class="ing-row"><span class="ing-qty">15 g</span><span class="ing-name">Perejil fresco picado</span></div>
+      <div class="ing-row"><span class="ing-qty">5 g</span><span class="ing-name">Sal</span></div>
+      <div class="ing-row"><span class="ing-qty">1</span><span class="ing-name">Limón (jugo)</span></div>
+      <div class="ing-row"><span class="ing-qty">c/n</span><span class="ing-name">Pan crocante para acompañar</span></div>
+    </div>
+    <div class="col-pasos">
+      <div class="paso-head">Preparación</div>
+      <div class="paso"><div class="paso-n">1</div><div class="paso-txt"><b>Prepará los langostinos.</b> Con una tijera cortá el caparazón por el lomo (en mariposa) sin sacarlo, y retirá el hilo intestinal. Salá apenas.</div></div>
+      <div class="paso"><div class="paso-n">2</div><div class="paso-txt"><b>Manteca aromatizada.</b> En una sartencita derretí la manteca con el ajo a fuego muy bajo, hasta que el ajo apenas se dore. Sumá perejil y limón y reservá tibia.</div></div>
+      <div class="paso"><div class="paso-n">3</div><div class="paso-txt"><b>Brasa fuerte.</b> Cama de brasas pareja y la rejilla bien caliente. Los langostinos mariposa van primero con el caparazón hacia abajo, dos minutos.</div></div>
+      <div class="paso"><div class="paso-n">4</div><div class="paso-txt"><b>Dalos vuelta.</b> Minuto y medio del lado de la carne. En cuanto pasan de gris a naranja rosado, están. Ni un segundo más.</div></div>
+      <div class="paso"><div class="paso-n">5</div><div class="paso-txt"><b>Bañá y serví.</b> Apenas salen, rociá con la manteca aromatizada. Acompañá con pan para mojar la salsa que queda en la fuente, que es lo mejor.</div></div>
+    </div>
+    <div class="tip"><div class="tip-label">🔥 El consejo de Javo</div><div class="tip-txt">El error número uno con los langostinos es cocinarlos de más. La señal es clara: cuando el caparazón está todo naranja y la carne blanca rosada, ya están. Sacalos justo ahí, no "un minuto más".</div></div>
+  </div>
+</div>
+
+<!-- 15 VEGETALES ASADOS -->
+<div class="page recipe">
+  <div class="rh"><div class="rh-brand">Javotecocina</div><div class="rh-pg">Fuego Rápido</div><div class="rh-rule"></div></div>
+  <div class="r-head" style="margin-top:11mm;">
+    <div class="r-head-l"><div class="r-cat">Receta 15 · Fuego Rápido</div><div class="r-title">Vegetales Asados<br>para Pasta</div></div>
+    <div class="r-num">15</div>
+  </div>
+  <div class="r-meta">
+    <div class="r-meta-it"><div class="r-meta-k">Tiempo</div><div class="r-meta-v">35 min</div></div>
+    <div class="r-meta-it"><div class="r-meta-k">Porciones</div><div class="r-meta-v">4</div></div>
+    <div class="r-meta-it"><div class="r-meta-k">Temp.</div><div class="r-meta-v">220°C</div></div>
+    <div class="r-meta-it"><div class="r-meta-k">Modo</div><div class="r-meta-v">Fuego Rápido</div></div>
+  </div>
+  <div class="r-note">La pasta con vegetales asados al horno es otra cosa completamente distinta a la de vegetales salteados en la sartén. El caramelizado del Keveri a alta temperatura es lo que hace toda la diferencia. Sin carne, pero contundente.</div>
+  <div class="r-img"><img src="img/keveri/vegetales-pasta.jpg" alt="Fuente con vegetales asados y caramelizados (berenjena, zucchini, tomates cherry, cebolla), dorados y brillantes de acei"></div>
+  <div class="r-cols">
+    <div class="col-ing">
+      <div class="ing-head">Ingredientes</div>
+      <div class="ing-row"><span class="ing-qty">1</span><span class="ing-name">Berenjena grande</span></div>
+      <div class="ing-row"><span class="ing-qty">2</span><span class="ing-name">Zucchinis medianos</span></div>
+      <div class="ing-row"><span class="ing-qty">200 g</span><span class="ing-name">Tomates cherry</span></div>
+      <div class="ing-row"><span class="ing-qty">1</span><span class="ing-name">Morrón rojo</span></div>
+      <div class="ing-row"><span class="ing-qty">1</span><span class="ing-name">Cebolla morada</span></div>
+      <div class="ing-row"><span class="ing-qty">6 dientes</span><span class="ing-name">Ajo enteros</span></div>
+      <div class="ing-row"><span class="ing-qty">60 ml</span><span class="ing-name">Aceite de oliva</span></div>
+      <div class="ing-row"><span class="ing-qty">10 g</span><span class="ing-name">Sal</span></div>
+      <div class="ing-row"><span class="ing-qty">10 g</span><span class="ing-name">Orégano seco</span></div>
+      <div class="ing-row"><span class="ing-qty">c/n</span><span class="ing-name">Pasta corta, para servir</span></div>
+    </div>
+    <div class="col-pasos">
+      <div class="paso-head">Preparación</div>
+      <div class="paso"><div class="paso-n">1</div><div class="paso-txt"><b>Cortá parejo.</b> Berenjena y zucchini en cubos de 3 cm, morrón en tiras, cebolla en cuartos. Los tomates cherry y el ajo van enteros. Que todo sea de tamaño similar para que se cocine igual.</div></div>
+      <div class="paso"><div class="paso-n">2</div><div class="paso-txt"><b>Condimentá.</b> En una fuente amplia mezclá todo con el aceite, la sal y el orégano. Que queden cubiertos pero no nadando en aceite.</div></div>
+      <div class="paso"><div class="paso-n">3</div><div class="paso-txt"><b>Keveri a 220°C.</b> Fuente abajo, 20 minutos sin tocar. Después revolvé y dales otros 15, hasta que los bordes estén bien caramelizados.</div></div>
+      <div class="paso"><div class="paso-n">4</div><div class="paso-txt"><b>Los tomates y el ajo.</b> Los tomates se rompen y largan su jugo: esa es la base de la salsa. El ajo se ablanda tanto que lo aplastás directo en la fuente con un tenedor.</div></div>
+      <div class="paso"><div class="paso-n">5</div><div class="paso-txt"><b>Sobre la pasta.</b> Herví la pasta en agua con sal, escurrila y volcala sobre los vegetales en la misma fuente. Mezclá todo con el jugo caramelizado del fondo.</div></div>
+    </div>
+    <div class="tip"><div class="tip-label">🔥 El consejo de Javo</div><div class="tip-txt">No atiborres la fuente: los vegetales tienen que quedar en una o dos capas como mucho. Si se amontonan se cocinan al vapor y nunca se caramelizan. La clave es que toquen la fuente caliente, ahí está el dorado.</div></div>
+  </div>
+</div>
+
+<!-- 16 PIZZA NAPOLITANA -->
+<div class="page recipe">
+  <div class="rh"><div class="rh-brand">Javotecocina</div><div class="rh-pg">Pizza</div><div class="rh-rule"></div></div>
+  <div class="r-head" style="margin-top:11mm;">
+    <div class="r-head-l"><div class="r-cat">Receta 16 · Pizza</div><div class="r-title">Pizza Napolitana<br>Clásica</div></div>
+    <div class="r-num">16</div>
+  </div>
+  <div class="r-meta">
+    <div class="r-meta-it"><div class="r-meta-k">Fermentación</div><div class="r-meta-v">24 hs</div></div>
+    <div class="r-meta-it"><div class="r-meta-k">Horneado</div><div class="r-meta-v">8–10 min</div></div>
+    <div class="r-meta-it"><div class="r-meta-k">Temp.</div><div class="r-meta-v">Máximo</div></div>
+    <div class="r-meta-it"><div class="r-meta-k">Piedra</div><div class="r-meta-v">Precal. 45 min</div></div>
+  </div>
+  <div class="r-note">Sin piedra refractaria el Keveri no llega a hacer una napolitana de verdad. Con piedra y el horno a tope, sí: la base queda crocante abajo y la mozzarella burbujea y se mancha de oscuro arriba. Esa es la napolitana posible en casa.</div>
+  <div class="r-img"><img src="img/keveri/pizza-napolitana.jpg" alt="Pizza napolitana recién sacada, borde levantado con manchas negras (leopardo), mozzarella burbujeante, hojas de albahaca"></div>
+  <div class="r-cols">
+    <div class="col-ing">
+      <div class="ing-head">Ingredientes (2 pizzas)</div>
+      <div class="ing-glabel">Masa</div>
+      <div class="ing-row"><span class="ing-qty">500 g</span><span class="ing-name">Harina 000</span></div>
+      <div class="ing-row"><span class="ing-qty">325 ml</span><span class="ing-name">Agua</span></div>
+      <div class="ing-row"><span class="ing-qty">10 g</span><span class="ing-name">Sal</span></div>
+      <div class="ing-row"><span class="ing-qty">1 g</span><span class="ing-name">Levadura seca</span></div>
+      <div class="ing-glabel">Toppings</div>
+      <div class="ing-row"><span class="ing-qty">200 g</span><span class="ing-name">Tomate San Marzano</span></div>
+      <div class="ing-row"><span class="ing-qty">250 g</span><span class="ing-name">Mozzarella fior di latte</span></div>
+      <div class="ing-row"><span class="ing-qty">c/n</span><span class="ing-name">Albahaca fresca</span></div>
+      <div class="ing-row"><span class="ing-qty">c/n</span><span class="ing-name">Aceite de oliva</span></div>
+    </div>
+    <div class="col-pasos">
+      <div class="paso-head">Preparación</div>
+      <div class="paso"><div class="paso-n">1</div><div class="paso-txt"><b>Masa 24 horas antes.</b> Mezclá harina, agua, sal y levadura y amasá 10 minutos. La levadura es muy poca a propósito: fermenta lento y desarrolla sabor. A la heladera 24 horas.</div></div>
+      <div class="paso"><div class="paso-n">2</div><div class="paso-txt"><b>Bollos.</b> Dividí en dos bollos de 400 g, formá bolitas bien tensas y dejalas reposar tapadas 4 horas a temperatura ambiente antes de estirar.</div></div>
+      <div class="paso"><div class="paso-n">3</div><div class="paso-txt"><b>Piedra al Keveri.</b> Con la piedra adentro, brasa abundante y el tiro bien abierto. Necesitás unos 45 minutos para que la piedra acumule de verdad el calor. Sin eso, no hay napolitana.</div></div>
+      <div class="paso"><div class="paso-n">4</div><div class="paso-txt"><b>Estirá a mano.</b> Con los puños, nunca con palo. La masa napolitana tiene gas; al estirarla a mano empujás ese gas a los bordes y se levantan solos.</div></div>
+      <div class="paso"><div class="paso-n">5</div><div class="paso-txt"><b>Salsa, queso y al horno.</b> Tomate aplastado a mano y crudo, mozzarella escurrida y desgarrada. Deslizá sobre la piedra con una pala enharinada. 8 a 10 minutos y listo.</div></div>
+    </div>
+    <div class="tip"><div class="tip-label">🔥 El consejo de Javo</div><div class="tip-txt">La mozzarella para napolitana va escurrida 30 minutos sobre papel. Si tiene humedad, te empapa la pizza y arruina la base. Tomate, queso y albahaca: eso es todo. La napolitana no se complica, esa es su gracia.</div></div>
+  </div>
+</div>
+
+<!-- 17 FUGAZZETA -->
+<div class="page recipe">
+  <div class="rh"><div class="rh-brand">Javotecocina</div><div class="rh-pg">Pizza</div><div class="rh-rule"></div></div>
+  <div class="r-head" style="margin-top:11mm;">
+    <div class="r-head-l"><div class="r-cat">Receta 17 · Pizza</div><div class="r-title">Fugazzeta<br>Rellena</div></div>
+    <div class="r-num">17</div>
+  </div>
+  <div class="r-meta">
+    <div class="r-meta-it"><div class="r-meta-k">Tiempo</div><div class="r-meta-v">3 hs + 20 min</div></div>
+    <div class="r-meta-it"><div class="r-meta-k">Porciones</div><div class="r-meta-v">6–8</div></div>
+    <div class="r-meta-it"><div class="r-meta-k">Temp.</div><div class="r-meta-v">200°C</div></div>
+    <div class="r-meta-it"><div class="r-meta-k">Modo</div><div class="r-meta-v">Pizza</div></div>
+  </div>
+  <div class="r-note">La fugazzeta es porteña pura, pero el Keveri le da una base crocante que ninguna pizzería del barrio iguala. La cebolla se carameliza arriba mientras el queso derretido trabaja adentro. Pesada en el buen sentido.</div>
+  <div class="r-img"><img src="img/keveri/fugazzeta.jpg" alt="Fugazzeta cortada mostrando las capas: base de masa, queso derretido en el medio, segunda masa y cebolla caramelizada ar"></div>
+  <div class="r-cols">
+    <div class="col-ing">
+      <div class="ing-head">Ingredientes</div>
+      <div class="ing-glabel">Masa</div>
+      <div class="ing-row"><span class="ing-qty">500 g</span><span class="ing-name">Harina 0000</span></div>
+      <div class="ing-row"><span class="ing-qty">300 ml</span><span class="ing-name">Agua tibia</span></div>
+      <div class="ing-row"><span class="ing-qty">7 g</span><span class="ing-name">Levadura seca</span></div>
+      <div class="ing-row"><span class="ing-qty">10 g</span><span class="ing-name">Sal</span></div>
+      <div class="ing-row"><span class="ing-qty">30 ml</span><span class="ing-name">Aceite</span></div>
+      <div class="ing-glabel">Relleno y topping</div>
+      <div class="ing-row"><span class="ing-qty">400 g</span><span class="ing-name">Mozzarella rallada</span></div>
+      <div class="ing-row"><span class="ing-qty">3</span><span class="ing-name">Cebollas grandes en pluma</span></div>
+      <div class="ing-row"><span class="ing-qty">10 g</span><span class="ing-name">Orégano</span></div>
+      <div class="ing-row"><span class="ing-qty">c/n</span><span class="ing-name">Sal y aceite de oliva</span></div>
+    </div>
+    <div class="col-pasos">
+      <div class="paso-head">Preparación</div>
+      <div class="paso"><div class="paso-n">1</div><div class="paso-txt"><b>Masa y leudado.</b> Hacé la masa y dejala leudar una hora y media. Dividí en dos bollos. Estirá el primero y forrá el molde aceitado dejando que la masa sobre por los bordes.</div></div>
+      <div class="paso"><div class="paso-n">2</div><div class="paso-txt"><b>La cebolla.</b> Cortala en pluma fina, salala y dejala reposar 20 minutos: suelta agua. Exprimila bien antes de usar. Ese paso es el que evita que la pizza quede húmeda.</div></div>
+      <div class="paso"><div class="paso-n">3</div><div class="paso-txt"><b>Armado.</b> Sobre la primera masa repartí la mozzarella. Cubrí con la segunda masa estirada y sellá bien los bordes. Poné la cebolla escurrida arriba con orégano y aceite.</div></div>
+      <div class="paso"><div class="paso-n">4</div><div class="paso-txt"><b>Segundo leudado.</b> Treinta minutos de reposo tapada antes de hornear. La masa necesita relajarse o se encoge en el horno.</div></div>
+      <div class="paso"><div class="paso-n">5</div><div class="paso-txt"><b>Keveri a 200°C, 20 minutos.</b> La cebolla tiene que quedar caramelizada con bordes oscuros y la base despegarse del molde: esa es la señal de que está crocante abajo.</div></div>
+    </div>
+    <div class="tip"><div class="tip-label">🔥 El consejo de Javo</div><div class="tip-txt">La cebolla escurrida es el truco principal de toda fugazzeta. Sin ese paso queda húmeda y blanda, y no hay forma de arreglarlo después de horneada. Exprimila bien, de verdad, hasta que no largue más agua.</div></div>
+  </div>
+</div>
+
+<!-- 18 CALZONE SALTEÑO -->
+<div class="page recipe">
+  <div class="rh"><div class="rh-brand">Javotecocina</div><div class="rh-pg">Pizza</div><div class="rh-rule"></div></div>
+  <div class="r-head" style="margin-top:11mm;">
+    <div class="r-head-l"><div class="r-cat">Receta 18 · Pizza</div><div class="r-title">Calzone<br>Salteño</div></div>
+    <div class="r-num">18</div>
+  </div>
+  <div class="r-meta">
+    <div class="r-meta-it"><div class="r-meta-k">Tiempo</div><div class="r-meta-v">2 h 30 + 18 min</div></div>
+    <div class="r-meta-it"><div class="r-meta-k">Porciones</div><div class="r-meta-v">4</div></div>
+    <div class="r-meta-it"><div class="r-meta-k">Temp.</div><div class="r-meta-v">220°C</div></div>
+    <div class="r-meta-it"><div class="r-meta-k">Modo</div><div class="r-meta-v">Pizza</div></div>
+  </div>
+  <div class="r-note">Calzone relleno con productos del norte. El interior queda cremoso por el queso, la llajua le da el golpe salteño y el cuero se infla perfecto en el Keveri. Mi forma de meter Salta adentro de una masa italiana.</div>
+  <div class="r-img"><img src="img/keveri/calzone.jpg" alt="Calzone con la panza inflada y dorada, cortado al medio mostrando el relleno cremoso con queso derretido y chorizo color"></div>
+  <div class="r-cols">
+    <div class="col-ing">
+      <div class="ing-head">Ingredientes</div>
+      <div class="ing-glabel">Masa (igual a la fugazzeta)</div>
+      <div class="ing-row"><span class="ing-qty">500 g</span><span class="ing-name">Harina 0000</span></div>
+      <div class="ing-row"><span class="ing-qty">300 ml</span><span class="ing-name">Agua + levadura + sal</span></div>
+      <div class="ing-glabel">Relleno salteño</div>
+      <div class="ing-row"><span class="ing-qty">300 g</span><span class="ing-name">Mozzarella</span></div>
+      <div class="ing-row"><span class="ing-qty">200 g</span><span class="ing-name">Chorizo colorado cocido en cubos</span></div>
+      <div class="ing-row"><span class="ing-qty">100 g</span><span class="ing-name">Queso de cabra desmenuzado</span></div>
+      <div class="ing-row"><span class="ing-qty">80 g</span><span class="ing-name">Aceitunas negras</span></div>
+      <div class="ing-row"><span class="ing-qty">2 cdas</span><span class="ing-name">Llajua fresca</span></div>
+      <div class="ing-row"><span class="ing-qty">10 g</span><span class="ing-name">Orégano</span></div>
+    </div>
+    <div class="col-pasos">
+      <div class="paso-head">Preparación</div>
+      <div class="paso"><div class="paso-n">1</div><div class="paso-txt"><b>Masa igual a la fugazzeta.</b> Hacé la misma masa y dejala leudar dos horas. Dividí en cuatro bollos de 200 g, uno por calzone individual.</div></div>
+      <div class="paso"><div class="paso-n">2</div><div class="paso-txt"><b>El relleno.</b> Mezclá mozzarella, chorizo, queso de cabra, aceitunas y orégano. La llajua va aparte, para que cada uno se la ponga a gusto al morder.</div></div>
+      <div class="paso"><div class="paso-n">3</div><div class="paso-txt"><b>Estirá y rellená.</b> Cada bollo en un disco de 25 cm. El relleno en una mitad, dejando 2 cm de borde libre. Doblá y sellá bien con los dedos o un tenedor.</div></div>
+      <div class="paso"><div class="paso-n">4</div><div class="paso-txt"><b>Un corte arriba.</b> Hacele un corte de 2 cm en la parte de arriba a cada calzone para que escape el vapor. Sin eso, la presión interna lo revienta en el horno.</div></div>
+      <div class="paso"><div class="paso-n">5</div><div class="paso-txt"><b>Keveri a 220°C, 16–18 minutos.</b> Sobre papel manteca en la rejilla o sobre la piedra. La panza se infla y el cuero queda bien dorado y crocante.</div></div>
+    </div>
+    <div class="tip"><div class="tip-label">🔥 El consejo de Javo</div><div class="tip-txt">El queso de cabra salteño en el relleno es el giro que hace distinto a este calzone. Si no conseguís, con ricota y un poco de queso de campo sale muy bien igual. Lo importante es la llajua al final.</div></div>
+  </div>
+</div>
+
+<!-- 19 BRISKET DE 12 HORAS -->
+<div class="page recipe">
+  <div class="rh"><div class="rh-brand">Javotecocina</div><div class="rh-pg">Ahumados</div><div class="rh-rule"></div></div>
+  <div class="r-head" style="margin-top:11mm;">
+    <div class="r-head-l"><div class="r-cat">Receta 19 · Ahumados</div><div class="r-title">Brisket<br>de 12 Horas</div></div>
+    <div class="r-num">19</div>
+  </div>
+  <div class="r-meta">
+    <div class="r-meta-it"><div class="r-meta-k">Tiempo</div><div class="r-meta-v">12–14 hs</div></div>
+    <div class="r-meta-it"><div class="r-meta-k">Porciones</div><div class="r-meta-v">10–12</div></div>
+    <div class="r-meta-it"><div class="r-meta-k">Temp.</div><div class="r-meta-v">110°C</div></div>
+    <div class="r-meta-it"><div class="r-meta-k">Interna</div><div class="r-meta-v">95°C</div></div>
+  </div>
+  <div class="r-note">El corte más difícil y más gratificante de todo el BBQ. Acá va con pecho de ternera, doce horas de brasa baja y humo. No hay con qué apurarlo: el que se desespera lo arruina; el que aguanta come una carne que se corta sola.</div>
+  <div class="r-img"><img src="img/keveri/brisket.jpg" alt="Brisket entero sobre tabla de madera con corteza negra, primer corte mostrando el interior jugoso con la veta de grasa y"></div>
+  <div class="r-cols">
+    <div class="col-ing">
+      <div class="ing-head">Ingredientes</div>
+      <div class="ing-row"><span class="ing-qty">4–5 kg</span><span class="ing-name">Pecho de ternera (brisket)</span></div>
+      <div class="ing-row"><span class="ing-qty">40 g</span><span class="ing-name">Sal gruesa</span></div>
+      <div class="ing-row"><span class="ing-qty">20 g</span><span class="ing-name">Pimienta negra gruesa</span></div>
+      <div class="ing-glabel">Eso es todo</div>
+      <div class="ing-row"><span class="ing-qty">c/n</span><span class="ing-name">Leños de quebracho</span></div>
+    </div>
+    <div class="col-pasos">
+      <div class="paso-head">Preparación</div>
+      <div class="paso"><div class="paso-n">1</div><div class="paso-txt"><b>Solo sal y pimienta.</b> El brisket de verdad, estilo Texas, no lleva nada más. La grasa de adentro y el humo hacen todo el resto. Nada de azúcar, pimentón ni ajo en polvo: no le tapes la carne.</div></div>
+      <div class="paso"><div class="paso-n">2</div><div class="paso-txt"><b>Brasa desde la noche.</b> Si lo querés al mediodía, arrancá a las diez de la noche. Brasa chica e indirecta a un costado, 110°C clavados con el tiro, y quebracho para el humo. Con el brisket, la paciencia no se negocia.</div></div>
+      <div class="paso"><div class="paso-n">3</div><div class="paso-txt"><b>La stall.</b> Puede quedarse 3 o 4 horas estancado en 75°C internos. Es normal: el colágeno absorbe energía mientras se transforma. No abras el tiro para apurarlo, bancá.</div></div>
+      <div class="paso"><div class="paso-n">4</div><div class="paso-txt">Si andás con el tiempo justo, al llegar a 75°C envolvé en papel de carnicero y seguí hasta 95°C. El bark ya se formó, así que el papel no te lo arruina.</div></div>
+      <div class="paso"><div class="paso-n">5</div><div class="paso-txt"><b>Reposo larguísimo.</b> Una hora envuelto como mínimo, dos mejor; si tenés, en una conservadora tibia. Acá se juega todo: si lo cortás apurado, perdés los jugos que tanto te costaron.</div></div>
+    </div>
+    <div class="tip"><div class="tip-label">🔥 El consejo de Javo</div><div class="tip-txt">Pedile al carnicero el pecho con la tapa de grasa entera y avisale que es para brisket. Sin esa capa que lo protege, la pieza se seca en las horas finales y de ahí no se vuelve. La grasa es el seguro.</div></div>
+  </div>
+</div>
+
+<!-- 20 RIBS BBQ ESTILO SALTEÑO -->
+<div class="page recipe">
+  <div class="rh"><div class="rh-brand">Javotecocina</div><div class="rh-pg">Ahumados</div><div class="rh-rule"></div></div>
+  <div class="r-head" style="margin-top:11mm;">
+    <div class="r-head-l"><div class="r-cat">Receta 20 · Ahumados</div><div class="r-title">Ribs BBQ<br>Estilo Salteño</div></div>
+    <div class="r-num">20</div>
+  </div>
+  <div class="r-meta">
+    <div class="r-meta-it"><div class="r-meta-k">Tiempo</div><div class="r-meta-v">5 hs</div></div>
+    <div class="r-meta-it"><div class="r-meta-k">Porciones</div><div class="r-meta-v">4</div></div>
+    <div class="r-meta-it"><div class="r-meta-k">Temp.</div><div class="r-meta-v">110 / 130°C</div></div>
+    <div class="r-meta-it"><div class="r-meta-k">Madera</div><div class="r-meta-v">Quebracho</div></div>
+  </div>
+  <div class="r-note">Las ribs americanas pero con mi BBQ salteña, esa que lleva locoto y pimentón en vez de sabor a ketchup. Misma técnica de allá, ingredientes de acá. Salen igual de adictivas, pero con acento del norte.</div>
+  <div class="r-img"><img src="img/keveri/ribs.jpg" alt="Costillas de cerdo sobre tabla con glaseado BBQ oscuro y brillante bien caramelizado, una costilla siendo cortada entre "></div>
+  <div class="r-cols">
+    <div class="col-ing">
+      <div class="ing-head">Ingredientes</div>
+      <div class="ing-row"><span class="ing-qty">2 tiras</span><span class="ing-name">Costillar baby back</span></div>
+      <div class="ing-row"><span class="ing-qty">20 g</span><span class="ing-name">Sal</span></div>
+      <div class="ing-row"><span class="ing-qty">15 g</span><span class="ing-name">Azúcar negra</span></div>
+      <div class="ing-row"><span class="ing-qty">10 g</span><span class="ing-name">Pimentón ahumado</span></div>
+      <div class="ing-row"><span class="ing-qty">5 g</span><span class="ing-name">Ajo en polvo</span></div>
+      <div class="ing-glabel">Glaseado</div>
+      <div class="ing-row"><span class="ing-qty">150 ml</span><span class="ing-name">BBQ salteño (ver La mesa del Keveri)</span></div>
+      <div class="ing-row"><span class="ing-qty">60 ml</span><span class="ing-name">Jugo de manzana</span></div>
+      <div class="ing-row"><span class="ing-qty">30 g</span><span class="ing-name">Manteca en cubos</span></div>
+    </div>
+    <div class="col-pasos">
+      <div class="paso-head">Preparación</div>
+      <div class="paso"><div class="paso-n">1</div><div class="paso-txt"><b>Membrana y rub.</b> Sacá la telita del lado del hueso y aplicá el rub por los dos lados. Dejalo toda la noche en la heladera para que agarre bien.</div></div>
+      <div class="paso"><div class="paso-n">2</div><div class="paso-txt"><b>3 horas de humo a 110°C.</b> Brasa indirecta a un costado, hueso hacia abajo, quebracho para un humo intenso que penetra en estas primeras tres horas. No abras la tapa.</div></div>
+      <div class="paso"><div class="paso-n">3</div><div class="paso-txt"><b>Hora y media envueltas.</b> En aluminio con el jugo de manzana y la manteca. Abrí un poco el tiro para llevarlo a 130°C: el vapor de adentro ablanda el colágeno que queda.</div></div>
+      <div class="paso"><div class="paso-n">4</div><div class="paso-txt"><b>Media hora de glaseado.</b> Desenvolvé y pintá generoso con la BBQ salteña. Sin envolver, otros 30 minutos para que el glaseado se pegue y caramelice.</div></div>
+      <div class="paso"><div class="paso-n">5</div><div class="paso-txt">Cortá entre hueso y hueso, que el cuchillo casi no hace fuerza, y servilas ya: las ribs no esperan a nadie.</div></div>
+    </div>
+    <div class="tip"><div class="tip-label">🔥 El consejo de Javo</div><div class="tip-txt">Los baby back son más tiernos y finitos que las costillas comunes. Salen más caras, pero para mí valen la diferencia. Si usás costillas comunes, sumales una hora más al proceso y quedan igual de bien.</div></div>
+  </div>
+</div>
+
+<!-- 21 PANCETA AHUMADA CASERA -->
+<div class="page recipe">
+  <div class="rh"><div class="rh-brand">Javotecocina</div><div class="rh-pg">Ahumados</div><div class="rh-rule"></div></div>
+  <div class="r-head" style="margin-top:11mm;">
+    <div class="r-head-l"><div class="r-cat">Receta 21 · Ahumados</div><div class="r-title">Panceta Ahumada<br>Casera</div></div>
+    <div class="r-num">21</div>
+  </div>
+  <div class="r-meta">
+    <div class="r-meta-it"><div class="r-meta-k">Curado</div><div class="r-meta-v">5–7 días</div></div>
+    <div class="r-meta-it"><div class="r-meta-k">Ahumado</div><div class="r-meta-v">4–6 hs</div></div>
+    <div class="r-meta-it"><div class="r-meta-k">Temp.</div><div class="r-meta-v">80°C</div></div>
+    <div class="r-meta-it"><div class="r-meta-k">Interna</div><div class="r-meta-v">70°C</div></div>
+  </div>
+  <div class="r-note">Curar y ahumar tu propia panceta lleva una semana, no te voy a mentir. Pero el día que la cortás y la probás, entendés por qué no hay panceta de supermercado que se le acerque. Es de las cosas que más orgullo me dan de este libro.</div>
+  <div class="r-img"><img src="img/keveri/panceta.jpg" alt="Panceta ahumada entera sobre tabla de madera, corteza oscura del humo, primer corte mostrando las capas de carne y grasa"></div>
+  <div class="r-cols">
+    <div class="col-ing">
+      <div class="ing-head">Ingredientes</div>
+      <div class="ing-row"><span class="ing-qty">2 kg</span><span class="ing-name">Panceta fresca entera</span></div>
+      <div class="ing-glabel">Cura seca</div>
+      <div class="ing-row"><span class="ing-qty">40 g</span><span class="ing-name">Sal gruesa</span></div>
+      <div class="ing-row"><span class="ing-qty">20 g</span><span class="ing-name">Azúcar negra</span></div>
+      <div class="ing-row"><span class="ing-qty">10 g</span><span class="ing-name">Pimienta negra gruesa</span></div>
+      <div class="ing-row"><span class="ing-qty">8 g</span><span class="ing-name">Ajo en polvo</span></div>
+      <div class="ing-row"><span class="ing-qty">5 g</span><span class="ing-name">Pimentón ahumado</span></div>
+      <div class="ing-row"><span class="ing-qty">3</span><span class="ing-name">Hojas de laurel</span></div>
+    </div>
+    <div class="col-pasos">
+      <div class="paso-head">Preparación</div>
+      <div class="paso"><div class="paso-n">1</div><div class="paso-txt"><b>Cura, 5 a 7 días.</b> Mezclá todo lo de la cura y frotá bien toda la panceta. En bolsa con cierre o fuente tapada, a la heladera, y dala vuelta cada 24 horas. La sal le va sacando agua de a poco.</div></div>
+      <div class="paso"><div class="paso-n">2</div><div class="paso-txt"><b>Enjuagar y secar.</b> Al día cinco fijate que la carne haya perdido líquido y esté firme. Enjuagá bien, secá y dejala en una rejilla 24 horas más en la heladera, sin tapar: se forma la película que recibe el humo.</div></div>
+      <div class="paso"><div class="paso-n">3</div><div class="paso-txt"><b>Keveri a 80°C.</b> Brasa suave a un costado, calor indirecto bajo, con quebracho. A esa temperatura la panceta se cocina mientras se ahuma. 4 a 6 horas, meta 70°C internos.</div></div>
+      <div class="paso"><div class="paso-n">4</div><div class="paso-txt">Dejala enfriar del todo antes de cortarla, si no se desarma. Envuelta en papel manteca aguanta hasta tres semanas en la heladera, y hasta tres meses en el freezer.</div></div>
+      <div class="paso"><div class="paso-n">5</div><div class="paso-txt"><b>Usala en todo.</b> En lonchas finas para sándwiches, en cubos para guisos y pastas, en tiras gruesas para el desayuno. Es panceta de verdad: una vez que la hacés, no comprás más.</div></div>
+    </div>
+    <div class="tip"><div class="tip-label">🔥 El consejo de Javo</div><div class="tip-txt">Sin sal de cura (nitrito) la panceta casera tiene vida útil corta. Si la querés conservar mucho, conseguí sal de cura en dietéticas especializadas y respetá las proporciones al gramo: con el nitrito no se improvisa.</div></div>
+  </div>
+</div>
+
+<!-- ANEXO: AHUMADO EN FRÍO -->
+<div class="page gp">
+  <div class="rh"><div class="rh-brand">Javotecocina</div><div class="rh-pg">Anexo</div><div class="rh-rule"></div></div>
+  <div style="margin-top:13mm;">
+    <div class="g-title">Anexo · Ahumado en frío</div>
+    <div class="g-text">El ahumado en frío es otra disciplina y no quería dejarla afuera, pero tampoco quiero que arranques a los tumbos. Acá no se cocina nada: el humo, siempre por debajo de 30°C, solo perfuma y conserva. Por eso todo lo que entra al humo frío tiene que estar curado antes, y por eso hay que tomarse la seguridad en serio. Leé esto con calma antes de probar.</div>
+    <div class="g-grid">
+      <div class="g-card"><div class="g-card-title">① Qué es (y qué no)</div><p>No cocina. El ahumado caliente, el de las recetas de este libro, cocina y ahuma a la vez (90–130°C). El frío trabaja por debajo de 30°C: solo da sabor y ayuda a conservar. Si la temperatura sube, el alimento entra en zona de riesgo. Son dos cosas distintas, no las confundas.</p></div>
+      <div class="g-card"><div class="g-card-title">② La seguridad, primero</div><p>Todo lo que va al humo frío se cura antes con sal: la cura le saca agua, lo vuelve inhóspito para las bacterias y arma la película donde se pega el humo. Mantené siempre menos de 30°C (en verano, ahumá de noche), higiene estricta y cadena de frío. Para conservar mucho tiempo necesitás sal de cura con nitrito en proporciones exactas; sin ella, vida útil corta y todo a la heladera. Ante la duda, no arriesgues.</p></div>
+      <div class="g-card"><div class="g-card-title">③ Por dónde empezar</div><p>Andá de menor a mayor riesgo. El queso es lo más fácil y seguro: no es un perecedero crítico y sale en una tarde. La panceta es intermedia: pide cura de varios días. La trucha, o cualquier pescado, es lo más delicado: cura de 24 horas, filete sin espinas y frescura impecable. No arranques por el pescado.</p></div>
+      <div class="g-card"><div class="g-card-title">④ Maderas y tiempos</div><p>Maderas suaves: manzano o cerezo. Tiempos orientativos: queso, 40 a 60 minutos; panceta, unas horas después de varios días de cura; trucha, 6 a 8 horas. Y casi siempre, reposo en heladera 24 horas para que el humo se asiente y pierda esa punta agresiva del primer momento.</p></div>
+    </div>
+    <div class="g-text" style="margin-top:1mm;"><b>Mi consejo: arrancá por el queso.</b> Una olla con tapa, en el fondo un puñado de chips de manzano a fuego mínimo, arriba un recipiente con hielo y, sobre una rejilla, un queso semiduro bien frío. Tapá, dejá 40 a 60 minutos y a la heladera un día antes de comerlo. Con eso entendés todo el juego sin arriesgar nada. Recién cuando le tomaste la mano me metería con la trucha.</div>
+  </div>
+</div>
+
+<!-- CIERRE: LA MESA DEL KEVERI -->
+<div class="page gp">
+  <div class="rh"><div class="rh-brand">Javotecocina</div><div class="rh-pg">Para cerrar</div><div class="rh-rule"></div></div>
+  <div style="margin-top:13mm;">
+    <div class="g-title">La mesa del Keveri</div>
+    <div class="r-img" style="margin-bottom:6mm;height:84mm;"><img src="img/keveri/mesa.jpg" alt="Mesa larga de quincho con varias recetas del libro servidas para compartir, gente alrededor, luz natural de tarde, estil"></div>
+    <div class="g-text">Ninguna de estas recetas se come sola. El Keveri es comida para compartir, y una buena mesa se arma con lo que la rodea: una salsa que despierte las carnes, un pan para acompañar el pulled pork, una ensalada fresca que corte la contundencia. Te dejo lo que más uso para redondear todo lo que hay en este libro.</div>
+    <div class="g-grid">
+      <div class="g-card"><div class="g-card-title">🌿 Chimichurri de Javo</div><p>Perejil, ajo, orégano, ají molido, buen vinagre y aceite, reposado al menos una hora. Para la entraña, el tomahawk y la picaña no es opcional. Hacelo el día anterior: descansado es otra cosa.</p></div>
+      <div class="g-card"><div class="g-card-title">🍅 Salsa criolla</div><p>Tomate, cebolla y morrón bien chiquitos, con aceite, vinagre, sal y un toque de orégano. Fresca y ácida, es el contrapunto perfecto para las carnes largas y los glaseados dulces del Low &amp; Slow.</p></div>
+      <div class="g-card"><div class="g-card-title">🍖 BBQ salteño · la salsa</div><p>Mi salsa BBQ, sin ese gusto a ketchup que no me gusta: en una ollita a fuego medio juntá pimentón ahumado, locoto picado, vinagre de manzana, un poco de azúcar negra, mostaza, ajo y agua, y cociná 30 minutos hasta que espese y brille. Glasea el costillar, las ribs y el pulled pork, y dura tres semanas en la heladera. Es la que usan medio libro.</p></div>
+      <div class="g-card"><div class="g-card-title">🥗 Panes y ensaladas</div><p>El pan y la focaccia de este mismo libro para los jugos y el pulled pork. Y una verde simple con buen aceite y limón para refrescar entre bocado y bocado. No la compliques: cuanto más simple, mejor cumple.</p></div>
+    </div>
+    <div class="g-text" style="font-style:italic;color:var(--muted);margin-top:1mm;">Y por encima de todo, lo más importante de la mesa del Keveri no se cocina: es la tarde que se estira porque la comida fue saliendo de a poco, los que llegan tarde y se sientan igual, la última porción que nadie quiere agarrar pero todos miran. Se cocina con paciencia y se come sin apuro. Esa, al final, es toda la receta.</div>
+  </div>
+</div>
+
+<!-- CONTRACUBIERTA -->
+<div class="page back">
+  <div class="back-quote"><p>El Keveri no tiene perilla ni apuro. Prendé la brasa, cerrá la tapa y dejá que el carbón, el humo y el tiempo hagan lo suyo. Lo demás es juntar a los tuyos alrededor del fuego.</p></div>
+  <div class="back-bottom">
+    <div class="back-brand">Javotecocina</div>
+    <div class="back-web">javotecocina.com · Salta, Argentina</div>
+  </div>
+</div>
+
 <script>
 (function(){
   var slug='a-todo-keveri';
-  if(localStorage.getItem('javo_admin_v1')==='1'){document.getElementById('javo-paywall').remove();return;}
+  if(localStorage.getItem('javo_admin_v1')==='1'){var p=document.getElementById('javo-paywall');if(p)p.remove();return;}
   var token=localStorage.getItem('javo_access_a-todo-keveri');
-  if(token){try{var d=JSON.parse(atob(token));if(d.slug===slug&&d.exp>Date.now()){document.getElementById('javo-paywall').remove();return;}}catch(e){}}
+  if(token){try{var d=JSON.parse(atob(token));if(d.slug===slug&&d.exp>Date.now()){var p=document.getElementById('javo-paywall');if(p)p.remove();return;}}catch(e){}}
   document.body.style.overflow='hidden';
 })();
-async function javoVerificar(){
-  var email=document.getElementById('pw-email').value.trim();
-  var msg=document.getElementById('pw-msg');
-  if(!email||!email.includes('@')){msg.textContent='Ingresá un email válido.';return;}
-  msg.style.color='#C4853A';msg.textContent='Verificando...';
-  try{
-    var r=await fetch('/api/verify_purchase',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({email:email,recetario:'a-todo-keveri'})});
-    var data=await r.json();
-    if(data.access){
-      var token=btoa(JSON.stringify({slug:'a-todo-keveri',email:email,exp:Date.now()+365*24*60*60*1000}));
-      localStorage.setItem('javo_access_a-todo-keveri',token);
-      document.getElementById('javo-paywall').remove();
-      document.body.style.overflow='';
-    }else{
-      msg.style.color='#D4521A';
-      msg.textContent='No encontramos una compra con ese email para este recetario.';
-    }
-  }catch(e){msg.style.color='#D4521A';msg.textContent='Error de conexión. Intentá de nuevo.';}
-}
 </script>
-<!-- FIN PAYWALL -->
-
-  <!-- NAV -->
-  <nav class="nav-volver">
-    <a href="/">Volver a javotecocina.com</a>
-  </nav>
-
-  <!-- HEADER -->
-  <header class="header">
-    <p class="header-eyebrow">Javo Te Cocina · Recetario</p>
-    <h1>A Todo Keveri</h1>
-    <p class="subtitulo">Del fast grill al slow smoke, en carbón</p>
-    <p class="header-meta"><span>13 recetas</span> &nbsp;·&nbsp; Carbón argentino &nbsp;·&nbsp; Javier "Javo" — Salta</p>
-  </header>
-
-  <!-- CONTENIDO PRINCIPAL -->
-  <main>
-    <div class="container">
-
-      <!-- INTRO -->
-      <section class="intro-section">
-        <p>El Keveri H1 no es un horno cualquiera. Es un horno y grill multifuncional a carbón diseñado por <strong>Antonio Montes</strong>, Co-Fundador y Diseñador de Keveri — en Argentina lo vas a encontrar como <strong>Hake</strong>. Cinco modos de cocción precisos: desde un ahumado lento a 100°C hasta pizza a la piedra a 450°C. Fui uno de los primeros chefs del NOA en incorporarlo, y este recetario demuestra todo lo que puede hacer.</p>
-        <p>Cuando me lo trajeron al restaurante por primera vez, lo miré y pensé: "¿esto reemplaza a mi horno de barro?" No lo reemplaza. Es otra cosa. Es la evolución del asado argentino — un artefacto que toma la inteligencia de nuestro fuego de siempre y le da precisión. Con el Keveri podés hacer pizza a 400 grados y a la hora siguiente ahumar una bondiola a 110. Eso no lo hace ningún otro horno.</p>
-
-        <!-- FICHA KEVERI -->
-        <div class="ficha-keveri" id="keveri-intro">
-          <img src="https://images.unsplash.com/photo-sg5oPGXTa4A?w=900&auto=format&fit=crop" alt="El Keveri" class="receta-foto" />
-          <h3>El Keveri H1</h3>
-          <p class="ficha-subtitle">Horno & grill a carbón — diseñado por Antonio Montes</p>
-          <div class="ficha-grid">
-            <div class="ficha-item">
-              <span class="fi-label">Creador</span>
-              <span class="fi-valor"><strong>Antonio Montes</strong>, Co-Fundador y Diseñador del Keveri H1.</span>
-            </div>
-            <div class="ficha-item">
-              <span class="fi-label">En Argentina</span>
-              <span class="fi-valor">Comercializado como <strong>Hake</strong>. El mismo horno, identidad local.</span>
-            </div>
-            <div class="ficha-item">
-              <span class="fi-label">Combustible</span>
-              <span class="fi-valor"><strong>Carbón vegetal</strong> o leña de quebracho. Sin gas, sin electricidad.</span>
-            </div>
-            <div class="ficha-item">
-              <span class="fi-label">Rango de temperatura</span>
-              <span class="fi-valor"><strong>100°C a 450°C+</strong> — 5 modos precisos en un solo horno.</span>
-            </div>
-          </div>
-          <div class="ficha-modos">
-            <span class="fi-label">Los 5 modos oficiales (Manual Keveri H1)</span>
-            <div class="modos-list">
-              <span class="modo-badge">🐢 Low &amp; Slow · 100–130°C</span>
-              <span class="modo-badge">🥩 Classic · 160–200°C</span>
-              <span class="modo-badge">🍞 Baker · 230–270°C</span>
-              <span class="modo-badge">🔥 Fast Grill · 330–380°C</span>
-              <span class="modo-badge">🍕 Pizza · 400–450°C</span>
-            </div>
-          </div>
-        </div>
-
-        <!-- TABLA DE TIEMPOS -->
-        <div class="ficha-keveri" style="border-left-color:var(--puna);">
-          <h3 style="font-size:1.25rem;">Referencia rápida de cocción</h3>
-          <p class="ficha-subtitle">Tiempos y temperaturas por alimento — Keveri H1</p>
-          <table style="width:100%;border-collapse:collapse;font-family:'Space Mono',monospace;font-size:0.7rem;margin-top:0.5rem;">
-            <thead>
-              <tr style="border-bottom:1px solid rgba(212,82,26,0.4);">
-                <th style="text-align:left;padding:8px 4px;color:var(--fuego);letter-spacing:0.1em;text-transform:uppercase;">Corte / Preparación</th>
-                <th style="text-align:center;padding:8px 4px;color:var(--fuego);letter-spacing:0.1em;text-transform:uppercase;">Modo</th>
-                <th style="text-align:center;padding:8px 4px;color:var(--fuego);letter-spacing:0.1em;text-transform:uppercase;">Temp.</th>
-                <th style="text-align:center;padding:8px 4px;color:var(--fuego);letter-spacing:0.1em;text-transform:uppercase;">Tiempo</th>
-              </tr>
-            </thead>
-            <tbody style="color:var(--sal);">
-              <tr style="border-bottom:1px solid rgba(61,36,16,0.8);">
-                <td style="padding:7px 4px;">Pizza a la piedra</td>
-                <td style="text-align:center;padding:7px 4px;color:var(--puna);">Pizza</td>
-                <td style="text-align:center;padding:7px 4px;">400–450°C</td>
-                <td style="text-align:center;padding:7px 4px;">8–10 min</td>
-              </tr>
-              <tr style="border-bottom:1px solid rgba(61,36,16,0.8);">
-                <td style="padding:7px 4px;">Pollo mariposa</td>
-                <td style="text-align:center;padding:7px 4px;color:var(--puna);">Fast Grill</td>
-                <td style="text-align:center;padding:7px 4px;">330–380°C</td>
-                <td style="text-align:center;padding:7px 4px;">35 min</td>
-              </tr>
-              <tr style="border-bottom:1px solid rgba(61,36,16,0.8);">
-                <td style="padding:7px 4px;">Focaccia / Pan de campo</td>
-                <td style="text-align:center;padding:7px 4px;color:var(--puna);">Baker</td>
-                <td style="text-align:center;padding:7px 4px;">230–270°C</td>
-                <td style="text-align:center;padding:7px 4px;">20–30 min</td>
-              </tr>
-              <tr style="border-bottom:1px solid rgba(61,36,16,0.8);">
-                <td style="padding:7px 4px;">Costillar / cordero entero</td>
-                <td style="text-align:center;padding:7px 4px;color:var(--puna);">Classic</td>
-                <td style="text-align:center;padding:7px 4px;">160–200°C</td>
-                <td style="text-align:center;padding:7px 4px;">2.5–3 h</td>
-              </tr>
-              <tr style="border-bottom:1px solid rgba(61,36,16,0.8);">
-                <td style="padding:7px 4px;">Bondiola ahumada</td>
-                <td style="text-align:center;padding:7px 4px;color:var(--puna);">Low &amp; Slow</td>
-                <td style="text-align:center;padding:7px 4px;">100–130°C</td>
-                <td style="text-align:center;padding:7px 4px;">6–8 h</td>
-              </tr>
-              <tr>
-                <td style="padding:7px 4px;">Ribs 3-2-1</td>
-                <td style="text-align:center;padding:7px 4px;color:var(--puna);">Low &amp; Slow</td>
-                <td style="text-align:center;padding:7px 4px;">110–120°C</td>
-                <td style="text-align:center;padding:7px 4px;">6 h</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-
-        <p>En este recetario están las preparaciones que más uso con el Keveri en el restaurante y en eventos. Desde la pizza más crocante que vas a comer hasta una bondiola que se desarma con mirarla. El secreto es uno solo: aprender a leer el carbón.</p>
-      </section>
-
-      <!-- RECETAS -->
-      <section class="recetas-section">
-        <h2 class="section-title">Las 13 Recetas</h2>
-        <div class="section-divider"></div>
-
-        <nav class="recetario-indice">
-          <div class="indice-titulo">Índice de recetas</div>
-          <ul class="indice-lista">
-            <li><a href="#keveri-intro"><span class="indice-num">01</span>El Keveri — Introducción</a></li>
-            <li><a href="#pizza-keveri"><span class="indice-num">02</span>Pizza a la Piedra Keveri</a></li>
-            <li><a href="#pollo-fast-grill"><span class="indice-num">03</span>Pollo Fast Grill Keveri</a></li>
-            <li><a href="#bondiola-slow-smoke"><span class="indice-num">04</span>Bondiola Slow Smoke Keveri</a></li>
-            <li><a href="#costillar-keveri"><span class="indice-num">05</span>Costillar de Cerdo Keveri</a></li>
-            <li><a href="#pan-campo-keveri"><span class="indice-num">06</span>Pan de Campo Keveri</a></li>
-            <li><a href="#medialunas-keveri"><span class="indice-num">07</span>Medialunas Artesanales al Keveri</a></li>
-            <li><a href="#langostinos-keveri"><span class="indice-num">08</span>Langostinos al Keveri con Manteca de Ajo</a></li>
-            <li><a href="#vegetales-keveri"><span class="indice-num">09</span>Vegetales Asados al Keveri</a></li>
-            <li><a href="#provoleta-keveri"><span class="indice-num">10</span>Provoleta Keveri</a></li>
-            <li><a href="#cordero-keveri"><span class="indice-num">11</span>Cordero al Keveri</a></li>
-            <li><a href="#zapallo-keveri"><span class="indice-num">12</span>Zapallo Relleno al Keveri</a></li>
-            <li><a href="#pollo-ahumado-keveri"><span class="indice-num">13</span>Pollo Entero Ahumado-Asado Keveri</a></li>
-            <li><a href="#focaccia-keveri"><span class="indice-num">14</span>Focaccia Keveri con Romero y Aceitunas</a></li>
-          </ul>
-        </nav>
-
-        <!-- RECETA 1 -->
-        <div class="receta-card" id="pizza-keveri">
-          <p class="receta-numero">// 01</p>
-          <h3>Pizza a la Piedra Keveri</h3>
-          <div class="badges">
-            <span class="badge badge-porciones">4 pizzas</span>
-            <span class="badge badge-prep">Prep: 2 h (masa)</span>
-            <span class="badge badge-coccion">Cocción: 8–10 min c/u</span>
-          </div>
-          <img src="https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?w=900&auto=format&fit=crop" alt="Pizza a la Piedra Keveri" class="receta-foto" />
-          <p class="receta-intro">La pizza al horno de barro es parte del ADN argentino. El Keveri la reproduce con una piedra volcánica o refractaria que llega a los mismos 380–400 grados que el barro, pero en cualquier patio o terraza. El resultado: base crocante, bordes inflados, mozzarella que se estira. Cada vez que llevo una a la mesa en el restaurante, hay silencio — del bueno.</p>
-
-          <p class="receta-subtitulo">Ingredientes</p>
-          <ul class="ingredientes-lista">
-            <li><span class="cantidad">600 g</span>Harina de trigo (mín. 13.5% proteínas — tipo 00 italiana o fuerza)</li>
-            <li><span class="cantidad">3 g</span>Levadura fresca (o 1 g levadura seca)</li>
-            <li><span class="cantidad">380 ml</span>Agua tibia (no más de 40°C)</li>
-            <li><span class="cantidad">12 g</span>Sal fina</li>
-            <li><span class="cantidad">1 cda</span>Aceite de oliva extra virgen</li>
-            <li><span class="cantidad">400 g</span>Mozzarella fresca, escurrida y desmenuzada</li>
-            <li><span class="cantidad">300 g</span>Tomates perita maduros</li>
-            <li><span class="cantidad">2 dientes</span>Ajo</li>
-            <li><span class="cantidad">Hojas</span>Albahaca fresca</li>
-            <li><span class="cantidad">Sal y</span>Aceite de oliva para la salsa</li>
-          </ul>
-
-          <p class="receta-subtitulo">Preparación</p>
-          <ol class="pasos-lista">
-            <li>Disolver la levadura en el agua tibia con una pizca de azúcar. Esperar 10 minutos hasta que esté espumosa. Si usás masa madre, salteá este paso y agregá directamente.</li>
-            <li>En un bol grande, mezclar la harina con la sal. Hacer un hueco en el centro, verter el agua con levadura y el aceite. Integrar con una cuchara hasta que se forme una masa rústica.</li>
-            <li>Amasar sobre la mesada enharinada durante 10 minutos, hasta que la masa esté lisa, elástica y no se pegue. Hacer un bollo, tapar con film y dejar levar 1 hora a temperatura ambiente o hasta que duplique su volumen.</li>
-            <li>Para la salsa: pelar los tomates (cruzar la base, escaldar 30 seg en agua hirviendo, enfriar y pelar). Procesar con el ajo, sal y un chorro de aceite. No cocinar — la salsa cruda respeta el sabor del tomate fresco.</li>
-            <li>Encender el Keveri con carbón de quebracho. Colocar la piedra volcánica o refractaria sobre la grilla central. Cerrar la tapa y dejar precalentar al máximo, al menos 45 minutos, hasta que la piedra esté a 380–400°C.</li>
-            <li>Dividir la masa en 4 bollos de 200 g. Estirar con palote sobre mesada enharinada hasta formar discos de 30 cm, finos en el centro y con un borde de 2 cm.</li>
-            <li>Sobre una pala enharinada (o tabla), colocar el disco de pizza. Cubrir con salsa (sin exceso), mozzarella desmenuzada y un hilo de aceite.</li>
-            <li>Deslizar la pizza sobre la piedra caliente. Cerrar la tapa del Keveri. Cocinar 8–10 minutos hasta que la base esté dorada y los bordes inflados y dorados.</li>
-            <li>Retirar con la pala, coronar con hojas de albahaca fresca y servir de inmediato.</li>
-          </ol>
-
-          <div class="tip-javo">
-            <span class="tip-label">Tip de Javo</span>
-            <p>El secreto es el precalentamiento de la piedra — no menos de 45 minutos a temperatura máxima. Si la piedra no está lo suficientemente caliente, la base de la pizza queda cruda y blanda. La piedra absorbe el calor como el barro del horno de campo; sin ese calor acumulado, no hay magia. Si tenés dudas, tirá una hojita de harina sobre la piedra — si salta y se dora en segundos, está lista.</p>
-          </div>
-        </div>
-
-        <!-- RECETA 2 -->
-        <div class="receta-card" id="pollo-fast-grill">
-          <p class="receta-numero">// 02</p>
-          <h3>Pollo Fast Grill Keveri</h3>
-          <div class="badges">
-            <span class="badge badge-porciones">4 porciones</span>
-            <span class="badge badge-prep">Prep: 15 min + 2 h marinada</span>
-            <span class="badge badge-coccion">Cocción: 35 min</span>
-          </div>
-          <img src="https://images.unsplash.com/photo-1598103442097-8b74394b95c3?w=900&auto=format&fit=crop" alt="Pollo Fast Grill Keveri" class="receta-foto" />
-          <p class="receta-intro">La mariposa es la técnica más honesta para el pollo. Aplanado, la superficie se expone al calor de manera pareja y el Keveri, con la tapa cerrada, actúa como un horno de convección que cocina desde arriba y abajo al mismo tiempo. El resultado es una piel que suena al cortarla y un interior que no necesita ninguna salsa.</p>
-
-          <p class="receta-subtitulo">Ingredientes</p>
-          <ul class="ingredientes-lista">
-            <li><span class="cantidad">1 (1.8 kg)</span>Pollo entero</li>
-            <li><span class="cantidad">Jugo de 2</span>Limones de Salta o limón tahití</li>
-            <li><span class="cantidad">4 dientes</span>Ajo machacado</li>
-            <li><span class="cantidad">2 cdas</span>Pimentón dulce ahumado</li>
-            <li><span class="cantidad">1 cda</span>Pimentón picante</li>
-            <li><span class="cantidad">3 cdas</span>Aceite de oliva</li>
-            <li><span class="cantidad">1 cda</span>Orégano seco</li>
-            <li><span class="cantidad">1 cdita</span>Comino molido</li>
-            <li><span class="cantidad">Sal gruesa</span>y pimienta negra recién molida</li>
-          </ul>
-
-          <p class="receta-subtitulo">Preparación</p>
-          <ol class="pasos-lista">
-            <li>Abrir el pollo en mariposa: con tijera de cocina, cortar por la columna vertebral de arriba hacia abajo en ambos lados. Retirar la columna. Dar vuelta el pollo y aplanar con la palma de la mano presionando sobre el esternón hasta que quede plano.</li>
-            <li>Preparar la marinada: mezclar el jugo de limón, ajo machacado, pimentones, comino, orégano, aceite de oliva, sal y pimienta. Mezclar bien hasta integrar.</li>
-            <li>Hacer incisiones en las partes más gruesas del pollo (muslos y pechuga) con un cuchillo. Untar con la marinada por todos lados, también debajo de la piel. Cubrir con film y dejar marinar en heladera mínimo 2 horas (ideal una noche).</li>
-            <li>Encender el Keveri y llevarlo a 280–320°C. Engrasar la grilla con un trapo impregnado en aceite.</li>
-            <li>Colocar el pollo con el lado de la pechuga hacia abajo sobre la grilla. Cerrar la tapa del Keveri. Cocinar 20 minutos sin mover.</li>
-            <li>Dar vuelta el pollo. Cerrar nuevamente la tapa y cocinar otros 15 minutos, hasta que la piel esté dorada y crujiente y los jugos salgan claros al pinchar el muslo.</li>
-            <li>Dejar reposar 5 minutos antes de cortar. Servir con gajos de limón y chimichurri verde.</li>
-          </ol>
-
-          <div class="tip-javo">
-            <span class="tip-label">Tip de Javo</span>
-            <p>Al cerrar la tapa del Keveri, el calor circula como en un horno de convección — la piel se dora desde arriba por el calor irradiado de la tapa y la carne se cocina desde abajo por la grilla. Eso es lo que hace imposible reproducir este pollo en una parrilla abierta normal. No abras la tapa en los primeros 20 minutos — la constancia de temperatura es todo.</p>
-          </div>
-        </div>
-
-        <!-- RECETA 3 -->
-        <div class="receta-card" id="bondiola-slow-smoke">
-          <p class="receta-numero">// 03</p>
-          <h3>Bondiola Slow Smoke Keveri</h3>
-          <div class="badges">
-            <span class="badge badge-porciones">8 porciones</span>
-            <span class="badge badge-prep">Prep: 30 min + rub overnight</span>
-            <span class="badge badge-coccion">Cocción: 6–8 horas</span>
-          </div>
-          <img src="https://images.unsplash.com/photo-1544025162-d76538f498e0?w=900&auto=format&fit=crop" alt="Bondiola Slow Smoke Keveri" class="receta-foto" />
-          <p class="receta-intro">El ahumado lento es la prueba máxima de cualquier horno a carbón. En el Keveri, la clave es el fuego indirecto: el carbón va a un costado, la carne al otro, y los chips de manzano liberan su humo durante horas a 110 grados. Lo que sale es una bondiola con una costra oscura —el bark— y un interior rosado y húmedo que se deshace sin esfuerzo.</p>
-
-          <p class="receta-subtitulo">Ingredientes</p>
-          <ul class="ingredientes-lista">
-            <li><span class="cantidad">2 kg</span>Bondiola de cerdo entera</li>
-            <li><span class="cantidad">3 cdas</span>Azúcar negra</li>
-            <li><span class="cantidad">2 cdas</span>Sal gruesa</li>
-            <li><span class="cantidad">2 cdas</span>Pimentón ahumado</li>
-            <li><span class="cantidad">1 cda</span>Pimienta negra molida gruesa</li>
-            <li><span class="cantidad">1 cda</span>Ajo en polvo</li>
-            <li><span class="cantidad">1 cda</span>Cebolla en polvo</li>
-            <li><span class="cantidad">1 cdita</span>Comino molido</li>
-            <li><span class="cantidad">1 cdita</span>Cayena molida</li>
-            <li><span class="cantidad">150 g</span>Chips de madera de manzano (remojados en agua 1 hora)</li>
-          </ul>
-
-          <p class="receta-subtitulo">Preparación</p>
-          <ol class="pasos-lista">
-            <li>La noche anterior: mezclar todos los ingredientes del rub (azúcar negra, sal, pimentón, pimienta, ajo, cebolla, comino, cayena). Secar la bondiola con papel de cocina. Cubrir con el rub por todos lados, presionando para que adhiera. Envolver en film y refrigerar overnight.</li>
-            <li>Al día siguiente, retirar la bondiola de la heladera 1 hora antes de cocinar para que llegue a temperatura ambiente.</li>
-            <li>Encender carbón solo en un sector del Keveri (fuego indirecto). La carne no debe estar directamente sobre las brasas. Llevar el Keveri a 110–120°C.</li>
-            <li>Escurrir los chips de manzano y distribuirlos directamente sobre las brasas. Inmediatamente colocar la bondiola sobre la grilla en el sector sin brasas. Cerrar la tapa.</li>
-            <li>Mantener la temperatura entre 110°C y 120°C durante toda la cocción. Agregar carbón y chips de manzano cada 90 minutos para sostener el calor y el humo.</li>
-            <li>Cocinar 6–8 horas, hasta que la temperatura interna de la bondiola llegue a 90–95°C (usar termómetro de cocina). En ese punto la grasa intramuscular estará completamente fundida.</li>
-            <li>Envolver en papel de carnicero o aluminio y dejar reposar 30 minutos antes de cortar o desmechar.</li>
-          </ol>
-
-          <div class="tip-javo">
-            <span class="tip-label">Tip de Javo</span>
-            <p>El secreto del fuego indirecto es que el calor rodea a la carne sin quemarla directamente — como un horno, pero con sabor a carbón. Cargá las brasas siempre en un sector lateral; la carne va en el sector opuesto. Si el Keveri sube de 130°C, abrí ligeramente la tapa unos minutos y reducí el tiro de aire. La paciencia es parte del proceso: no hay atajo para el ahumado lento.</p>
-          </div>
-        </div>
-
-        <!-- RECETA 4 -->
-        <div class="receta-card" id="costillar-keveri">
-          <p class="receta-numero">// 04</p>
-          <h3>Costillar de Cerdo Keveri</h3>
-          <div class="badges">
-            <span class="badge badge-porciones">6 porciones</span>
-            <span class="badge badge-prep">Prep: 20 min</span>
-            <span class="badge badge-coccion">Cocción: 3 horas</span>
-          </div>
-          <img src="https://images.unsplash.com/photo-1558030137-a56c1b002c8b?w=900&auto=format&fit=crop" alt="Costillar de Cerdo Keveri" class="receta-foto" />
-          <p class="receta-intro">El costillar lento es el plato que más me pidieron los primeros años de restaurante. Hay algo en la combinación de azúcar negra caramelizada, pimentón y el hueso del cerdo que hace que la gente coma en silencio. Al Keveri le va perfecta esta receta porque mantiene la humedad interna — algo que la parrilla abierta siempre resigna.</p>
-
-          <p class="receta-subtitulo">Ingredientes</p>
-          <ul class="ingredientes-lista">
-            <li><span class="cantidad">1 tira entera</span>Costillar de cerdo (aprox. 2 kg)</li>
-            <li><span class="cantidad">3 cdas</span>Azúcar negra</li>
-            <li><span class="cantidad">2 cdas</span>Pimentón dulce</li>
-            <li><span class="cantidad">1 cda</span>Ajo en polvo</li>
-            <li><span class="cantidad">1 cda</span>Cebolla en polvo</li>
-            <li><span class="cantidad">1 cda</span>Sal gruesa</li>
-            <li><span class="cantidad">1 cdita</span>Pimienta negra</li>
-            <li><span class="cantidad">1 cdita</span>Comino</li>
-            <li><span class="cantidad">4 cdas</span>Miel de caña o miel multiflora</li>
-            <li><span class="cantidad">2 cdas</span>Mostaza Dijon</li>
-            <li><span class="cantidad">1 cda</span>Vinagre de manzana</li>
-          </ul>
-
-          <p class="receta-subtitulo">Preparación</p>
-          <ol class="pasos-lista">
-            <li>Retirar la membrana plateada del lado del hueso del costillar: introducir el dedo o un cuchillo bajo la membrana en un extremo y tirar con papel de cocina hasta desprenderla por completo. Esto permite que el rub penetre y que la carne se separe mejor del hueso.</li>
-            <li>Mezclar azúcar negra, pimentón, ajo, cebolla, sal, pimienta y comino. Frotar el rub por ambos lados del costillar con presión.</li>
-            <li>Encender el Keveri con carbón en fuego indirecto. Llevar a 150°C. Colocar el costillar con el hueso hacia abajo en el sector sin brasas. Cerrar la tapa.</li>
-            <li>Cocinar 2 horas y 30 minutos sin abrir. La temperatura debe mantenerse estable en 150°C. Agregar carbón si es necesario.</li>
-            <li>Preparar el glasé: mezclar la miel, mostaza y vinagre de manzana en un recipiente pequeño.</li>
-            <li>A los 2 horas y 30 minutos, abrir el Keveri y pincelar generosamente el costillar con el glasé de miel por ambos lados. Subir la temperatura del Keveri a 200°C.</li>
-            <li>Cocinar 20 minutos más, hasta que el glasé esté caramelizado y brillante. La carne debe separarse del hueso al presionarla con el dedo.</li>
-            <li>Dejar reposar 10 minutos y cortar entre los huesos para servir.</li>
-          </ol>
-
-          <div class="tip-javo">
-            <span class="tip-label">Tip de Javo</span>
-            <p>El Keveri retiene la humedad de manera que la parrilla abierta no puede — es la tapa cerrada la que recircula los vapores de la cocción. Esto es crucial para el costillar: esa humedad interna es lo que hace que la carne se separe del hueso limpiamente. Si cocinás un costillar en parrilla abierta durante 3 horas, lo más probable es que quede reseco. En el Keveri, no.</p>
-          </div>
-        </div>
-
-        <!-- RECETA 5 -->
-        <div class="receta-card" id="pan-campo-keveri">
-          <p class="receta-numero">// 05</p>
-          <h3>Pan de Campo Keveri</h3>
-          <div class="badges">
-            <span class="badge badge-porciones">2 panes</span>
-            <span class="badge badge-prep">Prep: 2 h (levado)</span>
-            <span class="badge badge-coccion">Cocción: 45 min</span>
-          </div>
-          <img src="https://images.unsplash.com/photo-1509440159596-0249088772ff?w=900&auto=format&fit=crop" alt="Pan de Campo Keveri" class="receta-foto" />
-          <p class="receta-intro">En el norte argentino, el pan se horneaba en horno de barro desde siempre. El Keveri con olla de hierro fundido reproduce ese entorno: vapor atrapado, calor radiante desde abajo y los lados, costra que suena hueco al golpearla. Este pan lo hacemos todos los fines de semana — va con todo, desde el desayuno hasta el asado del mediodía.</p>
-
-          <p class="receta-subtitulo">Ingredientes</p>
-          <ul class="ingredientes-lista">
-            <li><span class="cantidad">300 g</span>Harina integral fina</li>
-            <li><span class="cantidad">200 g</span>Harina 000</li>
-            <li><span class="cantidad">10 g</span>Levadura seca activa</li>
-            <li><span class="cantidad">320 ml</span>Agua tibia</li>
-            <li><span class="cantidad">10 g</span>Sal fina</li>
-            <li><span class="cantidad">2 cdas</span>Aceite de oliva</li>
-            <li><span class="cantidad">1 cdita</span>Azúcar</li>
-            <li><span class="cantidad">Semillas</span>Opcional: lino, sésamo, girasol</li>
-          </ul>
-
-          <p class="receta-subtitulo">Preparación</p>
-          <ol class="pasos-lista">
-            <li>Activar la levadura en el agua tibia con el azúcar. Esperar 10 minutos hasta que esté espumosa.</li>
-            <li>Mezclar ambas harinas con la sal en un bol. Agregar el agua con levadura y el aceite. Integrar hasta formar una masa.</li>
-            <li>Amasar 10 minutos hasta que la masa esté lisa y elástica. Si usás semillas, incorporarlas al final del amasado.</li>
-            <li>Dividir en dos bollos. Colocar cada uno en un recipiente aceitado, tapar con repasador húmedo y dejar levar 1 hora a temperatura ambiente o hasta que dupliquen su tamaño.</li>
-            <li>Encender el Keveri y colocar las ollas de hierro fundido (con tapa) dentro del horno. Llevar a 200–220°C incluyendo las ollas dentro — el hierro debe estar caliente cuando entre la masa.</li>
-            <li>Con precaución, retirar una olla del Keveri. Enharinarla levemente. Volcar un bollo de masa dentro de la olla. Colocar el recipiente pequeño con agua en el piso del Keveri para generar vapor.</li>
-            <li>Tapar la olla y colocar de vuelta en el Keveri. Cocinar 30 minutos con la tapa de la olla puesta.</li>
-            <li>Retirar la tapa de la olla (no la del Keveri) y cocinar 15 minutos más hasta que la costra esté dorada y suene hueco al golpear la base.</li>
-            <li>Retirar y enfriar sobre rejilla al menos 20 minutos antes de cortar.</li>
-          </ol>
-
-          <div class="tip-javo">
-            <span class="tip-label">Tip de Javo</span>
-            <p>El vapor es el secreto de la costra perfecta. Poné un recipiente metálico con agua en el piso del Keveri al momento de meter el pan — ese vapor mantiene la superficie de la masa húmeda los primeros minutos, permitiendo que la costra se forme al final (brillante y crocante) en lugar de endurecerse prematuramente y asfixiar el desarrollo del pan.</p>
-          </div>
-        </div>
-
-        <!-- RECETA 6 -->
-        <div class="receta-card" id="medialunas-keveri">
-          <p class="receta-numero">// 06</p>
-          <h3>Medialunas Artesanales al Keveri</h3>
-          <div class="badges">
-            <span class="badge badge-porciones">24 unidades</span>
-            <span class="badge badge-prep">Prep: 3 h (levado y formado)</span>
-            <span class="badge badge-coccion">Cocción: 15 min</span>
-          </div>
-          <img src="https://images.unsplash.com/photo-1555507036-ab1f4038808a?w=900&auto=format&fit=crop" alt="Medialunas Artesanales al Keveri" class="receta-foto" />
-          <p class="receta-intro">La medialuna argentina no es el croissant francés — es más dulce, más brioche, y tiene una textura completamente diferente. El almíbar de lustre final es la firma: ese brillo pegajoso que te mancha los dedos. Con el Keveri, el calor parejo elimina los puntos fríos que arruinan las bandejas de horno casero, donde la mitad queda cruda y la otra mitad quemada.</p>
-
-          <p class="receta-subtitulo">Ingredientes — Masa</p>
-          <ul class="ingredientes-lista">
-            <li><span class="cantidad">500 g</span>Harina 000</li>
-            <li><span class="cantidad">200 g</span>Manteca fría cortada en cubos</li>
-            <li><span class="cantidad">150 ml</span>Leche tibia</li>
-            <li><span class="cantidad">10 g</span>Levadura seca</li>
-            <li><span class="cantidad">80 g</span>Azúcar</li>
-            <li><span class="cantidad">2</span>Huevos</li>
-            <li><span class="cantidad">5 g</span>Sal</li>
-            <li><span class="cantidad">1 cdita</span>Esencia de vainilla</li>
-          </ul>
-
-          <p class="receta-subtitulo">Ingredientes — Almíbar de lustre</p>
-          <ul class="ingredientes-lista">
-            <li><span class="cantidad">100 g</span>Azúcar</li>
-            <li><span class="cantidad">100 ml</span>Agua</li>
-          </ul>
-
-          <p class="receta-subtitulo">Preparación</p>
-          <ol class="pasos-lista">
-            <li>Activar la levadura en la leche tibia con 1 cucharadita de azúcar. Esperar 10 minutos.</li>
-            <li>En un bol grande, mezclar harina, sal y azúcar. Agregar los huevos, la vainilla y la leche con levadura. Integrar hasta obtener una masa.</li>
-            <li>Incorporar la manteca fría en cubos de a poco, amasando entre cada adición. La masa quedará suave y un poco pegajosa. Amasar 8–10 minutos hasta que sea lisa.</li>
-            <li>Cubrir y dejar levar 1 hora y 30 minutos a temperatura ambiente hasta que duplique.</li>
-            <li>Dividir la masa en 3 bollos. Estirar cada uno en un círculo de 30 cm de diámetro. Cortar en 8 triángulos como una pizza.</li>
-            <li>Enrollar cada triángulo desde la base hacia la punta, estirando levemente. Curvar los extremos para darle forma de medialuna. Colocar sobre asaderas aceitadas.</li>
-            <li>Dejar levar 30 minutos más (levado final). Las medialunas deben verse henchidas.</li>
-            <li>Llevar el Keveri a 180°C. Hornear las medialunas 15 minutos hasta que estén doradas.</li>
-            <li>Mientras hornean, preparar el almíbar: disolver el azúcar en el agua y llevar a ebullición 3 minutos. Pincelar generosamente las medialunas recién salidas del Keveri con el almíbar caliente.</li>
-          </ol>
-
-          <div class="tip-javo">
-            <span class="tip-label">Tip de Javo</span>
-            <p>El calor parejo del Keveri elimina el principal problema del horno hogareño: los puntos calientes. En cualquier horno eléctrico o a gas común, la resistencia o el quemador crea zonas más calientes que otras — las medialunas cerca del quemador se queman mientras las del fondo quedan crudas. El Keveri distribuye el calor del carbón de manera uniforme por toda la cámara. Resultado: las 24 medialunas salen exactamente igual.</p>
-          </div>
-        </div>
-
-        <!-- RECETA 7 -->
-        <div class="receta-card" id="langostinos-keveri">
-          <p class="receta-numero">// 07</p>
-          <h3>Langostinos al Keveri con Manteca de Ajo</h3>
-          <div class="badges">
-            <span class="badge badge-porciones">4 porciones</span>
-            <span class="badge badge-prep">Prep: 15 min</span>
-            <span class="badge badge-coccion">Cocción: 8 min</span>
-          </div>
-          <img src="https://images.unsplash.com/photo-1565680018434-b513d5e5fd47?w=900&auto=format&fit=crop" alt="Langostinos al Keveri con Manteca de Ajo" class="receta-foto" />
-          <p class="receta-intro">Los langostinos al carbón son uno de los platos más rápidos y más impresionantes que puedo hacer. Ocho minutos desde que el fuego está listo. El truco — que todo el mundo olvida — es cocinarlos con la cáscara puesta. La cáscara protege la carne del calor directo y se impregna de todos los sabores del carbón y la manteca. Después se pela en la mesa.</p>
-
-          <p class="receta-subtitulo">Ingredientes</p>
-          <ul class="ingredientes-lista">
-            <li><span class="cantidad">1 kg</span>Langostinos enteros frescos, con cáscara</li>
-            <li><span class="cantidad">100 g</span>Manteca clarificada (ghee)</li>
-            <li><span class="cantidad">4 dientes</span>Ajo picado muy fino</li>
-            <li><span class="cantidad">Jugo de 1</span>Limón</li>
-            <li><span class="cantidad">1 cdita</span>Pimentón ahumado</li>
-            <li><span class="cantidad">½ cdita</span>Ají molido</li>
-            <li><span class="cantidad">Sal gruesa</span>y perejil picado para servir</li>
-          </ul>
-
-          <p class="receta-subtitulo">Preparación</p>
-          <ol class="pasos-lista">
-            <li>Enjuagar los langostinos con agua fría y secar con papel de cocina. Con tijera de cocina, hacer un corte longitudinal en la parte superior de la cáscara (sin llegar a pelar). Esto permite que la manteca penetre durante la cocción.</li>
-            <li>Preparar la manteca de ajo: fundir la manteca clarificada a fuego bajo. Agregar el ajo picado y cocinar 2–3 minutos hasta que esté suave y perfumado (sin dorar). Agregar el pimentón, el ají molido y el jugo de limón. Reservar.</li>
-            <li>Llevar el Keveri a 320°C con la grilla bien caliente. Engrasar la grilla con un trapo aceitado.</li>
-            <li>Colocar los langostinos directamente sobre la grilla caliente. Pincelar inmediatamente con la manteca de ajo.</li>
-            <li>Cocinar 3–4 minutos de cada lado, pincelando con manteca en cada vuelta. La cáscara debe quedar rosada-naranja intenso y levemente carbonizada en los bordes.</li>
-            <li>Retirar y servir inmediatamente sobre una tabla o plato con más manteca de ajo por encima, sal gruesa y perejil picado. Servir con pan para mojar la salsa.</li>
-          </ol>
-
-          <div class="tip-javo">
-            <span class="tip-label">Tip de Javo</span>
-            <p>Nunca saques la cáscara antes de cocinar. La cáscara del langostino es una armadura natural que protege la carne delicada del calor directo del carbón a 320°C — sin ella, la carne se reseca en segundos. Además, la cáscara se carga de sabores (carbón, ajo, pimentón) que después impregnan la carne cuando se pela en la mesa. Es una diferencia enorme de sabor.</p>
-          </div>
-        </div>
-
-        <!-- RECETA 8 -->
-        <div class="receta-card" id="vegetales-keveri">
-          <p class="receta-numero">// 08</p>
-          <h3>Vegetales Asados al Keveri</h3>
-          <div class="badges">
-            <span class="badge badge-porciones">6 porciones</span>
-            <span class="badge badge-prep">Prep: 15 min</span>
-            <span class="badge badge-coccion">Cocción: 25 min</span>
-          </div>
-          <img src="https://images.unsplash.com/photo-1540420773420-3366772f4999?w=900&auto=format&fit=crop" alt="Vegetales Asados al Keveri" class="receta-foto" />
-          <p class="receta-intro">Los vegetales asados al carbón son un plato en sí mismos — no una guarnición. El Keveri carameliza los azúcares de los vegetales de una manera que ningún horno eléctrico puede igualar: el calor seco del carbón hace que las berenjenas queden ahumadas, los pimientos dulcísimos y el espárrago con esa costra exterior que contrasta con el interior tierno.</p>
-
-          <p class="receta-subtitulo">Ingredientes</p>
-          <ul class="ingredientes-lista">
-            <li><span class="cantidad">2 medianas</span>Berenjenas cortadas en rodajas gruesas de 2 cm</li>
-            <li><span class="cantidad">2</span>Zucchini cortados en rodajas o a lo largo</li>
-            <li><span class="cantidad">2</span>Pimientos rojos cortados en cuartos</li>
-            <li><span class="cantidad">1</span>Pimiento amarillo cortado en cuartos</li>
-            <li><span class="cantidad">2</span>Cebollas cortadas en gajos gruesos</li>
-            <li><span class="cantidad">1 atado</span>Espárragos, bases recortadas</li>
-            <li><span class="cantidad">200 g</span>Tomates cherry</li>
-            <li><span class="cantidad">4 cdas</span>Aceite de oliva extra virgen</li>
-            <li><span class="cantidad">Sal gruesa</span>y pimienta negra</li>
-            <li><span class="cantidad">1 cda</span>Orégano o tomillo fresco</li>
-          </ul>
-
-          <p class="receta-subtitulo">Preparación</p>
-          <ol class="pasos-lista">
-            <li>Cortar todos los vegetales en trozos grandes — esto es fundamental: los trozos grandes tienen más superficie para caramelizarse y no se resecan durante la cocción.</li>
-            <li>Distribuir los vegetales en una asadera o bandeja. Rociar con aceite de oliva, sal gruesa y pimienta. Mezclar con las manos para cubrir todos los trozos.</li>
-            <li>Llevar el Keveri a 220°C. Colocar la asadera con los vegetales sobre la grilla. Cerrar la tapa.</li>
-            <li>Cocinar 15 minutos. Abrir, dar vuelta los vegetales con pinzas y agregar los tomates cherry enteros en este momento (se cocinan más rápido).</li>
-            <li>Cocinar 10 minutos más, hasta que los bordes estén caramelizados y levemente carbonizados, y los vegetales estén tiernos al pincharlos.</li>
-            <li>Servir calientes espolvoreados con orégano o tomillo fresco. Rociar con un poco más de aceite de oliva crudo al momento de servir.</li>
-          </ol>
-
-          <div class="tip-javo">
-            <span class="tip-label">Tip de Javo</span>
-            <p>El error más común con vegetales asados es cortarlos demasiado chicos. Un zucchini en rodajas de 5 mm se reseca y queda amargo. Cortado en rodajas de 2 cm o a lo largo en cuatro partes, el exterior se carameliza mientras el interior queda cremoso. Los vegetales grandes también se mueven menos en la grilla y no caen por los espacios. Tamaño grande: siempre.</p>
-          </div>
-        </div>
-
-        <!-- RECETA 9 -->
-        <div class="receta-card" id="provoleta-keveri">
-          <p class="receta-numero">// 09</p>
-          <h3>Provoleta Keveri</h3>
-          <div class="badges">
-            <span class="badge badge-porciones">4 porciones</span>
-            <span class="badge badge-prep">Prep: 5 min</span>
-            <span class="badge badge-coccion">Cocción: 12 min</span>
-          </div>
-          <img src="https://images.unsplash.com/photo-1452195100486-9cc805987862?w=900&auto=format&fit=crop" alt="Provoleta Keveri" class="receta-foto" />
-          <p class="receta-intro">La provoleta perfecta tiene una costra dorada y crocante por fuera y un interior completamente fundido que fluye al cortarla. El problema con la parrilla abierta es que el calor viene solo desde abajo — la superficie superior nunca se dora. En el Keveri, el calor llega desde arriba y abajo simultáneamente: costra arriba y abajo, fundido total en el centro.</p>
-
-          <p class="receta-subtitulo">Ingredientes</p>
-          <ul class="ingredientes-lista">
-            <li><span class="cantidad">500 g</span>Provolone en disco de 2 cm de espesor</li>
-            <li><span class="cantidad">1 cdita</span>Ají molido</li>
-            <li><span class="cantidad">1 cdita</span>Orégano seco</li>
-            <li><span class="cantidad">1 cda</span>Aceite de oliva</li>
-            <li><span class="cantidad">Pimienta</span>negra recién molida</li>
-          </ul>
-
-          <p class="receta-subtitulo">Preparación</p>
-          <ol class="pasos-lista">
-            <li>Llevar el Keveri a 250°C. Colocar la sartén de hierro fundido dentro del Keveri mientras se calienta — el hierro debe estar bien caliente antes de agregar el queso.</li>
-            <li>Sacar la sartén con precaución usando guantes. Agregar el aceite de oliva y colocar el disco de provolone en la sartén.</li>
-            <li>Espolvorear con ají molido, orégano y pimienta negra.</li>
-            <li>Volver la sartén al Keveri. Cerrar la tapa. Cocinar 12 minutos — los primeros 6 minutos sin abrir.</li>
-            <li>A los 6 minutos, verificar: el queso debe estar fundido en el centro y dorándose por los bordes. Si la superficie superior no tiene color, puede subirse la temperatura otros 2–3 minutos.</li>
-            <li>Retirar y servir directamente en la sartén con pan casero y chimichurri. La provoleta no espera — comerla inmediatamente.</li>
-          </ol>
-
-          <div class="tip-javo">
-            <span class="tip-label">Tip de Javo</span>
-            <p>La sartén de hierro es fundamental — no el aluminio ni el acero inoxidable. El hierro fundido retiene y distribuye el calor de manera uniforme, crea la costra inferior del queso perfecta, y al estar dentro del Keveri recibe calor también desde la tapa. El resultado es una provoleta con doble costra (arriba y abajo) que en parrilla abierta es imposible de lograr.</p>
-          </div>
-        </div>
-
-        <!-- RECETA 10 -->
-        <div class="receta-card" id="cordero-keveri">
-          <p class="receta-numero">// 10</p>
-          <h3>Cordero al Keveri</h3>
-          <div class="badges">
-            <span class="badge badge-porciones">8 porciones</span>
-            <span class="badge badge-prep">Prep: 30 min + marinada 4 h</span>
-            <span class="badge badge-coccion">Cocción: 2 h 30 min</span>
-          </div>
-          <img src="https://images.unsplash.com/photo-wqsUZB9D0Lk?w=900&auto=format&fit=crop" alt="Cordero al Keveri" class="receta-foto" />
-          <p class="receta-intro">El cordero del norte argentino es diferente al del sur. Es un animal que creció en la altura, comiendo hierbas del monte que le dan un sabor particular — menos graso, más herbal, casi salvaje. La paleta de cordero pide cocción lenta y mucha humedad. El Keveri y un poco de vino blanco de los valles Calchaquíes hacen el trabajo.</p>
-
-          <p class="receta-subtitulo">Ingredientes</p>
-          <ul class="ingredientes-lista">
-            <li><span class="cantidad">1 paleta</span>Cordero del norte (1.5–2 kg)</li>
-            <li><span class="cantidad">200 ml</span>Vino blanco torrontés o chardonnay de los valles</li>
-            <li><span class="cantidad">3 dientes</span>Ajo en láminas</li>
-            <li><span class="cantidad">1 rama</span>Romero fresco</li>
-            <li><span class="cantidad">1 rama</span>Tomillo fresco</li>
-            <li><span class="cantidad">1 cda</span>Orégano seco</li>
-            <li><span class="cantidad">2 cdas</span>Aceite de oliva</li>
-            <li><span class="cantidad">1 cda</span>Sal gruesa</li>
-            <li><span class="cantidad">1 cdita</span>Comino</li>
-            <li><span class="cantidad">Jugo de 1</span>Limón</li>
-          </ul>
-
-          <p class="receta-subtitulo">Preparación</p>
-          <ol class="pasos-lista">
-            <li>Hacer incisiones profundas en la paleta con un cuchillo delgado. Insertar láminas de ajo en cada incisión.</li>
-            <li>Preparar la marinada: mezclar vino, aceite de oliva, jugo de limón, romero, tomillo, orégano, comino y sal. Verter sobre la paleta, cubrir con film y marinar en heladera mínimo 4 horas, idealmente una noche.</li>
-            <li>Retirar la paleta de la heladera 1 hora antes de cocinar. Guardar el líquido de la marinada para rociar durante la cocción.</li>
-            <li>Encender el Keveri a fuego indirecto. Llevar a 160°C. Colocar la paleta en una asadera con el líquido de la marinada colado en el fondo.</li>
-            <li>Insertar la asadera en el Keveri. Cerrar la tapa. Cocinar 2 horas y 30 minutos, rociando con los jugos de la asadera cada 30 minutos.</li>
-            <li>La paleta está lista cuando la carne se desmenuza al presionarla con un tenedor y la temperatura interna supera los 85°C.</li>
-            <li>Dejar reposar 15 minutos tapada con aluminio antes de servir. Desglasar los jugos de la asadera con un poco de vino y servir como salsa.</li>
-          </ol>
-
-          <div class="tip-javo">
-            <span class="tip-label">Tip de Javo</span>
-            <p>Rociar cada 30 minutos no es solo para que no se reseque — es para ir construyendo capas de sabor sobre la superficie de la carne. Cada vez que rociás con los jugos de la asadera (que se mezclan con la marinada, la grasa del cordero y el humo del carbón), estás lacando la carne. La primera hora parece que no pasa nada; en la segunda, la paleta empieza a tomar un color caoba oscuro y brillante que no tiene nada que ver con ningún otro método de cocción.</p>
-          </div>
-        </div>
-
-        <!-- RECETA 11 -->
-        <div class="receta-card" id="zapallo-keveri">
-          <p class="receta-numero">// 11</p>
-          <h3>Zapallo Relleno al Keveri</h3>
-          <div class="badges">
-            <span class="badge badge-porciones">6 porciones</span>
-            <span class="badge badge-prep">Prep: 30 min</span>
-            <span class="badge badge-coccion">Cocción: 1 h 30 min</span>
-          </div>
-          <img src="https://images.unsplash.com/photo-ubkJke6IJ3I?w=900&auto=format&fit=crop" alt="Zapallo Relleno al Keveri" class="receta-foto" />
-          <p class="receta-intro">El zapallo anco es el vegetal del norte por excelencia — aparece en los mercados de Salta en otoño con un naranja intenso que ya anticipa el sabor dulce y especiado. Relleno con arroz y carne, queda como un plato único que sorprende en la mesa. La cáscara caramelizada es el contraste perfecto con el relleno salado.</p>
-
-          <p class="receta-subtitulo">Ingredientes</p>
-          <ul class="ingredientes-lista">
-            <li><span class="cantidad">1 mediano</span>Zapallo anco (aprox. 2 kg)</li>
-            <li><span class="cantidad">300 g</span>Carne picada de novillo</li>
-            <li><span class="cantidad">1 taza</span>Arroz blanco cocido</li>
-            <li><span class="cantidad">1</span>Cebolla picada fina</li>
-            <li><span class="cantidad">2 dientes</span>Ajo picado</li>
-            <li><span class="cantidad">1</span>Tomate maduro picado</li>
-            <li><span class="cantidad">1 cdita</span>Comino</li>
-            <li><span class="cantidad">1 cdita</span>Pimentón</li>
-            <li><span class="cantidad">½ cdita</span>Ají molido</li>
-            <li><span class="cantidad">100 g</span>Queso fresco o mozzarella rallado</li>
-            <li><span class="cantidad">2 cdas</span>Aceite, sal y pimienta</li>
-            <li><span class="cantidad">1 cda</span>Azúcar negra</li>
-            <li><span class="cantidad">1 cda</span>Aceite de oliva (para la cáscara)</li>
-          </ul>
-
-          <p class="receta-subtitulo">Preparación</p>
-          <ol class="pasos-lista">
-            <li>Cortar el zapallo por la mitad a lo largo. Retirar las semillas con una cuchara. Hacer una red de incisiones en la pulpa (sin atravesar la cáscara) para facilitar la cocción.</li>
-            <li>Mezclar la azúcar negra con el aceite de oliva. Untar generosamente el exterior de la cáscara con esta mezcla — esto es lo que da la caramelización oscura característica.</li>
-            <li>En una sartén, dorar la carne picada con un poco de aceite. Agregar cebolla, ajo y tomate. Cocinar 10 minutos. Condimentar con comino, pimentón, ají molido, sal y pimienta. Integrar el arroz cocido.</li>
-            <li>Rellenar cada mitad de zapallo con el relleno de carne y arroz. Cubrir con queso rallado.</li>
-            <li>Llevar el Keveri a 180°C. Colocar las mitades de zapallo sobre la grilla o en una asadera. Cerrar la tapa.</li>
-            <li>Cocinar 1 hora y 30 minutos, hasta que la pulpa del zapallo esté completamente tierna al pincharla y la cáscara exterior esté caramelizada y oscura.</li>
-            <li>Servir directamente en la mitad del zapallo como recipiente.</li>
-          </ol>
-
-          <div class="tip-javo">
-            <span class="tip-label">Tip de Javo</span>
-            <p>La mezcla de aceite de oliva y azúcar negra en la cáscara exterior no es decorativa — crea una reacción de caramelización que endurece la cáscara convirtiéndola en un recipiente impermeable que contiene los jugos del relleno durante toda la cocción. Además, ese caramelo amargo contrasta perfectamente con el dulzor natural del zapallo y la sal de la carne.</p>
-          </div>
-        </div>
-
-        <!-- RECETA 12 -->
-        <div class="receta-card" id="pollo-ahumado-keveri">
-          <p class="receta-numero">// 12</p>
-          <h3>Pollo Entero Ahumado-Asado Keveri</h3>
-          <div class="badges">
-            <span class="badge badge-porciones">6 porciones</span>
-            <span class="badge badge-prep">Prep: 20 min + brine 8 h</span>
-            <span class="badge badge-coccion">Cocción: 2 horas</span>
-          </div>
-          <img src="https://images.unsplash.com/photo-6C-MpjBN-tY?w=900&auto=format&fit=crop" alt="Pollo Entero Ahumado-Asado Keveri" class="receta-foto" />
-          <p class="receta-intro">El smoke-roast es la técnica mixta que más orgullosa me tiene del Keveri. Primero ahumás en frío para que la carne absorba el sabor del manzano; después subís la temperatura para terminar el asado y crujir la piel. El resultado tiene sabor ahumado profundo pero sin resecarse — algo que ningún otro método puede garantizar.</p>
-
-          <p class="receta-subtitulo">Ingredientes</p>
-          <ul class="ingredientes-lista">
-            <li><span class="cantidad">1 (1.8 kg)</span>Pollo entero</li>
-            <li><span class="cantidad">2 litros</span>Agua fría (para el brine)</li>
-            <li><span class="cantidad">50 g</span>Sal gruesa (para el brine)</li>
-            <li><span class="cantidad">30 g</span>Azúcar (para el brine)</li>
-            <li><span class="cantidad">2 hojas</span>Laurel (para el brine)</li>
-            <li><span class="cantidad">1 cda</span>Pimienta en grano (para el brine)</li>
-            <li><span class="cantidad">2 cdas</span>Aceite de oliva</li>
-            <li><span class="cantidad">1 cdita</span>Pimentón ahumado</li>
-            <li><span class="cantidad">Sal y pimienta</span>para el exterior</li>
-            <li><span class="cantidad">100 g</span>Chips de madera de manzano (en agua 1 hora)</li>
-          </ul>
-
-          <p class="receta-subtitulo">Preparación</p>
-          <ol class="pasos-lista">
-            <li>Preparar el brine: disolver la sal y el azúcar en el agua fría. Agregar laurel y pimienta en grano. Sumergir el pollo entero en el brine, cubrir y refrigerar 8 horas mínimo.</li>
-            <li>Retirar el pollo del brine, enjuagar y secar muy bien con papel de cocina. Frotar con aceite de oliva, pimentón ahumado, sal y pimienta.</li>
-            <li>Encender el Keveri con carbón en fuego indirecto. Llevar a 110°C. Distribuir los chips de manzano escurridos directamente sobre las brasas.</li>
-            <li>Fase 1 — Ahumado: colocar el pollo en el sector sin brasas. Cerrar la tapa. Ahumar 45 minutos a 110°C, renovando los chips a los 20 minutos si el humo se extingue.</li>
-            <li>Fase 2 — Asado: después de 45 minutos de ahumado, agregar carbón para subir la temperatura a 200°C. No mover el pollo.</li>
-            <li>Cocinar 1 hora y 15 minutos más a 200°C, hasta que la piel esté dorada y crujiente y la temperatura interna en el muslo supere los 75°C.</li>
-            <li>Dejar reposar 10 minutos antes de cortar y servir.</li>
-          </ol>
-
-          <div class="tip-javo">
-            <span class="tip-label">Tip de Javo</span>
-            <p>El brine de 8 horas no es opcional — es la diferencia entre un pollo ahumado seco y uno jugoso. La salmuera penetra las fibras de la carne y crea una barrera que retiene los jugos durante las 2 horas de cocción combinada. El manzano le da un humo suave y levemente frutal que va perfecto con el pollo — no lo uses en exceso. Una sola carga de chips a los primeros 45 minutos es suficiente.</p>
-          </div>
-        </div>
-
-        <!-- RECETA 13 -->
-        <div class="receta-card" id="focaccia-keveri">
-          <p class="receta-numero">// 13</p>
-          <h3>Focaccia Keveri con Romero y Aceitunas</h3>
-          <div class="badges">
-            <span class="badge badge-porciones">8 porciones</span>
-            <span class="badge badge-prep">Prep: 2 h (levado)</span>
-            <span class="badge badge-coccion">Cocción: 25 min</span>
-          </div>
-          <img src="https://images.unsplash.com/photo-OgPPITlTm84?w=900&auto=format&fit=crop" alt="Focaccia Keveri con Romero y Aceitunas" class="receta-foto" />
-          <p class="receta-intro">La focaccia al Keveri tiene una base diferente a cualquier otra: la asadera con aceite de oliva generoso dentro del horno de carbón crea una base que es mitad frita, mitad horneada — dorada y crujiente por abajo, esponjosa por arriba. El romero y las aceitunas negras perfuman toda la cocina desde que empieza a subir la temperatura.</p>
-
-          <p class="receta-subtitulo">Ingredientes</p>
-          <ul class="ingredientes-lista">
-            <li><span class="cantidad">500 g</span>Harina 000</li>
-            <li><span class="cantidad">10 g</span>Levadura seca</li>
-            <li><span class="cantidad">350 ml</span>Agua tibia</li>
-            <li><span class="cantidad">10 g</span>Sal</li>
-            <li><span class="cantidad">80 ml</span>Aceite de oliva extra virgen (para la masa)</li>
-            <li><span class="cantidad">60 ml</span>Aceite de oliva (para la asadera)</li>
-            <li><span class="cantidad">2 ramas</span>Romero fresco, hojas separadas</li>
-            <li><span class="cantidad">100 g</span>Aceitunas negras sin carozo</li>
-            <li><span class="cantidad">150 g</span>Tomates cherry cortados al medio</li>
-            <li><span class="cantidad">Sal en escamas</span>(fleur de sel o Maldon)</li>
-          </ul>
-
-          <p class="receta-subtitulo">Preparación</p>
-          <ol class="pasos-lista">
-            <li>Activar la levadura en el agua tibia con una pizca de azúcar. Esperar 10 minutos.</li>
-            <li>Mezclar la harina con la sal. Agregar el agua con levadura y 80 ml de aceite de oliva. Integrar hasta formar una masa pegajosa y húmeda — no amasar de más. La focaccia no necesita una masa tan trabajada como el pan.</li>
-            <li>Verter los 60 ml de aceite de oliva restantes en la asadera (30 x 40 cm). Colocar la masa en la asadera y extenderla con los dedos aceitados. No importa si no llega a los bordes — en el levado se expande.</li>
-            <li>Cubrir con film y dejar levar 1 hora y 30 minutos a temperatura ambiente.</li>
-            <li>Con los dedos bien aceitados, hacer hoyuelos profundos en toda la superficie de la masa, presionando hasta el fondo de la asadera. Llenar cada hoyuelo con aceite de oliva.</li>
-            <li>Distribuir las aceitunas, los tomates cherry (boca hacia abajo) y las hojas de romero sobre la masa. Presionar levemente para que queden incrustados. Espolvorear generosamente con sal en escamas.</li>
-            <li>Llevar el Keveri a 200°C. Hornear la focaccia 25 minutos hasta que la superficie esté dorada y los bordes se despeguen de la asadera.</li>
-            <li>Retirar, dejar enfriar 5 minutos en la asadera y luego desmoldar sobre una rejilla. Servir tibia.</li>
-          </ol>
-
-          <div class="tip-javo">
-            <span class="tip-label">Tip de Javo</span>
-            <p>Los hoyuelos son el alma de la focaccia — hacelos profundos, hasta el fondo, y llenálos de aceite de oliva antes de hornear. Esas piscinas de aceite se evaporan durante el horneado creando vapor interno que expande la miga, y el aceite sobrante fríe la base en contacto con la asadera. Sin hoyuelos generosos, la focaccia queda plana y dura. Con el aceite en escamas encima, cada bocado tiene tres texturas: base crocante, miga aérea, costra superior dorada.</p>
-          </div>
-        </div>
-
-      </section>
-    </div>
-  </main>
-
-  <!-- FOOTER -->
-  <footer>
-    <p class="footer-marca">Javo Te Cocina</p>
-    <p class="footer-sub">Salta, Argentina · Cocina del Norte</p>
-    <nav class="footer-links">
-      <a href="/">Inicio</a>
-      <a href="/recetarios">Recetarios</a>
-      <a href="/sobre-javo">Sobre Javo</a>
-      <a href="/contacto">Contacto</a>
-    </nav>
-    <p class="footer-copy">© 2024 Javo Te Cocina · Todos los derechos reservados</p>
-  </footer>
-
 </body>
 </html>
