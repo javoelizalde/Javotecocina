@@ -164,8 +164,7 @@ nav.scrolled{background:rgba(26,18,11,.92);backdrop-filter:blur(12px);padding:.9
 .about-brands{margin-top:1.75rem;padding-top:1.35rem;border-top:1px solid rgba(245,237,228,.12);}
 .about-brands-label{display:block;margin-bottom:1rem;font-family:'Barlow Condensed',sans-serif;font-size:.7rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:rgba(245,237,228,.45);}
 
-/* ── INSTAGRAM ── */
-.ig-sec{background:var(--cream);padding:var(--gap) 0;}
+/* ── INSTAGRAM (grilla; la sección vive dentro de .showcase) ── */
 .ig-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:.75rem;margin-top:2.25rem;}
 
 /* Card base — portrait 4:5, igual que el feed de IG */
@@ -184,9 +183,7 @@ nav.scrolled{background:rgba(26,18,11,.92);backdrop-filter:blur(12px);padding:.9
 @media(max-width:900px){.ig-grid{grid-template-columns:repeat(2,1fr);gap:.6rem;}}
 @media(max-width:480px){.ig-grid{grid-template-columns:repeat(2,1fr);gap:.5rem;}.ig-item-overlay{padding:.5rem;}.ig-play-btn{font-size:.62rem;padding:.35rem .6rem;}}
 
-/* ── PORTFOLIO ── */
-.portfolio{background:var(--dark);}
-.portfolio-header{display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:3rem;flex-wrap:wrap;gap:1.5rem;}
+/* ── PORTFOLIO (vive dentro de .showcase; reestilizado para fondo claro) ── */
 .portfolio-filters{display:flex;gap:.5rem;flex-wrap:wrap;}
 .filter-btn{font-family:'Barlow Condensed',sans-serif;font-size:.8rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;padding:.4rem 1rem;border:1px solid rgba(245,237,228,.18);background:transparent;color:rgba(245,237,228,.45);border-radius:2px;transition:all .2s;}
 .filter-btn:hover,.filter-btn.active{background:var(--fire);border-color:var(--fire);color:#fff;}
@@ -375,10 +372,7 @@ textarea{resize:vertical;min-height:90px;}
 .prod-modal-close{position:absolute;top:1rem;right:1rem;background:rgba(26,18,11,.7);border:1px solid rgba(245,237,228,.1);border-radius:2px;font-size:1rem;color:rgba(245,237,228,.55);width:32px;height:32px;display:flex;align-items:center;justify-content:center;transition:color .2s,border-color .2s;cursor:pointer;}
 .prod-modal-close:hover{color:var(--ash);border-color:rgba(245,237,228,.3);}
 
-/* ── TESTIMONIOS (fondo claro: alterna con Contratar/dark) ── */
-.testi-sec{background:var(--cream);}
-.testi-sec .sec-title{color:var(--dark);}
-
+/* ── TESTIMONIOS (vive dentro de .showcase, fondo claro) ── */
 /* Rating summary */
 .rating-summary{display:flex;align-items:center;gap:3rem;margin-top:2.25rem;margin-bottom:2.5rem;padding:2rem 2.5rem;background:#fff;border:1px solid rgba(26,18,11,.08);border-radius:6px;flex-wrap:wrap;}
 .rating-big{text-align:center;flex-shrink:0;}
@@ -827,6 +821,7 @@ a,button,[onclick],[role="button"],.filter-btn,.btn-buy,.btn-ver,.btn-primary,.b
     <div class="showcase-block reveal" id="testimonios">
       <div class="showcase-block-head">
         <h3 class="showcase-block-title">Lo que dicen mis clientes</h3>
+        <button type="button" class="showcase-link" id="reviewFormToggle" onclick="toggleReviewForm()" aria-expanded="false" aria-controls="reviewFormWrap">Dejar mi reseña →</button>
       </div>
     <!-- RATING SUMMARY — visible solo cuando hay reseñas reales -->
     <div class="rating-summary" id="ratingSummary" style="display:none;">
@@ -852,8 +847,8 @@ a,button,[onclick],[role="button"],.filter-btn,.btn-buy,.btn-ver,.btn-primary,.b
       </div>
     </div>
 
-    <!-- FORMULARIO PARA DEJAR RESEÑA -->
-    <div class="testi-form-wrap reveal">
+    <!-- FORMULARIO PARA DEJAR RESEÑA (colapsado por defecto; se abre con el botón) -->
+    <div class="testi-form-wrap" id="reviewFormWrap" style="display:none;">
       <div class="testi-form-title">¿Trabajaste con Javo?</div>
       <p class="testi-form-sub">Dejá tu reseña completa. Aparecerá en el carrusel en la próxima actualización de la página.</p>
       <div class="testi-form-inner">
@@ -1858,6 +1853,17 @@ document.addEventListener('keydown',e=>{
     });
   }
 });
+
+/* ── TOGGLE FORM DE RESEÑA (colapsado por defecto para compactar) ── */
+function toggleReviewForm(){
+  const wrap=document.getElementById('reviewFormWrap');
+  const btn=document.getElementById('reviewFormToggle');
+  if(!wrap)return;
+  const open=wrap.style.display!=='none';
+  wrap.style.display=open?'none':'';
+  if(btn){btn.setAttribute('aria-expanded',String(!open));btn.textContent=open?'Dejar mi reseña →':'Cerrar formulario ✕';}
+  if(!open){const f=document.getElementById('t-nombre');if(f)setTimeout(()=>f.focus(),50);}
+}
 
 /* ── STAR PICKER ── */
 function hoverStar(picker,v){
