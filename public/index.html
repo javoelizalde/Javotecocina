@@ -38,7 +38,7 @@
   --muted:#7A5440;
   --danger:#C0392B;
   /* Escala de espaciado vertical de secciones (compacta, consistente) */
-  --gap:4rem;
+  --gap:2.25rem;
 }
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
 html{scroll-behavior:smooth;font-size:16px;overflow-x:hidden;}
@@ -52,10 +52,10 @@ button{cursor:pointer;}
 .reveal.visible{opacity:1;transform:none;}
 
 /* ── TYPOGRAPHY ── */
-.sec-label{font-family:'Barlow Condensed',sans-serif;font-size:.72rem;font-weight:700;letter-spacing:.25em;text-transform:uppercase;color:var(--ember);margin-bottom:.75rem;display:flex;align-items:center;}
-.sec-title{font-family:'Cormorant Garamond',serif;font-size:clamp(2.8rem,5.5vw,4.5rem);font-weight:600;line-height:1.1;margin-bottom:1rem;}
+.sec-label{font-family:'Barlow Condensed',sans-serif;font-size:.7rem;font-weight:700;letter-spacing:.25em;text-transform:uppercase;color:var(--ember);margin-bottom:.5rem;display:flex;align-items:center;}
+.sec-title{font-family:'Cormorant Garamond',serif;font-size:clamp(1.9rem,2.8vw,2.6rem);font-weight:600;line-height:1.05;margin-bottom:.55rem;}
 .sec-title em{font-style:italic;color:var(--fire);}
-.sec-desc{font-size:1rem;font-weight:300;line-height:1.7;max-width:560px;}
+.sec-desc{font-size:.95rem;font-weight:300;line-height:1.6;max-width:540px;}
 
 /* ── BUTTONS ── */
 .btn-primary{display:inline-block;background:var(--fire);color:#fff;padding:.875rem 2rem;font-family:'Barlow Condensed',sans-serif;font-size:.9rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;text-decoration:none;border-radius:2px;border:none;transition:background .2s,transform .15s;}
@@ -97,27 +97,53 @@ nav.scrolled{background:rgba(26,18,11,.92);backdrop-filter:blur(12px);padding:.9
 .hamburger.open span:nth-child(3){transform:rotate(-45deg) translate(5px,-5px);}
 
 /* ── HERO ── */
-.hero{position:relative;min-height:auto;display:flex;align-items:center;overflow:hidden;background:var(--dark);padding:7rem 0 4.5rem;}
-.hero-bg{position:absolute;inset:0;background:radial-gradient(ellipse 60% 80% at 70% 50%,rgba(200,75,17,.35) 0%,transparent 70%),radial-gradient(ellipse 40% 60% at 30% 80%,rgba(212,160,23,.15) 0%,transparent 60%),linear-gradient(to bottom,rgba(26,18,11,.3) 0%,rgba(26,18,11,.7) 100%);z-index:1;}
+.hero{position:relative;min-height:auto;display:flex;align-items:stretch;overflow:hidden;background:var(--dark);padding:7rem 0 0;}
+.hero-bg{position:absolute;inset:0;background:radial-gradient(ellipse 60% 80% at 70% 50%,rgba(200,75,17,.35) 0%,transparent 70%),radial-gradient(ellipse 40% 60% at 30% 80%,rgba(212,160,23,.15) 0%,transparent 60%),linear-gradient(to bottom,rgba(26,18,11,.3) 0%,rgba(26,18,11,.75) 100%);z-index:1;}
 .hero-photo{position:absolute;inset:0;z-index:0;}
 .hero-photo img{width:100%;height:100%;object-fit:cover;object-position:center 62%;opacity:.4;}
-.hero-content{position:relative;z-index:3;padding:0 2.5rem;max-width:760px;}
+.hero-inner{position:relative;z-index:3;width:100%;max-width:1200px;margin:0 auto;padding:0 2.5rem;display:flex;flex-direction:column;}
+.hero-content{max-width:780px;padding:.5rem 0 2.5rem;}
 .hero-eyebrow{font-family:'Barlow Condensed',sans-serif;font-size:.78rem;font-weight:700;letter-spacing:.28em;text-transform:uppercase;color:var(--ember);margin-bottom:1rem;}
 .hero-title{font-family:'Cormorant Garamond',serif;font-size:clamp(2.6rem,6vw,4.75rem);font-weight:700;line-height:1.02;color:var(--ash);margin-bottom:.15em;letter-spacing:-.01em;text-wrap:balance;}
 .hero-title em{font-style:italic;color:var(--ember);}
-.hero-sub{font-size:1.05rem;font-weight:300;color:rgba(245,237,228,.78);max-width:520px;line-height:1.6;margin-top:1.25rem;margin-bottom:2rem;}
-.hero-actions{display:flex;gap:.85rem;flex-wrap:wrap;}
+.hero-sub{font-size:1.05rem;font-weight:300;color:rgba(245,237,228,.78);max-width:540px;line-height:1.6;margin-top:1.25rem;margin-bottom:2rem;}
+.hero-actions{display:flex;gap:.85rem;flex-wrap:wrap;align-items:center;}
+/* Barra de confianza full-width al pie del hero — usa el ancho y da prueba arriba */
+.hero-trustbar{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;margin-top:auto;border-top:1px solid rgba(245,237,228,.14);background:rgba(245,237,228,.05);border-radius:8px 8px 0 0;overflow:hidden;}
+.hero-trust{display:flex;flex-direction:column;gap:.25rem;padding:1.1rem 1.35rem;background:rgba(26,18,11,.35);}
+.hero-trust b{font-family:'Barlow Condensed',sans-serif;font-size:1.05rem;font-weight:800;letter-spacing:.02em;color:var(--ash);line-height:1.05;}
+.hero-trust span{font-family:'Barlow Condensed',sans-serif;font-size:.7rem;font-weight:600;letter-spacing:.13em;text-transform:uppercase;color:rgba(245,237,228,.55);}
+@media(max-width:768px){
+  .hero{padding:6rem 0 0;}
+  .hero-inner{padding:0 1.25rem;}
+  .hero-content{padding:.5rem 0 2.25rem;max-width:100%;}
+  .hero-trustbar{grid-template-columns:1fr 1fr;}
+  .hero-trust{padding:.85rem 1rem;}
+}
 @keyframes spin{to{transform:rotate(360deg)}}
 
-/* ── PILARES (qué ofrece + accesos rápidos) ── */
-.pillars{background:var(--cream);padding:2.75rem 0;}
-.pillars-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;}
-.pillar{display:flex;flex-direction:column;gap:.35rem;padding:1.5rem;background:#fff;border:1px solid rgba(26,18,11,.07);border-radius:8px;text-decoration:none;transition:border-color .2s,box-shadow .2s,transform .2s;}
-.pillar:hover{border-color:rgba(200,75,17,.4);box-shadow:0 8px 26px rgba(26,18,11,.09);transform:translateY(-2px);}
-.pillar-k{font-family:'Cormorant Garamond',serif;font-size:1.45rem;font-weight:700;color:var(--dark);line-height:1.15;}
-.pillar-d{font-size:.85rem;color:var(--muted);line-height:1.5;}
-.pillar-go{margin-top:.4rem;font-family:'Barlow Condensed',sans-serif;font-size:.76rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--fire);}
-@media(max-width:768px){.pillars{padding:2rem 0;}.pillars-grid{grid-template-columns:1fr;gap:.75rem;}.pillar{padding:1.1rem 1.25rem;}}
+/* ── PILARES → TRES FORMAS DE TRABAJAR (cream, denso, jerarquizado) ── */
+.pillars{background:var(--cream);padding:var(--gap) 0;}
+.pillars-head{margin-bottom:1.25rem;}
+.pillars-grid{display:grid;grid-template-columns:1.25fr 1fr 1fr;gap:1rem;align-items:stretch;}
+.pillar{position:relative;display:flex;flex-direction:column;gap:.3rem;padding:1.3rem 1.4rem 1.2rem;background:#fff;border:1px solid rgba(26,18,11,.08);border-radius:10px;text-decoration:none;overflow:hidden;transition:border-color .2s,box-shadow .2s,transform .2s;}
+.pillar::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:var(--fire);transform:scaleX(0);transform-origin:left;transition:transform .35s;}
+.pillar:hover{border-color:rgba(200,75,17,.4);box-shadow:0 12px 32px rgba(26,18,11,.12);transform:translateY(-3px);}
+.pillar:hover::before{transform:scaleX(1);}
+.pillar:focus-visible{outline:2px solid var(--fire);outline-offset:3px;}
+.pillar-num{font-family:'Barlow Condensed',sans-serif;font-size:.72rem;font-weight:700;letter-spacing:.18em;color:rgba(26,18,11,.32);}
+.pillar-k{font-family:'Cormorant Garamond',serif;font-size:1.65rem;font-weight:700;color:var(--dark);line-height:1.12;margin-top:.1rem;}
+.pillar-d{font-size:.9rem;color:var(--muted);line-height:1.55;margin-bottom:.35rem;}
+.pillar-meta{margin-top:auto;display:flex;align-items:baseline;gap:.5rem;flex-wrap:wrap;padding-top:.6rem;}
+.pillar-proof{font-family:'Barlow Condensed',sans-serif;font-size:.72rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--earth);}
+.pillar-go{font-family:'Barlow Condensed',sans-serif;font-size:.78rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--fire);margin-left:auto;}
+/* Card destacada = Eventos (acción #1: cotizar) */
+.pillar--featured{background:linear-gradient(165deg,#fff 0%,#fff6ee 100%);border-color:rgba(200,75,17,.3);}
+.pillar--featured::before{transform:scaleX(1);height:4px;}
+.pillar--featured .pillar-tag{position:absolute;top:1.15rem;right:1.2rem;font-family:'Barlow Condensed',sans-serif;font-size:.62rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#fff;background:var(--fire);padding:.2rem .55rem;border-radius:3px;}
+.pillar--featured .pillar-k{font-size:1.85rem;}
+@media(max-width:900px){.pillars-grid{grid-template-columns:1fr 1fr;}.pillar--featured{grid-column:1/-1;}}
+@media(max-width:768px){.pillars{padding:2.5rem 0;}.pillars-grid{grid-template-columns:1fr;gap:.85rem;}.pillar{padding:1.25rem 1.35rem;}.pillar--featured .pillar-k{font-size:1.65rem;}}
 
 /* ── ABOUT (imagen full-bleed con overlay, tratamiento tipo Hero) ── */
 .about{position:relative;background:var(--dark);color:var(--ash);overflow:hidden;}
@@ -129,13 +155,13 @@ nav.scrolled{background:rgba(26,18,11,.92);backdrop-filter:blur(12px);padding:.9
 .about .container{position:relative;z-index:2;}
 .about-grid{display:grid;grid-template-columns:minmax(0,1fr) 240px;gap:2rem 3rem;align-items:center;}
 .about-text{min-width:0;}
-.about-tags{margin-top:1.5rem;font-family:'Barlow Condensed',sans-serif;font-size:.75rem;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:rgba(245,237,228,.5);line-height:1.9;}
-.about-numbers{display:grid;grid-template-columns:1fr 1fr;gap:1.35rem 1.25rem;}
-.about-num-val{font-family:'Barlow Condensed',sans-serif;font-size:2.4rem;font-weight:800;color:var(--ash);line-height:.85;letter-spacing:-.02em;}
+.about-tags{margin-top:1rem;font-family:'Barlow Condensed',sans-serif;font-size:.73rem;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:rgba(245,237,228,.5);line-height:1.7;}
+.about-numbers{display:grid;grid-template-columns:1fr 1fr;gap:1rem 1.25rem;}
+.about-num-val{font-family:'Barlow Condensed',sans-serif;font-size:2rem;font-weight:800;color:var(--ash);line-height:.85;letter-spacing:-.02em;}
 .about-num-val span{color:var(--ember);}
 .about-num-label{font-family:'Barlow Condensed',sans-serif;font-size:.68rem;font-weight:600;letter-spacing:.15em;text-transform:uppercase;color:rgba(245,237,228,.5);margin-top:.5rem;}
 /* Marcas integradas dentro de "Quién soy" */
-.about-brands{margin-top:2.5rem;padding-top:1.75rem;border-top:1px solid rgba(245,237,228,.12);}
+.about-brands{margin-top:1.75rem;padding-top:1.35rem;border-top:1px solid rgba(245,237,228,.12);}
 .about-brands-label{display:block;margin-bottom:1rem;font-family:'Barlow Condensed',sans-serif;font-size:.7rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:rgba(245,237,228,.45);}
 
 /* ── INSTAGRAM ── */
@@ -143,7 +169,7 @@ nav.scrolled{background:rgba(26,18,11,.92);backdrop-filter:blur(12px);padding:.9
 .ig-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:.75rem;margin-top:2.25rem;}
 
 /* Card base — portrait 4:5, igual que el feed de IG */
-.ig-item{position:relative;aspect-ratio:4/5;overflow:hidden;border-radius:6px;background:#1a120b;display:block;text-decoration:none;}
+.ig-item{position:relative;aspect-ratio:1/1;overflow:hidden;border-radius:6px;background:#1a120b;display:block;text-decoration:none;}
 .ig-item video,.ig-item img{width:100%;height:100%;object-fit:cover;display:block;pointer-events:none;transition:transform .4s ease,opacity .4s ease;}
 .ig-item:hover video,.ig-item:hover img{transform:scale(1.03);opacity:.9;}
 
@@ -207,8 +233,8 @@ nav.scrolled{background:rgba(26,18,11,.92);backdrop-filter:blur(12px);padding:.9
 @media(max-width:900px){.brands-strip{gap:1.25rem 1rem;padding:1.25rem;}.brand-logo-link{flex-basis:calc((100% - 3rem) / 4);}.brand-logo-link img{height:32px;}}
 @media(max-width:560px){.brands-strip{gap:1.1rem .75rem;}.brand-logo-link{flex-basis:calc((100% - 1.5rem) / 3);}.brand-logo-link img{height:26px;}}
 
-/* ── CONTRATAR ── */
-.hire-sec{background:var(--dark);}
+/* ── CONTRATAR (banda CTA: tono cálido propio para diferenciarse del footer) ── */
+.hire-sec{background-color:#23140a;background-image:linear-gradient(180deg,#23140a 0%,var(--dark) 78%);border-top:1px solid rgba(232,115,10,.22);}
 .hire-sec .sec-title{color:var(--ash);}
 .hire-sec .sec-desc{color:rgba(245,237,228,.6);}
 .hire-grid{display:grid;grid-template-columns:1fr 1.3fr;gap:5rem;align-items:start;}
@@ -233,25 +259,38 @@ input[type="date"]::-webkit-calendar-picker-indicator{opacity:.45;cursor:pointer
 input:focus,select:focus,textarea:focus{border-color:var(--fire);}
 textarea{resize:vertical;min-height:90px;}
 
+/* ── SECTION HEADER (a lo ancho: título izq + nota de confianza der) ── */
+.section-head{display:flex;align-items:flex-end;justify-content:space-between;gap:1.5rem 2.5rem;flex-wrap:wrap;}
+.section-head-main{max-width:640px;}
+.section-head-main .sec-title{margin-bottom:.6rem;}
+.section-head-main .sec-desc{margin-bottom:0;}
+.head-notes{display:flex;flex-direction:column;gap:.6rem;padding-bottom:.4rem;}
+.head-note{display:flex;align-items:center;gap:.55rem;font-family:'Barlow Condensed',sans-serif;font-size:.82rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;}
+.head-note svg{width:16px;height:16px;flex-shrink:0;stroke:var(--fire);}
+.head-note.on-dark{color:rgba(245,237,228,.7);}
+.head-note.on-dark svg{stroke:var(--ember);}
+.head-note.on-light{color:var(--earth);}
+@media(max-width:768px){.head-notes{flex-direction:row;flex-wrap:wrap;gap:.5rem 1.25rem;}.head-note{font-size:.72rem;}}
+
 /* ── RECETARIOS ── */
 .digital-sec{background:var(--cream);}
-.digital-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1.25rem;margin-top:2.25rem;}
-.digital-card{display:flex;flex-direction:column;padding:1.25rem;background:#fff;border-radius:6px;border:1px solid rgba(26,18,11,.07);position:relative;overflow:hidden;transition:box-shadow .3s,transform .3s,border-color .3s;}
+.digital-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));justify-content:start;gap:1.35rem;margin-top:1.75rem;}
+.digital-card{display:flex;flex-direction:column;padding:1rem;background:#fff;border-radius:8px;border:1px solid rgba(26,18,11,.07);position:relative;overflow:hidden;transition:box-shadow .3s,transform .3s,border-color .3s;}
 .digital-card:hover{box-shadow:0 8px 28px rgba(26,18,11,.1);border-color:rgba(200,75,17,.35);}
 .digital-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:var(--fire);transform:scaleX(0);transition:transform .4s;}
 .digital-card:hover::before,.digital-card.featured::before{transform:scaleX(1);}
 .digital-card.featured{border-color:rgba(200,75,17,.2);}
-.dc-img{width:100%;height:150px;object-fit:cover;border-radius:4px;margin-bottom:1rem;will-change:transform;}
-.dc-tag{display:inline-block;font-family:'Barlow Condensed',sans-serif;font-size:.65rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;padding:.2rem .6rem;background:rgba(200,75,17,.1);color:var(--fire);border-radius:2px;margin-bottom:.85rem;}
-.dc-title{font-family:'Cormorant Garamond',serif;font-size:1.35rem;font-weight:700;color:var(--dark);margin-bottom:.5rem;}
-.dc-desc{font-size:.875rem;font-weight:300;color:var(--muted);line-height:1.7;margin-bottom:1.5rem;}
-.dc-footer{display:flex;align-items:center;justify-content:space-between;margin-top:auto;}
-.dc-price{font-family:'Barlow Condensed',sans-serif;font-size:1.4rem;font-weight:800;color:var(--dark);}
-.dc-price small{font-size:.75rem;color:var(--muted);font-weight:400;margin-left:.25rem;}
-.dc-actions{display:flex;gap:.75rem;margin-top:1.25rem;}
-.btn-ver{display:inline-block;background:transparent;color:var(--fire);padding:.55rem 1.25rem;font-family:'Barlow Condensed',sans-serif;font-size:.8rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;border-radius:2px;border:1px solid rgba(200,75,17,.4);transition:background .2s,color .2s;}
-.btn-ver:hover{background:rgba(200,75,17,.08);}
-.btn-buy{display:inline-block;background:var(--fire);color:#fff;padding:.55rem 1.25rem;font-family:'Barlow Condensed',sans-serif;font-size:.8rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;border-radius:2px;border:none;transition:background .2s;cursor:pointer;}
+.dc-img{width:100%;height:140px;object-fit:cover;border-radius:5px;margin-bottom:.8rem;will-change:transform;}
+.dc-tag{display:inline-block;font-family:'Barlow Condensed',sans-serif;font-size:.62rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;padding:.18rem .55rem;background:rgba(200,75,17,.1);color:var(--fire);border-radius:2px;margin-bottom:.5rem;align-self:flex-start;}
+.dc-title{font-family:'Cormorant Garamond',serif;font-size:1.25rem;font-weight:700;line-height:1.15;color:var(--dark);margin-bottom:.3rem;}
+.dc-desc{font-size:.83rem;font-weight:300;color:var(--muted);line-height:1.5;margin-bottom:.85rem;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;}
+.dc-footer{display:flex;align-items:center;justify-content:space-between;gap:.5rem;margin-top:auto;}
+.dc-price{font-family:'Barlow Condensed',sans-serif;font-size:1.3rem;font-weight:800;color:var(--dark);line-height:1;}
+.dc-price small{font-size:.7rem;color:var(--muted);font-weight:400;margin-left:.2rem;}
+.dc-actions{display:flex;align-items:center;gap:.85rem;}
+.btn-ver{display:inline-block;background:transparent;color:var(--earth);padding:.35rem 0;font-family:'Barlow Condensed',sans-serif;font-size:.78rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;border:none;transition:color .2s;white-space:nowrap;}
+.btn-ver:hover{color:var(--fire);}
+.btn-buy{display:inline-block;background:var(--fire);color:#fff;padding:.5rem 1.1rem;font-family:'Barlow Condensed',sans-serif;font-size:.8rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;border-radius:2px;border:none;transition:background .2s;cursor:pointer;white-space:nowrap;}
 .btn-buy:hover{background:var(--ember);}
 
 /* ── USER NAV ── */
@@ -308,17 +347,17 @@ textarea{resize:vertical;min-height:90px;}
 .products-sec{background:var(--dark);}
 .products-sec .sec-title{color:var(--ash);}
 .products-sec .sec-desc{color:rgba(245,237,228,.6);}
-.products-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1rem;margin-top:2.25rem;}
+.products-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));justify-content:start;gap:1rem;margin-top:1.75rem;}
 .prod-card{background:rgba(245,237,228,.03);border:1px solid rgba(245,237,228,.06);border-radius:4px;overflow:hidden;transition:border-color .3s,transform .3s;}
 .prod-card:hover{border-color:rgba(200,75,17,.45);}
-.prod-img{aspect-ratio:4/5;overflow:hidden;position:relative;background:var(--smoke);}
-.prod-img img{width:100%;height:100%;object-fit:contain;transition:transform .4s,filter .4s;padding:.75rem;}
+.prod-img{aspect-ratio:1/1;overflow:hidden;position:relative;background:var(--smoke);}
+.prod-img img{width:100%;height:100%;object-fit:contain;transition:transform .4s,filter .4s;padding:.6rem;}
 .prod-card:hover .prod-img img{transform:scale(1.03);}
 .prod-badge{position:absolute;top:.75rem;left:.75rem;font-family:'Barlow Condensed',sans-serif;font-size:.65rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:.25rem .6rem;background:var(--fire);color:#fff;border-radius:2px;}
-.prod-body{padding:1.25rem;display:flex;flex-direction:column;}
-.prod-cat{font-family:'Barlow Condensed',sans-serif;font-size:.65rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--ember);margin-bottom:.35rem;}
-.prod-name{font-family:'Cormorant Garamond',serif;font-size:1.1rem;font-weight:600;color:var(--ash);margin-bottom:.4rem;line-height:1.25;}
-.prod-desc{font-size:.78rem;font-weight:300;color:rgba(245,237,228,.4);line-height:1.55;margin-bottom:1rem;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;}
+.prod-body{padding:.85rem .9rem;display:flex;flex-direction:column;}
+.prod-cat{font-family:'Barlow Condensed',sans-serif;font-size:.62rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--ember);margin-bottom:.25rem;}
+.prod-name{font-family:'Cormorant Garamond',serif;font-size:1.05rem;font-weight:600;color:var(--ash);margin-bottom:.3rem;line-height:1.2;}
+.prod-desc{font-size:.76rem;font-weight:300;color:rgba(245,237,228,.4);line-height:1.45;margin-bottom:.7rem;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;}
 .prod-actions{display:flex;gap:.4rem;margin-top:auto;}
 .btn-prod-ver{flex:1;padding:.62rem .4rem;background:transparent;color:rgba(245,237,228,.55);border:1px solid rgba(245,237,228,.14);border-radius:2px;font-family:'Barlow Condensed',sans-serif;font-size:.73rem;font-weight:700;letter-spacing:.07em;text-transform:uppercase;transition:border-color .2s,color .2s;display:flex;align-items:center;justify-content:center;}
 .btn-prod-ver:hover{border-color:rgba(245,237,228,.3);color:var(--ash);}
@@ -384,8 +423,35 @@ textarea{resize:vertical;min-height:90px;}
 .star-picker span.on{color:var(--ember);}
 .star-picker span:hover{transform:scale(1.12);}
 
-/* ── FOOTER ── */
-footer{background:var(--dark);border-top:1px solid rgba(245,237,228,.06);}
+/* ── SHOWCASE: agrupa Contenido + Portfolio + Reseñas (cream, stack compacto con separadores) ── */
+.showcase{background:var(--cream);}
+.showcase-head{margin-bottom:1.35rem;max-width:640px;}
+.showcase-head .sec-title{color:var(--dark);margin-bottom:.4rem;}
+.showcase-head .sec-desc{color:var(--muted);}
+.showcase-title{font-size:clamp(1.9rem,3vw,2.6rem);}
+.showcase-block{padding-top:1.5rem;margin-top:1.5rem;border-top:1px solid rgba(26,18,11,.1);}
+.showcase-block:first-of-type{padding-top:0;margin-top:0;border-top:none;}
+.showcase-block-head{display:flex;align-items:flex-end;justify-content:space-between;gap:.75rem 1.5rem;flex-wrap:wrap;margin-bottom:1.15rem;}
+.showcase-block-title{font-family:'Cormorant Garamond',serif;font-size:1.55rem;font-weight:700;color:var(--dark);line-height:1.15;}
+.showcase-link{font-family:'Barlow Condensed',sans-serif;font-size:.8rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--fire);text-decoration:none;transition:color .2s;white-space:nowrap;}
+.showcase-link:hover{color:var(--ember);}
+/* Portfolio reestilizado para fondo claro */
+.showcase .ig-grid{margin-top:0;}
+.showcase .portfolio-filters{margin:0;}
+.showcase .filter-btn{border-color:rgba(26,18,11,.18);color:var(--muted);}
+.showcase .filter-btn:hover,.showcase .filter-btn.active{background:var(--fire);border-color:var(--fire);color:#fff;}
+.showcase .port-ver-mas{margin-top:1.5rem;}
+/* Reseñas dentro del stack (sin márgenes de sección propia) */
+.showcase .rating-summary{margin-top:0;margin-bottom:1.5rem;}
+.showcase .testi-form-wrap{margin-top:1.75rem;padding-top:1.5rem;}
+@media(max-width:768px){
+  .showcase-block{padding-top:1.5rem;margin-top:1.5rem;}
+  .showcase-block-head{margin-bottom:.85rem;}
+  .showcase-title{font-size:clamp(1.8rem,6vw,2.3rem);}
+}
+
+/* ── FOOTER (borde superior cálido para separarlo de la banda Contratar) ── */
+footer{background:var(--dark);border-top:1px solid rgba(232,115,10,.18);box-shadow:inset 0 1px 0 rgba(0,0,0,.4);}
 .footer-inner{max-width:1200px;margin:0 auto;padding:4rem 2.5rem 2rem;display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:4rem;}
 .footer-logo img{height:52px;width:auto;margin-bottom:1.25rem;}
 .footer-tagline{font-size:.875rem;font-weight:300;color:rgba(245,237,228,.45);line-height:1.65;margin-bottom:1.25rem;}
@@ -430,7 +496,7 @@ a,button,[onclick],[role="button"],.filter-btn,.btn-buy,.btn-ver,.btn-primary,.b
   .nav-user{order:3;margin-left:0;}
 }
 @media(max-width:768px){
-  :root{--gap:2.75rem;}
+  :root{--gap:2.25rem;}
   .hero{padding:6rem 0 3.25rem;}
   .hero-content{padding:0 1.25rem;max-width:100%;}
   .about-overlay{background:linear-gradient(rgba(26,18,11,.8) 0%,rgba(26,18,11,.92) 100%);}
@@ -471,8 +537,10 @@ a,button,[onclick],[role="button"],.filter-btn,.btn-buy,.btn-ver,.btn-primary,.b
     display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;}
   .dc-price{font-size:1.1rem;}
   .dc-price small{font-size:.65rem;}
-  .dc-actions{gap:.4rem;margin-top:.75rem;}
-  .btn-ver,.btn-buy{font-size:.72rem;padding:.45rem .5rem;flex:1;text-align:center;}
+  .dc-footer{flex-direction:column;align-items:stretch;gap:.55rem;}
+  .dc-actions{gap:.5rem;margin-top:0;align-items:center;justify-content:space-between;}
+  .btn-buy{font-size:.72rem;padding:.5rem .85rem;}
+  .btn-ver{font-size:.72rem;padding:.3rem 0;}
   /* Cards extra ocultas en home mobile */
   .digital-card.mob-oculta{display:none;}
   /* Ver todos wrapper */
@@ -570,35 +638,51 @@ a,button,[onclick],[role="button"],.filter-btn,.btn-buy,.btn-ver,.btn-primary,.b
 <section class="hero" id="inicio">
   <div class="hero-bg"></div>
   <div class="hero-photo"><img src="img/p03.jpg" alt="Javo Elizalde cocinando a fuego" fetchpriority="high" onerror="this.onerror=null;this.src='img/p03.jpg'"></div>
-  <div class="hero-content">
-    <div class="hero-eyebrow">Salta · Buenos Aires · Argentina</div>
-    <h1 class="hero-title">Tu mesa, mi fuego,<br><em>nuestra historia.</em></h1>
-    <p class="hero-sub">Cocinero del norte argentino. Hago asados y experiencias para tu evento, contenido para marcas y recetarios para que cocines en casa.</p>
-    <div class="hero-actions">
-      <a href="#recetarios" class="btn-primary">Ver recetarios</a>
-      <a href="/cotizar" class="btn-outline">Cotizar un evento</a>
+  <div class="hero-inner">
+    <div class="hero-content">
+      <div class="hero-eyebrow">Salta · Buenos Aires · Argentina</div>
+      <h1 class="hero-title">Tu mesa, mi fuego,<br><em>nuestra historia.</em></h1>
+      <p class="hero-sub">Cocinero del norte argentino. Hago asados y experiencias para tu evento, contenido para marcas y recetarios para que cocines en casa.</p>
+      <div class="hero-actions">
+        <a href="/cotizar" class="btn-primary">Cotizar un evento</a>
+        <a href="#recetarios" class="btn-outline">Ver recetarios</a>
+      </div>
+    </div>
+    <div class="hero-trustbar" aria-label="Por qué trabajar con Javo">
+      <div class="hero-trust"><b>Asados &amp; catering</b><span>Cocina en vivo</span></div>
+      <div class="hero-trust"><b>+30 eventos</b><span>Privados y de marca</span></div>
+      <div class="hero-trust"><b>Respuesta &lt;24 h</b><span>Presupuesto a medida</span></div>
+      <div class="hero-trust"><b>BA + todo el país</b><span>Viajo al interior</span></div>
     </div>
   </div>
 </section>
 
-<!-- ═══════════ PILARES / ACCESOS ═══════════ -->
-<section class="pillars" aria-label="Qué ofrece Javotecocina">
+<!-- ═══════════ TRES FORMAS DE TRABAJAR ═══════════ -->
+<section class="pillars" aria-label="Cómo trabajar con Javotecocina">
   <div class="container">
+    <div class="pillars-head reveal">
+      <div class="sec-label">Por dónde empezar</div>
+      <h2 class="sec-title" style="font-size:clamp(2rem,3.5vw,2.8rem);margin-bottom:0;">Tres formas de <em>trabajar</em> conmigo</h2>
+    </div>
     <div class="pillars-grid">
-      <a href="#recetarios" class="pillar">
-        <span class="pillar-k">Recetarios</span>
-        <span class="pillar-d">PDFs descargables para dominar el fuego en casa.</span>
-        <span class="pillar-go">Ver recetarios</span>
+      <a href="/cotizar" class="pillar pillar--featured reveal">
+        <span class="pillar-tag">Lo más pedido</span>
+        <span class="pillar-num">01 · Eventos</span>
+        <span class="pillar-k">Asados &amp; experiencias</span>
+        <span class="pillar-d">Catering, parrilla y cocina en vivo para eventos privados, corporativos y activaciones de marca. Armamos la propuesta a tu medida.</span>
+        <span class="pillar-meta"><span class="pillar-proof">+30 eventos realizados</span><span class="pillar-go">Pedir presupuesto →</span></span>
       </a>
-      <a href="/cotizar" class="pillar">
-        <span class="pillar-k">Eventos</span>
-        <span class="pillar-d">Asados, catering y experiencias para tu evento.</span>
-        <span class="pillar-go">Pedir presupuesto</span>
+      <a href="#recetarios" class="pillar reveal">
+        <span class="pillar-num">02 · Recetarios</span>
+        <span class="pillar-k">Recetarios digitales</span>
+        <span class="pillar-d">PDFs descargables para dominar el fuego en casa, paso a paso.</span>
+        <span class="pillar-meta"><span class="pillar-proof">Acceso inmediato</span><span class="pillar-go">Ver recetarios →</span></span>
       </a>
-      <a href="#productos" class="pillar">
-        <span class="pillar-k">Productos</span>
-        <span class="pillar-d">Equipamiento y productos que uso y recomiendo.</span>
-        <span class="pillar-go">Ver productos</span>
+      <a href="#productos" class="pillar reveal">
+        <span class="pillar-num">03 · Productos</span>
+        <span class="pillar-k">Tienda &amp; equipamiento</span>
+        <span class="pillar-d">Productos y herramientas que uso y recomiendo para cocinar al fuego.</span>
+        <span class="pillar-meta"><span class="pillar-proof">Elegidos por Javo</span><span class="pillar-go">Ver productos →</span></span>
       </a>
     </div>
   </div>
@@ -612,9 +696,8 @@ a,button,[onclick],[role="button"],.filter-btn,.btn-buy,.btn-ver,.btn-primary,.b
     <div class="about-grid">
       <div class="about-text reveal">
         <div class="sec-label">Quién Soy</div>
-        <h2 class="sec-title">De las brasas a la mesa,<br>cocina para <em>cada ocasión</em>.</h2>
-        <p class="sec-desc" style="margin-top:1.25rem;">Soy Javo Elizalde. Nací y me formé en Salta, entre fuego de quebracho y la cocina con la que crecí en el norte. Hoy tengo base en Buenos Aires, desde donde cocino para eventos, marcas y proyectos de todo tipo.</p>
-        <p class="sec-desc" style="margin-top:1rem;">El norte es mi identidad, no mi límite: armo desde un asado o un disco hasta menús de autor, catering y experiencias a medida. Cada encuentro pide algo distinto, y para eso cocino.</p>
+        <h2 class="sec-title">De las brasas a la mesa, cocina para <em>cada ocasión</em></h2>
+        <p class="sec-desc" style="margin-top:.9rem;">Soy Javo Elizalde. Nací y me formé en Salta, entre fuego de quebracho, y hoy tengo base en Buenos Aires. El norte es mi identidad, no mi límite: armo desde un asado o un disco hasta menús de autor, catering y experiencias a medida. Cada encuentro pide algo distinto, y para eso cocino.</p>
         <p class="about-tags">Eventos &amp; Experiencias · Parrilla &amp; Fuego · Cocina de Autor · Catering · Contenido &amp; Marcas</p>
       </div>
       <div class="about-metrics reveal">
@@ -647,10 +730,16 @@ a,button,[onclick],[role="button"],.filter-btn,.btn-buy,.btn-ver,.btn-primary,.b
 <!-- ═══════════ RECETARIOS ═══════════ -->
 <section class="digital-sec" id="recetarios">
   <div class="container">
-    <div class="reveal">
-      <div class="sec-label">Productos digitales</div>
-      <h2 class="sec-title" style="color:var(--dark);"><em>Recetarios</em> para llevar<br>el fuego a tu casa.</h2>
-      <p class="sec-desc" style="color:var(--muted);">PDFs descargables. Comprá y accedé al instante a todo lo que sé del fuego.</p>
+    <div class="section-head reveal">
+      <div class="section-head-main">
+        <div class="sec-label">Productos digitales</div>
+        <h2 class="sec-title" style="color:var(--dark);"><em>Recetarios</em> para cocinar a fuego</h2>
+        <p class="sec-desc" style="color:var(--muted);">PDFs descargables, acceso al instante.</p>
+      </div>
+      <div class="head-notes">
+        <span class="head-note on-light"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13l4 4L19 7"/></svg>Acceso inmediato al descargar</span>
+        <span class="head-note on-light"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>Pago seguro con Mercado Pago</span>
+      </div>
     </div>
     <div class="digital-grid" id="recetariosGrid">
       <div style="grid-column:1/-1;text-align:center;padding:3rem 0;color:var(--muted);font-size:.9rem;">Cargando recetarios...</div>
@@ -669,10 +758,16 @@ a,button,[onclick],[role="button"],.filter-btn,.btn-buy,.btn-ver,.btn-primary,.b
 <!-- ═══════════ PRODUCTOS FÍSICOS ═══════════ -->
 <section class="products-sec" id="productos">
   <div class="container">
-    <div class="reveal">
-      <div class="sec-label">Tienda</div>
-      <h2 class="sec-title">Todo para<br>tu <em>fuego.</em></h2>
-      <p class="sec-desc" style="color:rgba(245,237,228,.6);">Productos seleccionados por Javo. Consultá disponibilidad y te respondemos por WhatsApp.</p>
+    <div class="section-head reveal">
+      <div class="section-head-main">
+        <div class="sec-label">Tienda</div>
+        <h2 class="sec-title">Todo para tu <em>fuego</em></h2>
+        <p class="sec-desc" style="color:rgba(245,237,228,.6);">Equipamiento elegido por Javo. Consultá por WhatsApp.</p>
+      </div>
+      <div class="head-notes">
+        <span class="head-note on-dark"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>Respuesta por WhatsApp</span>
+        <span class="head-note on-dark"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>Probados y recomendados</span>
+      </div>
     </div>
     <div class="products-grid" id="productosGrid">
       <div style="grid-column:1/-1;text-align:center;padding:3rem 0;color:rgba(245,237,228,.45);font-size:.9rem;">Cargando productos...</div>
@@ -688,104 +783,53 @@ a,button,[onclick],[role="button"],.filter-btn,.btn-buy,.btn-ver,.btn-primary,.b
 <!-- MODALES PRODUCTOS PÚBLICOS (generados dinámicamente) -->
 <div id="prodModalesPublic"></div>
 
-<!-- ═══════════ INSTAGRAM ═══════════ -->
-<section class="ig-sec" id="contenido">
+<!-- ═══════════ SHOWCASE: CONTENIDO · PORTFOLIO · RESEÑAS ═══════════ -->
+<section class="showcase" id="contenido">
   <div class="container">
-    <div class="reveal">
-      <div class="sec-label">En las redes</div>
-      <h2 class="sec-title" style="color:var(--dark);"><em>Videos</em> y momentos<br>reales</h2>
-      <p class="sec-desc" style="color:var(--muted);">Reels de eventos, cocina al fuego y detrás de escena. Mirá lo que comparto en Instagram.</p>
+    <div class="showcase-head reveal">
+      <div class="sec-label">Mi trabajo</div>
+      <h2 class="sec-title showcase-title">Detrás del <em>fuego</em></h2>
+      <p class="sec-desc">Contenido real, eventos que ya cociné y lo que dicen quienes confiaron en mí.</p>
     </div>
-    <div class="ig-grid reveal" id="igGrid">
-      <div class="ig-empty">Cargando contenido...</div>
-    </div>
-    <div style="text-align:center;margin-top:2.5rem;" class="reveal">
-      <a href="https://instagram.com/javotecocina" target="_blank" rel="noopener" class="btn-outline-dark">Ver todo en Instagram →</a>
-    </div>
-  </div>
-</section>
 
-<!-- ═══════════ PORTFOLIO ═══════════ -->
-<section class="portfolio" id="portfolio">
-  <div class="container">
-    <div class="portfolio-header reveal">
-      <div>
-        <div class="sec-label">Eventos & Contenido</div>
-        <h2 class="sec-title" style="color:var(--ash);"><em>Portfolio</em> de<br>experiencias</h2>
+    <!-- Contenido / Instagram -->
+    <div class="showcase-block reveal">
+      <div class="showcase-block-head">
+        <h3 class="showcase-block-title">Videos y momentos reales</h3>
+        <a href="https://instagram.com/javotecocina" target="_blank" rel="noopener" class="showcase-link">Ver todo en Instagram →</a>
       </div>
-      <div class="portfolio-filters">
-        <button class="filter-btn active" onclick="filterPortfolio(this,'todo')">Todo</button>
-        <button class="filter-btn" onclick="filterPortfolio(this,'eventos')">Eventos</button>
-        <button class="filter-btn" onclick="filterPortfolio(this,'marcas')">Marcas</button>
-        <button class="filter-btn" onclick="filterPortfolio(this,'parrilla')">Parrilla</button>
-        <button class="filter-btn" onclick="filterPortfolio(this,'contenido')">Contenido</button>
+      <div class="ig-grid" id="igGrid">
+        <div class="ig-empty">Cargando contenido...</div>
       </div>
     </div>
-    <div class="portfolio-grid reveal" id="portfolioGrid">
-      <div style="grid-column:1/-1;text-align:center;padding:4rem 0;color:rgba(245,237,228,.35);font-size:.9rem;">Cargando experiencias...</div>
-    </div>
-    <div class="port-ver-mas reveal" id="portVerMas" style="display:none;">
-      <button class="btn-outline" id="portVerMasBtn" onclick="togglePortfolio()" style="color:var(--ash);border-color:rgba(245,237,228,.25);">Ver todas las experiencias →</button>
-    </div>
-  </div>
-</section>
 
-<!-- MODALES PORTFOLIO (generados dinámicamente) -->
-<div id="portModalesContainer"></div>
-<!-- ═══════════ CONTRATAR ═══════════ -->
-<section class="hire-sec" id="contratar">
-  <div class="container">
-    <div class="hire-grid">
-      <div class="reveal">
-        <div class="sec-label">Trabajemos juntos</div>
-        <h2 class="sec-title">Cotizá tu <em>evento</em><br>ahora.</h2>
-        <p class="sec-desc">Completá el formulario y te respondo por WhatsApp con todos los detalles y presupuesto a medida.</p>
-        <div class="hire-perks">
-          <div class="hire-perk">
-            <div class="hire-perk-icon"></div>
-            <div><div class="hire-perk-title">Respuesta en menos de 24hs</div><div class="hire-perk-desc">Te contacto directamente para entender cada detalle de tu evento.</div></div>
-          </div>
-          <div class="hire-perk">
-            <div class="hire-perk-icon"></div>
-            <div><div class="hire-perk-title">Propuesta personalizada</div><div class="hire-perk-desc">No hay eventos iguales. Cada presupuesto es diseñado a medida.</div></div>
-          </div>
-          <div class="hire-perk">
-            <div class="hire-perk-icon"></div>
-            <div><div class="hire-perk-title">+30 eventos realizados</div><div class="hire-perk-desc">Experiencia en eventos privados, corporativos y activaciones de marca.</div></div>
-          </div>
-          <div class="hire-perk">
-            <div class="hire-perk-icon"></div>
-            <div><div class="hire-perk-title">Buenos Aires y todo el país</div><div class="hire-perk-desc">Trabajo desde Buenos Aires y viajo al interior según el evento.</div></div>
-          </div>
+    <!-- Portfolio -->
+    <div class="showcase-block reveal" id="portfolio">
+      <div class="showcase-block-head">
+        <h3 class="showcase-block-title">Portfolio de experiencias</h3>
+        <div class="portfolio-filters">
+          <button class="filter-btn active" onclick="filterPortfolio(this,'todo')">Todo</button>
+          <button class="filter-btn" onclick="filterPortfolio(this,'eventos')">Eventos</button>
+          <button class="filter-btn" onclick="filterPortfolio(this,'marcas')">Marcas</button>
+          <button class="filter-btn" onclick="filterPortfolio(this,'parrilla')">Parrilla</button>
+          <button class="filter-btn" onclick="filterPortfolio(this,'contenido')">Contenido</button>
         </div>
       </div>
-      <div class="hire-cta-card reveal">
-        <div class="hire-cta-types">
-          <span>Asados &amp; eventos</span>
-          <span>Catering</span>
-          <span>Cocina en vivo</span>
-          <span>Clases &amp; workshops</span>
-          <span>Activaciones de marca</span>
-          <span>Contenido</span>
-        </div>
-        <h3 class="hire-cta-heading">El formulario se adapta<br>a lo que necesitás</h3>
-        <p class="hire-cta-sub">Completás en 2 minutos. Te respondo con presupuesto personalizado en menos de 24 horas.</p>
-        <a href="/cotizar" class="hire-cta-btn">Iniciar cotización →</a>
-        <div class="hire-cta-note">Sin compromiso. Sin spam.</div>
+      <div class="portfolio-grid" id="portfolioGrid">
+        <div style="grid-column:1/-1;text-align:center;padding:3rem 0;color:var(--muted);font-size:.9rem;">Cargando experiencias...</div>
+      </div>
+      <div class="port-ver-mas" id="portVerMas" style="display:none;">
+        <button class="btn-outline-dark" id="portVerMasBtn" onclick="togglePortfolio()">Ver todas las experiencias →</button>
       </div>
     </div>
-  </div>
-</section>
 
-<!-- ═══════════ TESTIMONIOS ═══════════ -->
-<section class="testi-sec" id="testimonios">
-  <div class="container">
-    <div class="reveal">
-      <div class="sec-label">Reseñas</div>
-      <h2 class="sec-title">Lo que dicen<br>mis <em>clientes</em>.</h2>
-    </div>
+    <!-- Reseñas -->
+    <div class="showcase-block reveal" id="testimonios">
+      <div class="showcase-block-head">
+        <h3 class="showcase-block-title">Lo que dicen mis clientes</h3>
+      </div>
     <!-- RATING SUMMARY — visible solo cuando hay reseñas reales -->
-    <div class="rating-summary reveal" id="ratingSummary" style="display:none;">
+    <div class="rating-summary" id="ratingSummary" style="display:none;">
       <div class="rating-big">
         <span class="rating-num" id="ratingNum">5.0</span>
         <div class="rating-stars-row" id="ratingStars">★★★★★</div>
@@ -839,6 +883,55 @@ a,button,[onclick],[role="button"],.filter-btn,.btn-buy,.btn-ver,.btn-primary,.b
           <button class="testi-submit" onclick="enviarTestimonio()">Enviar reseña</button>
         </div>
         <div id="t-ok" style="display:none;align-items:center;color:var(--ember);font-family:'Barlow Condensed',sans-serif;font-size:.85rem;letter-spacing:.08em;">✓ ¡Gracias! Javo revisará tu reseña.</div>
+      </div>
+    </div>
+    </div><!-- /showcase-block reseñas -->
+  </div>
+</section>
+
+<!-- MODALES PORTFOLIO (generados dinámicamente) -->
+<div id="portModalesContainer"></div>
+
+<!-- ═══════════ CONTRATAR (banda CTA final, antes del footer) ═══════════ -->
+<section class="hire-sec" id="contratar">
+  <div class="container">
+    <div class="hire-grid">
+      <div class="reveal">
+        <div class="sec-label">Trabajemos juntos</div>
+        <h2 class="sec-title">Cotizá tu <em>evento</em> ahora</h2>
+        <p class="sec-desc">Completá el formulario y te respondo por WhatsApp con todos los detalles y presupuesto a medida.</p>
+        <div class="hire-perks">
+          <div class="hire-perk">
+            <div class="hire-perk-icon"></div>
+            <div><div class="hire-perk-title">Respuesta en menos de 24hs</div><div class="hire-perk-desc">Te contacto directamente para entender cada detalle de tu evento.</div></div>
+          </div>
+          <div class="hire-perk">
+            <div class="hire-perk-icon"></div>
+            <div><div class="hire-perk-title">Propuesta personalizada</div><div class="hire-perk-desc">No hay eventos iguales. Cada presupuesto es diseñado a medida.</div></div>
+          </div>
+          <div class="hire-perk">
+            <div class="hire-perk-icon"></div>
+            <div><div class="hire-perk-title">+30 eventos realizados</div><div class="hire-perk-desc">Experiencia en eventos privados, corporativos y activaciones de marca.</div></div>
+          </div>
+          <div class="hire-perk">
+            <div class="hire-perk-icon"></div>
+            <div><div class="hire-perk-title">Buenos Aires y todo el país</div><div class="hire-perk-desc">Trabajo desde Buenos Aires y viajo al interior según el evento.</div></div>
+          </div>
+        </div>
+      </div>
+      <div class="hire-cta-card reveal">
+        <div class="hire-cta-types">
+          <span>Asados &amp; eventos</span>
+          <span>Catering</span>
+          <span>Cocina en vivo</span>
+          <span>Clases &amp; workshops</span>
+          <span>Activaciones de marca</span>
+          <span>Contenido</span>
+        </div>
+        <h3 class="hire-cta-heading">El formulario se adapta<br>a lo que necesitás</h3>
+        <p class="hire-cta-sub">Completás en 2 minutos. Te respondo con presupuesto personalizado en menos de 24 horas.</p>
+        <a href="/cotizar" class="hire-cta-btn">Iniciar cotización →</a>
+        <div class="hire-cta-note">Sin compromiso. Sin spam.</div>
       </div>
     </div>
   </div>
@@ -1426,11 +1519,19 @@ window.addEventListener('scroll',()=>{
   document.getElementById('navbar').classList.toggle('scrolled',window.scrollY>60);
 },{passive:true});
 
-/* ── SCROLL REVEAL ── */
-window._revealObserver=new IntersectionObserver(entries=>{
-  entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');}});
-},{threshold:.12});
-document.querySelectorAll('.reveal').forEach(el=>window._revealObserver.observe(el));
+/* ── SCROLL REVEAL (con red de seguridad: nada queda oculto) ── */
+function _revealNow(el){el.classList.add('visible');}
+if('IntersectionObserver' in window){
+  window._revealObserver=new IntersectionObserver(entries=>{
+    entries.forEach(e=>{if(e.isIntersecting){_revealNow(e.target);window._revealObserver.unobserve(e.target);}});
+  },{threshold:0,rootMargin:'0px 0px 80px 0px'});
+  document.querySelectorAll('.reveal').forEach(el=>window._revealObserver.observe(el));
+  // Fail-safe: si el observer no dispara (ej. no scrollea), mostrar todo igual.
+  setTimeout(()=>document.querySelectorAll('.reveal:not(.visible)').forEach(_revealNow),1400);
+}else{
+  // Sin soporte de IntersectionObserver: mostrar todo directamente.
+  document.querySelectorAll('.reveal').forEach(_revealNow);
+}
 
 /* ── MOBILE MENU ── */
 function toggleMobileMenu(){
@@ -1515,9 +1616,8 @@ function renderProductosPublic(list){
       </div>`).join('');
   }
   // Re-observar reveals
-  grid.querySelectorAll('.reveal').forEach(el=>{
-    if(window._revealObserver)window._revealObserver.observe(el);
-    else el.classList.add('visible');
+  grid.querySelectorAll('.reveal').forEach((el,i)=>{
+    setTimeout(()=>el.classList.add('visible'),40*i);
   });
   // Botón "Ver todos" si hay más de HOME_MAX
   const extra=list.length-PROD_HOME_MAX;
@@ -1599,9 +1699,8 @@ function renderPortfolioPublic(list,catFilter){
     if(btn)btn.textContent=_portExpState?'Ver menos ↑':'Ver todas las experiencias →';
   }
 
-  grid.querySelectorAll('.reveal').forEach(el=>{
-    if(window._revealObserver)window._revealObserver.observe(el);
-    else el.classList.add('visible');
+  grid.querySelectorAll('.reveal').forEach((el,i)=>{
+    setTimeout(()=>el.classList.add('visible'),40*i);
   });
 }
 
@@ -1680,10 +1779,12 @@ function renderRecetariosPublic(){
         <div class="dc-tag">${esc(rec.tag||'')}</div>
         <div class="dc-title">${esc(rec.titulo||'')}</div>
         <p class="dc-desc">${esc(rec.descripcion_corta||'')}</p>
-        <div class="dc-footer"><div class="dc-price">${precioDisplay}<small>ARS</small></div></div>
-        <div class="dc-actions">
-          <button class="btn-ver" onclick="openModal('${slug}')">Ver más</button>
-          <button class="btn-buy" data-rec-slug="${esc(recSlug)}" onclick="comprarRecetario('${esc(recSlug)}','${esc(rec.titulo||'')}',${rec.precio||0})">Comprar</button>
+        <div class="dc-footer">
+          <div class="dc-price">${precioDisplay}<small>ARS</small></div>
+          <div class="dc-actions">
+            <button class="btn-ver" onclick="openModal('${slug}')">Ver más</button>
+            <button class="btn-buy" data-rec-slug="${esc(recSlug)}" onclick="comprarRecetario('${esc(recSlug)}','${esc(rec.titulo||'')}',${rec.precio||0})">Comprar</button>
+          </div>
         </div>
       </div>`;
   }).join('');
@@ -1727,9 +1828,8 @@ function renderRecetariosPublic(){
     }
   }
 
-  document.querySelectorAll('#recetariosGrid .reveal').forEach(el=>{
-    if(window._revealObserver)window._revealObserver.observe(el);
-    else el.classList.add('visible');
+  document.querySelectorAll('#recetariosGrid .reveal').forEach((el,i)=>{
+    setTimeout(()=>el.classList.add('visible'),40*i);
   });
 }
 
