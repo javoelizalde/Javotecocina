@@ -104,6 +104,25 @@ body{font-family:'Barlow',sans-serif;background:#B8A795;color:var(--ink);font-si
 .tip{margin-top:0;background:var(--paper2);border-left:3px solid var(--fire);padding:3mm 4mm;border-radius:0 2px 2px 0;}
 .tip-label{font-family:'Barlow Condensed',sans-serif;font-size:6.5pt;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--fire);margin-bottom:1.5mm;}
 .tip-txt{font-family:'Lora',serif;font-size:7.8pt;line-height:1.45;color:var(--ink);font-style:italic;}
+/* ── FORMATO FULL-DETALLE (1 hoja: foto horizontal + antes + pasos + puntos/errores/servir) ── */
+.topband{display:grid;grid-template-columns:1fr 73mm;column-gap:7mm;margin-bottom:4mm;}
+.topband .r-img{height:47mm;margin-bottom:0;}
+.topband .r-note{margin-bottom:3mm;}
+.blk-h{font-family:'Barlow Condensed',sans-serif;font-size:7.5pt;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--fire);margin-bottom:2.2mm;padding-bottom:1.2mm;border-bottom:1pt solid var(--fire);}
+.before{columns:2;column-gap:7mm;margin-bottom:3mm;}
+.before li{font-size:7.4pt;line-height:1.45;color:var(--ink);margin-bottom:2mm;list-style:none;padding-left:3.5mm;position:relative;break-inside:avoid;}
+.before li::before{content:'›';position:absolute;left:0;color:var(--fire);font-weight:900;}
+.before b{color:var(--dark);}
+.pasos{margin-bottom:3mm;}
+.paso-sign{display:block;margin-top:.6mm;font-family:'Lora',serif;font-style:italic;font-size:7.4pt;color:var(--muted);line-height:1.45;}
+.r-bottom{display:grid;grid-template-columns:1fr 1fr 1fr;column-gap:6mm;border-top:.5pt solid var(--line2);padding-top:3.5mm;margin-top:auto;}
+.crit-item{font-size:7.3pt;line-height:1.45;color:var(--ink);margin-bottom:2.2mm;padding-left:3.5mm;position:relative;}
+.crit-item::before{content:'';position:absolute;left:0;top:1.3mm;width:1.6mm;height:1.6mm;background:var(--fire);border-radius:50%;}
+.crit-item b{color:var(--dark);}
+.err{font-size:7.2pt;line-height:1.45;color:var(--ink);margin-bottom:2.4mm;}
+.err b{color:var(--dark);}.err i{color:var(--muted);}
+.serve{font-size:7.4pt;line-height:1.5;color:var(--ink);margin-bottom:2.4mm;}
+.serve b{color:var(--dark);}
 
 /* ── GUÍA ── */
 .guia-cover{background:var(--dark2);display:flex;flex-direction:column;justify-content:flex-end;position:relative;overflow:hidden;}
@@ -273,34 +292,63 @@ body{font-family:'Barlow',sans-serif;background:#B8A795;color:var(--ink);font-si
 <!-- ════ 02 VACÍO ════ -->
 <div class="page recipe">
   <div class="rh"><div class="rh-brand">Javotecocina</div><div class="rh-pg">Vacunos</div><div class="rh-rule"></div></div>
-  <div class="r-head" style="margin-top:11mm;">
-    <div class="r-head-l"><div class="r-cat">Receta 02 · Vacunos</div><div class="r-title">Vacío completo<br>a la parrilla</div></div>
+  <div class="r-head" style="margin-top:4mm;">
+    <div class="r-head-l"><div class="r-cat">Receta 02 · Vacunos</div><div class="r-title">Vacío entero<br>a la parrilla</div></div>
     <div class="r-num">02</div>
   </div>
   <div class="r-meta">
-    <div class="r-meta-it"><div class="r-meta-k">Tiempo</div><div class="r-meta-v">2 a 2½ hs</div></div>
-    <div class="r-meta-it"><div class="r-meta-k">Porciones</div><div class="r-meta-v">8 a 10</div></div>
-    <div class="r-meta-it"><div class="r-meta-k">Fuego</div><div class="r-meta-v">Brasas suaves</div></div>
-    <div class="r-meta-it"><div class="r-meta-k">Dificultad</div><div class="r-meta-v">Media</div></div>
+    <div class="r-meta-it"><div class="r-meta-k">Nivel</div><div class="r-meta-v">Media</div></div>
+    <div class="r-meta-it"><div class="r-meta-k">Prep</div><div class="r-meta-v">10 min</div></div>
+    <div class="r-meta-it"><div class="r-meta-k">Cocción</div><div class="r-meta-v">2–2½ h</div></div>
+    <div class="r-meta-it"><div class="r-meta-k">Reposo</div><div class="r-meta-v">5–10 min</div></div>
+    <div class="r-meta-it"><div class="r-meta-k">Fuego</div><div class="r-meta-v">Brasa suave</div></div>
+    <div class="r-meta-it"><div class="r-meta-k">Rinde</div><div class="r-meta-v">8–10</div></div>
   </div>
-  <div class="r-note">El vacío es mi corte favorito para el asado largo. Tiene grasa, tiene nervio, tiene una textura que ningún otro corte te da. Pero hay que respetarle el tiempo: apurarlo es el único error grave que podés cometer.</div>
-  <div class="r-img"><img src="img/foto3.webp" alt="Vacío a la parrilla"></div>
-  <div class="r-cols">
-    <div class="col-ing">
-      <div class="ing-head">Ingredientes</div>
+  <div class="topband">
+    <div class="r-img"><img src="img/foto3.webp" alt="Vacío entero a la parrilla"></div>
+    <div>
+      <div class="r-note">El vacío premia una sola cosa: la paciencia. No tiene marinada ni secreto: tiene una tapa de grasa que, bien manejada, baña la carne sola. Lo único que lo arruina es arrebatarlo con fuego fuerte.</div>
+      <div class="blk-h">Ingredientes</div>
       <div class="ing-row"><span class="ing-qty">2,5–3 kg</span><span class="ing-name">Vacío entero, con su tapa de grasa</span></div>
       <div class="ing-row"><span class="ing-qty">c/n</span><span class="ing-name">Sal entrefina</span></div>
+      <div class="ing-row"><span class="ing-qty">opcional</span><span class="ing-name">Chimichurri fresco, para servir</span></div>
     </div>
-    <div class="col-pasos">
-      <div class="paso-head">Preparación</div>
-      <div class="paso"><div class="paso-n">1</div><div class="paso-txt"><b>Fuego suave y constante.</b> El vacío entero pesa entre 2,5 y 3 kilos y necesita cocción lenta para que la grasa se derrita de adentro hacia afuera. Querés brasas suaves, repartidas parejas, y nada de llama directa que te queme la grasa antes de tiempo.</div></div>
-      <div class="paso"><div class="paso-n">2</div><div class="paso-txt"><b>La tapa de grasa siempre arriba al empezar.</b> Apoyá el vacío con el lado de la carne hacia las brasas y la tapa de grasa mirando para arriba. Mientras se cocina la parte de abajo, esa grasa de arriba se va derritiendo lentamente y va bañando la carne. Es el mejor "aceite" que existe.</div></div>
-      <div class="paso"><div class="paso-n">3</div><div class="paso-txt"><b>Sal entrefina y nada más.</b> Salá la cara expuesta al empezar. No hace falta marinada ni adobo: el vacío tiene sabor propio de sobra.</div></div>
-      <div class="paso"><div class="paso-n">4</div><div class="paso-txt"><b>Primer lado, alrededor de una hora a una hora y cuarto.</b> Sin tocarlo. La paciencia acá no es opcional. Cuando la cara de abajo está bien sellada y dorada y ves que la carne empezó a cambiar de color hacia arriba, recién ahí lo das vuelta.</div></div>
-      <div class="paso"><div class="paso-n">5</div><div class="paso-txt"><b>Vuelta: la grasa toca las brasas.</b> Ahora la tapa de grasa se dora y se vuelve crocante. Otros 45 minutos a una hora, según el grosor de la pieza. Salá la cara nueva.</div></div>
-      <div class="paso"><div class="paso-n">6</div><div class="paso-txt"><b>El punto justo: leélo en la grasa.</b> El vacío se sirve a punto, nunca jugoso. La señal más clara no es pincharlo sino mirar la tapa de grasa: cuando está opaca y blanquecina todavía le falta; cuando se ve translúcida, casi dorada, brillante, la carne está lista. Si al pinchar el centro el jugo sale rosado, dale 10 minutos más. Cortá fino y siempre contra la fibra.</div></div>
+  </div>
+  <div class="blk-h">Antes de empezar</div>
+  <ul class="before">
+    <li><b>El corte.</b> Vacío entero con la tapa de grasa pareja y entera. La que sirve es blanca y firme, no amarillenta ni seca.</li>
+    <li><b>Brasas en corona.</b> Para una pieza grande, ubicá las brasas en los bordes formando una corona y dejá el centro más suave: se cocina por calor envolvente sin arrebatarse.</li>
+    <li><b>Atemperá.</b> Sacalo de la heladera 30–40 min antes. Frío se contrae sobre la brasa y queda crudo en el centro.</li>
+    <li><b>Pinza, nunca tenedor.</b> Cada pinchazo es jugo que perdés.</li>
+  </ul>
+  <div class="blk-h">Paso a paso</div>
+  <div class="pasos">
+    <div class="paso"><div class="paso-n">1</div><div class="paso-txt"><b>Carne a las brasas, tapa de grasa arriba; salá con entrefina pareja.</b> Sobre la corona de brasas, la grasa de arriba se derrite despacio y baña la carne: el mejor "aceite" que tenés, y no lo da ninguna marinada.</div></div>
+    <div class="paso"><div class="paso-n">2</div><div class="paso-txt"><b>Primer lado: 1 a 1¼ hora sobre brasa suave, sin tocarlo.</b> El vacío se hace por inercia, no por golpe de calor. La paciencia acá no es opcional.<span class="paso-sign">Señal: la base queda sellada y dorada y el color de cocción sube por el costado hasta la mitad. Si la superficie se oscurece rápido y el centro sigue frío, lo estás arrebatando: subí la parrilla o corré la pieza al centro, más suave.</span></div></div>
+    <div class="paso"><div class="paso-n">3</div><div class="paso-txt"><b>Una sola vuelta: la grasa mira a las brasas.</b> 45 min a 1 hora más, según el grosor. Salá la cara nueva. Para el final, repartí las brasas parejo bajo la pieza para lograr el dorado; la tapa se vuelve crocante.</div></div>
+    <div class="paso"><div class="paso-n">4</div><div class="paso-txt"><b>Leé el punto en la grasa.</b> El vacío va a punto, nunca jugoso.<span class="paso-sign">Tapa opaca y blanquecina = le falta; translúcida, brillante y casi dorada = listo. No hace falta termómetro; si querés precisión, podés medir la temperatura interna.</span></div></div>
+    <div class="paso"><div class="paso-n">5</div><div class="paso-txt"><b>Reposo de 5 a 10 minutos antes de cortar.</b> Sobre una tabla, lejos del fuego. En una pieza gruesa como el vacío, ese descanso deja que los jugos se redistribuyan; si lo cortás al toque, se van al plato.</div></div>
+    <div class="paso"><div class="paso-n">6</div><div class="paso-txt"><b>Cortá en contra de la fibra, en tiras.</b> La fibra del vacío es larga y marcada: al través se deshace en la boca; al derecho queda chicloso aunque el punto sea perfecto.</div></div>
+  </div>
+  <div class="r-bottom">
+    <div>
+      <div class="blk-h">Puntos críticos</div>
+      <div class="crit-item"><b>Brasa suave, corona al principio.</b> Inercia y calor envolvente, no golpe.</div>
+      <div class="crit-item"><b>Tapa de grasa arriba.</b> Es lo que lo mantiene jugoso.</div>
+      <div class="crit-item"><b>Leer el punto en la grasa.</b> Más confiable que pinchar.</div>
+      <div class="crit-item"><b>Cortar contra la fibra.</b> Define la textura tanto como el fuego.</div>
     </div>
-    <div class="tip"><div class="tip-label">🔥 El consejo de Javo</div><div class="tip-txt">Nunca le saques la tapa de grasa antes de cocinar. Se derrite sola, perfuma la carne y te da la señal del punto. Y si querés que quede como chicharrón, los últimos 5 minutos subí el fuego y acercá la tapa de grasa directo a las brasas: se infla, se tuesta y queda crocante y dorada. Esa tapa es, para muchos, la mejor parte de todo el asado.</div></div>
+    <div>
+      <div class="blk-h">Errores comunes</div>
+      <div class="err"><b>Arrebatarlo.</b> El más típico: fuego fuerte. Quema afuera y queda crudo/seco adentro. <i>→ Brasa suave en corona; subí la parrilla o corré la pieza al centro.</i></div>
+      <div class="err"><b>Sacarle la tapa de grasa.</b> Pierde su protección natural y se seca. <i>→ Dejala siempre puesta.</i></div>
+      <div class="err"><b>Cortarlo a favor de la fibra.</b> Queda chicloso con buen punto. <i>→ Siempre al través.</i></div>
+    </div>
+    <div>
+      <div class="blk-h">Variantes &amp; cómo servir</div>
+      <div class="serve"><b>Servir:</b> en tiras finas contra la fibra, sobre tabla, apenas pasado el reposo.</div>
+      <div class="serve"><b>Guarnición:</b> en verano, papas fritas y un chimichurri fresco. La salsa la voy variando según la guarnición y la época del año.</div>
+    </div>
   </div>
 </div>
 
