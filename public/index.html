@@ -429,8 +429,10 @@ textarea{resize:vertical;min-height:90px;}
 .showcase-block-title{font-family:'Cormorant Garamond',serif;font-size:1.55rem;font-weight:700;color:var(--dark);line-height:1.15;}
 .showcase-link{font-family:'Barlow Condensed',sans-serif;font-size:.8rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--fire);text-decoration:none;transition:color .2s;white-space:nowrap;}
 .showcase-link:hover{color:var(--ember);}
-/* Portfolio reestilizado para fondo claro */
+/* Portfolio reestilizado para fondo claro: tiles como cards (aire + esquinas redondeadas) */
 .showcase .ig-grid{margin-top:0;}
+.showcase .portfolio-grid{gap:.6rem;}
+.showcase .portfolio-item{border-radius:8px;}
 .showcase .portfolio-filters{margin:0;}
 .showcase .filter-btn{border-color:rgba(26,18,11,.18);color:var(--muted);}
 .showcase .filter-btn:hover,.showcase .filter-btn.active{background:var(--fire);border-color:var(--fire);color:#fff;}
@@ -1770,7 +1772,7 @@ function renderRecetariosPublic(){
     const slug='rec'+rec.id;
     const recSlug=rec.slug||String(rec.id);
     return`<div class="digital-card ${rec.featured?'featured':''} reveal" data-rec-slug="${esc(recSlug)}">
-        <img class="dc-img" src="${esc(rec.foto_url||'')}" alt="${esc(rec.titulo||'')}" loading="lazy">
+        <img class="dc-img" src="${esc(rec.foto_url||'img/p22.jpg')}" alt="Portada del recetario ${esc(rec.titulo||'')}" loading="lazy" onerror="this.onerror=null;this.src='img/p22.jpg'">
         <div class="dc-tag">${esc(rec.tag||'')}</div>
         <div class="dc-title">${esc(rec.titulo||'')}</div>
         <p class="dc-desc">${esc(rec.descripcion_corta||'')}</p>
@@ -2003,27 +2005,25 @@ async function loadInstagramPosts(){
     if(!mediaPosts.length){if(sec)sec.style.display='none';return;}
     if(sec)sec.style.display='';
     const playSvg=`<svg width="11" height="13" viewBox="0 0 11 13" fill="currentColor" aria-hidden="true"><polygon points="0,0 11,6.5 0,13"/></svg>`;
-    const bigPlaySvg=`<svg width="22" height="26" viewBox="0 0 11 13" fill="currentColor" aria-hidden="true"><polygon points="0,0 11,6.5 0,13"/></svg>`;
-    // Fallback visible cuando falta el thumbnail o la imagen falla: card de video clara
-    window.__igNoThumb=`<div class="ig-no-thumb" aria-hidden="true"><span class="ig-big-play">${bigPlaySvg}</span></div>`;
-    grid.innerHTML=mediaPosts.map(p=>{
+    // Portadas locales de respaldo cuando el post no trae thumbnail (fotos reales de cocina).
+    const POSTERS=['img/p03.jpg','img/p10.jpg','img/p17.jpg','img/p22.jpg','img/p28.jpg','img/p31.jpg','img/p07.jpg','img/p14.jpg'];
+    grid.innerHTML=mediaPosts.map((p,i)=>{
       const href=escAttr(p.url);
       const titulo=p.titulo?`<p class="ig-card-title">${escAttr(p.titulo)}</p>`:'';
+      const poster=POSTERS[i%POSTERS.length];
 
       // ── Video directo MP4/WebM ──
       if(igIsDirectVideo(p.video_url)){
         return`<a class="ig-item" href="${href}" target="_blank" rel="noopener noreferrer" aria-label="Ver en Instagram">
-          <video src="${escAttr(p.video_url)}" autoplay muted loop playsinline preload="metadata"${p.thumbnail_url?` poster="${escAttr(p.thumbnail_url)}"`:''}></video>
+          <video src="${escAttr(p.video_url)}" autoplay muted loop playsinline preload="metadata" poster="${escAttr(p.thumbnail_url||poster)}"></video>
           <div class="ig-item-overlay">${titulo}<span class="ig-play-btn">${playSvg}Ver reel</span></div>
         </a>`;
       }
 
-      // ── Thumbnail / Instagram URL → card visual (fallback si falta o falla la imagen) ──
-      const imgHtml=p.thumbnail_url
-        ?`<img src="${escAttr(p.thumbnail_url)}" alt="${p.titulo?escAttr(p.titulo):'Contenido de Instagram'}" loading="lazy" onerror="this.outerHTML=window.__igNoThumb">`
-        :window.__igNoThumb;
+      // ── Sin video directo → portada (thumbnail real o foto local de respaldo) + play ──
+      const cover=escAttr(p.thumbnail_url||poster);
       return`<a class="ig-item" href="${href}" target="_blank" rel="noopener noreferrer" aria-label="Ver en Instagram">
-        ${imgHtml}
+        <img src="${cover}" alt="${p.titulo?escAttr(p.titulo):'Contenido de Instagram'}" loading="lazy" onerror="this.onerror=null;this.src='${poster}'">
         <div class="ig-item-overlay">${titulo}<span class="ig-play-btn">${playSvg}Ver en Instagram</span></div>
       </a>`;
     }).join('');
