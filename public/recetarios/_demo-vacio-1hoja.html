@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex">
+<title>DEMO · Vacío — full detalle en 1 hoja</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Barlow+Condensed:ital,wght@0,600;0,700;0,800;0,900;1,800;1,900&family=Lora:ital,wght@0,400;0,500;0,600;1,400;1,500;1,600&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+:root{
+  --fire:#BF460F;--ember:#E0760F;--gold:#C9A14A;
+  --dark:#170F09;--dark2:#211610;
+  --paper:#FBF6EE;--paper2:#F3E9DA;--warm:#EFE3D2;
+  --ink:#241509;--muted:#7C6450;--soft:#9A8771;--line:#E0D4C4;--line2:#CDBCA6;
+}
+body{font-family:'Barlow',sans-serif;background:#B8A795;color:var(--ink);}
+.page{width:210mm;min-height:297mm;background:var(--paper);margin:0 auto 8mm;position:relative;overflow:hidden;}
+.recipe{padding:11mm 12mm 10mm;display:flex;flex-direction:column;height:297mm;}
+.rh{display:flex;justify-content:space-between;align-items:center;padding-bottom:2mm;border-bottom:.5pt solid var(--line2);margin-bottom:3mm;}
+.rh-brand{font-family:'Barlow Condensed',sans-serif;font-size:6.5pt;font-weight:800;letter-spacing:.24em;text-transform:uppercase;color:var(--fire);}
+.rh-pg{font-family:'Lora',serif;font-size:7pt;font-style:italic;color:var(--soft);}
+.r-head{display:flex;justify-content:space-between;align-items:flex-end;gap:6mm;margin-bottom:2.5mm;}
+.r-cat{font-family:'Barlow Condensed',sans-serif;font-size:6.5pt;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:var(--fire);margin-bottom:1mm;}
+.r-title{font-family:'Barlow Condensed',sans-serif;font-size:23pt;font-weight:900;line-height:.9;text-transform:uppercase;color:var(--dark);}
+.r-num{font-family:'Barlow Condensed',sans-serif;font-size:23pt;font-weight:900;color:var(--line2);line-height:.8;}
+.r-meta{display:flex;margin-bottom:3mm;border-top:.5pt solid var(--line);border-bottom:.5pt solid var(--line);}
+.r-meta-it{flex:1;padding:1.3mm 0;text-align:center;border-right:.5pt solid var(--line);}
+.r-meta-it:last-child{border-right:none;}
+.r-meta-k{font-family:'Barlow Condensed',sans-serif;font-size:5.5pt;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--soft);}
+.r-meta-v{font-family:'Barlow Condensed',sans-serif;font-size:8pt;font-weight:800;color:var(--dark);text-transform:uppercase;}
+.r-note{font-family:'Lora',serif;font-size:8.5pt;font-style:italic;line-height:1.55;color:var(--muted);margin-bottom:4mm;padding-left:4mm;border-left:2px solid var(--ember);}
+/* zona media: foto+ingredientes+antes | pasos */
+.mid{display:grid;grid-template-columns:66mm 1fr;column-gap:7mm;margin-bottom:4.5mm;}
+.r-img{width:100%;height:84mm;border-radius:3px;overflow:hidden;margin-bottom:3.5mm;background:var(--warm);display:flex;align-items:center;justify-content:center;color:var(--soft);font-family:'Barlow Condensed',sans-serif;font-size:7pt;letter-spacing:.08em;text-transform:uppercase;text-align:center;padding:3mm;}
+.blk-h{font-family:'Barlow Condensed',sans-serif;font-size:7.5pt;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--fire);margin-bottom:2.5mm;padding-bottom:1.2mm;border-bottom:1pt solid var(--fire);}
+.ing-row{display:flex;gap:1.5mm;padding:1mm 0;font-size:7.6pt;line-height:1.35;border-bottom:.5pt solid var(--line);}
+.ing-qty{font-weight:700;min-width:14mm;color:var(--dark);}
+.ing-name{color:var(--ink);flex:1;}
+.before{margin-top:4mm;}
+.before li{font-size:7.4pt;line-height:1.5;color:var(--ink);margin-bottom:2.2mm;list-style:none;padding-left:3.5mm;position:relative;}
+.before li::before{content:'›';position:absolute;left:0;color:var(--fire);font-weight:900;}
+.before b{color:var(--dark);}
+.paso{display:flex;gap:3mm;margin-bottom:3mm;align-items:flex-start;}
+.paso-n{font-family:'Barlow Condensed',sans-serif;font-size:11pt;font-weight:900;color:var(--fire);line-height:1;min-width:5mm;opacity:.55;}
+.paso-txt{font-size:8pt;line-height:1.5;color:var(--ink);text-align:justify;}
+.paso-txt b{color:var(--dark);font-weight:700;}
+.paso-sign{display:block;margin-top:.8mm;font-family:'Lora',serif;font-style:italic;font-size:7.4pt;color:var(--muted);line-height:1.45;}
+/* zona baja: 3 columnas */
+.bottom{display:grid;grid-template-columns:1fr 1fr 1fr;column-gap:6mm;border-top:.5pt solid var(--line2);padding-top:4mm;margin-top:3mm;}
+.crit-item{font-size:7.3pt;line-height:1.45;color:var(--ink);margin-bottom:2.2mm;padding-left:3.5mm;position:relative;}
+.crit-item::before{content:'';position:absolute;left:0;top:1.3mm;width:1.6mm;height:1.6mm;background:var(--fire);border-radius:50%;}
+.crit-item b{color:var(--dark);}
+.err{font-size:7.2pt;line-height:1.45;color:var(--ink);margin-bottom:2.4mm;}
+.err b{color:var(--dark);}
+.err i{color:var(--muted);}
+.serve{font-size:7.4pt;line-height:1.5;color:var(--ink);margin-bottom:2.4mm;}
+.serve b{color:var(--dark);}
+.q{color:var(--fire);font-weight:700;font-style:normal;}
+.demo-banner{max-width:210mm;margin:8mm auto 4mm;background:var(--dark);color:#FBF6EE;padding:5mm 8mm;border-radius:4px;}
+.demo-banner h1{font-family:'Barlow Condensed',sans-serif;font-size:15pt;color:var(--ember);margin-bottom:2mm;}
+.demo-banner p{font-size:9pt;line-height:1.5;color:rgba(251,246,238,.82);}
+</style>
+</head>
+<body>
+
+<div class="demo-banner">
+  <h1>DEMO · Vacío — full detalle en UNA hoja A4</h1>
+  <p>Toda la profundidad del Formato A (antes de empezar · pasos con señales · puntos críticos · errores comunes · variantes · cómo servir) + foto, comprimido en una sola página. Lo marcado en <span style="color:#E0760F;font-weight:700;">naranja</span> es lo que necesito que me confirmes (no inventé nada).</p>
+</div>
+
+<div class="page">
+  <div class="recipe">
+    <div class="rh"><div class="rh-brand">Javotecocina · Todo sobre Fierros</div><div class="rh-pg">Vacunos</div></div>
+    <div class="r-head">
+      <div><div class="r-cat">Receta 02 · Vacunos</div><div class="r-title">Vacío entero a la parrilla</div></div>
+      <div class="r-num">02</div>
+    </div>
+    <div class="r-meta">
+      <div class="r-meta-it"><div class="r-meta-k">Nivel</div><div class="r-meta-v">Media</div></div>
+      <div class="r-meta-it"><div class="r-meta-k">Prep</div><div class="r-meta-v">10 min</div></div>
+      <div class="r-meta-it"><div class="r-meta-k">Cocción</div><div class="r-meta-v">2–2½ h</div></div>
+      <div class="r-meta-it"><div class="r-meta-k">Reposo</div><div class="r-meta-v">~10 min</div></div>
+      <div class="r-meta-it"><div class="r-meta-k">Fuego</div><div class="r-meta-v">Brasa suave</div></div>
+      <div class="r-meta-it"><div class="r-meta-k">Rinde</div><div class="r-meta-v">8–10</div></div>
+    </div>
+    <div class="r-note">El vacío premia una sola cosa: la paciencia. No tiene marinada ni secreto escondido; tiene una tapa de grasa que, bien manejada, baña la carne mientras se cocina. Lo único que de verdad puede arruinarlo es el apuro y el fuego de más.</div>
+
+    <div class="mid">
+      <div class="colL">
+        <div class="r-img">[ Foto: img/foto3.webp — vacío en la parrilla, tapa de grasa arriba ]</div>
+        <div class="blk-h">Ingredientes</div>
+        <div class="ing-row"><span class="ing-qty">2,5–3 kg</span><span class="ing-name">Vacío entero, con su tapa de grasa</span></div>
+        <div class="ing-row"><span class="ing-qty">c/n</span><span class="ing-name">Sal entrefina</span></div>
+        <div class="blk-h" style="margin-top:3mm;">Antes de empezar</div>
+        <ul class="before">
+          <li><b>El corte.</b> Vacío entero con la tapa de grasa pareja y entera. La grasa que sirve es blanca y firme, no amarillenta ni seca.</li>
+          <li><b>Atemperá.</b> De la heladera 30–40 min antes. Frío se contrae sobre la brasa y queda crudo en el centro.</li>
+          <li><b>La brasa.</b> Suave y repartida, sin llama. Dejá una zona más tranquila al costado para mover la pieza si hace falta.</li>
+          <li><b>Pinza, nunca tenedor.</b> Cada pinchazo es jugo que perdés.</li>
+        </ul>
+      </div>
+      <div class="colR">
+        <div class="blk-h">Paso a paso</div>
+        <div class="paso"><div class="paso-n">1</div><div class="paso-txt"><b>Carne a las brasas, tapa de grasa arriba.</b> Mientras se cocina abajo, la grasa de arriba se derrite despacio y baña la carne: el mejor "aceite" que tenés, y no lo da ninguna marinada. Salá la cara expuesta con entrefina pareja.</div></div>
+        <div class="paso"><div class="paso-n">2</div><div class="paso-txt"><b>Primer lado: 1 a 1¼ hora sobre brasa suave, sin tocarlo.</b> Acá la paciencia no es opcional; el vacío se hace por inercia, no por golpe de calor.<span class="paso-sign">Señal: la base queda sellada y dorada y el color de cocción sube por el costado hasta la mitad. Si la superficie se oscurece rápido pero el centro sigue frío, la brasa está fuerte: subí la parrilla o pasá la pieza a la zona más tranquila.</span></div></div>
+        <div class="paso"><div class="paso-n">3</div><div class="paso-txt"><b>Una sola vuelta: ahora la grasa mira a las brasas.</b> 45 min a 1 hora más, según el grosor. Salá la cara nueva. La tapa se dora y se vuelve crocante.</div></div>
+        <div class="paso"><div class="paso-n">4</div><div class="paso-txt"><b>Leé el punto en la grasa.</b> El vacío va a punto, nunca jugoso.<span class="paso-sign">Tapa opaca y blanquecina = le falta; translúcida, brillante y casi dorada = listo. Si dudás, un pinchazo al centro: jugo rosado pálido = listo; rojo = 10 minutos más.</span></div></div>
+        <div class="paso"><div class="paso-n">5</div><div class="paso-txt"><b>Reposo antes de cortar.</b> A una tabla, lejos del fuego, unos minutos. Los jugos que el calor empujó al centro se reparten de nuevo; si lo cortás al toque, se van al plato.</div></div>
+        <div class="paso"><div class="paso-n">6</div><div class="paso-txt"><b>Cortá en contra de la fibra, en tiras.</b> La fibra del vacío es larga y marcada: al través se deshace en la boca; al derecho queda chicloso aunque el punto sea perfecto.</div></div>
+      </div>
+    </div>
+
+    <div class="bottom">
+      <div>
+        <div class="blk-h">Puntos críticos</div>
+        <div class="crit-item"><b>Brasa suave de principio a fin.</b> Inercia, no golpe de calor.</div>
+        <div class="crit-item"><b>Tapa de grasa arriba al empezar.</b> Es lo que lo mantiene jugoso.</div>
+        <div class="crit-item"><b>Leer el punto en la grasa.</b> Más confiable que pinchar.</div>
+        <div class="crit-item"><b>Cortar contra la fibra.</b> Define la textura tanto como el fuego.</div>
+      </div>
+      <div>
+        <div class="blk-h">Errores comunes</div>
+        <div class="err"><b>Arrebatado afuera, crudo adentro.</b> Brasa fuerte. <i>→ Subí la parrilla o movelo a zona suave.</i></div>
+        <div class="err"><b>Salió seco.</b> Mucho fuego/tiempo o sin tapa de grasa. <i>→ Dejá la grasa puesta, brasa suave.</i></div>
+        <div class="err"><b>Chicloso con buen punto.</b> Cortado a favor de la fibra. <i>→ Siempre al través.</i></div>
+        <div class="err"><b>Jugo en la tabla.</b> Sin reposo. <i>→ Esperá antes del cuchillo.</i></div>
+      </div>
+      <div>
+        <div class="blk-h">Variantes &amp; cómo servir</div>
+        <div class="serve"><b>Variante:</b> chimichurri madre por encima al servir (ver Guía del Fuego); corta la grasa. <span class="q">[¿sumás manteca de hierbas u otra terminación?]</span></div>
+        <div class="serve"><b>Servir:</b> en tiras finas contra la fibra, sobre tabla, apenas salido del reposo. <span class="q">[¿con qué guarnición lo servís — ensalada criolla, pan, papas a la brasa?]</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>
