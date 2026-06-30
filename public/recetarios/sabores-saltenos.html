@@ -1,1387 +1,904 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Sabores Salteños — Javo Te Cocina</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,400;1,600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
-  <style>
-    :root {
-      --tierra: #2C1A0E;
-      --puna: #C4853A;
-      --fuego: #D4521A;
-      --sal: #F5EDD8;
-      --ceniza: #6B5744;
-      --blanco: #FFFFF0;
-    }
-
-    *, *::before, *::after {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-
-    html {
-      scroll-behavior: smooth;
-    }
-
-    body {
-      background-color: var(--tierra);
-      color: var(--sal);
-      font-family: 'Libre Baskerville', Georgia, serif;
-      font-size: 16px;
-      line-height: 1.75;
-    }
-
-    /* ---- NAV VOLVER ---- */
-    .nav-volver {
-      position: sticky;
-      top: 0;
-      z-index: 100;
-      background: rgba(44, 26, 14, 0.95);
-      backdrop-filter: blur(8px);
-      border-bottom: 1px solid var(--ceniza);
-      padding: 0.75rem 1.5rem;
-      display: flex;
-      align-items: center;
-      gap: 1rem;
-    }
-
-    .nav-volver a {
-      color: var(--puna);
-      text-decoration: none;
-      font-family: 'Space Mono', monospace;
-      font-size: 0.75rem;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      transition: color 0.2s;
-      display: flex;
-      align-items: center;
-      gap: 0.4rem;
-    }
-
-    .nav-volver a:hover {
-      color: var(--fuego);
-    }
-
-    .nav-volver .arrow {
-      font-size: 1rem;
-    }
-
-    /* ---- PORTADA ---- */
-    .portada {
-      position: relative;
-      min-height: 90vh;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-      padding: 4rem 2rem;
-      overflow: hidden;
-    }
-
-    .portada::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background:
-        radial-gradient(ellipse at 20% 30%, rgba(196, 133, 58, 0.18) 0%, transparent 60%),
-        radial-gradient(ellipse at 80% 70%, rgba(212, 82, 26, 0.15) 0%, transparent 55%),
-        radial-gradient(ellipse at 50% 50%, rgba(107, 87, 68, 0.25) 0%, transparent 70%),
-        linear-gradient(175deg, #3D2510 0%, #2C1A0E 40%, #1A0E06 100%);
-      z-index: 0;
-    }
-
-    /* Textura decorativa tipo cerros */
-    .portada::after {
-      content: '';
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      height: 180px;
-      background:
-        radial-gradient(ellipse 120% 100% at 0% 100%, rgba(196, 133, 58, 0.12) 0%, transparent 60%),
-        radial-gradient(ellipse 80% 80% at 100% 100%, rgba(212, 82, 26, 0.10) 0%, transparent 60%);
-      z-index: 0;
-    }
-
-    .portada-contenido {
-      position: relative;
-      z-index: 1;
-      max-width: 700px;
-    }
-
-    .portada-marca {
-      font-family: 'Space Mono', monospace;
-      font-size: 0.7rem;
-      letter-spacing: 0.25em;
-      text-transform: uppercase;
-      color: var(--puna);
-      margin-bottom: 1.5rem;
-      opacity: 0.9;
-    }
-
-    .portada-titulo {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: clamp(3.5rem, 10vw, 7rem);
-      font-weight: 700;
-      line-height: 1.05;
-      color: var(--sal);
-      letter-spacing: -0.01em;
-      margin-bottom: 0.5rem;
-    }
-
-    .portada-titulo span {
-      color: var(--puna);
-      font-style: italic;
-    }
-
-    .portada-subtitulo {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: clamp(1.2rem, 3.5vw, 1.8rem);
-      font-weight: 400;
-      font-style: italic;
-      color: var(--ceniza);
-      letter-spacing: 0.04em;
-      margin-bottom: 2.5rem;
-    }
-
-    .portada-divider {
-      width: 80px;
-      height: 2px;
-      background: linear-gradient(90deg, transparent, var(--puna), transparent);
-      margin: 0 auto 2.5rem;
-    }
-
-    .portada-descripcion {
-      font-family: 'Libre Baskerville', serif;
-      font-size: 1rem;
-      color: var(--sal);
-      opacity: 0.75;
-      max-width: 480px;
-      margin: 0 auto 3rem;
-      line-height: 1.85;
-    }
-
-    /* Ornamento puna */
-    .ornamento-puna {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 1rem;
-      color: var(--puna);
-      opacity: 0.6;
-      font-size: 1.2rem;
-      margin-bottom: 2rem;
-    }
-
-    .ornamento-puna::before,
-    .ornamento-puna::after {
-      content: '';
-      width: 60px;
-      height: 1px;
-      background: var(--puna);
-      opacity: 0.5;
-    }
-
-    /* ---- INTRO ---- */
-    .intro-section {
-      max-width: 760px;
-      margin: 0 auto;
-      padding: 4rem 1.5rem;
-      border-bottom: 1px solid rgba(107, 87, 68, 0.3);
-    }
-
-    .intro-label {
-      font-family: 'Space Mono', monospace;
-      font-size: 0.65rem;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      color: var(--puna);
-      margin-bottom: 1.5rem;
-    }
-
-    .intro-text {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: clamp(1.15rem, 2.5vw, 1.4rem);
-      font-style: italic;
-      line-height: 1.9;
-      color: var(--sal);
-      opacity: 0.9;
-    }
-
-    .intro-text p + p {
-      margin-top: 1.25rem;
-    }
-
-    .intro-firma {
-      margin-top: 2.5rem;
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 1.2rem;
-      font-style: italic;
-      color: var(--puna);
-    }
-
-    /* ---- ÍNDICE ---- */
-    .indice-section {
-      max-width: 900px;
-      margin: 0 auto;
-      padding: 3rem 1.5rem;
-      border-bottom: 1px solid rgba(107, 87, 68, 0.3);
-    }
-
-    .section-label {
-      font-family: 'Space Mono', monospace;
-      font-size: 0.65rem;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      color: var(--fuego);
-      margin-bottom: 2rem;
-    }
-
-    .indice-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-      gap: 0.5rem;
-    }
-
-    .indice-item {
-      display: flex;
-      align-items: baseline;
-      gap: 0.75rem;
-      padding: 0.5rem 0;
-      border-bottom: 1px dotted rgba(107, 87, 68, 0.35);
-    }
-
-    .indice-num {
-      font-family: 'Space Mono', monospace;
-      font-size: 0.65rem;
-      color: var(--fuego);
-      min-width: 1.5rem;
-    }
-
-    .indice-item a {
-      font-family: 'Libre Baskerville', serif;
-      font-size: 0.85rem;
-      color: var(--sal);
-      text-decoration: none;
-      opacity: 0.85;
-      transition: color 0.2s, opacity 0.2s;
-    }
-
-    .indice-item a:hover {
-      color: var(--puna);
-      opacity: 1;
-    }
-
-    /* ---- RECETAS SECTION ---- */
-    .recetas-section {
-      max-width: 900px;
-      margin: 0 auto;
-      padding: 2rem 1.5rem 4rem;
-    }
-
-    .recetas-titulo-section {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: clamp(2rem, 5vw, 3rem);
-      font-weight: 600;
-      color: var(--sal);
-      margin-bottom: 0.5rem;
-      margin-top: 3rem;
-    }
-
-    /* ---- TARJETA RECETA ---- */
-    .receta-card {
-      background: #3D2510;
-      border-left: 4px solid var(--fuego);
-      border-radius: 0 8px 8px 0;
-      padding: 2rem 2rem 2rem 2.25rem;
-      margin-bottom: 3rem;
-      position: relative;
-    }
-
-    .receta-card::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      right: 0;
-      width: 40%;
-      height: 100%;
-      background: radial-gradient(ellipse at 100% 0%, rgba(196, 133, 58, 0.04) 0%, transparent 60%);
-      pointer-events: none;
-      border-radius: 0 8px 8px 0;
-    }
-
-    .receta-num {
-      font-family: 'Space Mono', monospace;
-      font-size: 0.6rem;
-      letter-spacing: 0.18em;
-      color: var(--fuego);
-      text-transform: uppercase;
-      margin-bottom: 0.4rem;
-      opacity: 0.8;
-    }
-
-    .receta-titulo {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: clamp(1.6rem, 4vw, 2.2rem);
-      font-weight: 700;
-      color: var(--sal);
-      line-height: 1.2;
-      margin-bottom: 1rem;
-    }
-
-    /* ---- BADGES ---- */
-    .receta-badges {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.6rem;
-      margin-bottom: 1.5rem;
-    }
-
-    .badge {
-      font-family: 'Space Mono', monospace;
-      font-size: 0.65rem;
-      letter-spacing: 0.05em;
-      padding: 0.3rem 0.75rem;
-      border-radius: 2px;
-      display: flex;
-      align-items: center;
-      gap: 0.35rem;
-    }
-
-    .badge-porciones {
-      background: rgba(196, 133, 58, 0.15);
-      border: 1px solid rgba(196, 133, 58, 0.4);
-      color: var(--puna);
-    }
-
-    .badge-prep {
-      background: rgba(107, 87, 68, 0.2);
-      border: 1px solid rgba(107, 87, 68, 0.4);
-      color: var(--sal);
-      opacity: 0.8;
-    }
-
-    .badge-coccion {
-      background: rgba(212, 82, 26, 0.12);
-      border: 1px solid rgba(212, 82, 26, 0.35);
-      color: var(--fuego);
-    }
-
-    /* ---- INTRO RECETA ---- */
-    .receta-intro {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: clamp(1rem, 2.5vw, 1.15rem);
-      font-style: italic;
-      color: var(--sal);
-      opacity: 0.88;
-      line-height: 1.85;
-      margin-bottom: 1.75rem;
-      padding-bottom: 1.5rem;
-      border-bottom: 1px solid rgba(107, 87, 68, 0.35);
-    }
-
-    /* ---- INGREDIENTES ---- */
-    .receta-ingredientes-titulo,
-    .receta-pasos-titulo {
-      font-family: 'Space Mono', monospace;
-      font-size: 0.65rem;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      color: var(--puna);
-      margin-bottom: 0.9rem;
-      margin-top: 1.5rem;
-    }
-
-    .ingredientes-lista {
-      list-style: none;
-      padding: 0;
-      columns: 1;
-    }
-
-    @media (min-width: 600px) {
-      .ingredientes-lista {
-        columns: 2;
-        column-gap: 2rem;
-      }
-    }
-
-    .ingredientes-lista li {
-      font-family: 'Libre Baskerville', serif;
-      font-size: 0.9rem;
-      color: var(--sal);
-      opacity: 0.85;
-      padding: 0.3rem 0;
-      border-bottom: 1px dotted rgba(107, 87, 68, 0.25);
-      break-inside: avoid;
-      display: flex;
-      gap: 0.5rem;
-    }
-
-    .ingredientes-lista li::before {
-      content: '—';
-      color: var(--puna);
-      opacity: 0.5;
-      flex-shrink: 0;
-    }
-
-    /* ---- PASOS ---- */
-    .pasos-lista {
-      list-style: none;
-      padding: 0;
-      counter-reset: paso-counter;
-    }
-
-    .pasos-lista li {
-      counter-increment: paso-counter;
-      font-family: 'Libre Baskerville', serif;
-      font-size: 0.9rem;
-      color: var(--sal);
-      opacity: 0.85;
-      line-height: 1.8;
-      margin-bottom: 0.9rem;
-      padding-left: 2.5rem;
-      position: relative;
-    }
-
-    .pasos-lista li::before {
-      content: counter(paso-counter);
-      font-family: 'Space Mono', monospace;
-      font-size: 0.65rem;
-      color: var(--fuego);
-      position: absolute;
-      left: 0;
-      top: 0.15rem;
-      background: rgba(212, 82, 26, 0.12);
-      border: 1px solid rgba(212, 82, 26, 0.3);
-      width: 1.6rem;
-      height: 1.6rem;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      border-radius: 2px;
-      line-height: 1;
-    }
-
-    /* ---- TIP DE JAVO ---- */
-    .tip-javo {
-      margin-top: 1.75rem;
-      padding: 1.25rem 1.5rem;
-      background: linear-gradient(135deg, rgba(212, 82, 26, 0.15) 0%, rgba(212, 82, 26, 0.08) 100%);
-      border: 1px solid rgba(212, 82, 26, 0.35);
-      border-radius: 4px;
-      position: relative;
-    }
-
-    .tip-javo::before {
-      content: 'Tip de Javo';
-      font-family: 'Space Mono', monospace;
-      font-size: 0.6rem;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-      color: var(--fuego);
-      display: block;
-      margin-bottom: 0.5rem;
-    }
-
-    .tip-javo p {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: clamp(0.95rem, 2.5vw, 1.1rem);
-      font-style: italic;
-      color: var(--sal);
-      line-height: 1.7;
-    }
-
-    /* ---- SEPARADOR ENTRE RECETAS ---- */
-    .receta-separador {
-      display: flex;
-      align-items: center;
-      gap: 1.5rem;
-      margin: 1rem 0 2rem;
-      opacity: 0.3;
-    }
-
-    .receta-separador::before,
-    .receta-separador::after {
-      content: '';
-      flex: 1;
-      height: 1px;
-      background: var(--ceniza);
-    }
-
-    .receta-separador span {
-      font-family: 'Space Mono', monospace;
-      font-size: 0.6rem;
-      color: var(--ceniza);
-      letter-spacing: 0.15em;
-    }
-
-    /* ---- FOOTER ---- */
-    footer {
-      background: #1A0E06;
-      border-top: 1px solid rgba(107, 87, 68, 0.3);
-      padding: 3rem 1.5rem 2rem;
-      text-align: center;
-    }
-
-    .footer-titulo {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 1.5rem;
-      font-style: italic;
-      color: var(--puna);
-      margin-bottom: 0.4rem;
-    }
-
-    .footer-copy {
-      font-family: 'Space Mono', monospace;
-      font-size: 0.65rem;
-      letter-spacing: 0.1em;
-      color: var(--ceniza);
-      margin-bottom: 1rem;
-    }
-
-    .footer-link {
-      font-family: 'Space Mono', monospace;
-      font-size: 0.65rem;
-      color: var(--puna);
-      text-decoration: none;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      transition: color 0.2s;
-    }
-
-    .footer-link:hover {
-      color: var(--fuego);
-    }
-
-    /* ---- RESPONSIVE ---- */
-    @media (max-width: 600px) {
-      .receta-card {
-        padding: 1.5rem 1.25rem 1.5rem 1.5rem;
-      }
-      .indice-grid {
-        grid-template-columns: 1fr;
-      }
-    }
-
-    /* ---- SCROLL ANCHOR OFFSET ---- */
-    [id^="receta-"] {
-      scroll-margin-top: 4rem;
-    }
-
-/* ── ÍNDICE */
-.recetario-indice{background:rgba(196,133,58,0.06);border:1px solid rgba(196,133,58,0.18);padding:2rem 2.5rem;margin:0 auto 3rem;max-width:820px;border-radius:2px;}
-.indice-titulo{font-family:'Space Mono',monospace;font-size:0.62rem;letter-spacing:0.22em;text-transform:uppercase;color:#C4853A;margin-bottom:1.25rem;}
-.indice-lista{list-style:none;columns:2;gap:2rem;padding:0;margin:0;}
-.indice-lista li{margin-bottom:0.55rem;break-inside:avoid;}
-.indice-lista a{color:rgba(245,237,216,0.6);text-decoration:none;font-size:0.82rem;font-family:'Libre Baskerville',serif;transition:color 0.2s;display:flex;align-items:baseline;gap:0.4rem;}
-.indice-lista a:hover{color:#C4853A;}
-.indice-num{font-family:'Space Mono',monospace;font-size:0.6rem;color:#C4853A;opacity:0.65;flex-shrink:0;}
-@media(max-width:600px){.indice-lista{columns:1;}}
-/* ── FOTOS */
-.receta-foto{width:100%;max-height:300px;object-fit:cover;display:block;margin-bottom:1.5rem;filter:brightness(0.82) sepia(0.12);}
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Sabores Salteños — Javotecocina</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Barlow:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Barlow+Condensed:ital,wght@0,600;0,700;0,800;0,900;1,800;1,900&family=Lora:ital,wght@0,400;0,500;0,600;1,400;1,500;1,600&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+:root{
+  --fire:#BF460F;--ember:#E0760F;--gold:#C9A14A;
+  --dark:#170F09;--dark2:#211610;
+  --paper:#FBF6EE;--paper2:#F3E9DA;--warm:#EFE3D2;
+  --ink:#241509;--muted:#7C6450;--soft:#9A8771;--line:#E0D4C4;--line2:#CDBCA6;
+}
+body{font-family:'Barlow',sans-serif;background:#B8A795;color:var(--ink);font-size:11pt;line-height:1.6;}
+
+.page{width:210mm;min-height:297mm;background:var(--paper);margin:0 auto 8mm;position:relative;overflow:hidden;print-color-adjust:exact;-webkit-print-color-adjust:exact;}
+@media print{body{background:#fff;}.page{margin:0;page-break-after:always;}.no-print{display:none!important;}}
+@page{size:A4;margin:0;}
+
+.no-print{position:fixed;bottom:1.5rem;right:1.5rem;z-index:999;background:var(--fire);color:#fff;border:none;padding:.8rem 1.6rem;font-family:'Barlow Condensed',sans-serif;font-size:.85rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;border-radius:3px;cursor:pointer;box-shadow:0 4px 18px rgba(191,70,15,.45);}
+.no-print:hover{background:var(--ember);}
+
+/* placeholders de foto */
+.ph{display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#241610 0%,#3a2415 55%,#241610 100%);position:relative;}
+.ph span{font-family:'Barlow Condensed',sans-serif;font-size:8pt;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:rgba(245,237,228,.5);text-align:center;padding:0 6mm;}
+.ph::before{content:'📷';position:absolute;top:6mm;left:50%;transform:translateX(-50%);font-size:13pt;opacity:.25;}
+
+/* RUNNING HEADER */
+.rh{position:absolute;top:0;left:0;right:0;display:flex;justify-content:space-between;align-items:center;padding:6mm 14mm 0;z-index:5;}
+.rh-brand{font-family:'Barlow Condensed',sans-serif;font-size:6.5pt;font-weight:800;letter-spacing:.24em;text-transform:uppercase;color:var(--fire);}
+.rh-pg{font-family:'Lora',serif;font-size:7.5pt;font-style:italic;color:var(--soft);}
+.rh-rule{position:absolute;top:11mm;left:14mm;right:14mm;height:.5pt;background:var(--line2);}
+
+/* PORTADA */
+.cover{background:var(--dark);display:flex;flex-direction:column;justify-content:flex-end;}
+.cover-photo{position:absolute;inset:0;}
+.cover-photo.ph::before{top:14mm;font-size:18pt;}
+.cover-photo::after{content:'';position:absolute;inset:0;background:linear-gradient(to bottom,rgba(23,15,9,.12) 0%,rgba(23,15,9,.5) 42%,rgba(23,15,9,.98) 100%);}
+.cover-c{position:relative;z-index:2;padding:16mm 15mm 15mm;}
+.cover-eyebrow{font-family:'Barlow Condensed',sans-serif;font-size:7.5pt;font-weight:700;letter-spacing:.3em;text-transform:uppercase;color:var(--ember);margin-bottom:4mm;}
+.cover-series{font-family:'Lora',serif;font-size:8.5pt;font-style:italic;letter-spacing:.04em;color:rgba(251,246,238,.55);margin-bottom:6mm;}
+.cover-title{font-family:'Barlow Condensed',sans-serif;font-size:62pt;font-weight:900;line-height:.86;text-transform:uppercase;color:#FBF6EE;margin-bottom:6mm;}
+.cover-title em{font-style:italic;color:var(--ember);}
+.cover-tag{font-family:'Lora',serif;font-size:11pt;font-weight:400;color:rgba(251,246,238,.72);line-height:1.65;max-width:124mm;margin-bottom:11mm;}
+.cover-pills{display:flex;gap:3mm;flex-wrap:wrap;padding-top:8mm;border-top:.5pt solid rgba(251,246,238,.18);}
+.cover-pill{font-family:'Barlow Condensed',sans-serif;font-size:6.5pt;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:rgba(251,246,238,.42);padding:1.5mm 3mm;border:.5pt solid rgba(251,246,238,.18);border-radius:1px;}
+
+/* DEDICATORIA */
+.ded{background:var(--dark2);display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:28mm 24mm;}
+.ded-orn{font-size:10pt;letter-spacing:.4em;color:var(--ember);opacity:.5;margin-bottom:16mm;}
+.ded-text{font-family:'Lora',serif;font-size:16pt;font-weight:400;font-style:italic;color:rgba(251,246,238,.85);line-height:1.85;max-width:142mm;}
+.ded-firma{margin-top:16mm;font-family:'Barlow Condensed',sans-serif;font-size:7pt;font-weight:700;letter-spacing:.3em;text-transform:uppercase;color:var(--ember);}
+
+/* PRÓLOGO */
+.intro{padding:18mm 15mm 14mm;}
+.sec-label{font-family:'Barlow Condensed',sans-serif;font-size:7pt;font-weight:700;letter-spacing:.3em;text-transform:uppercase;color:var(--fire);margin-bottom:3mm;}
+.intro-title{font-family:'Barlow Condensed',sans-serif;font-size:38pt;font-weight:900;font-style:italic;line-height:.94;color:var(--dark);margin:3mm 0 11mm;}
+.intro-body{columns:2;column-gap:9mm;font-family:'Lora',serif;font-size:10pt;line-height:1.8;color:var(--ink);}
+.intro-body p{margin-bottom:4mm;text-align:justify;}
+.intro-body .lead{font-size:12.5pt;font-weight:500;font-style:italic;color:var(--fire);line-height:1.6;column-span:all;margin-bottom:8mm;padding-bottom:8mm;border-bottom:.5pt solid var(--line);}
+.intro-body .drop::first-letter{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:30pt;float:left;line-height:.8;margin:1mm 2mm 0 0;color:var(--fire);}
+
+/* ÍNDICE */
+.idx{padding:14mm 15mm 10mm;}
+.idx-title{font-family:'Barlow Condensed',sans-serif;font-size:36pt;font-weight:900;text-transform:uppercase;color:var(--dark);margin-bottom:2.5mm;}
+.idx-sub{font-family:'Lora',serif;font-style:italic;font-size:9.5pt;color:var(--muted);margin-bottom:5mm;}
+.idx-cat{font-family:'Barlow Condensed',sans-serif;font-size:7pt;font-weight:700;letter-spacing:.24em;text-transform:uppercase;color:var(--fire);margin:2.6mm 0 1mm;padding-bottom:1mm;border-bottom:1pt solid var(--fire);}
+.idx-row{display:flex;align-items:baseline;gap:2mm;padding:1.1mm 0;font-size:10pt;border-bottom:.5pt solid var(--line);}
+.idx-n{font-family:'Barlow Condensed',sans-serif;font-size:8pt;font-weight:700;color:var(--ember);min-width:8mm;}
+.idx-name{flex:1;font-weight:500;color:var(--ink);}
+.idx-p{font-family:'Lora',serif;font-style:italic;font-size:9pt;color:var(--soft);}
+
+/* RECETA */
+.recipe{padding:15mm 14mm 11mm;display:flex;flex-direction:column;height:297mm;}
+.r-head{display:flex;justify-content:space-between;align-items:flex-end;gap:6mm;margin-bottom:3.5mm;}
+.r-head-l{flex:1;}
+.r-cat{font-family:'Barlow Condensed',sans-serif;font-size:7pt;font-weight:700;letter-spacing:.24em;text-transform:uppercase;color:var(--fire);margin-bottom:1.5mm;}
+.r-title{font-family:'Barlow Condensed',sans-serif;font-size:29pt;font-weight:900;line-height:.92;text-transform:uppercase;color:var(--dark);}
+.r-num{font-family:'Barlow Condensed',sans-serif;font-size:30pt;font-weight:900;color:var(--line2);line-height:.8;}
+.r-meta{display:flex;flex-wrap:wrap;margin-bottom:5mm;border-top:.5pt solid var(--line);border-bottom:.5pt solid var(--line);}
+.r-meta-it{flex:1;padding:1.8mm 0;text-align:center;border-right:.5pt solid var(--line);}
+.r-meta-it:last-child{border-right:none;}
+.r-meta-k{font-family:'Barlow Condensed',sans-serif;font-size:6pt;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--soft);margin-bottom:.8mm;}
+.r-meta-v{font-family:'Barlow Condensed',sans-serif;font-size:9pt;font-weight:800;color:var(--dark);text-transform:uppercase;}
+.r-note{font-family:'Lora',serif;font-size:9pt;font-style:italic;line-height:1.5;color:var(--muted);margin-bottom:4mm;padding-left:5mm;border-left:2px solid var(--ember);}
+.r-img{width:100%;height:58mm;border-radius:3px;overflow:hidden;margin-bottom:5mm;background:var(--warm);box-shadow:0 2px 10px rgba(23,15,9,.12);flex-shrink:0;}
+.r-img img{width:100%;height:100%;object-fit:cover;display:block;}
+.r-cols{display:grid;grid-template-columns:58mm 1fr;grid-template-rows:auto 1fr;column-gap:8mm;row-gap:5mm;flex:1;}
+.col-ing{grid-column:1;grid-row:1;}
+.col-pasos{grid-column:2;grid-row:1 / span 2;display:flex;flex-direction:column;}
+.r-cols > .tip{grid-column:1;grid-row:2;align-self:start;margin-top:4mm;}
+.ing-head,.paso-head{font-family:'Barlow Condensed',sans-serif;font-size:7.5pt;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:var(--fire);margin-bottom:3.5mm;padding-bottom:1.5mm;border-bottom:1pt solid var(--fire);}
+.ing-group{margin-bottom:3.5mm;}
+.ing-glabel{font-family:'Barlow Condensed',sans-serif;font-size:6.5pt;font-weight:700;text-transform:uppercase;letter-spacing:.12em;color:var(--ember);margin:2.5mm 0 1.5mm;}
+.ing-row{display:flex;gap:2mm;padding:1mm 0;font-size:7.7pt;line-height:1.35;border-bottom:.5pt solid var(--line);}
+.ing-qty{font-weight:700;min-width:14mm;color:var(--dark);font-size:7.5pt;}
+.ing-name{color:var(--ink);flex:1;}
+.paso{display:flex;gap:3mm;margin-bottom:2.4mm;align-items:flex-start;}
+.paso-n{font-family:'Barlow Condensed',sans-serif;font-size:11.5pt;font-weight:900;color:var(--fire);line-height:1;min-width:5.5mm;opacity:.55;margin-top:.4mm;}
+.paso-txt{font-size:7.9pt;line-height:1.45;color:var(--ink);text-align:justify;}
+.paso-txt b{color:var(--dark);font-weight:700;}
+.tip{margin-top:0;background:var(--paper2);border-left:3px solid var(--fire);padding:3mm 4mm;border-radius:0 2px 2px 0;}
+.tip-label{font-family:'Barlow Condensed',sans-serif;font-size:6.5pt;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--fire);margin-bottom:1.5mm;}
+.tip-txt{font-family:'Lora',serif;font-size:7.8pt;line-height:1.45;color:var(--ink);font-style:italic;}
+
+/* SECCIÓN / GUÍA */
+.guia-cover{background:var(--dark2);display:flex;flex-direction:column;justify-content:flex-end;position:relative;overflow:hidden;}
+.guia-photo{position:absolute;inset:0;}
+.guia-photo::after{content:'';position:absolute;inset:0;background:linear-gradient(to bottom,rgba(23,15,9,.25) 0%,rgba(23,15,9,.72) 55%,rgba(23,15,9,1) 100%);}
+.guia-c{position:relative;z-index:2;padding:16mm 15mm 15mm;}
+.guia-eyebrow{font-family:'Barlow Condensed',sans-serif;font-size:7pt;font-weight:700;letter-spacing:.28em;text-transform:uppercase;color:var(--ember);margin-bottom:4mm;}
+.guia-title{font-family:'Barlow Condensed',sans-serif;font-size:50pt;font-weight:900;line-height:.9;text-transform:uppercase;color:#FBF6EE;margin-bottom:6mm;}
+.guia-desc{font-family:'Lora',serif;font-size:11pt;font-style:italic;color:rgba(251,246,238,.6);line-height:1.65;max-width:128mm;}
+.gp{padding:16mm 14mm 12mm;}
+.g-title{font-family:'Barlow Condensed',sans-serif;font-size:19pt;font-weight:800;text-transform:uppercase;color:var(--dark);margin-bottom:4mm;padding-bottom:2.5mm;border-bottom:1.5pt solid var(--fire);}
+.g-text{font-family:'Lora',serif;font-size:9.5pt;line-height:1.7;color:var(--ink);margin-bottom:4mm;text-align:justify;}
+.g-grid{display:grid;grid-template-columns:1fr 1fr;gap:4mm;margin-bottom:7mm;}
+.g-card{background:var(--paper2);border:.5pt solid var(--line);border-radius:2px;padding:4mm;}
+.g-card-title{font-family:'Barlow Condensed',sans-serif;font-size:9pt;font-weight:800;text-transform:uppercase;color:var(--fire);margin-bottom:2mm;}
+.g-card p,.g-card li{font-size:7.8pt;line-height:1.6;color:var(--ink);}
+.g-card ul{padding-left:3.5mm;margin-top:1.5mm;}
+.g-card li{margin-bottom:1mm;}
+
+/* CONTRACUBIERTA */
+.back{background:var(--dark);display:flex;flex-direction:column;justify-content:space-between;padding:18mm 16mm;position:relative;overflow:hidden;}
+.back::before{content:'';position:absolute;bottom:-22mm;right:-22mm;width:130mm;height:130mm;border-radius:50%;border:20mm solid rgba(191,70,15,.06);}
+.back-quote{position:relative;z-index:2;}
+.back-quote::before{content:'"';display:block;font-family:'Lora',serif;font-size:54pt;color:var(--fire);opacity:.4;line-height:.6;margin-bottom:4mm;}
+.back-quote p{font-family:'Lora',serif;font-size:16pt;font-weight:400;font-style:italic;color:rgba(251,246,238,.75);line-height:1.7;max-width:135mm;}
+.back-bottom{position:relative;z-index:2;}
+.back-brand{font-family:'Barlow Condensed',sans-serif;font-size:22pt;font-weight:900;letter-spacing:.1em;text-transform:uppercase;color:var(--fire);margin-bottom:2mm;}
+.back-web{font-family:'Lora',serif;font-style:italic;font-size:8.5pt;color:rgba(251,246,238,.3);}
+
+/* PAYWALL (overlay de acceso — quitar este bloque y el script final para dejarlo libre) */
+#javo-paywall{position:fixed;inset:0;background:rgba(23,15,9,0.97);z-index:9999;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:20mm;}
+.pw-logo{font-family:'Barlow Condensed',sans-serif;font-size:13pt;font-weight:800;letter-spacing:.3em;color:var(--paper);text-transform:uppercase;margin-bottom:3mm;}
+.pw-title{font-family:'Barlow Condensed',sans-serif;font-size:30pt;font-weight:900;color:var(--ember);text-transform:uppercase;margin-bottom:4mm;line-height:.95;}
+.pw-desc{font-family:'Lora',serif;font-style:italic;font-size:11pt;color:var(--soft);margin-bottom:9mm;max-width:110mm;line-height:1.6;}
+.pw-price{font-family:'Barlow Condensed',sans-serif;font-size:22pt;font-weight:700;color:var(--paper);margin-bottom:7mm;}
+.pw-btn{background:var(--fire);color:#fff;border:none;padding:4mm 11mm;font-family:'Barlow Condensed',sans-serif;font-size:12pt;font-weight:700;letter-spacing:.08em;text-transform:uppercase;cursor:pointer;border-radius:3px;}
+.pw-btn:hover{background:var(--ember);}
+</style>
 </head>
 <body>
+<button class="no-print" onclick="window.print()">⬇ Guardar como PDF</button>
 
 <!-- PAYWALL -->
-<div id="javo-paywall" style="position:fixed;inset:0;z-index:99999;background:#1A0A05;display:flex;align-items:center;justify-content:center;padding:1.5rem;">
-  <div style="max-width:440px;width:100%;background:#2C1A0E;border:1px solid rgba(196,133,58,0.25);padding:2.5rem 2rem;text-align:center;font-family:'Libre Baskerville',Georgia,serif;">
-    <div style="font-size:2rem;margin-bottom:1rem;">🔒</div>
-    <div style="font-family:'Cormorant Garamond',Georgia,serif;font-size:1.6rem;font-weight:700;color:#F5EDD8;margin-bottom:0.5rem;">Sabores Salteños</div>
-    <p style="font-size:0.82rem;color:rgba(245,237,216,0.6);line-height:1.7;margin-bottom:1.5rem;font-style:italic;">Este recetario es exclusivo para compradores. Completá el pago para acceder.</p>
-    <div style="font-family:'Space Mono',monospace;font-size:1.3rem;color:#C4853A;font-weight:700;margin-bottom:1.5rem;">ARS $34.700</div>
-    <a href="https://javotecocina.com/?comprar=sabores-saltenos" style="display:block;background:#D4521A;color:#FFFFF0;text-decoration:none;font-family:'Space Mono',monospace;font-size:0.7rem;letter-spacing:0.12em;text-transform:uppercase;padding:0.85rem 1.5rem;margin-bottom:1.5rem;">Comprar ahora →</a>
-    <div style="height:1px;background:rgba(196,133,58,0.2);margin-bottom:1.5rem;position:relative;"><span style="position:absolute;top:-0.6rem;left:50%;transform:translateX(-50%);background:#2C1A0E;padding:0 0.75rem;font-size:0.7rem;color:rgba(245,237,216,0.4);">o si ya compraste</span></div>
-    <p style="font-size:0.78rem;color:rgba(245,237,216,0.55);margin-bottom:0.75rem;">Ingresá el email con el que pagaste:</p>
-    <input id="pw-email" type="email" placeholder="tu@email.com" style="width:100%;box-sizing:border-box;background:rgba(44,26,14,0.8);border:1px solid rgba(196,133,58,0.3);color:#F5EDD8;font-family:'Libre Baskerville',serif;font-size:0.85rem;padding:0.75rem 1rem;margin-bottom:0.75rem;outline:none;">
-    <button onclick="javoVerificar()" style="width:100%;background:rgba(196,133,58,0.15);border:1px solid #C4853A;color:#C4853A;font-family:'Space Mono',monospace;font-size:0.7rem;letter-spacing:0.1em;text-transform:uppercase;padding:0.75rem;cursor:pointer;">Verificar acceso →</button>
-    <div id="pw-msg" style="font-size:0.78rem;min-height:1.2em;margin-top:0.75rem;color:#D4521A;font-style:italic;"></div>
+<div id="javo-paywall">
+  <div class="pw-logo">Javotecocina</div>
+  <div class="pw-title">Sabores Salteños</div>
+  <div class="pw-desc">Quince recetas de la cocina del norte argentino: empanadas con repulgue de 13, humitas en chala, locro y cordero al fuego lento.</div>
+  <div class="pw-price">ARS $34.700</div>
+  <button class="pw-btn" onclick="window.location.href='/#recetarios'">Comprar acceso</button>
+</div>
+
+<!-- PORTADA -->
+<div class="page cover">
+  <div class="cover-photo ph"><span>Foto: img/saltenos/portada.jpg — Empanadas salteñas recién horneadas en asadera de hierro, repulgue de 13 dobleces bien marcado, vapor saliendo, al fondo cerros de Salta al atardecer</span></div>
+  <div class="cover-c">
+    <div class="cover-eyebrow">Javotecocina</div>
+    <div class="cover-series">Recetarios digitales · Volumen IV</div>
+    <div class="cover-title">Sabores<br><em>Salteños</em></div>
+    <div class="cover-tag">Quince recetas de la cocina del norte argentino: el maíz en todas sus formas, el fuego lento del cordero a la cruz y la mesa larga de la abuela. Una cocina con raíces que no se apura, porque sabe que el tiempo es parte del sabor.</div>
+    <div class="cover-pills">
+      <div class="cover-pill">15 Recetas</div>
+      <div class="cover-pill">Cocina del Norte</div>
+      <div class="cover-pill">Maíz &amp; Fuego</div>
+      <div class="cover-pill">Javo Elizalde · Salta</div>
+    </div>
   </div>
 </div>
+
+<!-- DEDICATORIA -->
+<div class="page ded">
+  <div class="ded-orn">— ✦ —</div>
+  <div class="ded-text">A las que armaban empanadas en la mesada un domingo a la mañana,<br>a las ollas de barro que pasaron de mano en mano<br>y a la abuela que cocinaba sin receta porque la receta era ella.</div>
+  <div class="ded-firma">Javotecocina</div>
+</div>
+
+<!-- PRÓLOGO -->
+<div class="page intro">
+  <div class="rh"><div class="rh-brand">Javotecocina</div><div class="rh-pg">Sabores Salteños</div><div class="rh-rule"></div></div>
+  <div style="margin-top:13mm;">
+    <div class="sec-label">Prólogo</div>
+    <div class="intro-title">El norte<br>se cocina<br>con tiempo.</div>
+    <div class="intro-body">
+      <p class="lead">Me crié mirando armar empanadas en la mesada, los domingos a la mañana. El repulgue ese no me lo enseñó nadie con palabras: lo aprendí mirando manos y arruinando las primeras. Lo que sé lo aprendí así, y así te lo paso.</p>
+      <p class="drop">La cocina del norte tiene raíces hondas. Ingredientes que bajan de la Puna, técnicas que vienen de antes de los españoles y se cruzaron con lo que ellos trajeron, y una forma de cocinar que no tiene apuro. Acá nada sale rápido, y a mí me parece bien que sea así.</p>
+      <p>El maíz es el corazón de todo. Blanco, amarillo, morado; en grano, en mote, en harina. Está en las humitas, en el locro, en la mazamorra, en el api de las ferias de invierno. Si le agarrás la mano al maíz, ya entendiste la mitad de este libro.</p>
+      <p>La otra mitad es el fuego, pero no el de la parrilla apurada. Es el fuego de costado del cordero a la cruz que pintás con salmuera durante horas, la brasa pareja del quebracho, la olla de barro al rescoldo. Un fuego que acompaña.</p>
+      <p>Estas quince recetas son ese recorrido. Algunas son de mi familia, otras las fui acomodando con los años hasta que me quedaron como quería. Todas las hacés en una cocina de casa, sin aparatos raros y sin atajos que les saquen el alma.</p>
+      <p>Lo único que te pido es que no manosees los ingredientes. Si dice locoto, no me lo cambies por ají verde. Si dice quirquiña, buscala. Si dice charqui, conseguilo. La cocina salteña es lo que es por lo que la nombra.</p>
+    </div>
+  </div>
+</div>
+
+<!-- ÍNDICE -->
+<div class="page idx">
+  <div class="rh"><div class="rh-brand">Javotecocina</div><div class="rh-pg">Sabores Salteños</div><div class="rh-rule"></div></div>
+  <div style="margin-top:3mm;">
+    <div class="idx-title">Índice</div>
+    <div class="idx-sub">Quince recetas del norte argentino, la despensa salteña y la mesa pensada para compartir.</div>
+    <div class="idx-cat">Técnica base</div>
+    <div class="idx-row"><span class="idx-n">—</span><span class="idx-name">La despensa salteña · maíz, ají y charqui</span><span class="idx-p">pág. 6</span></div>
+    <div class="idx-row"><span class="idx-n">—</span><span class="idx-name">Masas, repulgues y hojas</span><span class="idx-p">pág. 7</span></div>
+    <div class="idx-cat">Rellenos y Masas</div>
+    <div class="idx-row"><span class="idx-n">01</span><span class="idx-name">Empanadas salteñas al horno</span><span class="idx-p">pág. 8</span></div>
+    <div class="idx-row"><span class="idx-n">02</span><span class="idx-name">Humitas en chala</span><span class="idx-p">pág. 9</span></div>
+    <div class="idx-row"><span class="idx-n">03</span><span class="idx-name">Tamales salteños</span><span class="idx-p">pág. 10</span></div>
+    <div class="idx-cat">Carnes al Fuego</div>
+    <div class="idx-row"><span class="idx-n">04</span><span class="idx-name">Cordero a la cruz</span><span class="idx-p">pág. 11</span></div>
+    <div class="idx-row"><span class="idx-n">05</span><span class="idx-name">Asado salteño con salmuera</span><span class="idx-p">pág. 12</span></div>
+    <div class="idx-row"><span class="idx-n">06</span><span class="idx-name">Cabrito al asador</span><span class="idx-p">pág. 13</span></div>
+    <div class="idx-row"><span class="idx-n">07</span><span class="idx-name">Pollo con papines andinos</span><span class="idx-p">pág. 14</span></div>
+    <div class="idx-cat">Guisos y Ollas</div>
+    <div class="idx-row"><span class="idx-n">08</span><span class="idx-name">Locro de invierno</span><span class="idx-p">pág. 15</span></div>
+    <div class="idx-row"><span class="idx-n">09</span><span class="idx-name">Carbonada en zapallo</span><span class="idx-p">pág. 16</span></div>
+    <div class="idx-row"><span class="idx-n">10</span><span class="idx-name">Guiso de maíz con charqui</span><span class="idx-p">pág. 17</span></div>
+    <div class="idx-row"><span class="idx-n">11</span><span class="idx-name">Charqui a la plancha</span><span class="idx-p">pág. 18</span></div>
+    <div class="idx-cat">Salsas y Postres</div>
+    <div class="idx-row"><span class="idx-n">12</span><span class="idx-name">Mazamorra de maíz blanco</span><span class="idx-p">pág. 19</span></div>
+    <div class="idx-row"><span class="idx-n">13</span><span class="idx-name">Api morado</span><span class="idx-p">pág. 20</span></div>
+    <div class="idx-row"><span class="idx-n">14</span><span class="idx-name">Llajua fresca</span><span class="idx-p">pág. 21</span></div>
+    <div class="idx-row"><span class="idx-n">15</span><span class="idx-name">Salsa criolla del norte</span><span class="idx-p">pág. 22</span></div>
+    <div class="idx-cat">Para cerrar</div>
+    <div class="idx-row"><span class="idx-n">—</span><span class="idx-name">La mesa salteña · salsas y bebidas del norte</span><span class="idx-p">pág. 23</span></div>
+  </div>
+</div>
+
+<!-- TÉCNICA: PORTADA -->
+<div class="page guia-cover">
+  <div class="guia-photo ph"><span>Foto: img/saltenos/tecnica.jpg — Despensa salteña en penumbra: choclos con chala, sartas de ají y pimentón colgando, ollas de barro y un mortero de piedra, todo bajo luz cálida de fuego</span></div>
+  <div class="guia-c">
+    <div class="guia-eyebrow">Técnica base · Sabores Salteños</div>
+    <div class="guia-title">La Despensa<br>del Norte</div>
+    <div class="guia-desc">Antes de la primera receta, lo que de verdad importa: la despensa salteña es el secreto real. El maíz, el ají, el charqui y la grasa de pella deciden el plato mucho antes de que prendas el fuego.</div>
+  </div>
+</div>
+
+<!-- TÉCNICA: LA DESPENSA SALTEÑA -->
+<div class="page gp">
+  <div class="rh"><div class="rh-brand">Javotecocina</div><div class="rh-pg">Técnica base</div><div class="rh-rule"></div></div>
+  <div style="margin-top:13mm;">
+    <div class="g-title">La despensa salteña</div>
+    <div class="g-text">A esta cocina no la hacen los condimentos, la hace la materia prima. Antes de mirar la receta, mirá lo que tenés en la alacena: si conseguiste el maíz justo, el ají del valle y un charqui que valga la pena, ya tenés media batalla ganada. Lo digo en serio: acá los reemplazos cómodos se notan, y rinden distinto.</div>
+    <div class="g-grid">
+      <div class="g-card"><div class="g-card-title">① El maíz</div><p>El alma de todo. Blanco pelado para el locro y la mazamorra; amarillo en grano y choclo fresco para humitas; morado para el api. Después está el mote (maíz cocido y pelado) y la harina de maíz para tamales. Cada maíz tiene su plato, no los mezcles que no es lo mismo.</p></div>
+      <div class="g-card"><div class="g-card-title">② Ají y pimentón</div><p>El pimentón del valle Calchaquí, rojo hondo y dulce, te da el color y media base del sabor. El locoto es el picante de la casa, fresco y frutado. Y la quirquiña, esa hierba andina entre el cilantro y la ruda, es lo que hace que una llajua sea llajua y no otra cosa.</p></div>
+      <div class="g-card"><div class="g-card-title">③ Charqui y grasa de pella</div><p>El charqui es carne secada al sol, de antes de que llegaran los españoles, y todavía se hace. Lo rehidratás, lo desmenuzás y aguanta lo que le tires. La grasa de pella —de cerdo, derretida— es la que hojaldra la masa de la empanada y le da cuerpo al guiso. Ojo: no es manteca, es otra cosa.</p></div>
+      <div class="g-card"><div class="g-card-title">④ Papines andinos y quinoa</div><p>El papín andino es esa papita chica de la Puna que ni se pela y tiene un gusto que la papa común no te lo da. La quinoa suma en sopas y guisos. Cosas de altura, de tierra fría, que traen un montón de historia atrás.</p></div>
+    </div>
+  </div>
+</div>
+
+<!-- TÉCNICA: MASAS, REPULGUES Y HOJAS -->
+<div class="page gp">
+  <div class="rh"><div class="rh-brand">Javotecocina</div><div class="rh-pg">Técnica base</div><div class="rh-rule"></div></div>
+  <div style="margin-top:13mm;">
+    <div class="g-title">Masas, repulgues y hojas</div>
+    <div class="g-text">La otra mitad son las manos: la masa que trabajás con grasa, el repulgue que cierra la empanada y las hojas de maíz que envuelven y cocinan al vapor. Esto se aprende haciendo y arruinando los primeros, no hay vuelta. Si las primeras humitas se te abren, no te calientes: a todos nos pasó, a mí el primero.</div>
+    <div class="g-grid">
+      <div class="g-card"><div class="g-card-title">① La masa de la empanada salteña</div><p>Grasa de pella, no manteca. Eso es lo que la deja hojaldrada y salteña de verdad. Frotás la grasa con la harina hasta que queda arenosa, sumás agua tibia de a poco y la dejás tapada media hora. La masa que apurás después se te encoge y se quiebra; ese descanso no es negociable.</p></div>
+      <div class="g-card"><div class="g-card-title">② El repulgue de 13</div><p>Trece dobleces, ni uno más ni uno menos: ese es el sello. Es lindo, sí, pero además cierra firme para que no se te abra en el horno. Y sacale todo el aire de adentro, porque la bolsita de aire es lo que las hace reventar. Lo demás es repetir hasta que te salga.</p></div>
+      <div class="g-card"><div class="g-card-title">③ Humitas y tamales en chala</div><p>La chala (la hoja del choclo) envuelve y perfuma. Para humitas la usás fresca; para tamales, remojada para que no se quiebre. Ponés la masa, el relleno al centro y atás con tiras de la misma chala. Van parados al vapor, con la boca para arriba, si no se te escapa el relleno.</p></div>
+      <div class="g-card"><div class="g-card-title">④ Las ollas de barro y el fuego lento</div><p>El barro reparte el calor parejo y lo sostiene, así que para guisos largos no hay con qué darle. Y el fuego lento —brasa, no llama— es la regla acá: el locro, el guiso de maíz y la mazamorra quieren horas a fuego mínimo, revolviendo, sin que las apures.</p></div>
+    </div>
+    <div class="g-text" style="margin-top:1mm;"><b>Y arriba de todo, la paciencia.</b> Acá lo bueno no sale rápido: la masa descansa, el maíz se abre solo, el cordero lo pintás una y otra vez, el guiso espesa cuando quiere. Si andás corriendo, esta no es tu cocina. Si tenés la tarde entera por delante, es justo esta.</div>
+  </div>
+</div>
+
+<!-- 01 EMPANADAS SALTEÑAS -->
+<div class="page recipe">
+  <div class="rh"><div class="rh-brand">Javotecocina</div><div class="rh-pg">Rellenos y Masas</div><div class="rh-rule"></div></div>
+  <div class="r-head" style="margin-top:11mm;">
+    <div class="r-head-l"><div class="r-cat">Receta 01 · Rellenos y Masas</div><div class="r-title">Empanadas<br>Salteñas al Horno</div></div>
+    <div class="r-num">01</div>
+  </div>
+  <div class="r-meta">
+    <div class="r-meta-it"><div class="r-meta-k">Tiempo</div><div class="r-meta-v">2 h 30</div></div>
+    <div class="r-meta-it"><div class="r-meta-k">Porciones</div><div class="r-meta-v">24 unid.</div></div>
+    <div class="r-meta-it"><div class="r-meta-k">Horno</div><div class="r-meta-v">220°C</div></div>
+    <div class="r-meta-it"><div class="r-meta-k">Dificultad</div><div class="r-meta-v">Media</div></div>
+  </div>
+  <div class="r-note">Que quede claro de entrada: la salteña va con carne en cubos, jamás picada. Papa, mucha cebolla, pimentón y huevo duro. La masa con grasa de pella, el cierre con el repulgue de 13. Si vas a hacerla, hacela bien.</div>
+  <div class="r-img ph"><span>Foto: img/saltenos/empanadas-saltenas.jpg — Empanadas doradas y brillantes en asadera de hierro, repulgue de 13 dobleces bien marcado, una abierta mostrando el relleno con carne en cubos, papa y huevo</span></div>
+  <div class="r-cols">
+    <div class="col-ing">
+      <div class="ing-head">Ingredientes</div>
+      <div class="ing-glabel">Masa</div>
+      <div class="ing-row"><span class="ing-qty">500 g</span><span class="ing-name">Harina 0000</span></div>
+      <div class="ing-row"><span class="ing-qty">200 ml</span><span class="ing-name">Agua tibia</span></div>
+      <div class="ing-row"><span class="ing-qty">100 g</span><span class="ing-name">Grasa de pella</span></div>
+      <div class="ing-row"><span class="ing-qty">10 g</span><span class="ing-name">Sal</span></div>
+      <div class="ing-glabel">Relleno</div>
+      <div class="ing-row"><span class="ing-qty">500 g</span><span class="ing-name">Roast beef en cubos de 1 cm</span></div>
+      <div class="ing-row"><span class="ing-qty">300 g</span><span class="ing-name">Papa cocida en cubos</span></div>
+      <div class="ing-row"><span class="ing-qty">2</span><span class="ing-name">Cebollas grandes</span></div>
+      <div class="ing-row"><span class="ing-qty">4</span><span class="ing-name">Huevos duros</span></div>
+      <div class="ing-row"><span class="ing-qty">15 g</span><span class="ing-name">Pimentón dulce</span></div>
+      <div class="ing-row"><span class="ing-qty">10 g</span><span class="ing-name">Sal</span></div>
+      <div class="ing-row"><span class="ing-qty">c/n</span><span class="ing-name">Locoto picado, a gusto</span></div>
+    </div>
+    <div class="col-pasos">
+      <div class="paso-head">Preparación</div>
+      <div class="paso"><div class="paso-n">1</div><div class="paso-txt"><b>La masa.</b> Frotá la grasa con la harina y la sal hasta que quede arenosa. Sumá el agua tibia de a poco hasta que se arme lisa. Tapala y dejala media hora; yo acá no la apuraría, esa espera te la devuelve después.</div></div>
+      <div class="paso"><div class="paso-n">2</div><div class="paso-txt"><b>El relleno.</b> Cebolla en grasa hasta que esté transparente, después la carne en cubos sellada vuelta y vuelta. Pimentón, sal y locoto. No te la cocines de más: termina de hacerse en el horno.</div></div>
+      <div class="paso"><div class="paso-n">3</div><div class="paso-txt">Dejá enfriar el relleno del todo, sin atajos. Recién con todo frío sumás la papa en cubos y el huevo duro picado grueso, y mezclás despacio para no hacerlo puré.</div></div>
+      <div class="paso"><div class="paso-n">4</div><div class="paso-txt"><b>El armado.</b> Estirás, cortás discos de 12 cm, dos cucharadas por disco y repulgue de 13. Lo único importante acá: sacale el aire de adentro, que la bolsita de aire es lo que las hace reventar.</div></div>
+      <div class="paso"><div class="paso-n">5</div><div class="paso-txt">Asadera apenas aceitada, horno fuerte a 220°C, 18 a 20 minutos hasta que doren. Pintalas con huevo batido antes de meterlas y te quedan con ese brillo de vidriera de panadería.</div></div>
+    </div>
+    <div class="tip"><div class="tip-label">🔥 El consejo de Javo</div><div class="tip-txt">Insisto con la grasa de pella, porque es la clave. Con manteca te sale una empanada rica, pero no salteña. Si la conseguís, no la cambies: es lo que separa a la del norte de todas las demás.</div></div>
+  </div>
+</div>
+
+<!-- 02 HUMITAS EN CHALA -->
+<div class="page recipe">
+  <div class="rh"><div class="rh-brand">Javotecocina</div><div class="rh-pg">Rellenos y Masas</div><div class="rh-rule"></div></div>
+  <div class="r-head" style="margin-top:11mm;">
+    <div class="r-head-l"><div class="r-cat">Receta 02 · Rellenos y Masas</div><div class="r-title">Humitas<br>en Chala</div></div>
+    <div class="r-num">02</div>
+  </div>
+  <div class="r-meta">
+    <div class="r-meta-it"><div class="r-meta-k">Tiempo</div><div class="r-meta-v">2 hs</div></div>
+    <div class="r-meta-it"><div class="r-meta-k">Porciones</div><div class="r-meta-v">12 unid.</div></div>
+    <div class="r-meta-it"><div class="r-meta-k">Cocción</div><div class="r-meta-v">Vapor</div></div>
+    <div class="r-meta-it"><div class="r-meta-k">Dificultad</div><div class="r-meta-v">Media</div></div>
+  </div>
+  <div class="r-note">La humita salteña es salada y va con queso, nada de azúcar. La masa es de choclo fresco rallado, no de harina de maíz, y va al vapor, no al horno. Te lo aclaro porque son las dos cosas que más veo equivocadas.</div>
+  <div class="r-img ph"><span>Foto: img/saltenos/humitas-chala.jpg — Humitas atadas con tiras de chala, una recién abierta mostrando la masa de choclo amarilla con el queso derretido en el centro, vapor saliendo</span></div>
+  <div class="r-cols">
+    <div class="col-ing">
+      <div class="ing-head">Ingredientes</div>
+      <div class="ing-row"><span class="ing-qty">8</span><span class="ing-name">Choclos grandes con chala</span></div>
+      <div class="ing-row"><span class="ing-qty">200 g</span><span class="ing-name">Queso criollo o de cabra</span></div>
+      <div class="ing-row"><span class="ing-qty">2</span><span class="ing-name">Cebollas medianas</span></div>
+      <div class="ing-row"><span class="ing-qty">30 ml</span><span class="ing-name">Aceite o grasa</span></div>
+      <div class="ing-row"><span class="ing-qty">10 g</span><span class="ing-name">Pimentón dulce</span></div>
+      <div class="ing-row"><span class="ing-qty">10 g</span><span class="ing-name">Sal</span></div>
+      <div class="ing-row"><span class="ing-qty">c/n</span><span class="ing-name">Albahaca fresca</span></div>
+      <div class="ing-row"><span class="ing-qty">c/n</span><span class="ing-name">Locoto, para quien guste</span></div>
+    </div>
+    <div class="col-pasos">
+      <div class="paso-head">Preparación</div>
+      <div class="paso"><div class="paso-n">1</div><div class="paso-txt"><b>Desgraná y rallá.</b> Separá las chalas con cuidado, que después envuelven. Rallá los granos directo: te queda una pasta húmeda y medio fibrosa, y así está bien, no busques que quede lisa.</div></div>
+      <div class="paso"><div class="paso-n">2</div><div class="paso-txt">En una sartén amplia dorá la cebolla, sumá el choclo rallado y el pimentón, y cociná unos 5 minutos revolviendo hasta que espese un poco. No te apures con el fuego acá, que se pega enseguida.</div></div>
+      <div class="paso"><div class="paso-n">3</div><div class="paso-txt"><b>Condimentá.</b> Sal y albahaca picada (locoto, para quien guste). La masa tiene que quedar pastosa y manejable. Dejala enfriar diez minutos antes de armar, si no es imposible.</div></div>
+      <div class="paso"><div class="paso-n">4</div><div class="paso-txt"><b>El armado.</b> Sobre la chala van dos cucharadas de masa, un trozo de queso al medio y otra cucharada encima tapando. Cerrás la chala y atás con tiras de la misma hoja.</div></div>
+      <div class="paso"><div class="paso-n">5</div><div class="paso-txt">Al vapor, en olla con rejilla y agua hirviendo, paradas y con la boca para arriba. A los 45 minutos la chala se ve amarillenta y la masa firme al tocarla: ahí están.</div></div>
+    </div>
+    <div class="tip"><div class="tip-label">🔥 El consejo de Javo</div><div class="tip-txt">El error que más veo: ponerle azúcar. Esa es la tucumana, y es otra cosa, también rica. La salteña es salada, con queso, y a veces con locoto. Cada provincia defiende la suya, y hace bien.</div></div>
+  </div>
+</div>
+
+<!-- 03 TAMALES SALTEÑOS -->
+<div class="page recipe">
+  <div class="rh"><div class="rh-brand">Javotecocina</div><div class="rh-pg">Rellenos y Masas</div><div class="rh-rule"></div></div>
+  <div class="r-head" style="margin-top:11mm;">
+    <div class="r-head-l"><div class="r-cat">Receta 03 · Rellenos y Masas</div><div class="r-title">Tamales<br>Salteños</div></div>
+    <div class="r-num">03</div>
+  </div>
+  <div class="r-meta">
+    <div class="r-meta-it"><div class="r-meta-k">Tiempo</div><div class="r-meta-v">3 hs</div></div>
+    <div class="r-meta-it"><div class="r-meta-k">Porciones</div><div class="r-meta-v">20 unid.</div></div>
+    <div class="r-meta-it"><div class="r-meta-k">Cocción</div><div class="r-meta-v">Vapor 1 h</div></div>
+    <div class="r-meta-it"><div class="r-meta-k">Dificultad</div><div class="r-meta-v">Alta</div></div>
+  </div>
+  <div class="r-note">El tamal salteño va relleno de carne, papa, cebolla y huevo, con una masa de harina de maíz trabajada con grasa. Te aviso de una: da laburo. Pero es de esas cosas que cuando lo abrís en la mesa, te olvidás del laburo.</div>
+  <div class="r-img ph"><span>Foto: img/saltenos/tamales-saltenos.jpg — Tamales abiertos sobre la chala, masa de maíz amarilla con el relleno de carne y huevo a la vista, humo de vapor, atados con tiras de chala</span></div>
+  <div class="r-cols">
+    <div class="col-ing">
+      <div class="ing-head">Ingredientes</div>
+      <div class="ing-glabel">Masa</div>
+      <div class="ing-row"><span class="ing-qty">500 g</span><span class="ing-name">Harina de maíz gruesa</span></div>
+      <div class="ing-row"><span class="ing-qty">150 g</span><span class="ing-name">Grasa de pella</span></div>
+      <div class="ing-row"><span class="ing-qty">600 ml</span><span class="ing-name">Caldo caliente</span></div>
+      <div class="ing-row"><span class="ing-qty">10 g</span><span class="ing-name">Sal</span></div>
+      <div class="ing-glabel">Relleno</div>
+      <div class="ing-row"><span class="ing-qty">400 g</span><span class="ing-name">Carne cocida desmenuzada</span></div>
+      <div class="ing-row"><span class="ing-qty">200 g</span><span class="ing-name">Papa cocida en cubos</span></div>
+      <div class="ing-row"><span class="ing-qty">2</span><span class="ing-name">Cebollas sofritas</span></div>
+      <div class="ing-row"><span class="ing-qty">3</span><span class="ing-name">Huevos duros en cuartos</span></div>
+      <div class="ing-row"><span class="ing-qty">15 g</span><span class="ing-name">Pimentón</span></div>
+    </div>
+    <div class="col-pasos">
+      <div class="paso-head">Preparación</div>
+      <div class="paso"><div class="paso-n">1</div><div class="paso-txt"><b>La masa de maíz.</b> Derretí la grasa y mezclala con la harina y el caldo caliente de a poco, hasta una masa suave. Salá. Tiene que quedar blanda pero que no se te pegue en la mano.</div></div>
+      <div class="paso"><div class="paso-n">2</div><div class="paso-txt">El relleno es la carne desmenuzada con la cebolla sofrita, el pimentón y la papa, todo junto. Condimentá y, como siempre, dejalo enfriar antes de armar, que en caliente no hay forma.</div></div>
+      <div class="paso"><div class="paso-n">3</div><div class="paso-txt"><b>El armado.</b> Sobre chala remojada (remojada para que no se quiebre) extendé una capa de masa de medio centímetro, el relleno al centro con un cuarto de huevo duro, y envolvés bien atando con tiras de chala.</div></div>
+      <div class="paso"><div class="paso-n">4</div><div class="paso-txt">Parados al vapor en olla con rejilla, una hora. El truco para saber si están: la chala se despega limpia de la masa sin que la masa se quede pegada a la hoja.</div></div>
+      <div class="paso"><div class="paso-n">5</div><div class="paso-txt">Se comen directo de la chala, con llajua o salsa criolla. Y si te sobran, no los tires: leé el consejo de acá abajo.</div></div>
+    </div>
+    <div class="tip"><div class="tip-label">🔥 El consejo de Javo</div><div class="tip-txt">Hacé de más a propósito. Los tamales del día siguiente, tostados en la plancha con un toque de grasa, me gustan más que recién hechos: la masa se asienta y el sabor se concentra. En casa son los primeros que vuelan.</div></div>
+  </div>
+</div>
+
+<!-- 04 CORDERO A LA CRUZ -->
+<div class="page recipe">
+  <div class="rh"><div class="rh-brand">Javotecocina</div><div class="rh-pg">Carnes al Fuego</div><div class="rh-rule"></div></div>
+  <div class="r-head" style="margin-top:11mm;">
+    <div class="r-head-l"><div class="r-cat">Receta 04 · Carnes al Fuego</div><div class="r-title">Cordero<br>a la Cruz</div></div>
+    <div class="r-num">04</div>
+  </div>
+  <div class="r-meta">
+    <div class="r-meta-it"><div class="r-meta-k">Tiempo</div><div class="r-meta-v">4–5 hs</div></div>
+    <div class="r-meta-it"><div class="r-meta-k">Porciones</div><div class="r-meta-v">8–10</div></div>
+    <div class="r-meta-it"><div class="r-meta-k">Fuego</div><div class="r-meta-v">Leña / carbón</div></div>
+    <div class="r-meta-it"><div class="r-meta-k">Dificultad</div><div class="r-meta-v">Alta</div></div>
+  </div>
+  <div class="r-note">El cordero a la cruz es el asado más ceremonial que tenemos. Es un día entero alrededor del fuego, charlando, cebando mate, esperando. No es para cualquier domingo apurado: es para cuando tenés la tarde y la gente.</div>
+  <div class="r-img ph"><span>Foto: img/saltenos/cordero-cruz.jpg — Cordero entero extendido en cruz de hierro frente al fuego de leña al atardecer, piel dorada, brasas en primer plano, campo salteño de fondo</span></div>
+  <div class="r-cols">
+    <div class="col-ing">
+      <div class="ing-head">Ingredientes</div>
+      <div class="ing-row"><span class="ing-qty">1</span><span class="ing-name">Cordero entero (8–10 kg)</span></div>
+      <div class="ing-row"><span class="ing-qty">80 g</span><span class="ing-name">Sal gruesa</span></div>
+      <div class="ing-glabel">Salmuera para pintar</div>
+      <div class="ing-row"><span class="ing-qty">1 L</span><span class="ing-name">Agua</span></div>
+      <div class="ing-row"><span class="ing-qty">50 g</span><span class="ing-name">Sal gruesa</span></div>
+      <div class="ing-row"><span class="ing-qty">6 dientes</span><span class="ing-name">Ajo aplastados</span></div>
+      <div class="ing-row"><span class="ing-qty">20 g</span><span class="ing-name">Romero fresco</span></div>
+      <div class="ing-row"><span class="ing-qty">30 ml</span><span class="ing-name">Vinagre de vino</span></div>
+    </div>
+    <div class="col-pasos">
+      <div class="paso-head">Preparación</div>
+      <div class="paso"><div class="paso-n">1</div><div class="paso-txt"><b>La salmuera.</b> Herví el agua con la sal, el ajo, el romero y el vinagre, y dejala entibiar. Con esto vas a pintar durante toda la cocción, así que hacé bastante: siempre falta.</div></div>
+      <div class="paso"><div class="paso-n">2</div><div class="paso-txt"><b>El cordero en la cruz.</b> Va abierto, extendido y atado a la cruz con alambre, las patas bien estiradas. La cruz se clava inclinada a unos 60° frente al fuego.</div></div>
+      <div class="paso"><div class="paso-n">3</div><div class="paso-txt"><b>Fuego de costado.</b> Acá está todo el asunto: el fuego no va debajo sino al lado, y el calor le pega de costado. A 50 o 70 cm, y sostenido cuatro o cinco horas sin que decaiga. Si lo dejás caer, no lo recuperás más.</div></div>
+      <div class="paso"><div class="paso-n">4</div><div class="paso-txt">Pintalo cada media hora con la salmuera, con una rama de romero o un pincel, primero del lado de la carne. A las dos horas das vuelta la cruz para que dore el otro lado.</div></div>
+      <div class="paso"><div class="paso-n">5</div><div class="paso-txt"><b>El punto.</b> La piel dorada y crocante, y al pinchar el muslo el jugo sale claro. Cuando las articulaciones se mueven solas, bajalo: ahí está.</div></div>
+    </div>
+    <div class="tip"><div class="tip-label">🔥 El consejo de Javo</div><div class="tip-txt">No arranques sin leña de quebracho o algarrobo. Es madera dura, que dura y da brasa pareja sin tanta llama. Con madera blanda perdés el control del fuego a media tarde y ya no llegás con el cordero. La leña la pensás antes que la carne.</div></div>
+  </div>
+</div>
+
+<!-- 05 ASADO SALTEÑO CON SALMUERA -->
+<div class="page recipe">
+  <div class="rh"><div class="rh-brand">Javotecocina</div><div class="rh-pg">Carnes al Fuego</div><div class="rh-rule"></div></div>
+  <div class="r-head" style="margin-top:11mm;">
+    <div class="r-head-l"><div class="r-cat">Receta 05 · Carnes al Fuego</div><div class="r-title">Asado Salteño<br>con Salmuera</div></div>
+    <div class="r-num">05</div>
+  </div>
+  <div class="r-meta">
+    <div class="r-meta-it"><div class="r-meta-k">Tiempo</div><div class="r-meta-v">2 h 30</div></div>
+    <div class="r-meta-it"><div class="r-meta-k">Porciones</div><div class="r-meta-v">8</div></div>
+    <div class="r-meta-it"><div class="r-meta-k">Fuego</div><div class="r-meta-v">Carbón y leña</div></div>
+    <div class="r-meta-it"><div class="r-meta-k">Dificultad</div><div class="r-meta-v">Media</div></div>
+  </div>
+  <div class="r-note">Acá el asado no lleva chimichurri: lleva salmuera, que es agua con sal, ajo y hierbas. Nada más. La carne tiene que hablar sola, y la salmuera está para que no se reseque mientras se cocina. No hace falta más que eso.</div>
+  <div class="r-img ph"><span>Foto: img/saltenos/asado-salmuera.jpg — Tira de costillar sobre parrilla con brasa de quebracho, piel dorada, una rama de romero pincelando con salmuera, fondo de campo</span></div>
+  <div class="r-cols">
+    <div class="col-ing">
+      <div class="ing-head">Ingredientes</div>
+      <div class="ing-row"><span class="ing-qty">3 kg</span><span class="ing-name">Costillar de ternera</span></div>
+      <div class="ing-row"><span class="ing-qty">1 kg</span><span class="ing-name">Chorizo colorado</span></div>
+      <div class="ing-row"><span class="ing-qty">500 g</span><span class="ing-name">Morcilla salteña</span></div>
+      <div class="ing-glabel">Salmuera</div>
+      <div class="ing-row"><span class="ing-qty">1 L</span><span class="ing-name">Agua</span></div>
+      <div class="ing-row"><span class="ing-qty">40 g</span><span class="ing-name">Sal gruesa</span></div>
+      <div class="ing-row"><span class="ing-qty">8 dientes</span><span class="ing-name">Ajo</span></div>
+      <div class="ing-row"><span class="ing-qty">20 g</span><span class="ing-name">Orégano</span></div>
+      <div class="ing-row"><span class="ing-qty">10 g</span><span class="ing-name">Romero</span></div>
+    </div>
+    <div class="col-pasos">
+      <div class="paso-head">Preparación</div>
+      <div class="paso"><div class="paso-n">1</div><div class="paso-txt"><b>La salmuera.</b> Herví el agua con todo diez minutos y dejala entibiar. Que quede bien salada, no tengas miedo: va concentrada a propósito, porque se diluye con la cocción.</div></div>
+      <div class="paso"><div class="paso-n">2</div><div class="paso-txt">Brasa, siempre brasa, nunca llama: ese es todo el secreto. Quebracho blanco si conseguís. La parrilla a media altura, unos 15 cm de la brasa, y a tener paciencia.</div></div>
+      <div class="paso"><div class="paso-n">3</div><div class="paso-txt"><b>El costillar primero.</b> Hueso para abajo y no lo toques por 45 minutos: la carne se cocina de abajo hacia arriba sola. Recién después de ese rato empezás a pintar con salmuera.</div></div>
+      <div class="paso"><div class="paso-n">4</div><div class="paso-txt">Pintá cada 20 minutos con una rama de romero mojada en la salmuera. La sal se impregna y la carne queda jugosa. Nada de sal echada directa arriba: solo salmuera.</div></div>
+      <div class="paso"><div class="paso-n">5</div><div class="paso-txt"><b>Chorizos y morcillas.</b> Recién a las dos horas, cuando das vuelta el costillar para terminar el otro lado. 20 a 25 minutos y los llevás a la mesa con todo lo demás.</div></div>
+    </div>
+    <div class="tip"><div class="tip-label">🔥 El consejo de Javo</div><div class="tip-txt">Si cae morcilla salteña de verdad en la carnicería, agarrala y no la cambies. La nuestra es dulce, con pasa de uva y nuez: es otro mundo. Cuando la probás al lado de una común, ya no hay vuelta atrás.</div></div>
+  </div>
+</div>
+
+<!-- 06 CABRITO AL ASADOR -->
+<div class="page recipe">
+  <div class="rh"><div class="rh-brand">Javotecocina</div><div class="rh-pg">Carnes al Fuego</div><div class="rh-rule"></div></div>
+  <div class="r-head" style="margin-top:11mm;">
+    <div class="r-head-l"><div class="r-cat">Receta 06 · Carnes al Fuego</div><div class="r-title">Cabrito<br>al Asador</div></div>
+    <div class="r-num">06</div>
+  </div>
+  <div class="r-meta">
+    <div class="r-meta-it"><div class="r-meta-k">Tiempo</div><div class="r-meta-v">3–4 hs</div></div>
+    <div class="r-meta-it"><div class="r-meta-k">Porciones</div><div class="r-meta-v">6</div></div>
+    <div class="r-meta-it"><div class="r-meta-k">Fuego</div><div class="r-meta-v">Leña viva</div></div>
+    <div class="r-meta-it"><div class="r-meta-k">Interna</div><div class="r-meta-v">75°C</div></div>
+  </div>
+  <div class="r-note">El cabrito al asador es el plato de Semana Santa acá. Animal joven, carne suave, gusto fino. Se hace lento y con fuego de costado, igual que el cordero. En mi casa no hay Viernes Santo sin esto.</div>
+  <div class="r-img ph"><span>Foto: img/saltenos/cabrito-asador.jpg — Cabrito entero abierto al asador frente al fuego de leña, carne dorada y cuero tostado, cerros salteños al fondo al atardecer</span></div>
+  <div class="r-cols">
+    <div class="col-ing">
+      <div class="ing-head">Ingredientes</div>
+      <div class="ing-row"><span class="ing-qty">1</span><span class="ing-name">Cabrito entero (5–6 kg)</span></div>
+      <div class="ing-row"><span class="ing-qty">50 g</span><span class="ing-name">Sal gruesa</span></div>
+      <div class="ing-glabel">Salmuera de hierbas</div>
+      <div class="ing-row"><span class="ing-qty">800 ml</span><span class="ing-name">Agua</span></div>
+      <div class="ing-row"><span class="ing-qty">35 g</span><span class="ing-name">Sal</span></div>
+      <div class="ing-row"><span class="ing-qty">6 dientes</span><span class="ing-name">Ajo</span></div>
+      <div class="ing-row"><span class="ing-qty">15 g</span><span class="ing-name">Tomillo fresco</span></div>
+      <div class="ing-row"><span class="ing-qty">15 g</span><span class="ing-name">Romero fresco</span></div>
+      <div class="ing-row"><span class="ing-qty">1</span><span class="ing-name">Limón exprimido</span></div>
+      <div class="ing-row"><span class="ing-qty">40 ml</span><span class="ing-name">Aceite</span></div>
+    </div>
+    <div class="col-pasos">
+      <div class="paso-head">Preparación</div>
+      <div class="paso"><div class="paso-n">1</div><div class="paso-txt"><b>El animal.</b> Entero y abierto al asador, las costillas abiertas todo lo que den para que el calor llegue al centro. Salalo bien generoso del lado de adentro.</div></div>
+      <div class="paso"><div class="paso-n">2</div><div class="paso-txt">La salmuera la herví toda junta diez minutos y la usás tibia para pintar. Fijate que acá lleva limón y aceite: el limón corta la grasita propia del cabrito y el aceite es lo que lo salva de resecarse.</div></div>
+      <div class="paso"><div class="paso-n">3</div><div class="paso-txt"><b>Fuego de costado.</b> Lo mismo que el cordero a la cruz: el calor le pega de lado, a 50 o 60 cm. Arrancás con el lado de la carne (el de adentro) mirando al fuego.</div></div>
+      <div class="paso"><div class="paso-n">4</div><div class="paso-txt">Pintalo cada media hora con la salmuera de hierbas. A las dos horas girás el asador para que dore el cuero del lado de afuera. Y el fuego, parejo todo el tiempo, sin altibajos.</div></div>
+      <div class="paso"><div class="paso-n">5</div><div class="paso-txt"><b>El punto.</b> Cuero dorado y crocante, y la carne del muslo que se desprende sola del hueso. 75°C en la parte más gruesa y ya está para bajar.</div></div>
+    </div>
+    <div class="tip"><div class="tip-label">🔥 El consejo de Javo</div><div class="tip-txt">El cabrito joven casi no tiene grasa propia, y por eso la salmuera con aceite no es un capricho. Si la salteás, se te reseca por fuera mientras el centro todavía está crudo. Pintalo seguido y no te va a pasar.</div></div>
+  </div>
+</div>
+
+<!-- 07 POLLO CON PAPINES ANDINOS -->
+<div class="page recipe">
+  <div class="rh"><div class="rh-brand">Javotecocina</div><div class="rh-pg">Carnes al Fuego</div><div class="rh-rule"></div></div>
+  <div class="r-head" style="margin-top:11mm;">
+    <div class="r-head-l"><div class="r-cat">Receta 07 · Carnes al Fuego</div><div class="r-title">Pollo con<br>Papines Andinos</div></div>
+    <div class="r-num">07</div>
+  </div>
+  <div class="r-meta">
+    <div class="r-meta-it"><div class="r-meta-k">Tiempo</div><div class="r-meta-v">1 h 30</div></div>
+    <div class="r-meta-it"><div class="r-meta-k">Porciones</div><div class="r-meta-v">4</div></div>
+    <div class="r-meta-it"><div class="r-meta-k">Horno</div><div class="r-meta-v">190°C</div></div>
+    <div class="r-meta-it"><div class="r-meta-k">Dificultad</div><div class="r-meta-v">Fácil</div></div>
+  </div>
+  <div class="r-note">El papín andino es esa papa chiquita de la Puna, sabrosa de verdad, que ni se pela. Al horno chupa todo el jugo del pollo y te queda con una textura que la papa común no te la da. De las recetas más fáciles del libro, dicho sea de paso.</div>
+  <div class="r-img ph"><span>Foto: img/saltenos/pollo-papines.jpg — Pollo trozado y dorado en fuente de horno rodeado de papines andinos brillantes de jugo, hierbas frescas por encima, fuente rústica</span></div>
+  <div class="r-cols">
+    <div class="col-ing">
+      <div class="ing-head">Ingredientes</div>
+      <div class="ing-row"><span class="ing-qty">1</span><span class="ing-name">Pollo trozado (8 presas)</span></div>
+      <div class="ing-row"><span class="ing-qty">600 g</span><span class="ing-name">Papines andinos</span></div>
+      <div class="ing-row"><span class="ing-qty">8 dientes</span><span class="ing-name">Ajo enteros</span></div>
+      <div class="ing-row"><span class="ing-qty">1</span><span class="ing-name">Cebolla en cuartos</span></div>
+      <div class="ing-row"><span class="ing-qty">60 ml</span><span class="ing-name">Aceite de oliva</span></div>
+      <div class="ing-row"><span class="ing-qty">15 g</span><span class="ing-name">Pimentón</span></div>
+      <div class="ing-row"><span class="ing-qty">10 g</span><span class="ing-name">Orégano seco</span></div>
+      <div class="ing-row"><span class="ing-qty">10 g</span><span class="ing-name">Tomillo</span></div>
+      <div class="ing-row"><span class="ing-qty">15 g</span><span class="ing-name">Sal</span></div>
+      <div class="ing-row"><span class="ing-qty">80 ml</span><span class="ing-name">Vino blanco</span></div>
+    </div>
+    <div class="col-pasos">
+      <div class="paso-head">Preparación</div>
+      <div class="paso"><div class="paso-n">1</div><div class="paso-txt"><b>La marinada.</b> Aceite, pimentón, orégano, tomillo y sal. Cubrí el pollo y dejalo marinar dos horas mínimo. Si te organizás y lo dejás de un día para el otro, la diferencia se nota.</div></div>
+      <div class="paso"><div class="paso-n">2</div><div class="paso-txt">Los papines, lavados y, si son grandes, partidos al medio. No los peles: la cáscara es media gracia del plato y los cuida en el horno para que no se deshagan.</div></div>
+      <div class="paso"><div class="paso-n">3</div><div class="paso-txt"><b>Armá la fuente.</b> Los papines abajo con el ajo y la cebolla, el pollo arriba con la piel para arriba. El vino blanco volcalo por los costados, no sobre la piel.</div></div>
+      <div class="paso"><div class="paso-n">4</div><div class="paso-txt">Horno a 190°C, 50 a 60 minutos. A la media hora regá el pollo con el jugo del fondo y no te olvides, que es lo que lo deja dorado por fuera y jugoso por dentro.</div></div>
+      <div class="paso"><div class="paso-n">5</div><div class="paso-txt">Va a la mesa en la misma fuente, con todo el jugo bañándolo. Pan para mojar ese fondo no es opcional en casa: es parte del plato.</div></div>
+    </div>
+    <div class="tip"><div class="tip-label">🔥 El consejo de Javo</div><div class="tip-txt">Si no hay papín, la que más se le acerca es la canchan, esa rosada. Con papa común también te sale, no te voy a mentir, pero el papín tiene un gusto propio que no hay con qué reemplazar.</div></div>
+  </div>
+</div>
+
+<!-- 08 LOCRO DE INVIERNO -->
+<div class="page recipe">
+  <div class="rh"><div class="rh-brand">Javotecocina</div><div class="rh-pg">Guisos y Ollas</div><div class="rh-rule"></div></div>
+  <div class="r-head" style="margin-top:11mm;">
+    <div class="r-head-l"><div class="r-cat">Receta 08 · Guisos y Ollas</div><div class="r-title">Locro<br>de Invierno</div></div>
+    <div class="r-num">08</div>
+  </div>
+  <div class="r-meta">
+    <div class="r-meta-it"><div class="r-meta-k">Tiempo</div><div class="r-meta-v">3–4 hs</div></div>
+    <div class="r-meta-it"><div class="r-meta-k">Porciones</div><div class="r-meta-v">10–12</div></div>
+    <div class="r-meta-it"><div class="r-meta-k">Cocción</div><div class="r-meta-v">Fuego lento</div></div>
+    <div class="r-meta-it"><div class="r-meta-k">Dificultad</div><div class="r-meta-v">Media</div></div>
+  </div>
+  <div class="r-note">El locro es la comida grande del norte. Va el 25 de Mayo, el 9 de Julio, los días de frío de verdad. Es un plato que junta gente y que pide tiempo. No es para apurar, es para esperar, y esa espera es media gracia.</div>
+  <div class="r-img ph"><span>Foto: img/saltenos/locro-invierno.jpg — Cazuela de locro espeso y anaranjado en bol de cerámica, el sofrito colorado flotando encima, vapor visible, pan al costado</span></div>
+  <div class="r-cols">
+    <div class="col-ing">
+      <div class="ing-head">Ingredientes</div>
+      <div class="ing-row"><span class="ing-qty">500 g</span><span class="ing-name">Maíz blanco pelado</span></div>
+      <div class="ing-row"><span class="ing-qty">300 g</span><span class="ing-name">Porotos blancos</span></div>
+      <div class="ing-row"><span class="ing-qty">300 g</span><span class="ing-name">Cuerito de cerdo</span></div>
+      <div class="ing-row"><span class="ing-qty">300 g</span><span class="ing-name">Pechito de cerdo</span></div>
+      <div class="ing-row"><span class="ing-qty">200 g</span><span class="ing-name">Chorizo colorado</span></div>
+      <div class="ing-row"><span class="ing-qty">200 g</span><span class="ing-name">Panceta ahumada</span></div>
+      <div class="ing-row"><span class="ing-qty">300 g</span><span class="ing-name">Zapallo</span></div>
+      <div class="ing-row"><span class="ing-qty">2</span><span class="ing-name">Cebollas</span></div>
+      <div class="ing-glabel">Sofrito colorado</div>
+      <div class="ing-row"><span class="ing-qty">30 g</span><span class="ing-name">Grasa, pimentón y cebolla</span></div>
+      <div class="ing-row"><span class="ing-qty">c/n</span><span class="ing-name">Locoto, para quien guste</span></div>
+    </div>
+    <div class="col-pasos">
+      <div class="paso-head">Preparación</div>
+      <div class="paso"><div class="paso-n">1</div><div class="paso-txt"><b>El remojo.</b> Maíz y porotos en remojo por separado, toda la noche. Al otro día se cocinan en agua abundante con sal hasta que el maíz empieza a abrirse solo.</div></div>
+      <div class="paso"><div class="paso-n">2</div><div class="paso-txt"><b>Las carnes.</b> Cuerito, pechito y panceta en trozos grandes, fuego lento, una hora. El cuerito es el que suelta la gelatina, y esa gelatina es la que te espesa el locro de verdad; no lo dejes afuera.</div></div>
+      <div class="paso"><div class="paso-n">3</div><div class="paso-txt">A las dos horas entran el zapallo en cubos y el chorizo en rodajas. El zapallo se va a deshacer, y está bien: de ahí salen el color y ese dulzor que tiene el locro.</div></div>
+      <div class="paso"><div class="paso-n">4</div><div class="paso-txt"><b>Fuego al mínimo.</b> La última hora bien bajo, revolviendo para que no se pegue al fondo. Tiene que quedar espeso: si te chorrea de la cuchara, todavía le falta. Paciencia.</div></div>
+      <div class="paso"><div class="paso-n">5</div><div class="paso-txt"><b>El sofrito colorado.</b> Aparte, en una sartén: grasa, cebolla y pimentón (locoto, para quien guste). Va por encima recién al servir. Ese chorrito rojo arriba es la firma del locro salteño.</div></div>
+    </div>
+    <div class="tip"><div class="tip-label">🔥 El consejo de Javo</div><div class="tip-txt">Si cocinás para mucha gente, dejalo del día anterior: el locro al otro día está mejor. La gelatina del cuerito asienta en la noche y los sabores se terminan de juntar. Lo recalentás a fuego muy lento y listo, sin correr el día del almuerzo.</div></div>
+  </div>
+</div>
+
+<!-- 09 CARBONADA EN ZAPALLO -->
+<div class="page recipe">
+  <div class="rh"><div class="rh-brand">Javotecocina</div><div class="rh-pg">Guisos y Ollas</div><div class="rh-rule"></div></div>
+  <div class="r-head" style="margin-top:11mm;">
+    <div class="r-head-l"><div class="r-cat">Receta 09 · Guisos y Ollas</div><div class="r-title">Carbonada<br>en Zapallo</div></div>
+    <div class="r-num">09</div>
+  </div>
+  <div class="r-meta">
+    <div class="r-meta-it"><div class="r-meta-k">Tiempo</div><div class="r-meta-v">2 h 30</div></div>
+    <div class="r-meta-it"><div class="r-meta-k">Porciones</div><div class="r-meta-v">6–8</div></div>
+    <div class="r-meta-it"><div class="r-meta-k">Horno</div><div class="r-meta-v">180°C</div></div>
+    <div class="r-meta-it"><div class="r-meta-k">Dificultad</div><div class="r-meta-v">Media</div></div>
+  </div>
+  <div class="r-note">La carbonada va servida adentro del zapallo, y ahí la olla también se come: cuando la llevás entera a la mesa, la gente se da vuelta a mirar. El agridulce de la pera y el durazno con la carne es el sello, una herencia colonial que quedó.</div>
+  <div class="r-img ph"><span>Foto: img/saltenos/carbonada-zapallo.jpg — Zapallo grande entero en fuente de horno con la tapa al costado, la carbonada con carne y frutas a la vista en el interior, presentación de mesa</span></div>
+  <div class="r-cols">
+    <div class="col-ing">
+      <div class="ing-head">Ingredientes</div>
+      <div class="ing-row"><span class="ing-qty">1</span><span class="ing-name">Zapallo grande (3–4 kg)</span></div>
+      <div class="ing-row"><span class="ing-qty">600 g</span><span class="ing-name">Carne vacuna en cubos</span></div>
+      <div class="ing-row"><span class="ing-qty">2</span><span class="ing-name">Peras en cubos</span></div>
+      <div class="ing-row"><span class="ing-qty">2</span><span class="ing-name">Duraznos en cubos</span></div>
+      <div class="ing-row"><span class="ing-qty">2</span><span class="ing-name">Choclos en rodajas</span></div>
+      <div class="ing-row"><span class="ing-qty">2</span><span class="ing-name">Papas en cubos</span></div>
+      <div class="ing-row"><span class="ing-qty">2</span><span class="ing-name">Cebollas picadas</span></div>
+      <div class="ing-row"><span class="ing-qty">200 ml</span><span class="ing-name">Caldo de carne</span></div>
+      <div class="ing-row"><span class="ing-qty">15 g</span><span class="ing-name">Pimentón</span></div>
+      <div class="ing-row"><span class="ing-qty">10 g</span><span class="ing-name">Azúcar</span></div>
+    </div>
+    <div class="col-pasos">
+      <div class="paso-head">Preparación</div>
+      <div class="paso"><div class="paso-n">1</div><div class="paso-txt"><b>El zapallo.</b> Cortale la tapa y guardala. Sacá las semillas con una cuchara, untá el interior con manteca y sal, y mandalo al horno a 180°C unos 30 minutos antes de rellenar, para que arranque ablandado.</div></div>
+      <div class="paso"><div class="paso-n">2</div><div class="paso-txt">En una sartén sellás la carne en cubos con la cebolla y el pimentón. Sumás el caldo, las papas y los choclos, y cocinás unos 20 minutos.</div></div>
+      <div class="paso"><div class="paso-n">3</div><div class="paso-txt"><b>Las frutas.</b> Recién ahora la pera, el durazno y el azúcar, mezclando despacio. Tienen que quedar enteras, no estás haciendo una compota. Diez minutos más y listo.</div></div>
+      <div class="paso"><div class="paso-n">4</div><div class="paso-txt">Volcás el relleno dentro del zapallo precocido, lo tapás con su propia tapa y de vuelta al horno a 180°C, 45 a 60 minutos más.</div></div>
+      <div class="paso"><div class="paso-n">5</div><div class="paso-txt"><b>A la mesa va entero.</b> Y al servir, con la cuchara raspá un poco de la pulpa del zapallo en cada plato: esa pulpa cocida con todo el jugo también es parte del plato.</div></div>
+    </div>
+    <div class="tip"><div class="tip-label">🔥 El consejo de Javo</div><div class="tip-txt">Lo que hace a la carbonada es el contraste entre el dulce de la fruta y la sal de la carne. No te quedes tibio en ninguno de los dos: si lo dejás a medias, queda un guiso más sin gracia. Tiene que notarse el ida y vuelta.</div></div>
+  </div>
+</div>
+
+<!-- 10 GUISO DE MAÍZ CON CHARQUI -->
+<div class="page recipe">
+  <div class="rh"><div class="rh-brand">Javotecocina</div><div class="rh-pg">Guisos y Ollas</div><div class="rh-rule"></div></div>
+  <div class="r-head" style="margin-top:11mm;">
+    <div class="r-head-l"><div class="r-cat">Receta 10 · Guisos y Ollas</div><div class="r-title">Guiso de Maíz<br>con Charqui</div></div>
+    <div class="r-num">10</div>
+  </div>
+  <div class="r-meta">
+    <div class="r-meta-it"><div class="r-meta-k">Tiempo</div><div class="r-meta-v">2 hs</div></div>
+    <div class="r-meta-it"><div class="r-meta-k">Porciones</div><div class="r-meta-v">6</div></div>
+    <div class="r-meta-it"><div class="r-meta-k">Cocción</div><div class="r-meta-v">Fuego lento</div></div>
+    <div class="r-meta-it"><div class="r-meta-k">Dificultad</div><div class="r-meta-v">Fácil</div></div>
+  </div>
+  <div class="r-note">El charqui es carne secada al sol, de antes de los españoles, y todavía se hace acá. Este guiso es comida de trabajo: simple, contundente, de las que te dejan listo para el frío. Lo que comían los que andaban en la altura.</div>
+  <div class="r-img ph"><span>Foto: img/saltenos/guiso-charqui.jpg — Cazuela rústica con guiso de maíz espeso y oscuro, trozos de charqui a la vista, cebolla de verdeo encima, cuchara de madera apoyada</span></div>
+  <div class="r-cols">
+    <div class="col-ing">
+      <div class="ing-head">Ingredientes</div>
+      <div class="ing-row"><span class="ing-qty">300 g</span><span class="ing-name">Charqui (carne seca)</span></div>
+      <div class="ing-row"><span class="ing-qty">400 g</span><span class="ing-name">Maíz blanco pelado</span></div>
+      <div class="ing-row"><span class="ing-qty">200 g</span><span class="ing-name">Porotos pallares</span></div>
+      <div class="ing-row"><span class="ing-qty">2</span><span class="ing-name">Cebollas picadas</span></div>
+      <div class="ing-row"><span class="ing-qty">2</span><span class="ing-name">Tomates pelados</span></div>
+      <div class="ing-row"><span class="ing-qty">15 g</span><span class="ing-name">Pimentón ahumado</span></div>
+      <div class="ing-row"><span class="ing-qty">30 ml</span><span class="ing-name">Grasa o aceite</span></div>
+      <div class="ing-row"><span class="ing-qty">1 L</span><span class="ing-name">Caldo o agua</span></div>
+      <div class="ing-row"><span class="ing-qty">c/n</span><span class="ing-name">Sal (probar antes de salar)</span></div>
+    </div>
+    <div class="col-pasos">
+      <div class="paso-head">Preparación</div>
+      <div class="paso"><div class="paso-n">1</div><div class="paso-txt"><b>El charqui en remojo.</b> Agua fría, dos horas, para que se hidrate y largue el exceso de sal. Después lo desmenuzás en trozos medianos. Esa agua del remojo la tirás, no la guardes para nada.</div></div>
+      <div class="paso"><div class="paso-n">2</div><div class="paso-txt">Maíz y porotos, en remojo la noche anterior, se cocinan en agua abundante hasta que el maíz empieza a abrirse, más o menos una hora.</div></div>
+      <div class="paso"><div class="paso-n">3</div><div class="paso-txt"><b>El sofrito.</b> En una olla grande, la cebolla con grasa y pimentón. Sumás el tomate pelado y aplastado y le das 5 minutos hasta que se integre todo.</div></div>
+      <div class="paso"><div class="paso-n">4</div><div class="paso-txt">Ahora va todo junto: el maíz y los porotos con su agua de cocción, el charqui desmenuzado, y caldo hasta cubrir. Fuego lento 45 minutos, revolviendo seguido para que no se agarre.</div></div>
+      <div class="paso"><div class="paso-n">5</div><div class="paso-txt"><b>El punto y la sal.</b> Tiene que quedar espeso y con los gustos juntos. Recién al final probás y salás: el charqui ya trae lo suyo, así que no te apures con el salero, que después no hay vuelta.</div></div>
+    </div>
+    <div class="tip"><div class="tip-label">🔥 El consejo de Javo</div><div class="tip-txt">El paso del remojo no es negociable: si lo salteás, el guiso te queda salado y la carne dura como una suela. Y el agua de ese remojo va a la pileta, nunca a la olla, porque se lleva toda la sal de arrastre.</div></div>
+  </div>
+</div>
+
+<!-- 11 CHARQUI A LA PLANCHA -->
+<div class="page recipe">
+  <div class="rh"><div class="rh-brand">Javotecocina</div><div class="rh-pg">Guisos y Ollas</div><div class="rh-rule"></div></div>
+  <div class="r-head" style="margin-top:11mm;">
+    <div class="r-head-l"><div class="r-cat">Receta 11 · Guisos y Ollas</div><div class="r-title">Charqui<br>a la Plancha</div></div>
+    <div class="r-num">11</div>
+  </div>
+  <div class="r-meta">
+    <div class="r-meta-it"><div class="r-meta-k">Tiempo</div><div class="r-meta-v">20 min + remojo</div></div>
+    <div class="r-meta-it"><div class="r-meta-k">Porciones</div><div class="r-meta-v">4</div></div>
+    <div class="r-meta-it"><div class="r-meta-k">Cocción</div><div class="r-meta-v">Plancha fuerte</div></div>
+    <div class="r-meta-it"><div class="r-meta-k">Dificultad</div><div class="r-meta-v">Fácil</div></div>
+  </div>
+  <div class="r-note">Esto es el desayuno fuerte o la picada de campo: charqui tostado, llajua, tortilla de campo y queso de cabra. No le busques más vueltas. Tres o cuatro cosas buenas juntas y ya tenés media mañana resuelta.</div>
+  <div class="r-img ph"><span>Foto: img/saltenos/charqui-plancha.jpg — Trozos de charqui tostados en plancha de hierro, dorados y crujientes en los bordes, con llajua en un cuenco de barro al costado</span></div>
+  <div class="r-cols">
+    <div class="col-ing">
+      <div class="ing-head">Ingredientes</div>
+      <div class="ing-row"><span class="ing-qty">400 g</span><span class="ing-name">Charqui en trozos medianos</span></div>
+      <div class="ing-row"><span class="ing-qty">c/n</span><span class="ing-name">Llajua fresca</span></div>
+      <div class="ing-row"><span class="ing-qty">c/n</span><span class="ing-name">Queso de cabra salteño</span></div>
+      <div class="ing-row"><span class="ing-qty">c/n</span><span class="ing-name">Tortilla de campo</span></div>
+    </div>
+    <div class="col-pasos">
+      <div class="paso-head">Preparación</div>
+      <div class="paso"><div class="paso-n">1</div><div class="paso-txt"><b>El remojo.</b> Charqui en agua fría una hora como mínimo, que se hidrata y baja la sal. Escurrilo y secalo bien con papel antes de la plancha, si no en vez de tostarse se hierve.</div></div>
+      <div class="paso"><div class="paso-n">2</div><div class="paso-txt">Plancha de hierro al máximo y sin una gota de aceite, que el charqui tiene su propia grasa. Los trozos en una sola capa, sin amontonar, que si no se cocinan al vapor unos contra otros.</div></div>
+      <div class="paso"><div class="paso-n">3</div><div class="paso-txt"><b>Cuatro minutos por lado y no lo toques.</b> Dejalo quieto para que tome color y los bordes queden crocantes. El centro queda más blando, y así tiene que ser.</div></div>
+      <div class="paso"><div class="paso-n">4</div><div class="paso-txt">De la plancha derecho a la mesa, caliente. Al lado, la llajua en un cuenco, el queso de cabra y la tortilla de campo, y cada uno se arma el bocado a gusto.</div></div>
+    </div>
+    <div class="tip"><div class="tip-label">🔥 El consejo de Javo</div><div class="tip-txt">El charqui de acá se hace de llama o de vaca. Si te cruzás con uno de llama, no lo dudes: tiene un gusto más intenso, medio mineral, que no se parece a nada. Vale la pena buscarlo aunque sea una vez.</div></div>
+  </div>
+</div>
+
+<!-- 12 MAZAMORRA DE MAÍZ BLANCO -->
+<div class="page recipe">
+  <div class="rh"><div class="rh-brand">Javotecocina</div><div class="rh-pg">Salsas y Postres</div><div class="rh-rule"></div></div>
+  <div class="r-head" style="margin-top:11mm;">
+    <div class="r-head-l"><div class="r-cat">Receta 12 · Salsas y Postres</div><div class="r-title">Mazamorra de<br>Maíz Blanco</div></div>
+    <div class="r-num">12</div>
+  </div>
+  <div class="r-meta">
+    <div class="r-meta-it"><div class="r-meta-k">Tiempo</div><div class="r-meta-v">2 hs + remojo</div></div>
+    <div class="r-meta-it"><div class="r-meta-k">Porciones</div><div class="r-meta-v">8</div></div>
+    <div class="r-meta-it"><div class="r-meta-k">Cocción</div><div class="r-meta-v">Fuego lento</div></div>
+    <div class="r-meta-it"><div class="r-meta-k">Dificultad</div><div class="r-meta-v">Fácil</div></div>
+  </div>
+  <div class="r-note">La mazamorra es el postre colonial del norte: maíz blanco pelado cocido en leche con azúcar y piel de naranja, cremosa y tibia. No tiene ninguna pretensión y nunca pasa de moda. De las cosas que me llevan derecho a la cocina de la abuela.</div>
+  <div class="r-img ph"><span>Foto: img/saltenos/mazamorra.jpg — Bol de mazamorra cremosa y blanca con unas pasas de uva encima, cuchara de madera, mantel rústico de lino, luz cálida</span></div>
+  <div class="r-cols">
+    <div class="col-ing">
+      <div class="ing-head">Ingredientes</div>
+      <div class="ing-row"><span class="ing-qty">400 g</span><span class="ing-name">Maíz blanco pelado</span></div>
+      <div class="ing-row"><span class="ing-qty">1 L</span><span class="ing-name">Leche</span></div>
+      <div class="ing-row"><span class="ing-qty">500 ml</span><span class="ing-name">Agua</span></div>
+      <div class="ing-row"><span class="ing-qty">120 g</span><span class="ing-name">Azúcar</span></div>
+      <div class="ing-row"><span class="ing-qty">1</span><span class="ing-name">Piel de naranja (sin lo blanco)</span></div>
+      <div class="ing-row"><span class="ing-qty">c/n</span><span class="ing-name">Pasas de uva</span></div>
+      <div class="ing-row"><span class="ing-qty">opcional</span><span class="ing-name">Canela, para quien guste</span></div>
+    </div>
+    <div class="col-pasos">
+      <div class="paso-head">Preparación</div>
+      <div class="paso"><div class="paso-n">1</div><div class="paso-txt"><b>El remojo.</b> El maíz blanco toda la noche en agua. Al otro día lo escurrís y lo enjuagás bien antes de empezar a cocinar.</div></div>
+      <div class="paso"><div class="paso-n">2</div><div class="paso-txt">Primera cocción del maíz en agua fresca, fuego medio, hasta que empieza a abrirse: 45 a 60 minutos. Escurrilo de esa agua.</div></div>
+      <div class="paso"><div class="paso-n">3</div><div class="paso-txt"><b>Ahora la leche.</b> Sumás la leche, el azúcar y la piel de naranja, y bajás bien el fuego. Revolvé seguido: si la dejás sola, se te pega abajo y se corta la leche.</div></div>
+      <div class="paso"><div class="paso-n">4</div><div class="paso-txt">Espesa sola, a medida que el maíz suelta su almidón, en otros 45 a 60 minutos a fuego muy bajo. Tiene que quedar cremosa y los granos tiernos, no duros.</div></div>
+      <div class="paso"><div class="paso-n">5</div><div class="paso-txt"><b>Tibia, con pasas de uva por encima.</b> La canela, para quien la quiera: yo la sirvo sin nada más que las pasas, pero va en gustos.</div></div>
+    </div>
+    <div class="tip"><div class="tip-label">🔥 El consejo de Javo</div><div class="tip-txt">No te saltees la piel de naranja, que es la que perfuma todo y la levanta de postre simple a postre rico. Eso sí: solo la parte naranja. Si te llevás lo blanco de abajo, amarga y te arruina la olla entera.</div></div>
+  </div>
+</div>
+
+<!-- 13 API MORADO -->
+<div class="page recipe">
+  <div class="rh"><div class="rh-brand">Javotecocina</div><div class="rh-pg">Salsas y Postres</div><div class="rh-rule"></div></div>
+  <div class="r-head" style="margin-top:11mm;">
+    <div class="r-head-l"><div class="r-cat">Receta 13 · Salsas y Postres</div><div class="r-title">Api<br>Morado</div></div>
+    <div class="r-num">13</div>
+  </div>
+  <div class="r-meta">
+    <div class="r-meta-it"><div class="r-meta-k">Tiempo</div><div class="r-meta-v">30 min</div></div>
+    <div class="r-meta-it"><div class="r-meta-k">Porciones</div><div class="r-meta-v">6</div></div>
+    <div class="r-meta-it"><div class="r-meta-k">Cocción</div><div class="r-meta-v">Fuego medio</div></div>
+    <div class="r-meta-it"><div class="r-meta-k">Dificultad</div><div class="r-meta-v">Fácil</div></div>
+  </div>
+  <div class="r-note">El api es una bebida-postre andina de maíz morado. Acá se toma en invierno, en la Feria Artesanal, en un vasito que te calienta las manos mientras esperás. Espeso, perfumado, caliente: el abrazo de las mañanas frías del norte.</div>
+  <div class="r-img ph"><span>Foto: img/saltenos/api-morado.jpg — Tazas de api morado humeante de color violeta intenso, con espuma clara encima, servidas en taza de barro, una rama de canela al costado</span></div>
+  <div class="r-cols">
+    <div class="col-ing">
+      <div class="ing-head">Ingredientes</div>
+      <div class="ing-row"><span class="ing-qty">200 g</span><span class="ing-name">Harina de maíz morado</span></div>
+      <div class="ing-row"><span class="ing-qty">1,5 L</span><span class="ing-name">Agua</span></div>
+      <div class="ing-row"><span class="ing-qty">150 g</span><span class="ing-name">Azúcar</span></div>
+      <div class="ing-row"><span class="ing-qty">1</span><span class="ing-name">Piel de naranja</span></div>
+      <div class="ing-row"><span class="ing-qty">1</span><span class="ing-name">Piel de limón</span></div>
+      <div class="ing-row"><span class="ing-qty">2</span><span class="ing-name">Clavos de olor</span></div>
+      <div class="ing-row"><span class="ing-qty">opcional</span><span class="ing-name">Canela en rama, para quien guste</span></div>
+    </div>
+    <div class="col-pasos">
+      <div class="paso-head">Preparación</div>
+      <div class="paso"><div class="paso-n">1</div><div class="paso-txt"><b>La pasta primero.</b> Disolvé la harina de maíz morado en un poco de agua fría hasta que quede una pasta sin grumos. Este paso parece menor, pero es el que te salva de los grumos cuando la tires al agua caliente.</div></div>
+      <div class="paso"><div class="paso-n">2</div><div class="paso-txt">El resto del agua hervilo con las pieles de naranja y limón y los clavos, cinco minutos. Sacá las pieles y los clavos antes de seguir, que ya largaron su perfume.</div></div>
+      <div class="paso"><div class="paso-n">3</div><div class="paso-txt"><b>A espesar.</b> Volcá la pasta de harina en esa agua perfumada sin dejar de revolver, fuego medio. El api levanta rápido, así que no te despegues de la olla ni un minuto.</div></div>
+      <div class="paso"><div class="paso-n">4</div><div class="paso-txt">Cuando empieza a espesar, recién ahí el azúcar. Seguís revolviendo otros 10 a 15 minutos, hasta que quede como una bebida espesa para tomar, no una papilla de comer con cuchara.</div></div>
+      <div class="paso"><div class="paso-n">5</div><div class="paso-txt">Va en vasitos o tazas chicas, bien caliente, que es como se toma. La canela, para quien la quiera.</div></div>
+    </div>
+    <div class="tip"><div class="tip-label">🔥 El consejo de Javo</div><div class="tip-txt">La harina de maíz morado la encontrás en dietéticas o en las ferias del norte. Si no aparece, hacelo con maíz morado en grano: sale igual de rico, solo que tenés que darle bastante más cocción para que largue el color y el cuerpo.</div></div>
+  </div>
+</div>
+
+<!-- 14 LLAJUA FRESCA -->
+<div class="page recipe">
+  <div class="rh"><div class="rh-brand">Javotecocina</div><div class="rh-pg">Salsas y Postres</div><div class="rh-rule"></div></div>
+  <div class="r-head" style="margin-top:11mm;">
+    <div class="r-head-l"><div class="r-cat">Receta 14 · Salsas y Postres</div><div class="r-title">Llajua<br>Fresca</div></div>
+    <div class="r-num">14</div>
+  </div>
+  <div class="r-meta">
+    <div class="r-meta-it"><div class="r-meta-k">Tiempo</div><div class="r-meta-v">10 min</div></div>
+    <div class="r-meta-it"><div class="r-meta-k">Rinde</div><div class="r-meta-v">1 taza</div></div>
+    <div class="r-meta-it"><div class="r-meta-k">Cocción</div><div class="r-meta-v">Sin cocción</div></div>
+    <div class="r-meta-it"><div class="r-meta-k">Dificultad</div><div class="r-meta-v">Fácil</div></div>
+  </div>
+  <div class="r-note">La llajua es la salsa de toda la mesa: empanadas, charqui, asado, humitas. En mi casa no hay almuerzo sin un cuenco de llajua al medio. Es el picante de la casa, y el que la prueba siempre vuelve a buscar más.</div>
+  <div class="r-img ph"><span>Foto: img/saltenos/llajua.jpg — Cuenco de barro con llajua roja y verde de color intenso, trozos visibles de locoto y tomate, una cuchara de madera, sobre mesa de madera</span></div>
+  <div class="r-cols">
+    <div class="col-ing">
+      <div class="ing-head">Ingredientes</div>
+      <div class="ing-row"><span class="ing-qty">3</span><span class="ing-name">Locotos rojos maduros</span></div>
+      <div class="ing-row"><span class="ing-qty">3</span><span class="ing-name">Tomates maduros medianos</span></div>
+      <div class="ing-row"><span class="ing-qty">1 puñado</span><span class="ing-name">Quirquiña (hierba fresca)</span></div>
+      <div class="ing-row"><span class="ing-qty">10 g</span><span class="ing-name">Sal</span></div>
+    </div>
+    <div class="col-pasos">
+      <div class="paso-head">Preparación</div>
+      <div class="paso"><div class="paso-n">1</div><div class="paso-txt"><b>El batán.</b> La llajua se hace en piedra, en el mortero de batán. La piedra revienta los aceites y te da una textura que la licuadora no te da ni queriendo. Si tenés el batán, usalo.</div></div>
+      <div class="paso"><div class="paso-n">2</div><div class="paso-txt">Lavá y picá los locotos en trozos. Si lo querés más suave, sacales las semillas; si lo querés que pegue, dejalas. Con semillas y todo es la versión de verdad, la de la mesa salteña.</div></div>
+      <div class="paso"><div class="paso-n">3</div><div class="paso-txt">El tomate, también en trozos: pone la acidez y el volumen. Que sean bien maduros, no me sirven los verdes acá.</div></div>
+      <div class="paso"><div class="paso-n">4</div><div class="paso-txt"><b>A moler.</b> Todo junto en el mortero, hasta que quede rústica, con trozos, nunca un puré liso. La quirquiña va al final, apenas pisada. Salá probando.</div></div>
+      <div class="paso"><div class="paso-n">5</div><div class="paso-txt">Dejala reposar unos 15 minutos antes de servir para que se junten los gustos. Aguanta dos días en la heladera, pero entre vos y yo: recién hecha no tiene comparación.</div></div>
+    </div>
+    <div class="tip"><div class="tip-label">🔥 El consejo de Javo</div><div class="tip-txt">La quirquiña es lo que hace que la llajua sea salteña, ese gusto entre cilantro y ruda no lo da otra cosa. Si no la conseguís, metele cilantro y seguís adelante: no es lo mismo, pero es lo más cerca que vas a estar.</div></div>
+  </div>
+</div>
+
+<!-- 15 SALSA CRIOLLA DEL NORTE -->
+<div class="page recipe">
+  <div class="rh"><div class="rh-brand">Javotecocina</div><div class="rh-pg">Salsas y Postres</div><div class="rh-rule"></div></div>
+  <div class="r-head" style="margin-top:11mm;">
+    <div class="r-head-l"><div class="r-cat">Receta 15 · Salsas y Postres</div><div class="r-title">Salsa Criolla<br>del Norte</div></div>
+    <div class="r-num">15</div>
+  </div>
+  <div class="r-meta">
+    <div class="r-meta-it"><div class="r-meta-k">Tiempo</div><div class="r-meta-v">15 min + reposo</div></div>
+    <div class="r-meta-it"><div class="r-meta-k">Rinde</div><div class="r-meta-v">1 taza</div></div>
+    <div class="r-meta-it"><div class="r-meta-k">Cocción</div><div class="r-meta-v">Sin cocción</div></div>
+    <div class="r-meta-it"><div class="r-meta-k">Dificultad</div><div class="r-meta-v">Fácil</div></div>
+  </div>
+  <div class="r-note">Tomate, cebolla, los dos morrones y vinagre: la salsa criolla de toda la vida. Va con el asado, las empanadas y el charqui. La mía la corto más rústica, y le sumo locoto para el que se anima al picante.</div>
+  <div class="r-img ph"><span>Foto: img/saltenos/salsa-criolla.jpg — Bol con salsa criolla colorida: rojo del tomate y el morrón, blanco de la cebolla, verde del perejil, el aceite brillando encima</span></div>
+  <div class="r-cols">
+    <div class="col-ing">
+      <div class="ing-head">Ingredientes</div>
+      <div class="ing-row"><span class="ing-qty">3</span><span class="ing-name">Tomates medianos maduros</span></div>
+      <div class="ing-row"><span class="ing-qty">2</span><span class="ing-name">Cebollas medianas</span></div>
+      <div class="ing-row"><span class="ing-qty">1</span><span class="ing-name">Morrón rojo</span></div>
+      <div class="ing-row"><span class="ing-qty">1</span><span class="ing-name">Morrón verde</span></div>
+      <div class="ing-row"><span class="ing-qty">30 ml</span><span class="ing-name">Vinagre de vino</span></div>
+      <div class="ing-row"><span class="ing-qty">30 ml</span><span class="ing-name">Aceite</span></div>
+      <div class="ing-row"><span class="ing-qty">10 g</span><span class="ing-name">Sal</span></div>
+      <div class="ing-row"><span class="ing-qty">10 g</span><span class="ing-name">Orégano seco</span></div>
+      <div class="ing-row"><span class="ing-qty">c/n</span><span class="ing-name">Locoto, opcional</span></div>
+    </div>
+    <div class="col-pasos">
+      <div class="paso-head">Preparación</div>
+      <div class="paso"><div class="paso-n">1</div><div class="paso-txt"><b>Corte rústico.</b> Todo en cubos medianos, nada de picarlo finito: la criolla tiene que tener textura, que se sienta el mordisco. El tomate va con o sin piel; con piel queda más de campo.</div></div>
+      <div class="paso"><div class="paso-n">2</div><div class="paso-txt"><b>La cebolla, atención acá.</b> En brunoise fina, y antes de mezclarla la salás, la masajeás y la enjuagás con agua fría. Eso le saca el ardor y el amargo. No te saltees este paso, que es el que separa una criolla rica de una que repite toda la tarde.</div></div>
+      <div class="paso"><div class="paso-n">3</div><div class="paso-txt">Todos los vegetales juntos, y condimentás con vinagre, aceite, sal y orégano. Revolvé bien para que se reparta parejo.</div></div>
+      <div class="paso"><div class="paso-n">4</div><div class="paso-txt">Media hora en la heladera como mínimo antes de servir: ahí se juntan los gustos y el vinagre hace lo suyo. Si la dejás de un día para el otro, mejor todavía.</div></div>
+      <div class="paso"><div class="paso-n">5</div><div class="paso-txt"><b>Ojo con la temperatura.</b> Sacala de la heladera un cuarto de hora antes. Fría pierde el aroma; se come a temperatura ambiente, no recién salida del frío.</div></div>
+    </div>
+    <div class="tip"><div class="tip-label">🔥 El consejo de Javo</div><div class="tip-txt">El locoto, si lo ponés, andá de a poco: pega fuerte. Una pizca nomás y la criolla agarra una nota que hace que todos pregunten qué le pusiste. Yo no lo cuento, y vos tampoco.</div></div>
+  </div>
+</div>
+
+<!-- CIERRE: LA MESA SALTEÑA -->
+<div class="page gp">
+  <div class="rh"><div class="rh-brand">Javotecocina</div><div class="rh-pg">Para cerrar</div><div class="rh-rule"></div></div>
+  <div style="margin-top:13mm;">
+    <div class="g-title">La mesa salteña</div>
+    <div class="r-img ph" style="margin-bottom:6mm;height:110mm;"><span>Foto: img/saltenos/mesa.jpg — Mesa larga de patio salteño con varias recetas del libro servidas para compartir: empanadas, humitas, locro y llajua, gente alrededor, luz de tarde, estilo familiar y real</span></div>
+    <div class="g-text">Ninguna de estas recetas se come sola. Esta es comida para compartir, y la mesa salteña se arma con lo que la rodea: una salsa que despabile las carnes, algo para abrigarse, un postre que cierre tibio. Te dejo acá lo que más uso para redondear todo lo del libro y que no te falte nada en la mesa.</div>
+    <div class="g-grid">
+      <div class="g-card"><div class="g-card-title">🌶️ Llajua del norte</div><p>Locoto, tomate y quirquiña pisados en batán, rústica y picante. En mi mesa no falta: va con las empanadas, el charqui, las humitas y el asado. Hacela fresca el mismo día y dejala reposar un rato antes de sacarla.</p></div>
+      <div class="g-card"><div class="g-card-title">🍅 Salsa criolla del norte</div><p>Tomate, cebolla y los dos morrones bien cortados, con aceite, vinagre y orégano. Fresca y ácida, es el contrapunto que le va al asado y a las empanadas recién salidas del horno, para mojar.</p></div>
+      <div class="g-card"><div class="g-card-title">🍷 Torrontés y vino patero</div><p>El torrontés de los Valles Calchaquíes, aromático y fresco, acompaña las humitas y el cabrito sin taparlos. Y el patero, pisado a pie en la cosecha, es el tinto rústico y honesto de la mesa de campo.</p></div>
+      <div class="g-card"><div class="g-card-title">🥛 Postres del norte: api y mazamorra</div><p>Para cerrar tibio: la mazamorra cremosa de maíz blanco y el api morado humeante de las ferias de invierno. Dos postres coloniales de maíz que abrigan, perfumados con cáscaras cítricas, servidos calientes.</p></div>
+    </div>
+    <div class="g-text" style="font-style:italic;color:var(--muted);margin-top:1mm;">Y lo mejor de la mesa salteña no se cocina: es la tarde que se estira porque la comida fue saliendo de a poco, los que caen sin avisar y se sientan igual, la última empanada que nadie agarra pero todos miran de reojo. Con paciencia se cocina y sin apuro se come. Esa es, al final, toda la receta del norte.</div>
+  </div>
+</div>
+
+<!-- CONTRACUBIERTA -->
+<div class="page back">
+  <div class="back-quote"><p>Cocinar salteño no es seguir una receta: es recordar cómo lo hacía alguien antes que vos, y hacer que eso siga vivo. Prendé el fuego, esperá lo que haya que esperar, y sentá a los tuyos alrededor de la olla.</p></div>
+  <div class="back-bottom">
+    <div class="back-brand">Javotecocina</div>
+    <div class="back-web">javotecocina.com · Salta, Argentina</div>
+  </div>
+</div>
+
 <script>
 (function(){
   var slug='sabores-saltenos';
-  if(localStorage.getItem('javo_admin_v1')==='1'){document.getElementById('javo-paywall').remove();return;}
+  if(localStorage.getItem('javo_admin_v1')==='1'){var p=document.getElementById('javo-paywall');if(p)p.remove();return;}
   var token=localStorage.getItem('javo_access_sabores-saltenos');
-  if(token){try{var d=JSON.parse(atob(token));if(d.slug===slug&&d.exp>Date.now()){document.getElementById('javo-paywall').remove();return;}}catch(e){}}
+  if(token){try{var d=JSON.parse(atob(token));if(d.slug===slug&&d.exp>Date.now()){var p=document.getElementById('javo-paywall');if(p)p.remove();return;}}catch(e){}}
   document.body.style.overflow='hidden';
 })();
-async function javoVerificar(){
-  var email=document.getElementById('pw-email').value.trim();
-  var msg=document.getElementById('pw-msg');
-  if(!email||!email.includes('@')){msg.textContent='Ingresá un email válido.';return;}
-  msg.style.color='#C4853A';msg.textContent='Verificando...';
-  try{
-    var r=await fetch('/api/verify_purchase',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({email:email,recetario:'sabores-saltenos'})});
-    var data=await r.json();
-    if(data.access){
-      var token=btoa(JSON.stringify({slug:'sabores-saltenos',email:email,exp:Date.now()+365*24*60*60*1000}));
-      localStorage.setItem('javo_access_sabores-saltenos',token);
-      document.getElementById('javo-paywall').remove();
-      document.body.style.overflow='';
-    }else{
-      msg.style.color='#D4521A';
-      msg.textContent='No encontramos una compra con ese email para este recetario.';
-    }
-  }catch(e){msg.style.color='#D4521A';msg.textContent='Error de conexión. Intentá de nuevo.';}
-}
 </script>
-<!-- FIN PAYWALL -->
-
-  <!-- NAV VOLVER -->
-  <nav class="nav-volver">
-    <a href="/">
-      <span class="arrow">&#8592;</span>
-      Volver a javotecocina.com
-    </a>
-  </nav>
-
-  <!-- PORTADA -->
-  <header class="portada">
-    <div class="portada-contenido">
-      <p class="portada-marca">Javo Te Cocina &nbsp;·&nbsp; Recetario</p>
-      <div class="ornamento-puna">
-        <span>✦</span>
-      </div>
-      <h1 class="portada-titulo">Sabores <span>Salteños</span></h1>
-      <p class="portada-subtitulo">El Norte en cada bocado</p>
-      <div class="portada-divider"></div>
-      <p class="portada-descripcion">
-        15 recetas de la cocina del noroeste argentino, transmitidas de generación en generación y revividas en las manos de Javo.
-      </p>
-    </div>
-  </header>
-
-  <!-- INTRO -->
-  <section class="intro-section">
-    <p class="intro-label">Palabras de Javo</p>
-    <div class="intro-text">
-      <p>
-        Salta tiene un color que no se puede describir con palabras. Es el ocre de la Puna, el rojo del cerro de los Siete Colores, el verde brillante de los cardones al amanecer. Pero sobre todo, Salta tiene un olor: el de la grasa caliente con pimentón, el pan recién sacado del rescoldo, el choclo molido mezclándose con la quebracho que arde en el fogón.
-      </p>
-      <p>
-        Crecí rodeado de esos aromas. Mi abuela, mis tías, el mercado San Miguel con sus puestos de locoto y quirquiña, los domingos con locro que hervía desde la mañana temprano. Esa cocina es mi identidad, y este recetario es mi manera de honrarla.
-      </p>
-      <p>
-        No pretendo que estos sean "los" recetas definitivas —en el NOA cada familia tiene sus secretos y sus versiones—. Son mis versiones, las que fui construyendo con el tiempo, las que cocino cuando quiero sentir que estoy en casa aunque esté lejos. Son los sabores que me formaron.
-      </p>
-      <p>
-        Espero que al cocinarlos, algo de esa magia del norte llegue a tu cocina también.
-      </p>
-    </div>
-    <p class="intro-firma">— Javo</p>
-  </section>
-
-  <!-- ÍNDICE -->
-  <section class="indice-section">
-    <p class="section-label">Índice de recetas</p>
-    <div class="indice-grid">
-      <div class="indice-item"><span class="indice-num">01</span><a href="#receta-empanadas-saltenas">Empanadas Salteñas</a></div>
-      <div class="indice-item"><span class="indice-num">02</span><a href="#receta-humitas">Humitas en Chala</a></div>
-      <div class="indice-item"><span class="indice-num">03</span><a href="#receta-tamales">Tamales Salteños</a></div>
-      <div class="indice-item"><span class="indice-num">04</span><a href="#receta-locro">Locro Norteño</a></div>
-      <div class="indice-item"><span class="indice-num">05</span><a href="#receta-carbonada">Carbonada Salteña</a></div>
-      <div class="indice-item"><span class="indice-num">06</span><a href="#receta-cordero-cruz">Cordero a la Cruz</a></div>
-      <div class="indice-item"><span class="indice-num">07</span><a href="#receta-chanfaina">Chanfaina Salteña</a></div>
-      <div class="indice-item"><span class="indice-num">08</span><a href="#receta-tortilla-rescoldo">Tortilla de Rescoldo</a></div>
-      <div class="indice-item"><span class="indice-num">09</span><a href="#receta-guiso-maiz">Guiso de Maíz Blanco</a></div>
-      <div class="indice-item"><span class="indice-num">10</span><a href="#receta-charqui">Charqui con Papa</a></div>
-      <div class="indice-item"><span class="indice-num">11</span><a href="#receta-mazamorra">Mazamorra Norteña</a></div>
-      <div class="indice-item"><span class="indice-num">12</span><a href="#receta-llajua">Llajua Casera</a></div>
-      <div class="indice-item"><span class="indice-num">13</span><a href="#receta-pan-campo">Pan de Campo al Rescoldo</a></div>
-      <div class="indice-item"><span class="indice-num">14</span><a href="#receta-sopa-mote">Sopa de Mote</a></div>
-      <div class="indice-item"><span class="indice-num">15</span><a href="#receta-api-morado">Api Morado</a></div>
-    </div>
-  </section>
-
-  <!-- RECETAS -->
-  <main class="recetas-section">
-
-    <nav class="recetario-indice">
-  <div class="indice-titulo">Índice de recetas</div>
-  <ul class="indice-lista">
-    <li><a href="#receta-empanadas-saltenas"><span class="indice-num">01</span>Empanadas Salteñas</a></li>
-    <li><a href="#receta-humitas"><span class="indice-num">02</span>Humitas en Chala</a></li>
-    <li><a href="#receta-tamales"><span class="indice-num">03</span>Tamales Salteños</a></li>
-    <li><a href="#receta-locro"><span class="indice-num">04</span>Locro Norteño</a></li>
-    <li><a href="#receta-carbonada"><span class="indice-num">05</span>Carbonada Salteña</a></li>
-    <li><a href="#receta-cordero-cruz"><span class="indice-num">06</span>Cordero a la Cruz</a></li>
-    <li><a href="#receta-chanfaina"><span class="indice-num">07</span>Chanfaina Salteña</a></li>
-    <li><a href="#receta-tortilla-rescoldo"><span class="indice-num">08</span>Tortilla de Rescoldo</a></li>
-    <li><a href="#receta-guiso-maiz"><span class="indice-num">09</span>Guiso de Maíz Blanco</a></li>
-    <li><a href="#receta-charqui"><span class="indice-num">10</span>Charqui con Papa</a></li>
-    <li><a href="#receta-mazamorra"><span class="indice-num">11</span>Mazamorra Norteña</a></li>
-    <li><a href="#receta-llajua"><span class="indice-num">12</span>Llajua Casera</a></li>
-    <li><a href="#receta-pan-campo"><span class="indice-num">13</span>Pan de Campo al Rescoldo</a></li>
-    <li><a href="#receta-sopa-mote"><span class="indice-num">14</span>Sopa de Mote</a></li>
-    <li><a href="#receta-api-morado"><span class="indice-num">15</span>Api Morado</a></li>
-  </ul>
-</nav>
-
-    <!-- RECETA 1 -->
-    <article class="receta-card" id="receta-empanadas-saltenas">
-      <p class="receta-num">Receta 01</p>
-      <h3 class="receta-titulo">Empanadas Salteñas</h3>
-      <div class="receta-badges">
-        <span class="badge badge-porciones">&#9679; 24 empanadas</span>
-        <span class="badge badge-prep">&#128336; Prep: 90 min</span>
-        <span class="badge badge-coccion">&#128293; Cocción: 25 min</span>
-      </div>
-      <img class="receta-foto" src="https://images.unsplash.com/photo-1604902396830-aca29e19b067?w=900&auto=format&fit=crop" alt="Empanadas Salteñas" loading="lazy">
-      <p class="receta-intro">
-        En Salta, las empanadas no son una comida: son un acontecimiento. No existe reunión familiar, festejo de barrio ni tarde de lluvia que no convoque a esta masa estirada a mano y rellena con paciencia. El debate eterno entre fritas y al horno es, en mi casa, un debate sin fin —las fritas ganan casi siempre—. La clave no está solo en el relleno sino en ese repulgue en forma de trenza que aprendí mirando a mi abuela, sin que nadie me enseñara con palabras.
-      </p>
-
-      <p class="receta-ingredientes-titulo">Ingredientes</p>
-      <ul class="ingredientes-lista">
-        <li>500 g de harina 0000</li>
-        <li>1 cucharadita de sal fina</li>
-        <li>100 g de grasa de cerdo</li>
-        <li>Agua tibia, cantidad necesaria</li>
-        <li>400 g de carne (paleta o aguja) cortada a cuchillo en cubos pequeños</li>
-        <li>2 papas medianas, peladas y en cubos chicos</li>
-        <li>2 cebollas de verdeo, picadas finas</li>
-        <li>2 huevos duros, picados</li>
-        <li>1 cucharada de pimentón dulce</li>
-        <li>1/2 cucharadita de ají molido</li>
-        <li>1/2 cucharadita de comino</li>
-        <li>Sal y pimienta negra a gusto</li>
-        <li>Aceite o grasa de cerdo para freír</li>
-      </ul>
-
-      <p class="receta-pasos-titulo">Preparación</p>
-      <ol class="pasos-lista">
-        <li>Hacer la masa: mezclar la harina con la sal y la grasa de cerdo a temperatura ambiente. Incorporar agua tibia de a poco hasta obtener una masa lisa, tierna y no pegajosa. Cubrir con repasador y dejar descansar 30 minutos.</li>
-        <li>Preparar el relleno: en una sartén con un poco de grasa, dorar la carne cortada a cuchillo a fuego fuerte. Salpimentar. Cuando esté sellada, agregar la cebolla de verdeo y cocinar 3 minutos más. Incorporar el pimentón, el ají molido y el comino. Mezclar bien y retirar del fuego.</li>
-        <li>Cocinar las papas aparte en agua con sal hasta que estén tiernas pero no deshachas. Escurrir y agregar al relleno junto con los huevos duros picados. Mezclar con cuidado para que queden trozos. Dejar enfriar completamente.</li>
-        <li>Estirar la masa sobre mesada enharinada hasta un grosor de 3 mm. Cortar círculos de unos 14 cm de diámetro con un cortante o plato pequeño.</li>
-        <li>Colocar una cucharada generosa de relleno en el centro de cada disco. Doblar por la mitad y sellar los bordes haciendo el repulgue en trenza: doblar la masa hacia arriba tomando pequeños pliegues superpuestos de adentro hacia afuera.</li>
-        <li>Calentar abundante aceite o grasa en una sartén profunda a 180 °C. Freír las empanadas de a 3 o 4 por vez, dando vuelta una sola vez, hasta que estén doradas de ambos lados (unos 3-4 minutos por tanda). Escurrir sobre papel absorbente.</li>
-        <li>Servir inmediatamente, siempre calientes.</li>
-      </ol>
-
-      <div class="tip-javo">
-        <p>La clave del repulgue está en la práctica: no importa que las primeras queden imperfectas, con el tiempo la mano aprende sola. Y sobre la temperatura del aceite: si hace mucho humo ya está demasiado caliente; si la empanada no burbujea al entrar, todavía falta. El punto justo es cuando entra y empieza a chisporrotear suavemente.</p>
-      </div>
-    </article>
-
-    <div class="receta-separador"><span>✦</span></div>
-
-    <!-- RECETA 2 -->
-    <article class="receta-card" id="receta-humitas">
-      <p class="receta-num">Receta 02</p>
-      <h3 class="receta-titulo">Humitas en Chala</h3>
-      <div class="receta-badges">
-        <span class="badge badge-porciones">&#9679; 12 unidades</span>
-        <span class="badge badge-prep">&#128336; Prep: 60 min</span>
-        <span class="badge badge-coccion">&#128293; Cocción: 45 min</span>
-      </div>
-      <img class="receta-foto" src="https://images.unsplash.com/photo-1594213959828-40fc04f46bc9?w=900&auto=format&fit=crop" alt="Humitas en Chala" loading="lazy">
-      <p class="receta-intro">
-        La humita es uno de los platos más antiguos del NOA, un alimento que los pueblos originarios andinos ya preparaban antes de la llegada española. En Salta, se come en casa y en los mercados, envuelta en sus propias chalas —las hojas del choclo— que le dan un perfume singular. La versión salteña lleva queso y ají, un perfecto equilibrio entre la dulzura natural del choclo y el calor leve del pimiento molido.
-      </p>
-
-      <p class="receta-ingredientes-titulo">Ingredientes</p>
-      <ul class="ingredientes-lista">
-        <li>6 choclos frescos grandes con chalas</li>
-        <li>1 cebolla grande, picada fina</li>
-        <li>1/2 taza de aceite o grasa de cerdo</li>
-        <li>1 cucharadita de pimentón dulce</li>
-        <li>1/2 cucharadita de ají molido</li>
-        <li>150 g de queso fresco o cremoso, en cubos pequeños</li>
-        <li>Sal a gusto</li>
-        <li>Hilo de cocina o tiras de chala para atar</li>
-      </ul>
-
-      <p class="receta-pasos-titulo">Preparación</p>
-      <ol class="pasos-lista">
-        <li>Retirar con cuidado las chalas de los choclos sin romperlas, reservarlas en agua tibia para que queden maleables. Seleccionar las más grandes y enteras para envolver.</li>
-        <li>Rallar los choclos crudos o procesar los granos en una licuadora hasta obtener una pasta cremosa con textura. No debe quedar completamente lisa.</li>
-        <li>En una olla o sartén grande, calentar el aceite y rehogar la cebolla hasta transparentar. Agregar el pimentón y el ají molido, revolver 1 minuto. Incorporar la pasta de choclo y cocinar a fuego medio, revolviendo constantemente, unos 10 minutos hasta que espese y se despegue de los bordes. Salar.</li>
-        <li>Retirar del fuego, dejar entibiar y mezclar con el queso en cubos.</li>
-        <li>Sobre dos chalas superpuestas, colocar 2 cucharadas generosas de la mezcla en el centro. Doblar los costados hacia adentro y luego plegar la parte de abajo hacia arriba formando un paquete rectangular bien cerrado. Atar con tiras de chala o hilo.</li>
-        <li>Hervir en abundante agua con sal durante 40-45 minutos. Las humitas están listas cuando al abrirlas la masa se despega limpia de la chala.</li>
-        <li>Servir calientes, para abrirlas en la mesa.</li>
-      </ol>
-
-      <div class="tip-javo">
-        <p>El choclo debe ser fresco y algo dulce, nada de choclo viejo o de los que ya se pusieron almidonados. Si conseguís choclo de leche —el que se da en verano en el norte— el resultado es incomparable. Al probar la pasta antes de envolver, el sabor debe ser apenas dulce con el fondo del pimentón: si no tiene esa chispa, le falta sal.</p>
-      </div>
-    </article>
-
-    <div class="receta-separador"><span>✦</span></div>
-
-    <!-- RECETA 3 -->
-    <article class="receta-card" id="receta-tamales">
-      <p class="receta-num">Receta 03</p>
-      <h3 class="receta-titulo">Tamales Salteños</h3>
-      <div class="receta-badges">
-        <span class="badge badge-porciones">&#9679; 16 unidades</span>
-        <span class="badge badge-prep">&#128336; Prep: 90 min</span>
-        <span class="badge badge-coccion">&#128293; Cocción: 60 min</span>
-      </div>
-      <img class="receta-foto" src="https://images.unsplash.com/photo-1551504734-5ee1c4a1479b?w=900&auto=format&fit=crop" alt="Tamales Salteños" loading="lazy">
-      <p class="receta-intro">
-        Si las empanadas son la reina del norte, los tamales son su historia más profunda. Llegaron desde Mesoamérica hace siglos, adoptados y transformados por cada cultura que los tocó, y en Salta adquirieron su identidad propia: masa de maíz blanco pisado, relleno jugoso de carne y papas, envueltos en chala y cocidos al vapor. En muchos hogares salteños se hacen tamales para las fiestas, para los cumpleaños, para los días que merecen algo especial.
-      </p>
-
-      <p class="receta-ingredientes-titulo">Ingredientes</p>
-      <ul class="ingredientes-lista">
-        <li>500 g de harina de maíz blanco (maíz pisado fino)</li>
-        <li>200 g de grasa de cerdo</li>
-        <li>Caldo de verduras tibio, cantidad necesaria</li>
-        <li>Sal a gusto</li>
-        <li>300 g de carne de cerdo o vacuna, en cubos pequeños</li>
-        <li>2 papas medianas, en cubos pequeños</li>
-        <li>1 cebolla, picada</li>
-        <li>1 cucharada de pimentón</li>
-        <li>1/2 cucharadita de comino</li>
-        <li>2 huevos duros (opcional), en rodajas</li>
-        <li>Chalas de choclo, remojadas en agua tibia</li>
-        <li>Hilo de cocina</li>
-      </ul>
-
-      <p class="receta-pasos-titulo">Preparación</p>
-      <ol class="pasos-lista">
-        <li>Preparar el relleno: rehogar la cebolla en un poco de grasa, incorporar la carne y dorar. Agregar el pimentón, el comino, sal y pimienta. Sumar las papas en cubos y un chorrito de caldo. Cocinar tapado a fuego suave 20 minutos hasta que la papa esté tierna. Dejar enfriar.</li>
-        <li>Hacer la masa: en un bol grande, mezclar la harina de maíz con la grasa de cerdo a temperatura ambiente, incorporando con los dedos hasta lograr una textura arenosa. Agregar caldo tibio de a poco, mezclando y amasando hasta obtener una masa blanda, elástica y que no se pegue en las manos. Salar y ajustar.</li>
-        <li>Sobre dos chalas superpuestas, extender una capa de masa de unos 5 mm. Colocar en el centro una cucharada de relleno y, si se desea, una rodaja de huevo duro.</li>
-        <li>Doblar las chalas para encerrar completamente la masa sobre el relleno, formando un rectángulo compacto. Atar bien con hilo de cocina o tiras de chala.</li>
-        <li>Colocar los tamales parados o recostados en una vaporera o en una olla grande con rejilla y agua. Cocinar al vapor con tapa durante 55-60 minutos.</li>
-        <li>Verificar cocción: la masa debe estar firme y despegarse limpiamente de la chala. Servir calientes.</li>
-      </ol>
-
-      <div class="tip-javo">
-        <p>La masa no debe quedar muy seca ni muy blanda. Si al tomar un trozo se rompe, le falta caldo; si se pega a la mano con insistencia, le falta harina. El punto justo es cuando se puede extender sin que se agriete. Ah, y no apurar el vapor: el tamal que no tuvo tiempo es tamal duro.</p>
-      </div>
-    </article>
-
-    <div class="receta-separador"><span>✦</span></div>
-
-    <!-- RECETA 4 -->
-    <article class="receta-card" id="receta-locro">
-      <p class="receta-num">Receta 04</p>
-      <h3 class="receta-titulo">Locro Norteño</h3>
-      <div class="receta-badges">
-        <span class="badge badge-porciones">&#9679; 8 porciones</span>
-        <span class="badge badge-prep">&#128336; Prep: 30 min</span>
-        <span class="badge badge-coccion">&#128293; Cocción: 3 horas</span>
-      </div>
-      <img class="receta-foto" src="https://images.unsplash.com/photo-1547592180-85f173990554?w=900&auto=format&fit=crop" alt="Locro Norteño" loading="lazy">
-      <p class="receta-intro">
-        El locro es el plato de patria. Se come el 25 de Mayo, el 9 de Julio, el día que hay frío de verdad. En el NOA, el locro es una ceremonia lenta: la olla empieza antes del mediodía y cuando llega la tarde, toda la casa huele a eso que no se puede explicar bien pero que significa hogar. Lo hago con tripa gorda y cuerito de cerdo porque, para mí, sin esos ingredientes el locro es solo una sopa de maíz. Con ellos, es otra cosa.
-      </p>
-
-      <p class="receta-ingredientes-titulo">Ingredientes</p>
-      <ul class="ingredientes-lista">
-        <li>300 g de maíz blanco pisado (remojado la noche anterior)</li>
-        <li>200 g de porotos pallares o blancos (remojados la noche anterior)</li>
-        <li>400 g de zapallo, en cubos grandes</li>
-        <li>300 g de carne de cerdo (paleta o costilla), en trozos</li>
-        <li>150 g de tripa gorda, en trozos</li>
-        <li>2 chorizos colorados, en rodajas</li>
-        <li>100 g de cuerito de cerdo, en tiras</li>
-        <li>1 cebolla grande, picada</li>
-        <li>2 cucharadas de pimentón dulce</li>
-        <li>1 cucharadita de ají molido</li>
-        <li>Sal, pimienta y comino a gusto</li>
-        <li>Agua o caldo, cantidad suficiente</li>
-      </ul>
-
-      <p class="receta-pasos-titulo">Preparación</p>
-      <ol class="pasos-lista">
-        <li>Escurrir el maíz y los porotos remojados. En una olla grande y de fondo grueso, colocar el maíz con abundante agua fría y llevar a hervor. Cocinar a fuego medio 1 hora, espumando ocasionalmente.</li>
-        <li>Incorporar los porotos, la carne de cerdo, la tripa gorda y el cuerito. Sumar más agua si es necesario. Continuar la cocción a fuego suave durante otra hora.</li>
-        <li>Mientras tanto, en una sartén aparte, rehogar la cebolla con un poco de grasa. Cuando esté transparente, agregar el pimentón y el ají molido, revolver 1 minuto y reservar este sofrito.</li>
-        <li>Agregar el sofrito al locro junto con los chorizos colorados y el zapallo en cubos. Salpimentar. Cocinar a fuego mínimo otros 45-60 minutos, revolviendo cada tanto para que no pegue en el fondo.</li>
-        <li>El locro está listo cuando tiene una consistencia espesa y untuosa, el maíz está bien abierto y el zapallo casi deshecho. Ajustar la sal.</li>
-        <li>Servir en tazones hondos, con llajua casera al lado y pan de campo.</li>
-      </ol>
-
-      <div class="tip-javo">
-        <p>El secreto del locro que se distingue del común es el cuerito. No lo saquen: aporta una gelatina natural que le da al caldo esa untuosidad característica, esa textura que se te queda en los labios. Si no consiguen cuerito, pueden usar patitas de cerdo. Y nunca apuren el fuego: el locro que se hizo a las corridas sabe a apuro.</p>
-      </div>
-    </article>
-
-    <div class="receta-separador"><span>✦</span></div>
-
-    <!-- RECETA 5 -->
-    <article class="receta-card" id="receta-carbonada">
-      <p class="receta-num">Receta 05</p>
-      <h3 class="receta-titulo">Carbonada Salteña</h3>
-      <div class="receta-badges">
-        <span class="badge badge-porciones">&#9679; 6 porciones</span>
-        <span class="badge badge-prep">&#128336; Prep: 20 min</span>
-        <span class="badge badge-coccion">&#128293; Cocción: 1h 30min</span>
-      </div>
-      <img class="receta-foto" src="https://images.unsplash.com/photo-1534939561126-855b8675edd7?w=900&auto=format&fit=crop" alt="Carbonada Salteña" loading="lazy">
-      <p class="receta-intro">
-        La carbonada es uno de esos platos que exige ser presentado como corresponde: dentro de un zapallo vaciado asado al horno, donde la pared anaranjada sigue largando su dulzura a la guarnición durante toda la comida. En Salta se la hace con lo que la estación trae —choclo, batata, papas andinas—, un guiso de invierno que también celebra la abundancia del verano tardío. La sirvo siempre en el zapallo, porque para mí sacarla de ahí sería un sacrilegio.
-      </p>
-
-      <p class="receta-ingredientes-titulo">Ingredientes</p>
-      <ul class="ingredientes-lista">
-        <li>1 zapallo anco grande, entero (para servir)</li>
-        <li>600 g de carne vacuna (nalga o cuadril), en cubos de 3 cm</li>
-        <li>2 choclos, en rodajas</li>
-        <li>3 papas medianas, en cubos</li>
-        <li>1 batata grande, en cubos</li>
-        <li>300 g de zapallo en cubos adicionales</li>
-        <li>3 tomates maduros, pelados y picados</li>
-        <li>1 cebolla, picada</li>
-        <li>1 litro de caldo de verduras</li>
-        <li>Pimentón dulce, sal, pimienta</li>
-        <li>Aceite para sellar</li>
-      </ul>
-
-      <p class="receta-pasos-titulo">Preparación</p>
-      <ol class="pasos-lista">
-        <li>Cortar la tapa del zapallo grande, vaciarlo de semillas y pintarlo con aceite por dentro y por fuera. Taparlo con su propia tapa y asar en horno a 180 °C durante 40-50 minutos, hasta que esté tierno pero firme (que no se rompa al manipular). Reservar caliente.</li>
-        <li>En una olla grande, sellar la carne a fuego fuerte en aceite caliente. Salpimentar. Retirar y reservar.</li>
-        <li>En la misma olla, rehogar la cebolla hasta transparentar. Agregar el tomate picado y el pimentón, cocinar 5 minutos.</li>
-        <li>Devolver la carne a la olla, incorporar el caldo caliente y llevar a hervor. Bajar el fuego y cocinar 30 minutos.</li>
-        <li>Agregar los cubos de zapallo extra, las papas y la batata. Cocinar otros 15 minutos. Sumar el choclo en rodajas y cocinar 10-15 minutos más hasta que todas las verduras estén tiernas. Ajustar sal.</li>
-        <li>Volcar la carbonada caliente dentro del zapallo asado y servir en la mesa directamente del zapallo, raspando un poco de su carne interior con cada porción.</li>
-      </ol>
-
-      <div class="tip-javo">
-        <p>Servir la carbonada dentro del zapallo no es solo una cuestión estética: el calor del zapallo asado sigue impregnando el guiso mientras se come, aportando esa dulzura suave que ningún otro ingrediente puede dar. Es un sabor que va apareciendo de a poco, cucharada a cucharada.</p>
-      </div>
-    </article>
-
-    <div class="receta-separador"><span>✦</span></div>
-
-    <!-- RECETA 6 -->
-    <article class="receta-card" id="receta-cordero-cruz">
-      <p class="receta-num">Receta 06</p>
-      <h3 class="receta-titulo">Cordero a la Cruz</h3>
-      <div class="receta-badges">
-        <span class="badge badge-porciones">&#9679; 8 porciones</span>
-        <span class="badge badge-prep">&#128336; Prep: 30 min</span>
-        <span class="badge badge-coccion">&#128293; Cocción: 4–5 horas</span>
-      </div>
-      <img class="receta-foto" src="https://images.unsplash.com/photo-1555939594-58d7cb561ad1?w=900&auto=format&fit=crop" alt="Cordero a la Cruz" loading="lazy">
-      <p class="receta-intro">
-        Hay algo casi ritual en el cordero a la cruz. La imagen del animal extendido frente al fuego, los palos clavados en la tierra, el humo que sube lento en la tarde, los hombres sentados alrededor tomando mate y esperando —eso es Salta en su versión más verdadera—. Aprendí a hacer cordero a la cruz en el campo, donde el único reloj es el color de la carne y la distancia al fuego se mide con la mano abierta. No existe método más elemental, ni resultado más glorioso.
-      </p>
-
-      <p class="receta-ingredientes-titulo">Ingredientes</p>
-      <ul class="ingredientes-lista">
-        <li>1 cordero entero (8-10 kg), abierto en mariposa</li>
-        <li>Sal gruesa, cantidad generosa</li>
-        <li>1 taza de chimichurri de hierbas (orégano, perejil, ajo, ají molido, vinagre, aceite)</li>
-        <li>Leña de quebracho colorado</li>
-        <li>2 palos de hierro o madera dura en forma de cruz</li>
-        <li>Alambre para atar</li>
-      </ul>
-
-      <p class="receta-pasos-titulo">Preparación</p>
-      <ol class="pasos-lista">
-        <li>La noche anterior, preparar la cruz y el lugar del asado. El fuego se hace a un costado, no debajo del cordero: la madera se quema en un montículo lateral y las brasas se van corriendo bajo la cruz a medida que se necesiten.</li>
-        <li>Clavar la cruz firmemente en la tierra o en un soporte a unos 40-50 cm del suelo, inclinada levemente hacia el fuego.</li>
-        <li>Extender el cordero sobre la cruz con la cara interna hacia el fuego. Atar con alambre en los cuatro puntos: cuello, paletas, patas delanteras y traseras. Debe quedar bien tenso para no caer.</li>
-        <li>Encender el fuego de quebracho dos horas antes de empezar la cocción, para tener buenas brasas. La temperatura correcta: al poner la mano a la altura del cordero, se debe poder aguantar no más de 3-4 segundos.</li>
-        <li>Salar generosamente la cara interna del cordero. Cocinar durante 2 horas sin mover, empezando con la cara interna hacia el fuego.</li>
-        <li>Con la ayuda de otra persona, dar vuelta la cruz para que el lado exterior quede frente al fuego. Pincelar con chimichurri. Cocinar otras 2-2.5 horas, manteniendo el fuego constante.</li>
-        <li>El cordero está listo cuando los jugos corren claros y la carne se separa del hueso con facilidad. Trocear y servir directamente de la cruz.</li>
-      </ol>
-
-      <div class="tip-javo">
-        <p>El fuego siempre lateral, nunca directo. Si el fuego va abajo, el exterior se quema antes de que el interior esté cocido. Con el fuego de costado, el calor rodea la carne en lugar de atacarla: es la diferencia entre una corteza carbonizada y una piel dorada y crujiente que guarda todo el jugo adentro.</p>
-      </div>
-    </article>
-
-    <div class="receta-separador"><span>✦</span></div>
-
-    <!-- RECETA 7 -->
-    <article class="receta-card" id="receta-chanfaina">
-      <p class="receta-num">Receta 07</p>
-      <h3 class="receta-titulo">Chanfaina Salteña</h3>
-      <div class="receta-badges">
-        <span class="badge badge-porciones">&#9679; 4 porciones</span>
-        <span class="badge badge-prep">&#128336; Prep: 40 min</span>
-        <span class="badge badge-coccion">&#128293; Cocción: 1 hora</span>
-      </div>
-      <img class="receta-foto" src="https://images.unsplash.com/photo-WgrOML7JhSU?w=900&auto=format&fit=crop" alt="Chanfaina Salteña" loading="lazy">
-      <p class="receta-intro">
-        La chanfaina es la cocina de la honestidad: usa lo que otros descartan y lo convierte en algo sabroso y nutritivo. En el norte, las achuras de cordero —pulmón, corazón, riñón— no se tiran jamás. La chanfaina es una receta de campo, de jornada larga, de gente que aprovecha el animal entero. La hago con ají amarillo y papas, una combinación que le da color y cuerpo, y la sirvo como plato principal sin disculpas.
-      </p>
-
-      <p class="receta-ingredientes-titulo">Ingredientes</p>
-      <ul class="ingredientes-lista">
-        <li>300 g de pulmón de cordero, en trozos</li>
-        <li>200 g de corazón de cordero, en cubos</li>
-        <li>150 g de riñón de cordero, en cubos</li>
-        <li>Jugo de 2 limones y 3 cucharadas de vinagre (para limpiar)</li>
-        <li>3 papas medianas, en cubos</li>
-        <li>1 cebolla grande, picada</li>
-        <li>2 tomates maduros, picados</li>
-        <li>1 ají amarillo, sin semillas, en tiras</li>
-        <li>Pimentón, sal, pimienta, orégano</li>
-        <li>Aceite o grasa para cocinar</li>
-      </ul>
-
-      <p class="receta-pasos-titulo">Preparación</p>
-      <ol class="pasos-lista">
-        <li>Limpiar las achuras: sumergirlas en agua fría con el jugo de limón y el vinagre durante 30 minutos. Escurrir, enjuagar bien bajo agua corriente y secar con papel. Este paso es fundamental para eliminar el olor fuerte.</li>
-        <li>Cortar el pulmón en trozos irregulares de 3 cm, el corazón en cubos y el riñón (previamente limpio de la grasa interior) en cubos de 2 cm.</li>
-        <li>En una olla o sartén grande, calentar el aceite a fuego fuerte y dorar las achuras en dos tandas para no enfriar la sartén. Salpimentar. Reservar.</li>
-        <li>En la misma sartén, rehogar la cebolla hasta dorar. Agregar el tomate, el ají amarillo y el pimentón. Cocinar 5 minutos.</li>
-        <li>Devolver las achuras a la sartén, incorporar las papas en cubos y cubrir con agua o caldo. Cocinar tapado a fuego suave 35-40 minutos hasta que las papas estén tiernas y el caldo haya reducido.</li>
-        <li>Agregar orégano, ajustar sal y servir con pan de campo o tortilla de rescoldo.</li>
-      </ol>
-
-      <div class="tip-javo">
-        <p>Lavar bien las achuras con limón y vinagre no es opcional —es la clave para que el resultado sea apetecible—. El riñón necesita además que se le quite toda la grasa interior y las membranas: esa grasa es la fuente del olor intenso. Una vez limpios y bien sellados a fuego fuerte, las achuras pierden el miedo y ganan en carácter.</p>
-      </div>
-    </article>
-
-    <div class="receta-separador"><span>✦</span></div>
-
-    <!-- RECETA 8 -->
-    <article class="receta-card" id="receta-tortilla-rescoldo">
-      <p class="receta-num">Receta 08</p>
-      <h3 class="receta-titulo">Tortilla de Rescoldo</h3>
-      <div class="receta-badges">
-        <span class="badge badge-porciones">&#9679; 6 porciones</span>
-        <span class="badge badge-prep">&#128336; Prep: 15 min</span>
-        <span class="badge badge-coccion">&#128293; Cocción: 40 min</span>
-      </div>
-      <img class="receta-foto" src="https://images.unsplash.com/photo-1509440159596-0249088772ff?w=900&auto=format&fit=crop" alt="Tortilla de Rescoldo" loading="lazy">
-      <p class="receta-intro">
-        La tortilla de rescoldo es la respuesta del campo cuando no hay horno ni sartén. Solo hace falta fuego, harina y paciencia. Se hace enterrando la masa entre las brasas apagadas —el rescoldo—, ese calor suave y envolvente que cocina sin quemar, que forma una corteza casi ahumada y un interior esponjoso. Es el pan de los arrierros, de los pastores, de los que duermen bajo las estrellas en la Puna. La hago en el patio y nunca sale igual dos veces, pero siempre sale buena.
-      </p>
-
-      <p class="receta-ingredientes-titulo">Ingredientes</p>
-      <ul class="ingredientes-lista">
-        <li>500 g de harina 000</li>
-        <li>1 cucharadita de sal</li>
-        <li>1 cucharada de grasa de cerdo</li>
-        <li>Agua tibia, cantidad necesaria (aprox. 250 ml)</li>
-        <li>Brasas bien apagadas (rescoldo)</li>
-      </ul>
-
-      <p class="receta-pasos-titulo">Preparación</p>
-      <ol class="pasos-lista">
-        <li>Mezclar la harina con la sal y la grasa, frotando con los dedos hasta obtener una textura arenosa. Agregar el agua tibia de a poco, amasando hasta formar una masa lisa y no pegajosa. No amasar en exceso.</li>
-        <li>Dar forma de disco grueso de unos 3 cm de altura. Dejar reposar 10 minutos cubierta.</li>
-        <li>Preparar el rescoldo: encender un buen fuego de leña y dejar que se apague completamente hasta quedar en brasas grises sin llama activa. Raspar las brasas hacia los costados.</li>
-        <li>Colocar la tortilla directamente sobre la ceniza caliente del centro. Cubrir con las brasas que se apartaron, rodeando la tortilla por completo. Agregar un poco de ceniza por encima para igualar la temperatura.</li>
-        <li>Cocinar 20 minutos sin tocar. Luego, con una palita, darle vuelta una sola vez con cuidado. Cubrir nuevamente y cocinar otros 15-20 minutos.</li>
-        <li>Retirar, sacudir la ceniza con un trapo limpio o cepillo. Al golpear el fondo con los nudillos debe sonar hueco. Dejar reposar 5 minutos antes de partir.</li>
-      </ol>
-
-      <div class="tip-javo">
-        <p>Girarla una sola vez, ese es el secreto. Cada vez que se la mueve, se interrumpe la cocción pareja y se pierde el calor acumulado. La paciencia es el ingrediente principal de la tortilla de rescoldo: si la ansiedad la hace sacar antes de tiempo, va a quedar cruda por dentro. El sonido hueco al golpear no miente.</p>
-      </div>
-    </article>
-
-    <div class="receta-separador"><span>✦</span></div>
-
-    <!-- RECETA 9 -->
-    <article class="receta-card" id="receta-guiso-maiz">
-      <p class="receta-num">Receta 09</p>
-      <h3 class="receta-titulo">Guiso de Maíz Blanco</h3>
-      <div class="receta-badges">
-        <span class="badge badge-porciones">&#9679; 6 porciones</span>
-        <span class="badge badge-prep">&#128336; Prep: 20 min</span>
-        <span class="badge badge-coccion">&#128293; Cocción: 2 horas</span>
-      </div>
-      <img class="receta-foto" src="https://images.unsplash.com/photo-epEr6ewYufY?w=900&auto=format&fit=crop" alt="Guiso de Maíz Blanco" loading="lazy">
-      <p class="receta-intro">
-        El guiso de maíz blanco es cocina de invierno profundo. En los pueblos de la Puna, donde el frío llega hasta los huesos, este plato es un abrazo: denso, caliente, con ese sabor austero y honesto del maíz cocido lentamente con costilla y chorizo. No tiene complicaciones ni pretensiones. Es puro norte argentino servido en un plato hondo.
-      </p>
-
-      <p class="receta-ingredientes-titulo">Ingredientes</p>
-      <ul class="ingredientes-lista">
-        <li>400 g de maíz blanco pisado (remojado 8 horas)</li>
-        <li>400 g de costilla de cerdo, en trozos</li>
-        <li>2 chorizos colorados, en rodajas</li>
-        <li>1 cebolla grande, picada</li>
-        <li>2 tomates maduros, picados</li>
-        <li>2 cucharadas de pimentón dulce</li>
-        <li>1/2 cucharadita de ají molido</li>
-        <li>Sal, pimienta, comino a gusto</li>
-        <li>Agua o caldo, cantidad suficiente</li>
-        <li>Aceite para el sofrito</li>
-      </ul>
-
-      <p class="receta-pasos-titulo">Preparación</p>
-      <ol class="pasos-lista">
-        <li>Escurrir el maíz del agua de remojo. Colocarlo en una olla grande con agua fría abundante, llevar a hervor y cocinar 30 minutos a fuego medio, espumando.</li>
-        <li>Incorporar la costilla de cerdo a la olla. Continuar la cocción a fuego suave durante 40 minutos más.</li>
-        <li>En una sartén, preparar el sofrito: rehogar la cebolla hasta dorar, agregar el tomate picado, el pimentón y el ají molido. Cocinar 5 minutos hasta formar una salsa espesa.</li>
-        <li>Agregar el sofrito y los chorizos colorados a la olla del maíz. Salpimentar y agregar comino. Revolver bien.</li>
-        <li>Continuar la cocción a fuego mínimo por 40-50 minutos más, revolviendo cada 10 minutos para que el maíz no se pegue al fondo. El guiso debe quedar espeso y cremoso, con el maíz abierto y tierno.</li>
-        <li>Ajustar sal y servir caliente con pan de campo o tortilla.</li>
-      </ol>
-
-      <div class="tip-javo">
-        <p>El maíz blanco pisado necesita ese remojo previo de 8 horas mínimo —sin él, la cocción se extiende innecesariamente y el resultado no es el mismo—. Si lo dejaste remojar bien y la cocción es lenta, el maíz se abre de forma natural y el guiso adquiere esa textura cremosa propia. Apurar el fuego es el error más frecuente.</p>
-      </div>
-    </article>
-
-    <div class="receta-separador"><span>✦</span></div>
-
-    <!-- RECETA 10 -->
-    <article class="receta-card" id="receta-charqui">
-      <p class="receta-num">Receta 10</p>
-      <h3 class="receta-titulo">Charqui con Papa</h3>
-      <div class="receta-badges">
-        <span class="badge badge-porciones">&#9679; 4 porciones</span>
-        <span class="badge badge-prep">&#128336; Prep: 15 min</span>
-        <span class="badge badge-coccion">&#128293; Cocción: 45 min</span>
-      </div>
-      <img class="receta-foto" src="https://images.unsplash.com/photo-1529694157872-4e0c0f3b238b?w=900&auto=format&fit=crop" alt="Charqui con Papa" loading="lazy">
-      <p class="receta-intro">
-        El charqui —carne deshidratada y salada— es una de las técnicas de conservación más antiguas de los Andes. Los pueblos originarios lo hacían con llama o vicuña, secándola al sol y al frío seco de la Puna. Hoy se hace con vacuno, pero la tradición sigue. Lo rescaté como plato cotidiano de mi repertorio: deshilachado, rehidratado y mezclado con papas andinas y ají molido. Simple, montañoso, profundamente salteño.
-      </p>
-
-      <p class="receta-ingredientes-titulo">Ingredientes</p>
-      <ul class="ingredientes-lista">
-        <li>300 g de charqui de vacuno (desalado)</li>
-        <li>4 papas andinas medianas (o papas comunes), en cubos</li>
-        <li>1 cebolla, picada</li>
-        <li>1 cucharadita de ají molido</li>
-        <li>2 cucharadas de grasa de cerdo o aceite</li>
-        <li>Sal a gusto (con cuidado, el charqui ya es salado)</li>
-        <li>Perejil fresco para servir</li>
-      </ul>
-
-      <p class="receta-pasos-titulo">Preparación</p>
-      <ol class="pasos-lista">
-        <li>La noche anterior: sumergir el charqui en agua fría. Cambiar el agua 2-3 veces durante el remojo. Esto desalará la carne y la rehidratará.</li>
-        <li>Al día siguiente, escurrir el charqui y deshilachar con los dedos o con dos tenedores, tirando en tiras finas. Reservar.</li>
-        <li>Cocinar las papas en cubos en agua con poca sal (recordar que el charqui ya aporta sal) hasta que estén tiernas. Escurrir.</li>
-        <li>En una sartén grande, calentar la grasa a fuego medio. Rehogar la cebolla hasta transparentar. Agregar el ají molido y mezclar.</li>
-        <li>Incorporar el charqui deshilachado, subir el fuego y saltearlo 3-4 minutos para que tome color y calor. Sumar las papas cocidas, mezclar suavemente para integrar sin deshacer las papas.</li>
-        <li>Probar la sal, ajustar si es necesario. Servir con perejil picado por encima y llajua al lado.</li>
-      </ol>
-
-      <div class="tip-javo">
-        <p>Desalar el charqui la noche anterior no es negociable. Un charqui mal desalado arruina el plato, y si además le ponen sal encima sin probar primero, el resultado es incomible. Prueben siempre antes de salar. El charqui bien rehidratado tiene una textura fibrosa y sabrosa que ninguna carne fresca puede imitar.</p>
-      </div>
-    </article>
-
-    <div class="receta-separador"><span>✦</span></div>
-
-    <!-- RECETA 11 -->
-    <article class="receta-card" id="receta-mazamorra">
-      <p class="receta-num">Receta 11</p>
-      <h3 class="receta-titulo">Mazamorra Norteña</h3>
-      <div class="receta-badges">
-        <span class="badge badge-porciones">&#9679; 6 porciones</span>
-        <span class="badge badge-prep">&#128336; Prep: 10 min</span>
-        <span class="badge badge-coccion">&#128293; Cocción: 1 hora</span>
-      </div>
-      <img class="receta-foto" src="https://images.unsplash.com/photo-1621996346565-e3dbc646d9a9?w=900&auto=format&fit=crop" alt="Mazamorra Norteña" loading="lazy">
-      <p class="receta-intro">
-        La mazamorra es el postre de los abuelos. Espesa, blanca, perfumada de canela y limón, se comía en el patio de tierra después de la cena, mirando las estrellas. La hago en invierno, cuando el maíz blanco pisado ya está en la despensa desde el verano. Es un postre sin pretensiones que tiene la capacidad de transportar de golpe a la infancia, a los domingos en la casa familiar, a la olla que siempre estaba en el fuego.
-      </p>
-
-      <p class="receta-ingredientes-titulo">Ingredientes</p>
-      <ul class="ingredientes-lista">
-        <li>300 g de maíz blanco pisado fino</li>
-        <li>1 litro de leche entera</li>
-        <li>1/2 taza de azúcar (o al gusto)</li>
-        <li>1 rama de canela</li>
-        <li>Cáscara de 1 limón (solo la parte amarilla)</li>
-        <li>1 pizca de sal</li>
-      </ul>
-
-      <p class="receta-pasos-titulo">Preparación</p>
-      <ol class="pasos-lista">
-        <li>Remojar el maíz pisado en agua fría durante 2 horas. Escurrir.</li>
-        <li>En una olla mediana de fondo grueso, hervir la leche con la canela, la cáscara de limón y la pizca de sal.</li>
-        <li>Agregar el maíz escurrido a la leche caliente. Bajar el fuego al mínimo y cocinar revolviendo constantemente con cuchara de madera para que no se pegue al fondo.</li>
-        <li>A los 20 minutos de cocción, agregar el azúcar y continuar revolviendo. La mazamorra irá espesando progresivamente.</li>
-        <li>Cocinar unos 40-50 minutos en total, siempre a fuego muy suave y sin dejar de revolver. Estará lista cuando al levantar la cuchara la mezcla caiga en cintas espesas y tenga una consistencia cremosa y uniforme.</li>
-        <li>Retirar la canela y la cáscara de limón. Servir caliente en tazones, con un toque de canela molida por encima.</li>
-      </ol>
-
-      <div class="tip-javo">
-        <p>Revolver sin parar no es exageración: el maíz se pega al fondo antes de que te des cuenta, y una vez que se quema, le da gusto amargo a toda la preparación. Fuego mínimo y cuchara en mano todo el tiempo. Es un postre de dedicación, pero esa dedicación se nota en el resultado.</p>
-      </div>
-    </article>
-
-    <div class="receta-separador"><span>✦</span></div>
-
-    <!-- RECETA 12 -->
-    <article class="receta-card" id="receta-llajua">
-      <p class="receta-num">Receta 12</p>
-      <h3 class="receta-titulo">Llajua Casera</h3>
-      <div class="receta-badges">
-        <span class="badge badge-porciones">&#9679; 1 frasco</span>
-        <span class="badge badge-prep">&#128336; Prep: 10 min</span>
-        <span class="badge badge-coccion">&#128293; Sin cocción</span>
-      </div>
-      <img class="receta-foto" src="https://images.unsplash.com/photo-1583577612013-4dfe6e4e5474?w=900&auto=format&fit=crop" alt="Llajua Casera" loading="lazy">
-      <p class="receta-intro">
-        La llajua es la salsa sagrada del norte. Ninguna mesa salteña que se respete carece de llajua: va con las empanadas, con el locro, con el asado, con el charqui, con el pan. Va con todo. Se muele en batán —una piedra plana ancestral— o en licuadora, y su alma es la quirquiña, esa hierba aromática de hoja pequeña que no tiene reemplazo exacto en el mundo. Sin quirquiña, la llajua sabe bien. Con quirquiña, sabe a Salta.
-      </p>
-
-      <p class="receta-ingredientes-titulo">Ingredientes</p>
-      <ul class="ingredientes-lista">
-        <li>3 tomates maduros medianos</li>
-        <li>2 locotos frescos (o 2 ajíes picantes si no hay locoto)</li>
-        <li>1 manojo de quirquiña fresca (o cilantro fresco como sustituto)</li>
-        <li>Sal a gusto</li>
-      </ul>
-
-      <p class="receta-pasos-titulo">Preparación</p>
-      <ol class="pasos-lista">
-        <li>Si se usa batán: lavar y cortar en trozos el tomate y el locoto. Colocar en el batán y moler con movimientos circulares hasta obtener una pasta gruesa con textura. Agregar la quirquiña y seguir moliendo. Salar y probar.</li>
-        <li>Si se usa licuadora o procesadora: procesar el tomate y el locoto con pulsos cortos —la llajua no debe ser un puré liso, sino que debe tener textura—. Agregar la quirquiña picada gruesa y pulsar dos o tres veces más. Salar.</li>
-        <li>Probar el picante: si los locotos son muy fuertes, reducir la cantidad. Si los ajíes son suaves, aumentar. La llajua debe picar con gracia, no con brutalidad.</li>
-        <li>Guardar en frasco de vidrio en la heladera. Se conserva 3-4 días.</li>
-      </ol>
-
-      <div class="tip-javo">
-        <p>Respeten la quirquiña: es el alma de la llajua. Si no consiguen quirquiña fresca, el cilantro es el sustituto más cercano, pero no es lo mismo —el cilantro es más intenso y menos sutil—. Si consiguen quirquiña seca, úsenla con moderación. Y nunca hagan la llajua muy lisa: la textura es parte de la experiencia.</p>
-      </div>
-    </article>
-
-    <div class="receta-separador"><span>✦</span></div>
-
-    <!-- RECETA 13 -->
-    <article class="receta-card" id="receta-pan-campo">
-      <p class="receta-num">Receta 13</p>
-      <h3 class="receta-titulo">Pan de Campo al Rescoldo</h3>
-      <div class="receta-badges">
-        <span class="badge badge-porciones">&#9679; 1 pan grande</span>
-        <span class="badge badge-prep">&#128336; Prep: 20 min</span>
-        <span class="badge badge-coccion">&#128293; Cocción: 50 min</span>
-      </div>
-      <img class="receta-foto" src="https://images.unsplash.com/photo-gMZNtPDqobg?w=900&auto=format&fit=crop" alt="Pan de Campo al Rescoldo" loading="lazy">
-      <p class="receta-intro">
-        El pan de campo es el hermano mayor de la tortilla de rescoldo. Lleva levadura, por eso esponja más, y se cocina cubierto con una olla de hierro fundido que atrapa el vapor y el calor, simulando un horno de barro. Lo hago los domingos en el patio, y la regla es simple: el pan sale cuando sale, y cuando sale hay que comerlo de inmediato, con manteca o con lo que haya. No hay mejor pan en el mundo que uno recién salido del rescoldo.
-      </p>
-
-      <p class="receta-ingredientes-titulo">Ingredientes</p>
-      <ul class="ingredientes-lista">
-        <li>500 g de harina 000</li>
-        <li>1 sobre de levadura seca (7 g)</li>
-        <li>1 cucharadita de sal</li>
-        <li>1 cucharada de grasa de cerdo</li>
-        <li>Agua tibia, aprox. 280 ml</li>
-        <li>Brasas de rescoldo</li>
-        <li>1 olla de hierro fundido (o olla de barro) con tapa</li>
-      </ul>
-
-      <p class="receta-pasos-titulo">Preparación</p>
-      <ol class="pasos-lista">
-        <li>Disolver la levadura en 50 ml de agua tibia con una pizca de azúcar. Dejar activar 5-10 minutos hasta que espume.</li>
-        <li>En un bol grande, mezclar la harina con la sal. Incorporar la grasa de cerdo frotando con los dedos. Agregar la levadura activada y el resto del agua tibia de a poco, amasando hasta obtener una masa lisa y elástica.</li>
-        <li>Cubrir con un trapo húmedo y dejar leudar en lugar tibio 30-40 minutos, hasta que doble su volumen.</li>
-        <li>Mientras la masa leuda, preparar el rescoldo con buenas brasas apagadas y ceniza caliente.</li>
-        <li>Dar al pan forma redonda y aplanar levemente. Colocarlo sobre la ceniza caliente del rescoldo. Cubrir con la olla de hierro fundido vuelta boca abajo y rodear con brasas adicionales.</li>
-        <li>Cocinar 25 minutos sin levantar la tapa. Retirar la olla, dar vuelta el pan con mucho cuidado, volver a tapar y cocinar otros 20-25 minutos.</li>
-        <li>Verificar cocción golpeando el fondo: sonido hueco significa pan listo. Dejar reposar 5 minutos antes de partir.</li>
-      </ol>
-
-      <div class="tip-javo">
-        <p>La paciencia es el ingrediente que no aparece en la lista pero sin el cual el pan no sale. No levanten la tapa antes de los 25 minutos, aunque la curiosidad sea insoportable: cada vez que se abre, el calor acumulado se escapa y la cocción se interrumpe. Confíen en el proceso. Cuando el olor ya no es olor a masa cruda sino a pan, está cerca.</p>
-      </div>
-    </article>
-
-    <div class="receta-separador"><span>✦</span></div>
-
-    <!-- RECETA 14 -->
-    <article class="receta-card" id="receta-sopa-mote">
-      <p class="receta-num">Receta 14</p>
-      <h3 class="receta-titulo">Sopa de Mote</h3>
-      <div class="receta-badges">
-        <span class="badge badge-porciones">&#9679; 6 porciones</span>
-        <span class="badge badge-prep">&#128336; Prep: 20 min</span>
-        <span class="badge badge-coccion">&#128293; Cocción: 1h 30min</span>
-      </div>
-      <img class="receta-foto" src="https://images.unsplash.com/photo-7ax3l4quF-M?w=900&auto=format&fit=crop" alt="Sopa de Mote" loading="lazy">
-      <p class="receta-intro">
-        El mote —maíz cocido con cal que pierde la cáscara— es uno de los ingredientes más ancestrales de los Andes. La sopa de mote es el plato de invierno absoluto en la Puna: el maíz hinchado flota en un caldo denso de costilla y verduras, y cada cucharada da calor desde adentro. En los pueblos de altura donde la temperatura baja bajo cero, esta sopa es medicina y alimento al mismo tiempo. La aprendí de una señora del mercado que me la explicó mientras la cocinaba, sin receta ni medidas.
-      </p>
-
-      <p class="receta-ingredientes-titulo">Ingredientes</p>
-      <ul class="ingredientes-lista">
-        <li>400 g de mote (maíz pelado cocido, o cocinar mote seco remojado)</li>
-        <li>400 g de costilla de vaca, en trozos</li>
-        <li>3 papas medianas, en cubos</li>
-        <li>2 zanahorias, en rodajas</li>
-        <li>1 cebolla, en cuartos</li>
-        <li>2 ramas de apio</li>
-        <li>1 nabo pequeño (opcional)</li>
-        <li>Sal, pimienta, orégano</li>
-        <li>Caldo de verduras adicional si es necesario</li>
-      </ul>
-
-      <p class="receta-pasos-titulo">Preparación</p>
-      <ol class="pasos-lista">
-        <li>Si el mote es seco, remojarlo 8 horas en agua fría y cocinar previamente 1 hora en agua con sal hasta que esté tierno y abierto. Si es mote enlatado o ya cocido, simplemente escurrir y reservar.</li>
-        <li>En una olla grande, colocar las costillas de vaca cubiertas con agua fría. Llevar a hervor y espumar bien los primeros 10 minutos. Bajar el fuego.</li>
-        <li>Agregar la cebolla en cuartos, el apio, la zanahoria y el nabo. Cocinar a fuego suave 45 minutos hasta que la carne esté tierna.</li>
-        <li>Retirar la cebolla y el apio si se desea (dan sabor pero pueden descartarse). Incorporar el mote cocido y las papas en cubos. Continuar la cocción 25 minutos más.</li>
-        <li>Salpimentar, agregar orégano y ajustar la sazón. El caldo debe estar sabroso y ligeramente denso por el almidón que suelta el mote.</li>
-        <li>Servir bien caliente en tazones generosos, con pan de campo al lado.</li>
-      </ol>
-
-      <div class="tip-javo">
-        <p>El mote precisa cocción larga para ablandarse bien y soltar el almidón que espesa el caldo de manera natural. Si lo apuran, queda duro y chicloso, que no es lo mismo. El mote bien cocido se abre como una flor y flota en el caldo: esa es la señal de que está. Y no escatimen en los huesos de la costilla: son los que dan sabor real al caldo.</p>
-      </div>
-    </article>
-
-    <div class="receta-separador"><span>✦</span></div>
-
-    <!-- RECETA 15 -->
-    <article class="receta-card" id="receta-api-morado">
-      <p class="receta-num">Receta 15</p>
-      <h3 class="receta-titulo">Api Morado</h3>
-      <div class="receta-badges">
-        <span class="badge badge-porciones">&#9679; 6 porciones</span>
-        <span class="badge badge-prep">&#128336; Prep: 10 min</span>
-        <span class="badge badge-coccion">&#128293; Cocción: 20 min</span>
-      </div>
-      <img class="receta-foto" src="https://images.unsplash.com/photo-RJTbTzJ1lrM?w=900&auto=format&fit=crop" alt="Api Morado" loading="lazy">
-      <p class="receta-intro">
-        El api morado es la bebida de los mercados. En el mercado San Miguel de Salta, desde temprano en la mañana, se puede ver a las vendedoras sirviendo este líquido espeso y perfumado en vasos de vidrio, coronado con un chorrito de limón que cambia su color de morado a rosa. Es caliente, dulce, especiado, y perfecto para el frío de la mañana serrana. Lo tomo como desayuno cuando el invierno aprieta, y para mí ningún café da el mismo calor interior que un vaso de api.
-      </p>
-
-      <p class="receta-ingredientes-titulo">Ingredientes</p>
-      <ul class="ingredientes-lista">
-        <li>200 g de maíz morado (en granos o en polvo)</li>
-        <li>1.5 litros de agua</li>
-        <li>1 rama de canela</li>
-        <li>3 clavos de olor</li>
-        <li>Cáscara de 1 naranja</li>
-        <li>Azúcar a gusto (aprox. 6-8 cucharadas)</li>
-        <li>Jugo de limón para servir</li>
-      </ul>
-
-      <p class="receta-pasos-titulo">Preparación</p>
-      <ol class="pasos-lista">
-        <li>Si se usa maíz morado en granos: cocinarlos en el agua con la canela, los clavos y la cáscara de naranja durante 30-40 minutos a fuego suave hasta que el agua tome un color morado profundo. Filtrar y reservar solo el líquido.</li>
-        <li>Si se usa maíz morado en polvo: hervir el agua con las especias y la cáscara de naranja 10 minutos. Disolver el polvo de maíz en un poco de agua fría y agregar al líquido caliente, revolviendo bien para evitar grumos.</li>
-        <li>Devolver el líquido al fuego suave. Agregar el azúcar y revolver hasta disolver.</li>
-        <li>Cocinar a fuego mínimo unos 10-15 minutos, revolviendo ocasionalmente, hasta que espese levemente. La consistencia debe ser la de un jugo espeso, no un postre.</li>
-        <li>Servir caliente en vasos o tazas. En el momento de llevar a la mesa, agregar un chorrito de limón recién exprimido: el color cambiará de morado oscuro a un rosa brillante delante de los ojos.</li>
-      </ol>
-
-      <div class="tip-javo">
-        <p>El chorrito de limón al servir no es decorativo: es química. El maíz morado tiene antocianinas que reaccionan al ácido y cambian de color, de morado a rosa. Es el truco más vistoso de la cocina andina y siempre genera asombro en quien lo ve por primera vez. No se lo pierdan: échenlo en la mesa, delante de todos.</p>
-      </div>
-    </article>
-
-  </main>
-
-  <!-- FOOTER -->
-  <footer>
-    <p class="footer-titulo">Sabores Salteños</p>
-    <p class="footer-copy">© Javo Te Cocina 2025 &nbsp;·&nbsp; El Norte en cada bocado</p>
-    <a href="/" class="footer-link">javotecocina.com ↗</a>
-  </footer>
-
 </body>
 </html>

@@ -142,10 +142,27 @@ body{font-family:'Barlow',sans-serif;background:#B8A795;color:var(--ink);font-si
 .back-bottom{position:relative;z-index:2;}
 .back-brand{font-family:'Barlow Condensed',sans-serif;font-size:22pt;font-weight:900;letter-spacing:.1em;text-transform:uppercase;color:var(--fire);margin-bottom:2mm;}
 .back-web{font-family:'Lora',serif;font-style:italic;font-size:8.5pt;color:rgba(251,246,238,.3);}
+/* PAYWALL (overlay de acceso — quitar este bloque y el script final para dejarlo libre) */
+#javo-paywall{position:fixed;inset:0;background:rgba(23,15,9,0.97);z-index:9999;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:20mm;}
+.pw-logo{font-family:'Barlow Condensed',sans-serif;font-size:13pt;font-weight:800;letter-spacing:.3em;color:var(--paper);text-transform:uppercase;margin-bottom:3mm;}
+.pw-title{font-family:'Barlow Condensed',sans-serif;font-size:30pt;font-weight:900;color:var(--ember);text-transform:uppercase;margin-bottom:4mm;line-height:.95;}
+.pw-desc{font-family:'Lora',serif;font-style:italic;font-size:11pt;color:var(--soft);margin-bottom:9mm;max-width:110mm;line-height:1.6;}
+.pw-price{font-family:'Barlow Condensed',sans-serif;font-size:22pt;font-weight:700;color:var(--paper);margin-bottom:7mm;}
+.pw-btn{background:var(--fire);color:#fff;border:none;padding:4mm 11mm;font-family:'Barlow Condensed',sans-serif;font-size:12pt;font-weight:700;letter-spacing:.08em;text-transform:uppercase;cursor:pointer;border-radius:3px;}
+.pw-btn:hover{background:var(--ember);}
 </style>
 </head>
 <body>
 <button class="no-print" onclick="window.print()">⬇ Guardar como PDF</button>
+
+<!-- PAYWALL -->
+<div id="javo-paywall">
+  <div class="pw-logo">Javotecocina</div>
+  <div class="pw-title">Todo sobre Fierros</div>
+  <div class="pw-desc">La guía definitiva para dominar la parrilla, del fuego al corte: tira, vacío, entraña, mollejas, chinchulines y chorizos caseros.</div>
+  <div class="pw-price">ARS $36.750</div>
+  <button class="pw-btn" onclick="window.location.href='/#recetarios'">Comprar acceso</button>
+</div>
 
 <!-- PORTADA -->
 <div class="page cover">
@@ -249,7 +266,7 @@ body{font-family:'Barlow',sans-serif;background:#B8A795;color:var(--ink);font-si
       <div class="paso"><div class="paso-n">5</div><div class="paso-txt"><b>Una sola vuelta.</b> Dala vuelta, salá apenas el lado del hueso si querés, y dejala otros 20 minutos. Del lado de la carne se forma una costra dorada que es donde está todo el sabor. Si te gusta más jugosa, acortá; si la querés más cocida, estirá unos minutos.</div></div>
       <div class="paso"><div class="paso-n">6</div><div class="paso-txt"><b>Dejala descansar 5 minutos antes de cortar.</b> Sobre una tabla, fuera del fuego. Los jugos que se concentraron en el centro se redistribuyen y la carne queda pareja y tierna en cada bocado. Cortá entre hueso y hueso.</div></div>
     </div>
-    <div class="tip"><div class="tip-label">🔥 El consejo de Javo</div><div class="tip-txt">No te conformes con la tira fina del supermercado. Pedile al carnicero que te corte del costillar entero, de 3 a 4 cm de ancho. El hueso da sabor, la grasa entreverada da jugosidad, y ese espesor es lo que te permite hacer la cocción larga sin que se seque.</div></div>
+    <div class="tip"><div class="tip-label">🔥 El consejo de Javo</div><div class="tip-txt">No te conformes con la tira fina del supermercado. Pedile al carnicero que te corte del costillar entero, de 3 a 4 cm de ancho. Tira fina = 40 minutos y listo; tira gruesa = 55 a 60 minutos y un resultado que no tiene comparación. El hueso da sabor, la grasa entreverada da jugosidad, y ese espesor es lo que te permite hacer la cocción larga sin que se seque. Para brasas medias, la mano a 8 cm tiene que aguantar 3 a 4 segundos: así de exacto.</div></div>
   </div>
 </div>
 
@@ -281,9 +298,9 @@ body{font-family:'Barlow',sans-serif;background:#B8A795;color:var(--ink);font-si
       <div class="paso"><div class="paso-n">3</div><div class="paso-txt"><b>Sal entrefina y nada más.</b> Salá la cara expuesta al empezar. No hace falta marinada ni adobo: el vacío tiene sabor propio de sobra.</div></div>
       <div class="paso"><div class="paso-n">4</div><div class="paso-txt"><b>Primer lado, alrededor de una hora a una hora y cuarto.</b> Sin tocarlo. La paciencia acá no es opcional. Cuando la cara de abajo está bien sellada y dorada y ves que la carne empezó a cambiar de color hacia arriba, recién ahí lo das vuelta.</div></div>
       <div class="paso"><div class="paso-n">5</div><div class="paso-txt"><b>Vuelta: la grasa toca las brasas.</b> Ahora la tapa de grasa se dora y se vuelve crocante. Otros 45 minutos a una hora, según el grosor de la pieza. Salá la cara nueva.</div></div>
-      <div class="paso"><div class="paso-n">6</div><div class="paso-txt"><b>El punto justo.</b> El vacío se sirve a punto, nunca jugoso: la grasa tiene que verse translúcida y la carne ceder cuando la pinchás. Si todavía sale líquido rojo, le falta. Cortá fino y siempre contra la fibra.</div></div>
+      <div class="paso"><div class="paso-n">6</div><div class="paso-txt"><b>El punto justo: leélo en la grasa.</b> El vacío se sirve a punto, nunca jugoso. La señal más clara no es pincharlo sino mirar la tapa de grasa: cuando está opaca y blanquecina todavía le falta; cuando se ve translúcida, casi dorada, brillante, la carne está lista. Si al pinchar el centro el jugo sale rosado, dale 10 minutos más. Cortá fino y siempre contra la fibra.</div></div>
     </div>
-    <div class="tip"><div class="tip-label">🔥 El consejo de Javo</div><div class="tip-txt">Nunca le saques la tapa de grasa antes de cocinar. Es lo que distingue un vacío memorable de uno seco. Se derrite sola, perfuma la carne y al final se dora hasta quedar como un chicharrón. Esa tapa crocante es, para muchos, la mejor parte.</div></div>
+    <div class="tip"><div class="tip-label">🔥 El consejo de Javo</div><div class="tip-txt">Nunca le saques la tapa de grasa antes de cocinar. Se derrite sola, perfuma la carne y te da la señal del punto. Y si querés que quede como chicharrón, los últimos 5 minutos subí el fuego y acercá la tapa de grasa directo a las brasas: se infla, se tuesta y queda crocante y dorada. Esa tapa es, para muchos, la mejor parte de todo el asado.</div></div>
   </div>
 </div>
 
@@ -300,7 +317,7 @@ body{font-family:'Barlow',sans-serif;background:#B8A795;color:var(--ink);font-si
     <div class="r-meta-it"><div class="r-meta-k">Fuego</div><div class="r-meta-v">Brasas altas</div></div>
     <div class="r-meta-it"><div class="r-meta-k">Dificultad</div><div class="r-meta-v">Básica</div></div>
   </div>
-  <div class="r-note">Un buen bife grueso no necesita nada, pero la manteca de hierbas que se derrite encima al servirlo lo lleva a otro nivel. La preparás una vez, la tenés siempre, y queda como de restaurante con cero esfuerzo extra.</div>
+  <div class="r-note">Un buen bife grueso no necesita nada, pero la manteca de hierbas que se derrite encima al servirlo lo lleva a otro nivel. La preparás una vez, la tenés siempre, y queda como de restaurante con cero esfuerzo extra. Eso sí: antes de cortar, dejalo reposar 3 minutos sobre la tabla. No es capricho — en esos minutos los jugos que el fuego empujó al centro se redistribuyen, y la diferencia entre cortarlo al toque y cortarlo después del reposo es enorme.</div>
   <div class="r-img"><img src="img/foto4.jpg" alt="Bife de chorizo"></div>
   <div class="r-cols">
     <div class="col-ing">
@@ -319,7 +336,7 @@ body{font-family:'Barlow',sans-serif;background:#B8A795;color:var(--ink);font-si
       <div class="paso-head">Preparación</div>
       <div class="paso"><div class="paso-n">1</div><div class="paso-txt"><b>La manteca, con anticipación.</b> Mezclá la manteca blanda con el ajo, el perejil, el tomillo, el jugo de limón, sal y pimienta hasta integrar todo. Armá un cilindro con papel film, enrollalo bien firme y llevalo a la heladera al menos 2 horas. Tiene que estar bien dura para cortarla en rodajas.</div></div>
       <div class="paso"><div class="paso-n">2</div><div class="paso-txt"><b>Bifes a temperatura ambiente.</b> Sacalos de la heladera media hora antes. Un bife grueso frío se cocina disparejo: se quema afuera antes de que el centro tome temperatura.</div></div>
-      <div class="paso"><div class="paso-n">3</div><div class="paso-txt"><b>Sellá primero el borde de grasa.</b> Parados sobre la parrilla, con la tira de grasa lateral hacia abajo, unos 3 minutos. Esa grasa se derrite y se dora en vez de quedar cruda y gomosa. Es un detalle que casi nadie hace y cambia el resultado.</div></div>
+      <div class="paso"><div class="paso-n">3</div><div class="paso-txt"><b>Sellá primero el borde de grasa.</b> Parados sobre la parrilla, sostenidos con pinzas, con la tira de grasa lateral hacia abajo, unos 3 a 4 minutos. Esa grasa tiene que derretirse y dorarse: tiene que quedar dorada y translúcida, no blanca ni cruda. Una grasa mal sellada queda gomosa y amarga el bocado. Es el paso que casi nadie hace y que separa un bife del montón de uno que sorprende.</div></div>
       <div class="paso"><div class="paso-n">4</div><div class="paso-txt"><b>Fuego alto, 4 a 5 minutos por lado.</b> Para un punto medio jugoso. Brasas bien vivas. Salá con sal entrefina justo antes de dar vuelta y volvé a salar el otro lado. Una sola vuelta: el bife no se manosea.</div></div>
       <div class="paso"><div class="paso-n">5</div><div class="paso-txt"><b>Manteca al plato, no a la parrilla.</b> Sacá el bife, ponelo en el plato y apoyá una rodaja de manteca de hierbas encima. El calor de la carne la derrite sola y se forma una salsa instantánea con el jugo del bife. Serví de inmediato.</div></div>
     </div>
@@ -340,7 +357,7 @@ body{font-family:'Barlow',sans-serif;background:#B8A795;color:var(--ink);font-si
     <div class="r-meta-it"><div class="r-meta-k">Fuego</div><div class="r-meta-v">Brasas muy altas</div></div>
     <div class="r-meta-it"><div class="r-meta-k">Dificultad</div><div class="r-meta-v">Básica</div></div>
   </div>
-  <div class="r-note">La entraña es el corte más rápido y más agradecido de toda la parrilla. En diez minutos la resolvés. El único error posible es pasarla de fuego: si la dejás de más, se seca y se pone dura. Atención y fuego fuerte, nada más.</div>
+  <div class="r-note">Hay dos entrañas: la fina, que viene del diafragma y es más angosta y delicada — 3 o 4 minutos por lado y listo; y la gruesa "de res", más ancha, más marmolada, que aguanta hasta 5 o 6 minutos sin secarse. Las dos piden fuego fuerte y una sola vuelta. El único error posible es pasarlas: si la dejás de más, se seca y se pone como suela. Atención al fuego y cuchillo afilado para sacarle bien la membrana.</div>
   <div class="r-img"><img src="img/foto5.jpg" alt="Entraña a la parrilla"></div>
   <div class="r-cols">
     <div class="col-ing">
@@ -356,7 +373,7 @@ body{font-family:'Barlow',sans-serif;background:#B8A795;color:var(--ink);font-si
       <div class="paso"><div class="paso-n">4</div><div class="paso-txt"><b>Sal entrefina al sacar.</b> Recién al retirarla del fuego. Si la salás antes, la sal le saca humedad y trabaja en contra. Sobre la carne caliente se adhiere perfecto.</div></div>
       <div class="paso"><div class="paso-n">5</div><div class="paso-txt"><b>Cortá contra la fibra.</b> La entraña tiene una fibra muy marcada y larga. Cortala en sentido transversal, en tiras, para romper esa fibra. Cortada al derecho queda chiclosa aunque el punto sea perfecto; cortada al través, se deshace en la boca.</div></div>
     </div>
-    <div class="tip"><div class="tip-label">🔥 El consejo de Javo</div><div class="tip-txt">La entraña fina se hace casi al vuelo; la gruesa "de res" aguanta un poco más de fuego. Sea cual sea, no la tapes de condimentos: es uno de los cortes más sabrosos que hay y solo necesita buen fuego, sal y un cuchillo afilado para cortarla bien.</div></div>
+    <div class="tip"><div class="tip-label">🔥 El consejo de Javo</div><div class="tip-txt">Si querés llevarla a otro nivel sin complicarte: ponés medio limón boca abajo sobre la parrilla mientras se cocina la entraña, y al servir exprimís ese jugo asado por encima. O, si tenés tiempo, calentás un chorrito de aceite de oliva con un diente de ajo cortado al medio hasta que el ajo quede casi negro, lo colás y lo tirás sobre la entraña recién cortada. Ese aceite de ajo quemado con la sal y el corte en su punto es una combinación que no se olvida.</div></div>
   </div>
 </div>
 
@@ -373,7 +390,7 @@ body{font-family:'Barlow',sans-serif;background:#B8A795;color:var(--ink);font-si
     <div class="r-meta-it"><div class="r-meta-k">Fuego</div><div class="r-meta-v">Brasas medias-altas</div></div>
     <div class="r-meta-it"><div class="r-meta-k">Dificultad</div><div class="r-meta-v">Media</div></div>
   </div>
-  <div class="r-note">Hay dos tipos de molleja: la de corazón, redonda y compacta, y la de garganta, más larga y blanda. La de corazón es mi favorita lejos: más tierna, más mantecosa, aguanta mejor el fuego. Y el secreto de todas está en la marinada de limón de la noche anterior.</div>
+  <div class="r-note">Hay dos mollejas: la de corazón, redonda y compacta, con una textura mantecosa que aguanta bien el fuego largo — es la que uso acá; y la de garganta, más larga, más blanda, que se cocina más rápido pero se deshace si te pasás. Sin marinada, las dos salen con ese sabor fuerte a víscera que espanta a la mitad de la mesa. Con la marinada de limón de la noche anterior, salen suaves, perfumadas y con una costra que engancha a los que decían que no les gustaban.</div>
   <div class="r-img"><img src="img/foto6.webp" alt="Mollejas a la parrilla"></div>
   <div class="r-cols">
     <div class="col-ing">
@@ -395,7 +412,7 @@ body{font-family:'Barlow',sans-serif;background:#B8A795;color:var(--ink);font-si
       <div class="paso"><div class="paso-n">4</div><div class="paso-txt"><b>Mojá con los limones de la parrilla.</b> Cortá 3 limones al medio y ponelos boca abajo directo sobre la parrilla. Se asan, se caramelizan y pierden la acidez. Cada tanto, mientras das vuelta las mollejas, agarralos y exprimí ese jugo asado por encima. Esto las mantiene jugosas y les agrega un sabor cítrico-ahumado que es la firma de la receta.</div></div>
       <div class="paso"><div class="paso-n">5</div><div class="paso-txt"><b>Sal entrefina al final.</b> Recién al sacarlas. Servilas calientes, con más limón asado al costado para quien quiera.</div></div>
     </div>
-    <div class="tip"><div class="tip-label">🔥 El consejo de Javo</div><div class="tip-txt">La clave es que queden crocantes por fuera. Si después de 45 minutos las ves blandas, acercalas más a las brasas o subí el fuego los últimos 10 minutos. Una molleja crocante es uno de los mejores bocados del asado; una molleja blanda es una decepción. Vale la pena el tiempo.</div></div>
+    <div class="tip"><div class="tip-label">🔥 El consejo de Javo</div><div class="tip-txt">La costra se construye en dos etapas: los primeros 40 minutos a fuego medio-alto las cocinan por dentro; los últimos 10 minutos subís el fuego fuerte y las acercás a las brasas para que la superficie quede crujiente y oscura. Si a los 45 minutos las tocás y ceden blandas, no están listas: necesitan esos 10 minutos finales de fuego fuerte. Una molleja que cruje al morderla es una de las mejores cosas que salen de una parrilla argentina; una molleja blanda es una oportunidad desperdiciada.</div></div>
   </div>
 </div>
 
@@ -424,10 +441,10 @@ body{font-family:'Barlow',sans-serif;background:#B8A795;color:var(--ink);font-si
     </div>
     <div class="col-pasos">
       <div class="paso-head">Preparación</div>
-      <div class="paso"><div class="paso-n">1</div><div class="paso-txt"><b>Lavá bien el chinchulín.</b> Abrilo a lo largo y pasalo por agua fría corriente, con un chorrito de vinagre por dentro para limpiarlo a fondo. Esto saca cualquier resto y suaviza el sabor. Después podés dejarlo así abierto o trenzarlo: trenzado queda más crocante por fuera y tierno por dentro.</div></div>
+      <div class="paso"><div class="paso-n">1</div><div class="paso-txt"><b>Lavá y trenzá el chinchulín.</b> Abrilo a lo largo y pasalo por agua fría corriente, con un buen chorro de vinagre blanco por dentro, frotando bien para limpiar a fondo. Después lo trenzás: tomás tres tiras y hacés una trenza apretada, igual que con el pelo. El trenzado no es estético — es técnico: aumenta la superficie expuesta al fuego, genera más bordes que se ponen crocantes, y al mismo tiempo el interior queda protegido y tierno. Un chinchulín sin trenzar queda bien; trenzado queda otra cosa.</div></div>
       <div class="paso"><div class="paso-n">2</div><div class="paso-txt"><b>Marinada de limón, mínimo 30 minutos.</b> Cubrilo con el jugo de los 3 limones. El limón empieza a romper las fibras y limpia el sabor fuerte. Si lo dejás una hora, mejor todavía.</div></div>
       <div class="paso"><div class="paso-n">3</div><div class="paso-txt"><b>Fuego fuerte desde el principio.</b> A diferencia de otras achuras que arrancan suaves, el chinchulín va directo a fuego bien alto. Es lo que te garantiza la costra crocante. Brasas vivas, sin distancia de más.</div></div>
-      <div class="paso"><div class="paso-n">4</div><div class="paso-txt"><b>40 a 45 minutos, dando vuelta cada 5 o 6.</b> Vas a ver cómo se va dorando y encogiendo. Buscá que quede tostado y crujiente por todos lados. No tengas miedo de dejarlo dorar bien: el chinchulín pálido es chinchulín chicloso.</div></div>
+      <div class="paso"><div class="paso-n">4</div><div class="paso-txt"><b>40 a 45 minutos, dando vuelta cada 5 o 6.</b> Vas a ver cómo se va dorando y encogiendo. Buscá que quede tostado, oscuro, crujiente por todos lados. Si lo ves que se pone pálido y blancuzco, está perdido: ese color significa que se coció sin sellarse, y ya no hay forma de recuperar la textura. El chinchulín bien hecho tiene que quedar marrón oscuro, casi tostado. No le tengas miedo al color: ahí está el sabor.</div></div>
       <div class="paso"><div class="paso-n">5</div><div class="paso-txt"><b>Sal entrefina y limón fresco al servir.</b> Cortalo en trozos, salá y exprimí limón por encima. Se come al toque, crocante y caliente.</div></div>
     </div>
     <div class="tip"><div class="tip-label">🔥 El consejo de Javo</div><div class="tip-txt">Si lo ves que no termina de ponerse crocante, acercalo a las brasas y subí la intensidad. El punto exacto es cuando suena al morderlo. Ese crujido es todo: es la diferencia entre un chinchulín que la gente repite y uno que dejan en el plato.</div></div>
@@ -461,7 +478,7 @@ body{font-family:'Barlow',sans-serif;background:#B8A795;color:var(--ink);font-si
       <div class="ing-row"><span class="ing-qty">½ cdta</span><span class="ing-name">Ají molido</span></div>
       <div class="ing-row"><span class="ing-qty">3 dientes</span><span class="ing-name">Ajo picado muy fino</span></div>
       <div class="ing-row"><span class="ing-qty">½ taza</span><span class="ing-name">Vino blanco seco</span></div>
-      <div class="ing-row"><span class="ing-qty">c/n</span><span class="ing-name">Tripa natural de cerdo</span></div>
+      <div class="ing-row"><span class="ing-qty">c/n</span><span class="ing-name">Tripa natural de cerdo, hidratada en agua tibia con un chorro de vinagre blanco por 30 minutos antes de usar</span></div>
     </div>
     <div class="col-pasos">
       <div class="paso-head">Preparación</div>
@@ -469,9 +486,10 @@ body{font-family:'Barlow',sans-serif;background:#B8A795;color:var(--ink);font-si
       <div class="paso"><div class="paso-n">2</div><div class="paso-txt"><b>Probá antes de embutir.</b> Cociná una bolita chica de la mezcla en una sartén y probala. Acá ajustás la sal y los condimentos a tu gusto. Es el paso que te asegura que los 12 chorizos salgan perfectos y no te enteres tarde.</div></div>
       <div class="paso"><div class="paso-n">3</div><div class="paso-txt"><b>Reposo en la heladera.</b> Tapá la mezcla y dejala mínimo 2 horas, idealmente toda la noche. Los sabores se asientan, se integran entre sí y la mezcla se afirma para embutir mejor.</div></div>
       <div class="paso"><div class="paso-n">4</div><div class="paso-txt"><b>Embutí sin apretar de más.</b> Con embutidora o manga, llená la tripa dejando un poco de aire. Si la cargás muy apretada, revienta al cocinarse. Andá girando la tripa para formar los chorizos del largo que quieras.</div></div>
-      <div class="paso"><div class="paso-n">5</div><div class="paso-txt"><b>A la parrilla: mínimo 15 minutos por lado.</b> Fuego medio, nunca fuerte (se queman afuera y quedan crudos adentro). Dales vuelta una sola vez. No los pinches jamás: cada pinchazo es jugo que perdés. Si se inflan, está todo bien, la presión baja sola.</div></div>
+      <div class="paso"><div class="paso-n">5</div><div class="paso-txt"><b>Colgalos una hora antes de cocinar.</b> Una vez formados, colgalos en un lugar fresco o en la heladera sin tapar, al menos una hora. La tripa pierde la humedad superficial, se seca un poco, y eso es lo que hace que se dore parejo en la parrilla en vez de hervir en su propio vapor. Si los tirás recién formados, la humedad genera vapor y la tripa queda blanda. Este paso marca la diferencia entre un chorizo que se dora y uno que se cocina gris.</div></div>
+      <div class="paso"><div class="paso-n">6</div><div class="paso-txt"><b>A la parrilla: mínimo 15 minutos por lado.</b> Fuego medio, nunca fuerte (se queman afuera y quedan crudos adentro). Dales vuelta una sola vez. No los pinches jamás: cada pinchazo es jugo que perdés. Si se inflan, está todo bien, la presión baja sola.</div></div>
     </div>
-    <div class="tip"><div class="tip-label">🔥 El consejo de Javo</div><div class="tip-txt">Si estás en el norte y conseguís cordero, probá mezclar mitad cerdo y mitad cordero. El sabor cambia por completo y se acerca muchísimo al chorizo de feria que comés en Salta. Es mi versión favorita, aunque sea más difícil de conseguir la carne.</div></div>
+    <div class="tip"><div class="tip-label">🔥 El consejo de Javo</div><div class="tip-txt">Chorizo recién formado vs chorizo descansado de la heladera de un día para el otro: son dos productos distintos. El fresco tiene la mezcla suelta y el sabor todavía separado; el descansado tiene los condimentos integrados, la grasa firme y la tripa asentada. Si podés hacerlos el día anterior y guardarlos en la heladera sin tapar, los vas a servir en otro nivel. Y si estás en el norte y conseguís cordero, probá mitad cerdo y mitad cordero: es la versión más salteña de todas.</div></div>
   </div>
 </div>
 
@@ -510,11 +528,11 @@ body{font-family:'Barlow',sans-serif;background:#B8A795;color:var(--ink);font-si
       <div class="paso"><div class="paso-n">1</div><div class="paso-txt"><b>Asá los morrones primero.</b> Directo sobre la parrilla hasta que la piel se ennegrezca por todos lados. Metelos en una bolsa cerrada 10 minutos: el vapor afloja la piel y sale sola con los dedos. Ese sabor ahumado no lo da ningún morrón de frasco.</div></div>
       <div class="paso"><div class="paso-n">2</div><div class="paso-txt"><b>Abrí el matambre al libro.</b> Si tiene más de 2 cm de grosor, hacele un corte horizontal sin llegar al borde, de modo que se abra como un libro y te quede una superficie grande y pareja. Condimentá la cara interna con sal entrefina y pimienta.</div></div>
       <div class="paso"><div class="paso-n">3</div><div class="paso-txt"><b>Rellená y cerrá bien.</b> Distribuí los morrones, el queso y la espinaca sobre la carne abierta, dejando un margen en los bordes. Enrollá o cerrá como un libro y asegurá las puntas con hilo de cocina o con palillos de brochette. Es fundamental que quede bien cerrado para que el queso no se escape al fuego.</div></div>
-      <div class="paso"><div class="paso-n">4</div><div class="paso-txt"><b>Primer lado, unos 12 a 15 minutos.</b> Fuego medio, con el cierre hacia abajo al principio para que se "sello" con el calor. Cociná sin moverlo hasta que la base esté dorada y firme.</div></div>
+      <div class="paso"><div class="paso-n">4</div><div class="paso-txt"><b>Primer lado, unos 12 a 15 minutos con fuego suave.</b> El primer lado pide fuego más bajo que lo habitual: el relleno —sobre todo el queso— necesita tiempo para derretirse despacio. Si arrancás con fuego fuerte, el exterior se quema antes de que el interior tome temperatura. Fuego medio-bajo, con el cierre hacia abajo para que se selle solo con el calor. Cuando la base esté dorada y firme, recién ahí das vuelta.</div></div>
       <div class="paso"><div class="paso-n">5</div><div class="paso-txt"><b>Glaseá recién al dar vuelta.</b> Mezclá la mostaza, la miel y el ajo. Cuando des vuelta el matambrito, pincelá generosamente la cara ya cocida. Dejá otros 10 a 12 minutos. La miel se va caramelizando con el calor y forma una laca dorada y brillante.</div></div>
       <div class="paso"><div class="paso-n">6</div><div class="paso-txt"><b>Reposo y corte.</b> Sacalo, dejá reposar 5 minutos y cortá en rodajas gruesas. Vas a ver el relleno de colores en el centro y la costra glaseada por fuera.</div></div>
     </div>
-    <div class="tip"><div class="tip-label">🔥 El consejo de Javo</div><div class="tip-txt">El glaseado va siempre después de dar vuelta, nunca al principio. Si ponés la miel sobre la carne cruda y la mandás al fuego, se quema y amarga antes de que la carne esté lista. Sobre la cara ya cocida, en cambio, se carameliza justa y queda perfecta.</div></div>
+    <div class="tip"><div class="tip-label">🔥 El consejo de Javo</div><div class="tip-txt">El glaseado va siempre después de dar vuelta, nunca al principio: la miel sobre carne cruda se quema y amarga. Y si querés variar el relleno, probá jamón serrano + brie + espinaca — el brie se derrite de manera distinta al provolone, más cremoso, y el jamón serrano le da un toque curado que con el glaseado de mostaza y miel es una combinación difícil de mejorar.</div></div>
   </div>
 </div>
 
@@ -551,8 +569,8 @@ body{font-family:'Barlow',sans-serif;background:#B8A795;color:var(--ink);font-si
       <div class="paso"><div class="paso-n">1</div><div class="paso-txt"><b>Asá los morrones.</b> Igual que en el matambrito: a la parrilla hasta ennegrecer, bolsa cerrada 10 minutos y pelar. El sabor ahumado real hace la diferencia.</div></div>
       <div class="paso"><div class="paso-n">2</div><div class="paso-txt"><b>Abrí y emparejá el lomo.</b> Pedile al carnicero que lo abra en mariposa, o hacelo vos con un cuchillo afilado. Golpealo apenas con un mazo para que quede de un espesor parejo de un centímetro y medio. Condimentá la cara interna con sal entrefina, pimienta y pimentón ahumado.</div></div>
       <div class="paso"><div class="paso-n">3</div><div class="paso-txt"><b>Armá el relleno en capas.</b> Primero el jamón, después el queso, después los morrones en tiras y la espinaca si la usás. Cubrí toda la superficie pero dejá un margen libre en el borde por donde vas a cerrar.</div></div>
-      <div class="paso"><div class="paso-n">4</div><div class="paso-txt"><b>Enrollá firme y atá bien.</b> Desde uno de los extremos, enrollá apretando para que no queden huecos. Atá con hilo de cocina cada 3 cm, ajustando fuerte. Este es el paso que decide todo: bien atada, el relleno no se mueve.</div></div>
-      <div class="paso"><div class="paso-n">5</div><div class="paso-txt"><b>A la parrilla, una hora.</b> Fuego medio, dando vuelta cada 15 minutos para que se dore parejo por los cuatro lados. Está lista cuando, al pinchar el centro, el jugo sale claro y no rosado.</div></div>
+      <div class="paso"><div class="paso-n">4</div><div class="paso-txt"><b>Enrollá firme y atá con al menos 6 nudos.</b> Desde uno de los extremos, enrollá apretando bien para que no queden huecos de aire. Atá con hilo de cocina cada 3 cm — en un lomo de 1,2 kg salen unos 6 a 8 nudos. Ajustá fuerte: si queda floja, con el calor el relleno se escapa, el rollo se abre y el corte se desarma. Bien atada, el espiral queda perfecto al cortar.</div></div>
+      <div class="paso"><div class="paso-n">5</div><div class="paso-txt"><b>A la parrilla, una hora.</b> Fuego medio, dando vuelta cada 15 minutos para que se dore parejo por los cuatro lados. Alternativa al glaseado de mostaza y miel: mezclá 3 cdas de aceite de oliva + 2 dientes de ajo picado fino + 1 cdta de pimentón ahumado, y pincelá sobre la pamplona en los últimos 20 minutos. Queda más rústica, con un aroma ahumado que combina perfecto con el cerdo. Está lista cuando, al pinchar el centro, el jugo sale claro y no rosado.</div></div>
       <div class="paso"><div class="paso-n">6</div><div class="paso-txt"><b>Reposá antes de cortar.</b> 5 minutos sobre la tabla. Después sacá el hilo y cortá en rodajas de 2 cm. El espiral de relleno tiene que quedar entero y a la vista.</div></div>
     </div>
     <div class="tip"><div class="tip-label">🔥 El consejo de Javo</div><div class="tip-txt">Si nunca hiciste una pamplona, no te asustes: lo más difícil es atarla, y con un poco de hilo y paciencia sale. Te conviene cortarla recién después del reposo; si la abrís caliente y apurada, el relleno todavía está blando y se desarma. Cinco minutos de espera hacen el corte perfecto.</div></div>
@@ -585,13 +603,14 @@ body{font-family:'Barlow',sans-serif;background:#B8A795;color:var(--ink);font-si
     </div>
     <div class="col-pasos">
       <div class="paso-head">Preparación</div>
-      <div class="paso"><div class="paso-n">1</div><div class="paso-txt"><b>Entendé el sistema antes de empezar.</b> Vas a poner los ladrillos en las cuatro esquinas de la parrilla, como columnas. Sobre ellos apoyás la chapa, formando un techo encima del lechón. Arriba de la chapa, una cama de brasas. Así el lechón recibe calor desde abajo (las brasas de la parrilla) y desde arriba (la chapa caliente): un horno casero perfecto.</div></div>
-      <div class="paso"><div class="paso-n">2</div><div class="paso-txt"><b>Abrí y salá el lechón.</b> Bien plano, presionando la columna para que quede abierto como un libro. Salá con sal gruesa de los dos lados, cargando especialmente del lado de adentro (la carne).</div></div>
-      <div class="paso"><div class="paso-n">3</div><div class="paso-txt"><b>Primeras 2 horas: lomo abajo, piel arriba.</b> Apoyá el lechón con la carne hacia las brasas y la piel mirando hacia arriba, hacia la chapa. Brasas suaves abajo y brasas moderadas sobre la chapa. La carne se cocina lento y parejo mientras la piel se va tensando.</div></div>
-      <div class="paso"><div class="paso-n">4</div><div class="paso-txt"><b>Dale vuelta y sacá la chapa.</b> A las 2 horas, con mucho cuidado (es pesado y frágil), dalo vuelta para que la piel quede hacia abajo, sobre la parrilla. Retirá la chapa. Subí un poco el fuego de abajo.</div></div>
-      <div class="paso"><div class="paso-n">5</div><div class="paso-txt"><b>45 a 60 minutos finales para la piel.</b> Ahora la piel se dora y se vuelve crocante en contacto directo con las brasas. Está listo cuando, al pinchar el muslo en su parte más gruesa, el jugo sale claro.</div></div>
+      <div class="paso"><div class="paso-n">1</div><div class="paso-txt"><b>La noche anterior: lavado, secado y condimentado.</b> Lavá el lechón con agua fría por dentro y por fuera. Secalo bien con papel o paño limpio — la piel seca es la que se pone crocante; la húmeda se vaporiza y queda gomosa. Preparás una pasta con 6 dientes de ajo aplastado, 1 cda de orégano seco, el jugo de 2 limones y sal gruesa, y la frotás por toda la cara interior de la carne. Dejalo en la heladera destapado toda la noche. Al otro día arrancás con un lechón ya condimentado y con la piel bien seca.</div></div>
+      <div class="paso"><div class="paso-n">2</div><div class="paso-txt"><b>Entendé el sistema antes de empezar.</b> Vas a poner los ladrillos en las cuatro esquinas de la parrilla, como columnas. Sobre ellos apoyás la chapa, formando un techo encima del lechón. Arriba de la chapa, una cama de brasas. Así el lechón recibe calor desde abajo (las brasas de la parrilla) y desde arriba (la chapa caliente): un horno casero perfecto.</div></div>
+      <div class="paso"><div class="paso-n">3</div><div class="paso-txt"><b>Abrí y acomodá el lechón.</b> Bien plano, presionando la columna para que quede abierto como un libro. Ya viene condimentado de la noche anterior; solo chequeá que la sal gruesa esté pareja del lado de la carne.</div></div>
+      <div class="paso"><div class="paso-n">4</div><div class="paso-txt"><b>Primeras 2 horas: lomo abajo, piel arriba.</b> Apoyá el lechón con la carne hacia las brasas y la piel mirando hacia arriba, hacia la chapa. Brasas suaves abajo y brasas moderadas sobre la chapa. La carne se cocina lento y parejo mientras la piel se va tensando.</div></div>
+      <div class="paso"><div class="paso-n">5</div><div class="paso-txt"><b>Dale vuelta y sacá la chapa.</b> A las 2 horas, con mucho cuidado (es pesado y frágil), dalo vuelta para que la piel quede hacia abajo, sobre la parrilla. Retirá la chapa. Subí un poco el fuego de abajo.</div></div>
+      <div class="paso"><div class="paso-n">6</div><div class="paso-txt"><b>45 a 60 minutos finales para la piel.</b> Ahora la piel se dora y se vuelve crocante en contacto directo con las brasas. Está listo cuando, al pinchar el muslo en su parte más gruesa, el jugo sale claro y sin rosado. Si tenés termómetro, buscá 85 °C en el centro del muslo.</div></div>
     </div>
-    <div class="tip"><div class="tip-label">🔥 El consejo de Javo</div><div class="tip-txt">La piel tipo chicharrón se logra en esos últimos 20 minutos sin la chapa. Pero ojo: el momento entre "perfecta" y "quemada" es corto. Quedate al lado, andá girándolo y prestale toda la atención al final. Vale la pena: esa piel crocante es lo primero que todos van a querer.</div></div>
+    <div class="tip"><div class="tip-label">🔥 El consejo de Javo</div><div class="tip-txt">Para saber si está listo: termómetro en el muslo buscando 85 °C, o sin termómetro, pinchás el punto más grueso del muslo y esperás el jugo — claro y sin rosado es la señal. La piel tipo chicharrón se logra en esos últimos 20 minutos sin la chapa, pero el margen entre perfecta y quemada es de minutos. Quedate al lado y no te distraigas: esa piel crocante es lo primero que todos van a querer.</div></div>
   </div>
 </div>
 
@@ -624,13 +643,13 @@ body{font-family:'Barlow',sans-serif;background:#B8A795;color:var(--ink);font-si
     </div>
     <div class="col-pasos">
       <div class="paso-head">Preparación</div>
-      <div class="paso"><div class="paso-n">1</div><div class="paso-txt"><b>Preparate el glaseado.</b> Mezclá la mostaza con el ajo, el aceite de oliva y el pimentón ahumado hasta formar una pasta. Reservá. Vas a usarlo en dos tandas durante la cocción.</div></div>
+      <div class="paso"><div class="paso-n">1</div><div class="paso-txt"><b>Preparate el glaseado — y si podés, marinalo de antes.</b> Mezclá la mostaza con el ajo, el aceite de oliva y el pimentón ahumado hasta formar una pasta. Si tenés 2 o 3 horas de anticipo, pincelá el pollo con la mitad de esa pasta y dejalo en la heladera sin tapar: la mostaza penetra la carne y el resultado es más sabroso y más jugoso que si la aplicás solo durante la cocción. La otra mitad la guardás para pincelar en la parrilla.</div></div>
       <div class="paso"><div class="paso-n">2</div><div class="paso-txt"><b>Abrí el pollo en mariposa.</b> Cortando a lo largo de la columna y aplastándolo, se cocina mucho más parejo que entero. Si usás presas, recordá que los muslos y las patas necesitan más fuego y tiempo que la pechuga: ubicá las piezas más gruesas en la zona más caliente.</div></div>
       <div class="paso"><div class="paso-n">3</div><div class="paso-txt"><b>Salá y empezá con la piel hacia arriba.</b> Sal entrefina sobre todo el pollo. Fuego medio. Los primeros 20 minutos van con la piel hacia arriba y el lado del hueso hacia las brasas, todavía sin mostaza, para que se cocine de a poco sin quemarse.</div></div>
       <div class="paso"><div class="paso-n">4</div><div class="paso-txt"><b>Primer pincelado al dar vuelta.</b> Pincelá con el glaseado la cara que ya se cocinó. Dalo vuelta: ahora la mostaza toca la parrilla y se empieza a tostar formando costra. Cociná otros 15 minutos. Aprovechá y poné el limón cortado al medio sobre la parrilla.</div></div>
       <div class="paso"><div class="paso-n">5</div><div class="paso-txt"><b>Segundo pincelado y piel crocante.</b> Pincelá otra capa de glaseado por encima. Los últimos 10 minutos, dejá la piel hacia abajo para que quede bien dorada y crujiente. Al sacar, exprimí el limón asado por encima.</div></div>
     </div>
-    <div class="tip"><div class="tip-label">🔥 El consejo de Javo</div><div class="tip-txt">El limón asado en la parrilla pierde casi toda la acidez y se vuelve dulce y ahumado. Exprimido sobre el pollo recién salido, junto con la costra de mostaza, arma una combinación difícil de olvidar. No te saltes ese limón en las brasas: es un detalle chico que cambia el plato.</div></div>
+    <div class="tip"><div class="tip-label">🔥 El consejo de Javo</div><div class="tip-txt">El limón asado pierde la acidez y se vuelve dulce y ahumado — no te lo saltes. Y si querés el pollo glaseado, los últimos 5 minutos agregás una cucharada de miel a la pasta de mostaza y pincelás una última capa: la miel se carameliza con el calor y forma una laca brillante, dorada, con ese equilibrio entre el picante de la mostaza y el dulce que hace que nadie pare de comer.</div></div>
   </div>
 </div>
 
@@ -665,11 +684,11 @@ body{font-family:'Barlow',sans-serif;background:#B8A795;color:var(--ink);font-si
       <div class="paso-head">Preparación</div>
       <div class="paso"><div class="paso-n">1</div><div class="paso-txt"><b>El hueso mira al fuego.</b> Clavá el costillar en la cruz con los huesos hacia el fuego. El hueso hace de escudo: protege la carne del calor directo y al mismo tiempo conduce el calor desde adentro. La carne se cocina lenta, protegida, sin secarse.</div></div>
       <div class="paso"><div class="paso-n">2</div><div class="paso-txt"><b>La distancia lo es todo.</b> El fuego no va debajo del costillar, sino de costado, a unos 40 a 50 cm. Demasiado cerca, se quema y se seca; demasiado lejos, no cocina. Para sostener 4 horas necesitás alimentar leña de manera constante. Esto requiere que estés presente.</div></div>
-      <div class="paso"><div class="paso-n">3</div><div class="paso-txt"><b>Preparate la salmuera tibia.</b> Disolvé la sal gruesa en agua tibia y sumá el ajo, el ají molido, el orégano y el vinagre. Tiene que estar tibia, nunca fría: el agua fría sobre la carne caliente corta la cocción.</div></div>
+      <div class="paso"><div class="paso-n">3</div><div class="paso-txt"><b>Preparate la salmuera tibia — y entendé por qué tibia.</b> Disolvé la sal gruesa en agua tibia (no caliente, no fría: como para bañarse) y sumá el ajo, el ají molido, el orégano y el vinagre. Tibia por dos razones: el agua fría sobre la carne caliente corta la cocción de golpe y contrae las fibras; y la sal se disuelve mejor en agua caliente que en fría, así la salmuera es más pareja y penetra mejor en cada pincelada.</div></div>
       <div class="paso"><div class="paso-n">4</div><div class="paso-txt"><b>Pincelá cada 30 minutos.</b> Con un pincel o, como hacía mi viejo, con un manojo de perejil atado. La salmuera mantiene la carne húmeda durante las largas horas y va construyendo una costra sabrosa, capa sobre capa.</div></div>
       <div class="paso"><div class="paso-n">5</div><div class="paso-txt"><b>La última hora, acercá al fuego.</b> Para dorar la costra exterior. Sabés que está listo cuando la carne se separa sola del hueso en los extremos y cede por completo al pincharla.</div></div>
     </div>
-    <div class="tip"><div class="tip-label">🔥 El consejo de Javo</div><div class="tip-txt">Ponete cómodo de verdad. Un costillar a la cruz es una experiencia, no solo una comida: son cuatro horas al lado del fuego, con tiempo, con paciencia, charlando. Llevá una silla, algo para tomar, y avisale a los invitados que el horario lo pone el fuego, no el reloj.</div></div>
+    <div class="tip"><div class="tip-label">🔥 El consejo de Javo</div><div class="tip-txt">La distancia correcta del fuego se mide con la mano: a 40 cm, la palma aguanta 4 a 5 segundos antes de tener que retirarla. Más cerca se quema; más lejos no cocina. Y ponete cómodo de verdad: un costillar a la cruz son cuatro horas al lado del fuego, charlando, manteniendo la leña. Llevá una silla, algo para tomar, y avisale a los invitados que el horario lo pone el fuego, no el reloj.</div></div>
   </div>
 </div>
 
@@ -703,12 +722,13 @@ body{font-family:'Barlow',sans-serif;background:#B8A795;color:var(--ink);font-si
     <div class="col-pasos">
       <div class="paso-head">Preparación</div>
       <div class="paso"><div class="paso-n">1</div><div class="paso-txt"><b>Armá el cordero en la cruz.</b> Se abre entero, con la columna hacia afuera, y se extiende sobre la cruz como una mariposa. Atá las patas a los extremos horizontales para que quede bien estirado y firme. La carne expuesta mira hacia el fuego.</div></div>
-      <div class="paso"><div class="paso-n">2</div><div class="paso-txt"><b>Primeras 3 horas: la carne hacia el fuego.</b> A diferencia del costillar, el cordero arranca con el interior mirando las brasas. La carne se cocina lento desde adentro mientras la piel, por ahora, queda del lado de afuera sin recibir calor directo.</div></div>
-      <div class="paso"><div class="paso-n">3</div><div class="paso-txt"><b>Salmuera con romero cada 25 a 30 minutos.</b> El romero va dentro de la salmuera y además te sirve como pincel natural si atás un ramito. Ese perfume del romero combina perfecto con el cordero del norte. Mantené la salmuera tibia.</div></div>
-      <div class="paso"><div class="paso-n">4</div><div class="paso-txt"><b>A las 3 horas, dale vuelta.</b> Ahora la piel mira el fuego. Las últimas 2 horas son para esa piel: se dora, se vuelve crocante y se forman las ampollas de grasa que se van caramelizando. Acercá apenas la cruz para terminar el dorado.</div></div>
-      <div class="paso"><div class="paso-n">5</div><div class="paso-txt"><b>Cortá en la misma cruz.</b> El cordero se sirve cortándolo ahí mismo, en la mesa o junto al fuego: los muslos, el paleto, las costillas, el lomo. Cada parte tiene su textura y su punto, y las zonas más cercanas al fuego siempre quedan más doradas.</div></div>
+      <div class="paso"><div class="paso-n">2</div><div class="paso-txt"><b>Primeros 30 minutos: fuego más alto para sellar.</b> Arrancá con la cruz más cerca del fuego —unos 30 cm— para que el calor selle el exterior de la carne rápido. Vas a ver que la superficie cambia de color y se forma una costra fina: eso es lo que retiene los jugos para las horas que siguen. Después de esos 30 minutos, alejá la cruz a 40 a 50 cm y bajá la intensidad para la cocción lenta.</div></div>
+      <div class="paso"><div class="paso-n">3</div><div class="paso-txt"><b>Primeras 3 horas: la carne hacia el fuego.</b> A diferencia del costillar, el cordero arranca con el interior mirando las brasas. La carne se cocina lento desde adentro mientras la piel, por ahora, queda del lado de afuera sin recibir calor directo.</div></div>
+      <div class="paso"><div class="paso-n">4</div><div class="paso-txt"><b>Salmuera con romero cada 25 a 30 minutos.</b> El romero va dentro de la salmuera y además te sirve como pincel natural si atás un ramito. Ese perfume del romero combina perfecto con el cordero del norte. Mantené la salmuera tibia.</div></div>
+      <div class="paso"><div class="paso-n">5</div><div class="paso-txt"><b>A las 3 horas, dale vuelta.</b> Ahora la piel mira el fuego. Las últimas 2 horas son para esa piel: se dora, se vuelve crocante y se forman las ampollas de grasa que se van caramelizando. Acercá apenas la cruz para terminar el dorado.</div></div>
+      <div class="paso"><div class="paso-n">6</div><div class="paso-txt"><b>Cortá en la misma cruz.</b> El cordero se sirve cortándolo ahí mismo, en la mesa o junto al fuego: empezá por los muslos, que son los más accesibles y los primeros en estar a punto. Después el paleto, las costillas y el lomo. Cada parte tiene su textura y su punto, y las zonas más cercanas al fuego siempre quedan más doradas.</div></div>
     </div>
-    <div class="tip"><div class="tip-label">🔥 El consejo de Javo</div><div class="tip-txt">No hace falta avisar cuándo está listo: en los últimos 30 minutos la gente se acerca sola, atraída por el olor. Calculá entre 5 y 6 horas con fuego constante para tener un cordero que se deshace solo. Y disfrutá el proceso, porque hacer un cordero a la cruz es, en sí mismo, parte de la fiesta.</div></div>
+    <div class="tip"><div class="tip-label">🔥 El consejo de Javo</div><div class="tip-txt">No hace falta avisar cuándo está listo: en los últimos 30 minutos la gente se acerca sola, atraída por el olor. Para servir: empezá por los muslos, que son los más accesibles desde la cruz y los primeros en estar perfectos. Después el paleto, después las costillas. El lomo lo dejás para el final — es el más protegido y el que más tiempo necesita. Cortá directo sobre la cruz con un cuchillo largo, y que cada uno agarre su trozo. Así se sirve un cordero: sin protocolo, con las manos, al lado del fuego.</div></div>
   </div>
 </div>
 
@@ -725,7 +745,7 @@ body{font-family:'Barlow',sans-serif;background:#B8A795;color:var(--ink);font-si
     <div class="r-meta-it"><div class="r-meta-k">Fuego</div><div class="r-meta-v">Brasas altas</div></div>
     <div class="r-meta-it"><div class="r-meta-k">Dificultad</div><div class="r-meta-v">Básica</div></div>
   </div>
-  <div class="r-note">Yo no hago la provoleta directo en la parrilla: la hago en una provoletera de hierro fundido bien curada, que dejo precalentar sobre las brasas. Hay dos claves que casi nadie respeta y que lo cambian todo: orear el queso en la heladera unos días, y que la provoletera esté ardiendo cuando entra el queso.</div>
+  <div class="r-note">Yo no hago la provoleta directo en la parrilla: la hago en una provoletera de hierro fundido bien curada, que dejo precalentar sobre las brasas. Hay dos claves que casi nadie respeta: orear el queso en la heladera unos días, y que la provoletera esté ardiendo cuando entra el queso. El queso fresco sin orear tiene demasiada humedad: en cuanto toca el calor se derrama, se escapa por los costados y te quedás sin provoleta. El oreado es lo que hace que se mantenga firme por fuera mientras se derrite por dentro.</div>
   <div class="r-img"><img src="img/foto15.jpg" alt="Provoleta"></div>
   <div class="r-cols">
     <div class="col-ing">
@@ -742,7 +762,7 @@ body{font-family:'Barlow',sans-serif;background:#B8A795;color:var(--ink);font-si
       <div class="paso"><div class="paso-n">1</div><div class="paso-txt"><b>Oreá el queso 3 a 5 días antes.</b> Esta es la clave que más gente omite. Dejá la rodaja de provolone descubierta en la heladera, sobre una rejilla o un plato, sin film. Va a perder humedad de a poco y se va a formar una capa seca por fuera. Eso es exactamente lo que hace que se ponga crocante en vez de derretirse y desparramarse.</div></div>
       <div class="paso"><div class="paso-n">2</div><div class="paso-txt"><b>Precalentá la provoletera sobre las brasas.</b> La provoletera de hierro fundido, bien curada, va directo sobre las brasas, vacía, hasta que esté bien caliente. Igual de importante que el oreado: si el hierro está tibio, el queso se funde antes de sellarse. Tiene que estar ardiendo.</div></div>
       <div class="paso"><div class="paso-n">3</div><div class="paso-txt"><b>El queso directo, sin aceite.</b> Apoyá la rodaja sobre la provoletera caliente. No le pongas aceite ni manteca: la grasa propia del provolone alcanza y sobra.</div></div>
-      <div class="paso"><div class="paso-n">4</div><div class="paso-txt"><b>5 a 6 minutos sin tocar.</b> Se forma la costra dorada por debajo. Cuando ves que los bordes empiezan a burbujear y la base ya está firme, espolvoreá el orégano y el ají molido por encima.</div></div>
+      <div class="paso"><div class="paso-n">4</div><div class="paso-txt"><b>5 a 6 minutos sin tocar.</b> Se forma la costra dorada por debajo. Cuando ves que los bordes empiezan a burbujear y la base ya está firme, espolvoreá el orégano y el ají molido por encima. Si querés doble capa — más queso, más costra, más todo — a los 3 minutos ponés una segunda rodaja de provolone oreado directamente encima de la primera: se fusionan con el calor y al servir tenés una provoleta doble que es el doble de todo.</div></div>
       <div class="paso"><div class="paso-n">5</div><div class="paso-txt"><b>Serví de inmediato.</b> La provoleta no espera a nadie: de las brasas al centro de la mesa. Con el chutney o la sweet chilli al costado, o sola, que ya es perfecta.</div></div>
     </div>
     <div class="tip"><div class="tip-label">🔥 El consejo de Javo</div><div class="tip-txt">A mí me gusta acompañarla con un chutney de tomate o una salsa sweet chilli: el contraste entre el queso caliente y salado con ese toque dulzón es el final perfecto. Pero que quede claro: si no tenés nada de eso, la provoleta bien hecha va sola como piña.</div></div>
@@ -826,5 +846,14 @@ body{font-family:'Barlow',sans-serif;background:#B8A795;color:var(--ink);font-si
   </div>
 </div>
 
+<script>
+(function(){
+  var slug='fierros';
+  if(localStorage.getItem('javo_admin_v1')==='1'){var p=document.getElementById('javo-paywall');if(p)p.remove();return;}
+  var token=localStorage.getItem('javo_access_fierros');
+  if(token){try{var d=JSON.parse(atob(token));if(d.slug===slug&&d.exp>Date.now()){var p=document.getElementById('javo-paywall');if(p)p.remove();return;}}catch(e){}}
+  document.body.style.overflow='hidden';
+})();
+</script>
 </body>
 </html>

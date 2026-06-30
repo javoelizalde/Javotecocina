@@ -133,10 +133,27 @@ body{font-family:'Barlow',sans-serif;background:#B8A795;color:var(--ink);font-si
 .back-bottom{position:relative;z-index:2;}
 .back-brand{font-family:'Barlow Condensed',sans-serif;font-size:22pt;font-weight:900;letter-spacing:.1em;text-transform:uppercase;color:var(--fire);margin-bottom:2mm;}
 .back-web{font-family:'Lora',serif;font-style:italic;font-size:8.5pt;color:rgba(251,246,238,.3);}
+/* PAYWALL (overlay de acceso — quitar este bloque y el script final para dejarlo libre) */
+#javo-paywall{position:fixed;inset:0;background:rgba(23,15,9,0.97);z-index:9999;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:20mm;}
+.pw-logo{font-family:'Barlow Condensed',sans-serif;font-size:13pt;font-weight:800;letter-spacing:.3em;color:var(--paper);text-transform:uppercase;margin-bottom:3mm;}
+.pw-title{font-family:'Barlow Condensed',sans-serif;font-size:30pt;font-weight:900;color:var(--ember);text-transform:uppercase;margin-bottom:4mm;line-height:.95;}
+.pw-desc{font-family:'Lora',serif;font-style:italic;font-size:11pt;color:var(--soft);margin-bottom:9mm;max-width:110mm;line-height:1.6;}
+.pw-price{font-family:'Barlow Condensed',sans-serif;font-size:22pt;font-weight:700;color:var(--paper);margin-bottom:7mm;}
+.pw-btn{background:var(--fire);color:#fff;border:none;padding:4mm 11mm;font-family:'Barlow Condensed',sans-serif;font-size:12pt;font-weight:700;letter-spacing:.08em;text-transform:uppercase;cursor:pointer;border-radius:3px;}
+.pw-btn:hover{background:var(--ember);}
 </style>
 </head>
 <body>
 <button class="no-print" onclick="window.print()">⬇ Guardar como PDF</button>
+
+<!-- PAYWALL -->
+<div id="javo-paywall">
+  <div class="pw-logo">Javotecocina</div>
+  <div class="pw-title">A Todo Disco</div>
+  <div class="pw-desc">Todo para cocinar en disco de arado como un maestro: del curado y el fuego del disco a guisos, paellas y salsas para el centro de la mesa.</div>
+  <div class="pw-price">ARS $38.150</div>
+  <button class="pw-btn" onclick="window.location.href='/#recetarios'">Comprar acceso</button>
+</div>
 
 <!-- PORTADA -->
 <div class="page cover">
@@ -676,7 +693,7 @@ body{font-family:'Barlow',sans-serif;background:#B8A795;color:var(--ink);font-si
     <div class="r-meta-it"><div class="r-meta-k">Fuego</div><div class="r-meta-v">Fuerte → medio</div></div>
     <div class="r-meta-it"><div class="r-meta-k">Dificultad</div><div class="r-meta-v">Básica</div></div>
   </div>
-  <div class="r-note">Pura comida de olla, de las de toda la vida. Chorizos sellados y después braseados en una pomarola hecha con paciencia, hasta que se impregnan de ese tomate dulce y profundo. Con un buen pan al lado para mojar en la salsa, es felicidad pura y para todos.</div>
+  <div class="r-note">Pura comida de olla, de las de toda la vida. Chorizos sellados y después braseados en una pomarola hecha con paciencia, hasta que se impregnan de ese tomate dulce y profundo. Con un buen pan al lado para mojar en la salsa, no necesito más.</div>
   <div class="r-img"><img src="img/disco/chorizos.avif" alt="Chorizos a la pomarola"></div>
   <div class="r-cols">
     <div class="col-ing">
@@ -762,7 +779,7 @@ body{font-family:'Barlow',sans-serif;background:#B8A795;color:var(--ink);font-si
     <div class="r-meta-it"><div class="r-meta-k">Fuego</div><div class="r-meta-v">Fuerte → medio</div></div>
     <div class="r-meta-it"><div class="r-meta-k">Dificultad</div><div class="r-meta-v">Media-alta</div></div>
   </div>
-  <div class="r-note">El disco y la paella nacieron para encontrarse: esa superficie ancha es ideal para que el arroz se cocine parejo y agarre el fondo. Esta es solo de mar, cargada de mariscos, con el azafrán como protagonista. Una fiesta de color y de sabor para el centro de la mesa.</div>
+  <div class="r-note">El disco y la paella nacieron para encontrarse: esa superficie ancha es ideal para que el arroz se cocine parejo y agarre el fondo. Esta es solo de mar, cargada de mariscos, con el azafrán que la tiñe y la perfuma. De esas que se llevan enteras al centro de la mesa.</div>
   <div class="r-img"><img src="img/disco/paella.jpg" alt="Paella de mariscos"></div>
   <div class="r-cols">
     <div class="col-ing">
@@ -942,5 +959,14 @@ body{font-family:'Barlow',sans-serif;background:#B8A795;color:var(--ink);font-si
   </div>
 </div>
 
+<script>
+(function(){
+  var slug='disco';
+  if(localStorage.getItem('javo_admin_v1')==='1'){var p=document.getElementById('javo-paywall');if(p)p.remove();return;}
+  var token=localStorage.getItem('javo_access_disco');
+  if(token){try{var d=JSON.parse(atob(token));if(d.slug===slug&&d.exp>Date.now()){var p=document.getElementById('javo-paywall');if(p)p.remove();return;}}catch(e){}}
+  document.body.style.overflow='hidden';
+})();
+</script>
 </body>
 </html>
