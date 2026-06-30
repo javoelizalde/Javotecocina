@@ -131,3 +131,37 @@ Antes de afirmar como definitivo: tiempos/temperaturas exactos, cantidades, téc
 8. Paywall in-file presente si se vende como PDF.
 
 Si algún punto no se cumple, el recetario **no está listo para venderse**.
+
+---
+
+## 12. Profundidad del paso a paso (benchmark editorial)
+
+El error más grave de un recetario pago es el **paso vago**. Prohibido:
+"cociná hasta que esté listo", "dorar de ambos lados", "mezclar bien", "agregar sal y llevar al fuego", "hasta el punto deseado".
+
+Cada paso importante, cuando aplique, debe tener:
+**acción concreta · el porqué · una señal para saber que va bien (visual / color / textura / sonido / olor) · tiempo o rango · nivel de fuego/calor · el error asociado · cómo seguir sin adivinar.**
+
+Benchmarks de nivel (usar como vara de profundidad y claridad, **nunca copiar texto**):
+- **Fuego / parrilla / carne:** Francis Mallmann (*Siete Fuegos*), *Franklin Barbecue*, Serious Eats / Meathead. → manejo de brasa, calor directo/indirecto, grosor, tiempos, reposo, punto, corte, errores.
+- **Técnica / el porqué:** *The Food Lab* (Kenji), Julia Child, *Larousse Gastronomique*. → explicar el proceso y el control de variables.
+- **Cotidiano / sabor:** Samin Nosrat (*Salt, Fat, Acid, Heat*), Ottolenghi, NYT Cooking. → claridad, criterio de sabor, variantes, confianza.
+
+Traducción de pasos vagos → concretos:
+- **"Hacé un sofrito"** → fuego, orden de ingredientes, tiempo aprox, textura buscada, cómo evitar que se queme, cuándo seguir.
+- **"Dorar"** → sartén fuerte o media, con/sin aceite, color buscado, mover o no, qué hacer si larga líquido o se quema.
+- **"Reducir"** → consistencia objetivo, cuánto baja, intensidad de fuego, cómo saber que está, qué hacer si quedó líquido/espeso.
+- **"Al horno"** → temperatura, precalentado, altura, tiempo, señales, cómo saber si falta o se pasó.
+
+## 13. Estructura de receta ampliada (estándar objetivo)
+
+Además de lo de §4, una receta paga apunta a: **Bajada editorial · Nivel explicado ("Media, pero hay que controlar la brasa") · Tiempos (prep / cocción / reposo / total) · Rinde · Ingredientes · Antes de empezar (mise en place + equipo + qué error evitar) · Paso a paso expandido · Puntos críticos (2-5) · Errores comunes (qué falla, por qué, cómo corregir) · Variantes · Cómo servir (corte, reposo, acompañamiento) · Nota de Javo (solo con info real).**
+
+## 14. Restricción de formato (importante)
+
+Los libros son **PDF A4, una receta por página**. La profundidad ampliada de §13 **no entra** en una sola página. Para subir el nivel hay que decidir el formato: **(a)** receta a **doble página** (spread), o **(b)** una página de **técnica base por categoría** + recetas más compactas que apoyan en esa técnica (modelo que ya usan Disco/Keveri/Fresco con su "Técnica base"). No expandir recetas hasta romper el diseño de página.
+
+## 15. Distinguir conocimiento general de método propietario
+
+Se puede escribir libremente **técnica gastronómica establecida** (cortar contra la fibra, reposo para redistribuir jugos, fuego muy fuerte = superficie arrebatada y centro frío, etc.) — eso no es inventar.
+Se debe **preguntar a Javier** todo lo que sea su método o dato puntual: tiempos exactos, punto que recomienda, sal que usa, herramientas reales, acompañamientos que sirve, y cualquier afirmación en primera persona.
