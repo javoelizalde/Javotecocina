@@ -177,7 +177,10 @@ nav.scrolled{background:rgba(26,18,11,.92);backdrop-filter:blur(12px);padding:.9
 .ig-play-btn{display:inline-flex;align-items:center;gap:.4rem;background:var(--fire);color:#fff;padding:.4rem .75rem;border-radius:3px;font-family:'Barlow Condensed',sans-serif;font-size:.68rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;width:fit-content;}
 .ig-card-title{font-family:'Barlow Condensed',sans-serif;font-size:clamp(.78rem,2.2vw,.95rem);font-weight:600;color:#fff;line-height:1.25;margin:0 0 .5rem;text-shadow:0 1px 4px rgba(0,0,0,.7);max-width:100%;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;}
 .ig-no-thumb{width:100%;height:100%;background:linear-gradient(135deg,#2a1a0e 0%,#1a120b 100%);display:flex;align-items:center;justify-content:center;}
-.ig-big-play{width:56px;height:56px;border-radius:50%;background:rgba(200,75,17,.92);display:flex;align-items:center;justify-content:center;color:#fff;padding-left:5px;box-shadow:0 4px 16px rgba(0,0,0,.3);}
+/* Botón de play centrado: deja claro que cada tile es un video clickeable */
+.ig-big-play{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:56px;height:56px;border-radius:50%;background:rgba(200,75,17,.92);display:flex;align-items:center;justify-content:center;color:#fff;padding-left:4px;box-shadow:0 6px 20px rgba(0,0,0,.45);border:2px solid rgba(255,255,255,.85);transition:transform .25s ease,background .25s ease;z-index:2;pointer-events:none;}
+.ig-item:hover .ig-big-play{transform:translate(-50%,-50%) scale(1.1);background:var(--fire);}
+@media(max-width:480px){.ig-big-play{width:46px;height:46px;}}
 
 .ig-empty{grid-column:1/-1;text-align:center;padding:3rem 0;color:var(--muted);font-size:.9rem;}
 @media(max-width:900px){.ig-grid{grid-template-columns:repeat(2,1fr);gap:.6rem;}}
@@ -2005,6 +2008,8 @@ async function loadInstagramPosts(){
     if(!mediaPosts.length){if(sec)sec.style.display='none';return;}
     if(sec)sec.style.display='';
     const playSvg=`<svg width="11" height="13" viewBox="0 0 11 13" fill="currentColor" aria-hidden="true"><polygon points="0,0 11,6.5 0,13"/></svg>`;
+    const playBig=`<svg width="22" height="26" viewBox="0 0 11 13" fill="currentColor" aria-hidden="true"><polygon points="0,0 11,6.5 0,13"/></svg>`;
+    const playCenter=`<span class="ig-big-play" aria-hidden="true">${playBig}</span>`;
     // Portadas locales de respaldo cuando el post no trae thumbnail (fotos reales de cocina).
     const POSTERS=['img/p03.jpg','img/p10.jpg','img/p17.jpg','img/p22.jpg','img/p28.jpg','img/p31.jpg','img/p07.jpg','img/p14.jpg'];
     grid.innerHTML=mediaPosts.map((p,i)=>{
@@ -2016,6 +2021,7 @@ async function loadInstagramPosts(){
       if(igIsDirectVideo(p.video_url)){
         return`<a class="ig-item" href="${href}" target="_blank" rel="noopener noreferrer" aria-label="Ver en Instagram">
           <video src="${escAttr(p.video_url)}" autoplay muted loop playsinline preload="metadata" poster="${escAttr(p.thumbnail_url||poster)}"></video>
+          ${playCenter}
           <div class="ig-item-overlay">${titulo}<span class="ig-play-btn">${playSvg}Ver reel</span></div>
         </a>`;
       }
@@ -2024,6 +2030,7 @@ async function loadInstagramPosts(){
       const cover=escAttr(p.thumbnail_url||poster);
       return`<a class="ig-item" href="${href}" target="_blank" rel="noopener noreferrer" aria-label="Ver en Instagram">
         <img src="${cover}" alt="${p.titulo?escAttr(p.titulo):'Contenido de Instagram'}" loading="lazy" onerror="this.onerror=null;this.src='${poster}'">
+        ${playCenter}
         <div class="ig-item-overlay">${titulo}<span class="ig-play-btn">${playSvg}Ver en Instagram</span></div>
       </a>`;
     }).join('');
