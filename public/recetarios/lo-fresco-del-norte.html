@@ -105,6 +105,27 @@ body{font-family:'Barlow',sans-serif;background:#B8A795;color:var(--ink);font-si
 .tip{margin-top:0;background:var(--paper2);border-left:3px solid var(--fire);padding:3mm 4mm;border-radius:0 2px 2px 0;}
 .tip-label{font-family:'Barlow Condensed',sans-serif;font-size:6.5pt;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--fire);margin-bottom:1.5mm;}
 .tip-txt{font-family:'Lora',serif;font-size:7.8pt;line-height:1.45;color:var(--ink);font-style:italic;}
+/* ── FORMATO FULL-DETALLE (1 hoja: foto horizontal + antes + pasos + puntos/errores/servir) ── */
+.topband{display:grid;grid-template-columns:1fr 73mm;column-gap:7mm;margin-bottom:4mm;align-items:stretch;}
+.topband .r-img{height:auto;min-height:52mm;margin-bottom:0;position:relative;overflow:hidden;}
+.topband .r-img img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;}
+.recipe:has(.r-bottom){justify-content:space-between;}
+.recipe:has(.r-bottom) .topband,.recipe:has(.r-bottom) .before,.recipe:has(.r-bottom) .pasos{margin-bottom:0;}
+.blk-h{font-family:'Barlow Condensed',sans-serif;font-size:7.5pt;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--fire);margin-bottom:2.2mm;padding-bottom:1.2mm;border-bottom:1pt solid var(--fire);}
+.before{columns:2;column-gap:7mm;margin-bottom:3mm;}
+.before li{font-size:7.4pt;line-height:1.45;color:var(--ink);margin-bottom:2mm;list-style:none;padding-left:3.5mm;position:relative;break-inside:avoid;}
+.before li::before{content:'›';position:absolute;left:0;color:var(--fire);font-weight:900;}
+.before b{color:var(--dark);}
+.pasos{margin-bottom:3mm;}
+.paso-sign{display:block;margin-top:.6mm;font-family:'Lora',serif;font-style:italic;font-size:7.4pt;color:var(--muted);line-height:1.45;}
+.r-bottom{display:grid;grid-template-columns:1fr 1fr 1fr;column-gap:6mm;border-top:.5pt solid var(--line2);padding-top:3.5mm;margin-top:0;}
+.crit-item{font-size:7.3pt;line-height:1.45;color:var(--ink);margin-bottom:2.2mm;padding-left:3.5mm;position:relative;}
+.crit-item::before{content:'';position:absolute;left:0;top:1.3mm;width:1.6mm;height:1.6mm;background:var(--fire);border-radius:50%;}
+.crit-item b{color:var(--dark);}
+.err{font-size:7.2pt;line-height:1.45;color:var(--ink);margin-bottom:2.4mm;}
+.err b{color:var(--dark);}.err i{color:var(--muted);}
+.serve{font-size:7.4pt;line-height:1.5;color:var(--ink);margin-bottom:2.4mm;}
+.serve b{color:var(--dark);}
 
 /* SECCIÓN / GUÍA */
 .guia-cover{background:var(--dark2);display:flex;flex-direction:column;justify-content:flex-end;position:relative;overflow:hidden;}
@@ -280,31 +301,50 @@ body{font-family:'Barlow',sans-serif;background:#B8A795;color:var(--ink);font-si
     <div class="r-meta-it"><div class="r-meta-k">Marinada</div><div class="r-meta-v">8 min</div></div>
     <div class="r-meta-it"><div class="r-meta-k">Dificultad</div><div class="r-meta-v">Media</div></div>
   </div>
-  <div class="r-note">Para mí este es el plato que abre todo el libro. La trucha de nuestros ríos tiene una carne firme y rosada que se banca el ceviche; el limón la cocina en ocho minutos justos. Ni uno más, o se pone gomosa y la perdés.</div>
-  <div class="r-img"><img src="img/fresco/ceviche-trucha.jpg" alt="Ceviche de trucha en bowl blanco, cubos rosados, cebolla morada en pluma, cilantro fresco, rodajas de limón y locoto en "></div>
-  <div class="r-cols">
-    <div class="col-ing">
-      <div class="ing-head">Ingredientes</div>
-      <div class="ing-row"><span class="ing-qty">500 g</span><span class="ing-name">Filet de trucha fresca</span></div>
-      <div class="ing-row"><span class="ing-qty">150 ml</span><span class="ing-name">Jugo de limón fresco (8–10)</span></div>
-      <div class="ing-row"><span class="ing-qty">1</span><span class="ing-name">Cebolla morada grande</span></div>
-      <div class="ing-row"><span class="ing-qty">1–2</span><span class="ing-name">Locotos rojos</span></div>
-      <div class="ing-row"><span class="ing-qty">1 puñado</span><span class="ing-name">Cilantro fresco</span></div>
-      <div class="ing-row"><span class="ing-qty">10 g</span><span class="ing-name">Sal</span></div>
-      <div class="ing-row"><span class="ing-qty">5 g</span><span class="ing-name">Pimienta blanca</span></div>
+  <div class="topband">
+    <div class="r-img"><img src="img/fresco/ceviche-trucha.jpg" alt="Ceviche de trucha en bowl blanco, cubos rosados, cebolla morada y cilantro"></div>
+    <div>
+      <div class="r-note">Para mí este es el plato que abre todo el libro. La trucha de nuestros ríos tiene una carne firme y rosada que se banca el ceviche; el limón la cocina en ocho minutos justos. Ni uno más, o se pone gomosa y la perdés.</div>
+      <div class="blk-h">Ingredientes</div>
+      <div class="ing-row"><span class="ing-qty">500 g</span><span class="ing-name">Filet de trucha fresca · 150 ml jugo de limón (8–10)</span></div>
+      <div class="ing-row"><span class="ing-qty">—</span><span class="ing-name">1 cebolla morada · 1–2 locotos rojos · 1 puñado cilantro</span></div>
+      <div class="ing-row"><span class="ing-qty">—</span><span class="ing-name">10 g sal · 5 g pimienta blanca</span></div>
       <div class="ing-glabel">Para servir</div>
-      <div class="ing-row"><span class="ing-qty">c/n</span><span class="ing-name">Choclo cocido</span></div>
-      <div class="ing-row"><span class="ing-qty">c/n</span><span class="ing-name">Camote cocido</span></div>
+      <div class="ing-row"><span class="ing-qty">c/n</span><span class="ing-name">Choclo cocido · camote cocido</span></div>
     </div>
-    <div class="col-pasos">
-      <div class="paso-head">Preparación</div>
-      <div class="paso"><div class="paso-n">1</div><div class="paso-txt"><b>El corte.</b> Trucha sin piel ni espinas, en cubos de 2 cm. Ni chicos, que se cocinan en un suspiro, ni grandes, que quedan crudos en el centro. Un corte parejo ya es medio ceviche hecho.</div></div>
-      <div class="paso"><div class="paso-n">2</div><div class="paso-txt">La cebolla en pluma bien fina. Salala, masajeala y enjuagala con agua fría: así le sacás el amargo y el picante bruto. Este paso parece al pedo, pero una cebolla cruda y agresiva te arruina todo.</div></div>
-      <div class="paso"><div class="paso-n">3</div><div class="paso-txt">Limón recién exprimido, nunca de botella; el fresco es más limpio y brillante. Salá el jugo antes de juntarlo con el pescado, no después.</div></div>
-      <div class="paso"><div class="paso-n">4</div><div class="paso-txt"><b>Ocho minutos y temporizador.</b> Mezclá la trucha con el jugo, la cebolla, el locoto en rodajas y la pimienta. A los ocho minutos el exterior está opaco y adentro sigue rosado: ahí está, no lo pases.</div></div>
-      <div class="paso"><div class="paso-n">5</div><div class="paso-txt">El cilantro recién picado va último, sobre el plato: si lo metés antes, el ácido le roba el aroma. A la mesa enseguida, con choclo y camote al lado.</div></div>
+  </div>
+  <div class="blk-h">Antes de empezar</div>
+  <ul class="before">
+    <li><b>Frescura, todo.</b> Pedí la trucha el mismo día. El ceviche no perdona un ingrediente flojo: lo crudo no tiene dónde esconderse.</li>
+    <li><b>Corte de 2 cm.</b> Ni chicos, que se cocinan en un suspiro, ni grandes, que quedan crudos al centro. El corte parejo ya es medio ceviche.</li>
+    <li><b>Domá la cebolla.</b> En pluma fina, salada, masajeada y enjuagada en agua fría: le saca el amargo y el picante bruto.</li>
+    <li><b>Limón recién exprimido.</b> Nunca de botella; el fresco es más limpio y brillante. Y temporizador a mano: son 8 minutos justos.</li>
+  </ul>
+  <div class="blk-h">Paso a paso</div>
+  <div class="pasos">
+    <div class="paso"><div class="paso-n">1</div><div class="paso-txt"><b>El corte.</b> Trucha sin piel ni espinas, en cubos parejos de 2 cm.</div></div>
+    <div class="paso"><div class="paso-n">2</div><div class="paso-txt"><b>Salá el jugo primero.</b> Limón recién exprimido y salado antes de juntarlo con el pescado, no después.</div></div>
+    <div class="paso"><div class="paso-n">3</div><div class="paso-txt"><b>Ocho minutos y temporizador.</b> Mezclá la trucha con el jugo, la cebolla, el locoto en rodajas y la pimienta. A los ocho minutos el exterior está opaco y adentro sigue rosado: ahí está.</div></div>
+    <div class="paso"><div class="paso-n">4</div><div class="paso-txt"><b>Cilantro al final.</b> Recién picado, sobre el plato.<span class="paso-sign">Si lo metés antes, el ácido le roba el aroma. A la mesa enseguida, con choclo y camote al lado.</span></div></div>
+  </div>
+  <div class="r-bottom">
+    <div>
+      <div class="blk-h">Puntos críticos</div>
+      <div class="crit-item"><b>8 minutos exactos.</b> Más y se pone gomosa.</div>
+      <div class="crit-item"><b>Cebolla enjuagada.</b> Sin agresión cruda.</div>
+      <div class="crit-item"><b>Trucha del día.</b> Frescura innegociable.</div>
     </div>
-    <div class="tip"><div class="tip-label">🔥 El consejo de Javo</div><div class="tip-txt">Acá la frescura es todo. Pedí la trucha el mismo día y no uses pescado que ya pasó dos días en la heladera. El ceviche no te perdona un ingrediente flojo: lo crudo no tiene dónde esconderse.</div></div>
+    <div>
+      <div class="blk-h">Errores comunes</div>
+      <div class="err"><b>Pasar la marinada.</b> Textura gomosa. <i>→ Temporizador en 8 min.</i></div>
+      <div class="err"><b>Cebolla cruda sin tratar.</b> Arruina todo. <i>→ Sal, masaje y enjuague.</i></div>
+      <div class="err"><b>Cilantro temprano.</b> Pierde aroma. <i>→ Al final, sobre el plato.</i></div>
+    </div>
+    <div>
+      <div class="blk-h">Variantes &amp; cómo servir</div>
+      <div class="serve"><b>La guarnición andina:</b> choclo y camote cocidos cortan la acidez a la perfección.</div>
+      <div class="serve"><b>Servir:</b> apenas listo, bien frío, en bowl de cerámica.</div>
+    </div>
   </div>
 </div>
 
@@ -321,31 +361,50 @@ body{font-family:'Barlow',sans-serif;background:#B8A795;color:var(--ink);font-si
     <div class="r-meta-it"><div class="r-meta-k">Cocción</div><div class="r-meta-v">Sin fuego</div></div>
     <div class="r-meta-it"><div class="r-meta-k">Dificultad</div><div class="r-meta-v">Media</div></div>
   </div>
-  <div class="r-note">Yo al tartar lo pienso como un ceviche sin ácido: la carne cruda con sus propios aceites y un condimento que la levanta sin taparla. El locoto le pone el calor que en un tartar francés pondría la mostaza.</div>
-  <div class="r-img"><img src="img/fresco/tartar-trucha.jpg" alt="Tartar de trucha en molde cilíndrico, rosado intenso con puntos rojos de locoto y verde de cebollín, tostadas finas al c"></div>
-  <div class="r-cols">
-    <div class="col-ing">
-      <div class="ing-head">Ingredientes</div>
-      <div class="ing-row"><span class="ing-qty">400 g</span><span class="ing-name">Filet de trucha fresca</span></div>
-      <div class="ing-row"><span class="ing-qty">1</span><span class="ing-name">Locoto rojo sin semillas</span></div>
-      <div class="ing-row"><span class="ing-qty">2</span><span class="ing-name">Cebollitas de verdeo</span></div>
-      <div class="ing-row"><span class="ing-qty">15 ml</span><span class="ing-name">Aceite de oliva</span></div>
-      <div class="ing-row"><span class="ing-qty">10 ml</span><span class="ing-name">Salsa de soja</span></div>
-      <div class="ing-row"><span class="ing-qty">5 ml</span><span class="ing-name">Aceite de sésamo</span></div>
-      <div class="ing-row"><span class="ing-qty">10 ml</span><span class="ing-name">Jugo de limón</span></div>
-      <div class="ing-row"><span class="ing-qty">5 g</span><span class="ing-name">Sal</span></div>
+  <div class="topband">
+    <div class="r-img"><img src="img/fresco/tartar-trucha.jpg" alt="Tartar de trucha en molde cilíndrico, rosado con puntos de locoto y cebollín, tostadas al lado"></div>
+    <div>
+      <div class="r-note">Yo al tartar lo pienso como un ceviche sin ácido: la carne cruda con sus propios aceites y un condimento que la levanta sin taparla. El locoto le pone el calor que en un tartar francés pondría la mostaza.</div>
+      <div class="blk-h">Ingredientes</div>
+      <div class="ing-row"><span class="ing-qty">400 g</span><span class="ing-name">Filet de trucha fresca · 5 g sal</span></div>
+      <div class="ing-row"><span class="ing-qty">—</span><span class="ing-name">1 locoto rojo sin semillas · 2 cebollitas de verdeo</span></div>
+      <div class="ing-row"><span class="ing-qty">—</span><span class="ing-name">15 ml aceite de oliva · 10 ml salsa de soja · 5 ml aceite de sésamo · 10 ml limón</span></div>
       <div class="ing-glabel">Para servir</div>
       <div class="ing-row"><span class="ing-qty">c/n</span><span class="ing-name">Tostadas o blinis</span></div>
     </div>
-    <div class="col-pasos">
-      <div class="paso-head">Preparación</div>
-      <div class="paso"><div class="paso-n">1</div><div class="paso-txt"><b>Corte a cuchillo.</b> Trucha en cubitos de 5 mm, ni más grandes ni más chicos. Acá no hay atajo de máquina: el corte parejo hace que todos los bocados tengan la misma textura y el mismo condimento.</div></div>
-      <div class="paso"><div class="paso-n">2</div><div class="paso-txt">Locoto sin semillas, en brunoise bien chica, para que se reparta en cada bocado sin pisar a nadie. El picante acá acompaña, no arrasa.</div></div>
-      <div class="paso"><div class="paso-n">3</div><div class="paso-txt"><b>Todo en frío.</b> En un bowl frío juntá la trucha con el locoto, el verdeo picado fino, el aceite de oliva, la soja, el sésamo y el limón. Mezclá despacio, sin aplastar la carne.</div></div>
-      <div class="paso"><div class="paso-n">4</div><div class="paso-txt">Probá y corregí a tu gusto: más soja si lo querés más salado, más limón si lo querés más ácido, más locoto si lo querés más bravo. Lo bueno del tartar es que lo armás a medida.</div></div>
-      <div class="paso"><div class="paso-n">5</div><div class="paso-txt">A la mesa ya, en molde o directo en el bowl, con tostadas o blinis. No lo guardes para después: el tartar es para el momento, a los minutos ya es otra cosa.</div></div>
+  </div>
+  <div class="blk-h">Antes de empezar</div>
+  <ul class="before">
+    <li><b>Corte a cuchillo.</b> Cubitos de 5 mm, sin atajo de máquina: el corte parejo hace que todos los bocados tengan la misma textura y el mismo condimento.</li>
+    <li><b>Locoto en brunoise chica.</b> Sin semillas, para que se reparta en cada bocado sin pisar a nadie. Acá el picante acompaña, no arrasa.</li>
+    <li><b>Todo en frío.</b> Bowl y trucha bien fríos; el tartar vive de la temperatura baja.</li>
+    <li><b>Es para el momento.</b> No lo guardes: a los minutos ya es otra cosa. Armalo cuando estén sentados a la mesa.</li>
+  </ul>
+  <div class="blk-h">Paso a paso</div>
+  <div class="pasos">
+    <div class="paso"><div class="paso-n">1</div><div class="paso-txt"><b>Corte y brunoise.</b> Trucha en cubitos de 5 mm y locoto sin semillas en brunoise bien chica.</div></div>
+    <div class="paso"><div class="paso-n">2</div><div class="paso-txt"><b>Mezclá en frío.</b> En bowl frío juntá la trucha con el locoto, el verdeo picado fino, el aceite de oliva, la soja, el sésamo y el limón. Despacio, sin aplastar la carne.</div></div>
+    <div class="paso"><div class="paso-n">3</div><div class="paso-txt"><b>Probá y corregí.</b> Más soja si lo querés salado, más limón si lo querés ácido, más locoto si lo querés bravo. Lo bueno del tartar es que lo armás a medida.</div></div>
+    <div class="paso"><div class="paso-n">4</div><div class="paso-txt"><b>A la mesa ya.</b> En molde o directo en el bowl, con tostadas o blinis.<span class="paso-sign">No lo guardes para después: el tartar es para el momento.</span></div></div>
+  </div>
+  <div class="r-bottom">
+    <div>
+      <div class="blk-h">Puntos críticos</div>
+      <div class="crit-item"><b>Cubos de 5 mm.</b> A cuchillo, parejos.</div>
+      <div class="crit-item"><b>Todo frío.</b> Bowl, carne y timing.</div>
+      <div class="crit-item"><b>Mezcla suave.</b> Sin aplastar la carne.</div>
     </div>
-    <div class="tip"><div class="tip-label">🔥 El consejo de Javo</div><div class="tip-txt">El aceite de sésamo es el ingrediente que cruza la receta de lo andino hacia Asia. Si te parece demasiado oriental, reducilo a la mitad, pero no lo elimines: da una profundidad que el aceite de oliva solo no tiene.</div></div>
+    <div>
+      <div class="blk-h">Errores comunes</div>
+      <div class="err"><b>Procesar la trucha.</b> Queda pasta. <i>→ Corte a cuchillo.</i></div>
+      <div class="err"><b>Armarlo con anticipación.</b> Se apelmaza. <i>→ Al servir.</i></div>
+      <div class="err"><b>Pasarse de soja.</b> Tapa el pescado. <i>→ Sumá de a poco, probando.</i></div>
+    </div>
+    <div>
+      <div class="blk-h">Variantes &amp; cómo servir</div>
+      <div class="serve"><b>El sésamo:</b> cruza lo andino hacia Asia; si te resulta fuerte, la mitad, pero no lo saques.</div>
+      <div class="serve"><b>Servir:</b> en molde cilíndrico, con tostadas finas o blinis.</div>
+    </div>
   </div>
 </div>
 
@@ -362,32 +421,51 @@ body{font-family:'Barlow',sans-serif;background:#B8A795;color:var(--ink);font-si
     <div class="r-meta-it"><div class="r-meta-k">Cocción</div><div class="r-meta-v">Sin fuego</div></div>
     <div class="r-meta-it"><div class="r-meta-k">Dificultad</div><div class="r-meta-v">Fácil</div></div>
   </div>
-  <div class="r-note">El tiradito es el ceviche sin cebolla: la trucha en láminas finas bañada en su leche de tigre. Acá la vista pesa tanto como el sabor, así que tomate el laburo de cortar fino y dejar la salsa brillando arriba.</div>
-  <div class="r-img"><img src="img/fresco/tiradito-salteno.jpg" alt="Tiradito en plato hondo blanco, láminas finas rosadas de trucha, leche de tigre naranja brillante bañándolas, hojas de c"></div>
-  <div class="r-cols">
-    <div class="col-ing">
-      <div class="ing-head">Ingredientes</div>
+  <div class="topband">
+    <div class="r-img"><img src="img/fresco/tiradito-salteno.jpg" alt="Tiradito en plato hondo blanco, láminas de trucha bañadas en leche de tigre naranja"></div>
+    <div>
+      <div class="r-note">El tiradito es el ceviche sin cebolla: la trucha en láminas finas bañada en su leche de tigre. Acá la vista pesa tanto como el sabor, así que tomate el laburo de cortar fino y dejar la salsa brillando arriba.</div>
+      <div class="blk-h">Ingredientes</div>
       <div class="ing-row"><span class="ing-qty">400 g</span><span class="ing-name">Filet de trucha fresca</span></div>
       <div class="ing-glabel">Leche de tigre</div>
-      <div class="ing-row"><span class="ing-qty">100 ml</span><span class="ing-name">Jugo de limón fresco</span></div>
-      <div class="ing-row"><span class="ing-qty">50 ml</span><span class="ing-name">Caldo de pescado o agua</span></div>
-      <div class="ing-row"><span class="ing-qty">1/2</span><span class="ing-name">Locoto rojo</span></div>
-      <div class="ing-row"><span class="ing-qty">2 cm</span><span class="ing-name">Apio</span></div>
-      <div class="ing-row"><span class="ing-qty">1 cm</span><span class="ing-name">Jengibre fresco</span></div>
-      <div class="ing-row"><span class="ing-qty">5 g</span><span class="ing-name">Sal</span></div>
+      <div class="ing-row"><span class="ing-qty">—</span><span class="ing-name">100 ml jugo de limón · 50 ml caldo de pescado o agua · 5 g sal</span></div>
+      <div class="ing-row"><span class="ing-qty">—</span><span class="ing-name">½ locoto rojo · 2 cm apio · 1 cm jengibre fresco</span></div>
       <div class="ing-glabel">Decoración</div>
-      <div class="ing-row"><span class="ing-qty">c/n</span><span class="ing-name">Cilantro fresco</span></div>
-      <div class="ing-row"><span class="ing-qty">c/n</span><span class="ing-name">Locoto en rodajas finas</span></div>
+      <div class="ing-row"><span class="ing-qty">c/n</span><span class="ing-name">Cilantro fresco · locoto en rodajas finas</span></div>
     </div>
-    <div class="col-pasos">
-      <div class="paso-head">Preparación</div>
-      <div class="paso"><div class="paso-n">1</div><div class="paso-txt"><b>Láminas finas.</b> Trucha bien fría —casi congelada corta mejor— en láminas de 3 a 4 mm. Cortá en diagonal, cuchillo muy afilado, presionando suave. Acomodalas en el plato hondo sin amontonar.</div></div>
-      <div class="paso"><div class="paso-n">2</div><div class="paso-txt">La leche de tigre: limón, caldo, locoto, apio, jengibre y sal al mixer hasta que quede homogéneo. Colá para sacar los sólidos. Tiene que quedar líquida, ácida y picante.</div></div>
-      <div class="paso"><div class="paso-n">3</div><div class="paso-txt">A la heladera diez minutos, o con un poco de hielo. El contraste de temperatura con el pescado es parte del plato: leche tibia no va.</div></div>
-      <div class="paso"><div class="paso-n">4</div><div class="paso-txt"><b>Verter en el momento.</b> Recién al servir, volcá la leche sobre las láminas. Que las cubra y moje el fondo del plato, no que apenas las humedezca.</div></div>
-      <div class="paso"><div class="paso-n">5</div><div class="paso-txt">Rodajas de locoto y hojas de cilantro arriba, y derecho a la mesa: el ácido cocina las láminas rápido y en diez minutos la textura ya cambió.</div></div>
+  </div>
+  <div class="blk-h">Antes de empezar</div>
+  <ul class="before">
+    <li><b>Ceviche vs. tiradito.</b> El corte y la cebolla: acá sin cebolla, el protagonista es el pescado puro, en láminas.</li>
+    <li><b>Trucha casi congelada.</b> Bien fría corta mejor; conseguís láminas parejas de 3–4 mm con el cuchillo afilado.</li>
+    <li><b>La leche, fría.</b> El contraste de temperatura con el pescado es parte del plato: leche tibia no va.</li>
+    <li><b>La vista importa.</b> Láminas sin amontonar y la salsa brillando arriba; se come tanto con los ojos como con la boca.</li>
+  </ul>
+  <div class="blk-h">Paso a paso</div>
+  <div class="pasos">
+    <div class="paso"><div class="paso-n">1</div><div class="paso-txt"><b>Láminas finas.</b> Trucha muy fría en láminas de 3 a 4 mm, en diagonal, cuchillo afilado, presionando suave. Acomodalas en el plato hondo sin amontonar.</div></div>
+    <div class="paso"><div class="paso-n">2</div><div class="paso-txt"><b>La leche de tigre.</b> Limón, caldo, locoto, apio, jengibre y sal al mixer hasta homogéneo. Colá los sólidos: tiene que quedar líquida, ácida y picante.</div></div>
+    <div class="paso"><div class="paso-n">3</div><div class="paso-txt"><b>Enfriala.</b> Diez minutos en la heladera o con un poco de hielo.</div></div>
+    <div class="paso"><div class="paso-n">4</div><div class="paso-txt"><b>Verter en el momento.</b> Recién al servir, volcá la leche sobre las láminas hasta cubrirlas y mojar el fondo.<span class="paso-sign">Locoto y cilantro arriba, y derecho a la mesa: el ácido cocina rápido y en diez minutos la textura ya cambió.</span></div></div>
+  </div>
+  <div class="r-bottom">
+    <div>
+      <div class="blk-h">Puntos críticos</div>
+      <div class="crit-item"><b>Láminas de 3–4 mm.</b> Trucha casi congelada.</div>
+      <div class="crit-item"><b>Leche colada y fría.</b> Líquida y limpia.</div>
+      <div class="crit-item"><b>Bañar al servir.</b> No antes.</div>
     </div>
-    <div class="tip"><div class="tip-label">🔥 El consejo de Javo</div><div class="tip-txt">La diferencia entre ceviche y tiradito es el corte y la cebolla. Sin cebolla, el protagonista es el pescado puro. Y las láminas finas dejan que la leche de tigre penetre mejor y más rápido que en los cubos del ceviche.</div></div>
+    <div>
+      <div class="blk-h">Errores comunes</div>
+      <div class="err"><b>Trucha tibia al cortar.</b> Se desarma. <i>→ Bien fría, casi congelada.</i></div>
+      <div class="err"><b>No colar la leche.</b> Queda con hilachas. <i>→ Colador fino.</i></div>
+      <div class="err"><b>Salsear con anticipación.</b> Se sobrecuece. <i>→ En el momento.</i></div>
+    </div>
+    <div>
+      <div class="blk-h">Variantes &amp; cómo servir</div>
+      <div class="serve"><b>El brillo:</b> la leche de tigre bien fría es lo que hace lucir el plato.</div>
+      <div class="serve"><b>Servir:</b> en plato hondo, láminas cubiertas, locoto y cilantro encima.</div>
+    </div>
   </div>
 </div>
 
