@@ -106,8 +106,12 @@ body{font-family:'Barlow',sans-serif;background:#B8A795;color:var(--ink);font-si
 .tip-label{font-family:'Barlow Condensed',sans-serif;font-size:6.5pt;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--fire);margin-bottom:1.5mm;}
 .tip-txt{font-family:'Lora',serif;font-size:7.8pt;line-height:1.45;color:var(--ink);font-style:italic;}
 /* ── FORMATO FULL-DETALLE (1 hoja: foto horizontal + antes + pasos + puntos/errores/servir) ── */
-.topband{display:grid;grid-template-columns:1fr 73mm;column-gap:7mm;margin-bottom:4mm;}
-.topband .r-img{height:47mm;margin-bottom:0;}
+.topband{display:grid;grid-template-columns:1fr 73mm;column-gap:7mm;margin-bottom:4mm;align-items:stretch;}
+.topband .r-img{height:auto;min-height:52mm;margin-bottom:0;position:relative;overflow:hidden;}
+.topband .r-img img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;}
+/* Reparte el espacio sobrante para que no queden vacíos (recetas con menos texto) */
+.recipe:has(.r-bottom){justify-content:space-between;}
+.recipe:has(.r-bottom) .topband,.recipe:has(.r-bottom) .before,.recipe:has(.r-bottom) .pasos{margin-bottom:0;}
 .topband .r-note{margin-bottom:3mm;}
 .blk-h{font-family:'Barlow Condensed',sans-serif;font-size:7.5pt;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--fire);margin-bottom:2.2mm;padding-bottom:1.2mm;border-bottom:1pt solid var(--fire);}
 .before{columns:2;column-gap:7mm;margin-bottom:3mm;}
@@ -116,7 +120,7 @@ body{font-family:'Barlow',sans-serif;background:#B8A795;color:var(--ink);font-si
 .before b{color:var(--dark);}
 .pasos{margin-bottom:3mm;}
 .paso-sign{display:block;margin-top:.6mm;font-family:'Lora',serif;font-style:italic;font-size:7.4pt;color:var(--muted);line-height:1.45;}
-.r-bottom{display:grid;grid-template-columns:1fr 1fr 1fr;column-gap:6mm;border-top:.5pt solid var(--line2);padding-top:3.5mm;margin-top:auto;}
+.r-bottom{display:grid;grid-template-columns:1fr 1fr 1fr;column-gap:6mm;border-top:.5pt solid var(--line2);padding-top:3.5mm;margin-top:0;}
 .crit-item{font-size:7.3pt;line-height:1.45;color:var(--ink);margin-bottom:2.2mm;padding-left:3.5mm;position:relative;}
 .crit-item::before{content:'';position:absolute;left:0;top:1.3mm;width:1.6mm;height:1.6mm;background:var(--fire);border-radius:50%;}
 .crit-item b{color:var(--dark);}
