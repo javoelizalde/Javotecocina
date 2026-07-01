@@ -105,6 +105,25 @@ body{font-family:'Barlow',sans-serif;background:#B8A795;color:var(--ink);font-si
 .tip{margin-top:0;background:var(--paper2);border-left:3px solid var(--fire);padding:3mm 4mm;border-radius:0 2px 2px 0;}
 .tip-label{font-family:'Barlow Condensed',sans-serif;font-size:6.5pt;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--fire);margin-bottom:1.5mm;}
 .tip-txt{font-family:'Lora',serif;font-size:7.8pt;line-height:1.45;color:var(--ink);font-style:italic;}
+/* ── FORMATO FULL-DETALLE (1 hoja: foto horizontal + antes + pasos + puntos/errores/servir) ── */
+.topband{display:grid;grid-template-columns:1fr 73mm;column-gap:7mm;margin-bottom:4mm;}
+.topband .r-img{height:47mm;margin-bottom:0;}
+.topband .r-note{margin-bottom:3mm;}
+.blk-h{font-family:'Barlow Condensed',sans-serif;font-size:7.5pt;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--fire);margin-bottom:2.2mm;padding-bottom:1.2mm;border-bottom:1pt solid var(--fire);}
+.before{columns:2;column-gap:7mm;margin-bottom:3mm;}
+.before li{font-size:7.4pt;line-height:1.45;color:var(--ink);margin-bottom:2mm;list-style:none;padding-left:3.5mm;position:relative;break-inside:avoid;}
+.before li::before{content:'›';position:absolute;left:0;color:var(--fire);font-weight:900;}
+.before b{color:var(--dark);}
+.pasos{margin-bottom:3mm;}
+.paso-sign{display:block;margin-top:.6mm;font-family:'Lora',serif;font-style:italic;font-size:7.4pt;color:var(--muted);line-height:1.45;}
+.r-bottom{display:grid;grid-template-columns:1fr 1fr 1fr;column-gap:6mm;border-top:.5pt solid var(--line2);padding-top:3.5mm;margin-top:auto;}
+.crit-item{font-size:7.3pt;line-height:1.45;color:var(--ink);margin-bottom:2.2mm;padding-left:3.5mm;position:relative;}
+.crit-item::before{content:'';position:absolute;left:0;top:1.3mm;width:1.6mm;height:1.6mm;background:var(--fire);border-radius:50%;}
+.crit-item b{color:var(--dark);}
+.err{font-size:7.2pt;line-height:1.45;color:var(--ink);margin-bottom:2.4mm;}
+.err b{color:var(--dark);}.err i{color:var(--muted);}
+.serve{font-size:7.4pt;line-height:1.5;color:var(--ink);margin-bottom:2.4mm;}
+.serve b{color:var(--dark);}
 
 /* SECCIÓN / GUÍA */
 .guia-cover{background:var(--dark2);display:flex;flex-direction:column;justify-content:flex-end;position:relative;overflow:hidden;}
@@ -275,167 +294,243 @@ body{font-family:'Barlow',sans-serif;background:#B8A795;color:var(--ink);font-si
 <!-- 01 EL DISCO DE JAVO -->
 <div class="page recipe">
   <div class="rh"><div class="rh-brand">Javotecocina</div><div class="rh-pg">La de la casa</div><div class="rh-rule"></div></div>
-  <div class="r-head" style="margin-top:11mm;">
+  <div class="r-head" style="margin-top:4mm;">
     <div class="r-head-l"><div class="r-cat">Receta 01 · La de la casa</div><div class="r-title">El Disco de Javo</div></div>
     <div class="r-num">01</div>
   </div>
   <div class="r-meta">
-    <div class="r-meta-it"><div class="r-meta-k">Tiempo</div><div class="r-meta-v">1 hora</div></div>
-    <div class="r-meta-it"><div class="r-meta-k">Comensales</div><div class="r-meta-v">10</div></div>
+    <div class="r-meta-it"><div class="r-meta-k">Nivel</div><div class="r-meta-v">Media</div></div>
+    <div class="r-meta-it"><div class="r-meta-k">Prep</div><div class="r-meta-v">20 min</div></div>
+    <div class="r-meta-it"><div class="r-meta-k">Cocción</div><div class="r-meta-v">~40 min</div></div>
     <div class="r-meta-it"><div class="r-meta-k">Fuego</div><div class="r-meta-v">Llama fuerte</div></div>
-    <div class="r-meta-it"><div class="r-meta-k">Dificultad</div><div class="r-meta-v">Media</div></div>
+    <div class="r-meta-it"><div class="r-meta-k">Rinde</div><div class="r-meta-v">10</div></div>
   </div>
-  <div class="r-note">Esta es la receta que lleva mi nombre, y no por casualidad: es la que más veces hice y la que mejor resume mi manera de entender el disco. Pollo, cerveza negra y arroz que se va cocinando con todos los sabores juntos. Es contundente, es generosa y nunca falla.</div>
-  <div class="r-img"><img src="img/disco/disco-de-javo.jpeg" alt="El Disco de Javo"></div>
-  <div class="r-cols">
-    <div class="col-ing">
-      <div class="ing-head">Ingredientes</div>
+  <div class="topband">
+    <div class="r-img"><img src="img/disco/disco-de-javo.jpeg" alt="El Disco de Javo"></div>
+    <div>
+      <div class="r-note">La receta que lleva mi nombre: la que más veces hice y la que mejor resume cómo entiendo el disco. Pollo, cerveza negra y arroz cocinándose con todos los sabores juntos. Contundente, generosa y no falla.</div>
+      <div class="blk-h">Ingredientes</div>
       <div class="ing-row"><span class="ing-qty">2 kg</span><span class="ing-name">Pata-muslo deshuesado, en cubos</span></div>
-      <div class="ing-row"><span class="ing-qty">3 latas</span><span class="ing-name">Cerveza negra</span></div>
-      <div class="ing-row"><span class="ing-qty">2 L</span><span class="ing-name">Caldo de pollo o de verduras</span></div>
-      <div class="ing-row"><span class="ing-qty">4</span><span class="ing-name">Cebollas medianas</span></div>
-      <div class="ing-row"><span class="ing-qty">3</span><span class="ing-name">Zanahorias</span></div>
-      <div class="ing-row"><span class="ing-qty">2</span><span class="ing-name">Morrones</span></div>
-      <div class="ing-row"><span class="ing-qty">2 dientes</span><span class="ing-name">Ajo</span></div>
-      <div class="ing-row"><span class="ing-qty">200 g</span><span class="ing-name">Hongos</span></div>
-      <div class="ing-row"><span class="ing-qty">c/n</span><span class="ing-name">Cebolla de verdeo o ciboulette</span></div>
       <div class="ing-row"><span class="ing-qty">10 tazas</span><span class="ing-name">Arroz (una tacita por comensal)</span></div>
-      <div class="ing-row"><span class="ing-qty">c/n</span><span class="ing-name">Sal, pimienta y pimentón</span></div>
+      <div class="ing-glabel">Verduras &amp; líquidos</div>
+      <div class="ing-row"><span class="ing-qty">—</span><span class="ing-name">4 cebollas · 3 zanahorias · 2 morrones · 2 dientes ajo · 200 g hongos · verdeo</span></div>
+      <div class="ing-row"><span class="ing-qty">—</span><span class="ing-name">3 latas cerveza negra · 2 L caldo · sal, pimienta y pimentón</span></div>
     </div>
-    <div class="col-pasos">
-      <div class="paso-head">Preparación</div>
-      <div class="paso"><div class="paso-n">1</div><div class="paso-txt"><b>Sellá el pollo.</b> Con el disco bien caliente y llama fuerte, salteá el pollo cortado en cubos hasta que esté dorado por todos lados. Condimentá con sal, pimienta y pimentón. Una vez doradito, retiralo y reservalo.</div></div>
-      <div class="paso"><div class="paso-n">2</div><div class="paso-txt"><b>Las verduras.</b> Agregá un poco de aceite al disco y sumá todas las verduras menos los hongos: cebolla, zanahoria, morrón y ajo. Salteá hasta que estén tiernas y empiecen a tomar color.</div></div>
-      <div class="paso"><div class="paso-n">3</div><div class="paso-txt"><b>Hongos y arroz.</b> Incorporá los hongos y el arroz. Integrá y mezclá todo bien, dejando que el arroz se nacare un par de minutos junto a las verduras y tome el sabor del fondo.</div></div>
-      <div class="paso"><div class="paso-n">4</div><div class="paso-txt"><b>Los líquidos, de a poco.</b> Volvé a sumar el pollo y empezá a agregar los líquidos alternando: cerveza, agua, cerveza, agua. A medida que el arroz va absorbiendo y el líquido se evapora, sumás la siguiente tanda. Así los sabores se integran capa por capa.</div></div>
-      <div class="paso"><div class="paso-n">5</div><div class="paso-txt"><b>15 a 20 minutos a fuego fuerte.</b> Seguí agregando líquido hasta que el arroz absorba todo y quede cocido y cremoso, con una textura jugosa que no llega a ser seca. Ese es el punto.</div></div>
-      <div class="paso"><div class="paso-n">6</div><div class="paso-txt"><b>El toque final.</b> Apagá el fuego y terminá con cebolla de verdeo o ciboulette picada por encima. Llevá el disco entero a la mesa: se come del disco, entre todos.</div></div>
+  </div>
+  <div class="blk-h">Antes de empezar</div>
+  <ul class="before">
+    <li><b>Todo cortado antes de prender.</b> En el disco se cocina rápido y sin pausa: tené la carne en cubos, las verduras picadas y los líquidos a mano.</li>
+    <li><b>Disco caliente, llama fuerte.</b> Para sellar la carne hay que tener el hierro bien caliente; si está flojo, el pollo suelta agua y se hierve en vez de dorarse.</li>
+    <li><b>El arroz, una tacita por comensal.</b> Es la medida que no falla para calcular la cantidad.</li>
+    <li><b>Líquidos a mano.</b> Cerveza negra y caldo listos para ir alternando de a poco.</li>
+  </ul>
+  <div class="blk-h">Paso a paso</div>
+  <div class="pasos">
+    <div class="paso"><div class="paso-n">1</div><div class="paso-txt"><b>Sellá el pollo y reservá.</b> Disco caliente, llama fuerte; salteá los cubos con sal, pimienta y pimentón hasta dorar por todos lados. Retirá.</div></div>
+    <div class="paso"><div class="paso-n">2</div><div class="paso-txt"><b>Verduras y arroz.</b> Un poco de aceite y salteá cebolla, zanahoria, morrón y ajo hasta tiernos. Sumá los hongos y el arroz, y dejá que el arroz se nacare un par de minutos tomando el sabor del fondo.</div></div>
+    <div class="paso"><div class="paso-n">3</div><div class="paso-txt"><b>Los líquidos, de a poco.</b> Volvé el pollo y agregá alternando cerveza y caldo. A medida que el arroz absorbe y el líquido se evapora, sumás la siguiente tanda: así los sabores se integran capa por capa.</div></div>
+    <div class="paso"><div class="paso-n">4</div><div class="paso-txt"><b>15 a 20 min a fuego fuerte, hasta cremoso.</b><span class="paso-sign">Punto: el arroz cocido y cremoso, jugoso pero sin llegar a seco. Terminá con verdeo picado y llevá el disco entero a la mesa.</span></div></div>
+  </div>
+  <div class="r-bottom">
+    <div>
+      <div class="blk-h">Puntos críticos</div>
+      <div class="crit-item"><b>Sellar con llama fuerte.</b> Dorar, no hervir.</div>
+      <div class="crit-item"><b>Líquidos de a poco.</b> Cada tanda concentra sabor.</div>
+      <div class="crit-item"><b>Punto cremoso, no seco.</b> Jugoso al servir.</div>
     </div>
-    <div class="tip"><div class="tip-label">🔥 El consejo de Javo</div><div class="tip-txt">El secreto está en no apurar los líquidos. Si tirás todo junto, el arroz se hierve y pierde gracia. Agregando de a poco, alternando cerveza y agua, cada tanda concentra más sabor. La cerveza negra es la que le da ese fondo oscuro y profundo que lo hace inconfundible.</div></div>
+    <div>
+      <div class="blk-h">Errores comunes</div>
+      <div class="err"><b>Tirar todo el líquido junto.</b> El arroz se hierve y pierde gracia. <i>→ Alterná cerveza y caldo de a poco.</i></div>
+      <div class="err"><b>Fuego flojo al sellar.</b> El pollo suelta agua. <i>→ Disco caliente, llama fuerte.</i></div>
+      <div class="err"><b>Pasarse de cocción.</b> Queda seco. <i>→ Retirá apenas está cremoso.</i></div>
+    </div>
+    <div>
+      <div class="blk-h">Variantes &amp; cómo servir</div>
+      <div class="serve"><b>El fondo:</b> la cerveza negra le da ese color oscuro y profundo que lo hace inconfundible.</div>
+      <div class="serve"><b>Servir:</b> del disco, entre todos, con el verdeo recién picado encima.</div>
+    </div>
   </div>
 </div>
 
 <!-- 02 PATA-MUSLO CRIOLLO -->
 <div class="page recipe">
   <div class="rh"><div class="rh-brand">Javotecocina</div><div class="rh-pg">Carnes</div><div class="rh-rule"></div></div>
-  <div class="r-head" style="margin-top:11mm;">
+  <div class="r-head" style="margin-top:4mm;">
     <div class="r-head-l"><div class="r-cat">Receta 02 · Carnes</div><div class="r-title">Pata-muslo criollo</div></div>
     <div class="r-num">02</div>
   </div>
   <div class="r-meta">
-    <div class="r-meta-it"><div class="r-meta-k">Tiempo</div><div class="r-meta-v">1 h 15 min</div></div>
-    <div class="r-meta-it"><div class="r-meta-k">Comensales</div><div class="r-meta-v">10</div></div>
+    <div class="r-meta-it"><div class="r-meta-k">Nivel</div><div class="r-meta-v">Básica</div></div>
+    <div class="r-meta-it"><div class="r-meta-k">Prep</div><div class="r-meta-v">20 min</div></div>
+    <div class="r-meta-it"><div class="r-meta-k">Cocción</div><div class="r-meta-v">~45 min</div></div>
     <div class="r-meta-it"><div class="r-meta-k">Fuego</div><div class="r-meta-v">Fuerte → medio</div></div>
-    <div class="r-meta-it"><div class="r-meta-k">Dificultad</div><div class="r-meta-v">Básica</div></div>
+    <div class="r-meta-it"><div class="r-meta-k">Rinde</div><div class="r-meta-v">10</div></div>
   </div>
-  <div class="r-note">El pollo de toda la vida, el del guiso de la abuela pero hecho en disco. Sin arroz esta vez: acá manda la papa, que se cocina en el mismo fondo y se impregna de todo. Honesto, criollo y de los que dejan a todos contentos.</div>
-  <div class="r-img"><img src="img/disco/pata-muslo.jpg" alt="Pata-muslo criollo"></div>
-  <div class="r-cols">
-    <div class="col-ing">
-      <div class="ing-head">Ingredientes</div>
+  <div class="topband">
+    <div class="r-img"><img src="img/disco/pata-muslo.jpg" alt="Pata-muslo criollo"></div>
+    <div>
+      <div class="r-note">El pollo de toda la vida, el del guiso de la abuela pero en disco. Sin arroz: acá manda la papa, que se cocina en el mismo fondo y se impregna de todo. Honesto, criollo, y deja a todos contentos.</div>
+      <div class="blk-h">Ingredientes</div>
       <div class="ing-row"><span class="ing-qty">3 kg</span><span class="ing-name">Pata-muslo trozado (con hueso)</span></div>
-      <div class="ing-row"><span class="ing-qty">4</span><span class="ing-name">Cebollas</span></div>
-      <div class="ing-row"><span class="ing-qty">3</span><span class="ing-name">Morrones</span></div>
-      <div class="ing-row"><span class="ing-qty">4</span><span class="ing-name">Tomates (o 1 lata de triturado)</span></div>
       <div class="ing-row"><span class="ing-qty">8</span><span class="ing-name">Papas medianas, en cubos</span></div>
-      <div class="ing-row"><span class="ing-qty">2 tazas</span><span class="ing-name">Arvejas (opcional)</span></div>
-      <div class="ing-row"><span class="ing-qty">3 dientes</span><span class="ing-name">Ajo</span></div>
-      <div class="ing-row"><span class="ing-qty">750 ml</span><span class="ing-name">Vino blanco (o 2 latas de cerveza rubia)</span></div>
-      <div class="ing-row"><span class="ing-qty">1,5 L</span><span class="ing-name">Caldo de verduras</span></div>
-      <div class="ing-row"><span class="ing-qty">2 hojas</span><span class="ing-name">Laurel</span></div>
-      <div class="ing-row"><span class="ing-qty">c/n</span><span class="ing-name">Sal, pimienta y pimentón</span></div>
+      <div class="ing-glabel">Base &amp; líquido</div>
+      <div class="ing-row"><span class="ing-qty">—</span><span class="ing-name">4 cebollas · 3 morrones · 4 tomates (o 1 lata) · 3 dientes ajo · 2 tazas arvejas (opc.) · 2 hojas laurel</span></div>
+      <div class="ing-row"><span class="ing-qty">—</span><span class="ing-name">750 ml vino blanco (o 2 latas cerveza rubia) · 1,5 L caldo · sal, pimienta, pimentón</span></div>
     </div>
-    <div class="col-pasos">
-      <div class="paso-head">Preparación</div>
-      <div class="paso"><div class="paso-n">1</div><div class="paso-txt"><b>Sellá el pollo.</b> Llama fuerte y disco caliente. Condimentá las presas con sal, pimienta y pimentón y dorálas bien por todos lados. Retirá y reservá.</div></div>
-      <div class="paso"><div class="paso-n">2</div><div class="paso-txt"><b>El sofrito.</b> En el mismo fondo, salteá la cebolla, el morrón y el ajo hasta que estén bien tiernos. Sumá el tomate y dejá que se cocine unos minutos hasta que pierda el agua.</div></div>
-      <div class="paso"><div class="paso-n">3</div><div class="paso-txt"><b>Desglasá con el vino.</b> Volvé a poner el pollo, sumá el vino blanco (o la cerveza rubia) y dejá que evapore el alcohol un par de minutos, rascando el fondo para levantar todo el sabor pegado.</div></div>
-      <div class="paso"><div class="paso-n">4</div><div class="paso-txt"><b>Caldo y papas.</b> Agregá el caldo, el laurel y las papas en cubos. Bajá a fuego medio y cociná unos 35 a 40 minutos, hasta que el pollo esté tierno y la papa cocida y deshaciéndose apenas en los bordes para espesar la salsa.</div></div>
-      <div class="paso"><div class="paso-n">5</div><div class="paso-txt"><b>Arvejas al final.</b> Si las usás, sumalas en los últimos 5 minutos para que queden enteras y verdes. Probá y corregí la sal antes de servir.</div></div>
+  </div>
+  <div class="blk-h">Antes de empezar</div>
+  <ul class="before">
+    <li><b>Sellar con llama fuerte.</b> Disco caliente para dorar las presas; ahí arranca el sabor del plato.</li>
+    <li><b>Desglasar es clave.</b> El vino levanta el fondo dorado pegado al hierro: no te saltees ese paso.</li>
+    <li><b>La papa espesa sola.</b> Algunas se deshacen en los bordes y dan cuerpo a la salsa; no hace falta harina.</li>
+    <li><b>Arvejas para el final.</b> Si las usás, van en los últimos 5 min para que queden verdes y enteras.</li>
+  </ul>
+  <div class="blk-h">Paso a paso</div>
+  <div class="pasos">
+    <div class="paso"><div class="paso-n">1</div><div class="paso-txt"><b>Sellá el pollo y reservá.</b> Condimentado con sal, pimienta y pimentón, dorado por todos lados a llama fuerte.</div></div>
+    <div class="paso"><div class="paso-n">2</div><div class="paso-txt"><b>Sofrito.</b> En el mismo fondo, cebolla, morrón y ajo hasta tiernos; sumá el tomate y cocinalo hasta que pierda el agua.</div></div>
+    <div class="paso"><div class="paso-n">3</div><div class="paso-txt"><b>Desglasá con el vino.</b> Volvé el pollo, agregá el vino y dejá evaporar el alcohol un par de minutos rascando el fondo para levantar todo el sabor.</div></div>
+    <div class="paso"><div class="paso-n">4</div><div class="paso-txt"><b>Caldo, laurel y papas: 35–40 min a fuego medio.</b><span class="paso-sign">Punto: el pollo tierno y las papas cocidas, algunas deshaciéndose en los bordes para espesar. Arvejas en los últimos 5 min; corregí la sal.</span></div></div>
+  </div>
+  <div class="r-bottom">
+    <div>
+      <div class="blk-h">Puntos críticos</div>
+      <div class="crit-item"><b>Sellar fuerte.</b> Base de sabor del guiso.</div>
+      <div class="crit-item"><b>Desglasar con vino.</b> Rescata el fondo dorado.</div>
+      <div class="crit-item"><b>Dejar deshacer algunas papas.</b> Espesan la salsa.</div>
     </div>
-    <div class="tip"><div class="tip-label">🔥 El consejo de Javo</div><div class="tip-txt">Dejá que algunas papas se deshagan un poco: son las que naturalmente espesan el caldo y lo vuelven una salsa con cuerpo, sin necesidad de agregar harina ni nada. Con vino blanco queda más fresco; con cerveza rubia, un poco más redondo. Las dos versiones valen.</div></div>
+    <div>
+      <div class="blk-h">Errores comunes</div>
+      <div class="err"><b>Salsa aguada.</b> No dejaste deshacer papa. <i>→ Que algunas se rompan; no agregues harina.</i></div>
+      <div class="err"><b>Saltear el desglasado.</b> Se pierde el sabor del fondo. <i>→ Vino y raspá el hierro.</i></div>
+      <div class="err"><b>Arvejas temprano.</b> Se deshacen y se opacan. <i>→ Últimos 5 min.</i></div>
+    </div>
+    <div>
+      <div class="blk-h">Variantes &amp; cómo servir</div>
+      <div class="serve"><b>Líquido:</b> con vino blanco queda más fresco; con cerveza rubia, más redondo. Las dos valen.</div>
+      <div class="serve"><b>Servir:</b> del disco, con la salsa de papa por encima.</div>
+    </div>
   </div>
 </div>
 
 <!-- 03 PECHITO DE CERDO -->
 <div class="page recipe">
   <div class="rh"><div class="rh-brand">Javotecocina</div><div class="rh-pg">Carnes</div><div class="rh-rule"></div></div>
-  <div class="r-head" style="margin-top:11mm;">
+  <div class="r-head" style="margin-top:4mm;">
     <div class="r-head-l"><div class="r-cat">Receta 03 · Carnes</div><div class="r-title">Pechito de cerdo<br>a la cerveza negra</div></div>
     <div class="r-num">03</div>
   </div>
   <div class="r-meta">
-    <div class="r-meta-it"><div class="r-meta-k">Tiempo</div><div class="r-meta-v">1 h 30 min</div></div>
-    <div class="r-meta-it"><div class="r-meta-k">Comensales</div><div class="r-meta-v">10</div></div>
+    <div class="r-meta-it"><div class="r-meta-k">Nivel</div><div class="r-meta-v">Media</div></div>
+    <div class="r-meta-it"><div class="r-meta-k">Prep</div><div class="r-meta-v">15 min</div></div>
+    <div class="r-meta-it"><div class="r-meta-k">Cocción</div><div class="r-meta-v">~1½ h</div></div>
     <div class="r-meta-it"><div class="r-meta-k">Fuego</div><div class="r-meta-v">Fuerte → medio</div></div>
-    <div class="r-meta-it"><div class="r-meta-k">Dificultad</div><div class="r-meta-v">Media</div></div>
+    <div class="r-meta-it"><div class="r-meta-k">Rinde</div><div class="r-meta-v">10</div></div>
   </div>
-  <div class="r-note">El pechito es uno de los cortes más sabrosos del cerdo, y braseado lento en cerveza negra se vuelve algo difícil de olvidar. Lo termino con un glaseado de azúcar negra y pimentón ahumado que le arma una costra entre dulce y ahumada. Se deshace solo.</div>
-  <div class="r-img"><img src="img/disco/pechito-cerveza.webp" alt="Pechito de cerdo a la cerveza negra"></div>
-  <div class="r-cols">
-    <div class="col-ing">
-      <div class="ing-head">Ingredientes</div>
+  <div class="topband">
+    <div class="r-img"><img src="img/disco/pechito-cerveza.webp" alt="Pechito de cerdo a la cerveza negra"></div>
+    <div>
+      <div class="r-note">Uno de los cortes más sabrosos del cerdo, braseado lento en cerveza negra hasta que se deshace solo. Lo termino con un glaseado de azúcar negra y pimentón ahumado que arma una costra entre dulce y ahumada.</div>
+      <div class="blk-h">Ingredientes</div>
       <div class="ing-row"><span class="ing-qty">3,5 kg</span><span class="ing-name">Pechito de cerdo en trozos</span></div>
-      <div class="ing-row"><span class="ing-qty">3</span><span class="ing-name">Cebollas</span></div>
-      <div class="ing-row"><span class="ing-qty">4 dientes</span><span class="ing-name">Ajo</span></div>
-      <div class="ing-row"><span class="ing-qty">4 latas</span><span class="ing-name">Cerveza negra</span></div>
-      <div class="ing-row"><span class="ing-qty">3 cdas</span><span class="ing-name">Azúcar negra</span></div>
-      <div class="ing-row"><span class="ing-qty">2 cdas</span><span class="ing-name">Pimentón ahumado</span></div>
-      <div class="ing-row"><span class="ing-qty">2 hojas</span><span class="ing-name">Laurel</span></div>
-      <div class="ing-row"><span class="ing-qty">c/n</span><span class="ing-name">Sal y pimienta</span></div>
+      <div class="ing-glabel">Base &amp; braseado</div>
+      <div class="ing-row"><span class="ing-qty">—</span><span class="ing-name">3 cebollas · 4 dientes ajo · 2 hojas laurel · 4 latas cerveza negra</span></div>
+      <div class="ing-glabel">Glaseado</div>
+      <div class="ing-row"><span class="ing-qty">—</span><span class="ing-name">3 cdas azúcar negra · 2 cdas pimentón ahumado · sal y pimienta</span></div>
     </div>
-    <div class="col-pasos">
-      <div class="paso-head">Preparación</div>
-      <div class="paso"><div class="paso-n">1</div><div class="paso-txt"><b>Sellá fuerte.</b> Condimentá el pechito con sal y pimienta. Con llama fuerte, dorálo bien por todos lados hasta que tome una costra dorada. La grasa propia del pechito va a empezar a soltarse y a perfumar el disco. Retirá y reservá.</div></div>
-      <div class="paso"><div class="paso-n">2</div><div class="paso-txt"><b>La cebolla.</b> En esa grasa, dorá la cebolla y el ajo hasta que estén transparentes y apenas tostados.</div></div>
-      <div class="paso"><div class="paso-n">3</div><div class="paso-txt"><b>Brasear en cerveza.</b> Volvé a poner el pechito, sumá el laurel y cubrí con la cerveza negra. Bajá a fuego medio y dejá brasear alrededor de una hora, hasta que la carne esté tierna y se empiece a separar del hueso.</div></div>
-      <div class="paso"><div class="paso-n">4</div><div class="paso-txt"><b>El glaseado.</b> Cuando esté tierno y el líquido bien reducido, subí la llama y sumá el azúcar negra y el pimentón ahumado. Movés para que se integre y se forme una laca espesa y brillante que envuelva cada trozo.</div></div>
-      <div class="paso"><div class="paso-n">5</div><div class="paso-txt"><b>El punto justo.</b> Retirá apenas la salsa esté espesa y el pechito glaseado. No lo dejes de más sobre el fuego fuerte o el azúcar se quema y amarga.</div></div>
+  </div>
+  <div class="blk-h">Antes de empezar</div>
+  <ul class="before">
+    <li><b>Sellar fuerte primero.</b> La grasa propia del pechito se suelta al dorarlo y perfuma todo el disco: no te saltees el sellado.</li>
+    <li><b>Cerdo, poca sal.</b> Absorbe más sal que la vaca; condimentá con mano liviana.</li>
+    <li><b>El braseado pide su hora.</b> Sin apuro: recién en ~1 h la carne se ablanda de verdad y se separa del hueso.</li>
+    <li><b>Glaseado al final.</b> Azúcar y pimentón recién cuando ya está tierno y el líquido reducido.</li>
+  </ul>
+  <div class="blk-h">Paso a paso</div>
+  <div class="pasos">
+    <div class="paso"><div class="paso-n">1</div><div class="paso-txt"><b>Sellá el pechito y reservá.</b> Llama fuerte, dorado por todos lados hasta costra. En esa grasa, dorá cebolla y ajo hasta transparentes.</div></div>
+    <div class="paso"><div class="paso-n">2</div><div class="paso-txt"><b>Brasear en cerveza, ~1 h a fuego medio.</b> Volvé el pechito, sumá laurel y cubrí con la cerveza negra.<span class="paso-sign">Punto: listo cuando la carne está tierna y se empieza a separar del hueso, con el líquido bien reducido.</span></div></div>
+    <div class="paso"><div class="paso-n">3</div><div class="paso-txt"><b>Glaseá al final.</b> Subí la llama, sumá azúcar negra y pimentón ahumado, y movés hasta una laca espesa y brillante que envuelva cada trozo.</div></div>
+    <div class="paso"><div class="paso-n">4</div><div class="paso-txt"><b>Retirá apenas glaseado.</b> No lo dejes de más a fuego fuerte o el azúcar se quema y amarga.</div></div>
+  </div>
+  <div class="r-bottom">
+    <div>
+      <div class="blk-h">Puntos críticos</div>
+      <div class="crit-item"><b>Sellar fuerte.</b> La grasa perfuma el fondo.</div>
+      <div class="crit-item"><b>Brasear su hora.</b> Recién ahí se ablanda.</div>
+      <div class="crit-item"><b>Glasear al final.</b> Y retirar a tiempo.</div>
     </div>
-    <div class="tip"><div class="tip-label">🔥 El consejo de Javo</div><div class="tip-txt">No tengas apuro con el braseado: el pechito necesita su hora para ablandarse de verdad. Y guardá el glaseado para el final, cuando ya está tierno. El azúcar negra y el pimentón ahumado juntos arman ese sabor entre dulce, ahumado y profundo que lo diferencia de cualquier otro guiso de cerdo.</div></div>
+    <div>
+      <div class="blk-h">Errores comunes</div>
+      <div class="err"><b>Apurar el braseado.</b> Queda duro. <i>→ Dale la hora completa a fuego medio.</i></div>
+      <div class="err"><b>Azúcar temprano o mucho fuego.</b> Se quema y amarga. <i>→ Glaseá al final y retirá apenas espesa.</i></div>
+      <div class="err"><b>Sobre-salar.</b> El cerdo la absorbe. <i>→ Mano liviana.</i></div>
+    </div>
+    <div>
+      <div class="blk-h">Variantes &amp; cómo servir</div>
+      <div class="serve"><b>El sello:</b> azúcar negra + pimentón ahumado dan ese dulce-ahumado profundo que lo diferencia de cualquier guiso de cerdo.</div>
+      <div class="serve"><b>Servir:</b> con la laca por encima; va bien con papas o pan para la salsa.</div>
+    </div>
   </div>
 </div>
 
 <!-- 04 BONDIOLA CREMA DE MOSTAZA -->
 <div class="page recipe">
   <div class="rh"><div class="rh-brand">Javotecocina</div><div class="rh-pg">Carnes</div><div class="rh-rule"></div></div>
-  <div class="r-head" style="margin-top:11mm;">
+  <div class="r-head" style="margin-top:4mm;">
     <div class="r-head-l"><div class="r-cat">Receta 04 · Carnes</div><div class="r-title">Bondiola a la<br>crema de mostaza</div></div>
     <div class="r-num">04</div>
   </div>
   <div class="r-meta">
-    <div class="r-meta-it"><div class="r-meta-k">Tiempo</div><div class="r-meta-v">50 min</div></div>
-    <div class="r-meta-it"><div class="r-meta-k">Comensales</div><div class="r-meta-v">10</div></div>
+    <div class="r-meta-it"><div class="r-meta-k">Nivel</div><div class="r-meta-v">Media</div></div>
+    <div class="r-meta-it"><div class="r-meta-k">Prep</div><div class="r-meta-v">20 min</div></div>
+    <div class="r-meta-it"><div class="r-meta-k">Cocción</div><div class="r-meta-v">~40 min</div></div>
     <div class="r-meta-it"><div class="r-meta-k">Fuego</div><div class="r-meta-v">Fuerte → suave</div></div>
-    <div class="r-meta-it"><div class="r-meta-k">Dificultad</div><div class="r-meta-v">Media</div></div>
+    <div class="r-meta-it"><div class="r-meta-k">Rinde</div><div class="r-meta-v">10</div></div>
   </div>
-  <div class="r-note">Bondiola en bifes, cebolla en juliana, champiñones y una crema de mostaza que se suma recién al final para que no se corte. Servida con un puré bien manteca y crema, es de esas comidas que parecen de restaurante pero salen de una sola olla de hierro.</div>
-  <div class="r-img"><img src="img/disco/bondiola-mostaza.jpeg" alt="Bondiola a la crema de mostaza"></div>
-  <div class="r-cols">
-    <div class="col-ing">
-      <div class="ing-head">Ingredientes</div>
+  <div class="topband">
+    <div class="r-img"><img src="img/disco/bondiola-mostaza.jpeg" alt="Bondiola a la crema de mostaza"></div>
+    <div>
+      <div class="r-note">Bondiola en bifes, cebolla caramelizada, champiñones y una crema de mostaza que se suma recién al final para que no se corte. Con un puré bien manteca, parece de restaurante y sale de una sola olla de hierro.</div>
+      <div class="blk-h">Ingredientes</div>
       <div class="ing-row"><span class="ing-qty">3 kg</span><span class="ing-name">Bondiola de cerdo en bifes</span></div>
-      <div class="ing-row"><span class="ing-qty">1,5 kg</span><span class="ing-name">Cebolla en juliana</span></div>
-      <div class="ing-row"><span class="ing-qty">1 kg</span><span class="ing-name">Champiñones en láminas</span></div>
-      <div class="ing-row"><span class="ing-qty">1 kg</span><span class="ing-name">Crema de leche</span></div>
-      <div class="ing-row"><span class="ing-qty">250 g</span><span class="ing-name">Mostaza</span></div>
-      <div class="ing-row"><span class="ing-qty">c/n</span><span class="ing-name">Sal, pimienta y pimentón</span></div>
+      <div class="ing-row"><span class="ing-qty">—</span><span class="ing-name">1,5 kg cebolla en juliana · 1 kg champiñones · 1 kg crema · 250 g mostaza · sal, pimienta, pimentón</span></div>
       <div class="ing-glabel">Puré de papa</div>
-      <div class="ing-row"><span class="ing-qty">2 kg</span><span class="ing-name">Papas</span></div>
-      <div class="ing-row"><span class="ing-qty">150 g</span><span class="ing-name">Manteca</span></div>
-      <div class="ing-row"><span class="ing-qty">300 ml</span><span class="ing-name">Crema</span></div>
-      <div class="ing-row"><span class="ing-qty">c/n</span><span class="ing-name">Sal</span></div>
+      <div class="ing-row"><span class="ing-qty">—</span><span class="ing-name">2 kg papas · 150 g manteca · 300 ml crema · sal</span></div>
     </div>
-    <div class="col-pasos">
-      <div class="paso-head">Preparación</div>
-      <div class="paso"><div class="paso-n">1</div><div class="paso-txt"><b>Dorá la bondiola.</b> Condimentá los bifes con sal, pimienta y pimentón. Con llama fuerte, sellálos bien dorados de los dos lados. No hace falta cocinarlos del todo todavía: terminan en la salsa. Retirá y reservá.</div></div>
-      <div class="paso"><div class="paso-n">2</div><div class="paso-txt"><b>La cebolla en juliana.</b> En el fondo de la bondiola, sumá la cebolla y cocinala a fuego medio hasta que esté bien tierna y dulce, casi caramelizada. Tomate el tiempo: es la base de sabor del plato.</div></div>
-      <div class="paso"><div class="paso-n">3</div><div class="paso-txt"><b>Los champiñones.</b> Incorporá los champiñones en láminas y salteá hasta que suelten el agua y se doren.</div></div>
-      <div class="paso"><div class="paso-n">4</div><div class="paso-txt"><b>Volvé la bondiola.</b> Reincorporá los bifes con su jugo y bajá la llama a suave para que se terminen de cocinar sin endurecerse.</div></div>
-      <div class="paso"><div class="paso-n">5</div><div class="paso-txt"><b>La crema y la mostaza, al final.</b> Recién ahora sumá la crema y la mostaza. Integrá bien y dejá que tome temperatura sin que llegue a hervir fuerte, para que no se corte. Probá y corregí la sal.</div></div>
-      <div class="paso"><div class="paso-n">6</div><div class="paso-txt"><b>El puré.</b> Mientras tanto, herví las papas, pisalas y montá el puré con la manteca y la crema y una buena pizca de sal. Serví la bondiola con su salsa sobre el puré.</div></div>
+  </div>
+  <div class="blk-h">Antes de empezar</div>
+  <ul class="before">
+    <li><b>Sellar sin cocinar del todo.</b> Los bifes se doran fuerte de los dos lados y se reservan: terminan en la salsa, así no se endurecen.</li>
+    <li><b>Caramelizá la cebolla con tiempo.</b> Es la base de sabor: fuego medio hasta que esté bien tierna y dulce.</li>
+    <li><b>Crema y mostaza SIEMPRE al final.</b> Y a fuego suave, sin hervir fuerte, para que no se corte.</li>
+    <li><b>Puré en paralelo.</b> Papas hervidas y pisadas con manteca, crema y sal.</li>
+  </ul>
+  <div class="blk-h">Paso a paso</div>
+  <div class="pasos">
+    <div class="paso"><div class="paso-n">1</div><div class="paso-txt"><b>Dorá los bifes y reservá.</b> Llama fuerte, sellados de los dos lados; no hace falta cocinarlos del todo.</div></div>
+    <div class="paso"><div class="paso-n">2</div><div class="paso-txt"><b>Cebolla y champiñones.</b> En el fondo, cociná la cebolla en juliana a fuego medio hasta casi caramelizar; sumá los champiñones y salteá hasta que suelten el agua y se doren.</div></div>
+    <div class="paso"><div class="paso-n">3</div><div class="paso-txt"><b>Volvé la bondiola a fuego suave.</b> Reincorporá los bifes con su jugo para que se terminen de cocinar sin endurecerse.</div></div>
+    <div class="paso"><div class="paso-n">4</div><div class="paso-txt"><b>Crema y mostaza al final.</b> Integrá y dejá tomar temperatura sin hervir fuerte.<span class="paso-sign">Señal: la salsa queda sedosa y envuelve la carne. Corregí la sal y serví sobre el puré.</span></div></div>
+  </div>
+  <div class="r-bottom">
+    <div>
+      <div class="blk-h">Puntos críticos</div>
+      <div class="crit-item"><b>Crema + mostaza al final, fuego suave.</b> Regla de oro.</div>
+      <div class="crit-item"><b>Cebolla caramelizada.</b> Base de sabor.</div>
+      <div class="crit-item"><b>No sobrecocinar los bifes.</b> Terminan en la salsa.</div>
     </div>
-    <div class="tip"><div class="tip-label">🔥 El consejo de Javo</div><div class="tip-txt">La regla de oro de esta receta es que la crema y la mostaza van al final y a fuego suave. Si las sumás antes o con la llama muy fuerte, la crema se corta y se arruina la textura. Sumadas al final, quedan sedosas y envuelven la bondiola como tiene que ser.</div></div>
+    <div>
+      <div class="blk-h">Errores comunes</div>
+      <div class="err"><b>La crema se corta.</b> La sumaste temprano o con fuego fuerte. <i>→ Al final y a fuego suave, sin hervir.</i></div>
+      <div class="err"><b>Cebolla apurada.</b> Sin dulzor, base pobre. <i>→ Dale tiempo a fuego medio.</i></div>
+      <div class="err"><b>Bifes duros.</b> Se cocinaron de más al sellar. <i>→ Sellá y terminá en la salsa.</i></div>
+    </div>
+    <div>
+      <div class="blk-h">Variantes &amp; cómo servir</div>
+      <div class="serve"><b>Servir:</b> la bondiola con su salsa sobre un puré bien manteca y crema.</div>
+      <div class="serve"><b>Textura:</b> la salsa tiene que quedar sedosa, no líquida ni cortada.</div>
+    </div>
   </div>
 </div>
 
