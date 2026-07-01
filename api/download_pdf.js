@@ -107,7 +107,34 @@ module.exports = async function handler(req, res) {
       });
     }
 
-    return res.status(200).json({ available: true, pdf_url: pdfUrl, titulo: recRow.titulo });
+    // ── FIRMAR SI ESTÁ EN EL BUCKET PRIVADO ───────────────────────────────────
+    // Si el pdf_url apunta a Supabase Storage (bucket privado recetarios-pdf),
+    // generamos un enlace firmado temporal con la service role key. Así el PDF
+    // nunca queda accesible sin una compra verificada. Otros pdf_url (ej. links
+    // públicos de Drive) se devuelven tal cual, por compatibilidad.
+    let finalUrl = pdfUrl;
+    const m = pdfUrl.match(/\/storage\/v1\/object\/(?:public|sign|authenticated)\/recetarios-pdf\/([^?]+)/);
+    if (m) {
+      const objectPath = decodeURIComponent(m[1]).split('/').map(encodeURIComponent).join('/');
+      const SERVICE_KEY = process.env.SUPABASE_SERVICE_ROLE_KEY;
+      if (!SERVICE_KEY) {
+        console.error('download_pdf: falta SUPABASE_SERVICE_ROLE_KEY');
+        return res.status(500).json({ error: 'Configuración incompleta del servidor. Contactanos.' });
+      }
+      const signRes = await fetch(`${SUPA_URL}/storage/v1/object/sign/recetarios-pdf/${objectPath}`, {
+        method: 'POST',
+        headers: { 'apikey': SERVICE_KEY, 'Authorization': `Bearer ${SERVICE_KEY}`, 'Content-Type': 'application/json' },
+        body: JSON.stringify({ expiresIn: 300 })
+      });
+      if (!signRes.ok) {
+        console.error('download_pdf: sign failed', signRes.status, await signRes.text());
+        return res.status(500).json({ error: 'No se pudo generar el enlace de descarga. Intentá de nuevo.' });
+      }
+      const signData = await signRes.json();
+      finalUrl = `${SUPA_URL}/storage/v1${signData.signedURL}`;
+    }
+
+    return res.status(200).json({ available: true, pdf_url: finalUrl, titulo: recRow.titulo });
   } catch (error) {
     console.error('download_pdf error:', error.message);
     return res.status(500).json({ error: 'Error interno. Intentá de nuevo.' });
