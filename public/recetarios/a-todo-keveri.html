@@ -105,6 +105,27 @@ body{font-family:'Barlow',sans-serif;background:#B8A795;color:var(--ink);font-si
 .tip{margin-top:0;background:var(--paper2);border-left:3px solid var(--fire);padding:3mm 4mm;border-radius:0 2px 2px 0;}
 .tip-label{font-family:'Barlow Condensed',sans-serif;font-size:6.5pt;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--fire);margin-bottom:1.5mm;}
 .tip-txt{font-family:'Lora',serif;font-size:7.8pt;line-height:1.45;color:var(--ink);font-style:italic;}
+/* ── FORMATO FULL-DETALLE (1 hoja: foto horizontal + antes + pasos + puntos/errores/servir) ── */
+.topband{display:grid;grid-template-columns:1fr 73mm;column-gap:7mm;margin-bottom:4mm;align-items:stretch;}
+.topband .r-img{height:auto;min-height:52mm;margin-bottom:0;position:relative;overflow:hidden;}
+.topband .r-img img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;}
+.recipe:has(.r-bottom){justify-content:space-between;}
+.recipe:has(.r-bottom) .topband,.recipe:has(.r-bottom) .before,.recipe:has(.r-bottom) .pasos{margin-bottom:0;}
+.blk-h{font-family:'Barlow Condensed',sans-serif;font-size:7.5pt;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--fire);margin-bottom:2.2mm;padding-bottom:1.2mm;border-bottom:1pt solid var(--fire);}
+.before{columns:2;column-gap:7mm;margin-bottom:3mm;}
+.before li{font-size:7.4pt;line-height:1.45;color:var(--ink);margin-bottom:2mm;list-style:none;padding-left:3.5mm;position:relative;break-inside:avoid;}
+.before li::before{content:'›';position:absolute;left:0;color:var(--fire);font-weight:900;}
+.before b{color:var(--dark);}
+.pasos{margin-bottom:3mm;}
+.paso-sign{display:block;margin-top:.6mm;font-family:'Lora',serif;font-style:italic;font-size:7.4pt;color:var(--muted);line-height:1.45;}
+.r-bottom{display:grid;grid-template-columns:1fr 1fr 1fr;column-gap:6mm;border-top:.5pt solid var(--line2);padding-top:3.5mm;margin-top:0;}
+.crit-item{font-size:7.3pt;line-height:1.45;color:var(--ink);margin-bottom:2.2mm;padding-left:3.5mm;position:relative;}
+.crit-item::before{content:'';position:absolute;left:0;top:1.3mm;width:1.6mm;height:1.6mm;background:var(--fire);border-radius:50%;}
+.crit-item b{color:var(--dark);}
+.err{font-size:7.2pt;line-height:1.45;color:var(--ink);margin-bottom:2.4mm;}
+.err b{color:var(--dark);}.err i{color:var(--muted);}
+.serve{font-size:7.4pt;line-height:1.5;color:var(--ink);margin-bottom:2.4mm;}
+.serve b{color:var(--dark);}
 
 /* SECCIÓN / GUÍA */
 .guia-cover{background:var(--dark2);display:flex;flex-direction:column;justify-content:flex-end;position:relative;overflow:hidden;}
@@ -309,33 +330,52 @@ body{font-family:'Barlow',sans-serif;background:#B8A795;color:var(--ink);font-si
     <div class="r-meta-it"><div class="r-meta-k">Temp.</div><div class="r-meta-v">110–120°C</div></div>
     <div class="r-meta-it"><div class="r-meta-k">Interna</div><div class="r-meta-v">90°C</div></div>
   </div>
-  <div class="r-note">La bondiola es la reina del slow cooking. A 110°C el colágeno se va volviendo gelatina y la grasa infiltrada hace todo el trabajo sola. Acá no hay atajos: hay paciencia, y se nota en cada bocado.</div>
-  <div class="r-img"><img src="img/keveri/bondiola-8hs.jpg" alt="Bondiola entera sobre la rejilla del Keveri con corteza oscura tipo bark, recién cortada mostrando el interior jugoso y "></div>
-  <div class="r-cols">
-    <div class="col-ing">
-      <div class="ing-head">Ingredientes</div>
+  <div class="topband">
+    <div class="r-img"><img src="img/keveri/bondiola-8hs.jpg" alt="Bondiola ahumada con corteza tipo bark sobre la rejilla del Keveri"></div>
+    <div>
+      <div class="r-note">La bondiola es la reina del slow cooking. A 110°C el colágeno se va volviendo gelatina y la grasa infiltrada hace todo el trabajo sola. Acá no hay atajos: hay paciencia, y se nota en cada bocado.</div>
+      <div class="blk-h">Ingredientes</div>
       <div class="ing-row"><span class="ing-qty">2,5 kg</span><span class="ing-name">Bondiola entera</span></div>
-      <div class="ing-row"><span class="ing-qty">30 g</span><span class="ing-name">Sal gruesa</span></div>
-      <div class="ing-row"><span class="ing-qty">15 g</span><span class="ing-name">Azúcar negra</span></div>
-      <div class="ing-row"><span class="ing-qty">10 g</span><span class="ing-name">Pimentón ahumado</span></div>
-      <div class="ing-row"><span class="ing-qty">8 g</span><span class="ing-name">Ajo en polvo</span></div>
-      <div class="ing-row"><span class="ing-qty">5 g</span><span class="ing-name">Pimienta negra</span></div>
-      <div class="ing-row"><span class="ing-qty">5 g</span><span class="ing-name">Orégano seco</span></div>
+      <div class="ing-glabel">Rub seco</div>
+      <div class="ing-row"><span class="ing-qty">—</span><span class="ing-name">30 g sal gruesa · 15 g azúcar negra · 10 g pimentón ahumado</span></div>
+      <div class="ing-row"><span class="ing-qty">—</span><span class="ing-name">8 g ajo en polvo · 5 g pimienta negra · 5 g orégano seco</span></div>
       <div class="ing-glabel">Mop (para pintar)</div>
-      <div class="ing-row"><span class="ing-qty">100 ml</span><span class="ing-name">Vinagre de manzana</span></div>
-      <div class="ing-row"><span class="ing-qty">100 ml</span><span class="ing-name">Agua</span></div>
-      <div class="ing-row"><span class="ing-qty">30 ml</span><span class="ing-name">Miel</span></div>
+      <div class="ing-row"><span class="ing-qty">—</span><span class="ing-name">100 ml vinagre de manzana · 100 ml agua · 30 ml miel</span></div>
     </div>
-    <div class="col-pasos">
-      <div class="paso-head">Preparación</div>
-      <div class="paso"><div class="paso-n">1</div><div class="paso-txt"><b>Rub seco, la noche anterior.</b> Mezclá sal, azúcar, pimentón, ajo, pimienta y orégano. Cubrí toda la bondiola, envolvé en film y dejá en la heladera 12 horas como mínimo. Ese tiempo es el que hace la diferencia.</div></div>
-      <div class="paso"><div class="paso-n">2</div><div class="paso-txt"><b>Armá la brasa indirecta.</b> Prendé el carbón en la chimenea y, cuando esté con ceniza gris pareja, volcalo todo a un costado del Keveri. Tirá un par de leños de quebracho para el humo, cerrá casi todo el tiro y estabilizá entre 110 y 120°C. Puede tardar sus 20 minutos: dale tiempo, no lo apures.</div></div>
-      <div class="paso"><div class="paso-n">3</div><div class="paso-txt"><b>Posición y quietud.</b> Bondiola en la rejilla del lado sin brasa, calor indirecto puro. Cerrá la tapa y no la toques por tres horas. En serio: no la toques.</div></div>
-      <div class="paso"><div class="paso-n">4</div><div class="paso-txt"><b>Mop cada hora.</b> A partir de la tercera hora, abrí rápido y pintá con la mezcla de vinagre, agua y miel. Cerrá enseguida. Eso mantiene la superficie húmeda y arma la corteza.</div></div>
-      <div class="paso"><div class="paso-n">5</div><div class="paso-txt"><b>Bancá la stall.</b> Si la temperatura interna se frena en 70–75°C y no sube, aguantá: es el colágeno trabajando. Va a arrancar de nuevo solo. La meta son 90°C internos.</div></div>
-      <div class="paso"><div class="paso-n">6</div><div class="paso-txt"><b>Reposo obligatorio.</b> Envolvé en papel de carnicero y dejá descansar 45 minutos antes de desmenuzar o cortar. Si la abrís caliente, perdés todos los jugos.</div></div>
+  </div>
+  <div class="blk-h">Antes de empezar</div>
+  <ul class="before">
+    <li><b>El rub, la noche anterior.</b> Mezclá sal, azúcar, pimentón, ajo, pimienta y orégano, cubrí toda la bondiola, envolvé en film y a la heladera 12 horas mínimo. Ese tiempo es el que hace la diferencia.</li>
+    <li><b>Encendido en chimenea.</b> Prendé el carbón aparte y volcalo cuando esté con ceniza gris pareja. Así arrancás con brasa estable y sin humo sucio.</li>
+    <li><b>Quebracho para el humo.</b> Un par de leños cuando metés la carne: el humo de las primeras horas es el que perfuma de verdad.</li>
+    <li><b>Termómetro a mano.</b> Con el slow cooking se cocina por temperatura interna, no por reloj. La meta son 90°C adentro.</li>
+  </ul>
+  <div class="blk-h">Paso a paso</div>
+  <div class="pasos">
+    <div class="paso"><div class="paso-n">1</div><div class="paso-txt"><b>Armá la brasa indirecta.</b> Carbón encendido a un costado del Keveri, un par de leños de quebracho, cerrá casi todo el tiro y estabilizá entre 110 y 120°C. Puede tardar sus 20 minutos: dale tiempo, no lo apures.</div></div>
+    <div class="paso"><div class="paso-n">2</div><div class="paso-txt"><b>Posición y quietud.</b> Bondiola en la rejilla del lado sin brasa, calor indirecto puro. Cerrá la tapa y no la toques por tres horas. En serio: no la toques.</div></div>
+    <div class="paso"><div class="paso-n">3</div><div class="paso-txt"><b>Mop cada hora.</b> A partir de la tercera hora, abrí rápido y pintá con la mezcla de vinagre, agua y miel. Cerrá enseguida. Eso mantiene la superficie húmeda y arma la corteza.</div></div>
+    <div class="paso"><div class="paso-n">4</div><div class="paso-txt"><b>Bancá la stall.</b> Si la interna se frena en 70–75°C y no sube, aguantá: es el colágeno trabajando. Va a arrancar de nuevo solo.</div></div>
+    <div class="paso"><div class="paso-n">5</div><div class="paso-txt"><b>90°C y reposo obligatorio.</b> Cuando llega a 90°C internos, retirá.<span class="paso-sign">Envolvé en papel de carnicero y dejá descansar 45 minutos antes de desmenuzar o cortar. Si la abrís caliente, perdés todos los jugos.</span></div></div>
+  </div>
+  <div class="r-bottom">
+    <div>
+      <div class="blk-h">Puntos críticos</div>
+      <div class="crit-item"><b>110–120°C estables.</b> La base de todo el proceso.</div>
+      <div class="crit-item"><b>90°C internos.</b> El punto, no el reloj.</div>
+      <div class="crit-item"><b>Reposo 45 min.</b> Sella los jugos adentro.</div>
     </div>
-    <div class="tip"><div class="tip-label">🔥 El consejo de Javo</div><div class="tip-txt">Para ahumarla no necesitás nada más que la propia brasa: tirale un par de leños de quebracho cuando metés la carne y cerrá la tapa. El humo de las primeras horas es el que perfuma de verdad. Es lo que más me gusta del Keveri a carbón.</div></div>
+    <div>
+      <div class="blk-h">Errores comunes</div>
+      <div class="err"><b>Abrir la tapa a cada rato.</b> Se escapa calor y humo. <i>→ Solo para el mop, rápido.</i></div>
+      <div class="err"><b>Cortar caliente.</b> Perdés todos los jugos. <i>→ Reposo obligatorio.</i></div>
+      <div class="err"><b>Apurar el fuego.</b> Arranca inestable. <i>→ Esperá la ceniza gris.</i></div>
+    </div>
+    <div>
+      <div class="blk-h">Variantes &amp; cómo servir</div>
+      <div class="serve"><b>El mop:</b> vinagre, agua y miel es lo que arma la corteza brillante.</div>
+      <div class="serve"><b>Servir:</b> desmenuzada para sándwich o en tajadas, siempre después del reposo.</div>
+    </div>
   </div>
 </div>
 
@@ -352,31 +392,51 @@ body{font-family:'Barlow',sans-serif;background:#B8A795;color:var(--ink);font-si
     <div class="r-meta-it"><div class="r-meta-k">Temp.</div><div class="r-meta-v">110 / 130°C</div></div>
     <div class="r-meta-it"><div class="r-meta-k">Modo</div><div class="r-meta-v">Low &amp; Slow</div></div>
   </div>
-  <div class="r-note">El método 3-2-1 viene del BBQ americano y funciona perfecto en el Keveri: tres horas abierto, dos envuelto y una glaseado. El resultado es un costillar que se cae del hueso solo. Parece magia, es paciencia.</div>
-  <div class="r-img"><img src="img/keveri/costillar-321.jpg" alt="Costillar de cerdo cortado en porciones, glaseado oscuro y brillante, sobre tabla de madera, el Keveri abierto de fondo"></div>
-  <div class="r-cols">
-    <div class="col-ing">
-      <div class="ing-head">Ingredientes</div>
+  <div class="topband">
+    <div class="r-img"><img src="img/keveri/costillar-321.jpg" alt="Costillar de cerdo glaseado y brillante, cortado en porciones sobre tabla de madera"></div>
+    <div>
+      <div class="r-note">El método 3-2-1 viene del BBQ americano y funciona perfecto en el Keveri: tres horas abierto, dos envuelto y una glaseado. El resultado es un costillar que se cae del hueso solo. Parece magia, es paciencia.</div>
+      <div class="blk-h">Ingredientes</div>
       <div class="ing-row"><span class="ing-qty">1,8 kg</span><span class="ing-name">Costillar de cerdo (tira)</span></div>
-      <div class="ing-row"><span class="ing-qty">20 g</span><span class="ing-name">Sal</span></div>
-      <div class="ing-row"><span class="ing-qty">10 g</span><span class="ing-name">Azúcar negra</span></div>
-      <div class="ing-row"><span class="ing-qty">8 g</span><span class="ing-name">Pimentón dulce</span></div>
-      <div class="ing-row"><span class="ing-qty">5 g</span><span class="ing-name">Pimentón ahumado</span></div>
-      <div class="ing-row"><span class="ing-qty">5 g</span><span class="ing-name">Ajo en polvo</span></div>
+      <div class="ing-glabel">Rub seco</div>
+      <div class="ing-row"><span class="ing-qty">—</span><span class="ing-name">20 g sal · 10 g azúcar negra · 8 g pimentón dulce</span></div>
+      <div class="ing-row"><span class="ing-qty">—</span><span class="ing-name">5 g pimentón ahumado · 5 g ajo en polvo</span></div>
       <div class="ing-glabel">Glaseado final</div>
-      <div class="ing-row"><span class="ing-qty">80 ml</span><span class="ing-name">Salsa BBQ</span></div>
-      <div class="ing-row"><span class="ing-qty">30 ml</span><span class="ing-name">Miel</span></div>
-      <div class="ing-row"><span class="ing-qty">15 ml</span><span class="ing-name">Vinagre de manzana</span></div>
+      <div class="ing-row"><span class="ing-qty">—</span><span class="ing-name">80 ml salsa BBQ · 30 ml miel · 15 ml vinagre de manzana</span></div>
     </div>
-    <div class="col-pasos">
-      <div class="paso-head">Preparación</div>
-      <div class="paso"><div class="paso-n">1</div><div class="paso-txt"><b>Sacá la membrana.</b> Del lado del hueso hay una telita plateada: agarrala con un papel de cocina y tirá fuerte para sacarla entera. Si la dejás, la carne no se ablanda parejo. Aplicá el rub por los dos lados.</div></div>
-      <div class="paso"><div class="paso-n">2</div><div class="paso-txt"><b>3 horas a 110°C.</b> Brasa corrida a un costado, el costillar del lado sin fuego con el hueso hacia abajo, calor indirecto. Tiro casi cerrado para mantenerlo bajo. No abras la tapa en todo ese tiempo.</div></div>
-      <div class="paso"><div class="paso-n">3</div><div class="paso-txt"><b>2 horas envuelto.</b> Envolvé bien en papel de aluminio con un chorrito de vinagre adentro y subí a 130°C. El vapor que se arma adentro del paquete termina de deshacer el colágeno.</div></div>
-      <div class="paso"><div class="paso-n">4</div><div class="paso-txt"><b>1 hora glaseado.</b> Desenvolvé y pintá con la mezcla de BBQ, miel y vinagre. Esta última hora va sin envolver, para que el glaseado se pegue y caramelice bien.</div></div>
-      <div class="paso"><div class="paso-n">5</div><div class="paso-txt"><b>Reposo y corte.</b> Quince minutos de descanso. Cortá entre hueso y hueso: el cuchillo casi no tendría que hacer fuerza.</div></div>
+  </div>
+  <div class="blk-h">Antes de empezar</div>
+  <ul class="before">
+    <li><b>Sacá la membrana.</b> Del lado del hueso hay una telita plateada: agarrala con papel de cocina y tirá fuerte para sacarla entera. Si la dejás, la carne no se ablanda parejo.</li>
+    <li><b>Rub por los dos lados.</b> Aplicá la mezcla de secos cubriendo bien toda la tira antes de ir al fuego.</li>
+    <li><b>El 3-2-1 es un reloj.</b> Tres horas abierto, dos envuelto, una glaseado. Tené el aluminio y el glaseado listos antes de arrancar.</li>
+    <li><b>Brasa a un costado.</b> Todo el proceso es calor indirecto: la carne nunca va sobre el fuego.</li>
+  </ul>
+  <div class="blk-h">Paso a paso</div>
+  <div class="pasos">
+    <div class="paso"><div class="paso-n">1</div><div class="paso-txt"><b>3 horas a 110°C.</b> Brasa corrida a un costado, el costillar del lado sin fuego con el hueso hacia abajo, calor indirecto. Tiro casi cerrado para mantenerlo bajo. No abras la tapa en todo ese tiempo.</div></div>
+    <div class="paso"><div class="paso-n">2</div><div class="paso-txt"><b>2 horas envuelto.</b> Envolvé bien en papel de aluminio con un chorrito de vinagre adentro y subí a 130°C. El vapor que se arma adentro del paquete termina de deshacer el colágeno.</div></div>
+    <div class="paso"><div class="paso-n">3</div><div class="paso-txt"><b>1 hora glaseado.</b> Desenvolvé y pintá con la mezcla de BBQ, miel y vinagre. Esta última hora va sin envolver, para que el glaseado se pegue y caramelice bien.</div></div>
+    <div class="paso"><div class="paso-n">4</div><div class="paso-txt"><b>Reposo y corte.</b> Quince minutos de descanso. Cortá entre hueso y hueso.<span class="paso-sign">El cuchillo casi no tendría que hacer fuerza: si tira, es que le faltó tiempo bajo la tapa.</span></div></div>
+  </div>
+  <div class="r-bottom">
+    <div>
+      <div class="blk-h">Puntos críticos</div>
+      <div class="crit-item"><b>Membrana afuera.</b> Si no, no ablanda parejo.</div>
+      <div class="crit-item"><b>El envuelto.</b> El vapor deshace el colágeno.</div>
+      <div class="crit-item"><b>Glaseado sin tapa.</b> Para que caramelice.</div>
     </div>
-    <div class="tip"><div class="tip-label">🔥 El consejo de Javo</div><div class="tip-txt">La prueba del palillo nunca falla: clavá uno entre las costillas. Si entra y sale sin resistencia, está. Si tira un poco, le falta. No te fíes solo del tiempo: fijate en el colágeno, que es el que manda.</div></div>
+    <div>
+      <div class="blk-h">Errores comunes</div>
+      <div class="err"><b>Dejar la membrana.</b> Queda duro de un lado. <i>→ Tirá con papel de cocina.</i></div>
+      <div class="err"><b>Glasear envuelto.</b> No pega ni carameliza. <i>→ La última hora, descubierto.</i></div>
+      <div class="err"><b>Fiarse solo del reloj.</b> Cada costillar es distinto. <i>→ Prueba del palillo entre huesos.</i></div>
+    </div>
+    <div>
+      <div class="blk-h">Variantes &amp; cómo servir</div>
+      <div class="serve"><b>La prueba del palillo:</b> clavá uno entre las costillas; si entra y sale sin resistencia, está.</div>
+      <div class="serve"><b>Servir:</b> cortado por hueso, con extra de glaseado al costado.</div>
+    </div>
   </div>
 </div>
 
@@ -393,32 +453,52 @@ body{font-family:'Barlow',sans-serif;background:#B8A795;color:var(--ink);font-si
     <div class="r-meta-it"><div class="r-meta-k">Temp.</div><div class="r-meta-v">110°C</div></div>
     <div class="r-meta-it"><div class="r-meta-k">Interna</div><div class="r-meta-v">95°C</div></div>
   </div>
-  <div class="r-note">Paleta de cerdo cocida hasta que se desarma sola. Esta es mi versión criolla, con hierbas del norte que le dan un perfil distinto al pulled pork americano de manual. Rinde para una mesa entera y sobra.</div>
-  <div class="r-img"><img src="img/keveri/pulled-pork.jpg" alt="Pulled pork desmenuzado sobre tabla de madera, dos tenedores cruzados, jugo acumulado abajo, pan tipo brioche al costado"></div>
-  <div class="r-cols">
-    <div class="col-ing">
-      <div class="ing-head">Ingredientes</div>
+  <div class="topband">
+    <div class="r-img"><img src="img/keveri/pulled-pork.jpg" alt="Pulled pork desmenuzado con dos tenedores sobre tabla de madera, pan brioche al costado"></div>
+    <div>
+      <div class="r-note">Paleta de cerdo cocida hasta que se desarma sola. Esta es mi versión criolla, con hierbas del norte que le dan un perfil distinto al pulled pork americano de manual. Rinde para una mesa entera y sobra.</div>
+      <div class="blk-h">Ingredientes</div>
       <div class="ing-row"><span class="ing-qty">3 kg</span><span class="ing-name">Paleta de cerdo con hueso</span></div>
-      <div class="ing-row"><span class="ing-qty">30 g</span><span class="ing-name">Sal gruesa</span></div>
-      <div class="ing-row"><span class="ing-qty">20 g</span><span class="ing-name">Azúcar negra</span></div>
-      <div class="ing-row"><span class="ing-qty">10 g</span><span class="ing-name">Pimentón ahumado</span></div>
-      <div class="ing-row"><span class="ing-qty">8 g</span><span class="ing-name">Ajo en polvo</span></div>
-      <div class="ing-row"><span class="ing-qty">5 g</span><span class="ing-name">Orégano</span></div>
-      <div class="ing-row"><span class="ing-qty">3 g</span><span class="ing-name">Tomillo seco</span></div>
+      <div class="ing-glabel">Rub seco</div>
+      <div class="ing-row"><span class="ing-qty">—</span><span class="ing-name">30 g sal gruesa · 20 g azúcar negra · 10 g pimentón ahumado</span></div>
+      <div class="ing-row"><span class="ing-qty">—</span><span class="ing-name">8 g ajo en polvo · 5 g orégano · 3 g tomillo seco</span></div>
       <div class="ing-glabel">Para servir</div>
-      <div class="ing-row"><span class="ing-qty">c/n</span><span class="ing-name">Llajua fresca</span></div>
-      <div class="ing-row"><span class="ing-qty">c/n</span><span class="ing-name">Pan tipo brioche</span></div>
+      <div class="ing-row"><span class="ing-qty">c/n</span><span class="ing-name">Llajua fresca · pan tipo brioche</span></div>
     </div>
-    <div class="col-pasos">
-      <div class="paso-head">Preparación</div>
-      <div class="paso"><div class="paso-n">1</div><div class="paso-txt"><b>Rub 24 horas antes.</b> Mezclá todos los secos y cubrí la paleta entera. Envolvé y dejá un día completo en la heladera. Sacala dos horas antes de cocinar para que pierda el frío.</div></div>
-      <div class="paso"><div class="paso-n">2</div><div class="paso-txt"><b>Temperatura clavada.</b> El Keveri a 110°C exactos, calor indirecto. No subas para apurar: arruinás la textura final y no ganás nada.</div></div>
-      <div class="paso"><div class="paso-n">3</div><div class="paso-txt"><b>Grasa hacia arriba.</b> Poné la pieza con la capa de grasa para arriba: a medida que se derrite, va bañando la carne sola. Del lado sin brasa, calor indirecto, recargando un poco de carbón al costado si hace falta.</div></div>
-      <div class="paso"><div class="paso-n">4</div><div class="paso-txt"><b>La stall, otra vez.</b> Alrededor de 70–75°C internos la cosa se frena una o dos horas. Es normal, es el colágeno. No hagas nada, esperá.</div></div>
-      <div class="paso"><div class="paso-n">5</div><div class="paso-txt"><b>95°C y descanso largo.</b> Al llegar a meta, envolvé en papel de carnicero, tapá con una frazada vieja y dejá reposar una hora como mínimo. Sigue cocinándose con su propio calor.</div></div>
-      <div class="paso"><div class="paso-n">6</div><div class="paso-txt"><b>Desmenuzá.</b> Con dos tenedores; va a salir sola. Mezclá la carne con los jugos que quedaron en el papel: ahí está la mitad del sabor.</div></div>
+  </div>
+  <div class="blk-h">Antes de empezar</div>
+  <ul class="before">
+    <li><b>Rub 24 horas antes.</b> Mezclá todos los secos, cubrí la paleta entera, envolvé y dejá un día completo en la heladera.</li>
+    <li><b>Atemperá.</b> Sacala dos horas antes de cocinar para que pierda el frío y cocine parejo.</li>
+    <li><b>Pensá el tiempo.</b> Son 10 a 12 horas: arrancá temprano y no cuentes con apurarlo.</li>
+    <li><b>Papel y frazada listos.</b> El reposo largo envuelto es parte de la receta, no un extra.</li>
+  </ul>
+  <div class="blk-h">Paso a paso</div>
+  <div class="pasos">
+    <div class="paso"><div class="paso-n">1</div><div class="paso-txt"><b>Temperatura clavada.</b> El Keveri a 110°C exactos, calor indirecto. No subas para apurar: arruinás la textura final y no ganás nada.</div></div>
+    <div class="paso"><div class="paso-n">2</div><div class="paso-txt"><b>Grasa hacia arriba.</b> Poné la pieza con la capa de grasa para arriba: al derretirse, baña la carne sola. Del lado sin brasa, recargando un poco de carbón al costado si hace falta.</div></div>
+    <div class="paso"><div class="paso-n">3</div><div class="paso-txt"><b>La stall, otra vez.</b> Alrededor de 70–75°C internos la cosa se frena una o dos horas. Es normal, es el colágeno. No hagas nada, esperá.</div></div>
+    <div class="paso"><div class="paso-n">4</div><div class="paso-txt"><b>95°C y descanso largo.</b> Al llegar a meta, envolvé en papel de carnicero, tapá con una frazada vieja y dejá reposar una hora mínimo. Sigue cocinándose con su propio calor.</div></div>
+    <div class="paso"><div class="paso-n">5</div><div class="paso-txt"><b>Desmenuzá.</b> Con dos tenedores; va a salir sola.<span class="paso-sign">Mezclá la carne con los jugos que quedaron en el papel: ahí está la mitad del sabor.</span></div></div>
+  </div>
+  <div class="r-bottom">
+    <div>
+      <div class="blk-h">Puntos críticos</div>
+      <div class="crit-item"><b>110°C exactos.</b> Subir arruina la textura.</div>
+      <div class="crit-item"><b>95°C internos.</b> Recién ahí se desarma.</div>
+      <div class="crit-item"><b>Reposo de 1 hora.</b> Envuelto y tapado.</div>
     </div>
-    <div class="tip"><div class="tip-label">🔥 El consejo de Javo</div><div class="tip-txt">Servilo con llajua fresca: el picante y la acidez del locoto cortan la grasa del cerdo mejor que cualquier salsa BBQ embotellada. Probalo una vez así y no volvés atrás.</div></div>
+    <div>
+      <div class="blk-h">Errores comunes</div>
+      <div class="err"><b>Subir la temperatura.</b> Queda fibroso y seco. <i>→ 110°C y paciencia.</i></div>
+      <div class="err"><b>Tirar los jugos del papel.</b> Perdés medio sabor. <i>→ Mezclalos con la carne.</i></div>
+      <div class="err"><b>Desmenuzar sin reposo.</b> Se seca al toque. <i>→ Esperá el descanso largo.</i></div>
+    </div>
+    <div>
+      <div class="blk-h">Variantes &amp; cómo servir</div>
+      <div class="serve"><b>La vuelta norteña:</b> con llajua fresca, el locoto y la acidez cortan la grasa mejor que cualquier BBQ embotellada.</div>
+      <div class="serve"><b>Servir:</b> en pan brioche, bien cargado y con su jugo.</div>
+    </div>
   </div>
 </div>
 
@@ -435,29 +515,50 @@ body{font-family:'Barlow',sans-serif;background:#B8A795;color:var(--ink);font-si
     <div class="r-meta-it"><div class="r-meta-k">Temp.</div><div class="r-meta-v">120°C</div></div>
     <div class="r-meta-it"><div class="r-meta-k">Interna</div><div class="r-meta-v">70–75°C</div></div>
   </div>
-  <div class="r-note">El cordero salteño tiene su ritual propio. En el Keveri la pierna baja lento, queda con una corteza perfumada por fuera y jugosa y apenas rosada por dentro. Sin apuro, como tiene que ser el cordero.</div>
-  <div class="r-img"><img src="img/keveri/cordero-lento.jpg" alt="Pierna de cordero entera sobre la rejilla, corteza dorada con ramitas de romero pegadas, al corte el interior ligerament"></div>
-  <div class="r-cols">
-    <div class="col-ing">
-      <div class="ing-head">Ingredientes</div>
+  <div class="topband">
+    <div class="r-img"><img src="img/keveri/cordero-lento.jpg" alt="Pierna de cordero con corteza dorada y ramitas de romero sobre la rejilla del Keveri"></div>
+    <div>
+      <div class="r-note">El cordero salteño tiene su ritual propio. En el Keveri la pierna baja lento, queda con una corteza perfumada por fuera y jugosa y apenas rosada por dentro. Sin apuro, como tiene que ser el cordero.</div>
+      <div class="blk-h">Ingredientes</div>
       <div class="ing-row"><span class="ing-qty">2,2 kg</span><span class="ing-name">Pierna de cordero con hueso</span></div>
-      <div class="ing-row"><span class="ing-qty">8 dientes</span><span class="ing-name">Ajo</span></div>
-      <div class="ing-row"><span class="ing-qty">25 g</span><span class="ing-name">Sal gruesa</span></div>
-      <div class="ing-row"><span class="ing-qty">15 g</span><span class="ing-name">Romero fresco</span></div>
-      <div class="ing-row"><span class="ing-qty">10 g</span><span class="ing-name">Tomillo fresco</span></div>
-      <div class="ing-row"><span class="ing-qty">60 ml</span><span class="ing-name">Aceite de oliva</span></div>
-      <div class="ing-row"><span class="ing-qty">30 ml</span><span class="ing-name">Jugo de limón</span></div>
-      <div class="ing-row"><span class="ing-qty">10 g</span><span class="ing-name">Pimentón dulce</span></div>
+      <div class="ing-row"><span class="ing-qty">8 dientes</span><span class="ing-name">Ajo · 25 g sal gruesa</span></div>
+      <div class="ing-glabel">Perfume &amp; marinada</div>
+      <div class="ing-row"><span class="ing-qty">—</span><span class="ing-name">15 g romero fresco · 10 g tomillo fresco</span></div>
+      <div class="ing-row"><span class="ing-qty">—</span><span class="ing-name">60 ml aceite de oliva · 30 ml jugo de limón · 10 g pimentón dulce</span></div>
     </div>
-    <div class="col-pasos">
-      <div class="paso-head">Preparación</div>
-      <div class="paso"><div class="paso-n">1</div><div class="paso-txt"><b>Mechá la pierna.</b> Con un cuchillo fino hacé incisiones por toda la carne e insertá rodajas de ajo junto con ramitas de romero y tomillo. Así perfuma desde adentro, no solo por arriba.</div></div>
-      <div class="paso"><div class="paso-n">2</div><div class="paso-txt"><b>Marinada exterior.</b> Mezclá aceite, limón, sal y pimentón y cubrí toda la superficie. Dejá marinar cuatro horas, o mejor de un día para el otro.</div></div>
-      <div class="paso"><div class="paso-n">3</div><div class="paso-txt"><b>Keveri a 120°C.</b> Brasa a un costado y la pierna del otro lado, calor indirecto, regulando con el tiro. Cerrá y no abras en las primeras dos horas.</div></div>
-      <div class="paso"><div class="paso-n">4</div><div class="paso-txt"><b>Mojá cada 90 minutos.</b> Con aceite, ajo y limón, pintá la pierna. El cuero va tomando un color miel oscuro precioso.</div></div>
-      <div class="paso"><div class="paso-n">5</div><div class="paso-txt"><b>Punto y reposo.</b> 75°C internos para bien hecho salteño; 70°C si lo querés más rosado. Reposo de 20 minutos antes de cortar, sí o sí.</div></div>
+  </div>
+  <div class="blk-h">Antes de empezar</div>
+  <ul class="before">
+    <li><b>Mechá la pierna.</b> Con un cuchillo fino hacé incisiones e insertá rodajas de ajo con ramitas de romero y tomillo. Así perfuma desde adentro, no solo por arriba.</li>
+    <li><b>Marinada con tiempo.</b> Aceite, limón, sal y pimentón por toda la superficie; cuatro horas mínimo, mejor de un día para el otro.</li>
+    <li><b>Menos es más.</b> El cordero salteño tiene grasa aromática y fuerte: no la disimules. Cuanto menos le metas, más cordero sabe.</li>
+    <li><b>Definí el punto.</b> 75°C para bien hecho salteño, 70°C si lo querés más rosado. Decidilo antes de arrancar.</li>
+  </ul>
+  <div class="blk-h">Paso a paso</div>
+  <div class="pasos">
+    <div class="paso"><div class="paso-n">1</div><div class="paso-txt"><b>Keveri a 120°C.</b> Brasa a un costado y la pierna del otro lado, calor indirecto, regulando con el tiro. Cerrá y no abras en las primeras dos horas.</div></div>
+    <div class="paso"><div class="paso-n">2</div><div class="paso-txt"><b>Mojá cada 90 minutos.</b> Con aceite, ajo y limón, pintá la pierna. El cuero va tomando un color miel oscuro precioso.</div></div>
+    <div class="paso"><div class="paso-n">3</div><div class="paso-txt"><b>Llevá al punto.</b> 75°C internos para bien hecho salteño; 70°C si lo querés más rosado. Controlá con termómetro, no con el reloj.</div></div>
+    <div class="paso"><div class="paso-n">4</div><div class="paso-txt"><b>Reposo antes de cortar.</b> Veinte minutos de descanso, sí o sí.<span class="paso-sign">La grasa aromática del cordero salteño se luce sola: sal gruesa y romero es todo lo que necesita.</span></div></div>
+  </div>
+  <div class="r-bottom">
+    <div>
+      <div class="blk-h">Puntos críticos</div>
+      <div class="crit-item"><b>Mechado.</b> Perfuma desde adentro.</div>
+      <div class="crit-item"><b>120°C constantes.</b> Lento, sin apuro.</div>
+      <div class="crit-item"><b>Punto interno.</b> 70–75°C según gusto.</div>
     </div>
-    <div class="tip"><div class="tip-label">🔥 El consejo de Javo</div><div class="tip-txt">El cordero salteño tiene una grasa más aromática y fuerte que el patagónico. No la disimules: abrazala. La sal gruesa y el romero son todo lo que necesita. Cuanto menos le metas, más cordero sabe.</div></div>
+    <div>
+      <div class="blk-h">Errores comunes</div>
+      <div class="err"><b>Cargar de condimentos.</b> Tapa el cordero. <i>→ Sal, romero y ajo, nada más.</i></div>
+      <div class="err"><b>Fuego alto.</b> Corteza quemada, adentro crudo. <i>→ 120°C indirecto.</i></div>
+      <div class="err"><b>Cortar sin reposo.</b> Se desangra en la tabla. <i>→ 20 min de descanso.</i></div>
+    </div>
+    <div>
+      <div class="blk-h">Variantes &amp; cómo servir</div>
+      <div class="serve"><b>El mojado:</b> aceite, ajo y limón cada 90 min dan el color miel del cuero.</div>
+      <div class="serve"><b>Servir:</b> en tajadas contra el hueso, con papas al rescoldo.</div>
+    </div>
   </div>
 </div>
 
