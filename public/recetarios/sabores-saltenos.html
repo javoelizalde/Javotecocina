@@ -105,6 +105,28 @@ body{font-family:'Barlow',sans-serif;background:#B8A795;color:var(--ink);font-si
 .tip{margin-top:0;background:var(--paper2);border-left:3px solid var(--fire);padding:3mm 4mm;border-radius:0 2px 2px 0;}
 .tip-label{font-family:'Barlow Condensed',sans-serif;font-size:6.5pt;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--fire);margin-bottom:1.5mm;}
 .tip-txt{font-family:'Lora',serif;font-size:7.8pt;line-height:1.45;color:var(--ink);font-style:italic;}
+/* ── FORMATO FULL-DETALLE (1 hoja: foto horizontal + antes + pasos + puntos/errores/servir) ── */
+.topband{display:grid;grid-template-columns:1fr 73mm;column-gap:7mm;margin-bottom:4mm;align-items:stretch;}
+.topband .r-img{height:auto;min-height:52mm;margin-bottom:0;position:relative;overflow:hidden;}
+.topband .r-img img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;}
+.topband .r-img.ph{display:flex;align-items:center;justify-content:center;}
+.recipe:has(.r-bottom){justify-content:space-between;}
+.recipe:has(.r-bottom) .topband,.recipe:has(.r-bottom) .before,.recipe:has(.r-bottom) .pasos{margin-bottom:0;}
+.blk-h{font-family:'Barlow Condensed',sans-serif;font-size:7.5pt;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--fire);margin-bottom:2.2mm;padding-bottom:1.2mm;border-bottom:1pt solid var(--fire);}
+.before{columns:2;column-gap:7mm;margin-bottom:3mm;}
+.before li{font-size:7.4pt;line-height:1.45;color:var(--ink);margin-bottom:2mm;list-style:none;padding-left:3.5mm;position:relative;break-inside:avoid;}
+.before li::before{content:'›';position:absolute;left:0;color:var(--fire);font-weight:900;}
+.before b{color:var(--dark);}
+.pasos{margin-bottom:3mm;}
+.paso-sign{display:block;margin-top:.6mm;font-family:'Lora',serif;font-style:italic;font-size:7.4pt;color:var(--muted);line-height:1.45;}
+.r-bottom{display:grid;grid-template-columns:1fr 1fr 1fr;column-gap:6mm;border-top:.5pt solid var(--line2);padding-top:3.5mm;margin-top:0;}
+.crit-item{font-size:7.3pt;line-height:1.45;color:var(--ink);margin-bottom:2.2mm;padding-left:3.5mm;position:relative;}
+.crit-item::before{content:'';position:absolute;left:0;top:1.3mm;width:1.6mm;height:1.6mm;background:var(--fire);border-radius:50%;}
+.crit-item b{color:var(--dark);}
+.err{font-size:7.2pt;line-height:1.45;color:var(--ink);margin-bottom:2.4mm;}
+.err b{color:var(--dark);}.err i{color:var(--muted);}
+.serve{font-size:7.4pt;line-height:1.5;color:var(--ink);margin-bottom:2.4mm;}
+.serve b{color:var(--dark);}
 
 /* SECCIÓN / GUÍA */
 .guia-cover{background:var(--dark2);display:flex;flex-direction:column;justify-content:flex-end;position:relative;overflow:hidden;}
@@ -284,34 +306,50 @@ body{font-family:'Barlow',sans-serif;background:#B8A795;color:var(--ink);font-si
     <div class="r-meta-it"><div class="r-meta-k">Horno</div><div class="r-meta-v">220°C</div></div>
     <div class="r-meta-it"><div class="r-meta-k">Dificultad</div><div class="r-meta-v">Media</div></div>
   </div>
-  <div class="r-note">Que quede claro de entrada: la salteña va con carne en cubos, jamás picada. Papa, mucha cebolla, pimentón y huevo duro. La masa con grasa de pella, el cierre con el repulgue de 13. Si vas a hacerla, hacela bien.</div>
-  <div class="r-img ph"><span>Foto: img/saltenos/empanadas-saltenas.jpg — Empanadas doradas y brillantes en asadera de hierro, repulgue de 13 dobleces bien marcado, una abierta mostrando el relleno con carne en cubos, papa y huevo</span></div>
-  <div class="r-cols">
-    <div class="col-ing">
-      <div class="ing-head">Ingredientes</div>
+  <div class="topband">
+    <div class="r-img ph"><img src="img/saltenos/empanadas-saltenas.jpg" alt="Empanadas salteñas doradas con repulgue de 13, una abierta mostrando el relleno de carne en cubos, papa y huevo"></div>
+    <div>
+      <div class="r-note">Que quede claro de entrada: la salteña va con carne en cubos, jamás picada. Papa, mucha cebolla, pimentón y huevo duro. La masa con grasa de pella, el cierre con el repulgue de 13. Si vas a hacerla, hacela bien.</div>
+      <div class="blk-h">Ingredientes</div>
       <div class="ing-glabel">Masa</div>
-      <div class="ing-row"><span class="ing-qty">500 g</span><span class="ing-name">Harina 0000</span></div>
-      <div class="ing-row"><span class="ing-qty">200 ml</span><span class="ing-name">Agua tibia</span></div>
-      <div class="ing-row"><span class="ing-qty">100 g</span><span class="ing-name">Grasa de pella</span></div>
-      <div class="ing-row"><span class="ing-qty">10 g</span><span class="ing-name">Sal</span></div>
+      <div class="ing-row"><span class="ing-qty">—</span><span class="ing-name">500 g harina 0000 · 200 ml agua tibia · 100 g grasa de pella · 10 g sal</span></div>
       <div class="ing-glabel">Relleno</div>
-      <div class="ing-row"><span class="ing-qty">500 g</span><span class="ing-name">Roast beef en cubos de 1 cm</span></div>
-      <div class="ing-row"><span class="ing-qty">300 g</span><span class="ing-name">Papa cocida en cubos</span></div>
-      <div class="ing-row"><span class="ing-qty">2</span><span class="ing-name">Cebollas grandes</span></div>
-      <div class="ing-row"><span class="ing-qty">4</span><span class="ing-name">Huevos duros</span></div>
-      <div class="ing-row"><span class="ing-qty">15 g</span><span class="ing-name">Pimentón dulce</span></div>
-      <div class="ing-row"><span class="ing-qty">10 g</span><span class="ing-name">Sal</span></div>
-      <div class="ing-row"><span class="ing-qty">c/n</span><span class="ing-name">Locoto picado, a gusto</span></div>
+      <div class="ing-row"><span class="ing-qty">—</span><span class="ing-name">500 g roast beef en cubos de 1 cm · 300 g papa cocida · 2 cebollas grandes</span></div>
+      <div class="ing-row"><span class="ing-qty">—</span><span class="ing-name">4 huevos duros · 15 g pimentón dulce · 10 g sal · locoto a gusto</span></div>
     </div>
-    <div class="col-pasos">
-      <div class="paso-head">Preparación</div>
-      <div class="paso"><div class="paso-n">1</div><div class="paso-txt"><b>La masa.</b> Frotá la grasa con la harina y la sal hasta que quede arenosa. Sumá el agua tibia de a poco hasta que se arme lisa. Tapala y dejala media hora; yo acá no la apuraría, esa espera te la devuelve después.</div></div>
-      <div class="paso"><div class="paso-n">2</div><div class="paso-txt"><b>El relleno.</b> Cebolla en grasa hasta que esté transparente, después la carne en cubos sellada vuelta y vuelta. Pimentón, sal y locoto. No te la cocines de más: termina de hacerse en el horno.</div></div>
-      <div class="paso"><div class="paso-n">3</div><div class="paso-txt">Dejá enfriar el relleno del todo, sin atajos. Recién con todo frío sumás la papa en cubos y el huevo duro picado grueso, y mezclás despacio para no hacerlo puré.</div></div>
-      <div class="paso"><div class="paso-n">4</div><div class="paso-txt"><b>El armado.</b> Estirás, cortás discos de 12 cm, dos cucharadas por disco y repulgue de 13. Lo único importante acá: sacale el aire de adentro, que la bolsita de aire es lo que las hace reventar.</div></div>
-      <div class="paso"><div class="paso-n">5</div><div class="paso-txt">Asadera apenas aceitada, horno fuerte a 220°C, 18 a 20 minutos hasta que doren. Pintalas con huevo batido antes de meterlas y te quedan con ese brillo de vidriera de panadería.</div></div>
+  </div>
+  <div class="blk-h">Antes de empezar</div>
+  <ul class="before">
+    <li><b>Grasa de pella, no manteca.</b> Es la clave. Con manteca sale una empanada rica pero no salteña; si la conseguís, no la cambies.</li>
+    <li><b>Carne en cubos, jamás picada.</b> Roast beef en cubos de 1 cm: es lo que define a la salteña.</li>
+    <li><b>El relleno se arma frío.</b> Enfrialo del todo antes de sumar papa y huevo, o se hace puré al mezclar.</li>
+    <li><b>Sin aire adentro.</b> Al cerrar, sacale la bolsita de aire: es lo que las hace reventar en el horno.</li>
+  </ul>
+  <div class="blk-h">Paso a paso</div>
+  <div class="pasos">
+    <div class="paso"><div class="paso-n">1</div><div class="paso-txt"><b>La masa.</b> Frotá la grasa con la harina y la sal hasta que quede arenosa. Sumá el agua tibia de a poco hasta que se arme lisa. Tapala y dejala media hora.</div></div>
+    <div class="paso"><div class="paso-n">2</div><div class="paso-txt"><b>El relleno.</b> Cebolla en grasa hasta transparente, después la carne en cubos sellada vuelta y vuelta. Pimentón, sal y locoto. No la cocines de más: termina en el horno.</div></div>
+    <div class="paso"><div class="paso-n">3</div><div class="paso-txt"><b>Enfriar y completar.</b> Con el relleno bien frío sumá la papa en cubos y el huevo duro picado grueso, y mezclá despacio para no hacerlo puré.</div></div>
+    <div class="paso"><div class="paso-n">4</div><div class="paso-txt"><b>Armado y horno.</b> Discos de 12 cm, dos cucharadas, repulgue de 13, aire afuera. Pintá con huevo batido.<span class="paso-sign">Asadera apenas aceitada, horno fuerte a 220°C, 18 a 20 min hasta dorar: quedan con brillo de vidriera de panadería.</span></div></div>
+  </div>
+  <div class="r-bottom">
+    <div>
+      <div class="blk-h">Puntos críticos</div>
+      <div class="crit-item"><b>Grasa de pella.</b> Lo que la hace salteña.</div>
+      <div class="crit-item"><b>Relleno frío.</b> Papa y huevo enteros.</div>
+      <div class="crit-item"><b>Aire afuera.</b> Para que no revienten.</div>
     </div>
-    <div class="tip"><div class="tip-label">🔥 El consejo de Javo</div><div class="tip-txt">Insisto con la grasa de pella, porque es la clave. Con manteca te sale una empanada rica, pero no salteña. Si la conseguís, no la cambies: es lo que separa a la del norte de todas las demás.</div></div>
+    <div>
+      <div class="blk-h">Errores comunes</div>
+      <div class="err"><b>Carne picada.</b> Ya no es salteña. <i>→ Cubos de 1 cm.</i></div>
+      <div class="err"><b>Armar en caliente.</b> Relleno hecho puré. <i>→ Enfrialo del todo.</i></div>
+      <div class="err"><b>Dejar aire adentro.</b> Revientan. <i>→ Sacáselo al repulgar.</i></div>
+    </div>
+    <div>
+      <div class="blk-h">Variantes &amp; cómo servir</div>
+      <div class="serve"><b>El picante:</b> locoto en el relleno a gusto, la marca del norte.</div>
+      <div class="serve"><b>Servir:</b> recién salidas, calientes, con la masa brillante.</div>
+    </div>
   </div>
 </div>
 
@@ -328,29 +366,48 @@ body{font-family:'Barlow',sans-serif;background:#B8A795;color:var(--ink);font-si
     <div class="r-meta-it"><div class="r-meta-k">Cocción</div><div class="r-meta-v">Vapor</div></div>
     <div class="r-meta-it"><div class="r-meta-k">Dificultad</div><div class="r-meta-v">Media</div></div>
   </div>
-  <div class="r-note">La humita salteña es salada y va con queso, nada de azúcar. La masa es de choclo fresco rallado, no de harina de maíz, y va al vapor, no al horno. Te lo aclaro porque son las dos cosas que más veo equivocadas.</div>
-  <div class="r-img ph"><span>Foto: img/saltenos/humitas-chala.jpg — Humitas atadas con tiras de chala, una recién abierta mostrando la masa de choclo amarilla con el queso derretido en el centro, vapor saliendo</span></div>
-  <div class="r-cols">
-    <div class="col-ing">
-      <div class="ing-head">Ingredientes</div>
-      <div class="ing-row"><span class="ing-qty">8</span><span class="ing-name">Choclos grandes con chala</span></div>
-      <div class="ing-row"><span class="ing-qty">200 g</span><span class="ing-name">Queso criollo o de cabra</span></div>
-      <div class="ing-row"><span class="ing-qty">2</span><span class="ing-name">Cebollas medianas</span></div>
-      <div class="ing-row"><span class="ing-qty">30 ml</span><span class="ing-name">Aceite o grasa</span></div>
-      <div class="ing-row"><span class="ing-qty">10 g</span><span class="ing-name">Pimentón dulce</span></div>
-      <div class="ing-row"><span class="ing-qty">10 g</span><span class="ing-name">Sal</span></div>
-      <div class="ing-row"><span class="ing-qty">c/n</span><span class="ing-name">Albahaca fresca</span></div>
-      <div class="ing-row"><span class="ing-qty">c/n</span><span class="ing-name">Locoto, para quien guste</span></div>
+  <div class="topband">
+    <div class="r-img ph"><img src="img/saltenos/humitas-chala.jpg" alt="Humitas atadas en chala, una abierta mostrando la masa de choclo amarilla con queso derretido"></div>
+    <div>
+      <div class="r-note">La humita salteña es salada y va con queso, nada de azúcar. La masa es de choclo fresco rallado, no de harina de maíz, y va al vapor, no al horno. Te lo aclaro porque son las dos cosas que más veo equivocadas.</div>
+      <div class="blk-h">Ingredientes</div>
+      <div class="ing-row"><span class="ing-qty">8</span><span class="ing-name">Choclos grandes con chala · 200 g queso criollo o de cabra</span></div>
+      <div class="ing-row"><span class="ing-qty">—</span><span class="ing-name">2 cebollas medianas · 30 ml aceite o grasa · 10 g pimentón · 10 g sal</span></div>
+      <div class="ing-row"><span class="ing-qty">c/n</span><span class="ing-name">Albahaca fresca · locoto, para quien guste</span></div>
     </div>
-    <div class="col-pasos">
-      <div class="paso-head">Preparación</div>
-      <div class="paso"><div class="paso-n">1</div><div class="paso-txt"><b>Desgraná y rallá.</b> Separá las chalas con cuidado, que después envuelven. Rallá los granos directo: te queda una pasta húmeda y medio fibrosa, y así está bien, no busques que quede lisa.</div></div>
-      <div class="paso"><div class="paso-n">2</div><div class="paso-txt">En una sartén amplia dorá la cebolla, sumá el choclo rallado y el pimentón, y cociná unos 5 minutos revolviendo hasta que espese un poco. No te apures con el fuego acá, que se pega enseguida.</div></div>
-      <div class="paso"><div class="paso-n">3</div><div class="paso-txt"><b>Condimentá.</b> Sal y albahaca picada (locoto, para quien guste). La masa tiene que quedar pastosa y manejable. Dejala enfriar diez minutos antes de armar, si no es imposible.</div></div>
-      <div class="paso"><div class="paso-n">4</div><div class="paso-txt"><b>El armado.</b> Sobre la chala van dos cucharadas de masa, un trozo de queso al medio y otra cucharada encima tapando. Cerrás la chala y atás con tiras de la misma hoja.</div></div>
-      <div class="paso"><div class="paso-n">5</div><div class="paso-txt">Al vapor, en olla con rejilla y agua hirviendo, paradas y con la boca para arriba. A los 45 minutos la chala se ve amarillenta y la masa firme al tocarla: ahí están.</div></div>
+  </div>
+  <div class="blk-h">Antes de empezar</div>
+  <ul class="before">
+    <li><b>Salada, con queso, sin azúcar.</b> El error más común es endulzarla: esa es la tucumana, otra cosa. La salteña es salada.</li>
+    <li><b>Choclo fresco rallado.</b> No harina de maíz. La pasta queda húmeda y medio fibrosa, y así está bien; no busques que quede lisa.</li>
+    <li><b>Guardá las chalas enteras.</b> Separalas con cuidado al desgranar, que después son las que envuelven.</li>
+    <li><b>Va al vapor, no al horno.</b> La otra confusión clásica; preparate la olla con rejilla.</li>
+  </ul>
+  <div class="blk-h">Paso a paso</div>
+  <div class="pasos">
+    <div class="paso"><div class="paso-n">1</div><div class="paso-txt"><b>Desgraná y rallá.</b> Separá las chalas y rallá los granos directo hasta una pasta húmeda y fibrosa.</div></div>
+    <div class="paso"><div class="paso-n">2</div><div class="paso-txt"><b>La masa.</b> Dorá la cebolla, sumá el choclo rallado y el pimentón, y cociná 5 minutos revolviendo hasta que espese. Fuego suave: se pega enseguida.</div></div>
+    <div class="paso"><div class="paso-n">3</div><div class="paso-txt"><b>Condimentá y enfriá.</b> Sal y albahaca picada (locoto para quien guste). Pastosa y manejable; dejala enfriar diez minutos antes de armar.</div></div>
+    <div class="paso"><div class="paso-n">4</div><div class="paso-txt"><b>Armá y cociná.</b> Dos cucharadas de masa, queso al medio, otra cucharada tapando; cerrá la chala y atá con tiras de la misma hoja.<span class="paso-sign">Al vapor, paradas con la boca para arriba, 45 min: la chala se ve amarillenta y la masa firme al tacto.</span></div></div>
+  </div>
+  <div class="r-bottom">
+    <div>
+      <div class="blk-h">Puntos críticos</div>
+      <div class="crit-item"><b>Choclo rallado fresco.</b> No harina de maíz.</div>
+      <div class="crit-item"><b>Fuego suave.</b> La masa se pega fácil.</div>
+      <div class="crit-item"><b>Al vapor, paradas.</b> Boca para arriba.</div>
     </div>
-    <div class="tip"><div class="tip-label">🔥 El consejo de Javo</div><div class="tip-txt">El error que más veo: ponerle azúcar. Esa es la tucumana, y es otra cosa, también rica. La salteña es salada, con queso, y a veces con locoto. Cada provincia defiende la suya, y hace bien.</div></div>
+    <div>
+      <div class="blk-h">Errores comunes</div>
+      <div class="err"><b>Ponerle azúcar.</b> Esa es la tucumana. <i>→ Salada, con queso.</i></div>
+      <div class="err"><b>Masa muy líquida.</b> No arma. <i>→ Cociná hasta que espese.</i></div>
+      <div class="err"><b>Armar en caliente.</b> Imposible de manejar. <i>→ Enfriá 10 min.</i></div>
+    </div>
+    <div>
+      <div class="blk-h">Variantes &amp; cómo servir</div>
+      <div class="serve"><b>El picante:</b> locoto en la masa para quien lo disfrute.</div>
+      <div class="serve"><b>Servir:</b> en su chala, recién abiertas y humeantes.</div>
+    </div>
   </div>
 </div>
 
@@ -367,32 +424,50 @@ body{font-family:'Barlow',sans-serif;background:#B8A795;color:var(--ink);font-si
     <div class="r-meta-it"><div class="r-meta-k">Cocción</div><div class="r-meta-v">Vapor 1 h</div></div>
     <div class="r-meta-it"><div class="r-meta-k">Dificultad</div><div class="r-meta-v">Alta</div></div>
   </div>
-  <div class="r-note">El tamal salteño va relleno de carne, papa, cebolla y huevo, con una masa de harina de maíz trabajada con grasa. Te aviso de una: da laburo. Pero es de esas cosas que cuando lo abrís en la mesa, te olvidás del laburo.</div>
-  <div class="r-img ph"><span>Foto: img/saltenos/tamales-saltenos.jpg — Tamales abiertos sobre la chala, masa de maíz amarilla con el relleno de carne y huevo a la vista, humo de vapor, atados con tiras de chala</span></div>
-  <div class="r-cols">
-    <div class="col-ing">
-      <div class="ing-head">Ingredientes</div>
+  <div class="topband">
+    <div class="r-img ph"><img src="img/saltenos/tamales-saltenos.jpg" alt="Tamales abiertos sobre la chala, masa de maíz amarilla con el relleno de carne y huevo a la vista"></div>
+    <div>
+      <div class="r-note">El tamal salteño va relleno de carne, papa, cebolla y huevo, con una masa de harina de maíz trabajada con grasa. Te aviso de una: da laburo. Pero es de esas cosas que cuando lo abrís en la mesa, te olvidás del laburo.</div>
+      <div class="blk-h">Ingredientes</div>
       <div class="ing-glabel">Masa</div>
-      <div class="ing-row"><span class="ing-qty">500 g</span><span class="ing-name">Harina de maíz gruesa</span></div>
-      <div class="ing-row"><span class="ing-qty">150 g</span><span class="ing-name">Grasa de pella</span></div>
-      <div class="ing-row"><span class="ing-qty">600 ml</span><span class="ing-name">Caldo caliente</span></div>
-      <div class="ing-row"><span class="ing-qty">10 g</span><span class="ing-name">Sal</span></div>
+      <div class="ing-row"><span class="ing-qty">—</span><span class="ing-name">500 g harina de maíz gruesa · 150 g grasa de pella · 600 ml caldo caliente · 10 g sal</span></div>
       <div class="ing-glabel">Relleno</div>
-      <div class="ing-row"><span class="ing-qty">400 g</span><span class="ing-name">Carne cocida desmenuzada</span></div>
-      <div class="ing-row"><span class="ing-qty">200 g</span><span class="ing-name">Papa cocida en cubos</span></div>
-      <div class="ing-row"><span class="ing-qty">2</span><span class="ing-name">Cebollas sofritas</span></div>
-      <div class="ing-row"><span class="ing-qty">3</span><span class="ing-name">Huevos duros en cuartos</span></div>
-      <div class="ing-row"><span class="ing-qty">15 g</span><span class="ing-name">Pimentón</span></div>
+      <div class="ing-row"><span class="ing-qty">—</span><span class="ing-name">400 g carne cocida desmenuzada · 200 g papa cocida · 2 cebollas sofritas</span></div>
+      <div class="ing-row"><span class="ing-qty">—</span><span class="ing-name">3 huevos duros en cuartos · 15 g pimentón</span></div>
     </div>
-    <div class="col-pasos">
-      <div class="paso-head">Preparación</div>
-      <div class="paso"><div class="paso-n">1</div><div class="paso-txt"><b>La masa de maíz.</b> Derretí la grasa y mezclala con la harina y el caldo caliente de a poco, hasta una masa suave. Salá. Tiene que quedar blanda pero que no se te pegue en la mano.</div></div>
-      <div class="paso"><div class="paso-n">2</div><div class="paso-txt">El relleno es la carne desmenuzada con la cebolla sofrita, el pimentón y la papa, todo junto. Condimentá y, como siempre, dejalo enfriar antes de armar, que en caliente no hay forma.</div></div>
-      <div class="paso"><div class="paso-n">3</div><div class="paso-txt"><b>El armado.</b> Sobre chala remojada (remojada para que no se quiebre) extendé una capa de masa de medio centímetro, el relleno al centro con un cuarto de huevo duro, y envolvés bien atando con tiras de chala.</div></div>
-      <div class="paso"><div class="paso-n">4</div><div class="paso-txt">Parados al vapor en olla con rejilla, una hora. El truco para saber si están: la chala se despega limpia de la masa sin que la masa se quede pegada a la hoja.</div></div>
-      <div class="paso"><div class="paso-n">5</div><div class="paso-txt">Se comen directo de la chala, con llajua o salsa criolla. Y si te sobran, no los tires: leé el consejo de acá abajo.</div></div>
+  </div>
+  <div class="blk-h">Antes de empezar</div>
+  <ul class="before">
+    <li><b>Remojá la chala.</b> Antes de armar, para que no se quiebre al envolver ni al atar.</li>
+    <li><b>Masa blanda pero manejable.</b> Suave, que no se pegue en la mano; el caldo caliente se suma de a poco.</li>
+    <li><b>Relleno frío para armar.</b> En caliente no hay forma; enfrialo antes, como siempre.</li>
+    <li><b>Hacé de más a propósito.</b> Al día siguiente, tostados en plancha con grasa, están mejor: la masa se asienta y el sabor se concentra.</li>
+  </ul>
+  <div class="blk-h">Paso a paso</div>
+  <div class="pasos">
+    <div class="paso"><div class="paso-n">1</div><div class="paso-txt"><b>La masa de maíz.</b> Derretí la grasa y mezclala con la harina y el caldo caliente de a poco, hasta una masa suave. Salá.</div></div>
+    <div class="paso"><div class="paso-n">2</div><div class="paso-txt"><b>El relleno.</b> Carne desmenuzada con la cebolla sofrita, el pimentón y la papa, todo junto. Condimentá y dejá enfriar.</div></div>
+    <div class="paso"><div class="paso-n">3</div><div class="paso-txt"><b>El armado.</b> Sobre chala remojada, una capa de masa de medio centímetro, el relleno al centro con un cuarto de huevo, y envolvé bien atando con tiras de chala.</div></div>
+    <div class="paso"><div class="paso-n">4</div><div class="paso-txt"><b>Al vapor.</b> Parados en olla con rejilla, una hora.<span class="paso-sign">El truco para saber si están: la chala se despega limpia sin que la masa se quede pegada a la hoja. Se comen de la chala, con llajua o salsa criolla.</span></div></div>
+  </div>
+  <div class="r-bottom">
+    <div>
+      <div class="blk-h">Puntos críticos</div>
+      <div class="crit-item"><b>Chala remojada.</b> No se quiebra al armar.</div>
+      <div class="crit-item"><b>Masa suave.</b> Blanda, sin pegarse.</div>
+      <div class="crit-item"><b>Prueba del despegue.</b> La chala sale limpia.</div>
     </div>
-    <div class="tip"><div class="tip-label">🔥 El consejo de Javo</div><div class="tip-txt">Hacé de más a propósito. Los tamales del día siguiente, tostados en la plancha con un toque de grasa, me gustan más que recién hechos: la masa se asienta y el sabor se concentra. En casa son los primeros que vuelan.</div></div>
+    <div>
+      <div class="blk-h">Errores comunes</div>
+      <div class="err"><b>Chala seca.</b> Se raja al envolver. <i>→ Remojala antes.</i></div>
+      <div class="err"><b>Armar en caliente.</b> Ingobernable. <i>→ Relleno frío.</i></div>
+      <div class="err"><b>Sacarlos temprano.</b> Masa pegajosa. <i>→ Esperá a que despegue limpia.</i></div>
+    </div>
+    <div>
+      <div class="blk-h">Variantes &amp; cómo servir</div>
+      <div class="serve"><b>Al día siguiente:</b> tostados en plancha con grasa, mejor que recién hechos.</div>
+      <div class="serve"><b>Servir:</b> en su chala, con llajua o salsa criolla al lado.</div>
+    </div>
   </div>
 </div>
 
